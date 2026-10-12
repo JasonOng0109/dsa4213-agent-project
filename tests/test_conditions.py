@@ -7,7 +7,7 @@ import random
 import pytest
 
 from cases import CASES
-from pipeline.conditions import (CONFLICT_BLOCK, CUE_POSITIONS, FACTORS, LONG_WORDS,
+from pipeline.conditions import (CONFLICT_BLOCK, CUE_POSITIONS, FACTORS, LONG_MATCH, LONG_WORDS,
                                  build_conditions, build_repeat, build_screen,
                                  check_long_lengths, embed_in_filler, rotation_schedule)
 
@@ -115,16 +115,20 @@ def test_short_paraphrase_fails_loudly(m1):
     build_conditions("M1", CASE, short, random.Random(1))  # short reports are fine
 
 
-def test_length_ratio_fails_loudly():
-    """Every report inside the band but longest/shortest above 1.10 must raise."""
-    # 22 words over slot 0's 78-word filler = 100; 12 words over slot 1's 76 = 88
-    paras = [" ".join(["word"] * 21) + " 15%.", " ".join(["word"] * 11) + " 15%."]
-    reps = [{"source_key": "B", "slot": i,
-             "text": embed_in_filler(CASE["filler_sets"][i], t, "start")}
-            for i, t in enumerate(paras)]
-    n = [len(r["text"].split()) for r in reps]
-    assert all(LONG_WORDS[0] <= w <= LONG_WORDS[1] for w in n) and max(n) / min(n) > 1.10, n
-    with pytest.raises(ValueError, match="longest/shortest"):
+def test_band_implies_the_length_cap():
+    """88-96 words: inside the band the 1.10 cap cannot be broken (96 / 88 = 1.09),
+    whereas a band reaching 100 would allow 100 / 88 = 1.14."""
+    lo, hi = LONG_WORDS
+    assert (lo, hi) == (88, 96) and hi / lo <= LONG_MATCH
+
+
+def test_report_above_the_band_fails_loudly():
+    # 19 words over slot 0's 78-word filler = 97
+    para = " ".join(["word"] * 18) + " 15%."
+    reps = [{"source_key": "B", "slot": 0,
+             "text": embed_in_filler(CASE["filler_sets"][0], para, "start")}]
+    assert len(reps[0]["text"].split()) == 97
+    with pytest.raises(ValueError, match="off target"):
         check_long_lengths("M1", reps)
 
 

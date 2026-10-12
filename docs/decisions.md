@@ -47,3 +47,17 @@ Where the pilot's files went:
 | `tests/`, `test_openrouter_backend.py` | `tests/` |
 | `related_works/<arXiv id>.pdf` | `related_works/<short name>.pdf` |
 | `cases.py`, `cases_v2.py`, `run_smoke_test.py`, `archive/` | not carried over (v1/v2) |
+
+### 2026-10-12 — Long reports are held to 88-96 words
+
+- **Decision**: every long report is 88 to 96 words, and the longest in a trial is at
+  most 1.10 times the shortest (`pipeline/conditions.py`, `LONG_WORDS`, `LONG_MATCH`).
+  The pilot's code still checked 88 to 100.
+- **Why** [STATED: proposal §4.1]: "long reports of 88 to 96 words, with the longest
+  report in a trial at most 1.10 times the shortest ... 96 divided by 88 is 1.091". A
+  band reaching 100 permits 100 / 88 = 1.14, which the cap forbids. Decided in the
+  pilot on 2026-09-28 and never applied to its code.
+- **Rejected**: 88-100 with a 1.15 cap, which loosens the constraint that stops length
+  standing in for provenance.
+- **Breaks if changed**: a wider band lets one report in a trial be noticeably longer
+  than another, a salience cue that could do the work a provenance statement should.

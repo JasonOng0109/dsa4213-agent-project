@@ -18,8 +18,9 @@ import random
 AGENT_LABELS = ["Agent A", "Agent B", "Agent C"]
 SHARED_SOURCE = "B"
 CUE_POSITIONS = ["start", "middle", "end"]
-LONG_WORDS = (88, 100)     # every long report is inside this band ...
-LONG_MATCH = 1.10          # ... and the longest is at most this times the shortest
+LONG_WORDS = (88, 96)      # every long report is inside this band ...
+LONG_MATCH = 1.10          # ... and the longest is at most this times the shortest.
+                           # The two agree: 96 / 88 = 1.091 (proposal §4.1)
 
 _F = ("reports", "messages", "agents", "sources", "conflict",
       "provenance_shown", "dependence_stated", "quality_stated")
