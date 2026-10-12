@@ -363,9 +363,9 @@ call ceiling. Put the key in `.env` (copy `.env.example`; `.env` is git-ignored)
 ```bash
 uv run --env-file .env python -m pipeline.run balance       # the key's limit and usage
 uv run --env-file .env python -m pipeline.run probe         # do the models resolve? pinned providers? logprobs?
-uv run --env-file .env python -m pipeline.run generate --max-calls 120   # per case: 48 calls, at most 120
+uv run --env-file .env python -m pipeline.run generate --max-calls N     # N: 120 per case covers two rounds
 # now read runs/frozen_reports.json by hand: cue survival, same denominator for A and B
-uv run --env-file .env python -m pipeline.run judge --max-calls 25000
+uv run --env-file .env python -m pipeline.run judge --max-calls N        # N: the judge calls plan reports
 uv run python -m pipeline.score runs/trials.jsonl
 ```
 
