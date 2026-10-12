@@ -150,9 +150,12 @@ def _logit(p: float) -> float:
 
 def neff(cells: dict) -> dict:
     """n_eff(c) = (l(c) - l(A0)) / (l(A1) - l(A0)), l = logit of the cell's mean stated
-    P(truth) on the short arm (proposal §4.2). Undefined when |w| < 0.2 logits. Returns
-    the values plus CN (correlation neglect), IS (independence sensitivity), RP (repair
-    from disclosure) and how many cells were clipped."""
+    P(truth) on the short arm (proposal §4.2). Undefined when |w| < 0.2 logits, and an
+    anomaly when w is negative: the repeated source supports the truth, so a judge whose
+    belief in it falls after one report has a backwards unit, and every value derived
+    from it would invert. Returns the values plus CN (correlation neglect), IS
+    (independence sensitivity), RP (repair from disclosure) and how many cells were
+    clipped."""
     need = ["A0", "A1", "A4", "A6", "A7"]
     if any(cells.get(c) is None or cells[c].get("p_truth") is None for c in need):
         return {"undefined": "missing P(truth) in " + str([c for c in need if not cells.get(c)])}
@@ -162,6 +165,10 @@ def neff(cells: dict) -> dict:
     w = l["A1"] - l["A0"]
     if abs(w) < 0.2:
         return {"undefined": f"w = l(A1) - l(A0) = {w:.3f} < 0.2 logits", "clipped": clipped}
+    if w < 0:
+        return {"undefined": f"anomaly: w = l(A1) - l(A0) = {w:.3f} is negative, one "
+                             f"supporting report lowered belief in the truth",
+                "anomaly": True, "clipped": clipped}
     n = {c: round((l[c] - l["A0"]) / w, 2) for c in ("A4", "A6", "A7")}
     return dict(n, w=round(w, 3), clipped=clipped, CN=round(n["A4"] - 1, 2),
                 IS=round(n["A7"] - n["A4"], 2), RP=round(n["A4"] - n["A6"], 2))

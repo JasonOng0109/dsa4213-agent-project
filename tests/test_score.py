@@ -65,6 +65,14 @@ def test_neff_undefined_when_one_report_barely_moves_the_judge():
     assert (lg(0.85) - lg(0.25)) / (lg(0.28) - lg(0.25)) > 15   # vs a normative 1 to 3
 
 
+def test_negative_step_is_an_anomaly_not_a_value():
+    """A supporting report that LOWERS belief in the truth gives a backwards unit; the
+    index is not computed on it, however large the step."""
+    backwards = neff(_cells(55.0, 25.0))     # w = -1.30 logits
+    assert backwards.get("anomaly") and "negative" in backwards["undefined"]
+    assert "A4" not in backwards
+
+
 def test_undefined_rate_is_reported_per_judge():
     def recs(case_id, p_a1):
         p = {"A0": 25.0, "A1": p_a1, "A4": 85.0, "A6": 85.0, "A7": 85.0}

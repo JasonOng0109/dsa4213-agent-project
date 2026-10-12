@@ -94,3 +94,16 @@ Where the pilot's files went:
   dropped silently or guessed." The pilot's scorer divided by every record.
 - **Breaks if changed**: a judge with more parse failures would look less accurate,
   mixing an instrument failure into the measured behaviour.
+
+### 2026-10-12 — A negative one-report step makes n_eff an anomaly
+
+- **Decision**: where `w = l(A1) - l(A0)` is negative, n_eff is not computed; the cell is
+  reported as an anomaly and counts toward the judge's undefined rate
+  (`pipeline/score.py`, `neff`). Where `|w| < 0.2` logits it stays undefined, as before.
+- **Why** [STATED: pilot decision of 2026-09-28]: "a negative `w` is reported as an
+  anomaly rather than used". The shared source supports the truth, so a judge whose
+  belief in the truth falls after one supporting report is behaving strangely, and an
+  index computed on that unit would come out inverted. The pilot decided this but its
+  scorer only checked `|w| < 0.2`, so a negative `w` beyond -0.2 was still used.
+- **Breaks if changed**: an inverted unit turns correlation neglect into its opposite
+  for that cell, silently.
