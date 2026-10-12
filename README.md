@@ -71,3 +71,31 @@ frontier models.
 | Minority Sentinel, He et al. 2026 ([pdf](related_works/minority-sentinel.pdf), arXiv 2606.29270) | In 2-vs-1 debate splits the majority can be wrong; a learned classifier decides when to overturn it | Motivates a **two-against-one** conflict baseline. Its correlation comes from agent errors; ours is built at the evidence source |
 | FREE-MAD, Cui et al. 2025 ([pdf](related_works/free-mad.pdf), arXiv 2509.11035) | An LLM judge aggregating agents is prone to conformity, effectively majority voting | Count is not weight. Its failure needs interaction; our agents never interact |
 | Peacemaker or Troublemaker, Yao et al. 2025 ([pdf](related_works/debate-sycophancy.pdf), arXiv 2509.23055) | Sycophancy pushes debates into premature consensus | False agreement from another direction, and a limitation to state: we study one aggregation step, not a whole pipeline |
+
+### Provenance and correlated evidence
+
+| Paper | What it shows | How we differ |
+|---|---|---|
+| When Not to Write Memory, Qi et al. 2026 ([pdf](related_works/correlated-agent-traces.pdf), arXiv 2607.02579) | "Repetition is not evidence"; provenance metadata with dependency-aware grouping estimates effective support | It groups evidence by a dependency structure the **system already knows**. We measure what the **judge** does when nobody tells it, and once it is told |
+| CAMA, Lin et al. 2026 ([pdf](related_works/cama.pdf), arXiv 2608.19701) | Memory Correlation Bias: shared upstream sources form a false majority; a trained module infers the effective number of sources | Its fix is a module **outside** the model. Ours is one sentence **inside** the message |
+| From Agent Traces to Trust, Wang et al. 2026 ([pdf](related_works/agent-traces-to-trust.pdf), arXiv 2606.04990) | Provenance relations (support, derive, depend-on); provenance through paraphrasing is an open challenge | We do not propose a representation; we test whether a **minimal per-trial statement** is used |
+
+### The gap
+
+Where the work that varies *what the model is shown* sits (proposal Figure 1):
+
+| Form of the repeated evidence | Told nothing | Told source identity or type | Told reports share a source | Told relative quality |
+|---|---|---|---|---|
+| **Independent paraphrases** | **this project** | **this project** | **this project** | **this project** |
+| Verbatim copies | | Whose Facts Win? | | |
+| Distinct documents | RAMDocs | AuthorityBench | | |
+
+The top row, reworded reports of one source plus a per-trial statement about dependence
+or quality, is unoccupied. And the fixes proposed so far each sit somewhere else:
+
+| Work | Where the fix is applied |
+|---|---|
+| Whose Facts Win? | **the model**: fine-tune it so it stops over-weighting repetition |
+| When Not to Write Memory, CAMA | **the system**: aggregate outside the model |
+| Minority Sentinel | **the debate log**: a classifier decides when to overturn the vote |
+| This project | **the message**: a statement about the specific reports shown, at inference |
