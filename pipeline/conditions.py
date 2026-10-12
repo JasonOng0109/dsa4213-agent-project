@@ -81,7 +81,7 @@ def rotation_schedule(run_index: int) -> dict:
 
 def base_options(case: dict) -> list[str]:
     """The unordered option set: the truth, A's claim, then the distractors."""
-    return [case["world_truth"], case["sources"]["A"]["claim"]] + list(case["distractors"])
+    return [case["world_truth"], case["sources"]["A"]["claim"]] + list(case.get("distractors", []))
 
 
 def rotated_options(case: dict, option_rotation: int, wrong_offset: int = 0) -> list[str]:
