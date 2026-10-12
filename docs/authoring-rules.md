@@ -39,6 +39,13 @@ count at all, so for T2 the outcome to read is belief, not accuracy.
 ## The rules
 
 Rules marked **[lint]** are checked by the static linter. The rest need a person.
+Run it after every edit to a case, and before asking for review:
+
+```bash
+uv run python -m pipeline.lint
+```
+
+Register a new case in `cases/__init__.py` first, or the linter will not see it.
 
 **R1 — Symmetry of the competing pair.** A and B state the same proposition with
 different values, as flat, confident, equally specific assertions. Neither refers to the
