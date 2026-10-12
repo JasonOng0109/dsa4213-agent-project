@@ -1,8 +1,10 @@
 """
 The condition builder (proposal §4): the thirteen conditions of one case, built from
-its frozen reports, plus the three levels of the confidence screen.
+its frozen reports, plus the three rungs of the graded wording ladder and the three
+levels of the confidence screen.
 
-A0-A7 form the agreement block, X1-X5 the conflict block. Every trial carries its
+A0-A7 form the agreement block, X1-X5 the conflict block, and W1-W3 are X5 with its
+quality statement softened (proposal §4.1). Every trial carries its
 condition's factor vector, so the scorer groups by factor rather than by name. Options,
 the independent report's slot and (long reports) the operative sentence's position come
 from rotation_schedule(), never from shuffling, so each position is covered a known
@@ -23,24 +25,30 @@ LONG_MATCH = 1.10          # ... and the longest is at most this times the short
                            # The two agree: 96 / 88 = 1.091 (proposal §4.1)
 
 _F = ("reports", "messages", "agents", "sources", "conflict",
-      "provenance_shown", "dependence_stated", "quality_stated")
+      "provenance_shown", "dependence_stated", "quality_stated", "quality_wording")
 FACTORS = {cond: dict(zip(_F, vals)) for cond, vals in {
-    "A0": (0, 0, 0, 0, "no", "none", False, False),
-    "A1": (1, 1, 1, 1, "no", "none", False, False),
-    "A2": (3, 1, 1, 1, "no", "none", False, False),
-    "A3": (3, 3, 1, 1, "no", "none", False, False),
-    "A4": (3, 3, 3, 1, "no", "none", False, False),
-    "A5": (3, 3, 3, 1, "no", "opaque ID", False, False),
-    "A6": (3, 3, 3, 1, "no", "opaque ID", True, False),
-    "A7": (3, 3, 3, 3, "no", "none", False, False),
-    "X1": (3, 3, 3, 2, "2-vs-1", "none", False, False),
-    "X2": (3, 3, 3, 2, "2-vs-1", "named type", False, False),
-    "X3": (3, 3, 3, 2, "2-vs-1", "none", True, False),
-    "X4": (3, 3, 3, 2, "2-vs-1", "none", False, True),
-    "X5": (3, 3, 3, 2, "2-vs-1", "none", True, True),
+    "A0": (0, 0, 0, 0, "no", "none", False, False, None),
+    "A1": (1, 1, 1, 1, "no", "none", False, False, None),
+    "A2": (3, 1, 1, 1, "no", "none", False, False, None),
+    "A3": (3, 3, 1, 1, "no", "none", False, False, None),
+    "A4": (3, 3, 3, 1, "no", "none", False, False, None),
+    "A5": (3, 3, 3, 1, "no", "opaque ID", False, False, None),
+    "A6": (3, 3, 3, 1, "no", "opaque ID", True, False, None),
+    "A7": (3, 3, 3, 3, "no", "none", False, False, None),
+    "X1": (3, 3, 3, 2, "2-vs-1", "none", False, False, None),
+    "X2": (3, 3, 3, 2, "2-vs-1", "named type", False, False, None),
+    "X3": (3, 3, 3, 2, "2-vs-1", "none", True, False, None),
+    "X4": (3, 3, 3, 2, "2-vs-1", "none", False, True, "categorical"),
+    "X5": (3, 3, 3, 2, "2-vs-1", "none", True, True, "categorical"),
+    # the graded wording ladder: X5 with only the intensity of the quality statement varied,
+    # so X5's categorical wording is the ceiling of a dose-response curve
+    "W1": (3, 3, 3, 2, "2-vs-1", "none", True, True, "somewhat"),
+    "W2": (3, 3, 3, 2, "2-vs-1", "none", True, True, "considerably"),
+    "W3": (3, 3, 3, 2, "2-vs-1", "none", True, True, "far"),
 }.items()}
 AGREEMENT_BLOCK = ["A0", "A1", "A2", "A3", "A4", "A5", "A6", "A7"]
 CONFLICT_BLOCK = ["X1", "X2", "X3", "X4", "X5"]
+LADDER = ["W1", "W2", "W3"]
 ABSTAIN_ARM = CONFLICT_BLOCK + ["A7"]   # A7: the judge's own no-conflict baseline
 
 # Screen levels: one report each, no provenance, no note. The shared factors are A1's
@@ -131,7 +139,8 @@ def build_conditions(case_id: str, case: dict, frozen_case: dict, rng: random.Ra
                      indep_slot: int = 0, option_rotation: int = 0, wrong_offset: int = 0,
                      wrong_offset_agreement: int | None = None, allow_abstain: bool = False,
                      length: str = "short", cue_position: str | None = None) -> list[dict]:
-    """All thirteen trials of one case at one point in the rotation schedule."""
+    """All sixteen trials of one case (thirteen conditions and three ladder rungs) at one
+    point in the rotation schedule."""
     if length == "long" and cue_position not in CUE_POSITIONS:
         raise ValueError(f"long reports need a cue_position in {CUE_POSITIONS}")
     if wrong_offset_agreement is None:
@@ -155,11 +164,13 @@ def build_conditions(case_id: str, case: dict, frozen_case: dict, rng: random.Ra
         return out
 
     def trial(cond, reports, note=None, majority=None):
-        # each block takes its own wrong-claim offset (see rotation_schedule)
-        off = wrong_offset if cond in CONFLICT_BLOCK else wrong_offset_agreement
+        # each block takes its own wrong-claim offset (see rotation_schedule); the ladder
+        # rungs are conflict trials
+        conflict = cond in CONFLICT_BLOCK or cond in LADDER
+        off = wrong_offset if conflict else wrong_offset_agreement
         return _trial(case_id, cond, case, rotated_options(case, option_rotation, off),
                       reports, note, majority, option_rotation, off, allow_abstain,
-                      length, cue_position, indep_slot if cond in CONFLICT_BLOCK else None)
+                      length, cue_position, indep_slot if conflict else None)
 
     shared_claim = case["sources"][SHARED_SOURCE]["claim"]
     trials = [trial("A0", [])]
@@ -211,13 +222,17 @@ def build_conditions(case_id: str, case: dict, frozen_case: dict, rng: random.Ra
     trials.append(trial("X3", x1, note=dep, majority=weak_claim))
     trials.append(trial("X4", x1, note=qual4, majority=weak_claim))
     trials.append(trial("X5", x1, note=dep + qual5, majority=weak_claim))
+    for w in LADDER:
+        rung = (f" {ind}'s source is {FACTORS[w]['quality_wording']} more reliable than "
+                f"the source shared by {c0} and {c1}.")
+        trials.append(trial(w, x1, note=dep + rung, majority=weak_claim))
     return trials
 
 
 def build_repeat(case_id: str, case: dict, frozen_case: dict, run_index: int,
                  seed: int = 42, length: str = "short",
                  allow_abstain: bool = False) -> list[dict]:
-    """All thirteen trials for repeat `run_index` (1-based), with that repeat's
+    """All sixteen trials for repeat `run_index` (1-based), with that repeat's
     rotations. The rng depends on the repeat only, so every arm of one repeat shows the
     same reports in the same order."""
     s = rotation_schedule(run_index)
@@ -254,7 +269,7 @@ def _trial(case_id, condition, case, opts, reports, provenance_note, majority_cl
     return {
         "case_id": case_id,
         "condition": condition,
-        "arm": "abstain" if allow_abstain else length,
+        "arm": "ladder" if condition in LADDER else "abstain" if allow_abstain else length,
         "factors": FACTORS.get(condition),
         "domain": case["domain"],
         "question": case["question"],

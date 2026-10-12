@@ -61,3 +61,24 @@ Where the pilot's files went:
   standing in for provenance.
 - **Breaks if changed**: a wider band lets one report in a trial be noticeably longer
   than another, a salience cue that could do the work a provenance statement should.
+
+### 2026-10-12 — The graded wording ladder is built as W1-W3, on top of X5
+
+- **Decision**: three extra conditions, W1, W2 and W3, are X5 with its quality statement
+  replaced by "{independent agent}'s source is *somewhat* / *considerably* / *far* more
+  reliable than the source shared by {the other two}." Same reports, same dependence
+  note, same rotation as X5. Their factor vectors are X5's with a ninth factor,
+  `quality_wording`, which is `categorical` for X4 and X5 and empty elsewhere
+  (`pipeline/conditions.py`). They run as their own arm, `ladder`.
+- **Why** [STATED: proposal §4.1]: "Three rungs vary only an intensity phrase, from
+  somewhat to considerably to far more reliable than the shared source, turning the
+  ladder into a dose-response curve with the categorical wording as its ceiling." The
+  pilot moved the ladder into the main programme on 2026-09-28 but never built it, and
+  no document fixes its exact sentence. **The sentence above is new and needs the
+  team's review before the main run.**
+- **Rejected**: rungs on X4 (quality without dependence). "Than the shared source"
+  presupposes that the shared source has been identified, and the proposal names X5's
+  wording as the ceiling.
+- **Breaks if changed**: if a rung changes anything besides the intensity word, the
+  ladder stops being a dose-response curve and H4's defence against "it only complied
+  with an instruction" is lost.

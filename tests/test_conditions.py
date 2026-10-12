@@ -7,7 +7,8 @@ import random
 import pytest
 
 from cases import CASES
-from pipeline.conditions import (CONFLICT_BLOCK, CUE_POSITIONS, FACTORS, LONG_MATCH, LONG_WORDS,
+from pipeline.conditions import (CONFLICT_BLOCK, CUE_POSITIONS, FACTORS, LADDER, LONG_MATCH,
+                                 LONG_WORDS,
                                  build_conditions, build_repeat, build_screen,
                                  check_long_lengths, embed_in_filler, rotation_schedule)
 
@@ -50,12 +51,12 @@ def test_builder_realises_the_schedule(m1):
     for r in range(1, 13):
         s = rotation_schedule(r)
         trials = {t["condition"]: t for t in build_repeat("M1", CASE, m1, r, length="long")}
-        assert len(trials) == 13
+        assert list(trials) == list(FACTORS)
         for t in trials.values():
             opts = t["answer_options"]
             assert opts.index(CASE["world_truth"]) == s["option_rotation"]
             rest = [i for i in range(4) if i != s["option_rotation"]]
-            off = (s["wrong_offset"] if t["condition"] in CONFLICT_BLOCK
+            off = (s["wrong_offset"] if t["condition"] in CONFLICT_BLOCK + LADDER
                    else s["wrong_offset_agreement"])
             assert t["wrong_offset"] == off
             assert opts.index(CASE["sources"]["A"]["claim"]) == rest[off]
@@ -93,11 +94,11 @@ def test_shared_source_reports_carry_different_filler(m1):
 
 
 def test_blocks_draw_from_the_right_sources(m1):
-    """R14: agreement from B; A7 from B, C, D; conflict A twice, B once."""
+    """R14: agreement from B; A7 from B, C, D; conflict and ladder A twice, B once."""
     for r in range(1, 7):
         for t in build_repeat("M1", CASE, m1, r):
             keys = sorted(x["source_key"] for x in t["reports"])
-            if t["condition"] in CONFLICT_BLOCK:
+            if t["condition"] in CONFLICT_BLOCK + LADDER:
                 assert keys == ["A", "A", "B"], (t["condition"], keys)
             elif t["condition"] == "A7":
                 assert keys == ["B", "C", "D"]
@@ -167,3 +168,21 @@ def test_disclosure_notes(m1):
     assert {r["provenance_id"] for r in t["X2"]["reports"]} == {
         CASE["sources"][k]["provenance"]["type"] for k in "AB"}
     assert t["X1"]["provenance_note"] is None
+
+
+def test_wording_ladder(m1):
+    """W1-W3 are X5 with only the intensity phrase of the quality statement changed: same
+    reports, same dependence note, same rotation, their own arm."""
+    t = {x["condition"]: x for x in build_repeat("M1", CASE, m1, 5)}
+    x3_note = t["X3"]["provenance_note"]
+    for w, word in zip(LADDER, ["somewhat", "considerably", "far"]):
+        rung = t[w]
+        assert rung["arm"] == "ladder" and rung["factors"]["quality_wording"] == word
+        assert rung["provenance_note"].startswith(x3_note)
+        assert f" is {word} more reliable than the source shared by " in rung["provenance_note"]
+        for key in ("reports", "answer_options", "indep_slot", "wrong_offset", "majority_claim"):
+            assert rung[key] == t["X5"][key], key
+        assert {k: v for k, v in rung["factors"].items() if k != "quality_wording"} == \
+            {k: v for k, v in FACTORS["X5"].items() if k != "quality_wording"}
+    assert t["X5"]["factors"]["quality_wording"] == "categorical"
+    assert t["X5"]["arm"] == "short"
