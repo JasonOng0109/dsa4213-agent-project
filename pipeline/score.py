@@ -16,6 +16,7 @@ import math
 from collections import Counter, defaultdict
 from functools import lru_cache
 
+from pipeline.conditions import LADDER
 from pipeline.judge import PARSE_FAILURES
 
 ORDER = ["A0", "A1", "A2", "A3", "A4", "A5", "A6", "A7", "X1", "X2", "X3", "X4", "X5",
@@ -161,6 +162,7 @@ def report(records: list[dict]) -> None:
                                   if c["abstain"] is not None))
         print()
 
+    report_ladder(records)
     excluded = set()
     for judge, by_case in sorted(screen.items()):
         verdict, detail = screen_verdict(by_case)
@@ -171,6 +173,25 @@ def report(records: list[dict]) -> None:
     report_discrimination(records)
     report_neff(records, excluded)
     report_health(records)
+
+
+def report_ladder(records: list[dict]) -> None:
+    """H4's defence against compliance (proposal §4.1): decisions up the graded wording
+    ladder, from the weakest rung to X5's categorical wording as the ceiling. If weaker
+    wordings also move decisions, the judge is weighing evidence; if only the strongest
+    does, it is complying with an instruction."""
+    groups = defaultdict(lambda: defaultdict(list))
+    for r in records:
+        if r["arm"] == "ladder" or (r["arm"] == "short" and r["condition"] == "X5"):
+            groups[(r["judge_model"], r["case_id"])][r["condition"]].append(r)
+    for (judge, case_id), conds in sorted(groups.items()):
+        if not any(c in conds for c in LADDER):
+            continue
+        steps = [(c, cell(conds[c])) for c in LADDER + ["X5"] if c in conds]
+        print(f"LADDER judge {judge} | {case_id}: correct (P(truth)) "
+              + " -> ".join(f"{c} {x['factors']['quality_wording']} {_rate(x['correct'])} "
+                            f"({x['p_truth']})" for c, x in steps))
+    print()
 
 
 def auroc(correct: list[float], incorrect: list[float]) -> float | None:

@@ -6,8 +6,8 @@ import contextlib
 import io
 import math
 
-from pipeline.score import (auroc, cell, neff, report_discrimination, report_neff,
-                            screen_verdict, stability, stability_chance)
+from pipeline.score import (auroc, cell, neff, report_discrimination, report_ladder,
+                            report_neff, screen_verdict, stability, stability_chance)
 
 OPTS = ["15%", "25%", "10%", "30%"]
 
@@ -122,3 +122,18 @@ def test_discrimination_is_within_condition_on_the_short_arm():
         report_discrimination(records)
     line = out.getvalue()
     assert "X1 1.00 (1/2)" in line and "A4 n/a (1/0)" in line
+
+
+def test_ladder_reads_rungs_up_to_the_x5_ceiling():
+    def recs(cond, arm, wording, answers):
+        return [dict(_rec(a), judge_model="mock", case_id="M1", arm=arm, condition=cond,
+                     factors={"quality_wording": wording}) for a in answers]
+    records = (recs("W1", "ladder", "somewhat", ["25%", "25%"])
+               + recs("W2", "ladder", "considerably", ["15%", "25%"])
+               + recs("W3", "ladder", "far", ["15%", "15%"])
+               + recs("X5", "short", "categorical", ["15%", "15%"])
+               + recs("X5", "long", "categorical", ["25%", "25%"]))   # other arms ignored
+    with contextlib.redirect_stdout(io.StringIO()) as out:
+        report_ladder(records)
+    assert ("W1 somewhat 0.00 (None) -> W2 considerably 0.50 (None) -> W3 far 1.00 (None) "
+            "-> X5 categorical 1.00 (None)") in out.getvalue()
