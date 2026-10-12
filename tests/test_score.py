@@ -127,6 +127,15 @@ def test_screen_ordering_is_a_test_across_cases():
     assert screen_verdict(half)[0] == "retained"
 
 
+def test_pilot_size_is_the_fewest_cases_that_survive_one_reversed_case():
+    """docs/decisions.md: the pilot uses 5 cases, the fewest at which one fully reversed
+    case does not fail an otherwise perfectly ordered judge at the fixed level."""
+    up, down = [10, 50, 90], [90, 50, 10]
+    verdicts = {n: screen_verdict({f"c{i}": up for i in range(n - 1)} | {"bad": down})[0]
+                for n in range(2, 6)}
+    assert verdicts == {2: "EXCLUDED", 3: "EXCLUDED", 4: "EXCLUDED", 5: "retained"}
+
+
 def test_auroc():
     assert auroc([90, 80], [10, 20]) == 1.0          # confident only when right
     assert auroc([10], [90]) == 0.0                  # confident only when wrong

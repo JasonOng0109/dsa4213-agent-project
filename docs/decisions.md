@@ -161,8 +161,10 @@ Add an entry when you make a choice a reader could not guess from the code.
   cut-off the proposal does not state. [INFERRED: from the design] Page's test is the
   test for ordered alternatives when every block sees every level, as every case sees
   all three here, and its L is a linear function of the mean Spearman correlation, so
-  one statistic gives both the correlation and the test. The proposal names no level;
-  0.05 one-sided is the conventional one.
+  one statistic gives both the correlation and the test. [STATED: team decision,
+  2026-10-12] The proposal names no level; the team fixed it at 0.05, one-sided, before
+  the pilot. It is the share of judges whose numbers carry no ordering that pass by luck:
+  1 in 20.
 - **Rejected**: the per-case strict rule, which has no known false-pass rate and
   excludes a judge that always puts the irrelevant report lowest but swaps P1 and P2 in
   half its cases, although its numbers clearly track informativeness. The
@@ -173,3 +175,22 @@ Add an entry when you make a choice a reader could not guess from the code.
   only for retained judges, so this rule decides whose stated numbers count. With fewer
   than two cases no judge can pass, since one case gives at best p = 1/6: the one-case
   dry run excludes every judge and reports n_eff as undefined.
+
+### 2026-10-12 — The pilot runs on 5 cases
+
+- **Decision**: the pilot uses 5 of the 40 cases, so no case is authored only for the
+  pilot. The pilot's screen verdict is a preview; the main run's verdict is computed on
+  all 40 cases.
+- **Why** [STATED: team decision, 2026-10-12]: 5 is the fewest cases at which one badly
+  ordered case cannot, on its own, fail a judge on the screen's ordering check. Computed
+  with `page_test` at the fixed level of 0.05: with 2 cases a judge passes only if both
+  are perfectly ordered; with 3 or 4, one fully reversed case among perfect ones fails
+  it (p = 0.28 and 0.11); with 5 it does not (p = 0.039), and a judge passes with one
+  neighbouring pair swapped in 4 of its 5 cases. With fewer cases, a fail could not tell
+  a broken judge from one bad case.
+- **Rejected**: 2 cases, the fewest that can pass at all, where one slip fails the
+  judge. 8 cases, which makes a pass likelier for a judge with occasional disordered
+  cases, but needs three more cases authored and reviewed before any pilot.
+- **Breaks if changed**: below 5, one case decides the pilot's screen verdict. The
+  minimum depends on the level: a stricter level needs more cases
+  (`tests/test_score.py` pins it at 5 for 0.05).

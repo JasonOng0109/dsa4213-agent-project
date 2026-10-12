@@ -3214,6 +3214,7 @@ a.ref:hover { background: var(--surface-2); }
    "points": [
     "Each case counts once: its three values, each the mean over the four rotations, are ranked 1 to 3 and compared with the predicted order.",
     "The rank correlation the proposal asks for is printed beside the test: +1 means every case in the predicted order, 0 no ordering, −1 every case reversed.",
+    "The 0.05 level is fixed by the team, before the pilot. It is the share of judges whose numbers carry no ordering that would pass by luck: 1 in 20.",
     "Unlike a per-case pass mark, it credits partial ordering: a judge that always puts the irrelevant report lowest but swaps P1 and P2 in half its cases still passes.",
     "One case can never pass, since its best p is 1/6. So the one-case dry run excludes every judge, and n_eff reads as undefined there.",
     "It replaces the code's earlier per-case rule, which the proposal did not state: [[drift-screen-test]]."
@@ -3223,6 +3224,11 @@ a.ref:hover { background: var(--surface-2); }
      "file": "docs/decisions.md",
      "loc": "The screen tests ordering with Page's test across cases",
      "quote": "a judge passes the screen's ordering check when Page's test for ordered alternatives, with the cases as blocks and P0 < P1 < P2 as the predicted order, gives a one-sided p below 0.05"
+    },
+    {
+     "file": "docs/decisions.md",
+     "loc": "The screen tests ordering with Page's test across cases",
+     "quote": "the team fixed it at 0.05, one-sided, before the pilot"
     },
     {
      "file": "docs/decisions.md",
@@ -3260,6 +3266,60 @@ a.ref:hover { background: var(--surface-2); }
     },
     {
      "to": "neff",
+     "rel": "related"
+    }
+   ]
+  },
+  {
+   "id": "pilot-size",
+   "type": "decision",
+   "cluster": "pipeline",
+   "title": "The pilot uses 5 cases",
+   "label": "Pilot: 5 cases",
+   "summary": "The pilot uses 5 of the 40 cases. Five is the fewest at which one badly ordered case cannot, by itself, make a judge fail the confidence screen. With fewer, a single case decides the verdict, so a fail could not tell a broken judge from one bad case.",
+   "date": "2026-10-12",
+   "points": [
+    "At the fixed level of 0.05: with 2 cases a judge passes only if both are perfectly ordered; with 3 or 4, one fully reversed case fails it; with 5, it does not (p = 0.039).",
+    "The 5 come from the 40, so no case is written only for the pilot. Only 1 is written so far: [[open-corpus]].",
+    "The pilot's screen verdict is a preview; the main run's verdict uses all 40 cases."
+   ],
+   "evidence": [
+    {
+     "file": "docs/decisions.md",
+     "loc": "The pilot runs on 5 cases",
+     "quote": "5 is the fewest cases at which one badly ordered case cannot, on its own, fail a judge on the screen's ordering check."
+    },
+    {
+     "file": "docs/decisions.md",
+     "loc": "The pilot runs on 5 cases",
+     "quote": "with 5 it does not (p = 0.039)"
+    },
+    {
+     "file": "README.md",
+     "loc": "Status and open items",
+     "quote": "Pilot: 5 of the 40 cases"
+    },
+    {
+     "file": "tests/test_score.py",
+     "loc": "test_pilot_size_is_the_fewest_cases_that_survive_one_reversed_case",
+     "quote": "assert verdicts == {2: \"EXCLUDED\", 3: \"EXCLUDED\", 4: \"EXCLUDED\", 5: \"retained\"}"
+    }
+   ],
+   "links": [
+    {
+     "to": "screen-ordering-test",
+     "rel": "needs"
+    },
+    {
+     "to": "open-corpus",
+     "rel": "related"
+    },
+    {
+     "to": "open-first-run",
+     "rel": "related"
+    },
+    {
+     "to": "runner",
      "rel": "related"
     }
    ]
@@ -5337,6 +5397,16 @@ a.ref:hover { background: var(--surface-2); }
    "changed": [
     "kg-rule",
     "screen"
+   ]
+  },
+  {
+   "date": "2026-10-12",
+   "summary": "The team fixed the screen's level at 0.05 and set the pilot at 5 cases, the fewest at which one badly ordered case cannot fail a judge by itself.",
+   "added": [
+    "pilot-size"
+   ],
+   "changed": [
+    "screen-ordering-test"
    ]
   }
  ]

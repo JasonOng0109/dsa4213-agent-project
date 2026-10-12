@@ -427,6 +427,9 @@ runs/                     outputs of real runs (created by the first run)
   independent review are the critical path; see `docs/authoring-rules.md`.
 - **No real run has happened in this repository.** `runs/` fills from the first
   `generate`.
+- **Pilot: 5 of the 40 cases**, the fewest at which one badly ordered case cannot fail a
+  judge on the confidence screen by itself (`docs/decisions.md`). Four more cases must be
+  written and reviewed first.
 - **Open before the main run** (each recorded in `docs/decisions.md`):
   - review the wording ladder's sentence: the proposal fixes its three intensity words,
     not the full sentence;

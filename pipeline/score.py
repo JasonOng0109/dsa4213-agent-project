@@ -25,7 +25,7 @@ from pipeline.judge import PARSE_FAILURES
 ORDER = ["A0", "A1", "A2", "A3", "A4", "A5", "A6", "A7", "X1", "X2", "X3", "X4", "X5",
          "W1", "W2", "W3", "P0", "P1", "P2"]
 SCREEN = ["irrelevant", "partial", "determinate"]   # P0 < P1 < P2 in stated P(truth)
-SCREEN_ALPHA = 0.05     # one-sided; the proposal names the test, not its level
+SCREEN_ALPHA = 0.05     # one-sided; the proposal names no level, the team fixed this one
 # the conflict block's hub: nothing, dependence, quality, both -- all on the 2-vs-1
 # conflict with no source names shown
 PRIMARY = [("X1", False, False), ("X3", True, False), ("X4", False, True), ("X5", True, True)]
