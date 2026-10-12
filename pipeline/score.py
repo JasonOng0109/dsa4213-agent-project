@@ -14,6 +14,7 @@ from __future__ import annotations
 import json
 import math
 from collections import Counter, defaultdict
+from functools import lru_cache
 
 from pipeline.judge import PARSE_FAILURES
 
@@ -48,6 +49,28 @@ def stability(rs: list[dict]) -> tuple:
     return round(max(votes.values()) / len(ok), 2), len(ok)
 
 
+@lru_cache(maxsize=None)
+def stability_chance(n: int, k: int = 4) -> float:
+    """Expected stability under random answering: the mean share of the most common of k
+    equally likely answers over n repeats. Not 1/k, because the measure takes the largest
+    of k counts (proposal §5): about 0.53 at 4 repeats, 0.47 at 6 and 0.41 at 12.
+    Computed exactly, over every way n answers can split across k values."""
+    def splits(n, k):
+        if k == 1:
+            yield (n,)
+            return
+        for i in range(n + 1):
+            for rest in splits(n - i, k - 1):
+                yield (i,) + rest
+    total = 0
+    for counts in splits(n, k):
+        ways = math.factorial(n)
+        for c in counts:
+            ways //= math.factorial(c)
+        total += ways * max(counts)
+    return total / k ** n / n
+
+
 def cell(rs: list[dict]) -> dict:
     """One judge x arm x case x condition cell. Rates are over the repeats that parsed:
     a parse failure is excluded from decision denominators, never counted as wrong
@@ -69,6 +92,10 @@ def cell(rs: list[dict]) -> dict:
         "margin": _mean(r.get("margin") for r in rs),
         "stability": stab,
         "n_stability": n_stab,
+        # random answering over every possible answer value, abstention included if offered
+        "stability_chance": (round(stability_chance(n_stab, len(rs[0]["answer_options"])
+                                                    + bool(rs[0].get("allow_abstain"))), 2)
+                             if n_stab else None),
         "chance": 1 / len(rs[0]["answer_options"]),
         "factors": rs[0]["factors"],
     }
@@ -101,14 +128,16 @@ def report(records: list[dict]) -> None:
         abst = arm == "abstain"
         print(f"##### judge {judge} | arm {arm} | {case_id} #####")
         print(f"  {'cond':4s} {'n':>3s} {'chance':>6s} {'correct':>7s} {'abstain':>7s} "
-              f"{'no_match':>8s} {'P(truth)':>8s} {'P(maj)':>6s} {'margin':>6s} {'stab':>11s}")
+              f"{'no_match':>8s} {'P(truth)':>8s} {'P(maj)':>6s} {'margin':>6s} {'stab':>11s} "
+              f"{'s_chance':>8s}")
         for c in sorted(cells, key=ORDER.index):
             x = cells[c]
             stab = ("n/a" if x["stability"] is None
                     else f"{x['stability']:.2f}(n={x['n_stability']})")
             print(f"  {c:4s} {x['n']:3d} {x['chance']:6.2f} {_rate(x['correct']):>7s} "
                   f"{_rate(x['abstain']):>7s} {_rate(x['no_match']):>8s} {str(x['p_truth']):>8s} "
-                  f"{str(x['p_majority']):>6s} {str(x['margin']):>6s} {stab:>11s}"
+                  f"{str(x['p_majority']):>6s} {str(x['margin']):>6s} {stab:>11s} "
+                  f"{_rate(x['stability_chance']):>8s}"
                   + (f"  PARSE FAIL x{x['parse_fail']}" if x["parse_fail"] else ""))
         ladder = [(name, _by_factor(cells, conflict="2-vs-1", provenance_shown="none",
                                     dependence_stated=d, quality_stated=q))

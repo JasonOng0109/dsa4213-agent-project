@@ -107,3 +107,17 @@ Where the pilot's files went:
   scorer only checked `|w| < 0.2`, so a negative `w` beyond -0.2 was still used.
 - **Breaks if changed**: an inverted unit turns correlation neglect into its opposite
   for that cell, silently.
+
+### 2026-10-12 — Decision stability is read against its own chance baseline
+
+- **Decision**: each cell prints, beside its stability, the stability expected from
+  random answering at that cell's repeat count (`pipeline/score.py`,
+  `stability_chance`). It is computed exactly over every way the answers can split,
+  over the four options plus the abstain option where the arm offers it.
+- **Why** [STATED: proposal §5]: "The floor is not the 0.25 chance of any single option,
+  because the measure takes the largest of four counts: under random answering the
+  expected value is about 0.41 at twelve repeats, 0.47 at six and 0.53 at four, so the
+  base-line is simulated per repeat count rather than assumed." The pilot's spec still
+  said 0.25. Exact computation gives the value a simulation estimates.
+- **Breaks if changed**: against 0.25, a judge answering at random over four repeats
+  (0.53) would look twice as stable as chance.

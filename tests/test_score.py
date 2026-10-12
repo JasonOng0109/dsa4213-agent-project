@@ -6,7 +6,8 @@ import contextlib
 import io
 import math
 
-from pipeline.score import cell, neff, report_neff, screen_verdict, stability
+from pipeline.score import (cell, neff, report_neff, screen_verdict, stability,
+                            stability_chance)
 
 OPTS = ["15%", "25%", "10%", "30%"]
 
@@ -34,9 +35,18 @@ def test_stability_unanimous_and_even_split():
     assert stability([_rec(None, status="ambiguous")]) == (None, 0)
 
 
+def test_stability_chance_is_not_one_over_k():
+    """The proposal's baselines: about 0.53 at 4 repeats, 0.47 at 6, 0.41 at 12."""
+    for n, want in ((4, 0.53), (6, 0.47), (12, 0.41)):
+        assert abs(stability_chance(n) - want) < 0.006, (n, stability_chance(n))
+    assert stability_chance(1) == 1.0
+    assert stability_chance(4, 5) < stability_chance(4)    # abstention adds a fifth value
+
+
 def test_cell_carries_margin_and_stability():
     c = cell([_rec("15%", margin=1.0), _rec("15%", margin=3.0)])
     assert c["stability"] == 1.0 and c["n_stability"] == 2 and c["margin"] == 2.0
+    assert c["stability_chance"] == round(stability_chance(2), 2)
 
 
 def test_parse_failures_leave_decision_denominators():
