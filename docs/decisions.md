@@ -138,3 +138,44 @@ Where the pilot's files went:
   run.**
 - **Breaks if changed**: pooled across conditions, a high AUROC would largely show that
   the manipulation worked, not that the number tracks being right.
+
+### 2026-10-12 — The runner encodes the proposal's main programme as one table
+
+- **Decision**: `pipeline/run.py` holds the main programme as `PROGRAMME`: the agreement
+  block at 6 repeats, the conflict block at 12, the abstention arm (X1-X5 and A7) at 4,
+  the screen at 4 rotations, all on every case with the three primary judges; the length
+  arm (X1-X5 at 12 repeats, A1 and A2 at 6) with Sonnet 5 and GPT-5.4 only; and the
+  wording ladder at 12 repeats with all three judges. `plan` prices it at the proposal's
+  per-call rates and, at 40 cases, reproduces the proposal's 21,720 calls and $37.48.
+- **Why** [STATED: proposal §5, "Run plan and cost"]. The pilot's runner was built for
+  its one-case Stage A (6 repeats throughout, length arm on the conflict block only, no
+  ladder) and had no pre-flight estimate.
+- **Open**: the length arm and the ladder run on "10 of the 40 cases", the same ten for
+  both, but no document says which ten. The code takes the first ten in corpus order
+  (`subset`). **The team should choose the ten deliberately**, for example spread across
+  domains, dimensions and tiers, and order `cases/__init__.py` to match.
+- **Breaks if changed**: the repeat counts carry the rotation balance: 12 gives every
+  (truth position, wrong-claim offset) pairing once in the conflict block, and 4 gives
+  every truth position once in the abstention arm.
+
+### 2026-10-12 — The frozen reports are leak-checked before any judging
+
+- **Decision**: `judge` refuses to start unless every source is frozen in full and no
+  accepted report contains a word of its source's type description or an invented
+  attribution (`pipeline/run.py`, `check_frozen`). The dry run applies the same check.
+- **Why** [STATED: proposal §3]: "A leak check over the frozen reports runs before any
+  judging, and a failed check blocks the run." The pilot checked candidates at selection
+  time only, so a frozen file edited afterwards was never re-checked.
+- **Breaks if changed**: a leak in one report would let a judge read provenance in an
+  opaque condition, invalidating every comparison that condition enters.
+
+### 2026-10-12 — Judges run with reasoning switched off by default
+
+- **Decision**: `judge` sends `reasoning: {"enabled": false}` unless told otherwise
+  (`--reasoning`), and logs reasoning tokens on every trial.
+- **Why** [STATED: pilot run log, 2026-09-27]: omitting the field let Claude Sonnet 5
+  reason on conflict trials only, which makes it a different instrument in one block
+  than another; the explicit `{"enabled": false}` gave 0 reasoning tokens, and a zero
+  token budget did not. The pilot made the flag mandatory while this was unsettled.
+- **Breaks if changed**: a judge that reasons unevenly across conditions confounds the
+  condition contrasts the study exists to make.

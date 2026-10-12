@@ -7,7 +7,9 @@ Cells are judge x arm x case x condition. Comparisons find their cells by factor
 vector, never by condition name. Every comparison is reported per judge before any
 pooling.
 
-    python -m pipeline.score runs/trials.jsonl
+    python -m pipeline.score runs/trials.jsonl [more logs ...]
+
+Several logs (for example from staged runs) are scored together.
 """
 
 from __future__ import annotations
@@ -111,8 +113,8 @@ def _by_factor(cells: dict, **want) -> dict | None:
     return hits[0] if len(hits) == 1 else None
 
 
-def main(path: str) -> None:
-    report(load(path))
+def main(*paths: str) -> None:
+    report([r for p in paths for r in load(p)])
 
 
 def report(records: list[dict]) -> None:
@@ -334,4 +336,4 @@ def screen_verdict(by_case: dict) -> tuple[str, str]:
 
 if __name__ == "__main__":
     import sys
-    main(sys.argv[1])
+    main(*sys.argv[1:])
