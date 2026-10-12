@@ -322,9 +322,10 @@ Stated probabilities count as evidence only for a judge that passes the **confid
 screen**: *ordering*, where its stated P(truth) rises across an irrelevant report (P0),
 a report ruling out two options (P1) and a report naming the answer (P2), tested across
 cases with Page's test for ordered alternatives (one-sided p < 0.05, so it needs at
-least two cases); and *discrimination*, where its stated probability separates its correct decisions from its
-incorrect ones (AUROC, within condition). A judge that fails is reported as
-uninformative on confidence; its decisions still count.
+least two cases; both are explained in `docs/methods.md`); and *discrimination*, where
+its stated probability separates its correct decisions from its incorrect ones (AUROC,
+within condition). A judge that fails is reported as uninformative on confidence; its
+decisions still count.
 
 ### The independence index
 
@@ -405,6 +406,7 @@ docs/
   proposal.pdf            the submitted proposal
   authoring-rules.md      how to write a case, and what a reviewer checks
   decisions.md            why the code is the way it is, and what is still open
+  methods.md              how each statistical method works, with worked examples
 related_works/            the papers in the related-work section
 cases/                    the corpus: one module per case, registered in __init__.py
 pipeline/

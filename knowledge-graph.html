@@ -14,7 +14,7 @@
   For Claude agents and editors (rules in CLAUDE.md):
   * Content lives in the JSON block (the script element with id "kg-data") near the end of
     this file. Edit that block. The figure code below also hard-codes some text, which the
-    checker cannot see; it changes only to correct stale text.
+    checker cannot see; edit it when a figure is stale or a node needs a new one.
   * Node fields: id, type, cluster, title, label?, summary, points?, visual?, data?,
     status? (current | superseded | open | drift), date?, aliases?, internal?, weight? (1-3),
     evidence: [{file, loc?, quote? | absent? | missing?, note?}], links: [{to, rel}].
@@ -416,7 +416,8 @@ a.ref:hover { background: var(--surface-2); }
    "m1",
    "cost-model",
    "status-board",
-   "kg-rule"
+   "kg-rule",
+   "methods-doc"
   ],
   "eras": [
    {
@@ -3204,6 +3205,155 @@ a.ref:hover { background: var(--surface-2); }
    ]
   },
   {
+   "id": "page-test",
+   "type": "concept",
+   "cluster": "measuring",
+   "title": "Page's test",
+   "label": "Page's test",
+   "summary": "A test of whether numbers rise in a predicted order across many cases. Each case's three values are ranked and scored: 14 in the predicted order, 10 reversed, 12 on average for a judge guessing at random. Page's L adds the scores over cases, and p is the chance that a judge with no ordering scores at least as high.",
+   "visual": "pageScore",
+   "aliases": [
+    "Page's test",
+    "Page's L",
+    "test for ordered alternatives",
+    "rank correlation"
+   ],
+   "points": [
+    "Ranks ignore each judge's scale: 25, 50, 55 and 40, 60, 99 both rank 1, 2, 3.",
+    "A nearly right case still scores above 12, so a judge gets partial credit for it.",
+    "The rank correlation the scorer prints is L rescaled to run from −1 (every case reversed) to +1 (every case in order).",
+    "The full entry, with a worked example: [[methods-doc]]."
+   ],
+   "evidence": [
+    {
+     "file": "docs/methods.md",
+     "loc": "Page's test",
+     "quote": "A test of whether a judge's numbers rise in a predicted order, across many cases at once."
+    },
+    {
+     "file": "docs/methods.md",
+     "loc": "Page's test",
+     "quote": "A judge guessing at random averages 12."
+    },
+    {
+     "file": "docs/methods.md",
+     "loc": "Page's test",
+     "quote": "Ranks ignore the judge's scale: 25, 50, 55 and 40, 60, 99 are both in the predicted order, and both rank 1, 2, 3."
+    },
+    {
+     "file": "docs/methods.md",
+     "loc": "Page's test",
+     "quote": "A case that is nearly right still scores above 12, so a judge gets partial credit for it, unlike a rule that counts only perfectly ordered cases."
+    },
+    {
+     "file": "docs/methods.md",
+     "loc": "Page's test",
+     "quote": "L rescaled to run from −1 (every case reversed) through 0 (no ordering) to +1 (every case in order)."
+    },
+    {
+     "file": "pipeline/score.py",
+     "loc": "page_test",
+     "quote": "Page's test for ordered alternatives, the cases as blocks"
+    }
+   ],
+   "links": [
+    {
+     "to": "methods-doc",
+     "rel": "part-of"
+    }
+   ]
+  },
+  {
+   "id": "significance-level",
+   "type": "concept",
+   "cluster": "measuring",
+   "title": "Significance level (the 0.05)",
+   "label": "Significance level",
+   "summary": "The pass mark for a p-value. At the screen's level of 0.05, a judge whose numbers carry no ordering still passes by luck 1 time in 20: the false-pass rate the study accepts. It does not mean '95% sure the judge is good'.",
+   "visual": "pBars",
+   "data": {
+    "level": 0.05,
+    "rows": [
+     [
+      "1 case, in order",
+      0.167
+     ],
+     [
+      "2 cases, both in order",
+      0.028
+     ],
+     [
+      "3 cases, all in order",
+      0.005
+     ]
+    ],
+    "caption": "Each bar is p: the chance that a judge with no ordering does at least this well by luck. The dashed line is the 0.05 pass mark; a bar left of it passes."
+   },
+   "aliases": [
+    "significance level",
+    "p-value",
+    "one-sided"
+   ],
+   "points": [
+    "One case in the predicted order happens by luck 1 time in 6 (p = 0.167): too often to count.",
+    "One-sided: only rising numbers count, so a judge whose numbers fall never passes.",
+    "A stricter level lets fewer judges with no ordering through, but a real judge then needs more cases: [[pilot-size]].",
+    "The full entry, with worked examples: [[methods-doc]]."
+   ],
+   "evidence": [
+    {
+     "file": "docs/methods.md",
+     "loc": "Significance level",
+     "quote": "The pass mark for a p-value."
+    },
+    {
+     "file": "docs/methods.md",
+     "loc": "Significance level",
+     "quote": "At 0.05, a judge whose numbers carry no ordering still passes 1 time in 20. That is the false-pass rate the study accepts."
+    },
+    {
+     "file": "docs/methods.md",
+     "loc": "Significance level",
+     "quote": "It is not \"95% sure the judge is good\"."
+    },
+    {
+     "file": "docs/methods.md",
+     "loc": "Significance level",
+     "quote": "One-sided means only rising numbers count as evidence: a judge whose numbers fall gets a large p and never passes."
+    },
+    {
+     "file": "docs/methods.md",
+     "loc": "Significance level",
+     "quote": "1/6 = 0.167"
+    },
+    {
+     "file": "docs/methods.md",
+     "loc": "Significance level",
+     "quote": "1/36 = 0.028"
+    },
+    {
+     "file": "docs/methods.md",
+     "loc": "Significance level",
+     "quote": "1/216 = 0.005"
+    },
+    {
+     "file": "pipeline/score.py",
+     "loc": "SCREEN_ALPHA",
+     "quote": "SCREEN_ALPHA = 0.05"
+    }
+   ],
+   "links": [
+    {
+     "to": "methods-doc",
+     "rel": "part-of"
+    },
+    {
+     "to": "page-test",
+     "rel": "related"
+    }
+   ]
+  },
+  {
    "id": "screen-ordering-test",
    "type": "decision",
    "cluster": "measuring",
@@ -3252,6 +3402,14 @@ a.ref:hover { background: var(--surface-2); }
     }
    ],
    "links": [
+    {
+     "to": "page-test",
+     "rel": "needs"
+    },
+    {
+     "to": "significance-level",
+     "rel": "needs"
+    },
     {
      "to": "screen",
      "rel": "needs"
@@ -3303,11 +3461,35 @@ a.ref:hover { background: var(--surface-2); }
      "file": "tests/test_score.py",
      "loc": "test_pilot_size_is_the_fewest_cases_that_survive_one_reversed_case",
      "quote": "assert verdicts == {2: \"EXCLUDED\", 3: \"EXCLUDED\", 4: \"EXCLUDED\", 5: \"retained\"}"
+    },
+    {
+     "file": "docs/methods.md",
+     "loc": "Significance level",
+     "quote": "| 2 | 0.639 | no |"
+    },
+    {
+     "file": "docs/methods.md",
+     "loc": "Significance level",
+     "quote": "| 3 | 0.278 | no |"
+    },
+    {
+     "file": "docs/methods.md",
+     "loc": "Significance level",
+     "quote": "| 4 | 0.109 | no |"
+    },
+    {
+     "file": "docs/methods.md",
+     "loc": "Significance level",
+     "quote": "| 5 | 0.039 | yes |"
     }
    ],
    "links": [
     {
      "to": "screen-ordering-test",
+     "rel": "needs"
+    },
+    {
+     "to": "significance-level",
      "rel": "needs"
     },
     {
@@ -3322,7 +3504,30 @@ a.ref:hover { background: var(--surface-2); }
      "to": "runner",
      "rel": "related"
     }
-   ]
+   ],
+   "visual": "pBars",
+   "data": {
+    "level": 0.05,
+    "rows": [
+     [
+      "2 cases, one reversed",
+      0.639
+     ],
+     [
+      "3 cases, one reversed",
+      0.278
+     ],
+     [
+      "4 cases, one reversed",
+      0.109
+     ],
+     [
+      "5 cases, one reversed",
+      0.039
+     ]
+    ],
+    "caption": "One case fully reversed, the rest in the predicted order. The dashed line is the 0.05 pass mark: 5 is the fewest cases at which the judge still passes."
+   }
   },
   {
    "id": "log-odds",
@@ -4828,6 +5033,49 @@ a.ref:hover { background: var(--surface-2); }
    ]
   },
   {
+   "id": "methods-doc",
+   "type": "process",
+   "cluster": "process",
+   "title": "The methods dictionary",
+   "label": "Methods dictionary",
+   "summary": "docs/methods.md explains each statistical method the study uses, in plain English with worked examples, one entry per method in the same five parts. Concept nodes in this graph summarise an entry and quote it; docs/decisions.md says why each method was chosen.",
+   "aliases": [
+    "methods.md",
+    "methods dictionary"
+   ],
+   "points": [
+    "Entries so far: [[page-test]] and [[significance-level]].",
+    "Each entry has five parts: In one line, How it works, Worked example, Reading the number, and In the code."
+   ],
+   "evidence": [
+    {
+     "file": "docs/methods.md",
+     "loc": "header",
+     "quote": "is the shared dictionary: the knowledge graph's concept nodes summarise its entries and quote them, and docs/decisions.md says why each method was chosen."
+    },
+    {
+     "file": "docs/methods.md",
+     "loc": "header",
+     "quote": "Add an entry when a method or term needs more than a sentence to explain."
+    },
+    {
+     "file": "CLAUDE.md",
+     "loc": "How to update it, step 1",
+     "quote": "a method or term that needs more than a sentence to explain goes first into docs/methods.md, the shared dictionary"
+    }
+   ],
+   "links": [
+    {
+     "to": "decision-log",
+     "rel": "related"
+    },
+    {
+     "to": "kg-rule",
+     "rel": "related"
+    }
+   ]
+  },
+  {
    "id": "credentials",
    "type": "process",
    "cluster": "process",
@@ -5008,7 +5256,7 @@ a.ref:hover { background: var(--surface-2); }
    "cluster": "process",
    "title": "Keeping this graph current",
    "label": "This graph's update rule",
-   "summary": "This page is updated whenever a decision is made or an earlier one drifts. Agents follow CLAUDE.md: record the decision in docs/decisions.md, edit the JSON data, sweep for anything else the change made stale, run the checker, add a changelog entry, and report what changed.",
+   "summary": "This page is updated whenever a decision is made or an earlier one drifts. Agents follow CLAUDE.md: record the decision in docs/decisions.md and any method that needs explaining in docs/methods.md, edit the JSON data and figures, sweep for anything else the change made stale, run the checker, add a changelog entry, and report what changed.",
    "weight": 2,
    "evidence": [
     {
@@ -5025,6 +5273,11 @@ a.ref:hover { background: var(--surface-2); }
      "file": "CLAUDE.md",
      "loc": "How to update it, step 3",
      "quote": "When an open or drift item is settled, sweep for staleness: every node, figure caption, README line, doc and code comment that still describes the old state is corrected in the same change."
+    },
+    {
+     "file": "CLAUDE.md",
+     "loc": "Writing rules for the graph",
+     "quote": "reuse a figure the page defines, or add one to the figure code"
     }
    ],
    "links": [
@@ -5035,10 +5288,15 @@ a.ref:hover { background: var(--surface-2); }
     {
      "to": "status-board",
      "rel": "related"
+    },
+    {
+     "to": "methods-doc",
+     "rel": "related"
     }
    ],
    "points": [
-    "The sweep covers what the checker cannot see: text hard-coded in the page's figures, as well as the README, docs and code comments. A figure's caption once kept describing the confidence screen's old rule after the code changed."
+    "The sweep covers what the checker cannot see: text hard-coded in the page's figures, as well as the README, docs and code comments. A figure's caption once kept describing the confidence screen's old rule after the code changed.",
+    "Where a picture explains better than words, a node gets a figure: an existing one, or a new one added to the page's figure code, showing only what the node's evidence supports."
    ]
   },
   {
@@ -5408,6 +5666,20 @@ a.ref:hover { background: var(--surface-2); }
    "changed": [
     "screen-ordering-test"
    ]
+  },
+  {
+   "date": "2026-10-12",
+   "summary": "Added docs/methods.md, a shared dictionary of the study's methods, with entries for Page's test and the significance level, and pointed the graph to it. CLAUDE.md now lets agents add figures; two new ones draw Page's scoring and p-values against the pass mark.",
+   "added": [
+    "methods-doc",
+    "page-test",
+    "significance-level"
+   ],
+   "changed": [
+    "screen-ordering-test",
+    "pilot-size",
+    "kg-rule"
+   ]
   }
  ]
 }</script>
@@ -5737,6 +6009,46 @@ const VISUALS = {
       ['P2 · names the answer', 'Source B’s first frozen rewording, which states the 15% outright.', 'high', 100]];
     return fig(`<div class="stair">${s.map(x => `<div style="width:${x[3]}%;min-width:62%"><b>${x[0]}</b> → P(truth) ${x[2]}<br><span style="color:var(--muted)">${esc(x[1])}</span></div>`).join('')}</div>`,
       'One report each, no provenance, on case M1. A judge passes ordering if, across cases, its probability on the truth rises P0 < P1 < P2 more consistently than chance: Page’s test, one-sided p < 0.05.');
+  },
+  pageScore(n) {
+    // the six orders of one case, scored as page_test() in pipeline/score.py scores them
+    const orders = [[1, 2, 3, 'predicted'], [1, 3, 2, 'swap P1, P2'], [2, 1, 3, 'swap P0, P1'],
+      [2, 3, 1, 'P2 lowest'], [3, 1, 2, 'P0 highest'], [3, 2, 1, 'reversed']];
+    const score = r => r[0] + 2 * r[1] + 3 * r[2], cls = s => s > 12 ? 'b-good' : 'b-bad';
+    let b = T(0, 12, 'One case, its six possible orders. Bars are the ranks of P0, P1 and P2.', 'v-small');
+    orders.forEach((r, i) => {
+      const x = 8 + i * 72, s = score(r);
+      b += `<g><title>ranks ${r.slice(0, 3).join(', ')} (${r[3]}): score ${s}</title>`;
+      r.slice(0, 3).forEach((k, j) => { b += `<rect x="${x + j * 17}" y="${66 - k * 14}" width="13" height="${k * 14}" rx="3" class="${cls(s)}"/>`; });
+      b += T(x + 23, 84, s, 'v-title', 'middle') + T(x + 23, 98, r[3], 'v-small', 'middle') + '</g>';
+    });
+    const X = v => 70 + (v - 10) * 80, base = 176, stack = {};
+    b += T(0, 122, 'A random judge lands on each order 1 time in 6, so it averages 12.', 'v-small')
+      + `<line x1="${X(10)}" x2="${X(14)}" y1="${base}" y2="${base}" class="v-axis"/>`;
+    [10, 11, 12, 13, 14].forEach(v => { b += `<line x1="${X(v)}" x2="${X(v)}" y1="${base}" y2="${base + 5}" class="v-axis"/>` + T(X(v), base + 17, v, 'v-small', 'middle'); });
+    b += `<line x1="${X(12)}" x2="${X(12)}" y1="${base - 36}" y2="${base}" class="v-grid" style="stroke:var(--muted)"/>` + T(X(12) + 5, base - 30, 'chance average', 'v-small');
+    orders.forEach(r => {
+      const s = score(r), k = stack[s] = (stack[s] || 0) + 1;
+      b += `<circle cx="${X(s)}" cy="${base - 8 - (k - 1) * 13}" r="5" class="${cls(s)}"><title>${r[3]}: ${s}</title></circle>`;
+    });
+    return fig(svgWrap(440, 200, b, 'Scores of the six orders of one case: 14, 13, 13, 11, 11 and 10. A random judge averages 12.'),
+      'Score = 1 × rank of P0 + 2 × rank of P1 + 3 × rank of P2. Green orders lean the predicted way, red the other way. Page’s L adds the scores over cases; p is the chance a random judge’s total is at least as high.');
+  },
+  pBars(n) {
+    // p-values from the node's data against its pass mark (dashed); a bar left of the line passes.
+    // Values sit in a fixed column so they never cover the line.
+    const d = n.data, L = 140, W = 200, max = Math.max(...d.rows.map(r => r[1])), X = v => L + W * v / max;
+    const h = d.rows.length * 28;
+    let b = '';
+    d.rows.forEach(([label, v], i) => {
+      const y = i * 28 + 4, ok = v < d.level;
+      b += T(L - 8, y + 15, label, 'v-label', 'end') + `<rect x="${L}" y="${y + 4}" width="${W}" height="16" rx="4" class="b-track"/>`
+        + `<rect x="${L}" y="${y + 4}" width="${Math.max(2, X(v) - L)}" height="16" rx="4" class="${ok ? 'b-good' : 'b-bad'}"><title>${esc(label)}: p = ${v}</title></rect>`
+        + T(L + W + 10, y + 15, `${v} · ${ok ? 'passes' : 'fails'}`, 'v-val');
+    });
+    b += `<line x1="${X(d.level)}" x2="${X(d.level)}" y1="2" y2="${h + 4}" class="v-grid" style="stroke:var(--muted)"/>`
+      + T(X(d.level), h + 16, `pass mark ${d.level}`, 'v-small', 'middle');
+    return fig(svgWrap(440, h + 22, b, d.rows.map(([l, v]) => `${l}: p = ${v}`).join('; ')), esc(d.caption));
   },
   acceptance(n) {
     const steps = ['6 candidates', 'rubric: 4 flags', 'not a copy (≤ 0.70)', 'differs (≤ 0.50)', 'no leak', 'freeze'];

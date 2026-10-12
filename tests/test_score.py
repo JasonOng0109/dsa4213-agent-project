@@ -105,6 +105,8 @@ def test_page_test_exact_values():
     assert page_test({"M1": [25, 25, 90]})[2] == 1 / 3
     assert page_test({"M1": [50, 50, 50]})[2] == 1.0
     assert page_test({"c0": up, "c1": up})[2] == 1 / 36
+    # docs/methods.md's worked example: one case in order, one with P1 and P2 swapped
+    assert page_test({"c0": [25, 50, 90], "c1": [25, 90, 50]})[:3] == (27, 0.75, 5 / 36)
     # a case missing a level is left out
     assert page_test({"M1": up, "M2": [None, 50, 90]})[3] == 1
 
