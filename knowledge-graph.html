@@ -5076,6 +5076,90 @@ a.ref:hover { background: var(--surface-2); }
    ]
   },
   {
+   "id": "work-plan",
+   "type": "process",
+   "cluster": "process",
+   "title": "Who does what next",
+   "label": "Work plan",
+   "summary": "docs/work-plan.md splits the next work among the five members, in small steps written for newcomers. Everyone first learns the basics. Four members then write and cross-review the four pilot cases, M2 to M5, while each owns one open decision. Jason runs the paid pilot, and then all five write the other 35 cases.",
+   "aliases": [
+    "work-plan.md",
+    "work plan"
+   ],
+   "points": [
+    "Jason (Ong Jia Xi in the proposal) runs every step that spends money, after the group approves, and merges pull requests.",
+    "Owners of open items: [[open-ladder-wording]], Rachel. [[open-margin-threshold]], Crystal. [[open-discrimination]], Kai Rong. [[open-subset]], Kathleen. [[open-pilot-scope]], Jason with the group.",
+    "The four pilot cases, with M1, cover all three domains and all four quality dimensions: [[quality-dimensions]].",
+    "Each open number is agreed before anyone looks at pilot results, so it cannot be bent to fit them: [[precommit]].",
+    "Every case has a reviewer who did not write it: [[author-reviewer]]."
+   ],
+   "evidence": [
+    {
+     "file": "docs/work-plan.md",
+     "loc": "header",
+     "quote": "Who does what next, in small steps. Written for someone who has never seen this project."
+    },
+    {
+     "file": "docs/work-plan.md",
+     "loc": "Who does what",
+     "quote": "Jason | Runs the paid steps, holds the API key, merges pull requests"
+    },
+    {
+     "file": "docs/work-plan.md",
+     "loc": "Rules for everyone",
+     "quote": "Only Jason runs steps that spend money, and only after the group approves."
+    },
+    {
+     "file": "docs/work-plan.md",
+     "loc": "Phase 1",
+     "quote": "Together with M1, these cover all 3 domains and all 4 quality dimensions."
+    },
+    {
+     "file": "docs/work-plan.md",
+     "loc": "Phase 2",
+     "quote": "Agree each number before anyone looks at pilot results."
+    }
+   ],
+   "links": [
+    {
+     "to": "case-anatomy",
+     "rel": "needs"
+    },
+    {
+     "to": "author-reviewer",
+     "rel": "needs"
+    },
+    {
+     "to": "open-corpus",
+     "rel": "involves"
+    },
+    {
+     "to": "open-first-run",
+     "rel": "involves"
+    },
+    {
+     "to": "open-pilot-scope",
+     "rel": "involves"
+    },
+    {
+     "to": "status-board",
+     "rel": "related"
+    },
+    {
+     "to": "decision-log",
+     "rel": "related"
+    },
+    {
+     "to": "quality-dimensions",
+     "rel": "related"
+    },
+    {
+     "to": "precommit",
+     "rel": "related"
+    }
+   ]
+  },
+  {
    "id": "credentials",
    "type": "process",
    "cluster": "process",
@@ -5563,6 +5647,54 @@ a.ref:hover { background: var(--surface-2); }
    ]
   },
   {
+   "id": "open-pilot-scope",
+   "type": "issue",
+   "cluster": "issues",
+   "title": "What does the pilot run?",
+   "label": "Pilot scope",
+   "summary": "The pilot is fixed at 5 cases, but nothing says which arms it runs or how many calls it may make. The whole programme on 5 cases would be 3,660 calls, about $7. Jason and the group decide before the pilot, and approve the spend.",
+   "status": "open",
+   "date": "2026-10-12",
+   "points": [
+    "The number of cases is settled: [[pilot-size]]. The work plan gives this item to Jason: [[work-plan]]."
+   ],
+   "evidence": [
+    {
+     "file": "README.md",
+     "loc": "Status and open items",
+     "quote": "Which arms the pilot runs, and its call ceiling, are not decided yet."
+    },
+    {
+     "file": "docs/work-plan.md",
+     "loc": "2E What the pilot runs",
+     "quote": "Nothing yet says which arms the pilot runs, or its call ceiling."
+    },
+    {
+     "file": "docs/work-plan.md",
+     "loc": "2E What the pilot runs",
+     "quote": "The whole programme on 5 cases is 3,660 calls, $7.03."
+    }
+   ],
+   "links": [
+    {
+     "to": "pilot-size",
+     "rel": "needs"
+    },
+    {
+     "to": "runner",
+     "rel": "involves"
+    },
+    {
+     "to": "cost-model",
+     "rel": "involves"
+    },
+    {
+     "to": "status-board",
+     "rel": "part-of"
+    }
+   ]
+  },
+  {
    "id": "drift-screen-test",
    "type": "issue",
    "cluster": "issues",
@@ -5679,6 +5811,17 @@ a.ref:hover { background: var(--surface-2); }
     "screen-ordering-test",
     "pilot-size",
     "kg-rule"
+   ]
+  },
+  {
+   "date": "2026-10-12",
+   "summary": "Added docs/work-plan.md, which splits the next work among the five members in small steps for newcomers, and opened one item it found: nothing says which arms the pilot runs or its call ceiling. Jason agreed the plan's pilot case slots, the rule that open numbers are agreed before pilot results are seen, the way decisions are recorded, and the pilot-scope item.",
+   "added": [
+    "work-plan",
+    "open-pilot-scope"
+   ],
+   "opened": [
+    "open-pilot-scope"
    ]
   }
  ]

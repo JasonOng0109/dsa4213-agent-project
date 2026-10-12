@@ -407,6 +407,7 @@ docs/
   authoring-rules.md      how to write a case, and what a reviewer checks
   decisions.md            why the code is the way it is, and what is still open
   methods.md              how each statistical method works, with worked examples
+  work-plan.md            who does what next, in small steps, for newcomers
 related_works/            the papers in the related-work section
 cases/                    the corpus: one module per case, registered in __init__.py
 pipeline/
@@ -425,13 +426,16 @@ runs/                     outputs of real runs (created by the first run)
 
 ## Status and open items
 
+Who does what next, step by step: [`docs/work-plan.md`](docs/work-plan.md).
+
 - **Corpus: 1 of 40 cases.** M1 (institutional logistics, authority, T2). Authoring and
   independent review are the critical path; see `docs/authoring-rules.md`.
 - **No real run has happened in this repository.** `runs/` fills from the first
   `generate`.
 - **Pilot: 5 of the 40 cases**, the fewest at which one badly ordered case cannot fail a
   judge on the confidence screen by itself (`docs/decisions.md`). Four more cases must be
-  written and reviewed first.
+  written and reviewed first. Which arms the pilot runs, and its call ceiling, are not
+  decided yet.
 - **Open before the main run** (each recorded in `docs/decisions.md`):
   - review the wording ladder's sentence: the proposal fixes its three intensity words,
     not the full sentence;
