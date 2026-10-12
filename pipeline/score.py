@@ -17,6 +17,7 @@ import json
 import math
 from collections import Counter, defaultdict
 from functools import lru_cache
+from itertools import permutations
 
 from pipeline.conditions import LADDER
 from pipeline.judge import PARSE_FAILURES
@@ -24,6 +25,7 @@ from pipeline.judge import PARSE_FAILURES
 ORDER = ["A0", "A1", "A2", "A3", "A4", "A5", "A6", "A7", "X1", "X2", "X3", "X4", "X5",
          "W1", "W2", "W3", "P0", "P1", "P2"]
 SCREEN = ["irrelevant", "partial", "determinate"]   # P0 < P1 < P2 in stated P(truth)
+SCREEN_ALPHA = 0.05     # one-sided; the proposal names no level, the team fixed this one
 # the conflict block's hub: nothing, dependence, quality, both -- all on the 2-vs-1
 # conflict with no source names shown
 PRIMARY = [("X1", False, False), ("X3", True, False), ("X4", False, True), ("X5", True, True)]
@@ -321,17 +323,49 @@ def report_health(records: list[dict]) -> None:
               f"raw={r['raw_judge_output']}")
 
 
+def _midranks(v: list) -> list[float]:
+    return [sum((y < x) + 0.5 * (y == x) for y in v) + 0.5 for x in v]
+
+
+def page_test(by_case: dict) -> tuple:
+    """Page's test for ordered alternatives, the cases as blocks: L sums, over cases, the
+    rank of each level's P(truth) times its predicted rank (P0 1, P1 2, P2 3). The p-value
+    is exact and one-sided: with no ordering, each case's ranks are equally likely in any
+    of their 6 orders, ties kept as midranks. rho, L rescaled to [-1, 1], is the matching
+    rank correlation: the mean Spearman correlation between predicted and observed order,
+    exactly so when no case has ties. Cases missing a level are left out.
+    Returns (L, rho, p, cases used)."""
+    rows = [_midranks(v) for v in by_case.values() if None not in v]
+    if not rows:
+        return None, None, None, 0
+    page = lambda r: sum(w * x for w, x in zip((1, 2, 3), r))
+    null = Counter({0: 1})              # L summed over the cases so far -> ways to get it
+    for r in rows:
+        step = Counter(page(order) for order in permutations(r))
+        nxt = Counter()
+        for a, m in null.items():
+            for b, k in step.items():
+                nxt[a + b] += m * k
+        null = nxt
+    L = sum(page(r) for r in rows)
+    p = sum(m for s, m in null.items() if s >= L) / 6 ** len(rows)
+    return L, round(L / (2 * len(rows)) - 6, 3), p, len(rows)
+
+
 def screen_verdict(by_case: dict) -> tuple[str, str]:
-    """Ordering check: per case, stated P(truth) (mean over the option rotations) must
-    strictly increase P0 < P1 < P2 on the judge's own scale; absolute values are not
-    scored. The judge is EXCLUDED from probability-based analyses only if it fails on
-    more than a third of cases; per-case detail is always shown."""
-    passed = {cid: None not in v and v[0] < v[1] < v[2] for cid, v in by_case.items()}
-    n_fail = sum(not ok for ok in passed.values())
-    detail = "; ".join(f"{cid} {' < '.join(str(x) for x in v)} {'PASS' if passed[cid] else 'FAIL'}"
-                       for cid, v in sorted(by_case.items()))
-    verdict = "EXCLUDED" if n_fail * 3 > len(passed) else "retained"
-    return verdict, f"{detail} ({n_fail}/{len(passed)} failed)"
+    """Ordering check (proposal §5): stated P(truth), per case the mean over the option
+    rotations, should rise P0 < P1 < P2 on the judge's own scale; absolute values are not
+    scored. Assessed across cases by a rank correlation and Page's test, not by
+    inspection: the judge is EXCLUDED from probability-based analyses unless the one-sided
+    p is below SCREEN_ALPHA. Per-case values are always shown."""
+    L, rho, p, n = page_test(by_case)
+    verdict = "retained" if p is not None and p < SCREEN_ALPHA else "EXCLUDED"
+    detail = "; ".join(f"{cid} {', '.join(str(x) for x in v)}" for cid, v in sorted(by_case.items()))
+    if n:
+        detail += f" -- Page's L {L}, rank correlation {rho}, one-sided p {p:.4f}, {n} cases"
+    if 6 ** -n >= SCREEN_ALPHA:         # even perfect order in every case could not pass
+        detail += f" (too few cases to reach p < {SCREEN_ALPHA})"
+    return verdict, detail
 
 
 if __name__ == "__main__":

@@ -146,3 +146,51 @@ Add an entry when you make a choice a reader could not guess from the code.
   whether it held.
 - **Breaks if changed**: a judge that reasons unevenly across conditions confounds the
   condition contrasts the study exists to make.
+
+### 2026-10-12 — The screen tests ordering with Page's test across cases
+
+- **Decision**: a judge passes the screen's ordering check when Page's test for ordered
+  alternatives, with the cases as blocks and P0 < P1 < P2 as the predicted order, gives
+  a one-sided p below 0.05 (`pipeline/score.py`, `page_test`, `screen_verdict`). Each
+  case enters as its mean P(truth) over the four rotations. The p-value is exact, with
+  ties kept as midranks. The matching rank correlation, the mean Spearman correlation
+  between predicted and observed order, is printed beside it, with each case's values.
+- **Why** [STATED: proposal §5]: ordering is assessed by "Rank correlation and a test
+  for ordered alternatives, not inspection". The code had instead required each case's
+  values to rise strictly and excluded a judge failing on more than a third of cases, a
+  cut-off the proposal does not state. [INFERRED: from the design] Page's test is the
+  test for ordered alternatives when every block sees every level, as every case sees
+  all three here, and its L is a linear function of the mean Spearman correlation, so
+  one statistic gives both the correlation and the test. [STATED: team decision,
+  2026-10-12] The proposal names no level; the team fixed it at 0.05, one-sided, before
+  the pilot. It is the share of judges whose numbers carry no ordering that pass by luck:
+  1 in 20.
+- **Rejected**: the per-case strict rule, which has no known false-pass rate and
+  excludes a judge that always puts the irrelevant report lowest but swaps P1 and P2 in
+  half its cases, although its numbers clearly track informativeness. The
+  Jonckheere-Terpstra test, which treats the three levels as independent groups and so
+  ignores that they are matched within a case. The four rotations of a case as separate
+  blocks: they share a case, so they are not independent and p would come out too small.
+- **Breaks if changed**: every probability-based analysis, n_eff included, is reported
+  only for retained judges, so this rule decides whose stated numbers count. With fewer
+  than two cases no judge can pass, since one case gives at best p = 1/6: the one-case
+  dry run excludes every judge and reports n_eff as undefined.
+
+### 2026-10-12 — The pilot runs on 5 cases
+
+- **Decision**: the pilot uses 5 of the 40 cases, so no case is authored only for the
+  pilot. The pilot's screen verdict is a preview; the main run's verdict is computed on
+  all 40 cases.
+- **Why** [STATED: team decision, 2026-10-12]: 5 is the fewest cases at which one badly
+  ordered case cannot, on its own, fail a judge on the screen's ordering check. Computed
+  with `page_test` at the fixed level of 0.05: with 2 cases a judge passes only if both
+  are perfectly ordered; with 3 or 4, one fully reversed case among perfect ones fails
+  it (p = 0.28 and 0.11); with 5 it does not (p = 0.039), and a judge passes with one
+  neighbouring pair swapped in 4 of its 5 cases. With fewer cases, a fail could not tell
+  a broken judge from one bad case.
+- **Rejected**: 2 cases, the fewest that can pass at all, where one slip fails the
+  judge. 8 cases, which makes a pass likelier for a judge with occasional disordered
+  cases, but needs three more cases authored and reviewed before any pilot.
+- **Breaks if changed**: below 5, one case decides the pilot's screen verdict. The
+  minimum depends on the level: a stricter level needs more cases
+  (`tests/test_score.py` pins it at 5 for 0.05).

@@ -1,13 +1,14 @@
 """The scorer's derived quantities: decision stability, the independence index and its
-guard, and the confidence screen's exclusion rule. All arithmetic on records already
+guard, and the confidence screen's ordering test. All arithmetic on records already
 collected, so no backend is needed."""
 
 import contextlib
 import io
 import math
 
-from pipeline.score import (auroc, cell, neff, report_discrimination, report_ladder,
-                            report_neff, screen_verdict, stability, stability_chance)
+from pipeline.score import (auroc, cell, neff, page_test, report_discrimination,
+                            report_ladder, report_neff, screen_verdict, stability,
+                            stability_chance)
 
 OPTS = ["15%", "25%", "10%", "30%"]
 
@@ -94,15 +95,47 @@ def test_undefined_rate_is_reported_per_judge():
     assert "N_EFF UNDEFINED judge mock: 1/2 cells (0.50)" in out.getvalue()
 
 
-def test_screen_exclusion_rule():
-    """Excluded only when failing on MORE than a third of cases."""
-    ok, bad = [10, 50, 90], [90, 50, 10]
-    assert screen_verdict({f"c{i}": ok for i in range(5)} | {"c5": bad})[0] == "retained"
-    assert screen_verdict({f"c{i}": ok for i in range(4)} | {"c4": bad, "c5": bad})[0] == "retained"
-    assert screen_verdict({f"c{i}": ok for i in range(3)} | {f"b{i}": bad for i in range(3)})[0] \
+def test_page_test_exact_values():
+    """Exact p-values small enough to check by hand: one case has 6 equally likely orders."""
+    up, down = [10, 50, 90], [90, 50, 10]
+    assert page_test({"M1": up}) == (14, 1.0, 1 / 6, 1)        # the top of 6 orders
+    assert page_test({"M1": down})[:2] == (10, -1.0)
+    # ties are midranks and the null permutes them: (1.5, 1.5, 3) gives L = 13.5, which
+    # 2 of the 6 orders reach
+    assert page_test({"M1": [25, 25, 90]})[2] == 1 / 3
+    assert page_test({"M1": [50, 50, 50]})[2] == 1.0
+    assert page_test({"c0": up, "c1": up})[2] == 1 / 36
+    # docs/methods.md's worked example: one case in order, one with P1 and P2 swapped
+    assert page_test({"c0": [25, 50, 90], "c1": [25, 90, 50]})[:3] == (27, 0.75, 5 / 36)
+    # a case missing a level is left out
+    assert page_test({"M1": up, "M2": [None, 50, 90]})[3] == 1
+
+
+def test_screen_ordering_is_a_test_across_cases():
+    """Proposal §5: a rank correlation and a test for ordered alternatives, not
+    inspection. Retained only when Page's test gives one-sided p < 0.05."""
+    up, down, flat = [10, 50, 90], [90, 50, 10], [50, 50, 50]
+    assert screen_verdict({"c0": up, "c1": up})[0] == "retained"
+    # one case can never pass, however well ordered: its best p is 1/6
+    verdict, detail = screen_verdict({"M1": up})
+    assert verdict == "EXCLUDED" and "too few cases" in detail
+    assert screen_verdict({f"c{i}": up for i in range(5)} | {"c5": down})[0] == "retained"
+    assert screen_verdict({f"c{i}": up for i in range(3)} | {f"b{i}": down for i in range(3)})[0] \
         == "EXCLUDED"
-    assert screen_verdict({"M1": bad})[0] == "EXCLUDED"
-    assert screen_verdict({"M1": ok})[0] == "retained"
+    assert screen_verdict({f"c{i}": flat for i in range(40)})[0] == "EXCLUDED"
+    # a judge that always puts the irrelevant report lowest but swaps P1 and P2 in half
+    # the cases still tracks informativeness; a per-case strict rule would exclude it
+    half = {f"c{i}": up for i in range(20)} | {f"s{i}": [25, 60, 55] for i in range(20)}
+    assert screen_verdict(half)[0] == "retained"
+
+
+def test_pilot_size_is_the_fewest_cases_that_survive_one_reversed_case():
+    """docs/decisions.md: the pilot uses 5 cases, the fewest at which one fully reversed
+    case does not fail an otherwise perfectly ordered judge at the fixed level."""
+    up, down = [10, 50, 90], [90, 50, 10]
+    verdicts = {n: screen_verdict({f"c{i}": up for i in range(n - 1)} | {"bad": down})[0]
+                for n in range(2, 6)}
+    assert verdicts == {2: "EXCLUDED", 3: "EXCLUDED", 4: "EXCLUDED", 5: "retained"}
 
 
 def test_auroc():
