@@ -12,8 +12,9 @@
   to the ideas you need; "Evidence" quotes the exact file each statement comes from.
 
   For Claude agents and editors (rules in CLAUDE.md):
-  * All content lives in the JSON block (the script element with id "kg-data") near the end of
-    this file. Edit only that block; the code below draws whatever it contains.
+  * Content lives in the JSON block (the script element with id "kg-data") near the end of
+    this file. Edit that block. The figure code below also hard-codes some text, which the
+    checker cannot see; it changes only to correct stale text.
   * Node fields: id, type, cluster, title, label?, summary, points?, visual?, data?,
     status? (current | superseded | open | drift), date?, aliases?, internal?, weight? (1-3),
     evidence: [{file, loc?, quote? | absent? | missing?, note?}], links: [{to, rel}].
@@ -3165,7 +3166,7 @@ a.ref:hover { background: var(--surface-2); }
    "points": [
     "Graded by how informative a report is, not by how many reports agree, so the check does not assume the behaviour under study.",
     "Only P1 is hand-written (the case's screen sentence). P0 is a filler sentence; P2 is B's first frozen rewording.",
-    "How ordering is tested differs between the proposal and the code: [[drift-screen-test]]. Discrimination is reported but has no pass mark yet: [[open-discrimination]]."
+    "Ordering is tested across cases with Page's test, as the proposal asks: [[screen-ordering-test]]. Discrimination is reported but has no pass mark yet: [[open-discrimination]]."
    ],
    "evidence": [
     {
@@ -3193,12 +3194,73 @@ a.ref:hover { background: var(--surface-2); }
      "rel": "part-of"
     },
     {
-     "to": "drift-screen-test",
+     "to": "screen-ordering-test",
      "rel": "involves"
     },
     {
      "to": "open-discrimination",
      "rel": "involves"
+    }
+   ]
+  },
+  {
+   "id": "screen-ordering-test",
+   "type": "decision",
+   "cluster": "measuring",
+   "title": "The screen tests ordering with Page's test across cases",
+   "label": "Ordering: Page's test",
+   "summary": "A judge passes the ordering check when, across all cases, its probability on the truth rises from P0 to P1 to P2 more consistently than chance would produce. Page's test turns this into one number and a p-value, and the judge is retained only if p is below 0.05. So a judge whose numbers carry no ordering passes at most 5% of the time.",
+   "date": "2026-10-12",
+   "points": [
+    "Each case counts once: its three values, each the mean over the four rotations, are ranked 1 to 3 and compared with the predicted order.",
+    "The rank correlation the proposal asks for is printed beside the test: +1 means every case in the predicted order, 0 no ordering, −1 every case reversed.",
+    "Unlike a per-case pass mark, it credits partial ordering: a judge that always puts the irrelevant report lowest but swaps P1 and P2 in half its cases still passes.",
+    "One case can never pass, since its best p is 1/6. So the one-case dry run excludes every judge, and n_eff reads as undefined there.",
+    "It replaces the code's earlier per-case rule, which the proposal did not state: [[drift-screen-test]]."
+   ],
+   "evidence": [
+    {
+     "file": "docs/decisions.md",
+     "loc": "The screen tests ordering with Page's test across cases",
+     "quote": "a judge passes the screen's ordering check when Page's test for ordered alternatives, with the cases as blocks and P0 < P1 < P2 as the predicted order, gives a one-sided p below 0.05"
+    },
+    {
+     "file": "docs/decisions.md",
+     "loc": "The screen tests ordering with Page's test across cases",
+     "quote": "excludes a judge that always puts the irrelevant report lowest but swaps P1 and P2 in half its cases, although its numbers clearly track informativeness"
+    },
+    {
+     "file": "docs/decisions.md",
+     "loc": "The screen tests ordering with Page's test across cases",
+     "quote": "With fewer than two cases no judge can pass, since one case gives at best p = 1/6"
+    },
+    {
+     "file": "pipeline/score.py",
+     "loc": "screen_verdict",
+     "quote": "Assessed across cases by a rank correlation and Page's test, not by inspection"
+    },
+    {
+     "file": "docs/proposal.pdf",
+     "loc": "p.18 §5",
+     "quote": "Rank correlation and a test for ordered alternatives, not inspection"
+    }
+   ],
+   "links": [
+    {
+     "to": "screen",
+     "rel": "needs"
+    },
+    {
+     "to": "proposal",
+     "rel": "because"
+    },
+    {
+     "to": "drift-screen-test",
+     "rel": "related"
+    },
+    {
+     "to": "neff",
+     "rel": "related"
     }
    ]
   },
@@ -4886,7 +4948,7 @@ a.ref:hover { background: var(--surface-2); }
    "cluster": "process",
    "title": "Keeping this graph current",
    "label": "This graph's update rule",
-   "summary": "This page is updated whenever a decision is made or an earlier one drifts. Agents follow CLAUDE.md: record the decision in docs/decisions.md, edit the JSON data, run the checker, add a changelog entry, and report what changed.",
+   "summary": "This page is updated whenever a decision is made or an earlier one drifts. Agents follow CLAUDE.md: record the decision in docs/decisions.md, edit the JSON data, sweep for anything else the change made stale, run the checker, add a changelog entry, and report what changed.",
    "weight": 2,
    "evidence": [
     {
@@ -4898,6 +4960,11 @@ a.ref:hover { background: var(--surface-2); }
      "file": "CLAUDE.md",
      "loc": "How to update it",
      "quote": "Run uv run python tools/check_graph.py and fix every error."
+    },
+    {
+     "file": "CLAUDE.md",
+     "loc": "How to update it, step 3",
+     "quote": "When an open or drift item is settled, sweep for staleness: every node, figure caption, README line, doc and code comment that still describes the old state is corrected in the same change."
     }
    ],
    "links": [
@@ -4909,6 +4976,9 @@ a.ref:hover { background: var(--surface-2); }
      "to": "status-board",
      "rel": "related"
     }
+   ],
+   "points": [
+    "The sweep covers what the checker cannot see: text hard-coded in the page's figures, as well as the README, docs and code comments. A figure's caption once kept describing the confidence screen's old rule after the code changed."
    ]
   },
   {
@@ -5179,11 +5249,10 @@ a.ref:hover { background: var(--surface-2); }
    "type": "issue",
    "cluster": "issues",
    "title": "How the screen tests ordering",
-   "label": "Screen test: proposal ≠ code",
-   "summary": "The proposal assesses ordering with a rank correlation and a test for ordered alternatives. The scorer instead checks, per case, that mean P(truth) strictly rises P0 < P1 < P2, and excludes a judge that fails on more than a third of cases.",
-   "status": "drift",
+   "label": "Screen test drift (settled)",
+   "summary": "Settled. The proposal assesses ordering with a rank correlation and a test for ordered alternatives. The scorer had instead required each case to rise strictly P0 < P1 < P2, and excluded a judge failing on more than a third of cases, a cut-off the proposal does not state. The code now follows the proposal: [[screen-ordering-test]].",
+   "status": "current",
    "date": "2026-10-12",
-   "visual": "versus",
    "evidence": [
     {
      "file": "docs/proposal.pdf",
@@ -5191,14 +5260,14 @@ a.ref:hover { background: var(--surface-2); }
      "quote": "Rank correlation and a test for ordered alternatives, not inspection"
     },
     {
-     "file": "pipeline/score.py",
-     "loc": "screen_verdict",
-     "quote": "must strictly increase P0 < P1 < P2 on the judge's own scale"
+     "file": "docs/decisions.md",
+     "loc": "The screen tests ordering with Page's test across cases",
+     "quote": "The code had instead required each case's values to rise strictly and excluded a judge failing on more than a third of cases, a cut-off the proposal does not state."
     },
     {
      "file": "pipeline/score.py",
      "loc": "screen_verdict",
-     "quote": "The judge is EXCLUDED from probability-based analyses only if it fails on more than a third of cases"
+     "quote": "the judge is EXCLUDED from probability-based analyses unless the one-sided p is below SCREEN_ALPHA"
     }
    ],
    "links": [
@@ -5213,6 +5282,10 @@ a.ref:hover { background: var(--surface-2); }
     {
      "to": "status-board",
      "rel": "part-of"
+    },
+    {
+     "to": "screen-ordering-test",
+     "rel": "related"
     }
    ]
   }
@@ -5242,6 +5315,28 @@ a.ref:hover { background: var(--surface-2); }
     "open-margin-threshold",
     "open-optional",
     "drift-screen-test"
+   ]
+  },
+  {
+   "date": "2026-10-12",
+   "summary": "Settled the screen drift: the scorer now tests ordering as the proposal says, with a rank correlation and Page's test across cases, replacing a per-case rule with an unstated one-third cut-off.",
+   "added": [
+    "screen-ordering-test"
+   ],
+   "changed": [
+    "screen",
+    "drift-screen-test"
+   ],
+   "closed": [
+    "drift-screen-test"
+   ]
+  },
+  {
+   "date": "2026-10-12",
+   "summary": "Added a staleness sweep to the update rule (CLAUDE.md step 3), since the checker cannot read figure text, and corrected the confidence-screen figure's caption, which still described the old per-case rule.",
+   "changed": [
+    "kg-rule",
+    "screen"
    ]
   }
  ]
@@ -5571,7 +5666,7 @@ const VISUALS = {
       ['P1 · narrows to two', 'The ME2103 lab logbook is worth less than a fifth of the final module grade.', '≈ 50', 62],
       ['P2 · names the answer', 'Source B’s first frozen rewording, which states the 15% outright.', 'high', 100]];
     return fig(`<div class="stair">${s.map(x => `<div style="width:${x[3]}%;min-width:62%"><b>${x[0]}</b> → P(truth) ${x[2]}<br><span style="color:var(--muted)">${esc(x[1])}</span></div>`).join('')}</div>`,
-      'One report each, no provenance, on case M1. A judge passes ordering if its probability on the truth rises P0 < P1 < P2 on its own scale.');
+      'One report each, no provenance, on case M1. A judge passes ordering if, across cases, its probability on the truth rises P0 < P1 < P2 more consistently than chance: Page’s test, one-sided p < 0.05.');
   },
   acceptance(n) {
     const steps = ['6 candidates', 'rubric: 4 flags', 'not a copy (≤ 0.70)', 'differs (≤ 0.50)', 'no leak', 'freeze'];

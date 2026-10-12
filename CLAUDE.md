@@ -21,22 +21,27 @@ Keep it true without being asked.
 **How to update it:**
 1. If the decision exists only in conversation, first record it in `docs/decisions.md` in
    that file's five-field format, so the graph has a file to cite.
-2. Edit only the JSON inside `<script id="kg-data" type="application/json">`. Never delete
-   a replaced decision: set `"status": "superseded"` and link the new node to it with
-   `"rel": "replaces"`. When an open or drift item is settled, set its status to `current`
-   and record it under `closed` in the changelog.
-3. Every node needs a plain-English `summary` and at least one `evidence` item whose `quote`
+2. Edit the JSON inside `<script id="kg-data" type="application/json">`. The page's figure
+   code, between `// VISUALS-START` and `// VISUALS-END`, changes only to correct stale
+   text. Never delete a replaced decision: set `"status": "superseded"` and link the new
+   node to it with `"rel": "replaces"`. When an open or drift item is settled, set its
+   status to `current` and record it under `closed` in the changelog.
+3. When an open or drift item is settled, sweep for staleness: every node, figure caption,
+   README line, doc and code comment that still describes the old state is corrected in
+   the same change. The checker cannot read figure text, so grep the figure code for the
+   old wording.
+4. Every node needs a plain-English `summary` and at least one `evidence` item whose `quote`
    is copied verbatim from a file in this repository. Link every term a reader must
    understand first with `"rel": "needs"`, until the node can be understood from the graph
    alone.
-4. Add a `changelog` entry: the date, a one-line summary, and the node ids added, changed,
+5. Add a `changelog` entry: the date, a one-line summary, and the node ids added, changed,
    superseded, opened and closed.
-5. Run `uv run python tools/check_graph.py` and fix every error. A quote that no longer
+6. Run `uv run python tools/check_graph.py` and fix every error. A quote that no longer
    matches its file means the source changed: re-read it, then update or supersede the
    node. `uv run pytest` runs the same check.
-6. End the reply with a short **Knowledge graph update** report: what was added, changed or
-   superseded, and which open or drift items were opened or closed. If nothing needed
-   updating, say so in one line.
+7. End the reply with a short **Knowledge graph update** report: what was added, changed or
+   superseded, which open or drift items were opened or closed, and what the staleness
+   sweep corrected. If nothing needed updating, say so in one line.
 
 After editing anything under `docs/`, `cases/`, `pipeline/` or the README, run the checker
 even if no decision changed: a broken quote is how drift is caught.

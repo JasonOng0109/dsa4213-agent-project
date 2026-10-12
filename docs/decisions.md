@@ -146,3 +146,30 @@ Add an entry when you make a choice a reader could not guess from the code.
   whether it held.
 - **Breaks if changed**: a judge that reasons unevenly across conditions confounds the
   condition contrasts the study exists to make.
+
+### 2026-10-12 — The screen tests ordering with Page's test across cases
+
+- **Decision**: a judge passes the screen's ordering check when Page's test for ordered
+  alternatives, with the cases as blocks and P0 < P1 < P2 as the predicted order, gives
+  a one-sided p below 0.05 (`pipeline/score.py`, `page_test`, `screen_verdict`). Each
+  case enters as its mean P(truth) over the four rotations. The p-value is exact, with
+  ties kept as midranks. The matching rank correlation, the mean Spearman correlation
+  between predicted and observed order, is printed beside it, with each case's values.
+- **Why** [STATED: proposal §5]: ordering is assessed by "Rank correlation and a test
+  for ordered alternatives, not inspection". The code had instead required each case's
+  values to rise strictly and excluded a judge failing on more than a third of cases, a
+  cut-off the proposal does not state. [INFERRED: from the design] Page's test is the
+  test for ordered alternatives when every block sees every level, as every case sees
+  all three here, and its L is a linear function of the mean Spearman correlation, so
+  one statistic gives both the correlation and the test. The proposal names no level;
+  0.05 one-sided is the conventional one.
+- **Rejected**: the per-case strict rule, which has no known false-pass rate and
+  excludes a judge that always puts the irrelevant report lowest but swaps P1 and P2 in
+  half its cases, although its numbers clearly track informativeness. The
+  Jonckheere-Terpstra test, which treats the three levels as independent groups and so
+  ignores that they are matched within a case. The four rotations of a case as separate
+  blocks: they share a case, so they are not independent and p would come out too small.
+- **Breaks if changed**: every probability-based analysis, n_eff included, is reported
+  only for retained judges, so this rule decides whose stated numbers count. With fewer
+  than two cases no judge can pass, since one case gives at best p = 1/6: the one-case
+  dry run excludes every judge and reports n_eff as undefined.

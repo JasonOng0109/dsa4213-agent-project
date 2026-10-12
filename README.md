@@ -320,8 +320,9 @@ provider, token usage and reasoning tokens.
 
 Stated probabilities count as evidence only for a judge that passes the **confidence
 screen**: *ordering*, where its stated P(truth) rises across an irrelevant report (P0),
-a report ruling out two options (P1) and a report naming the answer (P2); and
-*discrimination*, where its stated probability separates its correct decisions from its
+a report ruling out two options (P1) and a report naming the answer (P2), tested across
+cases with Page's test for ordered alternatives (one-sided p < 0.05, so it needs at
+least two cases); and *discrimination*, where its stated probability separates its correct decisions from its
 incorrect ones (AUROC, within condition). A judge that fails is reported as
 uninformative on confidence; its decisions still count.
 
