@@ -257,3 +257,89 @@ Three conditions carry extra weight:
 | X3 vs X4 vs X5 | dependence against quality | H4 |
 | X1 → X2 | a named source type alone | H5 |
 | abstention arm | acting on stated uncertainty | H6 |
+
+### Arms
+
+Reports are generated and frozen once, then reused verbatim in every arm. Each arm
+varies one thing on top of the conditions above (`pipeline/run.py`, `PROGRAMME`).
+
+| Arm | What it runs | Repeats | Judges | Cases |
+|---|---|---|---|---|
+| Short | all 13 conditions, accepted paraphrases alone | 6 agreement, 12 conflict | 3 primary | all |
+| Abstention | X1-X5 and A7, with a "cannot be determined from the evidence provided" option | 4 | 3 primary | all |
+| Confidence screen | 3 single-report trials of rising informativeness (below) | 4 rotations | 3 primary | all |
+| Length | X1-X5 and A1, A2 with each paraphrase set in authored filler: 88-96 words, longest at most 1.10 x shortest | 12 conflict, 6 for A1, A2 | Sonnet 5, GPT-5.4 | 10 |
+| Wording ladder | W1-W3: X5 with its quality statement softened to *somewhat*, *considerably*, *far* more reliable than the shared source | 12 | 3 primary | the same 10 |
+
+- **Length** crosses the conflict block, where H3 and H4 live, and A1, A2, where H2
+  lives: a larger A1 to A2 rise at long length would point to token volume, an equal
+  rise to redundancy as such.
+- **Abstention** is read against the same judge's abstention rate in A7, where three
+  independent sources agree, because models differ hugely in how readily they abstain.
+- **The wording ladder** is H4's defence: X5's wording is categorical, so a flip there
+  may be compliance. If the weaker rungs also move decisions, the judge is weighing
+  evidence.
+
+Presentation order, the slot holding the independent report, the truth's position among
+the options, the wrong claim's offset from it, and (long reports) where the operative
+sentence sits are **rotated on a fixed schedule, not shuffled**. Twelve repeats give
+exact balance over (slot, truth position) and (truth position, wrong offset).
+
+Optional sub-experiments, run in this order if budget allows and **not yet built**: a
+reasoning on/off comparison, a wording-robustness rerun with regenerated reports, a
+cross-check of stated against token probabilities on the two auxiliary models, and the
+independence index at long length.
+
+### Models
+
+| Role | Model |
+|---|---|
+| Reporter | `google/gemma-4-31b-it`: from a family no judge comes from |
+| Equivalence rater | Claude Sonnet 5, which is also a judge: a stated limitation |
+| Primary judges | Claude Sonnet 5, GPT-5.4, Claude Opus 5. Temperature 0, reasoning off, each pinned to one serving provider |
+| Auxiliary | Qwen 3.6 27B, Llama 4 Maverick: return token probabilities; used only in the optional cross-check |
+
+All access is through OpenRouter. Every trial record stores the model, the serving
+provider, token usage and reasoning tokens.
+
+### Measures, in order of weight
+
+1. **Decision against the world truth.** Primary; every claim rests on it.
+2. **Decision stability**: the share of a cell's repeats giving its most common answer.
+   Read against random answering at that repeat count (about 0.53 at 4 repeats, 0.47 at
+   6, 0.41 at 12), not against 0.25.
+3. **Stated probability**, within judge, as differences and ranks, never as a
+   calibrated quantity across judges.
+4. **Abstention rate**, within judge, against its own A7.
+
+Stated probabilities count as evidence only for a judge that passes the **confidence
+screen**: *ordering*, where its stated P(truth) rises across an irrelevant report (P0),
+a report ruling out two options (P1) and a report naming the answer (P2); and
+*discrimination*, where its stated probability separates its correct decisions from its
+incorrect ones (AUROC, within condition). A judge that fails is reported as
+uninformative on confidence; its decisions still count.
+
+### The independence index
+
+Independent evidence adds in log-odds. With $l(c)$ the logit of the judge's stated
+probability on the world truth in condition $c$:
+
+$$n_\text{eff}(c) = \frac{l(c) - l(A0)}{l(A1) - l(A0)}$$
+
+the number of independent sources the judge behaved as if it saw. Normatively
+$n_\text{eff}(A4) = 1$ (three reports, one source) and $n_\text{eff}(A7) = 3$ (three
+sources), so $n_\text{eff}(A4) - 1$ is credited independence that does not exist and
+$n_\text{eff}(A4) - n_\text{eff}(A6)$ is what a dependence statement claws back. It is
+undefined where one report moves the judge by less than 0.2 logits, an anomaly where it
+moves belief the wrong way, and reported only for judges that pass the screen.
+
+### What counts as support, fixed before any data
+
+| Comparison | Support | Clean null | A nuisance variable is driving it if |
+|---|---|---|---|
+| A1 → A4 (H1) | belief in the repeated claim rises in the same direction in most case-by-judge cells | no consistent direction | the rise appears in one domain only, or only at particular positions |
+| A2, A3, A4 (H2) | A3 and A4 exceed A2 and differ little from each other | all three within noise | the A1 → A2 effect is larger at long length than at short |
+| X1 → X3 (H3) | belief moves toward the truth while the decision rate is unchanged | neither moves | movement only where a mild content cue survives |
+| X3, X4, X5 (H4) | X4 and X5 change decisions where X3 does not | X4 and X5 behave like X3 | decisions change only under the strongest wording |
+| X1 → X2 (H5) | accuracy rises with a named source type alone | no change from X1 | the gain appears only for types matching a familiar real institution |
+| Abstention (H6) | abstention concentrates where stated probabilities do not identify the answer given | abstention flat across conditions, A7 included | one judge abstains everywhere or nowhere |
