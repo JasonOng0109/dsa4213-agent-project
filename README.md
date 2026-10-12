@@ -4,6 +4,9 @@ What provenance an LLM orchestrator needs to discount correlated agent reports.
 
 DSA4213 Natural Language Processing for Data Science, Group 14, Semester 1 AY2026/2027.
 
+New here? Open [`knowledge-graph.html`](knowledge-graph.html) in a browser: an interactive
+map of the whole project, where every statement links to the file it comes from.
+
 ## Research question
 
 > When several agents report the same claim, can an orchestrating LLM distinguish the
@@ -357,6 +360,9 @@ uv run python -m pipeline.run plan        # pre-flight call and cost estimate
 uv run python -m pipeline.run plan --cases 40    # ... for the full corpus
 ```
 
+The test suite also checks the knowledge graph (`tools/check_graph.py`). Quotes from PDFs
+are verified with `pdftotext` (poppler); without it they are skipped with a warning.
+
 The real steps spend money. Each needs the group's approval first, and each takes a hard
 call ceiling. Put the key in `.env` (copy `.env.example`; `.env` is git-ignored).
 
@@ -389,6 +395,8 @@ write to `runs/mock/`, which is ignored.
 
 ```
 README.md                 this file
+knowledge-graph.html      the project map; content is the JSON block near the end
+CLAUDE.md                 how agents keep the map current
 docs/
   proposal.pdf            the submitted proposal
   authoring-rules.md      how to write a case, and what a reviewer checks
@@ -405,6 +413,7 @@ pipeline/
   lint.py                 static checks on the cases
   run.py                  the command line and the programme
 tests/                    offline tests, plus a deliberately broken case fixture
+tools/check_graph.py      checks every quote in the map against its file
 runs/                     outputs of real runs (created by the first run)
 ```
 
