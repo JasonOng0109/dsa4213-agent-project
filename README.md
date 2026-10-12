@@ -343,3 +343,82 @@ moves belief the wrong way, and reported only for judges that pass the screen.
 | X3, X4, X5 (H4) | X4 and X5 change decisions where X3 does not | X4 and X5 behave like X3 | decisions change only under the strongest wording |
 | X1 → X2 (H5) | accuracy rises with a named source type alone | no change from X1 | the gain appears only for types matching a familiar real institution |
 | Abstention (H6) | abstention concentrates where stated probabilities do not identify the answer given | abstention flat across conditions, A7 included | one judge abstains everywhere or nowhere |
+
+## Running the study
+
+Needs [uv](https://docs.astral.sh/uv/). Nothing in this first block calls an API.
+
+```bash
+uv sync                                   # install requests and pytest into .venv
+uv run pytest                             # the test suite, with sockets disabled
+uv run python -m pipeline.lint            # check every case against the authoring rules
+uv run python -m pipeline.run dry         # the whole programme on the mock backend
+uv run python -m pipeline.run plan        # pre-flight call and cost estimate
+uv run python -m pipeline.run plan --cases 40    # ... for the full corpus
+```
+
+The real steps spend money. Each needs the group's approval first, and each takes a hard
+call ceiling. Put the key in `.env` (copy `.env.example`; `.env` is git-ignored).
+
+```bash
+uv run --env-file .env python -m pipeline.run balance       # the key's limit and usage
+uv run --env-file .env python -m pipeline.run probe         # do the models resolve? pinned providers? logprobs?
+uv run --env-file .env python -m pipeline.run generate --max-calls 120   # per case: 48 calls, at most 120
+# now read runs/frozen_reports.json by hand: cue survival, same denominator for A and B
+uv run --env-file .env python -m pipeline.run judge --max-calls 25000
+uv run python -m pipeline.score runs/trials.jsonl
+```
+
+`judge --arms conflict,abstain --log trials-1.jsonl` runs part of the programme into its
+own log; `pipeline.score` accepts several logs at once. A run stops itself on its call
+ceiling, a failed call, a pinned judge served by another provider, more than one parse
+failure in its first 50 trials, or a frozen report that fails the leak check.
+
+| Output in `runs/` | What it holds |
+|---|---|
+| `probe.json` | one call per model: provider, logprobs, errors |
+| `frozen_reports.json` | the accepted reports, with their acceptance scores |
+| `generation_report.json` | every candidate, accepted or the reason it was rejected; calls per source |
+| `generation_calls.jsonl` | every reporter and rater call |
+| `trials.jsonl` | one record per judge call: the trial, the raw reply, the parse, provider, usage |
+
+Real outputs are evidence: they are never overwritten, and they are committed. Dry runs
+write to `runs/mock/`, which is ignored.
+
+## Repository layout
+
+```
+README.md                 this file
+docs/
+  proposal.pdf            the submitted proposal
+  authoring-rules.md      how to write a case, and what a reviewer checks
+  decisions.md            why the code is the way it is, and where the pilot's files went
+related_works/            the papers in the related-work section
+cases/                    the corpus: one module per case, registered in __init__.py
+pipeline/
+  llm.py                  OpenRouter and mock backends
+  reporter.py             generation, acceptance filter, freezing
+  conditions.py           the conditions, the ladder, rotations, the screen
+  prompt.py               the judge prompt
+  judge.py                judge calls, reply parsing, trial records
+  score.py                the scorer
+  lint.py                 static checks on the cases
+  run.py                  the command line and the programme
+tests/                    offline tests, plus a deliberately broken case fixture
+runs/                     outputs of real runs (created by the first run)
+```
+
+## Status and open items
+
+- **Corpus: 1 of 40 cases.** M1 (institutional logistics, authority, T2). Authoring and
+  independent review are the critical path; see `docs/authoring-rules.md`.
+- **No real run has happened in this repository.** `runs/` fills from the first
+  `generate`.
+- **Open before the main run** (each recorded in `docs/decisions.md`):
+  - review the wording ladder's sentence, which no earlier document fixed;
+  - choose the ten cases for the length arm and the ladder (the code takes the first ten);
+  - set the discrimination check's pass mark and smallest usable class size;
+  - set the margin below which H6 counts a judge as indifferent (the proposal says "a
+    stated threshold"; none is stated yet; the margin itself is already logged).
+- **Not built**: the four optional sub-experiments. The backend already supports the
+  reasoning switch and token logprobs they need.
