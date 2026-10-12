@@ -49,14 +49,20 @@ def stability(rs: list[dict]) -> tuple:
 
 
 def cell(rs: list[dict]) -> dict:
+    """One judge x arm x case x condition cell. Rates are over the repeats that parsed:
+    a parse failure is excluded from decision denominators, never counted as wrong
+    (proposal §3). An abstention or an off-list answer (no_match) stays in."""
     n = len(rs)
+    n_fail = sum(1 for r in rs if r["parsing_status"] in PARSE_FAILURES)
+    valid = n - n_fail
+    rate = lambda hit: sum(1 for r in rs if hit(r)) / valid if valid else None
     stab, n_stab = stability(rs)
     return {
         "n": n,
-        "correct": sum(1 for r in rs if r["decision_correct"]) / n,
-        "abstain": sum(1 for r in rs if r["abstained"]) / n,
-        "no_match": sum(1 for r in rs if r["parsing_status"] == "no_match") / n,
-        "parse_fail": sum(1 for r in rs if r["parsing_status"] in PARSE_FAILURES),
+        "correct": rate(lambda r: r["decision_correct"]),
+        "abstain": rate(lambda r: r["abstained"]),
+        "no_match": rate(lambda r: r["parsing_status"] == "no_match"),
+        "parse_fail": n_fail,
         "p_truth": _mean(r["p_truth"] for r in rs),
         "p_majority": _mean(r["p_majority"] for r in rs),
         # top stated probability minus second: indifference, which coherence cannot see
@@ -66,6 +72,10 @@ def cell(rs: list[dict]) -> dict:
         "chance": 1 / len(rs[0]["answer_options"]),
         "factors": rs[0]["factors"],
     }
+
+
+def _rate(x) -> str:
+    return "n/a" if x is None else f"{x:.2f}"
 
 
 def _by_factor(cells: dict, **want) -> dict | None:
@@ -96,8 +106,8 @@ def report(records: list[dict]) -> None:
             x = cells[c]
             stab = ("n/a" if x["stability"] is None
                     else f"{x['stability']:.2f}(n={x['n_stability']})")
-            print(f"  {c:4s} {x['n']:3d} {x['chance']:6.2f} {x['correct']:7.2f} "
-                  f"{x['abstain']:7.2f} {x['no_match']:8.2f} {str(x['p_truth']):>8s} "
+            print(f"  {c:4s} {x['n']:3d} {x['chance']:6.2f} {_rate(x['correct']):>7s} "
+                  f"{_rate(x['abstain']):>7s} {_rate(x['no_match']):>8s} {str(x['p_truth']):>8s} "
                   f"{str(x['p_majority']):>6s} {str(x['margin']):>6s} {stab:>11s}"
                   + (f"  PARSE FAIL x{x['parse_fail']}" if x["parse_fail"] else ""))
         ladder = [(name, _by_factor(cells, conflict="2-vs-1", provenance_shown="none",
@@ -109,16 +119,17 @@ def report(records: list[dict]) -> None:
         if all(c for _, c in ladder):
             print("  -- X1 -> X3 -> X4 -> X5 (none, dependence, quality, both) --")
             for key in ("correct", "p_truth", "p_majority") + (("abstain",) if abst else ()):
-                rate = key in ("correct", "abstain")
+                is_rate = key in ("correct", "abstain")
                 print(f"  {key:10s}: " + " -> ".join(
-                    f"{c[key]:.2f}" if rate else str(c[key]) for _, c in ladder))
+                    _rate(c[key]) if is_rate else str(c[key]) for _, c in ladder))
             baseline = _by_factor(cells, conflict="no", sources=3)
-            if abst and baseline:
+            if abst and baseline and baseline["abstain"] is not None:
                 # within judge only, against this judge's own no-conflict cell, A7:
                 # propensity to abstain varies widely between models
                 base = baseline["abstain"]
                 print(f"  abstain delta vs own A7 ({base:.2f}): "
-                      + ", ".join(f"{n} {c['abstain'] - base:+.2f}" for n, c in ladder))
+                      + ", ".join(f"{n} {c['abstain'] - base:+.2f}" for n, c in ladder
+                                  if c["abstain"] is not None))
         print()
 
     excluded = set()

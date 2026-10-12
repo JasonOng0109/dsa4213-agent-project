@@ -39,6 +39,16 @@ def test_cell_carries_margin_and_stability():
     assert c["stability"] == 1.0 and c["n_stability"] == 2 and c["margin"] == 2.0
 
 
+def test_parse_failures_leave_decision_denominators():
+    """Two correct and one unparseable: 2/2 correct, not 2/3, and the failure is counted."""
+    c = cell([_rec("15%"), _rec("15%"), _rec(None, status="ambiguous")])
+    assert c["correct"] == 1.0 and c["parse_fail"] == 1 and c["n"] == 3
+    # an off-list answer is a decision, so it stays in, as an incorrect one
+    c = cell([_rec("15%"), _rec(None, status="no_match")])
+    assert c["correct"] == 0.5 and c["no_match"] == 0.5
+    assert cell([_rec(None, status="failed_fallback")])["correct"] is None
+
+
 def _cells(p_a0, p_a1, p_rest=85.0):
     return {c: {"p_truth": p_a0 if c == "A0" else p_a1 if c == "A1" else p_rest}
             for c in ("A0", "A1", "A4", "A6", "A7")}

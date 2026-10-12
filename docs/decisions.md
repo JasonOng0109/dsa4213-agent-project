@@ -82,3 +82,15 @@ Where the pilot's files went:
 - **Breaks if changed**: if a rung changes anything besides the intensity word, the
   ladder stops being a dose-response curve and H4's defence against "it only complied
   with an instruction" is lost.
+
+### 2026-10-12 — Parse failures are excluded from decision denominators
+
+- **Decision**: a cell's correct, abstain and off-list (`no_match`) rates are taken over
+  the repeats that parsed (`pipeline/score.py`, `cell`). Parse failures are counted and
+  printed beside the cell, never scored as wrong. An abstention or an off-list answer is
+  a response and stays in the denominator.
+- **Why** [STATED: proposal §3]: "Judge outputs that do not parse are logged with an
+  explicit parse-failure flag and excluded from decision denominators rather than
+  dropped silently or guessed." The pilot's scorer divided by every record.
+- **Breaks if changed**: a judge with more parse failures would look less accurate,
+  mixing an instrument failure into the measured behaviour.
