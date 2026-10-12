@@ -1,0 +1,11 @@
+# secrets
+.env
+
+# environments and caches
+.venv/
+__pycache__/
+.pytest_cache/
+.DS_Store
+
+# mock dry runs are scratch; real run outputs under runs/ are evidence and are committed
+runs/mock/
