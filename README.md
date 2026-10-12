@@ -62,3 +62,12 @@ Whose Facts Win? is why the first two effects we test are *expected* rather than
 Our version differs in three ways: repeated reports are independently generated
 paraphrases, decisions are scored against a known world truth, and the judges are
 frontier models.
+
+### Multi-agent aggregation
+
+| Paper | What it shows | Why it matters here |
+|---|---|---|
+| Multiagent debate, Du et al. 2023 ([pdf](related_works/multiagent-debate.pdf), arXiv 2305.14325) | Debate treats agreeing outputs as corroboration, with single-model accuracy as the baseline | Anchors belief from **one report**, and asks whether **distinct agent identities** add anything |
+| Minority Sentinel, He et al. 2026 ([pdf](related_works/minority-sentinel.pdf), arXiv 2606.29270) | In 2-vs-1 debate splits the majority can be wrong; a learned classifier decides when to overturn it | Motivates a **two-against-one** conflict baseline. Its correlation comes from agent errors; ours is built at the evidence source |
+| FREE-MAD, Cui et al. 2025 ([pdf](related_works/free-mad.pdf), arXiv 2509.11035) | An LLM judge aggregating agents is prone to conformity, effectively majority voting | Count is not weight. Its failure needs interaction; our agents never interact |
+| Peacemaker or Troublemaker, Yao et al. 2025 ([pdf](related_works/debate-sycophancy.pdf), arXiv 2509.23055) | Sycophancy pushes debates into premature consensus | False agreement from another direction, and a limitation to state: we study one aggregation step, not a whole pipeline |
