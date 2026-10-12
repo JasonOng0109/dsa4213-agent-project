@@ -6,8 +6,8 @@ import contextlib
 import io
 import math
 
-from pipeline.score import (cell, neff, report_neff, screen_verdict, stability,
-                            stability_chance)
+from pipeline.score import (auroc, cell, neff, report_discrimination, report_neff,
+                            screen_verdict, stability, stability_chance)
 
 OPTS = ["15%", "25%", "10%", "30%"]
 
@@ -103,3 +103,22 @@ def test_screen_exclusion_rule():
         == "EXCLUDED"
     assert screen_verdict({"M1": bad})[0] == "EXCLUDED"
     assert screen_verdict({"M1": ok})[0] == "retained"
+
+
+def test_auroc():
+    assert auroc([90, 80], [10, 20]) == 1.0          # confident only when right
+    assert auroc([10], [90]) == 0.0                  # confident only when wrong
+    assert auroc([50, 50], [50]) == 0.5              # ties carry no information
+    assert auroc([90], []) is None and auroc([], [10]) is None
+
+
+def test_discrimination_is_within_condition_on_the_short_arm():
+    def rec(cond, correct, conf, arm="short"):
+        return {"judge_model": "mock", "arm": arm, "condition": cond,
+                "decision_correct": correct, "confidence_elicited": conf}
+    records = [rec("X1", True, 80), rec("X1", False, 40), rec("X1", False, 60),
+               rec("A4", True, 95), rec("X1", True, 10, arm="long")]
+    with contextlib.redirect_stdout(io.StringIO()) as out:
+        report_discrimination(records)
+    line = out.getvalue()
+    assert "X1 1.00 (1/2)" in line and "A4 n/a (1/0)" in line

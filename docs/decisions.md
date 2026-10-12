@@ -121,3 +121,20 @@ Where the pilot's files went:
   said 0.25. Exact computation gives the value a simulation estimates.
 - **Breaks if changed**: against 0.25, a judge answering at random over four repeats
   (0.53) would look twice as stable as chance.
+
+### 2026-10-12 — The discrimination check is reported, with no pass mark yet
+
+- **Decision**: the scorer reports, per judge and condition on the short arm, the AUROC
+  of the stated probability of the chosen answer for correct against incorrect
+  decisions, with both class counts (`pipeline/score.py`, `report_discrimination`). It is
+  undefined only when a class is empty. It does not yet exclude any judge: only the
+  ordering check does.
+- **Why** [STATED: proposal §5]: a stated probability is admitted as evidence only if it
+  passes both ordering and discrimination, "each run and reported per judge whatever the
+  outcome", computed "within condition, since pooling across conditions would conflate a
+  judge's confidence with the manipulation itself". The pilot never built it. No
+  document fixes the AUROC a judge must reach, or the smallest class size worth
+  reporting, so neither is invented here. **Open: the team sets both before the main
+  run.**
+- **Breaks if changed**: pooled across conditions, a high AUROC would largely show that
+  the manipulation worked, not that the number tracks being right.

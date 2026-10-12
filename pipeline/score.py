@@ -168,8 +168,41 @@ def report(records: list[dict]) -> None:
         if verdict == "EXCLUDED":
             excluded.add(judge)
     print()
+    report_discrimination(records)
     report_neff(records, excluded)
     report_health(records)
+
+
+def auroc(correct: list[float], incorrect: list[float]) -> float | None:
+    """The chance that a random correct decision carries a higher stated probability than
+    a random incorrect one, ties counting half. 0.5 means the number carries no
+    information; below 0.5, the judge is more confident when wrong. None when either
+    class is empty."""
+    if not correct or not incorrect:
+        return None
+    wins = sum((a > b) + 0.5 * (a == b) for a in correct for b in incorrect)
+    return round(wins / (len(correct) * len(incorrect)), 3)
+
+
+def report_discrimination(records: list[dict]) -> None:
+    """The screen's second check (proposal §5): does the stated probability of the chosen
+    answer separate correct decisions from incorrect ones? Within condition, pooled across
+    cases and repeats, on the short arm, where every condition runs for every judge:
+    pooled across conditions it would mostly measure the manipulation itself. The class
+    counts are printed alongside, since a handful of trials in one class makes the number
+    meaningless. No pass mark is fixed yet, so this check does not exclude a judge."""
+    groups = defaultdict(lambda: defaultdict(lambda: ([], [])))
+    for r in records:
+        if r["arm"] == "short" and r.get("confidence_elicited") is not None:
+            groups[r["judge_model"]][r["condition"]][0 if r["decision_correct"] else 1] \
+                .append(r["confidence_elicited"])
+    for judge, conds in sorted(groups.items()):
+        parts = []
+        for c in sorted(conds, key=ORDER.index):
+            ok, bad = conds[c]
+            parts.append(f"{c} {_rate(auroc(ok, bad))} ({len(ok)}/{len(bad)})")
+        print(f"DISCRIMINATION judge {judge}: AUROC (n correct/incorrect) " + ", ".join(parts))
+    print()
 
 
 def _logit(p: float) -> float:
