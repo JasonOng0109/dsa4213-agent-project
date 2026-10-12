@@ -226,7 +226,7 @@ which combines two so their joint effect can be compared with each alone.
 flowchart LR
     subgraph agreement["Agreement block: belief"]
         A0 -- "one report" --> A1 -- "repeat it" --> A2 -- "split into messages" --> A3 -- "name three agents" --> A4 -- "add source ID" --> A5 -- "state dependence" --> A6
-        A4 -. "same count,<br/>three real sources" .- A7
+        A4 -.->|same count, three real sources| A7
     end
     subgraph conflict["Conflict block: decisions"]
         X1 -- "name the source type" --> X2
