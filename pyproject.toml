@@ -1,9 +1,9 @@
 [project]
-name = "counting-evidence"
+name = "dsa4213-grp-project"
 version = "0.1.0"
 description = "Can an LLM orchestrator discount correlated agent reports, and which disclosed provenance repairs it?"
 readme = "README.md"
-requires-python = ">=3.10"
+requires-python = ">=3.12, <3.13"
 dependencies = ["requests>=2.31"]
 
 [dependency-groups]
