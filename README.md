@@ -99,3 +99,61 @@ or quality, is unoccupied. And the fixes proposed so far each sit somewhere else
 | When Not to Write Memory, CAMA | **the system**: aggregate outside the model |
 | Minority Sentinel | **the debate log**: a classifier decides when to overturn the vote |
 | This project | **the message**: a statement about the specific reports shown, at inference |
+
+### Controls for other explanations
+
+| Paper | What it shows | The control it motivates |
+|---|---|---|
+| Explaining Length Bias, Hu et al. 2025 ([pdf](related_works/length-bias.pdf), arXiv 2407.01085) | Length wins only when it adds information: three copies of a response *lose* (50.0 to 13.0 on AlpacaEval) | Report **length** as a trial-level factor, and a cap on length differences within a trial |
+| Susceptibility to Influence, Griffin et al. 2023 ([pdf](related_works/llm-susceptibility.pdf), arXiv 2303.06074) | Prior exposure to a statement raises an LLM's later truthfulness rating | **Segmentation** into separate messages gets its own condition |
+
+### Correlation neglect
+
+The quantity we estimate is not new. Correlation neglect, failing to account for
+repetition in the information one receives, is formalised by DeMarzo, Vayanos and
+Zwiebel (*Persuasion bias, social influence, and unidimensional opinions*, QJE 118(3),
+2003) and shown experimentally by Enke and Zimmermann (*Correlation neglect in belief
+formation*, REStud 86(1), 2019), both for human decision makers. Measuring it in an LLM
+orchestrator, on a benchmark built so the quantity is identifiable, is the
+contribution. (Both are journal papers; no PDF is kept here.)
+
+## Hypotheses
+
+H1 and H2 restate effects that prior work already indicates, tested here in a harder
+setting. H3 to H6 are the study's own targets.
+
+| | Hypothesis | Status |
+|---|---|---|
+| H1 | Correlated repetition raises the orchestrator's confidence and can beat a single better-sourced report | Expected from prior work; tested with paraphrases and against ground truth |
+| H2 | The rise is driven by report redundancy and segmentation, not by distinct agent identities | Expected from prior work; tested under lexical non-identity |
+| H3 | Stating that two reports share a source shifts belief but does not change the decision | **Primary target** |
+| H4 | Stating relative source quality does change the decision | **Primary target**, with strength of wording as a factor |
+| H5 | Judges infer quality from named source types without being told | Secondary; calibrates against prior work |
+| H6 | Forced choice conceals a judge's belief state: where its stated probabilities do not identify the answer it gives (near indifference, or favouring another option), an explicit "cannot be determined" option will be taken when offered | **Primary target** |
+
+**Success** means that for each of H3, H4 and H6 the contrast either shows the predicted
+effect, consistent in direction across judges and cases, or rules it out. A null on H3
+is as useful as a confirmation: it tells builders a dependency flag alone does not
+repair aggregation. The project fails only if the instrument is uninterpretable:
+provenance leaking into report text, parse failures, or judges whose stated numbers
+carry no information and whose decisions are unstable.
+
+## Contribution
+
+The single claim the design is built to decide: **disclosure about sources changes what
+an aggregator believes, while only a statement of relative quality changes what it
+chooses.**
+
+1. **The disclosure dissociation.** Dependence, quality, and both, each stated per trial.
+2. **Belief versus choice.** A decision *and* a probability for every option, plus an
+   abstention arm, so a judge whose numbers disagree with its answer is visible.
+3. **Correlated evidence that deduplication does not remove.** Independently generated
+   paraphrases that pass an equivalence check and an overlap filter, with provenance
+   kept out of the text by construction and by a linter.
+4. **Frontier orchestrators**, with a reasoning on/off comparison as optional work.
+5. **A quantity, not only accuracy**: the number of independent sources the judge
+   behaved as if it saw.
+
+**What we will not claim**: that repeated weaker sources beating one stronger source is
+new, that splitting repetition into segmentation and identity is new, or that
+majority-following in LLMs is new. Each has a prior anchor above.
