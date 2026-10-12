@@ -157,3 +157,103 @@ chooses.**
 **What we will not claim**: that repeated weaker sources beating one stronger source is
 new, that splitting repetition into segmentation and identity is new, or that
 majority-following in LLMs is new. Each has a prior anchor above.
+
+## Design
+
+### Task and cases
+
+The orchestrator answers a factual question from one to three agent reports, choosing
+among **four options** and giving a probability for every option. Each case fixes:
+
+- a **world truth**, and three strong, independent sources **B, C, D** that support it;
+- one weak source **A** whose claim is wrong;
+- **two distractors**: plausible values no source supports.
+
+So the options are the truth, A's claim and the two distractors, and every question is
+open-valued (a yes/no question cannot carry distractors). All entities are fictional.
+Cases cover three domains (institutional logistics, product specifications, incident or
+status reports), and source quality is carried by one of four dimensions (authority,
+directness, method, primary-source status). How cases are written is in
+[`docs/authoring-rules.md`](docs/authoring-rules.md).
+
+### Two agent roles and the pipeline
+
+A **reporter** turns one source into report text; it sees the source's content only,
+never who produced it. An orchestrating **judge** reads the reports and decides.
+Everything before the judge is generated and frozen once, so the only thing that differs
+between conditions is what the judge is shown.
+
+```mermaid
+flowchart LR
+    case["Case file<br/>truth, 4 sources<br/>statically linted"] --> rep["Reporter<br/>6 candidates per round"]
+    rep --> acc["Acceptance filter<br/>equivalence, overlap, leak"]
+    acc --> frz["Frozen report set"]
+    frz --> cond["Condition builder<br/>13 conditions per case"]
+    cond --> prm["Prompt renderer<br/>fixed template, rotated order"]
+    prm --> jdg["Judge<br/>decision + probability per option"]
+    jdg --> log["JSONL trial log"] --> scr["Scorer"]
+```
+
+### Two blocks, thirteen conditions
+
+The **agreement block** (A0 to A7) repeats the strong source B, so all reports support the
+truth; it measures **belief**. The **conflict block** (X1 to X5) sets two paraphrases of
+weak A against one report from strong B, so counting reports gives the wrong answer; it
+measures **decisions**. Every condition is a factor vector, stored in each trial record,
+so analysis groups by factor rather than by name.
+
+| ID | reports | messages | agents | sources | conflict | provenance shown | dependence stated | quality stated |
+|---|---|---|---|---|---|---|---|---|
+| A0 | 0 | 0 | 0 | 0 | no | none | no | no |
+| A1 | 1 | 1 | 1 | 1 | no | none | no | no |
+| A2 | 3 | 1 | 1 | 1 | no | none | no | no |
+| A3 | 3 | 3 | 1 | 1 | no | none | no | no |
+| A4 | 3 | 3 | 3 | 1 | no | none | no | no |
+| A5 | 3 | 3 | 3 | 1 | no | opaque ID | no | no |
+| A6 | 3 | 3 | 3 | 1 | no | opaque ID | yes | no |
+| A7 | 3 | 3 | 3 | 3 | no | none | no | no |
+| X1 | 3 | 3 | 3 | 2 | 2-vs-1 | none | no | no |
+| X2 | 3 | 3 | 3 | 2 | 2-vs-1 | named type | no | no |
+| X3 | 3 | 3 | 3 | 2 | 2-vs-1 | none | yes | no |
+| X4 | 3 | 3 | 3 | 2 | 2-vs-1 | none | no | yes |
+| X5 | 3 | 3 | 3 | 2 | 2-vs-1 | none | yes | yes |
+
+In the agreement block each step changes exactly one factor. The conflict block is a
+hub: each condition adds one kind of information to the opaque baseline X1, except X5,
+which combines two so their joint effect can be compared with each alone.
+
+```mermaid
+flowchart LR
+    subgraph agreement["Agreement block: belief"]
+        A0 -- "one report" --> A1 -- "repeat it" --> A2 -- "split into messages" --> A3 -- "name three agents" --> A4 -- "add source ID" --> A5 -- "state dependence" --> A6
+        A4 -. "same count,<br/>three real sources" .- A7
+    end
+    subgraph conflict["Conflict block: decisions"]
+        X1 -- "name the source type" --> X2
+        X1 -- "state dependence" --> X3
+        X1 -- "state quality" --> X4
+        X3 -- "and quality" --> X5
+        X4 -- "and dependence" --> X5
+    end
+```
+
+Three conditions carry extra weight:
+
+- **A0** shows the question with no reports. It gives the judge's prior, the origin of
+  the independence index, and a sanity check: with four options it should sit near 25%.
+- **A6 and X3 disclose dependence differently, on purpose.** A6 states it on top of the
+  identifier A5 introduced, because the agreement ladder adds one element at a time. X3
+  states it with no identifier, so X1 against X3 measures the statement alone; it names
+  agents, not sources, so it needs no identifier.
+- **X1** is the opaque conflict baseline: two reworded reports of the weak source against
+  one report of the strong one, nothing else said.
+
+| Contrast | What it isolates | Hypothesis |
+|---|---|---|
+| A1 → A4 | correlated repetition | H1 |
+| A1 → A2 → A3 → A4 | token volume, segmentation, agent identity, one at a time | H2 |
+| A4 vs A7 | true independence at equal report count | H2 |
+| X1 → X3 | a dependence statement alone | H3 |
+| X3 vs X4 vs X5 | dependence against quality | H4 |
+| X1 → X2 | a named source type alone | H5 |
+| abstention arm | acting on stated uncertainty | H6 |
