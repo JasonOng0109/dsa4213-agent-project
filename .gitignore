@@ -6,6 +6,7 @@
 __pycache__/
 .pytest_cache/
 .DS_Store
+.vscode
 
 # mock dry runs are scratch; real run outputs under runs/ are evidence and are committed
 runs/mock/
