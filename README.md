@@ -37,3 +37,15 @@ Any orchestrator-plus-workers deployment that aggregates reported evidence: rese
 assistants that fan out sub-queries, triage systems that poll several tools, debate
 frameworks that pool agent answers. All of them hand the aggregator reports whose
 dependence structure is invisible in the text.
+
+## Related work
+
+Papers live in [`related_works/`](related_works/); the proposal's §2 has the full
+discussion and the reference list.
+
+### Where the study sits
+
+| Paper | What it gives us |
+|---|---|
+| Knowledge conflicts survey, Xu et al. 2024 ([pdf](related_works/knowledge-conflicts-survey.pdf), arXiv 2403.08319) | The name of our setting: **inter-context conflict**. The conflict is between pieces of supplied evidence, not between evidence and what the model already believes. |
+| ClashEval, Wu et al. 2024 ([pdf](related_works/clasheval.pdf), arXiv 2404.10198) | The neighbouring case, context against the model's prior: models adopt wrong retrieved content over correct prior knowledge more than 60% of the time. We remove that axis on purpose by using **fictional entities** throughout. |
