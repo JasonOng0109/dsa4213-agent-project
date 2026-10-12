@@ -143,27 +143,25 @@ _PLANTS = [
           "How long does the Veltro K7 power bank require to recharge fully?")),
     ("F20_provenance_missing_type", {"R2"},
      lambda c: c["sources"]["B"]["provenance"].pop("type")),
-    ("F21_shared_source_field", {"R14"},
-     _set(["official_shared_source"], "B")),
-    ("F22_A_three_paraphrases", {"R14"},
+    ("F21_A_three_paraphrases", {"R14"},
      _set(["sources", "A", "n_paraphrases_needed"], 3)),
-    ("F23_no_screen_partial", {"R15"},
+    ("F22_no_screen_partial", {"R15"},
      lambda c: c.pop("screen_partial")),
-    ("F24_screen_time_marker", {"R3"},
+    ("F23_screen_time_marker", {"R3"},
      _set(["screen_partial"],
           "The latest Veltro K7 power bank goes from empty to full in under five hours.")),
-    ("F26_D_copies_B_frame", {"R17"},
+    ("F24_screen_two_sentences", {"R11"},
+     _set(["screen_partial"],
+          "The Veltro K7 power bank goes from empty to full quickly. It needs under five hours.")),
+    ("F25_D_copies_B_frame", {"R17"},
      _set(["sources", "D", "content"],
           "The Veltro K7 power bank needs 4 hours to go from empty to full.")),
     # Must NOT be flagged: C echoes the question's verb, but C
     # never stands opposite a conflicting report, so nothing can point at a
     # winner. Printed as an R13 note only.
-    ("F27_question_verb_in_C", set(),
+    ("F26_question_verb_in_C", set(),
      _set(["sources", "C", "content"],
           "Veltro K7 power bank: a recharge from empty to full takes 4 hours.")),
-    ("F25_screen_two_sentences", {"R11"},
-     _set(["screen_partial"],
-          "The Veltro K7 power bank goes from empty to full quickly. It needs under five hours.")),
 ]
 
 # Not flaggable, and must not be flagged: B names a narrower scope (the

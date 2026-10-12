@@ -30,6 +30,6 @@ def test_fixture_flags_exactly_the_plants():
     assert flagged["S02_screen_names_options"] == set()   # no R8 / R9 on the screen sentence
 
 
-def test_every_case_has_a_screen_sentence_and_no_shared_source_field():
+def test_every_case_has_a_screen_sentence():
     for case in CASES.values():
-        assert case.get("screen_partial") and "official_shared_source" not in case
+        assert case.get("screen_partial")

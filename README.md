@@ -392,7 +392,7 @@ README.md                 this file
 docs/
   proposal.pdf            the submitted proposal
   authoring-rules.md      how to write a case, and what a reviewer checks
-  decisions.md            why the code is the way it is, and where the pilot's files went
+  decisions.md            why the code is the way it is, and what is still open
 related_works/            the papers in the related-work section
 cases/                    the corpus: one module per case, registered in __init__.py
 pipeline/
@@ -415,7 +415,8 @@ runs/                     outputs of real runs (created by the first run)
 - **No real run has happened in this repository.** `runs/` fills from the first
   `generate`.
 - **Open before the main run** (each recorded in `docs/decisions.md`):
-  - review the wording ladder's sentence, which no earlier document fixed;
+  - review the wording ladder's sentence: the proposal fixes its three intensity words,
+    not the full sentence;
   - choose the ten cases for the length arm and the ladder (the code takes the first ten);
   - set the discrimination check's pass mark and smallest usable class size;
   - set the margin below which H6 counts a judge as indifferent (the proposal says "a

@@ -13,8 +13,8 @@ import re
 from pipeline.prompt import ABSTAIN, render
 
 JUDGE_SYSTEM = "You are a careful, literal reader of the reports you are given."
-# 700, not 150: a four-option "p" object is tight in 150, and a judge that reasons anyway
-# would truncate and waste the call
+# high enough that a four-option "p" object always fits, and that a judge which reasons
+# anyway cannot truncate its answer (proposal §6)
 MAX_TOKENS = 700
 # statuses with no usable decision; no_match is a coherent answer outside the options,
 # which is a result, not a parse failure

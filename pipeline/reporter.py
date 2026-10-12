@@ -74,9 +74,9 @@ structure or wording; say the same thing a genuinely different way):
 {prior}
 """
 
-# One overall 0-100 score saturates (15 of 16 candidates at 1.00 on M1's first run), so
-# the threshold never binds. Four booleans, each a separate reason to reject, plus a
-# score kept for ranking.
+# One overall 0-100 score saturates -- a strict rater gives almost every faithful-looking
+# candidate 100 -- so a threshold on it never binds. Four booleans, each a separate reason
+# to reject, plus a score kept for ranking.
 RUBRIC_PROMPT = """RUBRIC CHECK. You are checking whether a candidate report faithfully
 restates a source statement. Judge each point strictly and literally.
 Rewording, reordering and changes of grammatical form are fine; any change

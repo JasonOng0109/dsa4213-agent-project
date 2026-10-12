@@ -66,8 +66,8 @@ def test_unparseable_rating_rejects():
 
 
 def test_ties_break_toward_diversity():
-    """Real reporter candidates for M1/A, all rated 1.00. Taking them in generation order
-    would freeze the first: the source sentence with one word changed."""
+    """Four candidates for M1/A, all rated 1.00. Taking them in generation order would
+    freeze the first: the source sentence with one word changed."""
     cands = [
         "The ME2103 lab logbook counts for 25% of the final module grade.",
         "The lab logbook for ME2103 constitutes 25% of the final grade for the module.",
@@ -80,7 +80,7 @@ def test_ties_break_toward_diversity():
 
 
 def test_cross_source_backstop():
-    """A real collision: D1 against an accepted B1 overlapped 0.61. With B1 in `avoid`,
+    """A near copy across sources: D1 overlaps an accepted B1 at 0.61. With B1 in `avoid`,
     that D candidate is refused and a distinct one taken instead."""
     b1 = "Fifteen percent of the final grade for the ME2103 module is derived from the lab logbook."
     d1 = "Fifteen percent of the final grade for module ME2103 is derived from the lab logbook."

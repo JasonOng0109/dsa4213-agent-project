@@ -14,49 +14,14 @@ Add an entry when you make a choice a reader could not guess from the code.
 
 ---
 
-### 2026-10-12 — This repository replaces the pilot codebase
-
-- **Decision**: the study runs from this repository, rebuilt from the pilot directory
-  `smoke_test/` to follow the submitted proposal (`docs/proposal.pdf`). One protocol
-  only: the pilot's v1 and v2 cases, conditions and code paths are not carried over, and
-  M1, the pilot's only case in the current schema, is the first case. No pilot output is
-  copied: frozen reports, trial logs and probes are regenerated here.
-- **Why** [STATED: request of 2026-10-12]: the pilot kept three protocol generations
-  side by side under version-suffixed names (`cases_v3.py`, `run_v3.py`), with no
-  version history.
-- **Rejected**: copying the pilot's frozen M1 reports and its Stage A log. They came
-  from code this repository no longer runs, and the pilot already classes Stage A as
-  instrumentation, not evidence.
-- **Breaks if changed**: mixing pilot outputs with outputs of this code puts two code
-  versions under one analysis.
-
-Where the pilot's files went:
-
-| Pilot (`smoke_test/`) | Here |
-|---|---|
-| `cases_v3.py` | `cases/m1.py`, registered in `cases/__init__.py` |
-| `docs/AUTHORING-RULES.md` | `docs/authoring-rules.md` |
-| `llm_backend.py`, `router_credit_check.py` | `pipeline/llm.py` |
-| `generate_reports.py` | `pipeline/reporter.py` |
-| `build_conditions.py` | `pipeline/conditions.py` |
-| `judge_prompt.py` | `pipeline/prompt.py` |
-| `run_judge.py` | `pipeline/judge.py` |
-| `score_report.py` | `pipeline/score.py` |
-| `lint_cases.py` | `pipeline/lint.py` |
-| `run_v3.py` | `pipeline/run.py` |
-| `tests/`, `test_openrouter_backend.py` | `tests/` |
-| `related_works/<arXiv id>.pdf` | `related_works/<short name>.pdf` |
-| `cases.py`, `cases_v2.py`, `run_smoke_test.py`, `archive/` | not carried over (v1/v2) |
-
 ### 2026-10-12 — Long reports are held to 88-96 words
 
 - **Decision**: every long report is 88 to 96 words, and the longest in a trial is at
   most 1.10 times the shortest (`pipeline/conditions.py`, `LONG_WORDS`, `LONG_MATCH`).
-  The pilot's code still checked 88 to 100.
 - **Why** [STATED: proposal §4.1]: "long reports of 88 to 96 words, with the longest
-  report in a trial at most 1.10 times the shortest ... 96 divided by 88 is 1.091". A
-  band reaching 100 permits 100 / 88 = 1.14, which the cap forbids. Decided in the
-  pilot on 2026-09-28 and never applied to its code.
+  report in a trial at most 1.10 times the shortest ... 96 divided by 88 is 1.091". The
+  band and the cap agree: a band reaching 100 would permit 100 / 88 = 1.14, which the
+  cap forbids.
 - **Rejected**: 88-100 with a 1.15 cap, which loosens the constraint that stops length
   standing in for provenance.
 - **Breaks if changed**: a wider band lets one report in a trial be noticeably longer
@@ -73,9 +38,8 @@ Where the pilot's files went:
 - **Why** [STATED: proposal §4.1]: "Three rungs vary only an intensity phrase, from
   somewhat to considerably to far more reliable than the shared source, turning the
   ladder into a dose-response curve with the categorical wording as its ceiling." The
-  pilot moved the ladder into the main programme on 2026-09-28 but never built it, and
-  no document fixes its exact sentence. **The sentence above is new and needs the
-  team's review before the main run.**
+  proposal fixes the three intensity words but not the full sentence around them, so
+  **the sentence above needs the team's review before the main run.**
 - **Rejected**: rungs on X4 (quality without dependence). "Than the shared source"
   presupposes that the shared source has been identified, and the proposal names X5's
   wording as the ceiling.
@@ -91,7 +55,7 @@ Where the pilot's files went:
   a response and stays in the denominator.
 - **Why** [STATED: proposal §3]: "Judge outputs that do not parse are logged with an
   explicit parse-failure flag and excluded from decision denominators rather than
-  dropped silently or guessed." The pilot's scorer divided by every record.
+  dropped silently or guessed."
 - **Breaks if changed**: a judge with more parse failures would look less accurate,
   mixing an instrument failure into the measured behaviour.
 
@@ -99,12 +63,14 @@ Where the pilot's files went:
 
 - **Decision**: where `w = l(A1) - l(A0)` is negative, n_eff is not computed; the cell is
   reported as an anomaly and counts toward the judge's undefined rate
-  (`pipeline/score.py`, `neff`). Where `|w| < 0.2` logits it stays undefined, as before.
-- **Why** [STATED: pilot decision of 2026-09-28]: "a negative `w` is reported as an
-  anomaly rather than used". The shared source supports the truth, so a judge whose
-  belief in the truth falls after one supporting report is behaving strangely, and an
-  index computed on that unit would come out inverted. The pilot decided this but its
-  scorer only checked `|w| < 0.2`, so a negative `w` beyond -0.2 was still used.
+  (`pipeline/score.py`, `neff`). Where `|w| < 0.2` logits it is undefined.
+- **Why** [INFERRED: from proposal §4.2]: the index "requires the repeated evidence to
+  support the truth", which is why the agreement block always repeats the strong source.
+  One report of that source should therefore raise belief in the truth. A judge whose
+  belief falls instead has a backwards unit, and every value divided by it would come
+  out inverted.
+- **Rejected**: guarding only `|w| < 0.2`, which would still divide by a large negative
+  step.
 - **Breaks if changed**: an inverted unit turns correlation neglect into its opposite
   for that cell, silently.
 
@@ -117,8 +83,8 @@ Where the pilot's files went:
 - **Why** [STATED: proposal §5]: "The floor is not the 0.25 chance of any single option,
   because the measure takes the largest of four counts: under random answering the
   expected value is about 0.41 at twelve repeats, 0.47 at six and 0.53 at four, so the
-  base-line is simulated per repeat count rather than assumed." The pilot's spec still
-  said 0.25. Exact computation gives the value a simulation estimates.
+  base-line is simulated per repeat count rather than assumed." Exact computation gives
+  the value a simulation estimates.
 - **Breaks if changed**: against 0.25, a judge answering at random over four repeats
   (0.53) would look twice as stable as chance.
 
@@ -132,10 +98,9 @@ Where the pilot's files went:
 - **Why** [STATED: proposal §5]: a stated probability is admitted as evidence only if it
   passes both ordering and discrimination, "each run and reported per judge whatever the
   outcome", computed "within condition, since pooling across conditions would conflate a
-  judge's confidence with the manipulation itself". The pilot never built it. No
-  document fixes the AUROC a judge must reach, or the smallest class size worth
-  reporting, so neither is invented here. **Open: the team sets both before the main
-  run.**
+  judge's confidence with the manipulation itself". The proposal fixes neither the AUROC
+  a judge must reach nor the smallest class size worth reporting, so neither is set
+  here. **Open: the team sets both before the main run.**
 - **Breaks if changed**: pooled across conditions, a high AUROC would largely show that
   the manipulation worked, not that the number tracks being right.
 
@@ -147,13 +112,13 @@ Where the pilot's files went:
   arm (X1-X5 at 12 repeats, A1 and A2 at 6) with Sonnet 5 and GPT-5.4 only; and the
   wording ladder at 12 repeats with all three judges. `plan` prices it at the proposal's
   per-call rates and, at 40 cases, reproduces the proposal's 21,720 calls and $37.48.
-- **Why** [STATED: proposal §5, "Run plan and cost"]. The pilot's runner was built for
-  its one-case Stage A (6 repeats throughout, length arm on the conflict block only, no
-  ladder) and had no pre-flight estimate.
+- **Why** [STATED: proposal §5, "Run plan and cost"]: one table is the single place the
+  repeat counts, judges and case scope live, so the plan, the dry run and the real run
+  cannot disagree.
 - **Open**: the length arm and the ladder run on "10 of the 40 cases", the same ten for
-  both, but no document says which ten. The code takes the first ten in corpus order
-  (`subset`). **The team should choose the ten deliberately**, for example spread across
-  domains, dimensions and tiers, and order `cases/__init__.py` to match.
+  both, but the proposal does not say which ten. The code takes the first ten in corpus
+  order (`subset`). **The team should choose the ten deliberately**, for example spread
+  across domains, dimensions and tiers, and order `cases/__init__.py` to match.
 - **Breaks if changed**: the repeat counts carry the rotation balance: 12 gives every
   (truth position, wrong-claim offset) pairing once in the conflict block, and 4 gives
   every truth position once in the abstention arm.
@@ -164,8 +129,8 @@ Where the pilot's files went:
   accepted report contains a word of its source's type description or an invented
   attribution (`pipeline/run.py`, `check_frozen`). The dry run applies the same check.
 - **Why** [STATED: proposal §3]: "A leak check over the frozen reports runs before any
-  judging, and a failed check blocks the run." The pilot checked candidates at selection
-  time only, so a frozen file edited afterwards was never re-checked.
+  judging, and a failed check blocks the run." Candidates are already checked when they
+  are selected; this second check also catches a frozen file edited afterwards.
 - **Breaks if changed**: a leak in one report would let a judge read provenance in an
   opaque condition, invalidating every comparison that condition enters.
 
@@ -173,9 +138,11 @@ Where the pilot's files went:
 
 - **Decision**: `judge` sends `reasoning: {"enabled": false}` unless told otherwise
   (`--reasoning`), and logs reasoning tokens on every trial.
-- **Why** [STATED: pilot run log, 2026-09-27]: omitting the field let Claude Sonnet 5
-  reason on conflict trials only, which makes it a different instrument in one block
-  than another; the explicit `{"enabled": false}` gave 0 reasoning tokens, and a zero
-  token budget did not. The pilot made the flag mandatory while this was unsettled.
+- **Why** [STATED: proposal §6]: "Frontier judges may reason adaptively even when
+  reasoning is not requested, and may do so unevenly across conditions, which would make
+  a judge a different instrument in one block than in another. Reasoning tokens are
+  logged per trial, suppression is attempted explicitly". Omitting the field is not an
+  explicit attempt, so the default sends one, and the logged reasoning tokens show
+  whether it held.
 - **Breaks if changed**: a judge that reasons unevenly across conditions confounds the
   condition contrasts the study exists to make.

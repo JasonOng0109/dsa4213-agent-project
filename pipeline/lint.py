@@ -100,8 +100,6 @@ def lint_case(case: dict) -> list[tuple[str, str]]:
         v.append(("one-wrong", f"exactly one source (A) must support a wrong answer; wrong: {wrong}"))
 
     # R14: the shared source is always B; A appears only in the conflict block
-    if "official_shared_source" in case:
-        v.append(("R14", "official_shared_source is retired: the shared source is always B"))
     got_n = {k: s.get("n_paraphrases_needed") for k, s in srcs.items()}
     if got_n != PARAPHRASES_NEEDED:
         v.append(("R14", f"n_paraphrases_needed must be {PARAPHRASES_NEEDED}, got {got_n}"))

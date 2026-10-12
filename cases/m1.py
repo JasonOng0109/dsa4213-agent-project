@@ -14,8 +14,8 @@ CASE = {
         "The ME2103 lab logbook is worth less than a fifth of the final module grade."
     ),   # screen level P1: true, keeps the truth, rules out 25% and 30%
     "quality_dimension": "authority",
-    "difficulty_tier": "T2",            # the register cue does not survive paraphrasing:
-                                        # both accepted A paraphrases drop the second person
+    "difficulty_tier": "T2",            # the register cue is a second-person pronoun,
+                                        # which paraphrasing drops (R16)
     "design_notes": (
         "A and B state the same proposition with different values, in one sentence each, "
         "naming the same denominator, with no reference to any change or to each other. "
