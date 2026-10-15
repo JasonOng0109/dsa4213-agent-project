@@ -48,7 +48,7 @@ def test_each_entry_builds_only_its_conditions_and_arm(frozen):
 
 def test_dry_run_end_to_end(tmp_path):
     _, out = _quiet(run.main, ["dry", "--out", str(tmp_path)])
-    assert "684 trials logged" in out and "0 parse failures" in out
+    assert "1368 trials logged" in out and "0 parse failures" in out
     for section in ("SCREEN judge", "LADDER judge", "DISCRIMINATION judge", "N_EFF judge",
                     "HEALTH judge"):
         assert section in out, section
@@ -85,12 +85,12 @@ def _generate(tmp_path, max_calls=1000):
 
 def test_generate_writes_outputs_and_never_overwrites(tmp_path, router):
     _, out = _generate(tmp_path)
-    assert "48 calls. Stopped: None" in out
+    assert "96 calls. Stopped: None" in out
     report = json.load(open(tmp_path / "generation_report.json"))
-    assert report["calls"] == 48 and report["reporter"] == f"openrouter:{run.REPORTER}"
+    assert report["calls"] == 96 and report["reporter"] == f"openrouter:{run.REPORTER}"
     assert all(s["status"] == "OK" for s in report["sources"].values())
     calls = [json.loads(line) for line in open(tmp_path / "generation_calls.jsonl")]
-    assert len(calls) == 48 and {c["role"] for c in calls} == {"reporter", "rater"}
+    assert len(calls) == 96 and {c["role"] for c in calls} == {"reporter", "rater"}
     with pytest.raises(SystemExit, match="exists"):
         _generate(tmp_path)
 
@@ -102,13 +102,13 @@ def test_generate_stops_at_the_ceiling(tmp_path, router):
 
 
 def _judge(tmp_path, *extra):
-    return _quiet(run.main, ["judge", "--out", str(tmp_path), "--max-calls", "1000", *extra])
+    return _quiet(run.main, ["judge", "--out", str(tmp_path), "--max-calls", "1500", *extra])
 
 
 def test_judge_runs_the_programme_with_pins_and_reasoning_off(tmp_path, router):
     _generate(tmp_path)
     _, out = _judge(tmp_path)
-    assert "684 trials logged" in out and "stopped: None" in out
+    assert "1368 trials logged" in out and "stopped: None" in out
     recs = [json.loads(line) for line in open(tmp_path / "trials.jsonl")]
     assert recs[0]["judge_model"] != recs[1]["judge_model"]          # interleaved
     assert {r["reasoning_param"] == {"enabled": False} for r in recs} == {True}
