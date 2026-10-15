@@ -330,5 +330,8 @@ def freeze_sources(cases: dict, reporter, rater):
             result = generate_and_freeze(src, case["question"], src["n_paraphrases_needed"],
                                          reporter, rater,
                                          avoid=co_occurring_accepted(frozen_case, key))
+            pads = getattr(reporter, "pads", None)     # only the mock has it
+            if pads and pads(src["content"]):
+                result["padded"] = True
             frozen_case[key] = result
             yield case_id, key, result

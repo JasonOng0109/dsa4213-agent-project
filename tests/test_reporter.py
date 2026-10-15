@@ -128,3 +128,11 @@ def test_mock_freezes_every_m1_source_in_one_round():
     for _, key, res in results:
         assert res["sufficient"] and res["rounds_needed"] == 1, key
         assert len(res["accepted"]) == M1["sources"][key]["n_paraphrases_needed"]
+
+
+def test_only_sources_without_hand_written_mock_rewordings_are_padded():
+    """M1's sentences are in the mock's table, so their reports are realistic lengths and
+    keep the length check; a sentence the table lacks gets the padded relay."""
+    results = list(freeze_sources({"M1": M1}, MockBackend(), MockBackend()))
+    assert not any(res.get("padded") for _, _, res in results)
+    assert MockBackend().pads("A sentence no case has written yet.")

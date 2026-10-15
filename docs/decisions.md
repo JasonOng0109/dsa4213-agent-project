@@ -210,3 +210,22 @@ Add an entry when you make a choice a reader could not guess from the code.
   place of a warning, since the content's length only estimates a paraphrase's length.
 - **Breaks if changed**: a set below 77 words can push a long report under 88, and the
   length arm stops on that case after its reports have been paid for.
+
+### 2026-10-15 — The dry run skips the length check for padded mock rewordings
+
+- **Decision**: when the mock has no hand-written rewordings of a source's sentence
+  (`MockBackend.pads` in `pipeline/llm.py`), that source's frozen result is marked
+  `padded`, and `pipeline/conditions.py` does not length-check long reports built from
+  it. Generation prints which cases were skipped. Real reporters never mark a result.
+- **Why** [INFERRED: from a dry run of M3]: the mock's fallback wraps the sentence in a
+  fixed lead-in and tail, so M3's fake rewordings were 21-29 words. With R20's 78-word
+  filler the dry run failed at 99 words, while the 67-word filler that passed it would
+  give 77-82-word reports in the real run. No filler length passed both, so the dry run
+  was measuring the padding, not the case. The real check still runs in the real run,
+  and fixing filler there costs nothing: filler is added after rewording, so the paid
+  reports are reused. Jason chose this over per-case mock rewordings.
+- **Rejected**: hand-written mock rewordings for every case, as M1 has (seven sentences
+  per case, written into pipeline code by each author); a shorter fallback wrapper,
+  which cannot give B three rewordings under the 0.50 pairwise overlap limit.
+- **Breaks if changed**: without the skip, every new case must either break R20 to pass
+  the dry run or fail it.
