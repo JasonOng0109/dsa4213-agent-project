@@ -22,7 +22,8 @@ import os
 from typing import NamedTuple
 
 from pipeline.conditions import (ABSTAIN_ARM, AGREEMENT_BLOCK, CONFLICT_BLOCK, LADDER,
-                                 SCREEN_LEVELS, build_repeat, build_screen, rotation_schedule)
+                                 LONG_AGREEMENT, SCREEN_LEVELS, build_repeat, build_screen,
+                                 rotation_schedule)
 from pipeline.judge import PARSE_FAILURES, run_trials, write_jsonl
 from pipeline.llm import MockBackend, OpenRouterBackend, key_status
 from pipeline.reporter import attribution_in, freeze_sources, leak_terms, leaks_in
@@ -68,7 +69,7 @@ PROGRAMME = [
     Entry("screen", "screen", list(SCREEN_LEVELS), 4, PRIMARY_JUDGES, False),
     # the length arm crosses the conflict block (H3, H4) and A1, A2 (H2)
     Entry("long-conflict", "long", CONFLICT_BLOCK, 12, LENGTH_JUDGES, True),
-    Entry("long-agreement", "long", ["A1", "A2"], 6, LENGTH_JUDGES, True),
+    Entry("long-agreement", "long", LONG_AGREEMENT, 6, LENGTH_JUDGES, True),
     Entry("ladder", "ladder", LADDER, 12, PRIMARY_JUDGES, True),
 ]
 

@@ -8,7 +8,7 @@ import pytest
 
 from cases import CASES
 from pipeline.conditions import (CONFLICT_BLOCK, CUE_POSITIONS, FACTORS, LADDER, LONG_MATCH,
-                                 LONG_WORDS,
+                                 LONG_WORDS, LONG_ARM,
                                  build_conditions, build_repeat, build_screen,
                                  check_long_lengths, embed_in_filler, rotation_schedule)
 
@@ -114,6 +114,24 @@ def test_short_paraphrase_fails_loudly(m1):
         build_conditions("M1", CASE, short, random.Random(1), length="long",
                          cue_position="start")
     build_conditions("M1", CASE, short, random.Random(1))  # short reports are fine
+
+
+def test_only_conditions_the_length_arm_runs_are_length_checked(m1):
+    """A7 (B, C, D) is built long but never judged long, so a 97-word A7 report does not
+    stop the build; the same report in the conflict block does."""
+    assert "A7" not in LONG_ARM
+    over = " ".join(["word"] * 16) + " 15%."             # 17 words + 80 of filler = 97
+    in_a7 = copy.deepcopy(m1)
+    in_a7["C"]["accepted"][0]["text"] = over
+    trials = build_conditions("M1", CASE, in_a7, random.Random(1), length="long",
+                              cue_position="start")
+    a7 = next(t for t in trials if t["condition"] == "A7")
+    assert max(len(r["text"].split()) for r in a7["reports"]) == 97
+    in_conflict = copy.deepcopy(m1)
+    in_conflict["A"]["accepted"][0]["text"] = over
+    with pytest.raises(ValueError, match="off target"):
+        build_conditions("M1", CASE, in_conflict, random.Random(1), length="long",
+                         cue_position="start")
 
 
 def test_padded_mock_reports_skip_the_length_check(m1):
