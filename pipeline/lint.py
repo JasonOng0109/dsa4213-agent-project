@@ -1,8 +1,9 @@
 """
 Static checks on case files, no API calls (proposal §3). Every rule marked [lint] in
 docs/authoring-rules.md is checked here; every violation is printed, and the exit code
-is non-zero if there is any. Set-level counts (tier, dimension, domain) are printed,
-never asserted. Specificity asymmetry is NOT checked: no script can see it.
+is non-zero if there is any. R20 (filler length) is a warning only: it never fails.
+Set-level counts (tier, dimension, domain) are printed, never asserted. Specificity
+asymmetry is NOT checked: no script can see it.
 
     python -m pipeline.lint                       # the corpus in cases/
     python -m pipeline.lint tests.leaky_cases     # must fail: see tests/test_lint.py
@@ -15,7 +16,7 @@ import sys
 from collections import Counter
 
 # one implementation of each check, imported, so lint and the pipeline cannot disagree
-from pipeline.conditions import base_options
+from pipeline.conditions import LONG_WORDS, base_options
 from pipeline.reporter import CO_OCCURRING_PAIRS, _words, leak_terms, word_ngram_jaccard
 
 # Matched case-insensitively against A's and B's content, filler and the screen sentence.
@@ -209,6 +210,26 @@ def r13_notes(case: dict) -> list[str]:
             for w in sorted(q) if 0 < sum(w in per_src[k] for k in "BCD") < 3]
 
 
+def length_notes(case: dict) -> list[str]:
+    """R20, printed, not enforced: a long report is one filler set plus a paraphrase of
+    A or B (the only sources the length arm uses), estimated here by the content's
+    length, and must land in the 88-96-word band (docs/decisions.md). The real reports
+    are checked when the length arm is built."""
+    lo, hi = LONG_WORDS
+    srcs = case.get("sources", {})
+    sizes = [len(srcs[k].get("content", "").split()) for k in "AB" if k in srcs]
+    if not sizes:
+        return []
+    notes = []
+    for i, fs in enumerate(case.get("filler_sets", [])):
+        n = sum(len(sent.split()) for sent in fs)
+        if n + min(sizes) < lo or n + max(sizes) > hi:
+            notes.append(f"filler_sets[{i}] is {n} words; with {min(sizes)}-{max(sizes)}-word "
+                         f"content its long reports are {n + min(sizes)}-{n + max(sizes)} "
+                         f"words, outside {lo}-{hi}")
+    return notes
+
+
 def lint(cases: dict) -> list[tuple[str, str, str]]:
     """Prints every violation and the set-level counts; returns (case, rule, message)."""
     out = []
@@ -219,6 +240,8 @@ def lint(cases: dict) -> list[tuple[str, str, str]]:
         if sorted(case.get("sources", {})) == ["A", "B", "C", "D"]:
             for note in r13_notes(case):
                 print(f"  [{cid}] R13 note (not enforced): {note}")
+        for note in length_notes(case):
+            print(f"  [{cid}] R20 warning (not enforced): {note}")
         for key, src in case.get("sources", {}).items():
             if src.get("provenance", {}).get("type") and "content" in src:
                 terms = leak_terms(src, case["question"])

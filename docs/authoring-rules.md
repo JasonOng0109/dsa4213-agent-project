@@ -22,7 +22,7 @@ who produced a source and how good it is, which the reporter model never sees.
 | `quality_dimension` | `authority`, `directness`, `method` or `primary_source` |
 | `difficulty_tier` | `T1` if a mild content cue survives paraphrasing, `T2` if the pair is near-symmetric |
 | `design_notes` | the author's reasoning, for the reviewer |
-| `filler_sets` | exactly three lists of filler sentences, one per report slot (R12) |
+| `filler_sets` | exactly three lists of filler sentences, one per report slot (R12), each 77 to 80 words (R20) |
 | `sources` | exactly `A` (weak, wrong claim) and `B`, `C`, `D` (strong, the truth) |
 
 Each source holds `quality`, `claim`, `content`, `n_paraphrases_needed` and
@@ -164,6 +164,14 @@ dimension the case is built on.
 
 The test: strip the content and show only the two type names. Would a reader prefer one?
 If not, the case cannot serve H5; mark it as testing the other hypotheses only.
+
+**R20 — Each filler set is 77 to 80 words.** A long report is one filler set plus one
+reworded A or B sentence, and every long report must be 88 to 96 words, with the longest
+in a trial at most 1.10 times the shortest (`docs/decisions.md`). With an 11-to-15-word
+sentence, a 77-to-80-word set lands inside the band. A set outside that range pushes
+reports out of it, and the length arm refuses to build them. Count each whole set, not
+each sentence. **[lint]** prints a warning, not a violation, when a set plus A's or B's
+content falls outside 88 to 96 words.
 
 ---
 
