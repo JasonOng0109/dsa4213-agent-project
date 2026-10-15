@@ -42,8 +42,8 @@ CASE = {
             "workshop is used.",
         ],
         [
-            "Safety induction is required before anyone may work in the basement "
-            "workshop.",
+            "Safety induction is required before anyone may work with the machines in the "
+            "basement workshop.",
             "Laboratory coats and eye protection are provided at the workshop entrance, "
             "and bags are left on the racks outside the working area.",
             "Apparatus faults are reported to the demonstrator on duty rather than to "
@@ -56,8 +56,8 @@ CASE = {
         [
             "ME2103 is a second-year module administered by the mechanical engineering "
             "department, and its laboratory sessions are held in the basement workshop.",
-            "Session lists are posted at the workshop entrance and at the general "
-            "office.",
+            "Session lists and bench numbers are posted at the workshop entrance and at "
+            "the general office.",
             "Equipment for each experiment is set out before the session and returned "
             "to the store afterwards.",
             "Students work in pairs, and each student keeps a logbook of their own.",
