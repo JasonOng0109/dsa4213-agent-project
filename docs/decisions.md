@@ -194,3 +194,19 @@ Add an entry when you make a choice a reader could not guess from the code.
 - **Breaks if changed**: below 5, one case decides the pilot's screen verdict. The
   minimum depends on the level: a stricter level needs more cases
   (`tests/test_score.py` pins it at 5 for 0.05).
+
+### 2026-10-15 — Filler sets are 77 to 80 words, and the linter warns when they are not
+
+- **Decision**: each filler set is 77 to 80 words (`docs/authoring-rules.md`, R20), and
+  `pipeline/lint.py` (`length_notes`) prints a warning, not a violation, when a set plus
+  A's or B's content falls outside the 88-96-word band.
+- **Why** [INFERRED: from the case files' word counts]: the band is checked only when the
+  length arm is built (`check_long_lengths` in `pipeline/conditions.py`), after reports
+  have been generated, and the authoring steps did not mention it. M3's 65-word sets
+  would give 77-80-word reports, and M1's 76-word sets with B's 11-word sentence gave 87.
+  A 77-80-word set around an 11-15-word sentence lands at 88-95. Jason chose 77-80 over
+  76-78 in review for the margin.
+- **Rejected**: 76-78 words, which lets an 11-word sentence fall to 87; a violation in
+  place of a warning, since the content's length only estimates a paraphrase's length.
+- **Breaks if changed**: a set below 77 words can push a long report under 88, and the
+  length arm stops on that case after its reports have been paid for.

@@ -1731,7 +1731,7 @@ a.ref:hover { background: var(--surface-2); }
    "id": "authoring-rules",
    "type": "design",
    "cluster": "cases",
-   "title": "Authoring rules R1–R19",
+   "title": "Authoring rules R1–R20",
    "summary": "The rules every case must pass. The author checks them, an independent reviewer checks them again, and the linter checks the parts a script can see.",
    "weight": 2,
    "aliases": [
@@ -1845,14 +1845,15 @@ a.ref:hover { background: var(--surface-2); }
    "type": "design",
    "cluster": "cases",
    "title": "Rules for filler and long reports",
-   "label": "Filler rules (R9–R12)",
-   "summary": "Long reports wrap the key sentence in neutral filler. Filler must not touch the question (R9), must not hint at who wrote it (R10); each report has one key sentence placed by the code (R11); and filler belongs to the report slot, not the source (R12).",
+   "label": "Filler rules (R9–R12, R20)",
+   "summary": "Long reports wrap the key sentence in neutral filler. Filler must not touch the question (R9), must not hint at who wrote it (R10); each report has one key sentence placed by the code (R11); and filler belongs to the report slot, not the source (R12); and each filler set is 77 to 80 words, so a long report lands in the 88–96-word band (R20).",
    "visual": "filler",
    "aliases": [
     "R9",
     "R10",
     "R11",
-    "R12"
+    "R12",
+    "R20"
    ],
    "points": [
     "Why R12 matters: if filler followed the source, the two reports from the shared source would carry identical padding and give away that they share a source."
@@ -1867,6 +1868,11 @@ a.ref:hover { background: var(--surface-2); }
      "file": "pipeline/conditions.py",
      "loc": "build_conditions",
      "quote": "Report i goes in slot i and gets filler set i -- by SLOT, never by source"
+    },
+    {
+     "file": "docs/authoring-rules.md",
+     "loc": "R20",
+     "quote": "R20 — Each filler set is 77 to 80 words."
     }
    ],
    "links": [
@@ -1881,6 +1887,10 @@ a.ref:hover { background: var(--surface-2); }
     {
      "to": "author-reviewer",
      "rel": "related"
+    },
+    {
+     "to": "long-band",
+     "rel": "needs"
     }
    ]
   },
@@ -2718,7 +2728,7 @@ a.ref:hover { background: var(--surface-2); }
    "cluster": "conditions",
    "title": "Long reports are held to 88–96 words",
    "label": "88–96 words",
-   "summary": "Every long report is 88 to 96 words, and the longest in a trial is at most 1.10 times the shortest. The two limits agree: 96 / 88 = 1.091, so a band reaching 100 would allow a ratio the cap forbids.",
+   "summary": "Every long report is 88 to 96 words, and the longest in a trial is at most 1.10 times the shortest. The two limits agree: 96 / 88 = 1.091, so a band reaching 100 would allow a ratio the cap forbids. Each filler set is 77 to 80 words (R20), so filler plus one 11–15-word sentence lands in the band.",
    "date": "2026-10-12",
    "evidence": [
     {
@@ -2740,6 +2750,59 @@ a.ref:hover { background: var(--surface-2); }
     {
      "to": "rules-filler",
      "rel": "related"
+    },
+    {
+     "to": "filler-length",
+     "rel": "related"
+    }
+   ]
+  },
+  {
+   "id": "filler-length",
+   "type": "decision",
+   "cluster": "cases",
+   "title": "Filler sets are 77 to 80 words, with a lint warning",
+   "label": "Filler 77–80 words",
+   "summary": "Each filler set is 77 to 80 words, so a long report (filler plus one reworded A or B sentence of 11 to 15 words) lands at 88 to 95 words. Before this, nothing told authors the length; M3's sets were 65 words and two of M1's were one word short. The linter now warns, but does not fail, because a sentence's length only estimates its rewording's length.",
+   "date": "2026-10-15",
+   "aliases": [
+    "R20",
+    "filler length"
+   ],
+   "evidence": [
+    {
+     "file": "docs/decisions.md",
+     "loc": "Filler sets are 77 to 80 words",
+     "quote": "Filler sets are 77 to 80 words, and the linter warns when they are not"
+    },
+    {
+     "file": "docs/decisions.md",
+     "loc": "Filler sets are 77 to 80 words",
+     "quote": "A 77-80-word set around an 11-15-word sentence lands at 88-95."
+    },
+    {
+     "file": "docs/authoring-rules.md",
+     "loc": "R20",
+     "quote": "With an 11-to-15-word sentence, a 77-to-80-word set lands inside the band."
+    },
+    {
+     "file": "docs/work-plan.md",
+     "loc": "1.7 Write the filler",
+     "quote": "each filler set about 77–80 words (R20), so that a long report (filler"
+    }
+   ],
+   "links": [
+    {
+     "to": "long-band",
+     "rel": "needs"
+    },
+    {
+     "to": "rules-filler",
+     "rel": "part-of"
+    },
+    {
+     "to": "linter",
+     "rel": "involves"
     }
    ]
   },
@@ -4271,7 +4334,7 @@ a.ref:hover { background: var(--surface-2); }
    "cluster": "pipeline",
    "title": "Case linter (pipeline/lint.py)",
    "label": "Case linter",
-   "summary": "A free, offline check of every case file before any money is spent: leak phrases, option rules, provenance words in content, and R17 overlap. It prints problems; it does not replace human review.",
+   "summary": "A free, offline check of every case file before any money is spent: leak phrases, option rules, provenance words in content, and R17 overlap. It also warns, without failing, when filler and a sentence would make a long report the wrong length (R20). It prints problems; it does not replace human review.",
    "aliases": [
     "linter",
     "pipeline.lint"
@@ -4286,6 +4349,11 @@ a.ref:hover { background: var(--surface-2); }
      "file": "docs/authoring-rules.md",
      "loc": "The rules",
      "quote": "Run it after every edit to a case, and before asking for review:"
+    },
+    {
+     "file": "pipeline/lint.py",
+     "loc": "length_notes",
+     "quote": "R20, printed, not enforced: a long report is one filler set plus a paraphrase of"
     }
    ],
    "links": [
@@ -5822,6 +5890,19 @@ a.ref:hover { background: var(--surface-2); }
    ],
    "opened": [
     "open-pilot-scope"
+   ]
+  },
+  {
+   "date": "2026-10-15",
+   "summary": "Added rule R20: each filler set is 77 to 80 words, so long reports land in the 88–96-word band. The authoring steps had not mentioned the band; M3's filler sets were 65 words and two of M1's were one word short. The linter now warns when a set plus A's or B's sentence falls outside the band, and the runner tests take their totals from the plan, so adding a case changes no test.",
+   "added": [
+    "filler-length"
+   ],
+   "changed": [
+    "authoring-rules",
+    "rules-filler",
+    "linter",
+    "long-band"
    ]
   },
   {

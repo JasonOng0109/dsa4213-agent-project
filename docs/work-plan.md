@@ -218,10 +218,13 @@ Same steps for each author. Replace `m2` with your case.
 - **Do**: three lists of five neutral sentences, as in M1.
 - **Rules**: R9 (never mention or hint at any option), R10 (no "you", no "this
   announcement", one plain style), R12 (three sets, never tied to a source).
+- **Length**: each filler set about 77–80 words (R20), so that a long report (filler
+  plus one reworded A or B sentence) lands in 88–96 words. The linter prints an R20
+  warning when it does not.
 
 **1.8 Lint until clean.**
 - **Do**: `uv run python -m pipeline.lint`. Fix every violation. Run again.
-- **Done when**: `0 violation(s)`.
+- **Done when**: `0 violation(s)` and no `R20 warning` lines.
 
 **1.9 Do the checks no script can do.**
 - **Read**: "Checks no script performs", at the end of `docs/authoring-rules.md`.
