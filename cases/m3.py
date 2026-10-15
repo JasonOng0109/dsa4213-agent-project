@@ -15,34 +15,51 @@ CASE = {
     "design_notes": (
         "A and B describe the same basin-wide water depth with identical scope and "
         "precision, differing only in value and a mild directness cue (R1, R2). "
-        "A's clause-level hedge ('is understood to stand at') survives paraphrasing, "
-        "while B states a direct measurement (R16). Source type names distinguish "
-        "off-site relay from on-site physical measurement (R19). All claims are fictional (R4), "
-        "without time markers (R3). B, C, and D use distinct sentence frames (R17). "
+        "A's clause-level hedge ('is understood to stand at') survives paraphrasing."
+        "Source type names distinguish off-site relay from on-site physical measurement (R19)."
+        "All claims are fictional (R4), without time markers (R3). B, C, and D use distinct sentence frames (R17)."
         "Filler is neutral and assigned by report slot, not source (R9-R12). "
-        "Each long report lands tightly between 88 and 96 words (R10, R12)."
+        "Each long report lands tightly between 88 and 96 words (R20)."
     ),
-"filler_sets": [
+    "filler_sets": [
         [
-            "Intake screen cleaners on the lower spillway run continuously through designated tracks during normal operations.",
-            "Perimeter fencing along the north bank remains secured around the main access corridor at all times.",
-            "Overflow bypass conduits remain on standby with their connecting valves secured.",
-            "Sediment basins across the upper canal show routine settling within partitioned bays.",
-            "Access gates at the service slipway remain locked beside the walkway.",
+            # 11 words
+            "Intake screen cleaners on the lower spillway run through designated tracks.",
+            # 11 words
+            "Perimeter fencing along the north bank remains secured around the access corridor.",
+            # 14 words
+            "Auxiliary overflow bypass conduits operate in standard standby posture with their connecting valves secured.",
+            # 15 words
+            "Sediment collection basins across the upper canal show routine settling patterns within their partitioned bays.",
+            # 15 words
+            "Access barrier gates at the service slipway remain locked beside the walkway for maintenance crews.",
+            # Total slot 0 = 67 words
         ],
         [
-            "Primary spillway sluice mechanisms stay set to standard positions in the operating assembly during routine operations.",
-            "Turbidity stations along the inlet channel report regular clarity across sampling points.",
-            "Perimeter road patrols proceed on normal schedules along the marked outer pathway.",
-            "Surface aeration pumps across the settling pond maintain constant operation through the manifold.",
-            "Upstream intake screens show normal flow with no debris around the grilles.",
+            # 13 words
+            "Primary spillway sluice mechanisms stay set to standard positions within the operating assembly.",
+            # 14 words
+            "Turbidity monitoring stations along the inlet channel report regular flow clarity across sampling points.",
+            # 13 words
+            "Perimeter access road patrols proceed on normal operating schedules along the outer pathway.",
+            # 14 words
+            "Surface aeration pumps across the settling pond maintain constant operation through the distribution manifold.",
+            # 13 words
+            "Upstream intake screens show normal flow with no debris accumulation around the grilles.",
+            # Total slot 1 = 67 words
         ],
         [
-            "Secondary drainage channels below the embankment remain clear throughout the maintenance area during normal operations.",
-            "Water treatment chemical lines operate within standard pressure limits across the supply network.",
-            "Emergency pump generators stay connected on automatic standby in the utility enclosure.",
-            "Embankment vegetation control proceeds along the maintenance sector beside the perimeter track.",
-            "Inlet canal baffle plates show steady movement through the culvert and flow passages.",
+            # 14 words
+            "Secondary drainage channels below the embankment remain clear of obstructions throughout the maintenance area.",
+            # 14 words
+            "Water treatment chemical feed lines operate within standard pressure limits across the supply network.",
+            # 13 words
+            "Emergency pump generators stay connected on automatic standby within the utility equipment enclosure.",
+            # 13 words
+            "Channel embankment vegetation control proceeds along the maintenance sector beside the perimeter track.",
+            # 13 words
+            "Inlet canal baffle plates show fluid movement through the culvert and flow passages.",
+            # Total slot 2 = 67 words
         ],
     ],
     "sources": {
@@ -67,7 +84,7 @@ CASE = {
                 "quality": "strong",
                 "why": "direct measurement read from the physical staff gauge fixed inside the basin",
             },
-            "content": "The water depth of the Star Reservoir basin measures at 14 metres.",
+            "content": "The Star Reservoir basin contains fourteen metres of water depth.",
             "n_paraphrases_needed": 3,
         },
         "C": {
