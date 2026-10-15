@@ -220,7 +220,8 @@ Same steps for each author. Replace `m2` with your case.
   announcement", one plain style), R12 (three sets, never tied to a source).
 - **Length**: each filler set about 77–80 words (R20), so that a long report (filler
   plus one reworded A or B sentence) lands in 88–96 words. The linter prints an R20
-  warning when it does not.
+  warning when it does not. The practice run does not check your case's length (it
+  says "Long-report length not checked"), so go by the R20 warning.
 
 **1.8 Lint until clean.**
 - **Do**: `uv run python -m pipeline.lint`. Fix every violation. Run again.

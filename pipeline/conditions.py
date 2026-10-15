@@ -159,7 +159,10 @@ def build_conditions(case_id: str, case: dict, frozen_case: dict, rng: random.Ra
                         "filler_set": i if length == "long" else None,
                         "agent_label": labels[i],
                         "provenance_id": prov_ids[i] if prov_ids else None})
-        if length == "long":
+        # a mock's padded rewordings are not a reporter's length (MockBackend.pads); the
+        # lint's R20 warning estimates those cases instead
+        if length == "long" and not any(frozen_case[r["source_key"]].get("padded")
+                                        for r in reps):
             check_long_lengths(case_id, out)
         return out
 
