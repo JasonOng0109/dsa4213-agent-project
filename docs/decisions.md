@@ -251,3 +251,19 @@ Add an entry when you make a choice a reader could not guess from the code.
 - **Breaks if changed**: a wider length limit in the reporter, or filler sized nearer
   the band's edges, lets an accepted rewording push a long report out of 88-96, and the
   length arm stops on that case.
+
+### 2026-10-15 — Only the conditions the length arm runs are length-checked
+
+- **Decision**: `LONG_ARM` in `pipeline/conditions.py`, the conflict block plus A1 and A2,
+  names the conditions run at long length, and `pipeline/run.py` takes its long entries
+  from the same names. `build_conditions` still builds every condition at long length,
+  but length-checks only the reports used by a condition in `LONG_ARM`.
+- **Why** [INFERRED: from M1 built with every rewording 3 words longer]: A7 (B, C and D)
+  was built and checked at long length and then never judged. M1's 14-word C sentence
+  reworded 3 words longer made a 97-word A7 report and stopped the build, although R20
+  and the reporter's length limit allow that rewording. Checking only what is run makes
+  R20's guarantee hold without any rule on C's and D's lengths.
+- **Rejected**: extending R20 to C and D, so that all four sentences are within 2 words
+  of each other, which asks authors to fit a trial that is never run long.
+- **Breaks if changed**: a condition added to the length arm but not to `LONG_ARM` would
+  go unchecked; `tests/test_run.py` fails when the two disagree.

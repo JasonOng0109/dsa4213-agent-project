@@ -50,6 +50,8 @@ AGREEMENT_BLOCK = ["A0", "A1", "A2", "A3", "A4", "A5", "A6", "A7"]
 CONFLICT_BLOCK = ["X1", "X2", "X3", "X4", "X5"]
 LADDER = ["W1", "W2", "W3"]
 ABSTAIN_ARM = CONFLICT_BLOCK + ["A7"]   # A7: the judge's own no-conflict baseline
+LONG_AGREEMENT = ["A1", "A2"]
+LONG_ARM = CONFLICT_BLOCK + LONG_AGREEMENT   # the conditions the length arm runs long
 
 # Screen levels: one report each, no provenance, no note. The shared factors are A1's
 # (one report, one source); `informativeness` is what the screen varies.
@@ -146,9 +148,11 @@ def build_conditions(case_id: str, case: dict, frozen_case: dict, rng: random.Ra
     if wrong_offset_agreement is None:
         wrong_offset_agreement = wrong_offset
 
-    def place(reps, labels, prov_ids=None):
+    def place(reps, labels, prov_ids=None, used_by=()):
         """Report i goes in slot i and gets filler set i -- by SLOT, never by source
-        (R12), so two reports of one source never share padding."""
+        (R12), so two reports of one source never share padding. `used_by` names the
+        conditions built from these reports; only those the length arm runs are
+        length-checked, since the others are built long and never judged."""
         out = []
         for i, r in enumerate(reps):
             text = r["text"]
@@ -161,8 +165,8 @@ def build_conditions(case_id: str, case: dict, frozen_case: dict, rng: random.Ra
                         "provenance_id": prov_ids[i] if prov_ids else None})
         # a mock's padded rewordings are not a reporter's length (MockBackend.pads); the
         # lint's R20 warning estimates those cases instead
-        if length == "long" and not any(frozen_case[r["source_key"]].get("padded")
-                                        for r in reps):
+        if (length == "long" and set(used_by) & set(LONG_ARM)
+                and not any(frozen_case[r["source_key"]].get("padded") for r in reps)):
             check_long_lengths(case_id, out)
         return out
 
@@ -177,10 +181,11 @@ def build_conditions(case_id: str, case: dict, frozen_case: dict, rng: random.Ra
 
     shared_claim = case["sources"][SHARED_SOURCE]["claim"]
     trials = [trial("A0", [])]
-    trials.append(trial("A1", place(_reports_for(frozen_case, SHARED_SOURCE, 1), AGENT_LABELS)))
+    trials.append(trial("A1", place(_reports_for(frozen_case, SHARED_SOURCE, 1), AGENT_LABELS,
+                                    used_by=["A1"])))
 
     order = _shuffled(_reports_for(frozen_case, SHARED_SOURCE, 3), rng)
-    a4 = place(order, AGENT_LABELS)
+    a4 = place(order, AGENT_LABELS, used_by=["A2", "A3", "A4", "A5", "A6"])
     # A2: A4's three texts as ONE message, joined with a single space -- a blank line or
     # connective would reintroduce the segmentation A2 exists to remove. Exempt from the
     # length check by construction.
@@ -198,12 +203,12 @@ def build_conditions(case_id: str, case: dict, frozen_case: dict, rng: random.Ra
         f"Note: {AGENT_LABELS[0]}, {AGENT_LABELS[1]}, and {AGENT_LABELS[2]} all "
         f"obtained their information from the same underlying source (S-001).")))
     indep = [_reports_for(frozen_case, k, 1)[0] for k in "BCD"]
-    trials.append(trial("A7", place(_shuffled(indep, rng), AGENT_LABELS)))
+    trials.append(trial("A7", place(_shuffled(indep, rng), AGENT_LABELS, used_by=["A7"])))
 
     # conflict block: two reports of weak A, one of strong B at indep_slot
     order_x = _shuffled(_reports_for(frozen_case, "A", 2), rng)
     order_x.insert(indep_slot % 3, _reports_for(frozen_case, "B", 1)[0])
-    x1 = place(order_x, AGENT_LABELS)
+    x1 = place(order_x, AGENT_LABELS, used_by=CONFLICT_BLOCK + LADDER)
     pair = [r for r in x1 if r["source_key"] == "A"]
     assert pair[0]["slot"] != pair[1]["slot"], "shared-source reports must not share filler"
     weak_claim = case["sources"]["A"]["claim"]
