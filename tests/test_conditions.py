@@ -134,8 +134,8 @@ def test_band_implies_the_length_cap():
 
 
 def test_report_above_the_band_fails_loudly():
-    # 19 words over slot 0's 78-word filler = 97
-    para = " ".join(["word"] * 18) + " 15%."
+    # 17 words over slot 0's 80-word filler = 97
+    para = " ".join(["word"] * 16) + " 15%."
     reps = [{"source_key": "B", "slot": 0,
              "text": embed_in_filler(CASE["filler_sets"][0], para, "start")}]
     assert len(reps[0]["text"].split()) == 97
