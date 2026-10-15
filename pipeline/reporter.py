@@ -9,6 +9,8 @@ accepted only if
       selected candidates is at most 0.50,
   (c) it uses no word found only in the source's type description, and no invented
       attribution phrase,
+  (d) its length is within 3 words of the source's, so filler written for the source
+      sentence still fits the long-report band (R20),
 and, as the R17 backstop, it is no more alike than 0.50 to the accepted reports of any
 source that can share a trial with it.
 
@@ -27,6 +29,7 @@ SEMANTIC_MIN = 0.80     # rubric score; used for ranking, the four flags do the 
 COPY_MAX = 0.70         # bigram overlap with the source itself
 PAIR_MAX = 0.50         # bigram overlap between two accepted reports of one source
 CROSS_MAX = 0.50        # ... and of two sources that can share a trial (R17)
+LENGTH_DIFF_MAX = 3     # words a report may differ from its source's length (R20)
 
 # Sources that can appear in the same trial: A with B in the conflict block, and B, C
 # and D together in A7. R17 keeps their reports from reading like copies of one another.
@@ -208,10 +211,11 @@ def _select_diverse(eligible: list[dict], source_text: str, n_needed: int,
 
 
 def select(candidates: list[str], source: dict, n_needed: int, rater,
-           question: str = "", avoid: list[str] = ()) -> dict:
+           question: str = "", avoid: list[str] = (), check_length: bool = True) -> dict:
     """Rate every candidate, then pick `n_needed` that pass every criterion and are
     pairwise distinct. `avoid` holds the accepted reports of sources that can share a
-    trial with this one (R17 backstop). Every candidate carries `accepted` and
+    trial with this one (R17 backstop). `check_length` is off only for a mock's padded
+    rewordings, whose length is not a reporter's. Every candidate carries `accepted` and
     `rejected_because`, so the acceptance rate can be reported.
     Returns {"accepted": [...], "all_scored": [...], "sufficient": bool}."""
     terms = leak_terms(source, question)
@@ -222,7 +226,8 @@ def select(candidates: list[str], source: dict, n_needed: int, rater,
         s = {"text": c, "semantic": rubric["score"],
              "copy_overlap": word_ngram_jaccard(c, source_text),
              "leak": leaks_in(c, terms) + attribution_in(c), "rubric": rubric,
-             "cross_overlap": max((word_ngram_jaccard(c, t) for t in avoid), default=0.0)}
+             "cross_overlap": max((word_ngram_jaccard(c, t) for t in avoid), default=0.0),
+             "length_diff": len(c.split()) - len(source_text.split())}
         why = []
         if not rubric["ok"]:
             why.append(f"rubric false: {rubric['failed']}")
@@ -234,6 +239,8 @@ def select(candidates: list[str], source: dict, n_needed: int, rater,
             why.append(f"leak {s['leak']}")
         if s["cross_overlap"] > CROSS_MAX:
             why.append(f"cross-source overlap {s['cross_overlap']:.2f} > {CROSS_MAX}")
+        if check_length and abs(s["length_diff"]) > LENGTH_DIFF_MAX:
+            why.append(f"length {s['length_diff']:+d} words > {LENGTH_DIFF_MAX} from the source")
         s["rejected_because"] = why
         scored.append(s)
 
@@ -273,7 +280,7 @@ def generate_candidates(source: dict, question: str, reporter,
 def generate_and_freeze(source: dict, question: str, n_needed: int, reporter, rater,
                         max_rounds: int = MAX_ROUNDS,
                         n_per_round: int = CANDIDATES_PER_ROUND,
-                        avoid: list[str] = ()) -> dict:
+                        avoid: list[str] = (), check_length: bool = True) -> dict:
     """Generate -> rate -> select, regenerating if short.
 
     A round is a generation batch plus a full re-selection over EVERY candidate so far,
@@ -293,7 +300,7 @@ def generate_and_freeze(source: dict, question: str, n_needed: int, reporter, ra
                                     prior=all_candidates, forbidden=leaked)
         all_candidates.extend(batch)
         result = select(all_candidates, source, n_needed, rater, question=question,
-                        avoid=avoid)
+                        avoid=avoid, check_length=check_length)
         calls += len(batch) + len(all_candidates)
         result.update(rounds_needed=round_i + 1, calls=calls)
         if result["sufficient"]:
@@ -327,11 +334,13 @@ def freeze_sources(cases: dict, reporter, rater):
         frozen_case = {}
         for key in freeze_order(case):
             src = case["sources"][key]
+            pads = getattr(reporter, "pads", None)     # only the mock has it
+            padded = bool(pads and pads(src["content"]))
             result = generate_and_freeze(src, case["question"], src["n_paraphrases_needed"],
                                          reporter, rater,
-                                         avoid=co_occurring_accepted(frozen_case, key))
-            pads = getattr(reporter, "pads", None)     # only the mock has it
-            if pads and pads(src["content"]):
+                                         avoid=co_occurring_accepted(frozen_case, key),
+                                         check_length=not padded)
+            if padded:
                 result["padded"] = True
             frozen_case[key] = result
             yield case_id, key, result

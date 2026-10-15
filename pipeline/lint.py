@@ -17,7 +17,8 @@ from collections import Counter
 
 # one implementation of each check, imported, so lint and the pipeline cannot disagree
 from pipeline.conditions import LONG_WORDS, base_options
-from pipeline.reporter import CO_OCCURRING_PAIRS, _words, leak_terms, word_ngram_jaccard
+from pipeline.reporter import (CO_OCCURRING_PAIRS, LENGTH_DIFF_MAX, _words, leak_terms,
+                               word_ngram_jaccard)
 
 # Matched case-insensitively against A's and B's content, filler and the screen sentence.
 LEAK_PATTERNS = {
@@ -212,21 +213,28 @@ def r13_notes(case: dict) -> list[str]:
 
 def length_notes(case: dict) -> list[str]:
     """R20, printed, not enforced: a long report is one filler set plus a paraphrase of
-    A or B (the only sources the length arm uses), estimated here by the content's
-    length, and must land in the 88-96-word band (docs/decisions.md). The real reports
-    are checked when the length arm is built."""
-    lo, hi = LONG_WORDS
+    A or B (the only sources the length arm uses), and must land in the 88-96-word band
+    (docs/decisions.md). An accepted paraphrase is within LENGTH_DIFF_MAX words of its
+    source, so the set plus each source sentence must sit that far inside the band
+    (91-93) for every accepted paraphrase to fit. The real reports are checked when the
+    length arm is built."""
+    lo, hi = LONG_WORDS[0] + LENGTH_DIFF_MAX, LONG_WORDS[1] - LENGTH_DIFF_MAX
     srcs = case.get("sources", {})
-    sizes = [len(srcs[k].get("content", "").split()) for k in "AB" if k in srcs]
+    sizes = {k: len(srcs[k].get("content", "").split()) for k in "AB" if k in srcs}
     if not sizes:
         return []
     notes = []
+    spread = max(sizes.values()) - min(sizes.values())
+    if spread > hi - lo:
+        notes.append(f"A's and B's sentences are {sizes.get('A')} and {sizes.get('B')} words; "
+                     f"keep them within {hi - lo} words of each other, or no filler set fits")
     for i, fs in enumerate(case.get("filler_sets", [])):
         n = sum(len(sent.split()) for sent in fs)
-        if n + min(sizes) < lo or n + max(sizes) > hi:
-            notes.append(f"filler_sets[{i}] is {n} words; with {min(sizes)}-{max(sizes)}-word "
-                         f"content its long reports are {n + min(sizes)}-{n + max(sizes)} "
-                         f"words, outside {lo}-{hi}")
+        if n + min(sizes.values()) < lo or n + max(sizes.values()) > hi:
+            notes.append(f"filler_sets[{i}] is {n} words; with A's and B's sentences its long "
+                         f"reports are {n + min(sizes.values())}-{n + max(sizes.values())} "
+                         f"words, outside {lo}-{hi}, so a rewording up to {LENGTH_DIFF_MAX} "
+                         f"words off could leave {LONG_WORDS[0]}-{LONG_WORDS[1]}")
     return notes
 
 
