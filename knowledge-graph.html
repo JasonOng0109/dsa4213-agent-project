@@ -1846,7 +1846,7 @@ a.ref:hover { background: var(--surface-2); }
    "cluster": "cases",
    "title": "Rules for filler and long reports",
    "label": "Filler rules (R9–R12, R20)",
-   "summary": "Long reports wrap the key sentence in neutral filler. Filler must not touch the question (R9), must not hint at who wrote it (R10); each report has one key sentence placed by the code (R11); and filler belongs to the report slot, not the source (R12); and each filler set is 77 to 80 words, so a long report lands in the 88–96-word band (R20).",
+   "summary": "Long reports wrap the key sentence in neutral filler. Filler must not touch the question (R9), must not hint at who wrote it (R10); each report has one key sentence placed by the code (R11); filler belongs to the report slot, not the source (R12); and each filler set is sized so a long report stays in the 88–96-word band with 3 words of room for rewording (R20).",
    "visual": "filler",
    "aliases": [
     "R9",
@@ -1872,7 +1872,7 @@ a.ref:hover { background: var(--surface-2); }
     {
      "file": "docs/authoring-rules.md",
      "loc": "R20",
-     "quote": "R20 — Each filler set is 77 to 80 words."
+     "quote": "R20 — Long reports leave room for rewording."
     }
    ],
    "links": [
@@ -2728,7 +2728,7 @@ a.ref:hover { background: var(--surface-2); }
    "cluster": "conditions",
    "title": "Long reports are held to 88–96 words",
    "label": "88–96 words",
-   "summary": "Every long report is 88 to 96 words, and the longest in a trial is at most 1.10 times the shortest. The two limits agree: 96 / 88 = 1.091, so a band reaching 100 would allow a ratio the cap forbids. Each filler set is 77 to 80 words (R20), so filler plus one 11–15-word sentence lands in the band.",
+   "summary": "Every long report is 88 to 96 words, and the longest in a trial is at most 1.10 times the shortest. The two limits agree: 96 / 88 = 1.091, so a band reaching 100 would allow a ratio the cap forbids. Filler plus A's or B's sentence is sized at 91 to 93 words, and rewordings stay within 3 words of their sentence, so every report fits ([[length-room]]).",
    "date": "2026-10-12",
    "evidence": [
     {
@@ -2752,7 +2752,7 @@ a.ref:hover { background: var(--surface-2); }
      "rel": "related"
     },
     {
-     "to": "filler-length",
+     "to": "length-room",
      "rel": "related"
     }
    ]
@@ -2763,7 +2763,7 @@ a.ref:hover { background: var(--surface-2); }
    "cluster": "cases",
    "title": "Filler sets are 77 to 80 words, with a lint warning",
    "label": "Filler 77–80 words",
-   "summary": "Each filler set is 77 to 80 words, so a long report (filler plus one reworded A or B sentence of 11 to 15 words) lands at 88 to 95 words. Before this, nothing told authors the length; M3's sets were 65 words and two of M1's were one word short. The linter now warns, but does not fail, because a sentence's length only estimates its rewording's length.",
+   "summary": "Superseded by [[length-room]]. Each filler set was to be 77 to 80 words, so a long report (filler plus one reworded A or B sentence of 11 to 15 words) lands at 88 to 95 words. That left too little room: a real rewording a word or two off could push a report out of the band.",
    "date": "2026-10-15",
    "aliases": [
     "R20",
@@ -2779,16 +2779,6 @@ a.ref:hover { background: var(--surface-2); }
      "file": "docs/decisions.md",
      "loc": "Filler sets are 77 to 80 words",
      "quote": "A 77-80-word set around an 11-15-word sentence lands at 88-95."
-    },
-    {
-     "file": "docs/authoring-rules.md",
-     "loc": "R20",
-     "quote": "With an 11-to-15-word sentence, a 77-to-80-word set lands inside the band."
-    },
-    {
-     "file": "docs/work-plan.md",
-     "loc": "1.7 Write the filler",
-     "quote": "each filler set about 77–80 words (R20), so that a long report (filler"
     }
    ],
    "links": [
@@ -2806,6 +2796,78 @@ a.ref:hover { background: var(--surface-2); }
     },
     {
      "to": "padded-mock-lengths",
+     "rel": "related"
+    }
+   ],
+   "status": "superseded"
+  },
+  {
+   "id": "length-room",
+   "type": "decision",
+   "cluster": "cases",
+   "title": "Long reports leave 3 words of room for rewording",
+   "label": "±3 words of room",
+   "summary": "Two guards keep every long report inside 88 to 96 words. The reporter rejects a rewording more than 3 words longer or shorter than its sentence. Authors size each filler set so that the set plus A's sentence, and the set plus B's sentence, are both 91 to 93 words. Then any accepted rewording still fits, so the length arm cannot stop on a case. This needs A's and B's sentences within 2 words of each other in length.",
+   "date": "2026-10-15",
+   "aliases": [
+    "R20",
+    "rewording room",
+    "LENGTH_DIFF_MAX"
+   ],
+   "points": [
+    "Why A and B must be close in length: each slot's filler is shared by A's and B's reports, and the band is only 8 words wide.",
+    "It applies to all 40 cases, because the ten that run the length arm are not chosen yet: [[open-subset]]."
+   ],
+   "evidence": [
+    {
+     "file": "docs/decisions.md",
+     "loc": "Long reports leave 3 words of room for rewording",
+     "quote": "Long reports leave 3 words of room for rewording"
+    },
+    {
+     "file": "docs/decisions.md",
+     "loc": "Long reports leave 3 words of room for rewording",
+     "quote": "With both limits, every accepted rewording fits: 91 - 3 = 88 and 93 + 3 = 96, and 96 / 88 stays under the 1.10 cap."
+    },
+    {
+     "file": "pipeline/reporter.py",
+     "loc": "LENGTH_DIFF_MAX",
+     "quote": "LENGTH_DIFF_MAX = 3     # words a report may differ from its source's length (R20)"
+    },
+    {
+     "file": "docs/authoring-rules.md",
+     "loc": "R20",
+     "quote": "That needs A's and B's sentences within 2 words of each other in length."
+    },
+    {
+     "file": "docs/work-plan.md",
+     "loc": "1.7 Write the filler",
+     "quote": "size each filler set so that the set plus A's sentence and the set plus B's sentence are both 91–93 words"
+    }
+   ],
+   "links": [
+    {
+     "to": "filler-length",
+     "rel": "replaces"
+    },
+    {
+     "to": "long-band",
+     "rel": "needs"
+    },
+    {
+     "to": "acceptance",
+     "rel": "involves"
+    },
+    {
+     "to": "rules-filler",
+     "rel": "part-of"
+    },
+    {
+     "to": "linter",
+     "rel": "involves"
+    },
+    {
+     "to": "open-subset",
      "rel": "related"
     }
    ]
@@ -2854,7 +2916,7 @@ a.ref:hover { background: var(--surface-2); }
      "rel": "needs"
     },
     {
-     "to": "filler-length",
+     "to": "length-room",
      "rel": "related"
     },
     {
@@ -3971,7 +4033,7 @@ a.ref:hover { background: var(--surface-2); }
    "type": "design",
    "cluster": "pipeline",
    "title": "Acceptance filter",
-   "summary": "A rewording is kept only if a rater confirms it keeps every detail, adds nothing, keeps the values and the same 'whole' (4-flag rubric); it is not a near-copy of the source (overlap ≤ 0.70); it differs from the other kept rewordings, including other sources' (≤ 0.50); and it invents no attribution. Failures are regenerated, never hand-edited.",
+   "summary": "A rewording is kept only if a rater confirms it keeps every detail, adds nothing, keeps the values and the same 'whole' (4-flag rubric); it is not a near-copy of the source (overlap ≤ 0.70); it differs from the other kept rewordings, including other sources' (≤ 0.50); it is within 3 words of the source's length, so the filler still fits (R20); and it invents no attribution. Failures are regenerated, never hand-edited.",
    "visual": "acceptance",
    "weight": 2,
    "aliases": [
@@ -3991,6 +4053,11 @@ a.ref:hover { background: var(--surface-2); }
      "file": "pipeline/reporter.py",
      "loc": "module docstring",
      "quote": "Failure means regenerate, never hand-edit"
+    },
+    {
+     "file": "pipeline/reporter.py",
+     "loc": "module docstring",
+     "quote": "(d) its length is within 3 words of the source's, so filler written for the source"
     }
    ],
    "links": [
@@ -4004,6 +4071,10 @@ a.ref:hover { background: var(--surface-2); }
     },
     {
      "to": "rater-is-judge",
+     "rel": "related"
+    },
+    {
+     "to": "length-room",
      "rel": "related"
     }
    ]
@@ -4400,7 +4471,7 @@ a.ref:hover { background: var(--surface-2); }
    "cluster": "pipeline",
    "title": "Case linter (pipeline/lint.py)",
    "label": "Case linter",
-   "summary": "A free, offline check of every case file before any money is spent: leak phrases, option rules, provenance words in content, and R17 overlap. It also warns, without failing, when filler and a sentence would make a long report the wrong length (R20). It prints problems; it does not replace human review.",
+   "summary": "A free, offline check of every case file before any money is spent: leak phrases, option rules, provenance words in content, and R17 overlap. It also warns, without failing, when a filler set plus A's or B's sentence leaves less than 3 words of room inside the long-report band, or when A and B differ in length by more than 2 words (R20). It prints problems; it does not replace human review.",
    "aliases": [
     "linter",
     "pipeline.lint"
@@ -5879,7 +5950,7 @@ a.ref:hover { background: var(--surface-2); }
    "cluster": "issues",
    "title": "R20 and the dry run disagreed",
    "label": "R20 vs dry run drift (settled)",
-   "summary": "Settled. R20 asks for 77 to 80-word filler, but for any case other than M1 the dry run's padded fake rewordings pushed such reports over 96 words, so the dry run failed. An author who shortened the filler to pass it would fail the real run instead. The dry run now skips the length check for padded reports: [[padded-mock-lengths]].",
+   "summary": "Settled. R20 then asked for 77 to 80-word filler, but for any case other than M1 the dry run's padded fake rewordings pushed such reports over 96 words, so the dry run failed. An author who shortened the filler to pass it would fail the real run instead. The dry run now skips the length check for padded reports: [[padded-mock-lengths]].",
    "status": "current",
    "date": "2026-10-15",
    "evidence": [
@@ -5891,7 +5962,7 @@ a.ref:hover { background: var(--surface-2); }
    ],
    "links": [
     {
-     "to": "filler-length",
+     "to": "length-room",
      "rel": "involves"
     },
     {
@@ -6022,6 +6093,24 @@ a.ref:hover { background: var(--surface-2); }
    ],
    "closed": [
     "drift-r20-dry-run"
+   ]
+  },
+  {
+   "date": "2026-10-15",
+   "summary": "Long reports now leave 3 words of room for rewording. The reporter rejects a rewording more than 3 words longer or shorter than its sentence, and R20 asks for filler sized so the set plus A's or B's sentence is 91–93 words, with A and B within 2 words of each other. M3 as written had about one word of room. M1's filler sets are now 80 words. Kept for all 40 cases, since the ten length-arm cases are not chosen.",
+   "added": [
+    "length-room"
+   ],
+   "changed": [
+    "acceptance",
+    "rules-filler",
+    "long-band",
+    "linter",
+    "padded-mock-lengths",
+    "drift-r20-dry-run"
+   ],
+   "superseded": [
+    "filler-length"
    ]
   }
  ]
@@ -6394,7 +6483,7 @@ const VISUALS = {
     return fig(svgWrap(440, h + 22, b, d.rows.map(([l, v]) => `${l}: p = ${v}`).join('; ')), esc(d.caption));
   },
   acceptance(n) {
-    const steps = ['6 candidates', 'rubric: 4 flags', 'not a copy (≤ 0.70)', 'differs (≤ 0.50)', 'no leak', 'freeze'];
+    const steps = ['6 candidates', 'rubric: 4 flags', 'not a copy (≤ 0.70)', 'differs (≤ 0.50)', 'length ± 3 words', 'no leak', 'freeze'];
     return fig(`<div class="flow">${steps.map(s => `<div class="flow-step frozen" style="flex:1 1 60px"><b>${s}</b></div>`).join('<div class="flow-arrow">→</div>')}</div>`
 ,
       'A candidate must pass every step; one that fails is regenerated, never edited. Overlap is the share of shared word pairs.');
