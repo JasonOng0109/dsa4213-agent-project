@@ -11,6 +11,7 @@ import pytest
 
 from cases import CASES
 from pipeline import run
+from pipeline.conditions import LONG_ARM
 from pipeline.llm import MockBackend
 
 # what one generate or judge run makes for the corpus in cases/: the plan's own counts,
@@ -37,6 +38,11 @@ def test_plan_reproduces_the_proposal_budget():
     assert rows40["ladder"][0] == 1080
     assert sum(c for c, _ in rows40.values()) == 21720
     assert round(sum(c for _, c in rows40.values()), 2) == 37.48
+
+
+def test_length_arm_runs_exactly_the_conditions_that_are_length_checked():
+    long = [c for e in run.PROGRAMME if e.arm == "long" for c in e.conditions]
+    assert sorted(long) == sorted(LONG_ARM)
 
 
 def test_built_trials_match_the_plan(frozen):

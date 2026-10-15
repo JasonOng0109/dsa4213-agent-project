@@ -2202,7 +2202,7 @@ a.ref:hover { background: var(--surface-2); }
     {
      "file": "pipeline/conditions.py",
      "loc": "build_conditions",
-     "quote": "trial(\"A1\", place(_reports_for(frozen_case, SHARED_SOURCE, 1), AGENT_LABELS))"
+     "quote": "trial(\"A1\", place(_reports_for(frozen_case, SHARED_SOURCE, 1), AGENT_LABELS,"
     }
    ],
    "links": [
@@ -2705,6 +2705,11 @@ a.ref:hover { background: var(--surface-2); }
      "file": "pipeline/run.py",
      "loc": "PROGRAMME",
      "quote": "Entry(\"long-conflict\", \"long\", CONFLICT_BLOCK, 12, LENGTH_JUDGES, True),"
+    },
+    {
+     "file": "pipeline/conditions.py",
+     "loc": "LONG_ARM",
+     "quote": "LONG_ARM = CONFLICT_BLOCK + LONG_AGREEMENT   # the conditions the length arm runs long"
     }
    ],
    "links": [
@@ -2719,6 +2724,10 @@ a.ref:hover { background: var(--surface-2); }
     {
      "to": "h2",
      "rel": "tests"
+    },
+    {
+     "to": "long-check-scope",
+     "rel": "related"
     }
    ]
   },
@@ -2816,7 +2825,8 @@ a.ref:hover { background: var(--surface-2); }
    ],
    "points": [
     "Why A and B must be close in length: each slot's filler is shared by A's and B's reports, and the band is only 8 words wide.",
-    "It applies to all 40 cases, because the ten that run the length arm are not chosen yet: [[open-subset]]."
+    "It applies to all 40 cases, because the ten that run the length arm are not chosen yet: [[open-subset]].",
+    "This guarantee holds because only the conditions the length arm runs are length-checked: [[long-check-scope]]."
    ],
    "evidence": [
     {
@@ -2869,6 +2879,58 @@ a.ref:hover { background: var(--surface-2); }
     {
      "to": "open-subset",
      "rel": "related"
+    },
+    {
+     "to": "long-check-scope",
+     "rel": "needs"
+    }
+   ]
+  },
+  {
+   "id": "long-check-scope",
+   "type": "decision",
+   "cluster": "conditions",
+   "title": "Only the conditions the length arm runs are length-checked",
+   "label": "Length check: run conditions only",
+   "summary": "The code builds every condition at long length, but the length arm only runs the conflict block plus A1 and A2. Those are now named once, as LONG_ARM, and only their reports are length-checked. Before, A7 (B, C and D together) was checked too and then thrown away, so a C rewording that R20 allows could stop the build. Authors need no rule on C's and D's lengths.",
+   "date": "2026-10-15",
+   "aliases": [
+    "LONG_ARM",
+    "LONG_AGREEMENT"
+   ],
+   "evidence": [
+    {
+     "file": "pipeline/conditions.py",
+     "loc": "LONG_ARM",
+     "quote": "LONG_ARM = CONFLICT_BLOCK + LONG_AGREEMENT   # the conditions the length arm runs long"
+    },
+    {
+     "file": "docs/decisions.md",
+     "loc": "Only the conditions the length arm runs are length-checked",
+     "quote": "Checking only what is run makes R20's guarantee hold without any rule on C's and D's lengths."
+    },
+    {
+     "file": "pipeline/run.py",
+     "loc": "PROGRAMME",
+     "quote": "Entry(\"long-agreement\", \"long\", LONG_AGREEMENT, 6, LENGTH_JUDGES, True),"
+    }
+   ],
+   "links": [
+    {
+     "to": "length-arm",
+     "rel": "needs"
+    },
+    {
+     "to": "long-band",
+     "rel": "needs"
+    },
+    {
+     "to": "length-room",
+     "rel": "related"
+    },
+    {
+     "to": "drift-a7-long-check",
+     "rel": "because"
     }
    ]
   },
@@ -5978,6 +6040,41 @@ a.ref:hover { background: var(--surface-2); }
      "rel": "related"
     }
    ]
+  },
+  {
+   "id": "drift-a7-long-check",
+   "type": "issue",
+   "cluster": "issues",
+   "title": "A trial never run long was length-checked",
+   "label": "A7 length-check drift (settled)",
+   "summary": "Settled. The length arm runs only the conflict block plus A1 and A2, but the code also length-checked A7, which uses C's and D's reports and is never judged long. M1's 14-word C sentence reworded 3 words longer made a 97-word A7 report, so the build stopped although R20 allows that rewording. Now only the conditions that run are checked: [[long-check-scope]].",
+   "status": "current",
+   "date": "2026-10-15",
+   "evidence": [
+    {
+     "file": "docs/decisions.md",
+     "loc": "Only the conditions the length arm runs are length-checked",
+     "quote": "M1's 14-word C sentence reworded 3 words longer made a 97-word A7 report and stopped the build"
+    }
+   ],
+   "links": [
+    {
+     "to": "length-room",
+     "rel": "involves"
+    },
+    {
+     "to": "length-arm",
+     "rel": "involves"
+    },
+    {
+     "to": "status-board",
+     "rel": "part-of"
+    },
+    {
+     "to": "long-check-scope",
+     "rel": "related"
+    }
+   ]
   }
  ],
  "changelog": [
@@ -6111,6 +6208,25 @@ a.ref:hover { background: var(--surface-2); }
    ],
    "superseded": [
     "filler-length"
+   ]
+  },
+  {
+   "date": "2026-10-15",
+   "summary": "Found and settled a drift: the code length-checked A7 at long length, though the length arm never runs it, so a C rewording that R20 allows could stop the build. The length arm's conditions are now named once (LONG_ARM) and only they are checked.",
+   "added": [
+    "long-check-scope",
+    "drift-a7-long-check"
+   ],
+   "changed": [
+    "length-room",
+    "length-arm",
+    "a1"
+   ],
+   "opened": [
+    "drift-a7-long-check"
+   ],
+   "closed": [
+    "drift-a7-long-check"
    ]
   }
  ]
