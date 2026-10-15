@@ -51,7 +51,7 @@ def test_change_of_whole_is_rejected():
     """scope_kept catches a change to a DIFFERENT whole, which would make A's and B's
     claims compatible and quietly empty the conflict block."""
     other = "The ME2103 lab logbook carries 15% of the continuous-assessment mark."
-    b1 = "Fifteen percent of the final grade for the ME2103 module is derived from the lab logbook."
+    b1 = "Fifteen percent of the final ME2103 module grade comes from the lab logbook."
     res = _select([other, b1], "B", 1, ScriptedRater({other: {"scope_kept": False}}))
     assert [a["text"] for a in res["accepted"]] == [b1]
     res = _select([other], "B", 1, ScriptedRater({other: {"scope_kept": False}}))
@@ -71,8 +71,8 @@ def test_ties_break_toward_diversity():
     cands = [
         "The ME2103 lab logbook counts for 25% of the final module grade.",
         "The lab logbook for ME2103 constitutes 25% of the final grade for the module.",
-        "Twenty-five percent of the final grade for the ME2103 module is determined by the lab logbook.",
-        "A 25% portion of the final grade for module ME2103 is derived from the lab logbook.",
+        "Twenty-five percent of the final ME2103 module grade comes from the lab logbook.",
+        "A 25% share of the ME2103 final grade is derived from the lab logbook.",
     ]
     res = _select(cands, "A", 2, ScriptedRater({}))
     picked = [a["text"] for a in res["accepted"]]
@@ -90,6 +90,21 @@ def test_cross_source_backstop():
     rejected = next(x for x in res["all_scored"] if x["text"] == d1)
     assert rejected["cross_overlap"] > 0.5
     assert any("cross-source" in why for why in rejected["rejected_because"])
+
+
+def test_report_far_from_the_source_length_is_rejected():
+    """R20: a report more than 3 words longer or shorter than its source would not fit the
+    filler written for the source, so it is refused unless the check is off (a mock's
+    padded rewordings)."""
+    long = "In the ME2103 module, the lab logbook carries exactly 15% of the overall final grade."
+    ok = "For ME2103, the lab logbook is 15% of the final module grade."
+    res = _select([long, ok], "B", 1, ScriptedRater({}))
+    assert [a["text"] for a in res["accepted"]] == [ok]
+    why = next(s for s in res["all_scored"] if s["text"] == long)["rejected_because"]
+    assert why == ["length +4 words > 3 from the source"]
+    res = select([long], M1["sources"]["B"], 1, ScriptedRater({}), question=M1["question"],
+                 check_length=False)
+    assert res["sufficient"]
 
 
 def test_rejection_reasons_cover_copies_leaks_and_spares():

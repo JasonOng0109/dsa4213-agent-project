@@ -229,3 +229,25 @@ Add an entry when you make a choice a reader could not guess from the code.
   which cannot give B three rewordings under the 0.50 pairwise overlap limit.
 - **Breaks if changed**: without the skip, every new case must either break R20 to pass
   the dry run or fail it.
+
+### 2026-10-15 — Long reports leave 3 words of room for rewording
+
+- **Decision**: the reporter rejects a rewording more than 3 words longer or shorter than
+  its source sentence (`LENGTH_DIFF_MAX` in `pipeline/reporter.py`), and each filler set
+  plus A's or B's sentence must be 91 to 93 words (R20 in `docs/authoring-rules.md`),
+  so A's and B's sentences are within 2 words of each other. The lint's R20 warning now
+  checks 91-93 and the A-B gap. This replaces the fixed 77-80-word filler target.
+- **Why** [INFERRED: from M3's long reports built with rewordings of chosen lengths]:
+  each slot's filler is shared by A's and B's reports, and the band is 8 words wide, so
+  the room for rewording is the band minus the A-B gap, halved. M3 with a 15-word A and
+  a 10-word B had about 1 word of room: a real rewording 2 words off would stop the
+  length arm, and A and B rewordings more than 8 words apart in length could only be
+  fixed by paying to generate again. With both limits, every accepted rewording fits:
+  91 - 3 = 88 and 93 + 3 = 96, and 96 / 88 stays under the 1.10 cap. Jason chose both
+  guards and kept R20 for all 40 cases, since the ten length-arm cases are not chosen.
+- **Rejected**: the 77-80-word target alone, which allowed reports one word from the
+  band's edge; R20 only for the ten length-arm cases, which would need the ten chosen
+  first and their cases reworked afterwards.
+- **Breaks if changed**: a wider length limit in the reporter, or filler sized nearer
+  the band's edges, lets an accepted rewording push a long report out of 88-96, and the
+  length arm stops on that case.

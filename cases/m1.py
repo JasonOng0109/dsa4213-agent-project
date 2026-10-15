@@ -33,8 +33,8 @@ CASE = {
         [
             "Logbooks are collected from the mechanical engineering general office and "
             "must be signed by a demonstrator before they leave the laboratory.",
-            "Each entry records the apparatus, the measurements taken and any "
-            "deviation from the procedure.",
+            "Each entry records the apparatus used, the measurements taken and any "
+            "deviation from the set procedure.",
             "Entries are made in ink, and loose sheets are pasted into the book rather "
             "than stapled.",
             "Spare logbooks are held at the office counter for anyone who fills one.",
@@ -42,8 +42,8 @@ CASE = {
             "workshop is used.",
         ],
         [
-            "Safety induction is required before anyone may work with the machines in the "
-            "basement workshop.",
+            "Safety induction is required before anyone may work with the heavy machines in "
+            "the basement workshop.",
             "Laboratory coats and eye protection are provided at the workshop entrance, "
             "and bags are left on the racks outside the working area.",
             "Apparatus faults are reported to the demonstrator on duty rather than to "
@@ -59,7 +59,7 @@ CASE = {
             "Session lists and bench numbers are posted at the workshop entrance and at "
             "the general office.",
             "Equipment for each experiment is set out before the session and returned "
-            "to the store afterwards.",
+            "to the equipment store afterwards.",
             "Students work in pairs, and each student keeps a logbook of their own.",
             "Benches are numbered, and the same bench is used by a group throughout.",
         ],

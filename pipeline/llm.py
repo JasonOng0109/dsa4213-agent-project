@@ -183,8 +183,9 @@ class MockBackend:
 
     name = "mock"
 
-    # keyed by a prefix of each source's `content`. Each is 12-15 words, so every long
-    # report lands inside 88-96 words around M1's 78-79-word filler sets (R20).
+    # keyed by a prefix of each source's `content`. Each is 12-15 words, within 3 of its
+    # source, so every long report lands inside 88-96 words around M1's 80-word filler
+    # sets (R20).
     _PARAPHRASE_TABLE: dict[str, list[str]] = {
         "The ME2103 lab logbook counts for 25%": [
             "A quarter of your final ME2103 module grade comes from the lab logbook.",
