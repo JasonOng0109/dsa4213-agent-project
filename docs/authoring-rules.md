@@ -171,7 +171,9 @@ in a trial at most 1.10 times the shortest (`docs/decisions.md`). With an 11-to-
 sentence, a 77-to-80-word set lands inside the band. A set outside that range pushes
 reports out of it, and the length arm refuses to build them. Count each whole set, not
 each sentence. **[lint]** prints a warning, not a violation, when a set plus A's or B's
-content falls outside 88 to 96 words.
+content falls outside 88 to 96 words. The dry run cannot check this for a new case: its
+mock pads the fake rewordings of any sentence it has no hand-written ones for, so it
+skips the length check for that case and says so. Follow the R20 warning, not the dry run.
 
 ---
 

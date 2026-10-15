@@ -229,6 +229,12 @@ def generate(cases: dict, reporter, rater, out_dir: str, budget: Budget | None =
         report["stopped"] = str(e)
     # the budget also counts calls of a source the ceiling cut short
     report["calls"] = budget.used if budget else sum(s["calls"] for s in report["sources"].values())
+    padded = sorted({cid for cid, fc in frozen.items()
+                     for res in fc.values() if res.get("padded")})
+    if padded:
+        print(f"Long-report length not checked for {', '.join(padded)}: the mock has no "
+              f"hand-written rewordings of these sentences, so the lint's R20 warning is "
+              f"the check.")
     write_json(os.path.join(out_dir, "frozen_reports.json"), frozen)
     write_json(os.path.join(out_dir, "generation_report.json"), report)
     calls_log = getattr(reporter, "log", None)
@@ -321,7 +327,9 @@ def select_entries(arms: str | None) -> list[Entry]:
 
 def cmd_dry(args, cases):
     """Everything the real run does, on the mock backend: generate and freeze, the leak
-    check, every programme entry with each entry's judges, the log, the scorer."""
+    check, every programme entry with each entry's judges, the log, the scorer. Long
+    reports of a case the mock has no hand-written rewordings for are not length-checked
+    (MockBackend.pads)."""
     out = args.out or os.path.join("runs", "mock")
     os.makedirs(out, exist_ok=True)
     log_path = os.path.join(out, "trials.jsonl")

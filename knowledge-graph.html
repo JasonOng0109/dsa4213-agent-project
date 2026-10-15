@@ -392,7 +392,7 @@ a.ref:hover { background: var(--surface-2); }
   "title": "Project Knowledge Graph",
   "project": "DSA4213 Group 14 · Counting Reports or Counting Evidence",
   "oneLiner": "Can an AI orchestrator that combines reports from several agents tell three copies of one source from three independent sources, and which piece of information fixes its mistakes: a source name, a 'these share a source' note, or a 'this source is better' note?",
-  "updated": "2026-10-12",
+  "updated": "2026-10-15",
   "tour": [
    "question",
    "false-consensus",
@@ -2803,6 +2803,63 @@ a.ref:hover { background: var(--surface-2); }
     {
      "to": "linter",
      "rel": "involves"
+    },
+    {
+     "to": "padded-mock-lengths",
+     "rel": "related"
+    }
+   ]
+  },
+  {
+   "id": "padded-mock-lengths",
+   "type": "decision",
+   "cluster": "pipeline",
+   "title": "The dry run skips the length check for padded mock rewordings",
+   "label": "Dry run skips padded lengths",
+   "summary": "The mock has realistic fake rewordings only for M1. For any other case it pads the sentence with a fixed opening and ending, so its fake rewordings are about 21 to 29 words, much longer than a real model's. Those reports are now marked padded, and the dry run does not length-check them. The real run still checks every long report, and the R20 warning estimates the length before any run.",
+   "date": "2026-10-15",
+   "aliases": [
+    "padded",
+    "MockBackend.pads"
+   ],
+   "evidence": [
+    {
+     "file": "docs/decisions.md",
+     "loc": "The dry run skips the length check for padded mock rewordings",
+     "quote": "The dry run skips the length check for padded mock rewordings"
+    },
+    {
+     "file": "docs/decisions.md",
+     "loc": "The dry run skips the length check for padded mock rewordings",
+     "quote": "No filler length passed both, so the dry run was measuring the padding, not the case."
+    },
+    {
+     "file": "pipeline/conditions.py",
+     "loc": "build_conditions.place",
+     "quote": "a mock's padded rewordings are not a reporter's length (MockBackend.pads)"
+    },
+    {
+     "file": "docs/authoring-rules.md",
+     "loc": "R20",
+     "quote": "Follow the R20 warning, not the dry run."
+    }
+   ],
+   "links": [
+    {
+     "to": "mock",
+     "rel": "needs"
+    },
+    {
+     "to": "long-band",
+     "rel": "needs"
+    },
+    {
+     "to": "filler-length",
+     "rel": "related"
+    },
+    {
+     "to": "drift-r20-dry-run",
+     "rel": "because"
     }
    ]
   },
@@ -4261,7 +4318,7 @@ a.ref:hover { background: var(--surface-2); }
    "cluster": "pipeline",
    "title": "Mock backend: free dry runs",
    "label": "Mock dry runs",
-   "summary": "Runs the whole programme with fake models, with no API key and no cost. Everything is checked this way before any money is spent.",
+   "summary": "Runs the whole programme with fake models, with no API key and no cost. Everything is checked this way before any money is spent, except one thing: for a case whose sentences the mock has no hand-written rewordings of, it pads the fake rewordings, so it skips that case's long-report length check and says so ([[padded-mock-lengths]]).",
    "aliases": [
     "mock",
     "dry run"
@@ -4276,6 +4333,11 @@ a.ref:hover { background: var(--surface-2); }
      "file": "pipeline/llm.py",
      "loc": "module docstring",
      "quote": "MockBackend: deterministic canned responses, for dry runs and tests with no API key"
+    },
+    {
+     "file": "pipeline/llm.py",
+     "loc": "MockBackend.pads",
+     "quote": "Their length says nothing about a real reporter's, so the long-report length check is not applied to them."
     }
    ],
    "links": [
@@ -4285,6 +4347,10 @@ a.ref:hover { background: var(--surface-2); }
     },
     {
      "to": "runner",
+     "rel": "related"
+    },
+    {
+     "to": "padded-mock-lengths",
      "rel": "related"
     }
    ]
@@ -5806,6 +5872,41 @@ a.ref:hover { background: var(--surface-2); }
      "rel": "related"
     }
    ]
+  },
+  {
+   "id": "drift-r20-dry-run",
+   "type": "issue",
+   "cluster": "issues",
+   "title": "R20 and the dry run disagreed",
+   "label": "R20 vs dry run drift (settled)",
+   "summary": "Settled. R20 asks for 77 to 80-word filler, but for any case other than M1 the dry run's padded fake rewordings pushed such reports over 96 words, so the dry run failed. An author who shortened the filler to pass it would fail the real run instead. The dry run now skips the length check for padded reports: [[padded-mock-lengths]].",
+   "status": "current",
+   "date": "2026-10-15",
+   "evidence": [
+    {
+     "file": "docs/decisions.md",
+     "loc": "The dry run skips the length check for padded mock rewordings",
+     "quote": "With R20's 78-word filler the dry run failed at 99 words, while the 67-word filler that passed it would give 77-82-word reports in the real run."
+    }
+   ],
+   "links": [
+    {
+     "to": "filler-length",
+     "rel": "involves"
+    },
+    {
+     "to": "mock",
+     "rel": "involves"
+    },
+    {
+     "to": "status-board",
+     "rel": "part-of"
+    },
+    {
+     "to": "padded-mock-lengths",
+     "rel": "related"
+    }
+   ]
   }
  ],
  "changelog": [
@@ -5903,6 +6004,24 @@ a.ref:hover { background: var(--surface-2); }
     "rules-filler",
     "linter",
     "long-band"
+   ]
+  },
+  {
+   "date": "2026-10-15",
+   "summary": "Found and settled a drift: R20's 77–80-word filler failed the dry run for every case but M1, because the mock pads its fake rewordings of other cases' sentences. The dry run now skips the length check for padded reports and says so; the real run still checks every long report.",
+   "added": [
+    "padded-mock-lengths",
+    "drift-r20-dry-run"
+   ],
+   "changed": [
+    "mock",
+    "filler-length"
+   ],
+   "opened": [
+    "drift-r20-dry-run"
+   ],
+   "closed": [
+    "drift-r20-dry-run"
    ]
   },
   {

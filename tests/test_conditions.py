@@ -116,6 +116,16 @@ def test_short_paraphrase_fails_loudly(m1):
     build_conditions("M1", CASE, short, random.Random(1))  # short reports are fine
 
 
+def test_padded_mock_reports_skip_the_length_check(m1):
+    """The same off-target report passes when its source is a mock's padded relay: its
+    length is not a reporter's, so R20's lint warning is the check for that case."""
+    short = copy.deepcopy(m1)
+    short["A"]["accepted"][0]["text"] = "Logbook: 25%."
+    short["A"]["padded"] = True
+    build_conditions("M1", CASE, short, random.Random(1), length="long",
+                     cue_position="start")
+
+
 def test_band_implies_the_length_cap():
     """88-96 words: inside the band the 1.10 cap cannot be broken (96 / 88 = 1.09),
     whereas a band reaching 100 would allow 100 / 88 = 1.14."""
