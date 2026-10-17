@@ -138,7 +138,7 @@ def test_freeze_order_is_r18():
 
 
 def test_mock_freezes_every_m1_source_in_one_round():
-    results = list(freeze_sources(CASES, MockBackend(), MockBackend()))
+    results = list(freeze_sources({"M1": M1}, MockBackend(), MockBackend()))
     assert [k for _, k, _ in results] == ["B", "A", "C", "D"]
     for _, key, res in results:
         assert res["sufficient"] and res["rounds_needed"] == 1, key
