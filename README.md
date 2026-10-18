@@ -444,7 +444,7 @@ Who does what next, step by step: [`docs/work-plan.md`](docs/work-plan.md).
   discrimination passes a judge when one condition with 10 right and 10 wrong decisions
   has AUROC above 0.5 at the screen's level; a rule fixes the ten cases for the length
   arm and the ladder; the pilot runs the whole programme.
-- **Open before the main run**: Kathleen marks the five Phase 4 cases that join M1-M5 in
+- **Open before the main run**: Kai Rong marks the five Phase 4 cases that join M1-M5 in
   the ten-case subset, and `cases/__init__.py` puts the ten first (the code takes the
   first ten).
 - **Not built**: the four optional sub-experiments. The backend already supports the

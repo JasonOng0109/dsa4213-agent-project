@@ -22,8 +22,8 @@ kept:
 | **Jason** | Runs the paid steps, holds the API key, merges pull requests | — | final check of every case | what the pilot runs (2E); the pilot run (Phase 3) |
 | **Crystal** | Case author | M2 | M5 | the H6 margin cut-off (2B) |
 | **Rachel** | Case author | M3 | M2 | the wording ladder's sentence (2A) |
-| **Kathleen** | Case author, corpus coordinator | M4 | M3 | which ten cases form the subset (2D) |
-| **Kai Rong** | Case author | M5 | M4 | the discrimination pass mark (2C) |
+| **Kathleen** | Case author | M4 | M3 | — |
+| **Kai Rong** | Case author, corpus coordinator | M5 | M4 | the discrimination pass mark (2C); which ten cases form the subset (2D) |
 
 Nobody reviews their own case. Rule from `docs/authoring-rules.md`: the worst defect
 "cannot be caught by any script", so a second person must read every case.
@@ -344,7 +344,7 @@ it.
   4. Propose a pass mark and a smallest class size, with one reason each.
 - **Done when**: the group agrees and it is recorded.
 
-### 2D The case register and the ten-case subset — Kathleen
+### 2D The case register and the ten-case subset — Kai Rong
 
 - **Decided 2026-10-18**: the ten are M1–M5 plus five Phase 4 cases that you mark when
   you assign the batches, before they are written. Two of the five are T2 and three T1;
@@ -428,9 +428,9 @@ screen verdict "a preview".
 ## Phase 4 — Write the other 35 cases
 
 Same steps as Phase 1, in batches of two cases. Each author keeps the same reviewer.
-Kathleen gives each batch its domain, dimension and tier.
+Kai Rong gives each batch its domain, dimension and tier.
 
-**When**: start drafting now, before the pilot, once Kathleen has given you your first
+**When**: start drafting now, before the pilot, once Kai Rong has given you your first
 batch (`docs/decisions.md`, "Phase 4 drafting starts before the pilot"). Use the lessons
 from the review comments on the Phase 1 pull requests and the current
 `docs/authoring-rules.md`. Keep each case on its own branch until the pilot has run:
@@ -453,7 +453,7 @@ Jason merges Phase 4 cases only after it, because the run takes every case in
 | Kai Rong | M30–M37 | 8 | Crystal |
 | Jason | M38–M40 | 3 | Kathleen |
 
-### Case register (Kathleen keeps this current)
+### Case register (Kai Rong keeps this current)
 
 | Case | Domain | Dimension | Tier | Author | Reviewer | Status |
 |---|---|---|---|---|---|---|
@@ -531,11 +531,11 @@ Change "to do" to "done" when a task is finished.
 | 2A Ladder sentence | Rachel | Phase 0 | done |
 | 2B Margin cut-off | Crystal | Phase 0 | done |
 | 2C Discrimination pass mark | Kai Rong | Phase 0 | done |
-| 2D Case register (ongoing) | Kathleen | each merge | to do |
+| 2D Case register (ongoing) | Kai Rong | each merge | to do |
 | 2D Ten-case subset: the rule | Jason + group | — | done |
-| 2D Ten-case subset: mark five, reorder the tuple | Kathleen | Phase 4 batches; all 40 cases | to do |
+| 2D Ten-case subset: mark five, reorder the tuple | Kai Rong | Phase 4 batches; all 40 cases | to do |
 | 2E What the pilot runs | Jason + group | — | done |
 | 3.1–3.7 Pilot run | Jason | M2–M5 merged, 2E | to do |
 | 3.4 Read frozen reports | authors and reviewers | 3.3 | to do |
-| Phase 4 drafts | everyone | Kathleen's first batches | to do |
+| Phase 4 drafts | everyone | Kai Rong's first batches | to do |
 | Phase 4 merges | Jason | pilot done | to do |

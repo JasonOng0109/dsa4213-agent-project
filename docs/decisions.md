@@ -375,7 +375,7 @@ Add an entry when you make a choice a reader could not guess from the code.
 ### 2026-10-18 — The ten-case subset is fixed by a rule before the pilot
 
 - **Decision**: the ten cases for the length arm and the wording ladder are M1-M5 plus
-  five Phase 4 cases that Kathleen marks when she assigns the batches, before they are
+  five Phase 4 cases that Kai Rong marks when assigning the batches, before they are
   written. Two of the five are T2 and three T1, so three of the ten are T2. Every domain
   has at least 3 of the ten, and every quality dimension at least 2. A marked case that
   is dropped is replaced by the next assigned case with the same domain, dimension and
@@ -460,9 +460,9 @@ Add an entry when you make a choice a reader could not guess from the code.
 ### 2026-10-19 — Phase 4 drafting starts before the pilot
 
 - **Decision**: authors start drafting their Phase 4 cases now, before the pilot run, once
-  Kathleen has given them their first batch, using the lessons from the Phase 1 review
+  Kai Rong has given them their first batch, using the lessons from the Phase 1 review
   comments and the current `docs/authoring-rules.md`. Phase 4 cases are merged only after
-  the pilot has run. Kathleen marks the five subset cases when she assigns the batches,
+  the pilot has run. Kai Rong marks the five subset cases when assigning the batches,
   as the 2026-10-18 subset entry says, so before anyone drafts them.
 - **Why** [STATED: team decision, 2026-10-19]: Jason told the team to start writing their
   8 cases early and to draft the base before the pilot run. [INFERRED: from
