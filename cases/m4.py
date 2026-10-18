@@ -17,55 +17,60 @@ CASE = {
     "difficulty_tier": "T1",
 
 "design_notes": (
-        "A and B state the same proposition with different values (4000Pa vs 6000Pa), in "
-        "one sentence each, naming the same metric, with no reference to any change or to "
-        "each other. The quality dimension is method (provenance), while the intended "
-        "textual cue is A's hedge ('is understood to be'), chosen to "
-        "survive paraphrasing (R1, R2, R16). "
-        "All quality information sits in provenance, which the reporter never sees. "
-        "B, C, and D state the fact in three different sentence frames "
-        "so their paraphrases cannot converge (R17). "
-        "Filler is neutral and assigned by report slot, not source (R9-R12). "
-        "Each filler set is exactly 78 words and A's and B's sentences are 12 and 10 "
-        "words, so every long report lands between 88 and 90 words, meeting the "
-        "required 88 minimum with room for rewording (R20)."
+            "A and B state the same proposition with different values (4000Pa vs 6000Pa), in "
+            "one sentence each, naming the same metric, with no reference to any change or to "
+            "each other. The quality dimension is method (provenance), while the intended "
+            "textual cue is A's hedge ('is understood to be'), chosen to "
+            "survive paraphrasing (R1, R2, R16). "
+            "All quality information sits in provenance, which the reporter never sees. "
+            "B, C, and D state the fact in three different sentence frames "
+            "so their paraphrases cannot converge (R17). "
+            "Filler is neutral and assigned by report slot, not source (R9-R12). "
+            "Each filler set is exactly 81 words and A's and B's sentences are 12 and 10 "
+            "words, so the set plus either sentence is 91 to 93 words, "
+            "and any accepted rewording still lands between 88 and 96 (R20)."
     ),
-# Filler sets with exactly 78 words each.
 "filler_sets": [
         [
-            "The plastic body houses the main motor assembly, "
+            "The plastic body houses the main motor, "
             "and the rubber wheels roll smoothly across hard floors.",
-            "A flexible black intake hose connects securely to the front port, "
+            "A flexible intake hose connects to the front port, "
             "while the metal extension wand locks into position.",
-            "Standard floor brushes attach firmly to the end of the wand, "
-            "and the retractable power cord spools inside the housing.",
-            "A disposable paper dust bag fits snugly inside the main compartment"
+            "Standard floor brushes attach firmly to the end of the wand. ",
+            "A rotating bristle brush handles deep carpets while a "
+            "parquet tool protects hard floors.",
+            "The retractable power cord spools inside the housing.",
+            "A paper dust bag fits inside the main compartment "
             "behind the hinged front access door.",
-            "The machine features a finish.",
         ],
         [
-            "The robust outer body shields internal components, "
-            "while smooth caster wheels support very easy maneuverability.",
-            "A reinforced suction hose attaches near the base, "
-            "and the telescoping wand adjusts to user height.",
-            "Interchangeable brush heads clip onto the nozzle fitting,"
-            "and the electrical cord winds around side hooks.",
-            "A cloth dust bag captures fine debris before exhaust air"
-            "passes through the final filter.",
-            "The primary chassis is painted in a metallic silver tone"
-            "with contrasting dark blue protective bumpers.",
+            "An ergonomic upper carrying handle moulded in the body provides a "
+            "comfortable grip.",
+            "Dual bright LED headlights with three adjustable "
+            "intensity settings illuminate dark areas "
+            "underneath heavy furniture.",
+            "The main structural body is sleek metallic silver in colour "
+            "with contrasting blue bumpers to cushion impact.",
+            "A large foot pedal at the back of the body "
+            "switches the machine on and off.",
+            "A washable exhaust filter captures microscopic allergens.",
+            "A transparent dust level indicator window shows when the "
+            "dust bag needs emptying.",
         ],
         [
-            "The lightweight polycarbonate body balances stability,"
-            "and rubberized wheels prevent scratching on timber floors.",
-            "A corrugated intake hose channels airflow upward, "
-            "and the rigid metal wand connects to the cleaning head.",
-            "Rotating bristle brushes agitate carpet fibers during operation,"
-            "and the bright yellow power cord remains visible.",
-            "A synthetic dust bag slides into internal tracks, "
-            "sealing completely when the lid is closed.",
-            "The machine sports a matte white color scheme accented"
-            "by chrome trim along the upper edge.",
+            "A flexible swivel steering neck pivots smoothly around "
+            "narrow furniture legs and tight room corners.",
+            "A fully charged battery provides forty-five minutes of "
+            "continuous cleaning runtime with "
+            "remaining charge shown clearly on "
+            "an LED display.",
+            "Advanced noise reduction insulation layers line "
+            "the inner motor chamber for very quiet operation.",
+            "A touch-free debris release latch empties collected "
+            "contents directly into outdoor bins without hand contact.",
+            "Three adjustable suction intensity settings "
+            "handle different floor types.",
+            "A blowing function clears away loose debris quickly.",
         ],
     ],
     "sources": {
@@ -87,10 +92,10 @@ CASE = {
             "quality": "strong",
             "claim": "6000Pa",
             "provenance": {
-                "type": "independent laboratory report",
+                "type": "accredited laboratory report",
                 "authority": "institutional",
                 "quality": "strong",
-                "why": "accredited laboratory test report using calibrated pressure sensors",
+                "why": "independent laboratory test report using calibrated pressure sensors",
             },
             "content": ("The water lift of the Yhotak B162 Vacuum "
                         "is 6000Pa."),
