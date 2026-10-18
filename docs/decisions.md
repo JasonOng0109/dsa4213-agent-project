@@ -267,3 +267,22 @@ Add an entry when you make a choice a reader could not guess from the code.
   of each other, which asks authors to fit a trial that is never run long.
 - **Breaks if changed**: a condition added to the length arm but not to `LONG_ARM` would
   go unchecked; `tests/test_run.py` fails when the two disagree.
+
+### 2026-10-18 — Authors do not update the corpus count
+
+- **Decision**: case authors leave the corpus count alone: README's corpus bullet, the
+  `open-corpus` node and the "cases written" card in `knowledge-graph.html`. Jason
+  updates all three when he merges each case's pull request. Until then, the
+  knowledge-graph test (`test_knowledge_graph_checks_clean`) fails on the `open-corpus`
+  quote of `cases/__init__.py`, and that is expected.
+- **Why** [STATED: team decision, 2026-10-18]: Jason chose this. [INFERRED: from the
+  pilot case pull requests] before the rule, authors did it three ways: M2 left the
+  count alone, Jason updated M3's himself, and M5 updated it in its own pull request.
+  When two branches both changed the count, merging the second needed fixing by hand,
+  and lines both branches had changed the same way merged silently and stayed wrong.
+- **Rejected**: each author updates the count in their own pull request, and whoever
+  merges second fixes it. In Phase 4, 35 cases are written in parallel, so every case
+  pull request would conflict with every other.
+- **Breaks if changed**: the `open-corpus` node must keep quoting the `CASES` line of
+  `cases/__init__.py`. That failing check is what reminds Jason to update the count when
+  he merges.

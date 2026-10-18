@@ -4,12 +4,14 @@ Who does what next, in small steps. Written for someone who has never seen this 
 Every task says **why** it matters, **what to read** first, **what to do**, and **when it
 is done**. Do the tasks in order. If you are stuck for more than 30 minutes, ask Jason.
 
-Plan written 2026-10-12. Status on that day:
+Plan written 2026-10-12. The status changes as work is merged, so look it up where it is
+kept:
 
-- The code is built and tested (`uv run pytest`: 67 passed).
-- **1 of 40 cases** is written (M1). Writing cases is the slowest part of the project.
-- No real run has happened yet. The pilot needs 5 cases, so 4 more must be written first.
-- 7 items are still open. See the "Open questions" board in `knowledge-graph.html`.
+- The code is built and tested: `uv run pytest` must pass.
+- How many cases are merged: README, "Status and open items". Writing cases is the
+  slowest part of the project.
+- No real run has happened yet. What the pilot waits for: Phase 3, "Start only when".
+- What is still open: the "Open questions" board in `knowledge-graph.html`.
 
 ---
 
@@ -236,8 +238,14 @@ Same steps for each author. Replace `m2` with your case.
   rewrite. Then explain your choices in `design_notes`.
 
 **1.10 Open a pull request.**
-- **Do**: `uv run pytest` must pass. Then push a branch (see "Git in five commands") and
-  open a pull request. Tag your reviewer and Jason.
+- **Do**: `uv run pytest` must pass, apart from the one expected failure below. Then push
+  a branch (see "Git in five commands") and open a pull request. Tag your reviewer and
+  Jason.
+- **Do not update the corpus count.** Leave README's corpus bullet and
+  `knowledge-graph.html` alone: Jason updates the count when he merges
+  (`docs/decisions.md`, "Authors do not update the corpus count").
+- **Expected failure**: once you register your case, `test_knowledge_graph_checks_clean`
+  fails on the `open-corpus` quote. Every other test must pass.
 
 ### Reviewer tasks (Rachel M2, Kathleen M3, Kai Rong M4, Crystal M5)
 
@@ -422,9 +430,9 @@ Kathleen gives each batch its domain, dimension and tier.
 |---|---|---|---|---|---|---|
 | M1 | institutional_logistics | authority | T2 | — | — | merged |
 | M2 | product_spec | primary_source | T1 | Crystal | Rachel | to do |
-| M3 | incident_status | directness | T1 | Rachel | Kathleen | to do |
+| M3 | incident_status | directness | T1 | Rachel | Kathleen | merged |
 | M4 | product_spec | method | T1 | Kathleen | Kai Rong | to do |
-| M5 | incident_status | authority | T1 | Kai Rong | Crystal | to do |
+| M5 | incident_status | authority | T1 | Kai Rong | Crystal | merged |
 
 Add a row when a batch is assigned.
 
@@ -487,9 +495,9 @@ Change "to do" to "done" when a task is finished.
 | 1.1–1.10 Write M4 | Kathleen | Phase 0 | to do |
 | 1.1–1.10 Write M5 | Kai Rong | Phase 0 | done |
 | 1.11 Review M2 | Rachel | M2 pull request | to do |
-| 1.11 Review M3 | Kathleen | M3 pull request | to do |
+| 1.11 Review M3 | Kathleen | M3 pull request | done |
 | 1.11 Review M4 | Kai Rong | M4 pull request | to do |
-| 1.11 Review M5 | Crystal | M5 pull request | to do |
+| 1.11 Review M5 | Crystal | M5 pull request | done |
 | 1.12 Final check and merge, M2–M5 | Jason | each review | to do |
 | 2A Ladder sentence | Rachel | Phase 0 | to do |
 | 2B Margin cut-off | Crystal | Phase 0 | to do |

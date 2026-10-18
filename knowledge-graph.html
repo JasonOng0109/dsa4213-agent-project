@@ -3682,7 +3682,7 @@ a.ref:hover { background: var(--surface-2); }
    "date": "2026-10-12",
    "points": [
     "At the fixed level of 0.05: with 2 cases a judge passes only if both are perfectly ordered; with 3 or 4, one fully reversed case fails it; with 5, it does not (p = 0.039).",
-    "The 5 come from the 40, so no case is written only for the pilot. Only 1 is written so far: [[open-corpus]].",
+    "The 5 come from the 40, so no case is written only for the pilot. How many are written so far: [[open-corpus]].",
     "The pilot's screen verdict is a preview; the main run's verdict uses all 40 cases."
    ],
    "evidence": [
@@ -5508,6 +5508,66 @@ a.ref:hover { background: var(--surface-2); }
    ]
   },
   {
+   "id": "count-at-merge",
+   "type": "decision",
+   "cluster": "process",
+   "title": "Authors do not update the corpus count",
+   "label": "Count updated at merge",
+   "summary": "Case authors leave the count of written cases alone: README's corpus bullet, the open-corpus node and the 'cases written' card. Jason updates all three when he merges each case. On a case branch the graph test fails on the open-corpus quote until then, and that is expected.",
+   "date": "2026-10-18",
+   "points": [
+    "Before the rule, authors did it three ways, and two branches that both changed the count needed fixing by hand when the second merged.",
+    "In Phase 4, 35 cases are written in parallel, so if every case pull request changed the count, each would conflict with every other.",
+    "The open-corpus node keeps quoting the CASES line of cases/__init__.py: that failing check is the reminder to update the count at merge.",
+    "CLAUDE.md tells agents the same, so an author's agent does not 'fix' the count: [[kg-rule]]."
+   ],
+   "evidence": [
+    {
+     "file": "docs/decisions.md",
+     "loc": "Authors do not update the corpus count",
+     "quote": "case authors leave the corpus count alone: README's corpus bullet, the `open-corpus` node and the \"cases written\" card in `knowledge-graph.html`."
+    },
+    {
+     "file": "docs/decisions.md",
+     "loc": "Authors do not update the corpus count",
+     "quote": "In Phase 4, 35 cases are written in parallel, so every case pull request would conflict with every other."
+    },
+    {
+     "file": "docs/decisions.md",
+     "loc": "Authors do not update the corpus count",
+     "quote": "That failing check is what reminds Jason to update the count when he merges."
+    },
+    {
+     "file": "CLAUDE.md",
+     "loc": "One exception: the corpus count",
+     "quote": "On a case branch, do not update how many cases are written"
+    },
+    {
+     "file": "docs/work-plan.md",
+     "loc": "1.10 Open a pull request",
+     "quote": "fails on the `open-corpus` quote. Every other test must pass."
+    }
+   ],
+   "links": [
+    {
+     "to": "open-corpus",
+     "rel": "needs"
+    },
+    {
+     "to": "author-reviewer",
+     "rel": "related"
+    },
+    {
+     "to": "work-plan",
+     "rel": "related"
+    },
+    {
+     "to": "kg-rule",
+     "rel": "related"
+    }
+   ]
+  },
+  {
    "id": "cost-model",
    "type": "process",
    "cluster": "process",
@@ -5629,6 +5689,11 @@ a.ref:hover { background: var(--surface-2); }
      "file": "CLAUDE.md",
      "loc": "Writing rules for the graph",
      "quote": "reuse a figure the page defines, or add one to the figure code"
+    },
+    {
+     "file": "CLAUDE.md",
+     "loc": "One exception: the corpus count",
+     "quote": "Jason updates them when he merges each case"
     }
    ],
    "links": [
@@ -5647,7 +5712,8 @@ a.ref:hover { background: var(--surface-2); }
    ],
    "points": [
     "The sweep covers what the checker cannot see: text hard-coded in the page's figures, as well as the README, docs and code comments. A figure's caption once kept describing the confidence screen's old rule after the code changed.",
-    "Where a picture explains better than words, a node gets a figure: an existing one, or a new one added to the page's figure code, showing only what the node's evidence supports."
+    "Where a picture explains better than words, a node gets a figure: an existing one, or a new one added to the page's figure code, showing only what the node's evidence supports.",
+    "One exception: on a case branch nobody updates the corpus count. Jason does when he merges: [[count-at-merge]]."
    ]
   },
   {
@@ -6241,6 +6307,17 @@ a.ref:hover { background: var(--surface-2); }
    "summary": "M3 (incident status, directness, T1) joined the corpus, now 3 of 40, so the pilot needs two more cases.",
    "changed": [
     "open-corpus"
+   ]
+  },
+  {
+   "date": "2026-10-18",
+   "summary": "Recorded Jason's rule that case authors do not update the corpus count; he updates it when he merges each case. CLAUDE.md and work-plan step 1.10 now say so, and the work plan's status lines no longer repeat numbers that go stale.",
+   "added": [
+    "count-at-merge"
+   ],
+   "changed": [
+    "pilot-size",
+    "kg-rule"
    ]
   }
  ]
