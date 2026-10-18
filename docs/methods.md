@@ -178,13 +178,23 @@ It is computed within one condition. Across conditions it would mostly measure t
 manipulation: a judge is right more often, and surer, in some conditions than in others.
 
 The p-value says how often a judge whose numbers carry no information would reach at
-least this AUROC by luck. It comes from the Mann-Whitney test, of which AUROC is a
-rescaling, using the test's normal approximation corrected for tied values. With few
-decisions, luck alone moves AUROC far from 0.5; with many, it stays close.
+least this AUROC by luck. The unit is the case, not the decision. A case's repeats are
+near-copies: at temperature 0 only the order of the options and reports changes, so
+the judge answers them almost alike, and twelve copies of one answer are not twelve
+pieces of evidence. So the p-value shuffles whole cases. Each shuffle scores every
+case's stated numbers against another case's right-and-wrong record, repeat by repeat,
+and p is the share of 2,000 shuffles, from a fixed seed, that reach at least the
+observed AUROC. Counting each decision instead, as the Mann-Whitney test does, makes p
+far too small: with ten cases of twelve repeats, a judge whose numbers carry no
+information would pass about 1 time in 4. With few cases, luck alone moves AUROC far
+from 0.5; with many, it stays close.
 
 **Worked example.** Stated probabilities when right: 90, 80. When wrong: 70, 85. The
 pairs: 90 > 70 yes, 90 > 85 yes, 80 > 70 yes, 80 > 85 no. That is 3 of 4, so
-AUROC = 0.75. On two decisions per class, luck does this often: p = 0.22.
+AUROC = 0.75. If each decision comes from a different case, the shuffles deal the four
+numbers into two right and two wrong in six ways: 90 and 85 right gives 1, 90 and 80
+gives 0.75, 90 and 70 or 85 and 80 give 0.5, 85 and 70 gives 0.25, 80 and 70 gives 0.
+Two of the six reach 0.75, so luck does this 1 time in 3: p = 1/3.
 
 **Reading the number.**
 
@@ -194,9 +204,10 @@ AUROC = 0.75. On two decisions per class, luck does this often: p = 0.22.
   decisions has p below 0.05 divided by the number of such conditions; A0 never counts.
   Dividing keeps the false-pass rate at about 1 in 20 however many conditions count,
   since each extra condition is one more chance to pass by luck.
-- A fixed AUROC mark would not hold that rate. At 12 right and 48 wrong decisions, a
-  judge whose numbers carry no information reaches 0.60 by luck more than 1 time in
-  10, but passes the test about 1 time in 20.
+- A fixed AUROC mark would not hold that rate. At 12 right and 48 wrong independent
+  decisions, a judge whose numbers carry no information reaches 0.60 by luck more than
+  1 time in 10, but passes the test about 1 time in 20.
 
-**In the code.** `auroc`, `auroc_p`, `discrimination_verdict` and
-`report_discrimination` in `pipeline/score.py`. Why this rule: `docs/decisions.md`.
+**In the code.** `auroc`, `auroc_p` (with `SHUFFLES` and `SHUFFLE_SEED`),
+`discrimination_verdict` and `report_discrimination` in `pipeline/score.py`. Why this
+rule, and why the case is the unit: `docs/decisions.md`.

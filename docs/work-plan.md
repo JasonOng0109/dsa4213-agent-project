@@ -326,6 +326,8 @@ it.
 - **Decided 2026-10-18**: a condition counts when it has 10 right and 10 wrong decisions
   (A0 never). A judge passes when at least one counted condition has AUROC above 0.5 at
   p below 0.05 divided by the number counted. The entry "AUROC" is in `docs/methods.md`.
+  Amended 2026-10-19: the p-value shuffles whole cases, since a case's repeats are
+  near-copies and counting each decision makes p far too small.
 - **Why**: a judge's probabilities count only if they carry information. One check is
   AUROC: when the judge is right, does it state higher confidence than when it is wrong?
   The scorer printed it, but no pass mark was set, so it could not exclude any judge.

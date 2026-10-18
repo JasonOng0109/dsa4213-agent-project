@@ -16,6 +16,7 @@ Several logs (for example from staged runs) are scored together.
 from __future__ import annotations
 import json
 import math
+import random
 from collections import Counter, defaultdict
 from functools import lru_cache
 from itertools import permutations
@@ -28,6 +29,8 @@ ORDER = ["A0", "A1", "A2", "A3", "A4", "A5", "A6", "A7", "X1", "X2", "X3", "X4",
 SCREEN = ["irrelevant", "partial", "determinate"]   # P0 < P1 < P2 in stated P(truth)
 SCREEN_ALPHA = 0.05     # one-sided; the proposal names no level, the team fixed this one
 MIN_CLASS = 10          # discrimination counts a condition with this many correct and incorrect
+SHUFFLES = 2000         # discrimination's p-value: this many shuffles of whole cases ...
+SHUFFLE_SEED = 0        # ... from a fixed seed, so the same log always gives the same p
 # H6: a top-two margin below this many points is near indifference; the sensitivity
 # cut-offs are printed beside it, declared in advance (team decisions, 2026-10-18)
 MARGIN_THRESHOLD = 10
@@ -216,41 +219,96 @@ def auroc(correct: list[float], incorrect: list[float]) -> float | None:
     return round(wins / (len(correct) * len(incorrect)), 3)
 
 
-def auroc_p(correct: list[float], incorrect: list[float]) -> float | None:
-    """One-sided p for AUROC above 0.5: the Mann-Whitney test, of which AUROC is U divided
-    by n1 x n2, by its normal approximation with the variance corrected for ties. 1.0 when
-    every value is tied, as when a judge states the same number on every answer. None
-    when either class is empty."""
-    if not correct or not incorrect:
+def _split(by_case: dict) -> tuple[list[float], list[float]]:
+    """(stated probabilities when correct, when incorrect) over every case and repeat of
+    one condition, given as {case_id: {run_index: (stated probability, correct)}}."""
+    decisions = [d for runs in by_case.values() for d in runs.values()]
+    return [s for s, ok in decisions if ok], [s for s, ok in decisions if not ok]
+
+
+def _ranks(values: list[float]) -> list[float]:
+    """Ranks from 1, tied values sharing the average of their ranks. Sorts once, so unlike
+    `_midranks` it stays fast on the hundreds of decisions a shuffle test reranks."""
+    order = sorted(range(len(values)), key=values.__getitem__)
+    ranks = [0.0] * len(values)
+    start = 0
+    while start < len(order):
+        end = start
+        while end + 1 < len(order) and values[order[end + 1]] == values[order[start]]:
+            end += 1
+        for i in order[start:end + 1]:
+            ranks[i] = (start + end) / 2 + 1
+        start = end + 1
+    return ranks
+
+
+def auroc_p(by_case: dict, shuffles: int = SHUFFLES,
+            seed: int = SHUFFLE_SEED) -> float | None:
+    """One-sided p for AUROC above 0.5, with the case as the unit. `by_case` is one judge's
+    condition: {case_id: {run_index: (stated probability, correct)}}.
+
+    A case's repeats are near-copies -- temperature 0, and only the order of the options
+    and reports changes -- so the judge answers them almost alike. A test that counted
+    each decision as separate evidence would make p far too small. So whole cases are
+    shuffled instead: each shuffle scores every case's stated probabilities against the
+    right/wrong record of another case, repeat by repeat (a repeat has the same rotations
+    in every case). p is the share of shuffles whose AUROC is at least the observed one,
+    with the observed arrangement counted as one of them, so p is never 0. 1.0 when every
+    value is tied, as when a judge states the same number on every answer. None when
+    either class is empty."""
+    cases = sorted(by_case)
+    stated = [(case, run, s) for case in cases
+              for run, (s, _) in sorted(by_case[case].items())]
+    record = {(case, run): ok for case in cases for run, (_, ok) in by_case[case].items()}
+    all_ranks = _ranks([s for _, _, s in stated])
+
+    def shuffled_auroc(record_of: dict) -> float | None:
+        """AUROC when each case's stated probabilities are scored against the record of
+        case record_of[case]. A repeat missing from that record (a failed parse) is left
+        out of this shuffle, and the rest are reranked."""
+        labels = [record.get((record_of[case], run)) for case, run, _ in stated]
+        keep = [i for i, label in enumerate(labels) if label is not None]
+        ranks = (all_ranks if len(keep) == len(stated)
+                 else _ranks([stated[i][2] for i in keep]))
+        n_ok = sum(labels[i] for i in keep)
+        n_bad = len(keep) - n_ok
+        if not n_ok or not n_bad:
+            return None
+        rank_sum = sum(rank for rank, i in zip(ranks, keep) if labels[i])
+        return (rank_sum - n_ok * (n_ok + 1) / 2) / (n_ok * n_bad)
+
+    observed = shuffled_auroc({case: case for case in cases})
+    if observed is None:
         return None
-    n1, n2 = len(correct), len(incorrect)
-    n = n1 + n2
-    u = sum((a > b) + 0.5 * (a == b) for a in correct for b in incorrect)
-    ties = sum(t ** 3 - t for t in Counter(correct + incorrect).values())
-    var = n1 * n2 / 12 * ((n + 1) - ties / (n * (n - 1)))
-    if var <= 0:
-        return 1.0
-    return 0.5 * math.erfc((u - n1 * n2 / 2) / math.sqrt(var) / math.sqrt(2))
+    rng = random.Random(seed)
+    at_least = 0
+    for _ in range(shuffles):
+        donors = cases[:]
+        rng.shuffle(donors)
+        value = shuffled_auroc(dict(zip(cases, donors)))
+        at_least += value is not None and value >= observed - 1e-9
+    return (at_least + 1) / (shuffles + 1)
 
 
 def discrimination_verdict(conds: dict) -> tuple[str, str]:
-    """Discrimination check (proposal §5), from one judge's {condition: (stated
-    probabilities when correct, when incorrect)}. A condition counts when both classes hold
+    """Discrimination check (proposal §5), from one judge's {condition: {case_id:
+    {run_index: (stated probability, correct)}}}. A condition counts when both classes hold
     MIN_CLASS decisions; A0 never does, since with no report a right answer is a lucky
     guess about a made-up fact. The judge is retained when at least one counted condition
-    has AUROC above 0.5 at one-sided p below SCREEN_ALPHA divided by the number counted.
-    At least one, not every: in X1 being wrong mostly means following the two agreeing
-    reports, which a judge can do confidently -- the effect under study -- so AUROC can
-    fall below 0.5 there although its numbers carry information. A judge stating the same
-    number on every answer sits at 0.5 everywhere and fails. With no counted condition the
-    check cannot be assessed, and the judge is EXCLUDED."""
+    has AUROC above 0.5 at one-sided p below SCREEN_ALPHA divided by the number counted,
+    the p from `auroc_p`, which shuffles whole cases because a case's repeats are
+    near-copies. At least one, not every: in X1 being wrong mostly means following the two
+    agreeing reports, which a judge can do confidently -- the effect under study -- so
+    AUROC can fall below 0.5 there although its numbers carry information. A judge
+    stating the same number on every answer sits at 0.5 everywhere and fails. With no
+    counted condition the check cannot be assessed, and the judge is EXCLUDED."""
     counted = [c for c in sorted(conds, key=ORDER.index)
-               if c != "A0" and min(map(len, conds[c])) >= MIN_CLASS]
+               if c != "A0" and min(map(len, _split(conds[c]))) >= MIN_CLASS]
     if not counted:
         return "EXCLUDED", (f"not assessable: no condition has {MIN_CLASS} correct and "
                             f"{MIN_CLASS} incorrect decisions")
     level = SCREEN_ALPHA / len(counted)
-    p = {c: auroc_p(*conds[c]) for c in counted}
+    p = {c: auroc_p(conds[c]) for c in counted}
     verdict = "retained" if min(p.values()) < level else "EXCLUDED"
     return verdict, (", ".join(f"{c} p {v:.4f}" for c, v in p.items())
                      + f"; passes below {SCREEN_ALPHA} / {len(counted)} = {level:.4f}")
@@ -258,21 +316,22 @@ def discrimination_verdict(conds: dict) -> tuple[str, str]:
 
 def report_discrimination(records: list[dict]) -> set:
     """The screen's second check (proposal §5): does the stated probability of the chosen
-    answer separate correct decisions from incorrect ones? Within condition, pooled across
-    cases and repeats, on the short arm, where every condition runs for every judge:
-    pooled across conditions it would mostly measure the manipulation itself. The class
-    counts are printed alongside, since a handful of trials in one class makes the number
+    answer separate correct decisions from incorrect ones? Within condition, on the short
+    arm, where every condition runs for every judge: pooled across conditions it would
+    mostly measure the manipulation itself. The printed AUROC pools a condition's cases
+    and repeats; its p-value treats the case as the unit (`auroc_p`). The class counts are
+    printed alongside, since a handful of trials in one class makes the number
     meaningless. Returns the judges that discrimination_verdict excludes."""
-    groups = defaultdict(lambda: defaultdict(lambda: ([], [])))
+    groups = defaultdict(lambda: defaultdict(lambda: defaultdict(dict)))
     for r in records:
         if r["arm"] == "short" and r.get("confidence_elicited") is not None:
-            groups[r["judge_model"]][r["condition"]][0 if r["decision_correct"] else 1] \
-                .append(r["confidence_elicited"])
+            groups[r["judge_model"]][r["condition"]][r["case_id"]][r["run_index"]] = \
+                (r["confidence_elicited"], bool(r["decision_correct"]))
     excluded = set()
     for judge, conds in sorted(groups.items()):
         parts = []
         for c in sorted(conds, key=ORDER.index):
-            ok, bad = conds[c]
+            ok, bad = _split(conds[c])
             parts.append(f"{c} {_rate(auroc(ok, bad))} ({len(ok)}/{len(bad)})")
         print(f"DISCRIMINATION judge {judge}: AUROC (n correct/incorrect) " + ", ".join(parts))
         verdict, detail = discrimination_verdict(conds)

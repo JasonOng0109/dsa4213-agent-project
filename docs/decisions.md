@@ -342,35 +342,50 @@ Add an entry when you make a choice a reader could not guess from the code.
 - **Decision**: on the short arm, a condition counts when it has at least 10 correct and
   10 incorrect decisions (`MIN_CLASS` in `pipeline/score.py`); A0 never counts. A judge
   passes when at least one counted condition has AUROC above 0.5 with a one-sided p
-  below 0.05 divided by the number of counted conditions (`discrimination_verdict`; the
-  p-value from `auroc_p`, the Mann-Whitney test with ties). With no counted condition
+  below 0.05 divided by the number of counted conditions (`discrimination_verdict`). The
+  p-value comes from `auroc_p`, which shuffles whole cases: 2,000 shuffles from a fixed
+  seed (`SHUFFLES`, `SHUFFLE_SEED`), each scoring every case's stated probabilities
+  against another case's right/wrong record, repeat by repeat. With no counted condition
   the check cannot be assessed, and the judge is excluded. A judge excluded by ordering
   or by discrimination gets no n_eff and no H6 result. This sets what the 2026-10-12
-  discrimination entry left open.
+  discrimination entry left open. Amended 2026-10-19: the p-value first counted each
+  decision as independent evidence (the Mann-Whitney test); it now shuffles whole cases.
 - **Why** [STATED: proposal §5]: a stated probability is admitted as evidence "only if
   it passes both checks", discrimination is "computed within condition", and the screen
   guards against "a judge that returns a high number on every answer". [STATED: team
   decision, 2026-10-18] A test at the screen's level, not a fixed AUROC. [INFERRED: from
-  the simulation in `tests/test_score.py`] at 12 correct and 48 incorrect decisions,
-  about one conflict condition in the pilot, a judge whose numbers carry no information
-  passes the test about 1 time in 20, but reaches an AUROC of 0.60 by luck more than 1
-  time in 10. A fixed mark is also too strict where decisions are many: it fails a judge
-  at 0.58 whose numbers do carry information. Dividing the level by the number of
+  the simulations in `tests/test_score.py`] at 12 correct and 48 incorrect independent
+  decisions, about one conflict condition in the pilot, a judge whose numbers carry no
+  information passes the test about 1 time in 20, but reaches an AUROC of 0.60 by luck
+  more than 1 time in 10. A fixed mark is also too strict where decisions are many: it
+  fails a judge at 0.58 whose numbers do carry information. [STATED: team decision,
+  2026-10-19] The case, not the decision, is the unit of the p-value: Kai Rong raised it
+  reviewing this entry, and Jason agreed. [INFERRED: from `build_repeat` in
+  `pipeline/conditions.py`] a case's repeats run at temperature 0 and differ only in
+  their rotations, so they are near-copies, which the judge answers almost alike.
+  [INFERRED: from the near-copies simulation in `tests/test_score.py`] with 10 cases of
+  12 repeats, counting each decision passes a judge whose numbers carry no information
+  about 1 time in 4 (51 of 200), while shuffling whole cases passes it about 1 time in
+  20 (9 of 200). The ordering check already averages a case's rotations for the same
+  reason (the 2026-10-12 entry on Page's test). Dividing the level by the number of
   counted conditions keeps the false-pass rate near 1 in 20 however many count. At
   least one condition, not every: in X1, being wrong mostly means following the two
   agreeing reports, which a judge can do confidently, and that is the effect under
   study, so AUROC can fall below 0.5 there for a judge whose numbers carry information.
   A judge stating the same number on every answer sits at 0.5 everywhere and still
-  fails. Ten per class: below that, one decision can move AUROC by more than a tenth,
-  and the test's normal approximation is rough. A0 shows no report, so a right answer
-  there is a lucky guess about a made-up fact. Not assessable counts as a fail, because
-  the proposal admits a number only once it passes.
+  fails. Ten per class: below that, one decision can move AUROC by more than a tenth. A0
+  shows no report, so a right answer there is a lucky guess about a made-up fact. Not
+  assessable counts as a fail, because the proposal admits a number only once it passes.
 - **Rejected**: a fixed pass mark such as 0.60; requiring every counted condition to
   pass, or pooling all conditions into one AUROC, either of which could exclude a judge
-  for being confidently wrong where the study predicts it.
+  for being confidently wrong where the study predicts it; a p-value that counts each
+  decision as independent evidence, the rule's first version, which makes p far too
+  small when a case's repeats are near-copies.
 - **Breaks if changed**: this rule decides whose stated numbers count, through n_eff and
-  H6. The pilot has about 60 decisions per judge in each conflict condition, so the
-  check is weak there: a pilot fail is a preview, like the pilot's screen verdict.
+  H6. Counting decisions instead of cases lets a judge whose numbers carry no
+  information pass about 1 time in 4. The pilot has about 60 decisions per judge in each
+  conflict condition, so the check is weak there: a pilot fail is a preview, like the
+  pilot's screen verdict.
 
 ### 2026-10-18 — The ten-case subset is fixed by a rule before the pilot
 

@@ -6,6 +6,7 @@ import contextlib
 import io
 import math
 import random
+from collections import Counter
 
 from pipeline.score import (auroc, auroc_p, cell, discrimination_verdict, neff, page_test,
                             report, report_discrimination, report_h6, report_ladder,
@@ -13,6 +14,27 @@ from pipeline.score import (auroc, auroc_p, cell, discrimination_verdict, neff, 
                             unbacked)
 
 OPTS = ["15%", "25%", "10%", "30%"]
+
+
+def _by_case(correct, incorrect, repeats=1):
+    """One condition as `auroc_p` reads it, {case_id: {run_index: (stated, correct)}}: each
+    stated probability is its own case, repeated `repeats` times as exact copies."""
+    decisions = [(s, True) for s in correct] + [(s, False) for s in incorrect]
+    return {f"c{i:02d}": {run: d for run in range(1, repeats + 1)}
+            for i, d in enumerate(decisions)}
+
+
+def _mann_whitney_p(correct, incorrect):
+    """The decision-level test 2C first used, kept here only to show what it gets wrong:
+    the Mann-Whitney normal approximation, every decision counted as independent."""
+    n1, n2 = len(correct), len(incorrect)
+    n = n1 + n2
+    u = sum((a > b) + 0.5 * (a == b) for a in correct for b in incorrect)
+    ties = sum(t ** 3 - t for t in Counter(correct + incorrect).values())
+    var = n1 * n2 / 12 * ((n + 1) - ties / (n * (n - 1)))
+    if var <= 0:
+        return 1.0
+    return 0.5 * math.erfc((u - n1 * n2 / 2) / math.sqrt(var) / math.sqrt(2))
 
 
 def _rec(answer, abstained=False, status="ok", margin=None):
@@ -148,11 +170,12 @@ def test_auroc():
 
 
 def test_discrimination_is_within_condition_on_the_short_arm():
-    def rec(cond, correct, conf, arm="short"):
-        return {"judge_model": "mock", "arm": arm, "condition": cond,
-                "decision_correct": correct, "confidence_elicited": conf}
-    records = [rec("X1", True, 80), rec("X1", False, 40), rec("X1", False, 60),
-               rec("A4", True, 95), rec("X1", True, 10, arm="long")]
+    def rec(case, cond, correct, conf, arm="short"):
+        return {"judge_model": "mock", "arm": arm, "condition": cond, "case_id": case,
+                "run_index": 1, "decision_correct": correct, "confidence_elicited": conf}
+    records = [rec("M1", "X1", True, 80), rec("M2", "X1", False, 40),
+               rec("M3", "X1", False, 60), rec("M1", "A4", True, 95),
+               rec("M4", "X1", True, 10, arm="long")]
     with contextlib.redirect_stdout(io.StringIO()) as out:
         excluded = report_discrimination(records)
     line = out.getvalue()
@@ -161,14 +184,26 @@ def test_discrimination_is_within_condition_on_the_short_arm():
     assert "not assessable" in line and excluded == {"mock"}
 
 
-def test_auroc_p_is_the_rank_test_of_auroc_above_half():
-    """One-sided p for AUROC above 0.5. docs/methods.md's worked example: AUROC 0.75 on
-    two decisions per class, which luck alone gives often (p = 0.22)."""
-    assert round(auroc_p([90, 80], [70, 85]), 2) == 0.22
-    assert auroc_p([80] * 10, [80] * 10) == 1.0      # the same number on every answer
-    assert auroc_p([90] * 10, [60] * 10) < 0.001
-    assert auroc_p([60] * 10, [90] * 10) > 0.999     # one-sided: confident when wrong fails
-    assert auroc_p([90], []) is None
+def test_auroc_p_shuffles_whole_cases():
+    """One-sided p for AUROC above 0.5, the case as the unit. docs/methods.md's worked
+    example: AUROC 0.75 on four decisions from four cases. Two of the six ways to split
+    those four numbers into two right and two wrong reach 0.75, so luck alone does this
+    1 time in 3."""
+    assert abs(auroc_p(_by_case([90, 80], [70, 85])) - 1 / 3) < 0.03
+    assert auroc_p(_by_case([80] * 10, [80] * 10)) == 1.0     # the same number every time
+    assert auroc_p(_by_case([90] * 10, [60] * 10)) < 0.001
+    assert auroc_p(_by_case([60] * 10, [90] * 10)) > 0.999    # one-sided: surer when wrong
+    assert auroc_p(_by_case([90], [])) is None
+
+
+def test_copies_of_a_case_add_no_evidence():
+    """A case's repeats are near-copies, so twelve copies of each decision are no more
+    evidence than one: shuffling whole cases gives exactly the same p, where counting each
+    decision calls the copies significant."""
+    right, wrong = [90, 85, 80, 70, 60], [88, 75, 65, 55, 50]
+    once, twelve = _by_case(right, wrong), _by_case(right, wrong, repeats=12)
+    assert auroc_p(twelve) == auroc_p(once) > 0.1
+    assert _mann_whitney_p(right, wrong) > 0.05 > _mann_whitney_p(right * 12, wrong * 12)
 
 
 def test_discrimination_passes_on_one_informative_condition():
@@ -176,31 +211,56 @@ def test_discrimination_passes_on_one_informative_condition():
     never. Retained when one counted condition has AUROC above 0.5 at p below 0.05 divided
     by the number counted, even beside one that runs backwards, as X1 can when a judge
     confidently follows the two agreeing reports."""
-    informative, backwards = ([90] * 10, [60] * 10), ([60] * 10, [90] * 10)
-    flat = ([80] * 10, [80] * 10)
+    informative, backwards = _by_case([90] * 10, [60] * 10), _by_case([60] * 10, [90] * 10)
+    flat = _by_case([80] * 10, [80] * 10)
     assert discrimination_verdict({"X1": backwards, "X5": informative})[0] == "retained"
     assert discrimination_verdict({"X1": flat, "X5": flat})[0] == "EXCLUDED"
-    verdict, detail = discrimination_verdict({"X5": ([90] * 30, [60] * 9)})
+    verdict, detail = discrimination_verdict({"X5": _by_case([90] * 30, [60] * 9)})
     assert verdict == "EXCLUDED" and "not assessable" in detail
     assert discrimination_verdict({"A0": informative})[0] == "EXCLUDED"
-    # p = 0.041 passes alone, but not at 0.05 / 3 beside two more counted conditions
-    middling = ([90] * 7 + [70] * 3, [90] * 3 + [70] * 7)
+    # p about 0.03 passes alone, but not at 0.05 / 3 beside two more counted conditions
+    middling = _by_case([90] * 6 + [80] * 3 + [70], [90] * 2 + [80] * 3 + [70] * 5)
     assert discrimination_verdict({"X3": middling})[0] == "retained"
     assert discrimination_verdict({"X1": flat, "X2": flat, "X3": middling})[0] == "EXCLUDED"
 
 
 def test_discrimination_test_holds_its_level_where_a_fixed_mark_does_not():
-    """docs/decisions.md: at 12 correct and 48 incorrect decisions, about one conflict
-    condition in the pilot, a judge whose numbers carry no information passes the test
-    about 1 time in 20, while a fixed AUROC mark of 0.60 lets it through more than 1 time
-    in 10. Its numbers are drawn the same way whether it is right or wrong, with ties."""
+    """docs/decisions.md: at 12 correct and 48 incorrect independent decisions, about one
+    conflict condition in the pilot, a judge whose numbers carry no information passes
+    the test about 1 time in 20, while a fixed AUROC mark of 0.60 lets it through more
+    than 1 time in 10. Its numbers are drawn the same way whether it is right or wrong,
+    with ties. The test runs on 200 of the draws, at 200 shuffles each, to stay fast."""
     rng = random.Random(0)
     values, weights = [50, 60, 70, 75, 80, 85, 90, 95, 100], [1, 2, 3, 2, 4, 3, 4, 3, 1]
     draws = [(rng.choices(values, weights, k=12), rng.choices(values, weights, k=48))
              for _ in range(2000)]
-    test = sum(auroc_p(ok, bad) < 0.05 for ok, bad in draws) / len(draws)
+    test = sum(auroc_p(_by_case(ok, bad), shuffles=200) < 0.05
+               for ok, bad in draws[:200]) / 200
     fixed = sum(auroc(ok, bad) >= 0.60 for ok, bad in draws) / len(draws)
-    assert 0.03 < test < 0.07 and fixed > 0.10
+    assert 0.02 < test < 0.09 and fixed > 0.10
+
+
+def test_discrimination_holds_its_level_when_repeats_are_near_copies():
+    """docs/decisions.md: the repeats of a case are near-copies. Here each of 200 judges
+    has 10 cases of 12 repeats, states one number per case and is right or wrong at a rate
+    set by the case, so its numbers carry no information. Counting each decision as
+    evidence passes 51 of them, about 1 in 4; shuffling whole cases passes 9, about 1 in
+    20, the level the screen promises."""
+    rng = random.Random(0)
+    values, weights = [50, 60, 70, 75, 80, 85, 90, 95, 100], [1, 2, 3, 2, 4, 3, 4, 3, 1]
+    shuffled = counted = 0
+    for _ in range(200):
+        condition = {}
+        for case in range(10):
+            stated = rng.choices(values, weights)[0]      # the judge's number for this case
+            p_right = rng.random()                         # how often it gets this case right
+            condition[f"c{case}"] = {run: (stated, rng.random() < p_right)
+                                     for run in range(1, 13)}
+        right = [s for runs in condition.values() for s, ok in runs.values() if ok]
+        wrong = [s for runs in condition.values() for s, ok in runs.values() if not ok]
+        shuffled += auroc_p(condition, shuffles=200) < 0.05
+        counted += _mann_whitney_p(right, wrong) < 0.05
+    assert shuffled / 200 < 0.08 and counted / 200 > 0.20
 
 
 def test_a_judge_failing_discrimination_gets_no_neff():

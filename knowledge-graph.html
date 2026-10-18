@@ -3937,11 +3937,12 @@ a.ref:hover { background: var(--surface-2); }
    "aliases": [
     "AUROC",
     "area under the ROC curve",
-    "Mann-Whitney"
+    "Mann-Whitney",
+    "case shuffle"
    ],
    "points": [
-    "Worked example: confidence 90 and 80 when right, 70 and 85 when wrong. Three of the four right-wrong pairs favour the right one, so AUROC = 0.75; on so few decisions luck does this often (p = 0.22).",
-    "The p-value comes from the Mann-Whitney test, of which AUROC is a rescaling.",
+    "Worked example: confidence 90 and 80 when right, 70 and 85 when wrong. Three of the four right-wrong pairs favour the right one, so AUROC = 0.75. With each decision from a different case, two of the six ways to deal those numbers reach 0.75, so luck does this 1 time in 3 (p = 1/3).",
+    "The p-value treats the case as the unit. A case's repeats are near-copies, so the test shuffles whole cases; counting each decision, as the Mann-Whitney test does, makes p far too small.",
     "The full entry: [[methods-doc]]."
    ],
    "evidence": [
@@ -3958,12 +3959,17 @@ a.ref:hover { background: var(--surface-2); }
     {
      "file": "docs/methods.md",
      "loc": "AUROC",
-     "quote": "That is 3 of 4, so AUROC = 0.75. On two decisions per class, luck does this often: p = 0.22."
+     "quote": "Two of the six reach 0.75, so luck does this 1 time in 3: p = 1/3."
+    },
+    {
+     "file": "docs/methods.md",
+     "loc": "AUROC",
+     "quote": "So the p-value shuffles whole cases."
     },
     {
      "file": "pipeline/score.py",
      "loc": "auroc_p",
-     "quote": "the Mann-Whitney test, of which AUROC is U divided by n1 x n2"
+     "quote": "A case's repeats are near-copies"
     }
    ],
    "links": [
@@ -4058,10 +4064,11 @@ a.ref:hover { background: var(--surface-2); }
    "cluster": "measuring",
    "title": "Discrimination passes a judge on one informative condition",
    "label": "Discrimination rule",
-   "summary": "A condition counts when it has at least 10 right and 10 wrong decisions; A0 never does. A judge passes when at least one counted condition has AUROC above 0.5 at p below 0.05 divided by the number counted. With no counted condition the check cannot be assessed, and the judge is excluded, as one failing ordering is.",
+   "summary": "A condition counts when it has at least 10 right and 10 wrong decisions; A0 never does. A judge passes when at least one counted condition has AUROC above 0.5 at p below 0.05 divided by the number counted, the p from shuffling whole cases. With no counted condition the check cannot be assessed, and the judge is excluded, as one failing ordering is.",
    "date": "2026-10-18",
    "points": [
-    "A test, not a fixed AUROC: at 12 right and 48 wrong decisions, about one pilot conflict condition, a judge whose numbers carry no information reaches 0.60 by luck more than 1 time in 10, but passes the test about 1 time in 20.",
+    "A test, not a fixed AUROC: at 12 right and 48 wrong independent decisions, about one pilot conflict condition, a judge whose numbers carry no information reaches 0.60 by luck more than 1 time in 10, but passes the test about 1 time in 20.",
+    "The case is the unit of the p-value. A case's repeats are near-copies, so counting each decision passes a judge whose numbers carry no information about 1 time in 4, while shuffling whole cases passes it about 1 time in 20. Kai Rong raised this in review: [[auroc]].",
     "At least one condition, not every: in [[x1]] being wrong mostly means following the two agreeing reports, which a judge can do confidently. That is the effect under study, so AUROC can fall below 0.5 there for a judge whose numbers carry information.",
     "A judge that states the same number on every answer sits at 0.5 everywhere and still fails.",
     "An excluded judge gets no [[neff]] and no H6 result: [[margin-cutoff]]. In the pilot the check is weak, so a fail there is a preview."
@@ -4100,7 +4107,22 @@ a.ref:hover { background: var(--surface-2); }
     {
      "file": "tests/test_score.py",
      "loc": "test_discrimination_test_holds_its_level_where_a_fixed_mark_does_not",
-     "quote": "assert 0.03 < test < 0.07 and fixed > 0.10"
+     "quote": "assert 0.02 < test < 0.09 and fixed > 0.10"
+    },
+    {
+     "file": "docs/decisions.md",
+     "loc": "Discrimination passes a judge on one informative condition",
+     "quote": "while shuffling whole cases passes it about 1 time in 20 (9 of 200)"
+    },
+    {
+     "file": "tests/test_score.py",
+     "loc": "test_discrimination_holds_its_level_when_repeats_are_near_copies",
+     "quote": "assert shuffled / 200 < 0.08 and counted / 200 > 0.20"
+    },
+    {
+     "file": "pipeline/score.py",
+     "loc": "SHUFFLES",
+     "quote": "SHUFFLES = 2000"
     }
    ],
    "links": [
@@ -7079,6 +7101,14 @@ a.ref:hover { background: var(--surface-2); }
    "summary": "M2 (product specification, primary source, T1) joined the corpus, now 5 of 40, so the pilot's five cases are all written.",
    "changed": [
     "open-corpus"
+   ]
+  },
+  {
+   "date": "2026-10-19",
+   "summary": "Discrimination's p-value now shuffles whole cases. A case's repeats are near-copies, so the first version, which counted each decision, passed a judge whose numbers carry no information about 1 time in 4 instead of 1 in 20. Kai Rong raised it in review, and Jason agreed.",
+   "changed": [
+    "auroc",
+    "discrimination-rule"
    ]
   }
  ]
