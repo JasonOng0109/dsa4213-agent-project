@@ -392,7 +392,7 @@ a.ref:hover { background: var(--surface-2); }
   "title": "Project Knowledge Graph",
   "project": "DSA4213 Group 14 · Counting Reports or Counting Evidence",
   "oneLiner": "Can an AI orchestrator that combines reports from several agents tell three copies of one source from three independent sources, and which piece of information fixes its mistakes: a source name, a 'these share a source' note, or a 'this source is better' note?",
-  "updated": "2026-10-18",
+  "updated": "2026-10-19",
   "tour": [
    "question",
    "false-consensus",
@@ -5926,12 +5926,61 @@ a.ref:hover { background: var(--surface-2); }
    ]
   },
   {
+   "id": "phase4-early",
+   "type": "decision",
+   "cluster": "process",
+   "title": "Phase 4 drafting starts before the pilot",
+   "label": "Draft Phase 4 early",
+   "summary": "Authors start drafting their Phase 4 cases now, before the pilot, using the lessons from the Phase 1 reviews and the current authoring rules. The cases are merged only after the pilot has run: the run takes every case in cases/__init__.py, so a case merged earlier would join the pilot.",
+   "date": "2026-10-19",
+   "points": [
+    "Each author drafts once Kathleen has given them a batch, and she marks the five subset cases then, before they are written: [[subset-rule]].",
+    "The pilot stays the programme the group approved, on M1–M5 only: [[pilot-programme]]."
+   ],
+   "evidence": [
+    {
+     "file": "docs/decisions.md",
+     "loc": "Phase 4 drafting starts before the pilot",
+     "quote": "authors start drafting their Phase 4 cases now, before the pilot run, once Kathleen has given them their first batch"
+    },
+    {
+     "file": "docs/decisions.md",
+     "loc": "Phase 4 drafting starts before the pilot",
+     "quote": "generate and judge take every case in cases/__init__.py, so a Phase 4 case merged before the pilot would join it"
+    },
+    {
+     "file": "docs/work-plan.md",
+     "loc": "Phase 4",
+     "quote": "Keep each case on its own branch until the pilot has run"
+    },
+    {
+     "file": "pipeline/run.py",
+     "loc": "main",
+     "quote": "\"generate\": cmd_generate, \"judge\": cmd_judge}[args.cmd](args, CASES)"
+    }
+   ],
+   "links": [
+    {
+     "to": "work-plan",
+     "rel": "part-of"
+    },
+    {
+     "to": "pilot-programme",
+     "rel": "needs"
+    },
+    {
+     "to": "subset-rule",
+     "rel": "related"
+    }
+   ]
+  },
+  {
    "id": "work-plan",
    "type": "process",
    "cluster": "process",
    "title": "Who does what next",
    "label": "Work plan",
-   "summary": "docs/work-plan.md splits the next work among the five members, in small steps written for newcomers. Everyone first learns the basics. Four members then write and cross-review the four pilot cases, M2 to M5, while each owns one Phase 2 decision. Jason runs the paid pilot, and then all five write the other 35 cases.",
+   "summary": "docs/work-plan.md splits the next work among the five members, in small steps written for newcomers. Everyone first learns the basics. Four members then write and cross-review the four pilot cases, M2 to M5, while each owns one Phase 2 decision. Jason runs the paid pilot; all five start drafting the other 35 cases before it, and those are merged after it ([[phase4-early]]).",
    "aliases": [
     "work-plan.md",
     "work plan"
@@ -7003,6 +7052,16 @@ a.ref:hover { background: var(--surface-2); }
    "summary": "M4 (product specification, method, T1) joined the corpus, now 4 of 40, so the pilot needs one more case.",
    "changed": [
     "open-corpus"
+   ]
+  },
+  {
+   "date": "2026-10-19",
+   "summary": "Phase 4 drafting starts now, before the pilot, with the lessons from the Phase 1 reviews and the current rules. Phase 4 cases are merged only after the pilot, since the run takes every registered case.",
+   "added": [
+    "phase4-early"
+   ],
+   "changed": [
+    "work-plan"
    ]
   }
  ]

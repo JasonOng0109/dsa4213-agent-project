@@ -456,3 +456,21 @@ Add an entry when you make a choice a reader could not guess from the code.
 - **Rejected**: keeping the example, which leaves the next method case to copy it.
 - **Breaks if changed**: for any case whose type name says "independent", X1 against X2
   would mix H5's named type with part of the dependence statement that X3 adds.
+
+### 2026-10-19 — Phase 4 drafting starts before the pilot
+
+- **Decision**: authors start drafting their Phase 4 cases now, before the pilot run, once
+  Kathleen has given them their first batch, using the lessons from the Phase 1 review
+  comments and the current `docs/authoring-rules.md`. Phase 4 cases are merged only after
+  the pilot has run. Kathleen marks the five subset cases when she assigns the batches,
+  as the 2026-10-18 subset entry says, so before anyone drafts them.
+- **Why** [STATED: team decision, 2026-10-19]: Jason told the team to start writing their
+  8 cases early and to draft the base before the pilot run. [INFERRED: from
+  `pipeline/run.py`] `generate` and `judge` take every case in `cases/__init__.py`, so a
+  Phase 4 case merged before the pilot would join it, while the 2026-10-18 entry fixes
+  the pilot at M1-M5.
+- **Rejected**: waiting for the pilot to finish before drafting, as the work plan's
+  tracker had it.
+- **Breaks if changed**: a Phase 4 case merged before the pilot is generated and judged
+  with M1-M5, so the pilot is no longer the 3,660-call programme on M1-M5 that the group
+  approved up to $10 for.

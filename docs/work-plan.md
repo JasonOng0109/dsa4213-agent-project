@@ -36,9 +36,8 @@ Phase 0  everyone learns the basics
    ├── Phase 1  write and review 4 pilot cases (M2–M5)      ┐ at the same time
    └── Phase 2  settle the open decisions (2A–2E)           ┘
    │
-Phase 3  pilot run on M1–M5 (Jason, paid)
-   │
-Phase 4  write the other 35 cases (M6–M40)
+   ├── Phase 3  pilot run on M1–M5 (Jason, paid)            ┐ at the same time
+   └── Phase 4  write the other 35 cases (M6–M40)           ┘ (merged after the pilot)
    │
 Phase 5  main run, analysis, write-up (detailed after the pilot)
 ```
@@ -360,7 +359,8 @@ it.
 - **Do now**: after each merge, update the case register in Phase 4 below. The linter's
   "Set-level counts" show the spread.
 - **Do in Phase 4**, when you assign the batches: mark the five subset cases in the case
-  register.
+  register. Phase 4 drafting starts before the pilot, so this comes first, before anyone
+  drafts them.
 - **Do before the main run**, once all 40 cases are merged: reorder the tuple in
   `cases/__init__.py` so the ten come first. `uv run pytest`.
 - **Done when**: the five are marked, and the reordered tuple is merged.
@@ -429,6 +429,13 @@ screen verdict "a preview".
 
 Same steps as Phase 1, in batches of two cases. Each author keeps the same reviewer.
 Kathleen gives each batch its domain, dimension and tier.
+
+**When**: start drafting now, before the pilot, once Kathleen has given you your first
+batch (`docs/decisions.md`, "Phase 4 drafting starts before the pilot"). Use the lessons
+from the review comments on the Phase 1 pull requests and the current
+`docs/authoring-rules.md`. Keep each case on its own branch until the pilot has run:
+Jason merges Phase 4 cases only after it, because the run takes every case in
+`cases/__init__.py`, and a case merged earlier would join the pilot.
 
 ### Targets for all 40
 
@@ -530,4 +537,5 @@ Change "to do" to "done" when a task is finished.
 | 2E What the pilot runs | Jason + group | — | done |
 | 3.1–3.7 Pilot run | Jason | M2–M5 merged, 2E | to do |
 | 3.4 Read frozen reports | authors and reviewers | 3.3 | to do |
-| Phase 4 cases | everyone | pilot done | to do |
+| Phase 4 drafts | everyone | Kathleen's first batches | to do |
+| Phase 4 merges | Jason | pilot done | to do |
