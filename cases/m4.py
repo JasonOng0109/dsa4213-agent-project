@@ -1,57 +1,72 @@
-"""M4: the water lift of the Yhotak Model B162 MagicWonder Vacuum Cleaner.
+"""M4: the water lift of the Yhotak B162 Vacuum.
 
-Product specification, method dimension, tier T1. The proposal's Appendix A shows
-this case in condition X3.
+Product specification, method dimension, tier T1.
 """
 
 CASE = {
     "case_id": "M4",
     "domain": "product_spec",
-    "question": "What is the water lift of the Yhotak Model B162 MagicWonder Vacuum Cleaner?",
+    "question": "What is the water lift of the Yhotak B162 Vacuum?",
     "world_truth": "6000Pa",
-    "distractors": ["2000Pa", "10000Pa"],      # plausible, unsupported, same kind as the truth
+    "distractors": ["2000Pa", "8000Pa"],      # plausible, unsupported, same kind as the truth
     "screen_partial": (
-        "The water lift of the Yhotak Model B162 MagicWonder Vacuum Cleaner is more than 5000Pa."
-    ),   # screen level P1: true, keeps the truth, rules out 2000Pa and 4000Pa.
+        "The water lift of the Yhotak B162 Vacuum is more than 5000Pa."
+    ),   # screen level P1:
+        #true, keeps the truth, rules out 2000Pa and 4000Pa.
     "quality_dimension": "method",
-    "difficulty_tier": "T1",          
-                                        
-    "design_notes": (
+    "difficulty_tier": "T1",
+
+"design_notes": (
         "A and B state the same proposition with different values (4000Pa vs 6000Pa), in "
         "one sentence each, naming the same metric, with no reference to any change or to "
-        "each other. The intended cue is method quality -- A relies on an unstandardized "
-        "retailer question-and-answer reply, whereas B is from standardized independent laboratory "
-        "testing. For T1, A carries a mild hedging hint ('is understood to be') that "
-        "survives paraphrasing (R16). All quality information sits in provenance, which the "
-        "reporter never sees. B, C, and D state the fact in three different frames so their "
-        "paraphrases cannot converge (R17)."
+        "each other. The quality dimension is method (provenance), while the intended "
+        "textual cue is A's hedge ('is understood to be'), chosen to "
+        "survive paraphrasing (R1, R2, R16). "
+        "All quality information sits in provenance, which the reporter never sees. "
+        "B, C, and D state the fact in three different sentence frames "
+        "so their paraphrases cannot converge (R17). "
+        "Filler is neutral and assigned by report slot, not source (R9-R12). "
+        "Each filler set is exactly 78 words and A's and B's sentences are 12 and 10 "
+        "words, so every long report lands between 88 and 90 words, meeting the "
+        "required 88 minimum with room for rewording (R20)."
     ),
-
-    # Filler belongs to the SLOT, not the source (R12): one set per report position, so
-    # two reports of the shared source never carry identical padding.
-    "filler_sets": [
-
+# Filler sets with exactly 78 words each.
+"filler_sets": [
         [
-            "Inspection logs are collected from the office and signed by a technician before units leave.",
-            "Each entry records the apparatus used, pressure measurements taken, and any deviation from standard protocol.",
-            "Entries are stored in the asset register, and checklists are attached to the file.",
-            "Spare pressure sensors are kept at the counter for anyone who requires one.",
-            "Testing shifts are fixed, and the workshop is used.",
-        ],  
+            "The plastic body houses the main motor assembly, "
+            "and the rubber wheels roll smoothly across hard floors.",
+            "A flexible black intake hose connects securely to the front port, "
+            "while the metal extension wand locks into position.",
+            "Standard floor brushes attach firmly to the end of the wand, "
+            "and the retractable power cord spools inside the housing.",
+            "A disposable paper dust bag fits snugly inside the main compartment"
+            "behind the hinged front access door.",
+            "The machine features a finish.",
+        ],
         [
-            "Safety induction is required before anyone may operate high-vacuum test rigs in the workshop.",
-            "Laboratory coats and eye protection are provided, and items are left outside.",
-            "Apparatus faults are reported to the technician on duty rather than to the department office.",
-            "Technician office hours run alongside each session for questions regarding test rigs or procedures.",
-            "Units repeating performance audits retain their bench unless a change is requested.",
-        ],  
+            "The robust outer body shields internal components, "
+            "while smooth caster wheels support very easy maneuverability.",
+            "A reinforced suction hose attaches near the base, "
+            "and the telescoping wand adjusts to user height.",
+            "Interchangeable brush heads clip onto the nozzle fitting,"
+            "and the electrical cord winds around side hooks.",
+            "A cloth dust bag captures fine debris before exhaust air"
+            "passes through the final filter.",
+            "The primary chassis is painted in a metallic silver tone"
+            "with contrasting dark blue protective bumpers.",
+        ],
         [
-            "Model B162 is a canister vacuum manufactured by Yhotak, and evaluations are conducted.",
-            "Bench schedules and unit serial numbers are posted at the workshop entrance and at the office.",
-            "Equipment for each suction test is calibrated before the session and returned to storage afterwards.",
-            "Technicians work in pairs, and each operator logs independent readings.",
-            "Benches are numbered, and the same setup is used for a batch throughout.",
-        ],  
+            "The lightweight polycarbonate body balances stability,"
+            "and rubberized wheels prevent scratching on timber floors.",
+            "A corrugated intake hose channels airflow upward, "
+            "and the rigid metal wand connects to the cleaning head.",
+            "Rotating bristle brushes agitate carpet fibers during operation,"
+            "and the bright yellow power cord remains visible.",
+            "A synthetic dust bag slides into internal tracks, "
+            "sealing completely when the lid is closed.",
+            "The machine sports a matte white color scheme accented"
+            "by chrome trim along the upper edge.",
+        ],
     ],
     "sources": {
         "A": {
@@ -61,10 +76,12 @@ CASE = {
                 "type": "retailer Q&A reply",
                 "authority": "individual",
                 "quality": "weak",
-                "why": "based on informal estimate by store customer service without standardized testing controls",
+                "why": "based on informal estimate by store customer service "
+                    "without standardized testing controls",
             },
-            "content": "For the Yhotak Model B162 MagicWonder Vacuum Cleaner, water lift is understood as 4000Pa.",
-            "n_paraphrases_needed": 2,  
+            "content": ("For the Yhotak B162 Vacuum, "
+                        "water lift is understood to be 4000Pa."),
+            "n_paraphrases_needed": 2,
         },
         "B": {
             "quality": "strong",
@@ -73,9 +90,10 @@ CASE = {
                 "type": "independent laboratory report",
                 "authority": "institutional",
                 "quality": "strong",
-                "why": "independent laboratory test report using calibrated pressure sensors",
+                "why": "accredited laboratory test report using calibrated pressure sensors",
             },
-            "content": "The water lift of the Yhotak Model B162 MagicWonder Vacuum Cleaner is 6000Pa.",
+            "content": ("The water lift of the Yhotak B162 Vacuum "
+                        "is 6000Pa."),
             "n_paraphrases_needed": 3,
         },
         "C": {
@@ -85,9 +103,10 @@ CASE = {
                 "type": "certified datasheet",
                 "authority": "institutional",
                 "quality": "strong",
-                "why": "official engineering specification derived from lab performance testing",
+                "why": "the manufacturer's own engineering measurement",
             },
-            "content": "A 6000Pa water lift rating is specified for the Yhotak Model B162 MagicWonder Vacuum Cleaner.",
+            "content": ("A 6000Pa water lift rating is "
+                        "specified for the Yhotak B162 Vacuum."),
             "n_paraphrases_needed": 1,
         },
         "D": {
@@ -97,9 +116,10 @@ CASE = {
                 "type": "third-party audit report",
                 "authority": "institutional",
                 "quality": "strong",
-                "why": "independent audit verifying compliance with advertised suction specifications",
+                "why": "a separate test of a shop-bought unit by an outside auditor",
             },
-            "content": "Evaluations show the Yhotak Model B162 MagicWonder Vacuum Cleaner delivers 6000Pa of water lift.",
+            "content": ("The Yhotak B162 Vacuum delivers "
+                        "6000Pa of water lift."),
             "n_paraphrases_needed": 1,
         },
     },

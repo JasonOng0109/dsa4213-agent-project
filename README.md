@@ -428,8 +428,8 @@ runs/                     outputs of real runs (created by the first run)
 
 Who does what next, step by step: [`docs/work-plan.md`](docs/work-plan.md).
 
-- **Corpus: 2 of 40 cases.** M1 (institutional logistics, authority, T2) and M5
-  (incident status, authority, T1). Authoring and independent review are the critical
+- **Corpus: 3 of 40 cases.** M1 (institutional logistics, authority, T2), M4 (product specification, method, T1) and M5 (incident status, authority, T1). 
+  Authoring and independent review are the critical
   path; see `docs/authoring-rules.md`.
 - **No real run has happened in this repository.** `runs/` fills from the first
   `generate`.
