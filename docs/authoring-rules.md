@@ -134,6 +134,13 @@ Prefer cues at the level of the clause, such as a hedge ("is understood to be"),
 approximation, or a standardised notation, and ask: *would a faithful rewording keep
 this?* The tier label stays provisional until the frozen reports are read. A case whose
 cue is lost is relabelled T2, not rewritten, because a T2 case is a legitimate control.
+**Vary the cue across cases.** If one phrase carries many T1 cases and the reporter drops
+it, they all become T2 together. Before choosing a hedge, run
+`grep -n -i -A1 hedge cases/*.py` to see the ones in use (each case names its hedge in
+`design_notes`), and pick the one used least, or another kind of cue; then name yours in
+`design_notes` too. "Is believed to", "is thought to" and "is estimated at" are hedges of
+the same size. "Reportedly", "allegedly" and "apparently" are not available: R2's lint
+rejects them.
 
 **R17 — Sources that share a trial use different sentence frames.** B, C and D appear
 together in A7; A and B appear together in the conflict block. If two of them state the

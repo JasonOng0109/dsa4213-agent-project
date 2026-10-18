@@ -1672,7 +1672,8 @@ a.ref:hover { background: var(--surface-2); }
    "points": [
     "Target at 40 cases: about 30 T1 and 10 T2.",
     "For T2, read belief (the probability on the truth), never accuracy: accuracy sits at chance by design.",
-    "A T1 label is provisional until someone reads the frozen reports and confirms the hint survived. A case whose hint is lost becomes T2."
+    "A T1 label is provisional until someone reads the frozen reports and confirms the hint survived. A case whose hint is lost becomes T2.",
+    "T1 hints are varied across cases, so one dropped phrase cannot turn many T1 cases into T2 at once: [[hint-variety]]."
    ],
    "evidence": [
     {
@@ -1900,7 +1901,7 @@ a.ref:hover { background: var(--surface-2); }
    "cluster": "cases",
    "title": "Rules that survive rewording",
    "label": "Wording rules (R13, R16, R17)",
-   "summary": "The question's words must not favour A or B (R13). A T1 hint must survive rewording, so not a single pronoun (R16). Sources shown together must use different sentence shapes so their rewordings do not look like copies (R17: word-pair overlap below 0.40).",
+   "summary": "The question's words must not favour A or B (R13). A T1 hint must survive rewording, so not a single pronoun, and different cases use different hints (R16). Sources shown together must use different sentence shapes so their rewordings do not look like copies (R17: word-pair overlap below 0.40).",
    "aliases": [
     "R13",
     "R16",
@@ -1921,6 +1922,11 @@ a.ref:hover { background: var(--surface-2); }
      "file": "docs/authoring-rules.md",
      "loc": "R17",
      "quote": "Bigram overlap between the content of any two co-occurring sources must be below 0.40."
+    },
+    {
+     "file": "docs/authoring-rules.md",
+     "loc": "R16",
+     "quote": "Vary the cue across cases."
     }
    ],
    "links": [
@@ -1931,6 +1937,61 @@ a.ref:hover { background: var(--surface-2); }
     {
      "to": "tiers",
      "rel": "needs"
+    }
+   ]
+  },
+  {
+   "id": "hint-variety",
+   "type": "decision",
+   "cluster": "cases",
+   "title": "T1 cases vary their hedge",
+   "label": "Vary the T1 hint",
+   "summary": "Each T1 case should use a different hint from the cases already written. If one phrase carries many T1 cases and the reporter drops it, all of them become T2 at once. Authors list the hedges in use, pick the one used least or another kind of cue, and name theirs in the case's design notes.",
+   "date": "2026-10-18",
+   "points": [
+    "Three of the four T1 pilot cases hint with 'is understood to'; only M5 uses another phrase, 'is believed to have been'.",
+    "'Is believed to', 'is thought to' and 'is estimated at' are hints of the same size. 'Reportedly', 'allegedly' and 'apparently' are banned as attribution or hearsay.",
+    "Whether a hint survived is read in the frozen reports; a case whose hint is lost becomes T2: [[tiers]]."
+   ],
+   "evidence": [
+    {
+     "file": "docs/decisions.md",
+     "loc": "T1 cases vary their hedge",
+     "quote": "If the reporter drops that one phrase, three of the four T1 pilot cases become T2 together."
+    },
+    {
+     "file": "docs/decisions.md",
+     "loc": "T1 cases vary their hedge",
+     "quote": "R16's only example hedge was \"is understood to be\", which is likely why it spread."
+    },
+    {
+     "file": "docs/authoring-rules.md",
+     "loc": "R16",
+     "quote": "Vary the cue across cases. If one phrase carries many T1 cases and the reporter drops it, they all become T2 together."
+    },
+    {
+     "file": "docs/authoring-rules.md",
+     "loc": "R16",
+     "quote": "\"Reportedly\", \"allegedly\" and \"apparently\" are not available: R2's lint rejects them."
+    },
+    {
+     "file": "cases/m5.py",
+     "loc": "module docstring",
+     "quote": "A's hedge, \"is believed to have been\", is the one mild cue, and is meant to survive rewording (R16)."
+    }
+   ],
+   "links": [
+    {
+     "to": "tiers",
+     "rel": "needs"
+    },
+    {
+     "to": "rules-wording",
+     "rel": "part-of"
+    },
+    {
+     "to": "human-checks",
+     "rel": "related"
     }
    ]
   },
@@ -6845,6 +6906,17 @@ a.ref:hover { background: var(--surface-2); }
     "open-margin-threshold",
     "open-discrimination",
     "open-pilot-scope"
+   ]
+  },
+  {
+   "date": "2026-10-18",
+   "summary": "R16 now asks Phase 4 authors to vary the T1 hint: three of the four T1 pilot cases hint with 'is understood to', so if the reporter drops that phrase they all become T2 together. Work-plan step 1.4 points to it.",
+   "added": [
+    "hint-variety"
+   ],
+   "changed": [
+    "rules-wording",
+    "tiers"
    ]
   }
  ]

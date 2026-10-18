@@ -424,3 +424,21 @@ Add an entry when you make a choice a reader could not guess from the code.
   main run.
 - **Breaks if changed**: an arm left out of the pilot meets real models for the first
   time in the main run.
+
+### 2026-10-18 — T1 cases vary their hedge
+
+- **Decision**: R16 in `docs/authoring-rules.md` asks authors to vary the T1 cue across
+  cases. Before choosing a hedge, an author lists the ones in use with
+  `grep -n -i -A1 hedge cases/*.py`, picks the one used least or another kind of cue,
+  and names it in `design_notes`. Work-plan step 1.4, which Phase 4 reuses, points to it.
+- **Why** [STATED: team decision, 2026-10-18]: Jason added it before Phase 4. [INFERRED:
+  from the pilot cases] M3's cue is "is understood to be", and the open pull requests
+  for M2 and M4 use "is understood to have" and "is understood to be"; only M5 differs,
+  with "is believed to have been". If the reporter drops that one phrase, three of the
+  four T1 pilot cases become T2 together. If the other T1 cases copied it as well, the
+  corpus's T1/T2 split would rest on whether the reporter keeps one phrase. R16's only
+  example hedge was "is understood to be", which is likely why it spread.
+- **Rejected**: leaving the choice of hedge to each author with no check, which is how
+  three of four T1 pilot cases came to share one phrase.
+- **Breaks if changed**: with one hedge on most T1 cases, the T1/T2 balance of the
+  corpus depends on whether the reporter keeps that phrase.
