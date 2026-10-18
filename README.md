@@ -428,14 +428,15 @@ runs/                     outputs of real runs (created by the first run)
 
 Who does what next, step by step: [`docs/work-plan.md`](docs/work-plan.md).
 
-- **Corpus: 1 of 40 cases.** M1 (institutional logistics, authority, T2). Authoring and
+- **Corpus: 5 of 40 cases.** M1 (institutional logistics, authority, T2), M2 (product
+  specification, primary source, T1), M3 (incident status, directness, T1), M4 (product
+  specification, method, T1) and M5 (incident status, authority, T1). Authoring and
   independent review are the critical path; see `docs/authoring-rules.md`.
 - **No real run has happened in this repository.** `runs/` fills from the first
   `generate`.
 - **Pilot: 5 of the 40 cases**, the fewest at which one badly ordered case cannot fail a
-  judge on the confidence screen by itself (`docs/decisions.md`). Four more cases must be
-  written and reviewed first. Which arms the pilot runs, and its call ceiling, are not
-  decided yet.
+  judge on the confidence screen by itself (`docs/decisions.md`). All five are written
+  and reviewed. Which arms the pilot runs, and its call ceiling, are not decided yet.
 - **Open before the main run** (each recorded in `docs/decisions.md`):
   - review the wording ladder's sentence: the proposal fixes its three intensity words,
     not the full sentence;
