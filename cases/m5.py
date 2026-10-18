@@ -135,7 +135,7 @@ CASE = {
                 "quality": "strong",
                 "why": "written by the firm that shut off and reconnected the supply",
             },
-            "content": "Kestrel Court had no running water for 6 hours.",
+            "content": "The mains water feeding Kestrel Court was shut off for 6 hours.",
             "n_paraphrases_needed": 1,
         },
     },
