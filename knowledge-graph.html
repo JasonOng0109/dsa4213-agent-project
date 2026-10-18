@@ -442,7 +442,7 @@ a.ref:hover { background: var(--surface-2); }
     "four-options"
    ],
    [
-    "3 of 40",
+    "4 of 40",
     "cases written",
     "open-corpus"
    ],
@@ -6327,9 +6327,9 @@ a.ref:hover { background: var(--surface-2); }
    "id": "open-corpus",
    "type": "issue",
    "cluster": "issues",
-   "title": "Only three of 40 cases are written",
-   "label": "Corpus: 3 of 40",
-   "summary": "The corpus holds three cases, M1, M3 and M5. The study plans 40, and authoring with independent review is the critical path.",
+   "title": "Only four of 40 cases are written",
+   "label": "Corpus: 4 of 40",
+   "summary": "The corpus holds four cases, M1, M3, M4 and M5. The study plans 40, and authoring with independent review is the critical path.",
    "status": "open",
    "date": "2026-10-12",
    "weight": 2,
@@ -6337,12 +6337,12 @@ a.ref:hover { background: var(--surface-2); }
     {
      "file": "README.md",
      "loc": "Status and open items",
-     "quote": "Corpus: 3 of 40 cases. M1 (institutional logistics, authority, T2), M3 (incident status, directness, T1) and M5 (incident status, authority, T1)."
+     "quote": "Corpus: 4 of 40 cases. M1 (institutional logistics, authority, T2), M3 (incident status, directness, T1), M4 (product specification, method, T1) and M5 (incident status, authority, T1)."
     },
     {
      "file": "cases/__init__.py",
      "loc": "CASES",
-     "quote": "CASES = {case[\"case_id\"]: case for case in (m1.CASE, m3.CASE, m5.CASE)}"
+     "quote": "CASES = {case[\"case_id\"]: case for case in (m1.CASE, m3.CASE, m4.CASE, m5.CASE)}"
     }
    ],
    "links": [
@@ -6996,6 +6996,13 @@ a.ref:hover { background: var(--surface-2); }
    "summary": "M4's pull request moved its hint to 'is thought to be', so hint-variety now gives the three-of-four count as it stood when the rule was made.",
    "changed": [
     "hint-variety"
+   ]
+  },
+  {
+   "date": "2026-10-18",
+   "summary": "M4 (product specification, method, T1) joined the corpus, now 4 of 40, so the pilot needs one more case.",
+   "changed": [
+    "open-corpus"
    ]
   }
  ]

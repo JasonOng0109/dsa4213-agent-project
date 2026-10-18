@@ -510,11 +510,11 @@ Change "to do" to "done" when a task is finished.
 | 0.1–0.7 Setup and basics | Jason | — | to do |
 | 0.1–0.7 Setup and basics | Crystal | — | to do |
 | 0.1–0.7 Setup and basics | Rachel | — | to do |
-| 0.1–0.7 Setup and basics | Kathleen | — | to do |
+| 0.1–0.7 Setup and basics | Kathleen | — | done |
 | 0.1–0.7 Setup and basics | Kai Rong | — | to do |
 | 1.1–1.10 Write M2 | Crystal | Phase 0 | to do |
 | 1.1–1.10 Write M3 | Rachel | Phase 0 | done |
-| 1.1–1.10 Write M4 | Kathleen | Phase 0 | to do |
+| 1.1–1.10 Write M4 | Kathleen | Phase 0 | done |
 | 1.1–1.10 Write M5 | Kai Rong | Phase 0 | done |
 | 1.11 Review M2 | Rachel | M2 pull request | to do |
 | 1.11 Review M3 | Kathleen | M3 pull request | done |
