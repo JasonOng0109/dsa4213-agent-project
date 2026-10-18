@@ -15,7 +15,7 @@ CASE = {
     ),
     "distractors": ["45 Wh", "75 Wh"],
     "quality_dimension": "primary_source",
-    "difficulty_tier": "T1",   
+    "difficulty_tier": "T1",
     "design_notes": (
         "This case tests primary-source quality using conflicting battery capacities "
         "for the fictional Arden Air 14 laptop. Source A is a third-party retailer "
@@ -38,7 +38,7 @@ CASE = {
         "The three filler sets describe only neutral physical features of the "
         "laptop, without battery-related information or source-identifying "
         "language (R9, R10). Each filler set contains 78 words; A and B contain "
-        "15 and 14 words respectively, producing long reports of 92 and 93 "
+        "15 and 14 words respectively, producing long reports of 93 and 92 "
         "words before paraphrasing (R20)."
     ),
     # Filler belongs to the SLOT, not the source (R12): one set per report position, so
@@ -47,7 +47,7 @@ CASE = {
         [
             "The Arden Air 14 laptop has a smooth lid with a small emblem positioned "
             "near its centre.",
-            "Its keyboard uses rounded keys arranged in evenly spaced layout across "
+            "Its keyboard uses rounded keys arranged in an even layout across "
             "the upper deck.",
             "A broad touchpad sits below the keyboard, with a matte surface that "
             "feels smooth to the touch.",
@@ -69,7 +69,7 @@ CASE = {
             "lens for the microphone.",
         ],
         [
-            "The Arden Air 14 laptop features a compact keyboard with a clearly "
+            "The Arden Air 14 laptop has a compact keyboard with a clearly "
             "marked space bar.",
             "The display frame has a uniform finish, and its corners are gently "
             "rounded along the outer edges.",
@@ -127,7 +127,7 @@ CASE = {
             ),
             "n_paraphrases_needed": 1,
             "provenance": {
-                "type": "independent laboratory test report",
+                "type": "accredited laboratory test report",
                 "authority": "Independent testing laboratory",
                 "quality": "strong",
                 "why": (
