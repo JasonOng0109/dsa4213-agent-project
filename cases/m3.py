@@ -1,0 +1,124 @@
+"""M3: Water depth of the Star Reservoir basin.
+
+Incident status reports domain, directness dimension, tier T1.
+"""
+
+CASE = {
+    "case_id": "M3",
+    "domain": "incident_status",
+    "question": "What is the water depth of the Star Reservoir basin?",
+    "world_truth": "14 metres",
+    "distractors": ["11 metres", "19 metres"],
+    "screen_partial": "The water depth of the Star Reservoir basin is less than 15 metres.",
+    "quality_dimension": "directness",
+    "difficulty_tier": "T1",
+    "design_notes": (
+        "A and B describe the same basin-wide water depth with identical scope and "
+        "precision, both in digits, differing only in value and in A's clause-level hedge "
+        "('is understood to be'), the one mild directness cue, chosen to survive "
+        "paraphrasing (R1, R2, R16). B is a flat statement with no cue of its own. Source "
+        "type names distinguish an off-site relay from on-site measurement (R19). All "
+        "claims are fictional (R4), without time markers (R3). B, C and D use distinct "
+        "sentence frames (R17). Filler is neutral and assigned by report slot, not source "
+        "(R9-R12). Each filler set is 79 words and A's and B's sentences are 14 and 12 "
+        "words, so every long report lands between 88 and 96 words with about three "
+        "words of room either way for rewording (R20)."
+    ),
+
+    "filler_sets": [
+        [
+            "Intake screen cleaners on the lower spillway run through designated tracks.",
+            "Perimeter fencing along the north bank remains secured around the access "
+            "corridor.",
+            "Auxiliary overflow bypass conduits operate in standard standby posture with "
+            "their connecting valves secured.",
+            "Sediment collection basins across the upper canal show routine settling "
+            "patterns within their partitioned bays.",
+            "Access barrier gates at the service slipway remain locked beside the walkway "
+            "for maintenance crews.",
+            "Handrails along the dam crest are painted and checked for loose fittings.",
+        ],
+        [
+            "Primary spillway sluice mechanisms stay set to standard positions within the "
+            "operating assembly.",
+            "Turbidity monitoring stations along the inlet channel report regular flow "
+            "clarity across sampling points.",
+            "Perimeter access road patrols proceed on normal operating schedules along the "
+            "outer pathway.",
+            "Surface aeration pumps across the settling pond maintain constant operation "
+            "through the distribution manifold.",
+            "Upstream intake screens show normal flow with no debris accumulation around "
+            "the grilles.",
+            "Lighting posts along the crest road are tested on a fixed rota.",
+        ],
+        [
+            "Secondary drainage channels below the embankment remain clear of obstructions "
+            "throughout the maintenance area.",
+            "Water treatment chemical feed lines operate within standard pressure limits "
+            "across the supply network.",
+            "Emergency pump generators stay connected on automatic standby within the "
+            "utility equipment enclosure.",
+            "Channel embankment vegetation control proceeds along the maintenance sector "
+            "beside the perimeter track.",
+            "Inlet canal baffle plates show fluid movement through the culvert and flow "
+            "passages.",
+            "Gravel paths around the visitor car park are raked and weeded regularly.",
+        ],
+    ],
+
+    "sources": {
+        "A": {
+            "quality": "weak",
+            "claim": "17 metres",
+            "provenance": {
+                "type": "summary circulated by an off-site dispatcher",
+                "authority": "individual",
+                "quality": "weak",
+                "why": "second-hand relay heard over telephone rather than direct "
+                       "observation",
+            },
+            "content": ("The water depth of the Star Reservoir basin is understood to be "
+                        "17 metres."),
+            "n_paraphrases_needed": 2,
+        },
+        "B": {
+            "quality": "strong",
+            "claim": "14 metres",
+            "provenance": {
+                "type": "on-site basin physical measurement log",
+                "authority": "physical",
+                "quality": "strong",
+                "why": "direct measurement read from the physical staff gauge fixed inside "
+                       "the basin",
+            },
+            "content": "The Star Reservoir basin holds water to a depth of 14 metres.",
+            "n_paraphrases_needed": 3,
+        },
+        "C": {
+            "quality": "strong",
+            "claim": "14 metres",
+            "provenance": {
+                "type": "stilling well float gauge record",
+                "authority": "instrument",
+                "quality": "strong",
+                "why": "direct continuous mechanical recording at the reservoir wall",
+            },
+            "content": ("Water inside the Star Reservoir basin reaches a depth of fourteen "
+                        "metres."),
+            "n_paraphrases_needed": 1,
+        },
+        "D": {
+            "quality": "strong",
+            "claim": "14 metres",
+            "provenance": {
+                "type": "submerged pressure transducer reading",
+                "authority": "instrument",
+                "quality": "strong",
+                "why": "hydrostatic probe anchored directly to the basin bed",
+            },
+            "content": ("Hydrostatic sounding indicates 14 metres of water in the Star "
+                        "Reservoir basin."),
+            "n_paraphrases_needed": 1,
+        },
+    },
+}
