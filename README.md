@@ -429,16 +429,16 @@ runs/                     outputs of real runs (created by the first run)
 
 Who does what next, step by step: [`docs/work-plan.md`](docs/work-plan.md).
 
-- **Corpus: 4 of 40 cases.** M1 (institutional logistics, authority, T2), M3 (incident
-  status, directness, T1), M4 (product specification, method, T1) and M5 (incident
-  status, authority, T1). Authoring and independent review are the critical path; see
-  `docs/authoring-rules.md`.
+- **Corpus: 5 of 40 cases.** M1 (institutional logistics, authority, T2), M2 (product
+  specification, primary source, T1), M3 (incident status, directness, T1), M4 (product
+  specification, method, T1) and M5 (incident status, authority, T1). Authoring and
+  independent review are the critical path; see `docs/authoring-rules.md`.
 - **No real run has happened in this repository.** `runs/` fills from the first
   `generate`.
 - **Pilot: 5 of the 40 cases**, the fewest at which one badly ordered case cannot fail a
-  judge on the confidence screen by itself (`docs/decisions.md`). One more case must be
-  written and reviewed first. The pilot runs the whole programme: 3,660 calls, $7.03,
-  with the group approving up to $10.
+  judge on the confidence screen by itself (`docs/decisions.md`). All five are written
+  and reviewed. The pilot runs the whole programme: 3,660 calls, $7.03, with the group
+  approving up to $10.
 - **Settled before the pilot** (`docs/decisions.md`, 2026-10-18): the wording ladder's
   sentence is kept; H6 counts a top-two margin below 10 points as near indifference;
   discrimination passes a judge when one condition with 10 right and 10 wrong decisions
