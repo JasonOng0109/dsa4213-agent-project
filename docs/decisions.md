@@ -396,6 +396,8 @@ Add an entry when you make a choice a reader could not guess from the code.
   is dropped is replaced by the next assigned case with the same domain, dimension and
   tier. Before the main run, `cases/__init__.py` puts the ten first, since `subset` in
   `pipeline/run.py` takes the first ten. For the pilot, on 5 cases, those are all five.
+  Marked 2026-10-19, with the first Phase 4 batches: M6, M14, M22, M30 and M38, one per
+  author, of which M14 and M22 are the two T2 (`docs/work-plan.md`, case register).
 - **Why** [STATED: team decision, 2026-10-18]: the ten are chosen before any of them is
   run, so neither the pilot's results nor how cases turn out can steer the choice.
   [STATED: `docs/work-plan.md`, Phase 1] M1-M5 "cover all 3 domains and all 4 quality

@@ -2948,7 +2948,7 @@ a.ref:hover { background: var(--surface-2); }
    ],
    "points": [
     "Why A and B must be close in length: each slot's filler is shared by A's and B's reports, and the band is only 8 words wide.",
-    "It applies to all 40 cases: when it was set, the ten that run the length arm were not chosen, and five of them are still to be marked ([[open-subset]]).",
+    "It applies to all 40 cases: when it was set, the ten that run the length arm had not been chosen ([[subset-rule]]).",
     "This guarantee holds because only the conditions the length arm runs are length-checked: [[long-check-scope]]."
    ],
    "evidence": [
@@ -2976,6 +2976,11 @@ a.ref:hover { background: var(--surface-2); }
      "file": "docs/work-plan.md",
      "loc": "1.7 Write the filler",
      "quote": "size each filler set so that the set plus A's sentence and the set plus B's sentence are both 91–93 words"
+    },
+    {
+     "file": "docs/decisions.md",
+     "loc": "Long reports leave 3 words of room for rewording",
+     "quote": "kept R20 for all 40 cases, since the ten length-arm cases are not chosen"
     }
    ],
    "links": [
@@ -3006,6 +3011,10 @@ a.ref:hover { background: var(--surface-2); }
     {
      "to": "long-check-scope",
      "rel": "needs"
+    },
+    {
+     "to": "subset-rule",
+     "rel": "related"
     }
    ]
   },
@@ -4264,7 +4273,8 @@ a.ref:hover { background: var(--surface-2); }
    "points": [
     "Chosen before any of the ten is run, so neither the pilot's results nor how cases turn out can steer the choice.",
     "M1–M5 already cover all three domains and all four quality dimensions.",
-    "Still to do: mark the five, and put the ten first in cases/__init__.py before the main run: [[open-subset]]."
+    "Marked on 2026-10-19 with the first Phase 4 batches, before anyone drafted them: M6, M14, M22, M30 and M38, one per author, with M14 and M22 the two T2. Still to do: put the ten first in cases/__init__.py before the main run: [[open-subset]].",
+    "The ten's three T2 cases, M1, M14 and M22, are in three different domains and three different dimensions."
    ],
    "evidence": [
     {
@@ -4286,6 +4296,16 @@ a.ref:hover { background: var(--surface-2); }
      "file": "docs/work-plan.md",
      "loc": "Phase 1",
      "quote": "Together with M1, these cover all 3 domains and all 4 quality dimensions."
+    },
+    {
+     "file": "docs/decisions.md",
+     "loc": "The ten-case subset is fixed by a rule before the pilot",
+     "quote": "Marked 2026-10-19, with the first Phase 4 batches: M6, M14, M22, M30 and M38, one per author"
+    },
+    {
+     "file": "docs/work-plan.md",
+     "loc": "Case register",
+     "quote": "the ten's three T2 cases (M1, M14, M22) are in three different domains and three different dimensions"
     }
    ],
    "links": [
@@ -6009,10 +6029,11 @@ a.ref:hover { background: var(--surface-2); }
    ],
    "points": [
     "Jason (Ong Jia Xi in the proposal) runs every step that spends money, after the group approves, and merges pull requests.",
-    "Phase 2's five items were decided on 2026-10-18, before any pilot result: [[ladder-sentence]], [[margin-cutoff]], [[discrimination-rule]], [[subset-rule]] and [[pilot-programme]]. Kai Rong still marks the subset's five Phase 4 cases: [[open-subset]].",
+    "Phase 2's five items were decided on 2026-10-18, before any pilot result: [[ladder-sentence]], [[margin-cutoff]], [[discrimination-rule]], [[subset-rule]] and [[pilot-programme]]. Kai Rong marked the subset's five Phase 4 cases with the first batches; putting the ten first in cases/__init__.py waits for the main run: [[open-subset]].",
     "The four pilot cases, with M1, cover all three domains and all four quality dimensions: [[quality-dimensions]].",
     "Each open number is agreed before anyone looks at pilot results, so it cannot be bent to fit them: [[precommit]].",
-    "Every case has a reviewer who did not write it: [[author-reviewer]]."
+    "Every case has a reviewer who did not write it: [[author-reviewer]].",
+    "Kai Rong keeps the case register: each case's domain, dimension, tier, author, reviewer, status, and whether it is in the ten-case subset."
    ],
    "evidence": [
     {
@@ -6039,6 +6060,16 @@ a.ref:hover { background: var(--surface-2); }
      "file": "docs/work-plan.md",
      "loc": "Phase 2",
      "quote": "Agree each number before anyone looks at pilot results."
+    },
+    {
+     "file": "docs/work-plan.md",
+     "loc": "Case register",
+     "quote": "Case register (Kai Rong keeps this current)"
+    },
+    {
+     "file": "docs/work-plan.md",
+     "loc": "Case register",
+     "quote": "Subset marks the ten cases the length arm and the wording ladder run on"
     }
    ],
    "links": [
@@ -6502,9 +6533,9 @@ a.ref:hover { background: var(--surface-2); }
    "id": "open-subset",
    "type": "issue",
    "cluster": "issues",
-   "title": "The ten-case subset: five cases still to mark",
-   "label": "Subset: five to mark",
-   "summary": "The length arm and the wording ladder run on the same 10 of the 40 cases. The rule is fixed: M1–M5 plus five Phase 4 cases that Kai Rong marks when assigning the batches ([[subset-rule]]). Still open: marking the five, and putting the ten first in cases/__init__.py before the main run. Until then the code takes the first ten in corpus order.",
+   "title": "The ten-case subset: put the ten first before the main run",
+   "label": "Subset: put ten first",
+   "summary": "Before the main run, cases/__init__.py must put the ten-case subset first, because the code takes the first ten in corpus order. The ten are chosen: M1–M5 plus M6, M14, M22, M30 and M38, which Kai Rong marked with the first Phase 4 batches, before anyone drafted them ([[subset-rule]]). The reorder waits until all 40 cases are merged.",
    "status": "open",
    "date": "2026-10-12",
    "evidence": [
@@ -6526,7 +6557,12 @@ a.ref:hover { background: var(--surface-2); }
     {
      "file": "README.md",
      "loc": "Status and open items",
-     "quote": "Kai Rong marks the five Phase 4 cases that join M1-M5 in the ten-case subset"
+     "quote": "cases/__init__.py puts the ten-case subset first (the code takes the first ten)"
+    },
+    {
+     "file": "docs/work-plan.md",
+     "loc": "2D",
+     "quote": "reorder the tuple in cases/__init__.py so the ten come first"
     }
    ],
    "links": [
@@ -7109,6 +7145,16 @@ a.ref:hover { background: var(--surface-2); }
    "changed": [
     "auroc",
     "discrimination-rule"
+   ]
+  },
+  {
+   "date": "2026-10-19",
+   "summary": "Kai Rong gave out the first Phase 4 batches and marked the five subset cases, M6, M14, M22, M30 and M38, before anyone drafted them. The case register gains a Subset column; putting the ten first in cases/__init__.py stays open until the main run.",
+   "changed": [
+    "open-subset",
+    "subset-rule",
+    "work-plan",
+    "length-room"
    ]
   }
  ]

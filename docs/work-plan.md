@@ -360,9 +360,8 @@ it.
   table". `docs/authoring-rules.md`, "Tiers".
 - **Do now**: after each merge, update the case register in Phase 4 below. The linter's
   "Set-level counts" show the spread.
-- **Do in Phase 4**, when you assign the batches: mark the five subset cases in the case
-  register. Phase 4 drafting starts before the pilot, so this comes first, before anyone
-  drafts them.
+- **Marked 2026-10-19**, with the first Phase 4 batches, before anyone drafted them: M6,
+  M14, M22, M30 and M38, under "Subset" in the case register in Phase 4 below.
 - **Do before the main run**, once all 40 cases are merged: reorder the tuple in
   `cases/__init__.py` so the ten come first. `uv run pytest`.
 - **Done when**: the five are marked, and the reordered tuple is merged.
@@ -432,8 +431,8 @@ screen verdict "a preview".
 Same steps as Phase 1, in batches of two cases. Each author keeps the same reviewer.
 Kai Rong gives each batch its domain, dimension and tier.
 
-**When**: start drafting now, before the pilot, once Kai Rong has given you your first
-batch (`docs/decisions.md`, "Phase 4 drafting starts before the pilot"). Use the lessons
+**When**: start drafting now, before the pilot (`docs/decisions.md`, "Phase 4 drafting
+starts before the pilot"). Your batches are in the case register below. Use the lessons
 from the review comments on the Phase 1 pull requests and the current
 `docs/authoring-rules.md`. Keep each case on its own branch until the pilot has run:
 Jason merges Phase 4 cases only after it, because the run takes every case in
@@ -457,15 +456,33 @@ Jason merges Phase 4 cases only after it, because the run takes every case in
 
 ### Case register (Kai Rong keeps this current)
 
-| Case | Domain | Dimension | Tier | Author | Reviewer | Status |
-|---|---|---|---|---|---|---|
-| M1 | institutional_logistics | authority | T2 | — | — | merged |
-| M2 | product_spec | primary_source | T1 | Crystal | Rachel | merged |
-| M3 | incident_status | directness | T1 | Rachel | Kathleen | merged |
-| M4 | product_spec | method | T1 | Kathleen | Kai Rong | merged |
-| M5 | incident_status | authority | T1 | Kai Rong | Crystal | merged |
+| Case | Domain | Dimension | Tier | Author | Reviewer | Status | Subset |
+|---|---|---|---|---|---|---|---|
+| M1 | institutional_logistics | authority | T2 | — | — | merged | yes |
+| M2 | product_spec | primary_source | T1 | Crystal | Rachel | merged | yes |
+| M3 | incident_status | directness | T1 | Rachel | Kathleen | merged | yes |
+| M4 | product_spec | method | T1 | Kathleen | Kai Rong | merged | yes |
+| M5 | incident_status | authority | T1 | Kai Rong | Crystal | merged | yes |
+| M6 | institutional_logistics | primary_source | T1 | Crystal | Rachel | assigned | yes |
+| M7 | product_spec | authority | T1 | Crystal | Rachel | assigned | |
+| M14 | incident_status | method | T2 | Rachel | Kathleen | assigned | yes |
+| M15 | institutional_logistics | authority | T1 | Rachel | Kathleen | assigned | |
+| M22 | product_spec | directness | T2 | Kathleen | Kai Rong | assigned | yes |
+| M23 | institutional_logistics | method | T1 | Kathleen | Kai Rong | assigned | |
+| M30 | institutional_logistics | directness | T1 | Kai Rong | Crystal | assigned | yes |
+| M31 | product_spec | primary_source | T2 | Kai Rong | Crystal | assigned | |
+| M38 | incident_status | primary_source | T1 | Jason | Kathleen | assigned | yes |
+| M39 | incident_status | directness | T1 | Jason | Kathleen | assigned | |
 
-Add a row when a batch is assigned.
+**Subset** marks the ten cases the length arm and the wording ladder run on (2D): M1–M5,
+and five Phase 4 cases marked on 2026-10-19 with the first batches, before anyone drafted
+them. The five are one per author, and two of them are T2. Every domain has at least 3 of
+the ten and every dimension at least 2, and the ten's three T2 cases (M1, M14, M22) are
+in three different domains and three different dimensions. M1–M5 and the first batches
+together have 5 cases in each domain and cover all 12 pairs of domain and dimension.
+
+Add a row when a batch is assigned, with status "assigned". Change it to "merged" when
+Jason merges the case.
 
 ---
 
@@ -535,7 +552,8 @@ Change "to do" to "done" when a task is finished.
 | 2C Discrimination pass mark | Kai Rong | Phase 0 | done |
 | 2D Case register (ongoing) | Kai Rong | each merge | to do |
 | 2D Ten-case subset: the rule | Jason + group | — | done |
-| 2D Ten-case subset: mark five, reorder the tuple | Kai Rong | Phase 4 batches; all 40 cases | to do |
+| 2D Ten-case subset: mark five | Kai Rong | Phase 4 batches | done |
+| 2D Ten-case subset: reorder the tuple | Kai Rong | all 40 cases | to do |
 | 2E What the pilot runs | Jason + group | — | done |
 | 3.1–3.7 Pilot run | Jason | M2–M5 merged, 2E | to do |
 | 3.4 Read frozen reports | authors and reviewers | 3.3 | to do |
