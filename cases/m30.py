@@ -1,7 +1,7 @@
 """M30: how many minutes each team gets to present in the Brightwater Case Challenge final.
 
-Institutional logistics domain, directness dimension, tier T1. A's hedge, "is said to",
-is the one mild cue, and is meant to survive rewording (R16). One of the ten subset
+Institutional logistics domain, directness dimension, tier T1. A's hedge, "is thought
+to", is the one mild cue, and is meant to survive rewording (R16). One of the ten subset
 cases, so the length arm and the wording ladder run on it.
 """
 
@@ -14,9 +14,10 @@ CASE = {
     "distractors": ["7 minutes", "13 minutes"],   # plausible, unsupported, same kind
                                                   # as the truth; even steps of 2 minutes
     "screen_partial": (
-        "Each team gets less than 10 minutes to present in the Brightwater Case Challenge "
-        "final."
-    ),   # screen level P1: true, keeps the truth, rules out 11 minutes and 13 minutes
+        "Each team gets between 8 and 12 minutes to present in the Brightwater Case "
+        "Challenge final."
+    ),   # screen level P1: true, keeps 9 and 11 minutes, each 1 minute inside a bound,
+         # and rules out 7 and 13 minutes
     "quality_dimension": "directness",
     "difficulty_tier": "T1",            # A's hedge is a whole clause, which a faithful
                                         # rewording keeps (R16); confirm in the frozen
@@ -27,34 +28,39 @@ CASE = {
         "each. Both name the same competition and round, give whole minutes, and refer "
         "to no change and to no other source (R1). Read without provenance, neither is "
         "narrower, an exception to the other, or more precise. The quality dimension, "
-        "directness, lives in provenance; the one cue in the content is A's "
-        "clause-level hedge, 'is said to', a hedge of the size a faithful rewording "
-        "should keep (R16). Whether it survives is only known once the frozen reports "
-        "are read; if it is lost, the case is relabelled T2. No other case uses it ('is "
-        "understood to' is in M2 and M3, 'is thought to' in M4, 'is believed to' in M5), "
-        "and its second-hand sense suits the weak source. The reporter rejects "
-        "'reportedly' as invented sourcing, so that word cannot carry the hedge in an "
-        "accepted rewording. "
-        "B is flat and carries no cue. The options are 7, 9, 11 and 13 minutes, evenly "
+        "directness, lives in provenance; the one cue in the content is A's clause-level "
+        "hedge, 'is thought to', a hedge of the size a faithful rewording should keep "
+        "(R16). Whether it survives is only known once the frozen reports are read; if "
+        "it is lost, the case is relabelled T2. 'Is understood to' is in M2 and M3, 'is "
+        "thought to' only in M4 and 'is believed to' only in M5, by the same author, so "
+        "this case takes 'is thought to'. A hedge that names hearsay, such as 'is said "
+        "to', is avoided: it would put A's provenance into the content, and its nearest "
+        "rewordings, 'reportedly' and 'according to', are rejected by the reporter. B is "
+        "flat and carries no cue. The options are 7, 9, 11 and 13 minutes, evenly "
         "spaced, so the truth and A's claim are both interior and equally close to the "
         "average: neither 'avoid the extremes' nor 'pick the middle' finds the truth "
-        "(R8). None is a usual slot length such as 10 or 15 minutes, which a judge "
-        "might favour from habit. The two type names carry the directness dimension "
-        "and nothing else: both sources are participants' own writing, one taken in "
-        "the room at the organisers' briefing and one passed on by a participant who "
-        "missed it, so the names differ in how close the writer was to the "
-        "announcement, not in authority (R19). Neither says 'independent', and both "
-        "name the source rather than the subject, so no word a rewording needs is "
-        "banned (R2a). A and B use the same question words and both leave out 'many' "
-        "(R13). B, C and D state the fact in three different frames (R17). C and D are "
-        "first-hand records of the final itself, the timekeeper's sheet and a video, so "
-        "neither depends on B's briefing or on each other, and they say nothing about "
-        "how their values were found (R2, R6). The competition and its final are "
-        "invented (R4). Filler describes the auditorium only, with nothing about time, "
-        "timing, rules, notes or the teams, no figures and no second person, so no slot "
-        "carries the feel of either source (R3, R9, R10). Each filler set is 77 "
-        "words and A's and B's sentences are 16 and 14 words, so every long report "
-        "starts at 91 to 93 words and stays inside 88 to 96 after rewording (R20)."
+        "(R8). None is a usual slot length such as 10 or 15 minutes, which a judge might "
+        "favour from habit. The screen sentence keeps 9 and 11 minutes, each 1 minute "
+        "inside a bound, so 'pick the survivor nearest the bound' does not find the "
+        "truth (R15). The two type names carry the directness dimension and nothing "
+        "else: both are written by participants, one who took notes in the room at the "
+        "organisers' briefing and one who missed it and passes on a summary, so they "
+        "differ in how close the writer was to the announcement, not in authority (R19). "
+        "Neither says 'independent', and both name the source rather than the subject, "
+        "so no word a rewording needs is banned (R2a). A and B use the same question "
+        "words and both leave out 'many' (R13). B, C and D state the fact in three "
+        "different frames (R17). C and D are first-hand records of the final itself, the "
+        "timekeeper's sheet and a video, so neither depends on B's briefing or on each "
+        "other, and they say nothing about how their values were found (R2, R6). The "
+        "competition and its final are invented (R4). Filler describes how the "
+        "auditorium looks, with nothing about time, timing, rules, notes, the teams or "
+        "the practical arrangements a briefing would cover, no figures and no second "
+        "person, so no slot carries the feel of either source (R3, R9, R10). Each filler "
+        "set is 77 words and A's and B's sentences are 16 and 14 words, so every long "
+        "report starts at 91 to 93 words and stays inside 88 to 96 after rewording "
+        "(R20). When the frozen reports are read (step 3.4), check that A's and B's "
+        "rewordings still give the time to present: a 'slot', 'turn' or 'session' can "
+        "include set-up and questions, so it would name a different whole."
     ),
 
     # Filler belongs to the SLOT, not the source (R12): one set per report position, so
@@ -83,15 +89,14 @@ CASE = {
             "the hall.",
         ],
         [
-            "A small lounge behind the stage holds a long table, folding chairs and a "
-            "water dispenser.",
-            "A gentle ramp beside the stage gives step-free access from the main seating "
-            "area.",
-            "Fire exits on both sides of the hall open onto a covered walkway outside.",
+            "The high ceiling is painted dark grey, and small round lamps are set evenly "
+            "across it.",
+            "A ramp with a brass handrail runs up beside the stage from the seating.",
+            "Arched windows on both sides of the hall are hung with pale grey blinds.",
             "Potted palms stand at the foot of the stage, below heavy curtains of deep red "
             "velvet.",
-            "Lockers for bags line one wall of the corridor that leads from the foyer to "
-            "the hall.",
+            "Large framed paintings line one wall of the corridor that leads from the "
+            "foyer to the hall.",
         ],
     ],
 
@@ -100,21 +105,23 @@ CASE = {
             "quality": "weak",
             "claim": "11 minutes",
             "provenance": {
-                "type": "summary passed on by a participant who missed the briefing",
+                "type": ("summary passed on by a participant who missed the organisers' "
+                         "briefing"),
                 "authority": "individual",
                 "quality": "weak",
                 "why": "written by a participant who was not at the organisers' briefing "
                        "and repeats what others said was announced there",
             },
-            "content": ("Each team is said to get 11 minutes to present in the Brightwater "
-                        "Case Challenge final."),
+            "content": ("Each team is thought to get 11 minutes to present in the "
+                        "Brightwater Case Challenge final."),
             "n_paraphrases_needed": 2,   # A appears only in the conflict block (2 reports)
         },
         "B": {
             "quality": "strong",
             "claim": "9 minutes",
             "provenance": {
-                "type": "notes taken in the room at the organisers' briefing",
+                "type": ("notes taken in the room by a participant at the organisers' "
+                         "briefing"),
                 "authority": "individual",
                 "quality": "strong",
                 "why": "written down as the organisers announced the arrangements for the "
@@ -134,7 +141,7 @@ CASE = {
                 "why": "kept by the timekeeper who timed every presentation in the final "
                        "as it happened",
             },
-            "content": ("Nine minutes is the time each team has to present in the "
+            "content": ("Nine minutes is the time each team gets to present in the "
                         "Brightwater Case Challenge final."),
             "n_paraphrases_needed": 1,
         },
@@ -147,8 +154,8 @@ CASE = {
                 "quality": "strong",
                 "why": "shows every presentation in the final from start to finish",
             },
-            "content": ("Each team in the Brightwater Case Challenge final presents for nine "
-                        "minutes."),
+            "content": ("Each team in the Brightwater Case Challenge final presents for "
+                        "nine minutes."),
             "n_paraphrases_needed": 1,
         },
     },
