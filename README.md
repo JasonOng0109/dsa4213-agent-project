@@ -323,9 +323,10 @@ screen**: *ordering*, where its stated P(truth) rises across an irrelevant repor
 a report ruling out two options (P1) and a report naming the answer (P2), tested across
 cases with Page's test for ordered alternatives (one-sided p < 0.05, so it needs at
 least two cases; both are explained in `docs/methods.md`); and *discrimination*, where
-its stated probability separates its correct decisions from its incorrect ones (AUROC,
-within condition). A judge that fails is reported as uninformative on confidence; its
-decisions still count.
+its stated probability separates its correct decisions from its incorrect ones (AUROC
+within condition, tested against 0.5 at the same level; also in `docs/methods.md`). A
+judge that fails either check is reported as uninformative on confidence; its decisions
+still count.
 
 ### The independence index
 
@@ -435,14 +436,15 @@ Who does what next, step by step: [`docs/work-plan.md`](docs/work-plan.md).
   `generate`.
 - **Pilot: 5 of the 40 cases**, the fewest at which one badly ordered case cannot fail a
   judge on the confidence screen by itself (`docs/decisions.md`). Two more cases must be
-  written and reviewed first. Which arms the pilot runs, and its call ceiling, are not
-  decided yet.
-- **Open before the main run** (each recorded in `docs/decisions.md`):
-  - review the wording ladder's sentence: the proposal fixes its three intensity words,
-    not the full sentence;
-  - choose the ten cases for the length arm and the ladder (the code takes the first ten);
-  - set the discrimination check's pass mark and smallest usable class size;
-  - set the margin below which H6 counts a judge as indifferent (the proposal says "a
-    stated threshold"; none is stated yet; the margin itself is already logged).
+  written and reviewed first. The pilot runs the whole programme: 3,660 calls, $7.03,
+  with the group approving up to $10.
+- **Settled before the pilot** (`docs/decisions.md`, 2026-10-18): the wording ladder's
+  sentence is kept; H6 counts a top-two margin below 10 points as near indifference;
+  discrimination passes a judge when one condition with 10 right and 10 wrong decisions
+  has AUROC above 0.5 at the screen's level; a rule fixes the ten cases for the length
+  arm and the ladder; the pilot runs the whole programme.
+- **Open before the main run**: Kathleen marks the five Phase 4 cases that join M1-M5 in
+  the ten-case subset, and `cases/__init__.py` puts the ten first (the code takes the
+  first ten).
 - **Not built**: the four optional sub-experiments. The backend already supports the
   reasoning switch and token logprobs they need.

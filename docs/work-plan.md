@@ -273,12 +273,18 @@ Same steps for each author. Replace `m2` with your case.
 Each owner does one item, at the same time as Phase 1. Each item ends the same way: the
 group agrees, and the decision is recorded (see "How to record a decision").
 
+**All five were decided on 2026-10-18**, before any pilot result, and are recorded in
+`docs/decisions.md`. Each item below starts with what was chosen; the rest of it is how
+it was worked out. Only 2D's rule is still to be applied, in Phase 4.
+
 **Agree each number before anyone looks at pilot results.** The README fixes the reading
 of results "before any data", so a number chosen after seeing data could be bent to fit
 it.
 
 ### 2A The wording ladder's sentence — Rachel
 
+- **Decided 2026-10-18**: keep the sentence. W1, W2 and W3 differ only in the intensity
+  word, and "more reliable than the shared source" is the proposal's own phrase.
 - **Why**: H4 says that telling the judge "this source is better" changes its answer. A
   critic could say the judge just obeyed. The ladder tests this: W1, W2 and W3 say
   "somewhat", "considerably" and "far" more reliable. Only that one word may change. The
@@ -297,6 +303,9 @@ it.
 
 ### 2B The H6 margin cut-off — Crystal
 
+- **Decided 2026-10-18**: a margin below 10 points counts as near indifference. The
+  entry "Margin" is in `docs/methods.md`, and `report_h6` in `pipeline/score.py` prints
+  H6's test.
 - **Why**: H6 says a judge sometimes picks an answer while its own numbers show it does
   not really know. One sign: the top two probabilities are close. The proposal says
   "below a stated threshold", but no number was ever stated.
@@ -314,9 +323,12 @@ it.
 
 ### 2C The discrimination pass mark — Kai Rong
 
+- **Decided 2026-10-18**: a condition counts when it has 10 right and 10 wrong decisions
+  (A0 never). A judge passes when at least one counted condition has AUROC above 0.5 at
+  p below 0.05 divided by the number counted. The entry "AUROC" is in `docs/methods.md`.
 - **Why**: a judge's probabilities count only if they carry information. One check is
   AUROC: when the judge is right, does it state higher confidence than when it is wrong?
-  The scorer prints it, but no pass mark is set, so it cannot exclude any judge.
+  The scorer printed it, but no pass mark was set, so it could not exclude any judge.
 - **Read**: `docs/decisions.md`, "The discrimination check is reported, with no pass mark
   yet". `pipeline/score.py`, the function `auroc` and its comment: 0.5 means no
   information.
@@ -334,6 +346,11 @@ it.
 
 ### 2D The case register and the ten-case subset — Kathleen
 
+- **Decided 2026-10-18**: the ten are M1–M5 plus five Phase 4 cases that you mark when
+  you assign the batches, before they are written. Two of the five are T2 and three T1;
+  every domain has at least 3 of the ten, and every dimension at least 2. A dropped case
+  is replaced by the next assigned case with the same domain, dimension and tier
+  (`docs/decisions.md`, "The ten-case subset is fixed by a rule before the pilot").
 - **Why**: the length arm and the wording ladder run on only 10 cases. The code takes the
   first ten in `cases/__init__.py` (`subset` in `pipeline/run.py`). The ten should be
   chosen on purpose, spread across domains, dimensions and tiers.
@@ -341,16 +358,20 @@ it.
   table". `docs/authoring-rules.md`, "Tiers".
 - **Do now**: after each merge, update the case register in Phase 4 below. The linter's
   "Set-level counts" show the spread.
-- **Do before the main run**, once all 40 cases are merged:
-  1. Pick 10: all 3 domains, all 4 dimensions, both tiers.
-  2. Write one line on why these ten. The group agrees.
-  3. Reorder the tuple in `cases/__init__.py` so these ten come first. `uv run pytest`.
-- **Done when**: recorded and merged.
+- **Do in Phase 4**, when you assign the batches: mark the five subset cases in the case
+  register.
+- **Do before the main run**, once all 40 cases are merged: reorder the tuple in
+  `cases/__init__.py` so the ten come first. `uv run pytest`.
+- **Done when**: the five are marked, and the reordered tuple is merged.
 
 ### 2E What the pilot runs — Jason, with the group
 
+- **Decided 2026-10-18**: the whole programme on M1–M5, 3,660 calls and $7.03, with the
+  group approving up to $10. `generate --max-calls 600`; the judge step runs one
+  programme entry at a time, each into its own log with its planned calls as the
+  ceiling (`docs/decisions.md`, "The pilot runs the whole programme on M1-M5").
 - **Why**: the group fixed the pilot at 5 cases (`docs/decisions.md`, "The pilot runs on
-  5 cases"). Nothing yet says which arms the pilot runs, or its call ceiling.
+  5 cases"). Nothing said which arms the pilot runs, or its call ceiling.
 - **Do**:
   1. `uv run python -m pipeline.run plan --cases 5`. The whole programme on 5 cases is
      3,660 calls, $7.03.
@@ -384,8 +405,8 @@ In the table, `...` is short for `uv run --env-file .env python -m`.
 | 3.2 | Jason | `... pipeline.run probe`: do the models answer, on the right providers? Output: `runs/probe.json` |
 | 3.3 | Jason | `... pipeline.run generate --max-calls 600`. The README allows 120 per case for two rounds; 5 × 120 = 600 |
 | 3.4 | each author and reviewer | Read your case in `runs/frozen_reports.json` (see below) |
-| 3.5 | Jason | `... pipeline.run judge --max-calls N`, with the arms from 2E. N comes from `plan` |
-| 3.6 | Jason | `uv run python -m pipeline.score runs/trials.jsonl`. Share the output |
+| 3.5 | Jason | One programme entry at a time (2E), e.g. `... pipeline.run judge --arms conflict --log trials-conflict.jsonl --max-calls 900`. Each entry's calls are in `docs/decisions.md` |
+| 3.6 | Jason | `uv run python -m pipeline.score runs/trials-*.jsonl`, all the logs together. Share the output |
 | 3.7 | Jason | Commit everything in `runs/`. Record the results in the map |
 
 **3.4 Reading the frozen reports.** Never edit them. Check three things:
@@ -499,12 +520,13 @@ Change "to do" to "done" when a task is finished.
 | 1.11 Review M4 | Kai Rong | M4 pull request | to do |
 | 1.11 Review M5 | Crystal | M5 pull request | done |
 | 1.12 Final check and merge, M2–M5 | Jason | each review | to do |
-| 2A Ladder sentence | Rachel | Phase 0 | to do |
-| 2B Margin cut-off | Crystal | Phase 0 | to do |
-| 2C Discrimination pass mark | Kai Rong | Phase 0 | to do |
+| 2A Ladder sentence | Rachel | Phase 0 | done |
+| 2B Margin cut-off | Crystal | Phase 0 | done |
+| 2C Discrimination pass mark | Kai Rong | Phase 0 | done |
 | 2D Case register (ongoing) | Kathleen | each merge | to do |
-| 2D Ten-case subset | Kathleen | all 40 cases | to do |
-| 2E What the pilot runs | Jason + group | — | to do |
+| 2D Ten-case subset: the rule | Jason + group | — | done |
+| 2D Ten-case subset: mark five, reorder the tuple | Kathleen | Phase 4 batches; all 40 cases | to do |
+| 2E What the pilot runs | Jason + group | — | done |
 | 3.1–3.7 Pilot run | Jason | M2–M5 merged, 2E | to do |
 | 3.4 Read frozen reports | authors and reviewers | 3.3 | to do |
 | Phase 4 cases | everyone | pilot done | to do |

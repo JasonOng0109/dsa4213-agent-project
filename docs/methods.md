@@ -10,6 +10,8 @@ term needs more than a sentence to explain.
 
 - [Page's test](#pages-test)
 - [Significance level](#significance-level)
+- [Margin](#margin)
+- [AUROC](#auroc)
 
 ---
 
@@ -113,3 +115,88 @@ would let the data pick its own pass mark.
 
 **In the code.** `SCREEN_ALPHA` in `pipeline/score.py`. The team's decision, and the
 pilot size it implies, are in `docs/decisions.md`.
+
+---
+
+## Margin
+
+**In one line.** How far the judge's top option leads the runner-up: its highest stated
+probability minus its second highest, in points. H6 counts a margin below 10 as near
+indifference.
+
+**How it works.**
+
+1. The judge states a probability for each of the four options. The scorer rescales
+   them to sum to 100.
+2. Sort them from highest to lowest. The margin is the first minus the second. A tie at
+   the top is a margin of 0.
+3. H6 flags a forced-choice record whose numbers do not identify the answer it gave:
+   either the answer is not its highest option (incoherent), or the margin is below 10.
+
+Coherence and the margin catch different things. Coherence catches a judge that thinks
+one answer and gives another. The margin catches a near-level spread behind a
+confident-looking answer: 34/33/33/0 is coherent, yet says almost nothing.
+
+**Worked example.** The judge gives the first option as its answer each time.
+
+| Stated probabilities | Margin | Flagged? |
+|---|---|---|
+| 34 / 33 / 33 / 0 | 1 | yes: near indifference |
+| 50 / 45 / 3 / 2 | 5 | yes: near indifference |
+| 50 / 40 / 5 / 5 | 10 | no: it leans one way |
+| 90 / 5 / 3 / 2 | 85 | no |
+| 40 / 50 / 5 / 5 | 10 | yes: incoherent, since the answer is not the top option |
+
+**Reading the number.** Below 10 counts a tie, or a lead of a few points such as 50
+against 45, as near indifference; for a judge that writes in steps of 5, that is a tie
+or one step from one. H6 then asks whether the judge, when it is allowed to abstain,
+abstains more in those same trials than in the rest, against its own abstention rate
+in A7. The scorer also prints that comparison at margins of 5 and 20, declared in
+advance to show how much the result depends on the cut-off; the conclusion rests on 10.
+
+**In the code.** `margin` and `coherent` in `_parse_object` in `pipeline/judge.py`;
+`MARGIN_THRESHOLD`, `unbacked` and `report_h6` in `pipeline/score.py`. Why 10:
+`docs/decisions.md`.
+
+---
+
+## AUROC
+
+**In one line.** The chance that a right decision carries a higher stated probability
+than a wrong one. 0.5 means the number carries no information about being right. The
+confidence screen's discrimination check uses it.
+
+**How it works.**
+
+1. Take one judge and one condition on the short arm. Split its decisions into right
+   and wrong, and note the probability it stated for the answer it gave.
+2. Compare every right decision with every wrong one. Count 1 when the right one
+   carries the higher number, ½ when they tie, 0 otherwise.
+3. AUROC is that count divided by the number of pairs.
+
+It is computed within one condition. Across conditions it would mostly measure the
+manipulation: a judge is right more often, and surer, in some conditions than in others.
+
+The p-value says how often a judge whose numbers carry no information would reach at
+least this AUROC by luck. It comes from the Mann-Whitney test, of which AUROC is a
+rescaling, using the test's normal approximation corrected for tied values. With few
+decisions, luck alone moves AUROC far from 0.5; with many, it stays close.
+
+**Worked example.** Stated probabilities when right: 90, 80. When wrong: 70, 85. The
+pairs: 90 > 70 yes, 90 > 85 yes, 80 > 70 yes, 80 > 85 no. That is 3 of 4, so
+AUROC = 0.75. On two decisions per class, luck does this often: p = 0.22.
+
+**Reading the number.**
+
+- Above 0.5, the judge is surer when it is right; below 0.5, surer when it is wrong. A
+  judge that states the same number on every answer scores exactly 0.5, with p = 1.
+- The check passes a judge when at least one condition with 10 right and 10 wrong
+  decisions has p below 0.05 divided by the number of such conditions; A0 never counts.
+  Dividing keeps the false-pass rate at about 1 in 20 however many conditions count,
+  since each extra condition is one more chance to pass by luck.
+- A fixed AUROC mark would not hold that rate. At 12 right and 48 wrong decisions, a
+  judge whose numbers carry no information reaches 0.60 by luck more than 1 time in
+  10, but passes the test about 1 time in 20.
+
+**In the code.** `auroc`, `auroc_p`, `discrimination_verdict` and
+`report_discrimination` in `pipeline/score.py`. Why this rule: `docs/decisions.md`.
