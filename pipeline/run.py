@@ -22,7 +22,8 @@ import os
 from typing import NamedTuple
 
 from pipeline.conditions import (ABSTAIN_ARM, AGREEMENT_BLOCK, CONFLICT_BLOCK, LADDER,
-                                 SCREEN_LEVELS, build_repeat, build_screen, rotation_schedule)
+                                 LONG_AGREEMENT, SCREEN_LEVELS, build_repeat, build_screen,
+                                 rotation_schedule)
 from pipeline.judge import PARSE_FAILURES, run_trials, write_jsonl
 from pipeline.llm import MockBackend, OpenRouterBackend, key_status
 from pipeline.reporter import attribution_in, freeze_sources, leak_terms, leaks_in
@@ -68,7 +69,7 @@ PROGRAMME = [
     Entry("screen", "screen", list(SCREEN_LEVELS), 4, PRIMARY_JUDGES, False),
     # the length arm crosses the conflict block (H3, H4) and A1, A2 (H2)
     Entry("long-conflict", "long", CONFLICT_BLOCK, 12, LENGTH_JUDGES, True),
-    Entry("long-agreement", "long", ["A1", "A2"], 6, LENGTH_JUDGES, True),
+    Entry("long-agreement", "long", LONG_AGREEMENT, 6, LENGTH_JUDGES, True),
     Entry("ladder", "ladder", LADDER, 12, PRIMARY_JUDGES, True),
 ]
 
@@ -229,6 +230,12 @@ def generate(cases: dict, reporter, rater, out_dir: str, budget: Budget | None =
         report["stopped"] = str(e)
     # the budget also counts calls of a source the ceiling cut short
     report["calls"] = budget.used if budget else sum(s["calls"] for s in report["sources"].values())
+    padded = sorted({cid for cid, fc in frozen.items()
+                     for res in fc.values() if res.get("padded")})
+    if padded:
+        print(f"Long-report length not checked for {', '.join(padded)}: the mock has no "
+              f"hand-written rewordings of these sentences, so the lint's R20 warning is "
+              f"the check.")
     write_json(os.path.join(out_dir, "frozen_reports.json"), frozen)
     write_json(os.path.join(out_dir, "generation_report.json"), report)
     calls_log = getattr(reporter, "log", None)
@@ -321,7 +328,9 @@ def select_entries(arms: str | None) -> list[Entry]:
 
 def cmd_dry(args, cases):
     """Everything the real run does, on the mock backend: generate and freeze, the leak
-    check, every programme entry with each entry's judges, the log, the scorer."""
+    check, every programme entry with each entry's judges, the log, the scorer. Long
+    reports of a case the mock has no hand-written rewordings for are not length-checked
+    (MockBackend.pads)."""
     out = args.out or os.path.join("runs", "mock")
     os.makedirs(out, exist_ok=True)
     log_path = os.path.join(out, "trials.jsonl")

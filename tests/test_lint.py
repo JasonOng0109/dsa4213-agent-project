@@ -37,7 +37,7 @@ def test_every_case_has_a_screen_sentence():
 
 
 def test_short_filler_gets_a_length_warning():
-    """M1's filler set 0 makes 89-90-word long reports; one sentence fewer falls short."""
+    """M1's filler set 0 makes 91-92-word long reports; one sentence fewer falls short."""
     case = copy.deepcopy(CASES["M1"])
     assert not any(n.startswith("filler_sets[0]") for n in length_notes(case))
     case["filler_sets"][0] = case["filler_sets"][0][:-1]

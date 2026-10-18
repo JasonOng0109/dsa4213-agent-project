@@ -392,7 +392,7 @@ a.ref:hover { background: var(--surface-2); }
   "title": "Project Knowledge Graph",
   "project": "DSA4213 Group 14 · Counting Reports or Counting Evidence",
   "oneLiner": "Can an AI orchestrator that combines reports from several agents tell three copies of one source from three independent sources, and which piece of information fixes its mistakes: a source name, a 'these share a source' note, or a 'this source is better' note?",
-  "updated": "2026-10-12",
+  "updated": "2026-10-17",
   "tour": [
    "question",
    "false-consensus",
@@ -442,7 +442,7 @@ a.ref:hover { background: var(--surface-2); }
     "four-options"
    ],
    [
-    "1 of 40",
+    "2 of 40",
     "cases written",
     "open-corpus"
    ],
@@ -1846,7 +1846,7 @@ a.ref:hover { background: var(--surface-2); }
    "cluster": "cases",
    "title": "Rules for filler and long reports",
    "label": "Filler rules (R9–R12, R20)",
-   "summary": "Long reports wrap the key sentence in neutral filler. Filler must not touch the question (R9), must not hint at who wrote it (R10); each report has one key sentence placed by the code (R11); and filler belongs to the report slot, not the source (R12); and each filler set is 77 to 80 words, so a long report lands in the 88–96-word band (R20).",
+   "summary": "Long reports wrap the key sentence in neutral filler. Filler must not touch the question (R9), must not hint at who wrote it (R10); each report has one key sentence placed by the code (R11); filler belongs to the report slot, not the source (R12); and each filler set is sized so a long report stays in the 88–96-word band with 3 words of room for rewording (R20).",
    "visual": "filler",
    "aliases": [
     "R9",
@@ -1872,7 +1872,7 @@ a.ref:hover { background: var(--surface-2); }
     {
      "file": "docs/authoring-rules.md",
      "loc": "R20",
-     "quote": "R20 — Each filler set is 77 to 80 words."
+     "quote": "R20 — Long reports leave room for rewording."
     }
    ],
    "links": [
@@ -2202,7 +2202,7 @@ a.ref:hover { background: var(--surface-2); }
     {
      "file": "pipeline/conditions.py",
      "loc": "build_conditions",
-     "quote": "trial(\"A1\", place(_reports_for(frozen_case, SHARED_SOURCE, 1), AGENT_LABELS))"
+     "quote": "trial(\"A1\", place(_reports_for(frozen_case, SHARED_SOURCE, 1), AGENT_LABELS,"
     }
    ],
    "links": [
@@ -2705,6 +2705,11 @@ a.ref:hover { background: var(--surface-2); }
      "file": "pipeline/run.py",
      "loc": "PROGRAMME",
      "quote": "Entry(\"long-conflict\", \"long\", CONFLICT_BLOCK, 12, LENGTH_JUDGES, True),"
+    },
+    {
+     "file": "pipeline/conditions.py",
+     "loc": "LONG_ARM",
+     "quote": "LONG_ARM = CONFLICT_BLOCK + LONG_AGREEMENT   # the conditions the length arm runs long"
     }
    ],
    "links": [
@@ -2719,6 +2724,10 @@ a.ref:hover { background: var(--surface-2); }
     {
      "to": "h2",
      "rel": "tests"
+    },
+    {
+     "to": "long-check-scope",
+     "rel": "related"
     }
    ]
   },
@@ -2728,7 +2737,7 @@ a.ref:hover { background: var(--surface-2); }
    "cluster": "conditions",
    "title": "Long reports are held to 88–96 words",
    "label": "88–96 words",
-   "summary": "Every long report is 88 to 96 words, and the longest in a trial is at most 1.10 times the shortest. The two limits agree: 96 / 88 = 1.091, so a band reaching 100 would allow a ratio the cap forbids. Each filler set is 77 to 80 words (R20), so filler plus one 11–15-word sentence lands in the band.",
+   "summary": "Every long report is 88 to 96 words, and the longest in a trial is at most 1.10 times the shortest. The two limits agree: 96 / 88 = 1.091, so a band reaching 100 would allow a ratio the cap forbids. Filler plus A's or B's sentence is sized at 91 to 93 words, and rewordings stay within 3 words of their sentence, so every report fits ([[length-room]]).",
    "date": "2026-10-12",
    "evidence": [
     {
@@ -2752,7 +2761,7 @@ a.ref:hover { background: var(--surface-2); }
      "rel": "related"
     },
     {
-     "to": "filler-length",
+     "to": "length-room",
      "rel": "related"
     }
    ]
@@ -2763,7 +2772,7 @@ a.ref:hover { background: var(--surface-2); }
    "cluster": "cases",
    "title": "Filler sets are 77 to 80 words, with a lint warning",
    "label": "Filler 77–80 words",
-   "summary": "Each filler set is 77 to 80 words, so a long report (filler plus one reworded A or B sentence of 11 to 15 words) lands at 88 to 95 words. Before this, nothing told authors the length; M3's sets were 65 words and two of M1's were one word short. The linter now warns, but does not fail, because a sentence's length only estimates its rewording's length.",
+   "summary": "Superseded by [[length-room]]. Each filler set was to be 77 to 80 words, so a long report (filler plus one reworded A or B sentence of 11 to 15 words) lands at 88 to 95 words. That left too little room: a real rewording a word or two off could push a report out of the band.",
    "date": "2026-10-15",
    "aliases": [
     "R20",
@@ -2779,16 +2788,6 @@ a.ref:hover { background: var(--surface-2); }
      "file": "docs/decisions.md",
      "loc": "Filler sets are 77 to 80 words",
      "quote": "A 77-80-word set around an 11-15-word sentence lands at 88-95."
-    },
-    {
-     "file": "docs/authoring-rules.md",
-     "loc": "R20",
-     "quote": "With an 11-to-15-word sentence, a 77-to-80-word set lands inside the band."
-    },
-    {
-     "file": "docs/work-plan.md",
-     "loc": "1.7 Write the filler",
-     "quote": "each filler set about 77–80 words (R20), so that a long report (filler"
     }
    ],
    "links": [
@@ -2803,6 +2802,188 @@ a.ref:hover { background: var(--surface-2); }
     {
      "to": "linter",
      "rel": "involves"
+    },
+    {
+     "to": "padded-mock-lengths",
+     "rel": "related"
+    }
+   ],
+   "status": "superseded"
+  },
+  {
+   "id": "length-room",
+   "type": "decision",
+   "cluster": "cases",
+   "title": "Long reports leave 3 words of room for rewording",
+   "label": "±3 words of room",
+   "summary": "Two guards keep every long report inside 88 to 96 words. The reporter rejects a rewording more than 3 words longer or shorter than its sentence. Authors size each filler set so that the set plus A's sentence, and the set plus B's sentence, are both 91 to 93 words. Then any accepted rewording still fits, so the length arm cannot stop on a case. This needs A's and B's sentences within 2 words of each other in length.",
+   "date": "2026-10-15",
+   "aliases": [
+    "R20",
+    "rewording room",
+    "LENGTH_DIFF_MAX"
+   ],
+   "points": [
+    "Why A and B must be close in length: each slot's filler is shared by A's and B's reports, and the band is only 8 words wide.",
+    "It applies to all 40 cases, because the ten that run the length arm are not chosen yet: [[open-subset]].",
+    "This guarantee holds because only the conditions the length arm runs are length-checked: [[long-check-scope]]."
+   ],
+   "evidence": [
+    {
+     "file": "docs/decisions.md",
+     "loc": "Long reports leave 3 words of room for rewording",
+     "quote": "Long reports leave 3 words of room for rewording"
+    },
+    {
+     "file": "docs/decisions.md",
+     "loc": "Long reports leave 3 words of room for rewording",
+     "quote": "With both limits, every accepted rewording fits: 91 - 3 = 88 and 93 + 3 = 96, and 96 / 88 stays under the 1.10 cap."
+    },
+    {
+     "file": "pipeline/reporter.py",
+     "loc": "LENGTH_DIFF_MAX",
+     "quote": "LENGTH_DIFF_MAX = 3     # words a report may differ from its source's length (R20)"
+    },
+    {
+     "file": "docs/authoring-rules.md",
+     "loc": "R20",
+     "quote": "That needs A's and B's sentences within 2 words of each other in length."
+    },
+    {
+     "file": "docs/work-plan.md",
+     "loc": "1.7 Write the filler",
+     "quote": "size each filler set so that the set plus A's sentence and the set plus B's sentence are both 91–93 words"
+    }
+   ],
+   "links": [
+    {
+     "to": "filler-length",
+     "rel": "replaces"
+    },
+    {
+     "to": "long-band",
+     "rel": "needs"
+    },
+    {
+     "to": "acceptance",
+     "rel": "involves"
+    },
+    {
+     "to": "rules-filler",
+     "rel": "part-of"
+    },
+    {
+     "to": "linter",
+     "rel": "involves"
+    },
+    {
+     "to": "open-subset",
+     "rel": "related"
+    },
+    {
+     "to": "long-check-scope",
+     "rel": "needs"
+    }
+   ]
+  },
+  {
+   "id": "long-check-scope",
+   "type": "decision",
+   "cluster": "conditions",
+   "title": "Only the conditions the length arm runs are length-checked",
+   "label": "Length check: run conditions only",
+   "summary": "The code builds every condition at long length, but the length arm only runs the conflict block plus A1 and A2. Those are now named once, as LONG_ARM, and only their reports are length-checked. Before, A7 (B, C and D together) was checked too and then thrown away, so a C rewording that R20 allows could stop the build. Authors need no rule on C's and D's lengths.",
+   "date": "2026-10-15",
+   "aliases": [
+    "LONG_ARM",
+    "LONG_AGREEMENT"
+   ],
+   "evidence": [
+    {
+     "file": "pipeline/conditions.py",
+     "loc": "LONG_ARM",
+     "quote": "LONG_ARM = CONFLICT_BLOCK + LONG_AGREEMENT   # the conditions the length arm runs long"
+    },
+    {
+     "file": "docs/decisions.md",
+     "loc": "Only the conditions the length arm runs are length-checked",
+     "quote": "Checking only what is run makes R20's guarantee hold without any rule on C's and D's lengths."
+    },
+    {
+     "file": "pipeline/run.py",
+     "loc": "PROGRAMME",
+     "quote": "Entry(\"long-agreement\", \"long\", LONG_AGREEMENT, 6, LENGTH_JUDGES, True),"
+    }
+   ],
+   "links": [
+    {
+     "to": "length-arm",
+     "rel": "needs"
+    },
+    {
+     "to": "long-band",
+     "rel": "needs"
+    },
+    {
+     "to": "length-room",
+     "rel": "related"
+    },
+    {
+     "to": "drift-a7-long-check",
+     "rel": "because"
+    }
+   ]
+  },
+  {
+   "id": "padded-mock-lengths",
+   "type": "decision",
+   "cluster": "pipeline",
+   "title": "The dry run skips the length check for padded mock rewordings",
+   "label": "Dry run skips padded lengths",
+   "summary": "The mock has realistic fake rewordings only for M1. For any other case it pads the sentence with a fixed opening and ending, so its fake rewordings are about 21 to 29 words, much longer than a real model's. Those reports are now marked padded, and the dry run does not length-check them. The real run still checks every long report, and the R20 warning estimates the length before any run.",
+   "date": "2026-10-15",
+   "aliases": [
+    "padded",
+    "MockBackend.pads"
+   ],
+   "evidence": [
+    {
+     "file": "docs/decisions.md",
+     "loc": "The dry run skips the length check for padded mock rewordings",
+     "quote": "The dry run skips the length check for padded mock rewordings"
+    },
+    {
+     "file": "docs/decisions.md",
+     "loc": "The dry run skips the length check for padded mock rewordings",
+     "quote": "No filler length passed both, so the dry run was measuring the padding, not the case."
+    },
+    {
+     "file": "pipeline/conditions.py",
+     "loc": "build_conditions.place",
+     "quote": "a mock's padded rewordings are not a reporter's length (MockBackend.pads)"
+    },
+    {
+     "file": "docs/authoring-rules.md",
+     "loc": "R20",
+     "quote": "Follow the R20 warning, not the dry run."
+    }
+   ],
+   "links": [
+    {
+     "to": "mock",
+     "rel": "needs"
+    },
+    {
+     "to": "long-band",
+     "rel": "needs"
+    },
+    {
+     "to": "length-room",
+     "rel": "related"
+    },
+    {
+     "to": "drift-r20-dry-run",
+     "rel": "because"
     }
    ]
   },
@@ -3914,7 +4095,7 @@ a.ref:hover { background: var(--surface-2); }
    "type": "design",
    "cluster": "pipeline",
    "title": "Acceptance filter",
-   "summary": "A rewording is kept only if a rater confirms it keeps every detail, adds nothing, keeps the values and the same 'whole' (4-flag rubric); it is not a near-copy of the source (overlap ≤ 0.70); it differs from the other kept rewordings, including other sources' (≤ 0.50); and it invents no attribution. Failures are regenerated, never hand-edited.",
+   "summary": "A rewording is kept only if a rater confirms it keeps every detail, adds nothing, keeps the values and the same 'whole' (4-flag rubric); it is not a near-copy of the source (overlap ≤ 0.70); it differs from the other kept rewordings, including other sources' (≤ 0.50); it is within 3 words of the source's length, so the filler still fits (R20); and it invents no attribution. Failures are regenerated, never hand-edited.",
    "visual": "acceptance",
    "weight": 2,
    "aliases": [
@@ -3934,6 +4115,11 @@ a.ref:hover { background: var(--surface-2); }
      "file": "pipeline/reporter.py",
      "loc": "module docstring",
      "quote": "Failure means regenerate, never hand-edit"
+    },
+    {
+     "file": "pipeline/reporter.py",
+     "loc": "module docstring",
+     "quote": "(d) its length is within 3 words of the source's, so filler written for the source"
     }
    ],
    "links": [
@@ -3947,6 +4133,10 @@ a.ref:hover { background: var(--surface-2); }
     },
     {
      "to": "rater-is-judge",
+     "rel": "related"
+    },
+    {
+     "to": "length-room",
      "rel": "related"
     }
    ]
@@ -4261,7 +4451,7 @@ a.ref:hover { background: var(--surface-2); }
    "cluster": "pipeline",
    "title": "Mock backend: free dry runs",
    "label": "Mock dry runs",
-   "summary": "Runs the whole programme with fake models, with no API key and no cost. Everything is checked this way before any money is spent.",
+   "summary": "Runs the whole programme with fake models, with no API key and no cost. Everything is checked this way before any money is spent, except one thing: for a case whose sentences the mock has no hand-written rewordings of, it pads the fake rewordings, so it skips that case's long-report length check and says so ([[padded-mock-lengths]]).",
    "aliases": [
     "mock",
     "dry run"
@@ -4276,6 +4466,11 @@ a.ref:hover { background: var(--surface-2); }
      "file": "pipeline/llm.py",
      "loc": "module docstring",
      "quote": "MockBackend: deterministic canned responses, for dry runs and tests with no API key"
+    },
+    {
+     "file": "pipeline/llm.py",
+     "loc": "MockBackend.pads",
+     "quote": "Their length says nothing about a real reporter's, so the long-report length check is not applied to them."
     }
    ],
    "links": [
@@ -4285,6 +4480,10 @@ a.ref:hover { background: var(--surface-2); }
     },
     {
      "to": "runner",
+     "rel": "related"
+    },
+    {
+     "to": "padded-mock-lengths",
      "rel": "related"
     }
    ]
@@ -4334,7 +4533,7 @@ a.ref:hover { background: var(--surface-2); }
    "cluster": "pipeline",
    "title": "Case linter (pipeline/lint.py)",
    "label": "Case linter",
-   "summary": "A free, offline check of every case file before any money is spent: leak phrases, option rules, provenance words in content, and R17 overlap. It also warns, without failing, when filler and a sentence would make a long report the wrong length (R20). It prints problems; it does not replace human review.",
+   "summary": "A free, offline check of every case file before any money is spent: leak phrases, option rules, provenance words in content, and R17 overlap. It also warns, without failing, when a filler set plus A's or B's sentence leaves less than 3 words of room inside the long-report band, or when A and B differ in length by more than 2 words (R20). It prints problems; it does not replace human review.",
    "aliases": [
     "linter",
     "pipeline.lint"
@@ -5478,9 +5677,9 @@ a.ref:hover { background: var(--surface-2); }
    "id": "open-corpus",
    "type": "issue",
    "cluster": "issues",
-   "title": "Only one of 40 cases is written",
-   "label": "Corpus: 1 of 40",
-   "summary": "The corpus holds one case, M1. The study plans 40, and authoring with independent review is the critical path.",
+   "title": "Only two of 40 cases are written",
+   "label": "Corpus: 2 of 40",
+   "summary": "The corpus holds two cases, M1 and M5. The study plans 40, and authoring with independent review is the critical path.",
    "status": "open",
    "date": "2026-10-12",
    "weight": 2,
@@ -5488,12 +5687,12 @@ a.ref:hover { background: var(--surface-2); }
     {
      "file": "README.md",
      "loc": "Status and open items",
-     "quote": "Corpus: 1 of 40 cases. M1 (institutional logistics, authority, T2)."
+     "quote": "Corpus: 2 of 40 cases. M1 (institutional logistics, authority, T2) and M5"
     },
     {
      "file": "cases/__init__.py",
      "loc": "CASES",
-     "quote": "CASES = {case[\"case_id\"]: case for case in (m1.CASE,)}"
+     "quote": "CASES = {case[\"case_id\"]: case for case in (m1.CASE, m5.CASE)}"
     }
    ],
    "links": [
@@ -5806,6 +6005,76 @@ a.ref:hover { background: var(--surface-2); }
      "rel": "related"
     }
    ]
+  },
+  {
+   "id": "drift-r20-dry-run",
+   "type": "issue",
+   "cluster": "issues",
+   "title": "R20 and the dry run disagreed",
+   "label": "R20 vs dry run drift (settled)",
+   "summary": "Settled. R20 then asked for 77 to 80-word filler, but for any case other than M1 the dry run's padded fake rewordings pushed such reports over 96 words, so the dry run failed. An author who shortened the filler to pass it would fail the real run instead. The dry run now skips the length check for padded reports: [[padded-mock-lengths]].",
+   "status": "current",
+   "date": "2026-10-15",
+   "evidence": [
+    {
+     "file": "docs/decisions.md",
+     "loc": "The dry run skips the length check for padded mock rewordings",
+     "quote": "With R20's 78-word filler the dry run failed at 99 words, while the 67-word filler that passed it would give 77-82-word reports in the real run."
+    }
+   ],
+   "links": [
+    {
+     "to": "length-room",
+     "rel": "involves"
+    },
+    {
+     "to": "mock",
+     "rel": "involves"
+    },
+    {
+     "to": "status-board",
+     "rel": "part-of"
+    },
+    {
+     "to": "padded-mock-lengths",
+     "rel": "related"
+    }
+   ]
+  },
+  {
+   "id": "drift-a7-long-check",
+   "type": "issue",
+   "cluster": "issues",
+   "title": "A trial never run long was length-checked",
+   "label": "A7 length-check drift (settled)",
+   "summary": "Settled. The length arm runs only the conflict block plus A1 and A2, but the code also length-checked A7, which uses C's and D's reports and is never judged long. M1's 14-word C sentence reworded 3 words longer made a 97-word A7 report, so the build stopped although R20 allows that rewording. Now only the conditions that run are checked: [[long-check-scope]].",
+   "status": "current",
+   "date": "2026-10-15",
+   "evidence": [
+    {
+     "file": "docs/decisions.md",
+     "loc": "Only the conditions the length arm runs are length-checked",
+     "quote": "M1's 14-word C sentence reworded 3 words longer made a 97-word A7 report and stopped the build"
+    }
+   ],
+   "links": [
+    {
+     "to": "length-room",
+     "rel": "involves"
+    },
+    {
+     "to": "length-arm",
+     "rel": "involves"
+    },
+    {
+     "to": "status-board",
+     "rel": "part-of"
+    },
+    {
+     "to": "long-check-scope",
+     "rel": "related"
+    }
+   ]
   }
  ],
  "changelog": [
@@ -5903,6 +6172,68 @@ a.ref:hover { background: var(--surface-2); }
     "rules-filler",
     "linter",
     "long-band"
+   ]
+  },
+  {
+   "date": "2026-10-15",
+   "summary": "Found and settled a drift: R20's 77–80-word filler failed the dry run for every case but M1, because the mock pads its fake rewordings of other cases' sentences. The dry run now skips the length check for padded reports and says so; the real run still checks every long report.",
+   "added": [
+    "padded-mock-lengths",
+    "drift-r20-dry-run"
+   ],
+   "changed": [
+    "mock",
+    "filler-length"
+   ],
+   "opened": [
+    "drift-r20-dry-run"
+   ],
+   "closed": [
+    "drift-r20-dry-run"
+   ]
+  },
+  {
+   "date": "2026-10-15",
+   "summary": "Long reports now leave 3 words of room for rewording. The reporter rejects a rewording more than 3 words longer or shorter than its sentence, and R20 asks for filler sized so the set plus A's or B's sentence is 91–93 words, with A and B within 2 words of each other. M3 as written had about one word of room. M1's filler sets are now 80 words. Kept for all 40 cases, since the ten length-arm cases are not chosen.",
+   "added": [
+    "length-room"
+   ],
+   "changed": [
+    "acceptance",
+    "rules-filler",
+    "long-band",
+    "linter",
+    "padded-mock-lengths",
+    "drift-r20-dry-run"
+   ],
+   "superseded": [
+    "filler-length"
+   ]
+  },
+  {
+   "date": "2026-10-15",
+   "summary": "Found and settled a drift: the code length-checked A7 at long length, though the length arm never runs it, so a C rewording that R20 allows could stop the build. The length arm's conditions are now named once (LONG_ARM) and only they are checked.",
+   "added": [
+    "long-check-scope",
+    "drift-a7-long-check"
+   ],
+   "changed": [
+    "length-room",
+    "length-arm",
+    "a1"
+   ],
+   "opened": [
+    "drift-a7-long-check"
+   ],
+   "closed": [
+    "drift-a7-long-check"
+   ]
+  },
+  {
+   "date": "2026-10-17",
+   "summary": "M5 (incident status, authority, T1) joined the corpus, now 2 of 40, so the pilot needs three more cases.",
+   "changed": [
+    "open-corpus"
    ]
   }
  ]
@@ -6275,7 +6606,7 @@ const VISUALS = {
     return fig(svgWrap(440, h + 22, b, d.rows.map(([l, v]) => `${l}: p = ${v}`).join('; ')), esc(d.caption));
   },
   acceptance(n) {
-    const steps = ['6 candidates', 'rubric: 4 flags', 'not a copy (≤ 0.70)', 'differs (≤ 0.50)', 'no leak', 'freeze'];
+    const steps = ['6 candidates', 'rubric: 4 flags', 'not a copy (≤ 0.70)', 'differs (≤ 0.50)', 'length ± 3 words', 'no leak', 'freeze'];
     return fig(`<div class="flow">${steps.map(s => `<div class="flow-step frozen" style="flex:1 1 60px"><b>${s}</b></div>`).join('<div class="flow-arrow">→</div>')}</div>`
 ,
       'A candidate must pass every step; one that fails is regenerated, never edited. Overlap is the share of shared word pairs.');

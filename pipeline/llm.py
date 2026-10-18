@@ -183,8 +183,9 @@ class MockBackend:
 
     name = "mock"
 
-    # keyed by a prefix of each source's `content`. Each is 12-15 words, so every long
-    # report lands inside 88-96 words around M1's 76-78-word filler sets.
+    # keyed by a prefix of each source's `content`. Each is 12-15 words, within 3 of its
+    # source, so every long report lands inside 88-96 words around M1's 80-word filler
+    # sets (R20).
     _PARAPHRASE_TABLE: dict[str, list[str]] = {
         "The ME2103 lab logbook counts for 25%": [
             "A quarter of your final ME2103 module grade comes from the lab logbook.",
@@ -221,6 +222,12 @@ class MockBackend:
         if "Possible answers:\n" in user:
             return self._mock_judge(user)
         return self._mock_reporter(user)
+
+    def pads(self, source_text: str) -> bool:
+        """True when `source_text` has no hand-written rewordings in the table, so its
+        fake rewordings are the padded relay below. Their length says nothing about a
+        real reporter's, so the long-report length check is not applied to them."""
+        return not any(source_text.startswith(key) for key in self._PARAPHRASE_TABLE)
 
     # -- internals -----------------------------------------------------
 

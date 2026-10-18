@@ -8,7 +8,7 @@ import pytest
 
 from cases import CASES
 from pipeline.conditions import (CONFLICT_BLOCK, CUE_POSITIONS, FACTORS, LADDER, LONG_MATCH,
-                                 LONG_WORDS,
+                                 LONG_WORDS, LONG_ARM,
                                  build_conditions, build_repeat, build_screen,
                                  check_long_lengths, embed_in_filler, rotation_schedule)
 
@@ -116,6 +116,34 @@ def test_short_paraphrase_fails_loudly(m1):
     build_conditions("M1", CASE, short, random.Random(1))  # short reports are fine
 
 
+def test_only_conditions_the_length_arm_runs_are_length_checked(m1):
+    """A7 (B, C, D) is built long but never judged long, so a 97-word A7 report does not
+    stop the build; the same report in the conflict block does."""
+    assert "A7" not in LONG_ARM
+    over = " ".join(["word"] * 16) + " 15%."             # 17 words + 80 of filler = 97
+    in_a7 = copy.deepcopy(m1)
+    in_a7["C"]["accepted"][0]["text"] = over
+    trials = build_conditions("M1", CASE, in_a7, random.Random(1), length="long",
+                              cue_position="start")
+    a7 = next(t for t in trials if t["condition"] == "A7")
+    assert max(len(r["text"].split()) for r in a7["reports"]) == 97
+    in_conflict = copy.deepcopy(m1)
+    in_conflict["A"]["accepted"][0]["text"] = over
+    with pytest.raises(ValueError, match="off target"):
+        build_conditions("M1", CASE, in_conflict, random.Random(1), length="long",
+                         cue_position="start")
+
+
+def test_padded_mock_reports_skip_the_length_check(m1):
+    """The same off-target report passes when its source is a mock's padded relay: its
+    length is not a reporter's, so R20's lint warning is the check for that case."""
+    short = copy.deepcopy(m1)
+    short["A"]["accepted"][0]["text"] = "Logbook: 25%."
+    short["A"]["padded"] = True
+    build_conditions("M1", CASE, short, random.Random(1), length="long",
+                     cue_position="start")
+
+
 def test_band_implies_the_length_cap():
     """88-96 words: inside the band the 1.10 cap cannot be broken (96 / 88 = 1.09),
     whereas a band reaching 100 would allow 100 / 88 = 1.14."""
@@ -124,8 +152,8 @@ def test_band_implies_the_length_cap():
 
 
 def test_report_above_the_band_fails_loudly():
-    # 19 words over slot 0's 78-word filler = 97
-    para = " ".join(["word"] * 18) + " 15%."
+    # 17 words over slot 0's 80-word filler = 97
+    para = " ".join(["word"] * 16) + " 15%."
     reps = [{"source_key": "B", "slot": 0,
              "text": embed_in_filler(CASE["filler_sets"][0], para, "start")}]
     assert len(reps[0]["text"].split()) == 97

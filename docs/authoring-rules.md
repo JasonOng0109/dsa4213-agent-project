@@ -22,7 +22,7 @@ who produced a source and how good it is, which the reporter model never sees.
 | `quality_dimension` | `authority`, `directness`, `method` or `primary_source` |
 | `difficulty_tier` | `T1` if a mild content cue survives paraphrasing, `T2` if the pair is near-symmetric |
 | `design_notes` | the author's reasoning, for the reviewer |
-| `filler_sets` | exactly three lists of filler sentences, one per report slot (R12), each 77 to 80 words (R20) |
+| `filler_sets` | exactly three lists of filler sentences, one per report slot (R12), each sized so long reports leave room for rewording (R20) |
 | `sources` | exactly `A` (weak, wrong claim) and `B`, `C`, `D` (strong, the truth) |
 
 Each source holds `quality`, `claim`, `content`, `n_paraphrases_needed` and
@@ -165,13 +165,18 @@ dimension the case is built on.
 The test: strip the content and show only the two type names. Would a reader prefer one?
 If not, the case cannot serve H5; mark it as testing the other hypotheses only.
 
-**R20 — Each filler set is 77 to 80 words.** A long report is one filler set plus one
-reworded A or B sentence, and every long report must be 88 to 96 words, with the longest
-in a trial at most 1.10 times the shortest (`docs/decisions.md`). With an 11-to-15-word
-sentence, a 77-to-80-word set lands inside the band. A set outside that range pushes
-reports out of it, and the length arm refuses to build them. Count each whole set, not
-each sentence. **[lint]** prints a warning, not a violation, when a set plus A's or B's
-content falls outside 88 to 96 words.
+**R20 — Long reports leave room for rewording.** A long report is one filler set plus
+one reworded A or B sentence, and every long report must be 88 to 96 words, with the
+longest in a trial at most 1.10 times the shortest (`docs/decisions.md`). The reporter
+keeps every accepted rewording within 3 words of its sentence's length, so size each
+filler set so that the set plus A's sentence and the set plus B's sentence are both 91 to
+93 words: then any accepted rewording still lands inside 88 to 96. That needs A's and
+B's sentences within 2 words of each other in length. For sentences of 12 to 15 words,
+filler sets come out at about 77 to 80 words. Count each whole set, not each sentence.
+**[lint]** prints a warning, not a violation, when a set plus A's or B's sentence falls
+outside 91 to 93 words, or when A and B are more than 2 words apart. The dry run cannot check this for a new case: its
+mock pads the fake rewordings of any sentence it has no hand-written ones for, so it
+skips the length check for that case and says so. Follow the R20 warning, not the dry run.
 
 ---
 

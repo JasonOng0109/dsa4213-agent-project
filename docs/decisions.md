@@ -210,3 +210,60 @@ Add an entry when you make a choice a reader could not guess from the code.
   place of a warning, since the content's length only estimates a paraphrase's length.
 - **Breaks if changed**: a set below 77 words can push a long report under 88, and the
   length arm stops on that case after its reports have been paid for.
+
+### 2026-10-15 — The dry run skips the length check for padded mock rewordings
+
+- **Decision**: when the mock has no hand-written rewordings of a source's sentence
+  (`MockBackend.pads` in `pipeline/llm.py`), that source's frozen result is marked
+  `padded`, and `pipeline/conditions.py` does not length-check long reports built from
+  it. Generation prints which cases were skipped. Real reporters never mark a result.
+- **Why** [INFERRED: from a dry run of M3]: the mock's fallback wraps the sentence in a
+  fixed lead-in and tail, so M3's fake rewordings were 21-29 words. With R20's 78-word
+  filler the dry run failed at 99 words, while the 67-word filler that passed it would
+  give 77-82-word reports in the real run. No filler length passed both, so the dry run
+  was measuring the padding, not the case. The real check still runs in the real run,
+  and fixing filler there costs nothing: filler is added after rewording, so the paid
+  reports are reused. Jason chose this over per-case mock rewordings.
+- **Rejected**: hand-written mock rewordings for every case, as M1 has (seven sentences
+  per case, written into pipeline code by each author); a shorter fallback wrapper,
+  which cannot give B three rewordings under the 0.50 pairwise overlap limit.
+- **Breaks if changed**: without the skip, every new case must either break R20 to pass
+  the dry run or fail it.
+
+### 2026-10-15 — Long reports leave 3 words of room for rewording
+
+- **Decision**: the reporter rejects a rewording more than 3 words longer or shorter than
+  its source sentence (`LENGTH_DIFF_MAX` in `pipeline/reporter.py`), and each filler set
+  plus A's or B's sentence must be 91 to 93 words (R20 in `docs/authoring-rules.md`),
+  so A's and B's sentences are within 2 words of each other. The lint's R20 warning now
+  checks 91-93 and the A-B gap. This replaces the fixed 77-80-word filler target.
+- **Why** [INFERRED: from M3's long reports built with rewordings of chosen lengths]:
+  each slot's filler is shared by A's and B's reports, and the band is 8 words wide, so
+  the room for rewording is the band minus the A-B gap, halved. M3 with a 15-word A and
+  a 10-word B had about 1 word of room: a real rewording 2 words off would stop the
+  length arm, and A and B rewordings more than 8 words apart in length could only be
+  fixed by paying to generate again. With both limits, every accepted rewording fits:
+  91 - 3 = 88 and 93 + 3 = 96, and 96 / 88 stays under the 1.10 cap. Jason chose both
+  guards and kept R20 for all 40 cases, since the ten length-arm cases are not chosen.
+- **Rejected**: the 77-80-word target alone, which allowed reports one word from the
+  band's edge; R20 only for the ten length-arm cases, which would need the ten chosen
+  first and their cases reworked afterwards.
+- **Breaks if changed**: a wider length limit in the reporter, or filler sized nearer
+  the band's edges, lets an accepted rewording push a long report out of 88-96, and the
+  length arm stops on that case.
+
+### 2026-10-15 — Only the conditions the length arm runs are length-checked
+
+- **Decision**: `LONG_ARM` in `pipeline/conditions.py`, the conflict block plus A1 and A2,
+  names the conditions run at long length, and `pipeline/run.py` takes its long entries
+  from the same names. `build_conditions` still builds every condition at long length,
+  but length-checks only the reports used by a condition in `LONG_ARM`.
+- **Why** [INFERRED: from M1 built with every rewording 3 words longer]: A7 (B, C and D)
+  was built and checked at long length and then never judged. M1's 14-word C sentence
+  reworded 3 words longer made a 97-word A7 report and stopped the build, although R20
+  and the reporter's length limit allow that rewording. Checking only what is run makes
+  R20's guarantee hold without any rule on C's and D's lengths.
+- **Rejected**: extending R20 to C and D, so that all four sentences are within 2 words
+  of each other, which asks authors to fit a trial that is never run long.
+- **Breaks if changed**: a condition added to the length arm but not to `LONG_ARM` would
+  go unchecked; `tests/test_run.py` fails when the two disagree.

@@ -201,6 +201,7 @@ Same steps for each author. Replace `m2` with your case.
   - R7: each sentence names its own subject.
   - R17: B, C and D use different sentence shapes.
   - R13: A and B use exactly the same words from the question.
+  - R20: A and B are within 2 words of each other in length.
 - **T1 only** (R16): give A one mild hint that survives rewording, such as a hedge ("is
   understood to be"). One small word like "your" does not survive.
 
@@ -218,9 +219,11 @@ Same steps for each author. Replace `m2` with your case.
 - **Do**: three lists of five neutral sentences, as in M1.
 - **Rules**: R9 (never mention or hint at any option), R10 (no "you", no "this
   announcement", one plain style), R12 (three sets, never tied to a source).
-- **Length**: each filler set about 77–80 words (R20), so that a long report (filler
-  plus one reworded A or B sentence) lands in 88–96 words. The linter prints an R20
-  warning when it does not.
+- **Length** (R20): size each filler set so that the set plus A's sentence and the set
+  plus B's sentence are both 91–93 words (about 77–80 words for 12–15-word sentences).
+  A rewording may then be up to 3 words longer or shorter and still fit 88–96 words. The
+  linter prints an R20 warning when a set is off. The practice run does not check your case's length (it
+  says "Long-report length not checked"), so go by the R20 warning.
 
 **1.8 Lint until clean.**
 - **Do**: `uv run python -m pipeline.lint`. Fix every violation. Run again.
@@ -481,8 +484,8 @@ Change "to do" to "done" when a task is finished.
 | 0.1–0.7 Setup and basics | Kai Rong | — | to do |
 | 1.1–1.10 Write M2 | Crystal | Phase 0 | to do |
 | 1.1–1.10 Write M3 | Rachel | Phase 0 | to do |
-| 1.1–1.10 Write M4 | Kathleen | Phase 0 | done |
-| 1.1–1.10 Write M5 | Kai Rong | Phase 0 | to do |
+| 1.1–1.10 Write M4 | Kathleen | Phase 0 | to do |
+| 1.1–1.10 Write M5 | Kai Rong | Phase 0 | done |
 | 1.11 Review M2 | Rachel | M2 pull request | to do |
 | 1.11 Review M3 | Kathleen | M3 pull request | to do |
 | 1.11 Review M4 | Kai Rong | M4 pull request | to do |
