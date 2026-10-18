@@ -1,14 +1,16 @@
 """The scorer's derived quantities: decision stability, the independence index and its
-guard, and the confidence screen's ordering test. All arithmetic on records already
-collected, so no backend is needed."""
+guard, the confidence screen's ordering and discrimination checks, and H6's test. All
+arithmetic on records already collected, so no backend is needed."""
 
 import contextlib
 import io
 import math
+import random
 
-from pipeline.score import (auroc, cell, neff, page_test, report_discrimination,
-                            report_ladder, report_neff, screen_verdict, stability,
-                            stability_chance)
+from pipeline.score import (auroc, auroc_p, cell, discrimination_verdict, neff, page_test,
+                            report, report_discrimination, report_h6, report_ladder,
+                            report_neff, screen_verdict, stability, stability_chance,
+                            unbacked)
 
 OPTS = ["15%", "25%", "10%", "30%"]
 
@@ -152,9 +154,105 @@ def test_discrimination_is_within_condition_on_the_short_arm():
     records = [rec("X1", True, 80), rec("X1", False, 40), rec("X1", False, 60),
                rec("A4", True, 95), rec("X1", True, 10, arm="long")]
     with contextlib.redirect_stdout(io.StringIO()) as out:
-        report_discrimination(records)
+        excluded = report_discrimination(records)
     line = out.getvalue()
     assert "X1 1.00 (1/2)" in line and "A4 n/a (1/0)" in line
+    # a perfect AUROC on three decisions is not evidence: no condition has 10 per class
+    assert "not assessable" in line and excluded == {"mock"}
+
+
+def test_auroc_p_is_the_rank_test_of_auroc_above_half():
+    """One-sided p for AUROC above 0.5. docs/methods.md's worked example: AUROC 0.75 on
+    two decisions per class, which luck alone gives often (p = 0.22)."""
+    assert round(auroc_p([90, 80], [70, 85]), 2) == 0.22
+    assert auroc_p([80] * 10, [80] * 10) == 1.0      # the same number on every answer
+    assert auroc_p([90] * 10, [60] * 10) < 0.001
+    assert auroc_p([60] * 10, [90] * 10) > 0.999     # one-sided: confident when wrong fails
+    assert auroc_p([90], []) is None
+
+
+def test_discrimination_passes_on_one_informative_condition():
+    """docs/decisions.md: a condition counts with 10 correct and 10 incorrect decisions, A0
+    never. Retained when one counted condition has AUROC above 0.5 at p below 0.05 divided
+    by the number counted, even beside one that runs backwards, as X1 can when a judge
+    confidently follows the two agreeing reports."""
+    informative, backwards = ([90] * 10, [60] * 10), ([60] * 10, [90] * 10)
+    flat = ([80] * 10, [80] * 10)
+    assert discrimination_verdict({"X1": backwards, "X5": informative})[0] == "retained"
+    assert discrimination_verdict({"X1": flat, "X5": flat})[0] == "EXCLUDED"
+    verdict, detail = discrimination_verdict({"X5": ([90] * 30, [60] * 9)})
+    assert verdict == "EXCLUDED" and "not assessable" in detail
+    assert discrimination_verdict({"A0": informative})[0] == "EXCLUDED"
+    # p = 0.041 passes alone, but not at 0.05 / 3 beside two more counted conditions
+    middling = ([90] * 7 + [70] * 3, [90] * 3 + [70] * 7)
+    assert discrimination_verdict({"X3": middling})[0] == "retained"
+    assert discrimination_verdict({"X1": flat, "X2": flat, "X3": middling})[0] == "EXCLUDED"
+
+
+def test_discrimination_test_holds_its_level_where_a_fixed_mark_does_not():
+    """docs/decisions.md: at 12 correct and 48 incorrect decisions, about one conflict
+    condition in the pilot, a judge whose numbers carry no information passes the test
+    about 1 time in 20, while a fixed AUROC mark of 0.60 lets it through more than 1 time
+    in 10. Its numbers are drawn the same way whether it is right or wrong, with ties."""
+    rng = random.Random(0)
+    values, weights = [50, 60, 70, 75, 80, 85, 90, 95, 100], [1, 2, 3, 2, 4, 3, 4, 3, 1]
+    draws = [(rng.choices(values, weights, k=12), rng.choices(values, weights, k=48))
+             for _ in range(2000)]
+    test = sum(auroc_p(ok, bad) < 0.05 for ok, bad in draws) / len(draws)
+    fixed = sum(auroc(ok, bad) >= 0.60 for ok, bad in draws) / len(draws)
+    assert 0.03 < test < 0.07 and fixed > 0.10
+
+
+def test_a_judge_failing_discrimination_gets_no_neff():
+    """A judge whose numbers cannot be checked for discrimination (here it is never wrong)
+    is excluded like one that fails ordering, so its n_eff is not reported."""
+    p = {"A0": 25.0, "A1": 55.0, "A4": 85.0, "A6": 85.0, "A7": 85.0}
+    records = [dict(_rec("15%"), judge_model="mock", case_id="M1", arm="short", condition=c,
+                    run_index=1, p_truth=v, confidence_elicited=v) for c, v in p.items()]
+    with contextlib.redirect_stdout(io.StringIO()) as out:
+        report(records)
+    text = out.getvalue()
+    assert "not assessable" in text and "judge failed the confidence screen" in text
+
+
+def test_unbacked_flags_inversion_and_near_indifference():
+    """docs/decisions.md: H6 flags a record whose answer is not its top option, or whose
+    top two are less than 10 points apart. The work plan's examples: 34/33/33/0 has a
+    margin of 1, 50/40/5/5 of 10 and 90/5/3/2 of 85."""
+    r = lambda margin, coherent=True: {"margin": margin, "coherent": coherent}
+    assert unbacked(r(1)) and unbacked(r(0, coherent=None))      # a tie at the top
+    assert not unbacked(r(10)) and not unbacked(r(85))
+    assert unbacked(r(85, coherent=False))                       # thinks one, says another
+    assert unbacked(r(None, coherent=None)) is None              # no usable numbers
+    assert unbacked(r(10), threshold=20) and not unbacked(r(5), threshold=5)
+
+
+def test_h6_pairs_each_forced_choice_trial_with_its_abstention_twin():
+    """Proposal §5: the abstention rate in the same trials as the flagged forced-choice
+    records, against the rest, read beside the judge's own A7 rate. A twin shares the
+    case, condition and repeat; repeat 5 has none, so it is only observed."""
+    def forced(run, margin, coherent=True):
+        return dict(_rec("25%", margin=margin), judge_model="j", case_id="M1", arm="short",
+                    condition="X1", run_index=run, coherent=coherent)
+
+    def twin(run, abstained, condition="X1"):
+        return dict(_rec(None, abstained=abstained), judge_model="j", case_id="M1",
+                    arm="abstain", condition=condition, run_index=run)
+    records = ([forced(1, 5), forced(2, 30, coherent=False), forced(3, 40), forced(4, 10),
+                forced(5, 0, coherent=None)]
+               + [twin(1, True), twin(2, True), twin(3, False), twin(4, False)]
+               + [twin(r, r == 1, "A7") for r in range(1, 5)])
+    with contextlib.redirect_stdout(io.StringIO()) as out:
+        report_h6(records)
+    text = out.getvalue()
+    assert ("3/5 conflict-block records do not identify the answer given (1 incoherent, "
+            "2 by margin < 10)") in text
+    assert "flagged 2/2 (1.00), not flagged 0/2 (0.00); own A7 1/4 (0.25)" in text
+    assert "margin < 5: flagged 1/1 (1.00), not flagged 1/3 (0.33)" in text
+    assert "margin < 20: flagged 2/3 (0.67), not flagged 0/1 (0.00)" in text
+    with contextlib.redirect_stdout(io.StringIO()) as out:
+        report_h6(records, excluded={"j"})
+    assert "not assessed, the judge failed the confidence screen" in out.getvalue()
 
 
 def test_ladder_reads_rungs_up_to_the_x5_ceiling():
