@@ -2006,6 +2006,9 @@ a.ref:hover { background: var(--surface-2); }
     "R18",
     "R19"
    ],
+   "points": [
+    "A type name never says 'independent', since that is X3's job: [[no-independent-type]]."
+   ],
    "evidence": [
     {
      "file": "docs/authoring-rules.md",
@@ -2025,6 +2028,65 @@ a.ref:hover { background: var(--surface-2); }
     },
     {
      "to": "quality-dimensions",
+     "rel": "needs"
+    }
+   ]
+  },
+  {
+   "id": "no-independent-type",
+   "type": "decision",
+   "cluster": "cases",
+   "title": "Type names never say \"independent\"",
+   "label": "No \"independent\"",
+   "summary": "A source's type name must not use the word 'independent'. X2 shows the judge A's and B's type names, and X3's note is the condition that tells it one report comes from an independent source, so the word would do part of X3's job inside X2. R19's method example is now 'accredited laboratory test report'.",
+   "date": "2026-10-18",
+   "points": [
+    "Found in the review of M4, whose B was named 'independent laboratory report' after R19's old example.",
+    "Only A's and B's type names are ever shown, and only in [[x2]]; C's and D's are used only to police their rewordings."
+   ],
+   "evidence": [
+    {
+     "file": "docs/decisions.md",
+     "loc": "Type names never say \"independent\"",
+     "quote": "X2 shows the judge A's and B's type names, and X3's note says the strong report \"comes from a different, independent source\", so the word would give X2 part of X3's job."
+    },
+    {
+     "file": "docs/authoring-rules.md",
+     "loc": "R19",
+     "quote": "Keep \"independent\" out of type names."
+    },
+    {
+     "file": "pipeline/conditions.py",
+     "loc": "build_conditions",
+     "quote": "{ind}'s information comes from a different, independent source."
+    },
+    {
+     "file": "pipeline/conditions.py",
+     "loc": "build_conditions",
+     "quote": "x2 = [dict(r, provenance_id=case[\"sources\"][r[\"source_key\"]][\"provenance\"][\"type\"])"
+    },
+    {
+     "file": "pipeline/conditions.py",
+     "loc": "build_conditions",
+     "quote": "# conflict block: two reports of weak A, one of strong B at indep_slot"
+    },
+    {
+     "file": "pipeline/reporter.py",
+     "loc": "leak_terms",
+     "quote": "Words of provenance[\"type\"] that appear in neither the content nor the question: banned from this source's reports."
+    }
+   ],
+   "links": [
+    {
+     "to": "rules-other",
+     "rel": "part-of"
+    },
+    {
+     "to": "x2",
+     "rel": "needs"
+    },
+    {
+     "to": "x3",
      "rel": "needs"
     }
    ]
@@ -6917,6 +6979,16 @@ a.ref:hover { background: var(--surface-2); }
    "changed": [
     "rules-wording",
     "tiers"
+   ]
+  },
+  {
+   "date": "2026-10-18",
+   "summary": "Type names never say 'independent': X2 shows A's and B's type names, and the word would give X2 part of X3's dependence statement. R19's method example is now 'accredited laboratory test report'.",
+   "added": [
+    "no-independent-type"
+   ],
+   "changed": [
+    "rules-other"
    ]
   }
  ]

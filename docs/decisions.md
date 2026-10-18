@@ -442,3 +442,17 @@ Add an entry when you make a choice a reader could not guess from the code.
   three of four T1 pilot cases came to share one phrase.
 - **Breaks if changed**: with one hedge on most T1 cases, the T1/T2 balance of the
   corpus depends on whether the reporter keeps that phrase.
+
+### 2026-10-18 — Type names never say "independent"
+
+- **Decision**: no `provenance.type` uses the word "independent". R19's method example in
+  `docs/authoring-rules.md` is now "accredited laboratory test report", and R19 says why.
+- **Why** [STATED: team decision, 2026-10-18]: Kai Rong raised it reviewing M4, whose B
+  was named "independent laboratory report" after R19's example, and Jason agreed.
+  X2 shows the judge A's and B's type names, and X3's note says the strong report "comes
+  from a different, independent source", so the word would give X2 part of X3's job.
+  [INFERRED: from `pipeline/conditions.py`] X2 is the only condition that shows type
+  names, so X1 against X2 reads H5 only if the names say nothing about dependence.
+- **Rejected**: keeping the example, which leaves the next method case to copy it.
+- **Breaks if changed**: for any case whose type name says "independent", X1 against X2
+  would mix H5's named type with part of the dependence statement that X3 adds.
