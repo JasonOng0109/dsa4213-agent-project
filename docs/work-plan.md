@@ -458,7 +458,7 @@ Jason merges Phase 4 cases only after it, because the run takes every case in
 | Case | Domain | Dimension | Tier | Author | Reviewer | Status |
 |---|---|---|---|---|---|---|
 | M1 | institutional_logistics | authority | T2 | — | — | merged |
-| M2 | product_spec | primary_source | T1 | Crystal | Rachel | to do |
+| M2 | product_spec | primary_source | T1 | Crystal | Rachel | merged |
 | M3 | incident_status | directness | T1 | Rachel | Kathleen | merged |
 | M4 | product_spec | method | T1 | Kathleen | Kai Rong | merged |
 | M5 | incident_status | authority | T1 | Kai Rong | Crystal | merged |
@@ -523,11 +523,11 @@ Change "to do" to "done" when a task is finished.
 | 1.1–1.10 Write M3 | Rachel | Phase 0 | done |
 | 1.1–1.10 Write M4 | Kathleen | Phase 0 | done |
 | 1.1–1.10 Write M5 | Kai Rong | Phase 0 | done |
-| 1.11 Review M2 | Rachel | M2 pull request | to do |
+| 1.11 Review M2 | Rachel | M2 pull request | done |
 | 1.11 Review M3 | Kathleen | M3 pull request | done |
 | 1.11 Review M4 | Kai Rong | M4 pull request | done |
 | 1.11 Review M5 | Crystal | M5 pull request | done |
-| 1.12 Final check and merge, M2–M5 | Jason | each review | to do |
+| 1.12 Final check and merge, M2–M5 | Jason | each review | done |
 | 2A Ladder sentence | Rachel | Phase 0 | done |
 | 2B Margin cut-off | Crystal | Phase 0 | done |
 | 2C Discrimination pass mark | Kai Rong | Phase 0 | done |
