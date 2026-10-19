@@ -6628,9 +6628,9 @@ a.ref:hover { background: var(--surface-2); }
    "points": [
     "Generation took 240 calls, and every source was accepted in its first round. The judge step ran 3,420 trials: 3,416 parsed, 3 gave an answer that is not an option, and 1 did not parse. The 3 were GPT-5.4 writing the option's number before it (\"4. 15%\"), which the parser does not accept; the prompt numbers the options. No call failed, no judge reasoned, and each judge stayed on its pinned provider.",
     "Ordering kept all three judges: P(truth) rose from P0 to P1 to P2 in all five cases (rank correlation 1.0, p 0.0001): [[screen]].",
-    "Discrimination excluded all three. For Opus and GPT-5.4 no condition had 10 right and 10 wrong decisions, because their decisions went almost all one way in each condition, so the check could not be assessed. Sonnet's one counted condition, X2, reached AUROC 0.59 at p 0.24. A pilot fail is a preview: [[discrimination-rule]].",
+    "Discrimination excluded all three. For Opus and GPT-5.4 no condition had 10 right and 10 wrong decisions, because their decisions went almost all one way in each condition, so the check could not be assessed. Sonnet's one counted condition, X2, reached AUROC 0.59 at p 0.24. A pilot fail is a preview: [[discrimination-rule]]. Whether the main run passes any judge is open: [[open-screen-pass]].",
     "n_eff, as a check: one report moved belief by 1.37 to 4.04 logits, with no anomaly, so the arithmetic was defined in every cell. GPT-5.4's P(truth) reached 99.5 to 100 in A4, A6 and A7 in four of the five cases, so three cells hit the clip and its IS and RP read 0: [[neff]].",
-    "H6, as a check: 8 of the 900 conflict-block records were flagged (5, 1 and 2 by judge). Opus and Sonnet never abstained, and GPT-5.4 abstained only in X1, in 4 of 20 trials. The README names a judge that abstains nowhere as a nuisance for H6: [[margin-cutoff]].",
+    "H6, as a check: 8 of the 900 conflict-block records were flagged (5, 1 and 2 by judge). Opus and Sonnet never abstained, and GPT-5.4 abstained only in X1, in 4 of 20 trials. The README names a judge that abstains nowhere as a nuisance for H6: [[margin-cutoff]]. Open for the main run: [[open-h6-data]].",
     "The ladder and the length arm ran and parsed.",
     "Measured cost per call: the short arm cost about $0.0019 a call across the three judges, against the $0.00178 estimate; long reports cost $0.0022 (Sonnet) and $0.0018 (GPT-5.4), against the estimated $0.0030. The main-run budget can now use measured rates: [[cost-model]]."
    ],
@@ -6802,6 +6802,172 @@ a.ref:hover { background: var(--surface-2); }
     {
      "to": "open-first-run",
      "rel": "related"
+    },
+    {
+     "to": "open-screen-pass",
+     "rel": "related"
+    },
+    {
+     "to": "open-h6-data",
+     "rel": "related"
+    }
+   ]
+  },
+  {
+   "id": "open-screen-pass",
+   "type": "issue",
+   "cluster": "issues",
+   "title": "The screen may pass no judge in the main run",
+   "label": "Screen may pass no judge",
+   "summary": "In the pilot, discrimination excluded all three judges: two could not be assessed, because their decisions went almost all one way in every condition, and the third failed on the one condition that counted. If the main run does the same on 40 cases, no judge's stated probabilities count, so the belief results go unreported: the agreement block, n_eff, the belief half of H3, and H6. Decisions still count. Decide before the main run whether anything changes, and record any change as made after the pilot.",
+   "status": "open",
+   "date": "2026-10-19",
+   "points": [
+    "Where the pilot's decisions were mixed, the judges were more confident when wrong: X1 and X3 reached AUROCs of only 0.02 to 0.10. The rule expects this, since being wrong there means following the two agreeing reports: [[discrimination-rule]].",
+    "Apart from A0, which never counts, only Sonnet's X2 had 10 right and 10 wrong decisions: [[pilot-results]]."
+   ],
+   "evidence": [
+    {
+     "file": "README.md",
+     "loc": "Status and open items",
+     "quote": "First, discrimination excluded all three judges; if it does so on 40 cases, no judge's stated probabilities count, so n_eff and every other belief result go unreported, while decisions still count."
+    },
+    {
+     "file": "README.md",
+     "loc": "Measures, in order of weight",
+     "quote": "Stated probabilities count as evidence only for a judge that passes the confidence screen"
+    },
+    {
+     "file": "README.md",
+     "loc": "Measures, in order of weight",
+     "quote": "A judge that fails either check is reported as uninformative on confidence; its decisions still count."
+    },
+    {
+     "file": "runs/score-pilot.txt",
+     "loc": "DISCRIMINATION",
+     "quote": "not assessable: no condition has 10 correct and 10 incorrect decisions -- EXCLUDED"
+    },
+    {
+     "file": "runs/score-pilot.txt",
+     "loc": "DISCRIMINATION",
+     "quote": "X1 0.02 (3/57), X2 0.74 (59/1), X3 0.10 (6/54)"
+    },
+    {
+     "file": "runs/score-pilot.txt",
+     "loc": "DISCRIMINATION",
+     "quote": "X2 0.59 (31/29)"
+    },
+    {
+     "file": "docs/decisions.md",
+     "loc": "Discrimination passes a judge on one informative condition",
+     "quote": "being wrong mostly means following the two agreeing reports, which a judge can do confidently"
+    },
+    {
+     "file": "docs/decisions.md",
+     "loc": "Discrimination passes a judge on one informative condition",
+     "quote": "Not assessable counts as a fail, because the proposal admits a number only once it passes."
+    }
+   ],
+   "links": [
+    {
+     "to": "screen",
+     "rel": "needs"
+    },
+    {
+     "to": "discrimination-rule",
+     "rel": "needs"
+    },
+    {
+     "to": "pilot-results",
+     "rel": "needs"
+    },
+    {
+     "to": "neff",
+     "rel": "involves"
+    },
+    {
+     "to": "open-h6-data",
+     "rel": "related"
+    },
+    {
+     "to": "status-board",
+     "rel": "part-of"
+    }
+   ]
+  },
+  {
+   "id": "open-h6-data",
+   "type": "issue",
+   "cluster": "issues",
+   "title": "H6 may have almost nothing to test in the main run",
+   "label": "H6 has little data",
+   "summary": "H6's test needs forced-choice trials whose numbers do not back the answer, and judges that abstain when they may. In the pilot only 8 of 900 conflict-block records were flagged, Opus and Sonnet never abstained, and GPT-5.4's four abstentions all came in X1, in trials whose numbers did back the answer. The README counts a judge that abstains nowhere as a nuisance, so H6 could end unreadable rather than null. H6 also needs the screen: [[open-screen-pass]]. Decide before the main run whether anything changes, and record any change as made after the pilot.",
+   "status": "open",
+   "date": "2026-10-19",
+   "points": [
+    "Only repeats 1 to 4 have an abstention twin, since the abstention arm runs 4 repeats and the conflict block 12, so most flagged records have no twin to compare: [[margin-cutoff]]."
+   ],
+   "evidence": [
+    {
+     "file": "README.md",
+     "loc": "Status and open items",
+     "quote": "Second, H6 had almost nothing to test: 8 of 900 conflict-block records were flagged, and two judges never abstained."
+    },
+    {
+     "file": "runs/score-pilot.txt",
+     "loc": "H6",
+     "quote": "5/300 conflict-block records do not identify the answer given"
+    },
+    {
+     "file": "runs/score-pilot.txt",
+     "loc": "H6",
+     "quote": "X3 flagged 0/2 (0.00), not flagged 0/18 (0.00)"
+    },
+    {
+     "file": "runs/score-pilot.txt",
+     "loc": "H6",
+     "quote": "X2 flagged 0/1 (0.00), not flagged 0/19 (0.00)"
+    },
+    {
+     "file": "runs/score-pilot.txt",
+     "loc": "H6",
+     "quote": "X1 flagged 0/0 (n/a), not flagged 4/20 (0.20)"
+    },
+    {
+     "file": "README.md",
+     "loc": "What counts as support, fixed before any data",
+     "quote": "one judge abstains everywhere or nowhere"
+    },
+    {
+     "file": "pipeline/run.py",
+     "loc": "PROGRAMME",
+     "quote": "Entry(\"abstain\", \"abstain\", ABSTAIN_ARM, 4, PRIMARY_JUDGES, False),"
+    }
+   ],
+   "links": [
+    {
+     "to": "h6",
+     "rel": "needs"
+    },
+    {
+     "to": "margin-cutoff",
+     "rel": "needs"
+    },
+    {
+     "to": "abstain-arm",
+     "rel": "needs"
+    },
+    {
+     "to": "pilot-results",
+     "rel": "needs"
+    },
+    {
+     "to": "open-screen-pass",
+     "rel": "related"
+    },
+    {
+     "to": "status-board",
+     "rel": "part-of"
     }
    ]
   },
@@ -7502,6 +7668,21 @@ a.ref:hover { background: var(--surface-2); }
    ],
    "closed": [
     "open-first-run"
+   ]
+  },
+  {
+   "date": "2026-10-19",
+   "summary": "Two open questions from the pilot for the main run: the screen may pass no judge, which would leave every belief result unreported, and H6 may have almost nothing to test.",
+   "added": [
+    "open-screen-pass",
+    "open-h6-data"
+   ],
+   "changed": [
+    "pilot-results"
+   ],
+   "opened": [
+    "open-screen-pass",
+    "open-h6-data"
    ]
   }
  ]

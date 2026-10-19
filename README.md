@@ -453,6 +453,11 @@ Who does what next, step by step: [`docs/work-plan.md`](docs/work-plan.md).
   arm and the ladder; the pilot runs the whole programme.
 - **Open before the main run**: `cases/__init__.py` puts the ten-case subset first (the
   code takes the first ten). The ten are chosen: M1-M5 and five Phase 4 cases marked by
-  Kai Rong with the first batches (`docs/work-plan.md`, case register).
+  Kai Rong with the first batches (`docs/work-plan.md`, case register). Two questions
+  from the pilot (`runs/score-pilot.txt`). First, discrimination excluded all three
+  judges; if it does so on 40 cases, no judge's stated probabilities count, so n_eff and
+  every other belief result go unreported, while decisions still count. Second, H6 had
+  almost nothing to test: 8 of 900 conflict-block records were flagged, and two judges
+  never abstained.
 - **Not built**: the four optional sub-experiments. The backend already supports the
   reasoning switch and token logprobs they need.
