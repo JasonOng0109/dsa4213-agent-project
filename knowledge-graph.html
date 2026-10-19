@@ -4710,6 +4710,9 @@ a.ref:hover { background: var(--surface-2); }
    "aliases": [
     "no_match"
    ],
+   "points": [
+    "An answer written with its option number from the prompt, such as \"4. 15%\", is read as that option, not as no_match: [[numbered-answers]]."
+   ],
    "evidence": [
     {
      "file": "pipeline/judge.py",
@@ -4721,6 +4724,69 @@ a.ref:hover { background: var(--surface-2); }
     {
      "to": "elicitation",
      "rel": "needs"
+    },
+    {
+     "to": "numbered-answers",
+     "rel": "related"
+    }
+   ]
+  },
+  {
+   "id": "numbered-answers",
+   "type": "decision",
+   "cluster": "measuring",
+   "title": "The parser reads an answer written with its option number",
+   "label": "Numbered answers read",
+   "summary": "The prompt numbers the options, and in the pilot GPT-5.4 sometimes copied the number into its reply, writing \"4. 15%\". The parser logged those as answers that are not an option, so right answers counted against its accuracy. It now reads them as the option, but only when the number is that option's place in the list.",
+   "date": "2026-10-19",
+   "points": [
+    "A number and a text that disagree, such as \"2. 15%\" when 15% is option 4, still give no_match, so the parser never guesses between them: [[no-match]].",
+    "The pilot's three such answers stay as they were logged, since the pilot's numbers are a preview."
+   ],
+   "evidence": [
+    {
+     "file": "docs/decisions.md",
+     "loc": "The parser reads an answer written with its option number",
+     "quote": "is read as that option, but only when the number is that option's place in the list"
+    },
+    {
+     "file": "docs/decisions.md",
+     "loc": "The parser reads an answer written with its option number",
+     "quote": "GPT-5.4 answered \"4. 15%\" and \"4. 6 hours\" in three A7 trials"
+    },
+    {
+     "file": "docs/decisions.md",
+     "loc": "The parser reads an answer written with its option number",
+     "quote": "The pilot's logs stay as they were logged."
+    },
+    {
+     "file": "pipeline/prompt.py",
+     "loc": "module docstring",
+     "quote": "Options are numbered, never lettered"
+    },
+    {
+     "file": "pipeline/judge.py",
+     "loc": "_option",
+     "quote": "if named is not None and options.index(named) + 1 == int(m.group(1)):"
+    },
+    {
+     "file": "tests/test_judge.py",
+     "loc": "test_an_answer_written_with_its_option_number_is_read",
+     "quote": "raw = '{\"answer\":\"4. 15%\",\"p\":{\"1. 25%\":0,\"2. 10%\":0,\"3. 30%\":0,\"4. 15%\":100}}'"
+    }
+   ],
+   "links": [
+    {
+     "to": "no-match",
+     "rel": "needs"
+    },
+    {
+     "to": "elicitation",
+     "rel": "needs"
+    },
+    {
+     "to": "parse-failures",
+     "rel": "related"
     }
    ]
   },
@@ -7285,6 +7351,16 @@ a.ref:hover { background: var(--surface-2); }
     "margin-cutoff",
     "pilot-programme",
     "subset-rule"
+   ]
+  },
+  {
+   "date": "2026-10-19",
+   "summary": "The parser reads an answer written with its option number, such as \"4. 15%\", when the number is that option's own; the pilot logged three such GPT-5.4 answers as no_match.",
+   "added": [
+    "numbered-answers"
+   ],
+   "changed": [
+    "no-match"
    ]
   }
  ]

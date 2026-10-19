@@ -529,3 +529,26 @@ Add an entry when you make a choice a reader could not guess from the code.
 - **Breaks if changed**: a Phase 4 case merged before the pilot is generated and judged
   with M1-M5, so the pilot is no longer the 3,660-call programme on M1-M5 that the group
   approved up to $10 for.
+
+### 2026-10-19 — The parser reads an answer written with its option number
+
+- **Decision**: an answer, or a key of "p", written with the option's number from the
+  prompt, such as "4. 15%", is read as that option, but only when the number is that
+  option's place in the list (`_option` in `pipeline/judge.py`). A number and a text
+  that disagree still give `no_match`. The pilot's logs stay as they were logged.
+- **Why** [STATED: `pipeline/prompt.py`] "Options are numbered, never lettered", so a
+  judge can copy the number into its reply. [STATED: the pilot's trial logs] GPT-5.4
+  answered "4. 15%" and "4. 6 hours" in three A7 trials, with every key of "p" numbered
+  the same way, and the parser logged them as `no_match`: three right answers counted
+  against its accuracy and lost their stated numbers. [INFERRED: from `_norm` in
+  `pipeline/judge.py`] formatting drift is already tolerated, but `_norm` keeps digits,
+  so "4. 15%" reads as "415%" and matches nothing. Requiring the number to be the
+  option's own keeps the parser from guessing: the number and the text must name the
+  same option. [STATED: team decision, 2026-10-19] Jason chose to fix it before the main
+  run, in its own pull request.
+- **Rejected**: reading the text after any number, which would take "2. 15%" as 15%
+  when 15% is option 4; re-parsing the pilot's logs, whose numbers are a preview.
+- **Breaks if changed**: a judge that copies the numbers loses those trials as
+  `no_match`, counted against its accuracy and without stated numbers, and the loss falls
+  on that judge alone, so its accuracy reads lower than it is and its P(truth) misses
+  trials.
