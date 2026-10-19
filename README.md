@@ -379,7 +379,12 @@ uv run --env-file .env python -m pipeline.run generate --max-calls N     # N: 12
 # now read runs/frozen_reports.json by hand: cue survival, same denominator for A and B
 uv run --env-file .env python -m pipeline.run judge --max-calls N        # N: the judge calls plan reports
 uv run python -m pipeline.score runs/trials.jsonl
+uv run python -m pipeline.score --show-excluded runs/trials-*.jsonl   # the pilot
 ```
+
+In the pilot, `--show-excluded` also prints n_eff and H6 for the judges the confidence
+screen excludes, marked as checks rather than results: on 5 cases, discrimination is
+likely to exclude most judges (`docs/decisions.md`, the pilot entry).
 
 `judge --arms conflict,abstain --log trials-1.jsonl` runs part of the programme into its
 own log; `pipeline.score` accepts several logs at once. A run stops itself on its call

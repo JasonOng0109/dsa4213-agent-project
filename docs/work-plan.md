@@ -306,6 +306,10 @@ it.
 - **Decided 2026-10-18**: a margin below 10 points counts as near indifference. The
   entry "Margin" is in `docs/methods.md`, and `report_h6` in `pipeline/score.py` prints
   H6's test.
+- **Amended 2026-10-19**: `report_h6` compares the flagged and unflagged trials inside
+  each conflict condition, then combines the conditions. Pooled, a condition with more
+  of both close numbers and abstaining would look like H6 when no trial shows it
+  (`docs/decisions.md`, the H6 entry).
 - **Why**: H6 says a judge sometimes picks an answer while its own numbers show it does
   not really know. One sign: the top two probabilities are close. The proposal says
   "below a stated threshold", but no number was ever stated.
@@ -362,6 +366,10 @@ it.
   "Set-level counts" show the spread.
 - **Marked 2026-10-19**, with the first Phase 4 batches, before anyone drafted them: M6,
   M14, M22, M30 and M38, under "Subset" in the case register in Phase 4 below.
+- **Do in the next batches**: give each of the five a backup, a case with the same
+  domain, dimension and tier, so the replacement rule has a case to take if one is
+  dropped. None of the cases assigned so far is one. The two T2 backups need an
+  incident_status / method case and a product_spec / directness case.
 - **Do before the main run**, once all 40 cases are merged: reorder the tuple in
   `cases/__init__.py` so the ten come first. `uv run pytest`.
 - **Done when**: the five are marked, and the reordered tuple is merged.
@@ -408,7 +416,7 @@ In the table, `...` is short for `uv run --env-file .env python -m`.
 | 3.3 | Jason | `... pipeline.run generate --max-calls 600`. The README allows 120 per case for two rounds; 5 × 120 = 600 |
 | 3.4 | each author and reviewer | Read your case in `runs/frozen_reports.json` (see below) |
 | 3.5 | Jason | One programme entry at a time (2E), e.g. `... pipeline.run judge --arms conflict --log trials-conflict.jsonl --max-calls 900`. Each entry's calls are in `docs/decisions.md` |
-| 3.6 | Jason | `uv run python -m pipeline.score runs/trials-*.jsonl`, all the logs together. Share the output |
+| 3.6 | Jason | `uv run python -m pipeline.score --show-excluded runs/trials-*.jsonl`, all the logs together. `--show-excluded` also prints n_eff and H6 for judges the screen excludes, as checks: on 5 cases, discrimination is likely to exclude most judges (`docs/decisions.md`, the pilot entry). Share the output |
 | 3.7 | Jason | Commit everything in `runs/`. Record the results in the map |
 
 **3.4 Reading the frozen reports.** Never edit them. Check three things:

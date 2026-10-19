@@ -127,7 +127,8 @@ indifference.
 **How it works.**
 
 1. The judge states a probability for each of the four options. The scorer rescales
-   them to sum to 100.
+   them to sum to 100, and takes the margin after rescaling: numbers that add up to
+   more than 100 shrink the lead, and numbers that add up to less stretch it.
 2. Sort them from highest to lowest. The margin is the first minus the second. A tie at
    the top is a margin of 0.
 3. H6 flags a forced-choice record whose numbers do not identify the answer it gave:
@@ -144,19 +145,23 @@ confident-looking answer: 34/33/33/0 is coherent, yet says almost nothing.
 | 34 / 33 / 33 / 0 | 1 | yes: near indifference |
 | 50 / 45 / 3 / 2 | 5 | yes: near indifference |
 | 50 / 40 / 5 / 5 | 10 | no: it leans one way |
+| 50 / 40 / 10 / 5 | 9.52 | yes: they add up to 105, so rescaled it is 47.62 against 38.10 |
 | 90 / 5 / 3 / 2 | 85 | no |
 | 40 / 50 / 5 / 5 | 10 | yes: incoherent, since the answer is not the top option |
 
 **Reading the number.** Below 10 counts a tie, or a lead of a few points such as 50
-against 45, as near indifference; for a judge that writes in steps of 5, that is a tie
-or one step from one. H6 then asks whether the judge, when it is allowed to abstain,
-abstains more in those same trials than in the rest, against its own abstention rate
-in A7. The scorer also prints that comparison at margins of 5 and 20, declared in
-advance to show how much the result depends on the cut-off; the conclusion rests on 10.
+against 45, as near indifference; for a judge that writes in steps of 5 and whose
+numbers add up to 100, that is a tie or one step from one. H6 then asks whether the
+judge, when it is allowed to abstain, abstains more in those same trials than in the
+rest, against its own abstention rate in A7. It compares inside each condition and
+then combines the conditions: pooled, a condition with more of both close numbers and
+abstaining would look like H6 even if no single trial showed it. The scorer also prints
+that comparison at margins of 5 and 20, declared in advance to show how much the result
+depends on the cut-off; the conclusion rests on 10.
 
 **In the code.** `margin` and `coherent` in `_parse_object` in `pipeline/judge.py`;
-`MARGIN_THRESHOLD`, `unbacked` and `report_h6` in `pipeline/score.py`. Why 10:
-`docs/decisions.md`.
+`MARGIN_THRESHOLD`, `unbacked`, `_mh_difference` and `report_h6` in `pipeline/score.py`.
+Why 10: `docs/decisions.md`.
 
 ---
 

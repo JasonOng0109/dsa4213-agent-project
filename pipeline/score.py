@@ -9,8 +9,13 @@ vector, never by condition name. Every comparison is reported per judge before a
 pooling.
 
     python -m pipeline.score runs/trials.jsonl [more logs ...]
+    python -m pipeline.score --show-excluded runs/trials-*.jsonl      # the pilot
 
-Several logs (for example from staged runs) are scored together.
+Several logs (for example from staged runs) are scored together. `--show-excluded` also
+prints n_eff and H6 for the judges the confidence screen excludes, marked as checks, not
+results. The pilot needs it: on 5 cases discrimination retains few judges, since its
+p-value shuffles whole cases, and without the option the pilot would never run n_eff and
+H6 on real data.
 """
 
 from __future__ import annotations
@@ -124,11 +129,13 @@ def _by_factor(cells: dict, **want) -> dict | None:
     return hits[0] if len(hits) == 1 else None
 
 
-def main(*paths: str) -> None:
-    report([r for p in paths for r in load(p)])
+def main(*args: str) -> None:
+    """Score every log named; `--show-excluded` is explained in the module docstring."""
+    paths = [a for a in args if a != "--show-excluded"]
+    report([r for p in paths for r in load(p)], show_excluded="--show-excluded" in args)
 
 
-def report(records: list[dict]) -> None:
+def report(records: list[dict], show_excluded: bool = False) -> None:
     status = Counter(r["parsing_status"] for r in records)
     n_fail = sum(status.get(s, 0) for s in PARSE_FAILURES)
     print(f"Loaded {len(records)} trials. Parse failures: {n_fail}. "
@@ -184,8 +191,8 @@ def report(records: list[dict]) -> None:
             excluded.add(judge)
     print()
     excluded |= report_discrimination(records)
-    report_neff(records, excluded)
-    report_h6(records, excluded)
+    report_neff(records, excluded, show_excluded)
+    report_h6(records, excluded, show_excluded)
     report_health(records)
 
 
@@ -373,11 +380,13 @@ def neff(cells: dict) -> dict:
                 IS=round(n["A7"] - n["A4"], 2), RP=round(n["A4"] - n["A6"], 2))
 
 
-def report_neff(records: list[dict], excluded: set = frozenset()) -> None:
+def report_neff(records: list[dict], excluded: set = frozenset(),
+                show_excluded: bool = False) -> None:
     """n_eff only for judges the confidence screen retains: a judge whose stated numbers
     do not order, or do not separate right from wrong, has no usable scale, so its n_eff is
     undefined even when the arithmetic would run. The undefined rate is itself reported
-    per judge."""
+    per judge. `show_excluded` prints that arithmetic for an excluded judge, marked as a
+    check; the value still counts as undefined."""
     groups = defaultdict(lambda: defaultdict(list))
     for r in records:
         if r["arm"] == "short":
@@ -388,6 +397,8 @@ def report_neff(records: list[dict], excluded: set = frozenset()) -> None:
         pt = {c: cells[c]["p_truth"] for c in ("A0", "A1", "A4", "A6", "A7") if c in cells}
         value = ({"undefined": "judge failed the confidence screen"} if judge in excluded
                  else neff(cells))
+        if judge in excluded and show_excluded:
+            value["for checking only, not a result"] = neff(cells)
         undefined[judge].append("undefined" in value)
         print(f"N_EFF judge {judge} | {case_id}: mean P(truth) {pt} -> {value}  "
               f"(normative A4 1, A6 1, A7 3)")
@@ -411,14 +422,37 @@ def _count(hits: list) -> str:
     return f"{sum(hits)}/{len(hits)} ({_rate(sum(hits) / len(hits) if hits else None)})"
 
 
-def report_h6(records: list[dict], excluded: set = frozenset()) -> None:
+def _mh_difference(strata: list[tuple[list, list]]) -> float | None:
+    """Abstention rate in flagged trials minus in the rest, compared inside each stratum
+    and then combined, a Mantel-Haenszel difference: each stratum is one condition, given
+    as (abstained? for its flagged trials, for its other trials), and weighs
+    n_flagged * n_other / n, so a condition with few of either kind counts for little.
+    Strata missing either kind are left out; None when every one is."""
+    weighted = weight = 0.0
+    for flagged, other in strata:
+        n1, n0 = len(flagged), len(other)
+        if n1 and n0:
+            weighted += (sum(flagged) * n0 - sum(other) * n1) / (n1 + n0)
+            weight += n1 * n0 / (n1 + n0)
+    return weighted / weight if weight else None
+
+
+def report_h6(records: list[dict], excluded: set = frozenset(),
+              show_excluded: bool = False) -> None:
     """H6 (proposal §5), per judge. Observation, on the short arm's conflict block: how many
     records' stated numbers do not identify the answer given (`unbacked`). Test: does the
     judge abstain more in the same trials of the abstention arm -- same case, condition
     and repeat, so the same reports in the same order -- than in the trials whose numbers
-    did identify the answer, read against its own abstention rate in A7? Only for judges
-    the confidence screen retains, since the flag reads stated numbers. The
-    MARGIN_SENSITIVITY lines are declared in advance and are not the test."""
+    did identify the answer, read against its own abstention rate in A7?
+
+    The two are compared inside each condition and then combined (`_mh_difference`),
+    never across the block pooled. Close numbers and abstaining can both simply be
+    commoner in some conditions than in others -- X1 leaves the conflict open, X5 settles
+    it -- and pooling would turn that into an H6 effect that no single trial shows, the
+    same reason discrimination stays within condition. Only for judges the confidence
+    screen retains, since the flag reads stated numbers; `show_excluded` prints the
+    others, marked as checks. The MARGIN_SENSITIVITY lines are declared in advance and are
+    not the test."""
     forced, twins, a7 = defaultdict(dict), defaultdict(dict), defaultdict(list)
     for r in records:
         key = (r["case_id"], r["condition"], r["run_index"])
@@ -430,25 +464,40 @@ def report_h6(records: list[dict], excluded: set = frozenset()) -> None:
             else:
                 twins[r["judge_model"]][key] = r["abstained"]
     for judge, recs in sorted(forced.items()):
+        label = ""
         if judge in excluded:
-            print(f"H6 judge {judge}: not assessed, the judge failed the confidence screen")
-            continue
+            if not show_excluded:
+                print(f"H6 judge {judge}: not assessed, the judge failed the confidence "
+                      "screen")
+                continue
+            label = " (failed the confidence screen: for checking only, not a result)"
         flags = [unbacked(r) for r in recs.values()]
         hit = sum(f is True for f in flags)
         inc = sum(r.get("coherent") is False for r in recs.values())
-        print(f"H6 judge {judge}: {hit}/{sum(f is not None for f in flags)} conflict-block "
-              f"records do not identify the answer given ({inc} incoherent, {hit - inc} by "
-              f"margin < {MARGIN_THRESHOLD})")
+        print(f"H6 judge {judge}{label}: {hit}/{sum(f is not None for f in flags)} "
+              f"conflict-block records do not identify the answer given ({inc} incoherent, "
+              f"{hit - inc} by margin < {MARGIN_THRESHOLD})")
 
-        def abstained(threshold):
-            pairs = [(unbacked(r, threshold), twins[judge][k]) for k, r in recs.items()
-                     if k in twins[judge]]
-            return (f"flagged {_count([a for f, a in pairs if f is True])}, "
-                    f"not flagged {_count([a for f, a in pairs if f is False])}")
-        print(f"  abstained in the abstention arm: {abstained(MARGIN_THRESHOLD)}; "
-              f"own A7 {_count(a7[judge])}")
+        def by_condition(threshold):
+            """{condition: (abstained? in the twins of flagged trials, of the others)}"""
+            pairs = defaultdict(lambda: ([], []))
+            for key, r in recs.items():
+                flag = unbacked(r, threshold)
+                if key in twins[judge] and flag is not None:
+                    pairs[key[1]][0 if flag else 1].append(twins[judge][key])
+            return {c: pairs[c] for c in CONFLICT_BLOCK if c in pairs}
+
+        def difference(threshold):
+            d = _mh_difference(list(by_condition(threshold).values()))
+            return "n/a" if d is None else f"{d:+.2f}"
+
+        print("  abstained in the abstention arm, inside each condition:")
+        for c, (flagged, other) in by_condition(MARGIN_THRESHOLD).items():
+            print(f"    {c} flagged {_count(flagged)}, not flagged {_count(other)}")
+        print(f"  flagged minus not flagged, inside conditions (Mantel-Haenszel): "
+              f"{difference(MARGIN_THRESHOLD)}; own A7 {_count(a7[judge])}")
         print("  sensitivity, declared in advance, not the test: "
-              + "; ".join(f"margin < {t}: {abstained(t)}" for t in MARGIN_SENSITIVITY))
+              + "; ".join(f"margin < {t}: {difference(t)}" for t in MARGIN_SENSITIVITY))
     print()
 
 

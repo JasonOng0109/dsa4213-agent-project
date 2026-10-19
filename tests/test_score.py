@@ -8,8 +8,9 @@ import math
 import random
 from collections import Counter
 
-from pipeline.score import (auroc, auroc_p, cell, discrimination_verdict, neff, page_test,
-                            report, report_discrimination, report_h6, report_ladder,
+from pipeline.score import (_mh_difference, auroc, auroc_p, cell, discrimination_verdict,
+                            neff, page_test, report, report_discrimination, report_h6,
+                            report_ladder,
                             report_neff, screen_verdict, stability, stability_chance,
                             unbacked)
 
@@ -273,6 +274,24 @@ def test_a_judge_failing_discrimination_gets_no_neff():
         report(records)
     text = out.getvalue()
     assert "not assessable" in text and "judge failed the confidence screen" in text
+    assert "for checking only" not in text
+    # the pilot's --show-excluded: the arithmetic is printed as a check, and still counts
+    # as undefined
+    with contextlib.redirect_stdout(io.StringIO()) as out:
+        report(records, show_excluded=True)
+    text = out.getvalue()
+    assert "'for checking only, not a result': {'A4': 2.18" in text
+    assert "N_EFF UNDEFINED judge mock: 1/1 cells (1.00)" in text
+
+
+def test_five_cases_give_discrimination_little_room():
+    """docs/decisions.md, the pilot entry: shuffling whole cases, 5 cases allow only 120
+    arrangements, so even a judge whose numbers separate right from wrong perfectly gets
+    p near 1/120, while the pass level is 0.05 over the number of counted conditions
+    (0.01 for five). Hence the pilot's --show-excluded."""
+    perfect = {f"c{c}": {r: (90.0 if r < c + 3 else 50.0, r < c + 3) for r in range(12)}
+               for c in range(5)}
+    assert 0.005 < auroc_p(perfect) < 0.01
 
 
 def test_unbacked_flags_inversion_and_near_indifference():
@@ -307,12 +326,50 @@ def test_h6_pairs_each_forced_choice_trial_with_its_abstention_twin():
     text = out.getvalue()
     assert ("3/5 conflict-block records do not identify the answer given (1 incoherent, "
             "2 by margin < 10)") in text
-    assert "flagged 2/2 (1.00), not flagged 0/2 (0.00); own A7 1/4 (0.25)" in text
-    assert "margin < 5: flagged 1/1 (1.00), not flagged 1/3 (0.33)" in text
-    assert "margin < 20: flagged 2/3 (0.67), not flagged 0/1 (0.00)" in text
+    assert "X1 flagged 2/2 (1.00), not flagged 0/2 (0.00)" in text
+    assert "(Mantel-Haenszel): +1.00; own A7 1/4 (0.25)" in text
+    # at 5, repeat 1 (margin 5) is no longer flagged; at 20, repeat 4 (margin 10) is
+    assert "margin < 5: +0.67; margin < 20: +0.67" in text
     with contextlib.redirect_stdout(io.StringIO()) as out:
         report_h6(records, excluded={"j"})
     assert "not assessed, the judge failed the confidence screen" in out.getvalue()
+    with contextlib.redirect_stdout(io.StringIO()) as out:
+        report_h6(records, excluded={"j"}, show_excluded=True)
+    assert ("H6 judge j (failed the confidence screen: for checking only, not a result): "
+            "3/5") in out.getvalue()
+
+
+def test_h6_compares_inside_each_condition_never_pooled():
+    """A judge whose abstaining has nothing to do with its numbers inside any condition:
+    in X1 half its trials are flagged and it abstains in half of each kind; in X5 a tenth
+    are flagged and it never abstains. Pooled over the block, flagged trials would show
+    10/24 abstentions against 10/56, an H6 effect no trial shows, made by X1 having more
+    of both. Inside each condition the difference is 0."""
+    def pair(cond, i, flagged, abstained):
+        key = dict(judge_model="j", case_id=f"M{i // 4 + 1}", condition=cond,
+                   run_index=i % 4 + 1)
+        return [dict(_rec("25%", margin=5 if flagged else 30), arm="short", coherent=True,
+                     **key),
+                dict(_rec(None, abstained=abstained), arm="abstain", **key)]
+    plan = {"X1": [(i < 20, i % 2 == 0) for i in range(40)],
+            "X5": [(i < 4, False) for i in range(40)]}
+    records = [r for cond, rows in plan.items() for i, (f, a) in enumerate(rows)
+               for r in pair(cond, i, f, a)]
+    with contextlib.redirect_stdout(io.StringIO()) as out:
+        report_h6(records)
+    text = out.getvalue()
+    assert "X1 flagged 10/20 (0.50), not flagged 10/20 (0.50)" in text
+    assert "X5 flagged 0/4 (0.00), not flagged 0/36 (0.00)" in text
+    assert "(Mantel-Haenszel): +0.00" in text
+    assert "10/24" not in text and "10/56" not in text
+
+
+def test_mh_difference_weighs_each_condition_by_its_counts():
+    # +0.5 inside one condition and -0.5 inside an equally sized one cancel
+    assert _mh_difference([([1, 1], [1, 0]), ([1, 0], [1, 1])]) == 0.0
+    # a condition with only flagged, or only unflagged, trials says nothing
+    assert _mh_difference([([1, 1], []), ([], [0])]) is None
+    assert _mh_difference([([1, 0], [0, 0]), ([1], [])]) == 0.5
 
 
 def test_ladder_reads_rungs_up_to_the_x5_ceiling():

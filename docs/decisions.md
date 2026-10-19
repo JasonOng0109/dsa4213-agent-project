@@ -314,10 +314,15 @@ Add an entry when you make a choice a reader could not guess from the code.
 - **Decision**: a forced-choice record does not identify the answer given when its
   answer is not its highest-probability option, or when its top two probabilities are
   less than 10 points apart (`MARGIN_THRESHOLD` and `unbacked` in `pipeline/score.py`);
-  a tie at the top is a margin of 0. `report_h6` prints, per judge, how many of the
-  short arm's conflict-block records are flagged, and how often the judge abstains in
-  their twins in the abstention arm (same case, condition and repeat) against the twins
-  of the other records, beside its own abstention rate in A7. It prints the same
+  a tie at the top is a margin of 0. The margin is taken on the stated numbers rescaled
+  to sum to 100, so 50 against 40 written with a total of 105 is a margin of 9.52 and is
+  flagged. `report_h6` prints, per judge, how many of the short arm's conflict-block
+  records are flagged, and how often the judge abstains in their twins in the
+  abstention arm (same case, condition and repeat) against the twins of the other
+  records, beside its own abstention rate in A7. Amended 2026-10-19: that comparison is
+  made inside each conflict condition and then combined (`_mh_difference`, a
+  Mantel-Haenszel difference), never on the block pooled, and a p-value on it takes the
+  case as the unit, as discrimination's does. It prints the same
   comparison at 5 and 20 points (`MARGIN_SENSITIVITY`), declared in advance as a
   sensitivity check; conclusions rest on 10. Like n_eff, it is reported only for judges
   the confidence screen retains, since the flag reads stated numbers.
@@ -332,8 +337,16 @@ Add an entry when you make a choice a reader could not guess from the code.
   steps of 5, below 10 means a tie or one step from one. [STATED: `build_repeat` in
   `pipeline/conditions.py`] "every arm of one repeat shows the same reports in the same
   order", so a twin differs from its forced-choice trial only by the abstain option.
+  [INFERRED: from a constructed judge in `tests/test_score.py`; Kai Rong raised it
+  reviewing this entry] close numbers and abstaining can both be commoner in one
+  condition than in another, since X1 leaves the conflict open and X5 settles it, and
+  pooling the block turns that into a difference no trial shows. A judge that abstains
+  in half its X1 trials whatever its numbers, and never in X5, abstains pooled in 10 of
+  24 flagged trials against 10 of 56 others, yet equally often inside each condition.
+  Discrimination stays within condition for the same reason.
 - **Rejected**: 15 or 20, which would count 50/40 or 55/40 as indifferent although they
-  lean; a cut-off chosen after seeing the pilot's margins.
+  lean; a cut-off chosen after seeing the pilot's margins; the conflict block pooled,
+  as first written, which can show H6 where no trial does.
 - **Breaks if changed**: the flagged records, and so H6's test, change with the cut-off.
   Moved after seeing data, it could be bent to fit the result.
 
@@ -398,6 +411,9 @@ Add an entry when you make a choice a reader could not guess from the code.
   `pipeline/run.py` takes the first ten. For the pilot, on 5 cases, those are all five.
   Marked 2026-10-19, with the first Phase 4 batches: M6, M14, M22, M30 and M38, one per
   author, of which M14 and M22 are the two T2 (`docs/work-plan.md`, case register).
+  A case of the ten that is relabelled T2 once its frozen reports are read (R16) stays
+  in the ten, so the ten may end with more than three T2 cases: swapping it out would
+  choose cases after seeing results.
 - **Why** [STATED: team decision, 2026-10-18]: the ten are chosen before any of them is
   run, so neither the pilot's results nor how cases turn out can steer the choice.
   [STATED: `docs/work-plan.md`, Phase 1] M1-M5 "cover all 3 domains and all 4 quality
@@ -426,7 +442,9 @@ Add an entry when you make a choice a reader could not guess from the code.
   | long-conflict | 600 | $1.80 |
   | long-agreement | 120 | $0.36 |
 
-  The group approves up to $10.
+  The group approves up to $10. Amended 2026-10-19: the pilot is scored with
+  `--show-excluded` (`pipeline/score.py`), which also prints n_eff and H6 for the judges
+  the confidence screen excludes, marked as checks rather than results.
 - **Why** [STATED: team decision, 2026-10-18]: every arm meets real models once before
   the main run, and each can fail in its own way: the long reports' length check,
   parsing the abstain answer, the ladder's notes, the screen. The pilot also measures
@@ -436,9 +454,17 @@ Add an entry when you make a choice a reader could not guess from the code.
   in `pipeline/run.py`] the judge step makes one call at a time and stops on a failed
   call, and a stopped log cannot be resumed, only rerun into a new log, so one entry per
   log limits a stop to one entry. $10 leaves room above the $7.03 estimate, since the
-  long arm's $2.16 is priced at the estimated rate.
+  long arm's $2.16 is priced at the estimated rate. [INFERRED: from `auroc_p` and
+  `tests/test_score.py`; Kai Rong raised it reviewing this entry] discrimination's
+  p-value shuffles whole cases (the discrimination entry, amended 2026-10-19), and 5
+  cases allow only 120 arrangements: a judge whose numbers separate right from wrong
+  perfectly still gets p near 1/120, while the pass level is 0.05 over the number of
+  counted conditions, 0.01 for five. The pilot is therefore likely to exclude most
+  judges, and without the option n_eff and H6 would not meet real data before the main
+  run.
 - **Rejected**: running only some arms, which would leave the rest untested until the
-  main run.
+  main run; showing excluded judges' n_eff and H6 in the main run too, which would set
+  numbers the screen disqualifies beside the results.
 - **Breaks if changed**: an arm left out of the pilot meets real models for the first
   time in the main run.
 

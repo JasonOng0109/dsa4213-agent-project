@@ -993,13 +993,19 @@ a.ref:hover { background: var(--surface-2); }
    ],
    "points": [
     "Primary target. Watched through [[coherence-margin]] in normal trials, and tested in the [[abstain-arm]].",
-    "A record counts as nearly level when its top two probabilities are less than 10 points apart: [[margin-cutoff]]."
+    "A record counts as nearly level when its top two probabilities are less than 10 points apart: [[margin-cutoff]].",
+    "Tested inside each condition, so a condition that simply has more of both close numbers and abstaining cannot pass for H6: [[margin-cutoff]]."
    ],
    "evidence": [
     {
      "file": "README.md",
      "loc": "Hypotheses",
      "quote": "Forced choice conceals a judge's belief state"
+    },
+    {
+     "file": "docs/methods.md",
+     "loc": "Margin",
+     "quote": "It compares inside each condition and then combines the conditions"
     }
    ],
    "links": [
@@ -3597,6 +3603,7 @@ a.ref:hover { background: var(--surface-2); }
    ],
    "points": [
     "34/33/33/0 is coherent, yet says almost nothing: its margin is 1.",
+    "It is taken after the stated numbers are rescaled to add up to 100, so numbers that add up to more than 100 shrink the lead.",
     "H6 counts a margin below 10 as near indifference: [[margin-cutoff]].",
     "The full entry, with worked examples: [[methods-doc]]."
    ],
@@ -3615,6 +3622,11 @@ a.ref:hover { background: var(--surface-2); }
      "file": "docs/methods.md",
      "loc": "Margin",
      "quote": "H6 counts a margin below 10 as near indifference."
+    },
+    {
+     "file": "docs/methods.md",
+     "loc": "Margin",
+     "quote": "and takes the margin after rescaling: numbers that add up to more than 100 shrink the lead"
     }
    ],
    "links": [
@@ -3634,7 +3646,7 @@ a.ref:hover { background: var(--surface-2); }
    "cluster": "measuring",
    "title": "H6 counts a margin below 10 points as near indifference",
    "label": "Margin cut-off: 10",
-   "summary": "A forced-choice record does not back its answer when the answer is not its top option, or its top two probabilities are less than 10 points apart. H6's test asks whether the judge abstains more in those same trials of the abstention arm than in the rest, against its own abstention rate in A7.",
+   "summary": "A forced-choice record does not back its answer when the answer is not its top option, or its top two probabilities are less than 10 points apart. H6's test asks whether the judge abstains more in those same trials of the abstention arm than in the rest, inside each condition, against its own abstention rate in A7.",
    "date": "2026-10-18",
    "visual": "marginCut",
    "data": {
@@ -3653,17 +3665,23 @@ a.ref:hover { background: var(--surface-2); }
       10
      ],
      [
+      "50 / 40 / 10 / 5",
+      9.52
+     ],
+     [
       "90 / 5 / 3 / 2",
       85
      ]
     ],
-    "caption": "The judge gives the first option as its answer each time; each bar is the margin. A bar ending left of the dashed cut-off of 10 points counts as near indifference. An answer that is not the top option is flagged whatever its margin."
+    "caption": "The judge gives the first option as its answer each time; each bar is the margin, taken after the numbers are rescaled to add up to 100, so 50 / 40 / 10 / 5, which adds up to 105, falls just short of 10. A bar ending left of the dashed cut-off of 10 points counts as near indifference. An answer that is not the top option is flagged whatever its margin."
    },
    "points": [
     "Fixed before any pilot result: 50 against 45 counts as near indifference, while 50 against 40 already leans one way.",
     "Each forced-choice trial is paired with its twin in the [[abstain-arm]]: same case, condition and repeat, so the same reports in the same order.",
     "The scorer also prints the comparison at 5 and 20 points, declared in advance as a sensitivity check; conclusions rest on 10.",
-    "Reported only for judges the [[screen]] retains, since the flag reads stated numbers."
+    "Reported only for judges the [[screen]] retains, since the flag reads stated numbers.",
+    "Compared inside each conflict condition and then combined, never on the block pooled. A judge that abstains in half its X1 trials whatever its numbers, and never in X5, looks like H6 when pooled (10 of 24 flagged trials against 10 of 56) but not inside either condition. Kai Rong raised this in review.",
+    "The margin is taken after the numbers are rescaled to add up to 100, so 50 against 40 written with a total of 105 is 9.52, and is flagged."
    ],
    "evidence": [
     {
@@ -3710,6 +3728,31 @@ a.ref:hover { background: var(--surface-2); }
      "file": "docs/methods.md",
      "loc": "Margin",
      "quote": "| 90 / 5 / 3 / 2 | 85 | no |"
+    },
+    {
+     "file": "docs/decisions.md",
+     "loc": "H6 counts a margin below 10 points as near indifference",
+     "quote": "made inside each conflict condition and then combined"
+    },
+    {
+     "file": "docs/decisions.md",
+     "loc": "H6 counts a margin below 10 points as near indifference",
+     "quote": "abstains pooled in 10 of 24 flagged trials against 10 of 56 others, yet equally often inside each condition."
+    },
+    {
+     "file": "docs/decisions.md",
+     "loc": "H6 counts a margin below 10 points as near indifference",
+     "quote": "so 50 against 40 written with a total of 105 is a margin of 9.52 and is flagged."
+    },
+    {
+     "file": "docs/methods.md",
+     "loc": "Margin",
+     "quote": "| 50 / 40 / 10 / 5 | 9.52 | yes: they add up to 105, so rescaled it is 47.62 against 38.10 |"
+    },
+    {
+     "file": "pipeline/score.py",
+     "loc": "_mh_difference",
+     "quote": "def _mh_difference(strata: list[tuple[list, list]]) -> float | None:"
     }
    ],
    "links": [
@@ -4080,7 +4123,7 @@ a.ref:hover { background: var(--surface-2); }
     "The case is the unit of the p-value. A case's repeats are near-copies, so counting each decision passes a judge whose numbers carry no information about 1 time in 4, while shuffling whole cases passes it about 1 time in 20. Kai Rong raised this in review: [[auroc]].",
     "At least one condition, not every: in [[x1]] being wrong mostly means following the two agreeing reports, which a judge can do confidently. That is the effect under study, so AUROC can fall below 0.5 there for a judge whose numbers carry information.",
     "A judge that states the same number on every answer sits at 0.5 everywhere and still fails.",
-    "An excluded judge gets no [[neff]] and no H6 result: [[margin-cutoff]]. In the pilot the check is weak, so a fail there is a preview."
+    "An excluded judge gets no [[neff]] and no H6 result: [[margin-cutoff]]. In the pilot, on 5 cases, the check is weak, so a fail there is a preview, and the pilot is scored with --show-excluded so that n_eff and H6 still meet real data: [[pilot-programme]]."
    ],
    "evidence": [
     {
@@ -4132,6 +4175,11 @@ a.ref:hover { background: var(--surface-2); }
      "file": "pipeline/score.py",
      "loc": "SHUFFLES",
      "quote": "SHUFFLES = 2000"
+    },
+    {
+     "file": "docs/decisions.md",
+     "loc": "The pilot runs the whole programme on M1-M5",
+     "quote": "The pilot is therefore likely to exclude most judges"
     }
    ],
    "links": [
@@ -4157,6 +4205,10 @@ a.ref:hover { background: var(--surface-2); }
     },
     {
      "to": "open-discrimination",
+     "rel": "related"
+    },
+    {
+     "to": "pilot-programme",
      "rel": "related"
     }
    ]
@@ -4274,7 +4326,9 @@ a.ref:hover { background: var(--surface-2); }
     "Chosen before any of the ten is run, so neither the pilot's results nor how cases turn out can steer the choice.",
     "M1–M5 already cover all three domains and all four quality dimensions.",
     "Marked on 2026-10-19 with the first Phase 4 batches, before anyone drafted them: M6, M14, M22, M30 and M38, one per author, with M14 and M22 the two T2. Still to do: put the ten first in cases/__init__.py before the main run: [[open-subset]].",
-    "The ten's three T2 cases, M1, M14 and M22, are in three different domains and three different dimensions."
+    "The ten's three T2 cases, M1, M14 and M22, are in three different domains and three different dimensions.",
+    "A case of the ten that is relabelled T2 once its frozen reports are read stays in the ten, so the ten may end with more than three T2 cases: swapping it out would choose cases after seeing results.",
+    "Kai Rong gives each of the five a backup with the same domain, dimension and tier in the next batches, since none of the cases assigned so far could replace one."
    ],
    "evidence": [
     {
@@ -4306,6 +4360,16 @@ a.ref:hover { background: var(--surface-2); }
      "file": "docs/work-plan.md",
      "loc": "Case register",
      "quote": "the ten's three T2 cases (M1, M14, M22) are in three different domains and three different dimensions"
+    },
+    {
+     "file": "docs/decisions.md",
+     "loc": "The ten-case subset is fixed by a rule before the pilot",
+     "quote": "stays in the ten, so the ten may end with more than three T2 cases"
+    },
+    {
+     "file": "docs/work-plan.md",
+     "loc": "2D",
+     "quote": "give each of the five a backup, a case with the same domain, dimension and tier"
     }
    ],
    "links": [
@@ -4342,7 +4406,8 @@ a.ref:hover { background: var(--surface-2); }
    "points": [
     "Ceilings: generate at 600 calls, two full rounds for every source; the judge step one programme entry at a time, each with its planned calls.",
     "The judge step makes one call at a time and stops on a failed call, which cannot be resumed. One entry per log limits a stop to one entry; the scorer reads the logs together.",
-    "It measures the long-report rate, the one rate the proposal estimates rather than measures: [[cost-model]]."
+    "It measures the long-report rate, the one rate the proposal estimates rather than measures: [[cost-model]].",
+    "Scored with --show-excluded. On 5 cases, discrimination is likely to exclude most judges, since its p-value shuffles whole cases and 5 cases allow only 120 arrangements, so the option still prints their n_eff and H6, marked as checks: [[discrimination-rule]]."
    ],
    "evidence": [
     {
@@ -4369,6 +4434,21 @@ a.ref:hover { background: var(--surface-2); }
      "file": "README.md",
      "loc": "Status and open items",
      "quote": "The pilot runs the whole programme: 3,660 calls, $7.03, with the group approving up to $10."
+    },
+    {
+     "file": "docs/decisions.md",
+     "loc": "The pilot runs the whole programme on M1-M5",
+     "quote": "the pilot is scored with `--show-excluded`"
+    },
+    {
+     "file": "docs/decisions.md",
+     "loc": "The pilot runs the whole programme on M1-M5",
+     "quote": "and 5 cases allow only 120 arrangements"
+    },
+    {
+     "file": "pipeline/score.py",
+     "loc": "module docstring",
+     "quote": "prints n_eff and H6 for the judges the confidence screen excludes"
     }
    ],
    "links": [
@@ -4394,6 +4474,10 @@ a.ref:hover { background: var(--surface-2); }
     },
     {
      "to": "open-pilot-scope",
+     "rel": "related"
+    },
+    {
+     "to": "discrimination-rule",
      "rel": "related"
     }
    ]
@@ -7155,6 +7239,18 @@ a.ref:hover { background: var(--surface-2); }
     "subset-rule",
     "work-plan",
     "length-room"
+   ]
+  },
+  {
+   "date": "2026-10-19",
+   "summary": "Kai Rong's review of the Phase 2 decisions. H6's abstention comparison is made inside each conflict condition, since pooling can show H6 where no trial does; the margin is taken after rescaling, now stated; the pilot is scored with --show-excluded, since on 5 cases discrimination is likely to exclude most judges; a subset case relabelled T2 stays in the ten, and each subset case gets a backup.",
+   "changed": [
+    "margin-cutoff",
+    "margin",
+    "h6",
+    "pilot-programme",
+    "discrimination-rule",
+    "subset-rule"
    ]
   }
  ]
