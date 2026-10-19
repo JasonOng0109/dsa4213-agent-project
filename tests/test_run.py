@@ -61,7 +61,7 @@ def test_dry_run_end_to_end(tmp_path):
     _, out = _quiet(run.main, ["dry", "--out", str(tmp_path)])
     assert f"{JUDGE_CALLS} trials logged" in out and "0 parse failures" in out
     for section in ("SCREEN judge", "LADDER judge", "DISCRIMINATION judge", "N_EFF judge",
-                    "HEALTH judge"):
+                    "H6 judge", "HEALTH judge"):
         assert section in out, section
     recs = [json.loads(line) for line in open(tmp_path / "trials.jsonl")]
     per_arm = {}

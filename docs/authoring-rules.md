@@ -134,6 +134,13 @@ Prefer cues at the level of the clause, such as a hedge ("is understood to be"),
 approximation, or a standardised notation, and ask: *would a faithful rewording keep
 this?* The tier label stays provisional until the frozen reports are read. A case whose
 cue is lost is relabelled T2, not rewritten, because a T2 case is a legitimate control.
+**Vary the cue across cases.** If one phrase carries many T1 cases and the reporter drops
+it, they all become T2 together. Before choosing a hedge, run
+`grep -n -i -A1 hedge cases/*.py` to see the ones in use (each case names its hedge in
+`design_notes`), and pick the one used least, or another kind of cue; then name yours in
+`design_notes` too. "Is believed to", "is thought to" and "is estimated at" are hedges of
+the same size. "Reportedly", "allegedly" and "apparently" are not available: R2's lint
+rejects them.
 
 **R17 — Sources that share a trial use different sentence frames.** B, C and D appear
 together in A7; A and B appear together in the conflict block. If two of them state the
@@ -159,11 +166,16 @@ dimension the case is built on.
 |---|---|---|
 | Authority | student-run module wiki page | registrar's official examination timetable |
 | Directness | summary circulated by a classmate who attended | security patrol log written at the scene |
-| Method | retailer question-and-answer reply from a store representative | independent laboratory test report |
+| Method | retailer question-and-answer reply from a store representative | accredited laboratory test report |
 | Primary source | online retailer product listing | manufacturer specification sheet |
 
 The test: strip the content and show only the two type names. Would a reader prefer one?
 If not, the case cannot serve H5; mark it as testing the other hypotheses only.
+
+**Keep "independent" out of type names.** X2 shows the judge A's and B's type names, and
+X3's note is what tells it that one report "comes from a different, independent source".
+A type name with that word does part of X3's job inside X2. "Accredited laboratory test
+report" says the same about method without it.
 
 **R20 — Long reports leave room for rewording.** A long report is one filler set plus
 one reworded A or B sentence, and every long report must be 88 to 96 words, with the
