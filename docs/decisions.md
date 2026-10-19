@@ -343,10 +343,19 @@ Add an entry when you make a choice a reader could not guess from the code.
   pooling the block turns that into a difference no trial shows. A judge that abstains
   in half its X1 trials whatever its numbers, and never in X5, abstains pooled in 10 of
   24 flagged trials against 10 of 56 others, yet equally often inside each condition.
-  Discrimination stays within condition for the same reason.
+  Discrimination stays within condition for the same reason. [STATED: team decision,
+  2026-10-19] The comparison is made inside each condition, and the margin stays on the
+  rescaled numbers: Kai Rong raised both reviewing this entry, and Jason agreed.
+  [INFERRED: from `_parse_object` in `pipeline/judge.py`] P(truth), the confidence that
+  discrimination reads and coherence all come from the same rescaled numbers, so the
+  margin does too. Numbers summing outside 90-110 give no margin at all
+  (`p_sum_out_of_range`), so rescaling can move a margin across the cut-off only when
+  it lies within a point of 10.
 - **Rejected**: 15 or 20, which would count 50/40 or 55/40 as indifferent although they
   lean; a cut-off chosen after seeing the pilot's margins; the conflict block pooled,
-  as first written, which can show H6 where no trial does.
+  as first written, which can show H6 where no trial does; the margin on the numbers as
+  written, which would read H6's flag on a different scale from every other stated
+  number.
 - **Breaks if changed**: the flagged records, and so H6's test, change with the cut-off.
   Moved after seeing data, it could be bent to fit the result.
 
@@ -418,7 +427,9 @@ Add an entry when you make a choice a reader could not guess from the code.
   run, so neither the pilot's results nor how cases turn out can steer the choice.
   [STATED: `docs/work-plan.md`, Phase 1] M1-M5 "cover all 3 domains and all 4 quality
   dimensions". Three T2 in ten is close to the corpus's target of about 10 in 40
-  (`docs/work-plan.md`, "Targets for all 40").
+  (`docs/work-plan.md`, "Targets for all 40"). [STATED: team decision, 2026-10-19] A
+  case relabelled T2 stays in the ten: Kai Rong raised it reviewing this entry, and
+  Jason agreed.
 - **Rejected**: choosing the ten once all 40 are merged, the earlier plan in
   `docs/work-plan.md` (2D), when the pilot's results on M1-M5 would already be known.
 - **Breaks if changed**: a subset chosen after seeing results could favour cases where
@@ -461,7 +472,8 @@ Add an entry when you make a choice a reader could not guess from the code.
   perfectly still gets p near 1/120, while the pass level is 0.05 over the number of
   counted conditions, 0.01 for five. The pilot is therefore likely to exclude most
   judges, and without the option n_eff and H6 would not meet real data before the main
-  run.
+  run. [STATED: team decision, 2026-10-19] The pilot is scored with `--show-excluded`:
+  Kai Rong raised it reviewing this entry, and Jason agreed.
 - **Rejected**: running only some arms, which would leave the rest untested until the
   main run; showing excluded judges' n_eff and H6 in the main run too, which would set
   numbers the screen disqualifies beside the results.

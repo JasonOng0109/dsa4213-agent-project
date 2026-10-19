@@ -3680,8 +3680,8 @@ a.ref:hover { background: var(--surface-2); }
     "Each forced-choice trial is paired with its twin in the [[abstain-arm]]: same case, condition and repeat, so the same reports in the same order.",
     "The scorer also prints the comparison at 5 and 20 points, declared in advance as a sensitivity check; conclusions rest on 10.",
     "Reported only for judges the [[screen]] retains, since the flag reads stated numbers.",
-    "Compared inside each conflict condition and then combined, never on the block pooled. A judge that abstains in half its X1 trials whatever its numbers, and never in X5, looks like H6 when pooled (10 of 24 flagged trials against 10 of 56) but not inside either condition. Kai Rong raised this in review.",
-    "The margin is taken after the numbers are rescaled to add up to 100, so 50 against 40 written with a total of 105 is 9.52, and is flagged."
+    "Compared inside each conflict condition and then combined, never on the block pooled. A judge that abstains in half its X1 trials whatever its numbers, and never in X5, looks like H6 when pooled (10 of 24 flagged trials against 10 of 56) but not inside either condition. Kai Rong raised this in review, and Jason agreed.",
+    "The margin is taken after the numbers are rescaled to add up to 100, so 50 against 40 written with a total of 105 is 9.52, and is flagged. It stays that way, since P(truth), confidence and coherence come from the same rescaled numbers; Kai Rong raised it in review, and Jason agreed."
    ],
    "evidence": [
     {
@@ -3753,6 +3753,21 @@ a.ref:hover { background: var(--surface-2); }
      "file": "pipeline/score.py",
      "loc": "_mh_difference",
      "quote": "def _mh_difference(strata: list[tuple[list, list]]) -> float | None:"
+    },
+    {
+     "file": "docs/decisions.md",
+     "loc": "H6 counts a margin below 10 points as near indifference",
+     "quote": "The comparison is made inside each condition, and the margin stays on the rescaled numbers: Kai Rong raised both reviewing this entry, and Jason agreed."
+    },
+    {
+     "file": "docs/decisions.md",
+     "loc": "H6 counts a margin below 10 points as near indifference",
+     "quote": "P(truth), the confidence that discrimination reads and coherence all come from the same rescaled numbers, so the margin does too."
+    },
+    {
+     "file": "pipeline/judge.py",
+     "loc": "_parse_object",
+     "quote": "p = {o: round(100 * p[o] / total, 2) for o in options}"
     }
    ],
    "links": [
@@ -4327,7 +4342,7 @@ a.ref:hover { background: var(--surface-2); }
     "M1–M5 already cover all three domains and all four quality dimensions.",
     "Marked on 2026-10-19 with the first Phase 4 batches, before anyone drafted them: M6, M14, M22, M30 and M38, one per author, with M14 and M22 the two T2. Still to do: put the ten first in cases/__init__.py before the main run: [[open-subset]].",
     "The ten's three T2 cases, M1, M14 and M22, are in three different domains and three different dimensions.",
-    "A case of the ten that is relabelled T2 once its frozen reports are read stays in the ten, so the ten may end with more than three T2 cases: swapping it out would choose cases after seeing results.",
+    "A case of the ten that is relabelled T2 once its frozen reports are read stays in the ten, so the ten may end with more than three T2 cases: swapping it out would choose cases after seeing results. Kai Rong raised this in review, and Jason agreed.",
     "Kai Rong gives each of the five a backup with the same domain, dimension and tier in the next batches, since none of the cases assigned so far could replace one."
    ],
    "evidence": [
@@ -4370,6 +4385,11 @@ a.ref:hover { background: var(--surface-2); }
      "file": "docs/work-plan.md",
      "loc": "2D",
      "quote": "give each of the five a backup, a case with the same domain, dimension and tier"
+    },
+    {
+     "file": "docs/decisions.md",
+     "loc": "The ten-case subset is fixed by a rule before the pilot",
+     "quote": "A case relabelled T2 stays in the ten: Kai Rong raised it reviewing this entry, and Jason agreed."
     }
    ],
    "links": [
@@ -4407,7 +4427,7 @@ a.ref:hover { background: var(--surface-2); }
     "Ceilings: generate at 600 calls, two full rounds for every source; the judge step one programme entry at a time, each with its planned calls.",
     "The judge step makes one call at a time and stops on a failed call, which cannot be resumed. One entry per log limits a stop to one entry; the scorer reads the logs together.",
     "It measures the long-report rate, the one rate the proposal estimates rather than measures: [[cost-model]].",
-    "Scored with --show-excluded. On 5 cases, discrimination is likely to exclude most judges, since its p-value shuffles whole cases and 5 cases allow only 120 arrangements, so the option still prints their n_eff and H6, marked as checks: [[discrimination-rule]]."
+    "Scored with --show-excluded. On 5 cases, discrimination is likely to exclude most judges, since its p-value shuffles whole cases and 5 cases allow only 120 arrangements, so the option still prints their n_eff and H6, marked as checks: [[discrimination-rule]]. Kai Rong raised this in review, and Jason agreed."
    ],
    "evidence": [
     {
@@ -4449,6 +4469,11 @@ a.ref:hover { background: var(--surface-2); }
      "file": "pipeline/score.py",
      "loc": "module docstring",
      "quote": "prints n_eff and H6 for the judges the confidence screen excludes"
+    },
+    {
+     "file": "docs/decisions.md",
+     "loc": "The pilot runs the whole programme on M1-M5",
+     "quote": "The pilot is scored with `--show-excluded`: Kai Rong raised it reviewing this entry, and Jason agreed."
     }
    ],
    "links": [
@@ -7250,6 +7275,15 @@ a.ref:hover { background: var(--surface-2); }
     "h6",
     "pilot-programme",
     "discrimination-rule",
+    "subset-rule"
+   ]
+  },
+  {
+   "date": "2026-10-19",
+   "summary": "Jason agreed to Kai Rong's Phase 2 review changes, now recorded as team decisions: H6 compared inside each condition, the margin kept on the rescaled numbers, the pilot scored with --show-excluded, and a subset case relabelled T2 kept in the ten.",
+   "changed": [
+    "margin-cutoff",
+    "pilot-programme",
     "subset-rule"
    ]
   }
