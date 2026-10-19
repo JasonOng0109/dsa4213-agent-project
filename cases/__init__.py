@@ -3,6 +3,6 @@
 How to write a case: docs/authoring-rules.md.
 """
 
-from . import m1, m2, m3, m4, m5
+from . import m1, m2, m3, m4, m5, m15
 
-CASES = {case["case_id"]: case for case in (m1.CASE, m2.CASE, m3.CASE, m4.CASE, m5.CASE)}
+CASES = {case["case_id"]: case for case in (m1.CASE, m2.CASE, m3.CASE, m4.CASE, m5.CASE, m15.CASE)}
