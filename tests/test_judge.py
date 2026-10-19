@@ -37,6 +37,19 @@ def test_parser_tolerates_fences_and_formatting_drift():
     assert fenced["parsing_status"] == "ok" and fenced["forced_choice_decision"] == "15%"
 
 
+def test_an_answer_written_with_its_option_number_is_read():
+    """The prompt numbers the options, and in the pilot GPT-5.4 copied the number into
+    three A7 replies; this one is verbatim. The number must be the option's own, so a
+    reply whose number and text disagree is still not an option."""
+    opts = ["25%", "10%", "30%", "15%"]
+    raw = '{"answer":"4. 15%","p":{"1. 25%":0,"2. 10%":0,"3. 30%":0,"4. 15%":100}}'
+    r = parse(raw, opts, "15%")
+    assert r["parsing_status"] == "ok" and r["forced_choice_decision"] == "15%"
+    assert r["p_truth"] == 100.0 and r["coherent"] is True
+    bad = parse('{"answer": "2. 15%", "p": {}}', opts, "15%")
+    assert bad["parsing_status"] == "no_match"
+
+
 def test_abstention_is_its_own_outcome():
     ab = _parse(f'{{"answer": "{ABSTAIN}", "p": {{"15%": 40, "25%": 40, "10%": 10, "30%": 10}}}}',
                 allow_abstain=True)
