@@ -80,7 +80,7 @@ CASE = {
                 "why": "rough guess: the volunteer walked through the basement "
                     "but named a figure by eye without counting",
             },
-            "content": ("The basement of Brackwell Hall is believed "
+            "content": ("The basement of Brackwell Hall is likely "
                         "to contain 220 lockers."),
             "n_paraphrases_needed": 2,
         },
