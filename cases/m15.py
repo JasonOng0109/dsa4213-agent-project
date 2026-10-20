@@ -8,46 +8,46 @@ CASE = {
     "domain": "institutional_logistics",
     "question": "What is the seating capacity of the Northwood Lecture Theatre?",
     "world_truth": "240 seats",
-    "distractors": ["180 seats", "310 seats"],  # options: [180, 240, 275, 310]
+    "distractors": ["205 seats", "310 seats"],  # options: [205, 240, 275, 310]
     "screen_partial": (
         "The Northwood Lecture Theatre has a seating capacity of less than 260 seats."
-    ),  # true, keeps 180 and 240 (truth), rules out 275 and 310: exactly half
+    ),  # true, keeps 205 and 240 (truth), rules out 275 and 310
     "quality_dimension": "authority",
     "difficulty_tier": "T1",
     "design_notes": (
         "Authority dimension, T1. A and B state the same proposition (number of seats in the "
         "Northwood Lecture Theatre) as single sentences naming the same scope. Both omit "
         "'seating' and 'capacity', so they share exactly the same set of question content-words "
-        "(R13); the previous A contained both words and B neither. The T1 cue is A's clause-level "
-        "hedge 'is believed to hold' (R16), against B's flat assertion. A and B use different frames (R17): "
+        "(R13). The T1 cue is A's clause-level hedge 'is reckoned to contain' (R16), against B's "
+        "flat assertion. A and B use different frames (R17): "
         "A subject-first with a hedge, B number-first and passive. Quality lives only in "
         "provenance (R2, R19): a student society orientation guide against a university estates space "
         "audit register. C and D state the truth in their own frames without naming their document types (R2)."
-        "Content lengths are A=13 and B=13 words. Each filler set is 79 words. Filler is plain physical "
+        "Content lengths are A=13 and B=13 words. Each filler set is 77-79 words. Filler is plain physical "
         "building upkeep rather than administrative wording (R10), carries no time markers (R3), "
         "no option values, and none of the words that occur only in a source's provenance type."
     ),
     "filler_sets": [
         [
-            "Window frames along the east corridor are cleaned with extendable poles and long soft brushes.",
-            "Handrails on the main staircase are polished and checked for loose fixings and worn treads.",
-            "Spare light fittings and cable ties are kept in a locked cupboard near the plant room.",
-            "Outdoor benches beside the paved courtyard are repainted whenever the colour begins to peel away.",
-            "Rainwater from the main roof runs through downpipes into drains that lead to a large underground storage tank.",
+            "Tall windows along the east corridor reflect light paving and square ceiling lights.",
+            "The main staircase has broad steps, a dark wooden rail, and a landing beside glass entrance doors.",
+            "Metal cabinets stand beneath the plant room windows, with coloured labels on their doors.",
+            "The paved courtyard contains low planters, grey walls, and a covered passage linking two building entrances nearby.",
+            "A roofline follows the upper edge of the building, above long windows and a projecting concrete canopy overhead.",
         ],
         [
-            "Ventilation grilles above the main entrance doors are brushed clean using a soft vacuum attachment.",
-            "Fire doors along the west corridor close automatically and are fitted with strong brass hinges.",
-            "Gutters on the south side are cleared of leaves and held to the wall by steel brackets.",
-            "Spare door handles and hinge pins are stored in labelled drawers inside the workshop cabinet.",
-            "Flagpoles at the front entrance are fitted with rope cleats and weighted bases to keep them steady.",
+            "Ventilation grilles above the main entrance form narrow horizontal lines across the upper wall.",
+            "Fire doors along the west corridor have dark panels and square viewing windows.",
+            "The south wall has a long gutter beneath the roof edge and several evenly spaced metal brackets.",
+            "A workshop cabinet has labelled drawers, a smooth grey surface, and two handles set near its centre.",
+            "Flagpoles at the front entrance rise beside a stone path and a pair of low brick pillars.",
         ],
         [
-            "Concrete paths around the northern lawn are swept clear of gravel and brushed with stiff brooms.",
-            "Emergency torches are kept in wall boxes and checked for working batteries and loose lenses.",
-            "Radiators in the lower corridors are bled, and their valves are turned to a steady setting.",
-            "Heavy rubber mats at the side entrances catch mud and are lifted out to be hosed down.",
-            "Water fountains near the cloakroom are fitted with filters and small steel drip trays underneath.",
+            "Concrete paths around the northern lawn form straight pale strips between clipped grass and low shrubs.",
+            "Emergency torches sit in shallow wall boxes with clear covers and small dark switches.",
+            "Radiators in the lower corridors run beneath windows, with valves at either end of each unit.",
+            "Heavy rubber mats lie beside side entrances, separated from the wall by strips of tile along the wall.",
+            "Water fountains near the cloakroom have curved metal taps, shallow basins, and tiled entrance surrounds.",
         ],
     ],
 
@@ -56,7 +56,7 @@ CASE = {
             "quality": "weak",
             "claim": "275 seats",
             "content": (
-                "The Northwood Lecture Theatre is believed to hold a total of 275 seats."
+                "The Northwood Lecture Theatre is reckoned to contain a total of 275 seats."
             ),
             "n_paraphrases_needed": 2,
             "provenance": {
@@ -70,7 +70,7 @@ CASE = {
             "quality": "strong",
             "claim": "240 seats",
             "content": (
-                "Two hundred and forty seats are installed within the Northwood Lecture Theatre altogether."
+                "Inside the Northwood Lecture Theatre, there are 240 seats installed altogether."
             ),
             "n_paraphrases_needed": 3,
             "provenance": {
