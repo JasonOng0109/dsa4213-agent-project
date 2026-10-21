@@ -1,8 +1,8 @@
 """
 The scorer: reads a JSONL trial log and prints, per judge, arm and case, a table of
 every cell and the comparisons the proposal pre-registers (§5), then the confidence
-screen (ordering and discrimination), the independence index n_eff, H6's test, and run
-health.
+screen (ordering), the discrimination check, the independence index n_eff, H6's test,
+and run health.
 
 Cells are judge x arm x case x condition. Comparisons find their cells by factor
 vector, never by condition name. Every comparison is reported per judge before any
@@ -13,9 +13,8 @@ pooling.
 
 Several logs (for example from staged runs) are scored together. `--show-excluded` also
 prints n_eff and H6 for the judges the confidence screen excludes, marked as checks, not
-results. The pilot needs it: on 5 cases discrimination retains few judges, since its
-p-value shuffles whole cases, and without the option the pilot would never run n_eff and
-H6 on real data.
+results. It was added for the pilot, where discrimination, then part of the screen,
+excluded all three judges; since 2026-10-21 only ordering excludes (docs/decisions.md).
 """
 
 from __future__ import annotations
@@ -190,7 +189,7 @@ def report(records: list[dict], show_excluded: bool = False) -> None:
         if verdict == "EXCLUDED":
             excluded.add(judge)
     print()
-    excluded |= report_discrimination(records)
+    report_discrimination(records)
     report_neff(records, excluded, show_excluded)
     report_h6(records, excluded, show_excluded)
     report_health(records)
@@ -308,7 +307,9 @@ def discrimination_verdict(conds: dict) -> tuple[str, str]:
     agreeing reports, which a judge can do confidently -- the effect under study -- so
     AUROC can fall below 0.5 there although its numbers carry information. A judge
     stating the same number on every answer sits at 0.5 everywhere and fails. With no
-    counted condition the check cannot be assessed, and the judge is EXCLUDED."""
+    counted condition the check cannot be assessed, and the judge is EXCLUDED. This is the
+    rule as first registered; since 2026-10-21 its verdict is printed but not applied
+    (docs/decisions.md)."""
     counted = [c for c in sorted(conds, key=ORDER.index)
                if c != "A0" and min(map(len, _split(conds[c]))) >= MIN_CLASS]
     if not counted:
@@ -321,20 +322,23 @@ def discrimination_verdict(conds: dict) -> tuple[str, str]:
                      + f"; passes below {SCREEN_ALPHA} / {len(counted)} = {level:.4f}")
 
 
-def report_discrimination(records: list[dict]) -> set:
-    """The screen's second check (proposal §5): does the stated probability of the chosen
-    answer separate correct decisions from incorrect ones? Within condition, on the short
-    arm, where every condition runs for every judge: pooled across conditions it would
-    mostly measure the manipulation itself. The printed AUROC pools a condition's cases
-    and repeats; its p-value treats the case as the unit (`auroc_p`). The class counts are
+def report_discrimination(records: list[dict]) -> None:
+    """The proposal's second check (§5): does the stated probability of the chosen answer
+    separate correct decisions from incorrect ones? Within condition, on the short arm,
+    where every condition runs for every judge: pooled across conditions it would mostly
+    measure the manipulation itself. The printed AUROC pools a condition's cases and
+    repeats; its p-value treats the case as the unit (`auroc_p`). The class counts are
     printed alongside, since a handful of trials in one class makes the number
-    meaningless. Returns the judges that discrimination_verdict excludes."""
+    meaningless. Reported for every judge, but it excludes none: in this study's
+    conditions a wrong answer is almost always the two agreeing reports' claim, so AUROC
+    there shows how sure a judge is when it follows them. The verdict of the rule as first
+    registered is printed beside it, marked as not applied (docs/decisions.md,
+    2026-10-21)."""
     groups = defaultdict(lambda: defaultdict(lambda: defaultdict(dict)))
     for r in records:
         if r["arm"] == "short" and r.get("confidence_elicited") is not None:
             groups[r["judge_model"]][r["condition"]][r["case_id"]][r["run_index"]] = \
                 (r["confidence_elicited"], bool(r["decision_correct"]))
-    excluded = set()
     for judge, conds in sorted(groups.items()):
         parts = []
         for c in sorted(conds, key=ORDER.index):
@@ -342,11 +346,9 @@ def report_discrimination(records: list[dict]) -> set:
             parts.append(f"{c} {_rate(auroc(ok, bad))} ({len(ok)}/{len(bad)})")
         print(f"DISCRIMINATION judge {judge}: AUROC (n correct/incorrect) " + ", ".join(parts))
         verdict, detail = discrimination_verdict(conds)
-        print(f"  {detail} -- {verdict}")
-        if verdict == "EXCLUDED":
-            excluded.add(judge)
+        print(f"  rule as first registered, not applied: {detail} -- would be "
+              f"{verdict.lower()}")
     print()
-    return excluded
 
 
 def _logit(p: float) -> float:
@@ -361,37 +363,45 @@ def neff(cells: dict) -> dict:
     belief in it falls after one report has a backwards unit, and every value derived
     from it would invert. Returns the values plus CN (correlation neglect), IS
     (independence sensitivity), RP (repair from disclosure) and how many cells were
-    clipped."""
+    clipped. A clipped cell gives a bound, not a value, so every value computed from it
+    reads "at ceiling"; a clipped A0 or A1 clips the unit, so then every value does
+    (docs/decisions.md, 2026-10-21)."""
     need = ["A0", "A1", "A4", "A6", "A7"]
     if any(cells.get(c) is None or cells[c].get("p_truth") is None for c in need):
         return {"undefined": "missing P(truth) in " + str([c for c in need if not cells.get(c)])}
     p = {c: cells[c]["p_truth"] / 100 for c in need}
-    clipped = sum(1 for v in p.values() if not 0.01 <= v <= 0.99)
+    clipped = {c for c, v in p.items() if not 0.01 <= v <= 0.99}
     l = {c: _logit(v) for c, v in p.items()}
     w = l["A1"] - l["A0"]
     if abs(w) < 0.2:
-        return {"undefined": f"w = l(A1) - l(A0) = {w:.3f} < 0.2 logits", "clipped": clipped}
+        return {"undefined": f"w = l(A1) - l(A0) = {w:.3f} < 0.2 logits",
+                "clipped": len(clipped)}
     if w < 0:
         return {"undefined": f"anomaly: w = l(A1) - l(A0) = {w:.3f} is negative, one "
                              f"supporting report lowered belief in the truth",
-                "anomaly": True, "clipped": clipped}
+                "anomaly": True, "clipped": len(clipped)}
     n = {c: round((l[c] - l["A0"]) / w, 2) for c in ("A4", "A6", "A7")}
-    return dict(n, w=round(w, 3), clipped=clipped, CN=round(n["A4"] - 1, 2),
-                IS=round(n["A7"] - n["A4"], 2), RP=round(n["A4"] - n["A6"], 2))
+    out = dict(n, w=round(w, 3), clipped=len(clipped), CN=round(n["A4"] - 1, 2),
+               IS=round(n["A7"] - n["A4"], 2), RP=round(n["A4"] - n["A6"], 2))
+    at = clipped | ({"A4", "A6", "A7"} if clipped & {"A0", "A1"} else set())
+    uses = {"A4": {"A4"}, "A6": {"A6"}, "A7": {"A7"}, "CN": {"A4"}, "IS": {"A4", "A7"},
+            "RP": {"A4", "A6"}}
+    return {k: "at ceiling" if uses.get(k, set()) & at else v for k, v in out.items()}
 
 
 def report_neff(records: list[dict], excluded: set = frozenset(),
                 show_excluded: bool = False) -> None:
     """n_eff only for judges the confidence screen retains: a judge whose stated numbers
-    do not order, or do not separate right from wrong, has no usable scale, so its n_eff is
-    undefined even when the arithmetic would run. The undefined rate is itself reported
-    per judge. `show_excluded` prints that arithmetic for an excluded judge, marked as a
-    check; the value still counts as undefined."""
+    do not order has no usable scale, so its n_eff is undefined even when the arithmetic
+    would run. The undefined rate is itself reported per judge, and beside it how many
+    cells have a value at ceiling. `show_excluded` prints that arithmetic for an excluded
+    judge, marked as a check; the value still counts as undefined."""
     groups = defaultdict(lambda: defaultdict(list))
     for r in records:
         if r["arm"] == "short":
             groups[(r["judge_model"], r["case_id"])][r["condition"]].append(r)
     undefined = defaultdict(list)          # judge -> one bool per case
+    ceiling = defaultdict(list)            # judge -> one bool per case: a value at ceiling
     for (judge, case_id), conds in sorted(groups.items()):
         cells = {c: cell(rs) for c, rs in conds.items()}
         pt = {c: cells[c]["p_truth"] for c in ("A0", "A1", "A4", "A6", "A7") if c in cells}
@@ -400,11 +410,13 @@ def report_neff(records: list[dict], excluded: set = frozenset(),
         if judge in excluded and show_excluded:
             value["for checking only, not a result"] = neff(cells)
         undefined[judge].append("undefined" in value)
+        ceiling[judge].append("at ceiling" in value.values())
         print(f"N_EFF judge {judge} | {case_id}: mean P(truth) {pt} -> {value}  "
               f"(normative A4 1, A6 1, A7 3)")
     for judge, flags in sorted(undefined.items()):
         print(f"N_EFF UNDEFINED judge {judge}: {sum(flags)}/{len(flags)} cells "
-              f"({sum(flags) / len(flags):.2f})")
+              f"({sum(flags) / len(flags):.2f}); a value at ceiling in "
+              f"{sum(ceiling[judge])}/{len(flags)}")
     print()
 
 
@@ -452,8 +464,14 @@ def report_h6(records: list[dict], excluded: set = frozenset(),
     same reason discrimination stays within condition. Only for judges the confidence
     screen retains, since the flag reads stated numbers; `show_excluded` prints the
     others, marked as checks. The MARGIN_SENSITIVITY lines are declared in advance and are
-    not the test."""
-    forced, twins, a7 = defaultdict(dict), defaultdict(dict), defaultdict(list)
+    not the test.
+
+    Beside A7, the abstention rate in P0 offered the abstain option, where one irrelevant
+    report cannot settle the answer: a check added after the pilot, not the test. A7
+    shows a judge that abstains everywhere; P0 shows one that abstains nowhere, even
+    where the evidence is empty (docs/decisions.md, 2026-10-21)."""
+    forced, twins = defaultdict(dict), defaultdict(dict)
+    a7, p0 = defaultdict(list), defaultdict(list)
     for r in records:
         key = (r["case_id"], r["condition"], r["run_index"])
         if r["arm"] == "short" and r["condition"] in CONFLICT_BLOCK:
@@ -461,6 +479,8 @@ def report_h6(records: list[dict], excluded: set = frozenset(),
         elif r["arm"] == "abstain" and r["parsing_status"] not in PARSE_FAILURES:
             if r["condition"] == "A7":
                 a7[r["judge_model"]].append(r["abstained"])
+            elif r["condition"] == "P0":
+                p0[r["judge_model"]].append(r["abstained"])
             else:
                 twins[r["judge_model"]][key] = r["abstained"]
     for judge, recs in sorted(forced.items()):
@@ -496,6 +516,9 @@ def report_h6(records: list[dict], excluded: set = frozenset(),
             print(f"    {c} flagged {_count(flagged)}, not flagged {_count(other)}")
         print(f"  flagged minus not flagged, inside conditions (Mantel-Haenszel): "
               f"{difference(MARGIN_THRESHOLD)}; own A7 {_count(a7[judge])}")
+        if p0[judge]:
+            print(f"  check beside A7, not the test: abstained in P0, one irrelevant report, "
+                  f"{_count(p0[judge])}")
         print("  sensitivity, declared in advance, not the test: "
               + "; ".join(f"margin < {t}: {difference(t)}" for t in MARGIN_SENSITIVITY))
     print()

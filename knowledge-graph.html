@@ -392,7 +392,7 @@ a.ref:hover { background: var(--surface-2); }
   "title": "Project Knowledge Graph",
   "project": "DSA4213 Group 14 · Counting Reports or Counting Evidence",
   "oneLiner": "Can an AI orchestrator that combines reports from several agents tell three copies of one source from three independent sources, and which piece of information fixes its mistakes: a source name, a 'these share a source' note, or a 'this source is better' note?",
-  "updated": "2026-10-19",
+  "updated": "2026-10-21",
   "tour": [
    "question",
    "false-consensus",
@@ -447,7 +447,7 @@ a.ref:hover { background: var(--surface-2); }
     "open-corpus"
    ],
    [
-    "$37.48",
+    "$38.34",
     "main programme at 40 cases · $75 requested",
     "cost-model"
    ]
@@ -994,7 +994,8 @@ a.ref:hover { background: var(--surface-2); }
    "points": [
     "Primary target. Watched through [[coherence-margin]] in normal trials, and tested in the [[abstain-arm]].",
     "A record counts as nearly level when its top two probabilities are less than 10 points apart: [[margin-cutoff]].",
-    "Tested inside each condition, so a condition that simply has more of both close numbers and abstaining cannot pass for H6: [[margin-cutoff]]."
+    "Tested inside each condition, so a condition that simply has more of both close numbers and abstaining cannot pass for H6: [[margin-cutoff]].",
+    "Since the pilot, H6 is read from its rates, with P0 as a check beside A7, so a judge that never abstains is reported as not testable, not as a null: [[abstain-p0-check]]."
    ],
    "evidence": [
     {
@@ -1006,6 +1007,11 @@ a.ref:hover { background: var(--surface-2); }
      "file": "docs/methods.md",
      "loc": "Margin",
      "quote": "It compares inside each condition and then combines the conditions"
+    },
+    {
+     "file": "docs/decisions.md",
+     "loc": "H6 is read from its rates, with P0 as a check beside A7",
+     "quote": "is reported as not testable, not as a null"
     }
    ],
    "links": [
@@ -1016,6 +1022,10 @@ a.ref:hover { background: var(--surface-2); }
     {
      "to": "abstain-arm",
      "rel": "needs"
+    },
+    {
+     "to": "abstain-p0-check",
+     "rel": "related"
     }
    ]
   },
@@ -2790,6 +2800,11 @@ a.ref:hover { background: var(--surface-2); }
      "file": "pipeline/run.py",
      "loc": "PROGRAMME",
      "quote": "PROGRAMME = ["
+    },
+    {
+     "file": "README.md",
+     "loc": "Arms",
+     "quote": "X1-X5, A7 and P0, with a \"cannot be determined from the evidence provided\" option"
     }
    ],
    "links": [
@@ -3130,7 +3145,7 @@ a.ref:hover { background: var(--surface-2); }
    "type": "design",
    "cluster": "conditions",
    "title": "Abstention arm",
-   "summary": "The conflict block plus A7, run again with one extra allowed answer: 'Cannot be determined from the evidence provided'. Each judge is compared only with its own abstention rate in A7, where there is nothing to be unsure about.",
+   "summary": "The conflict block plus A7, run again with one extra allowed answer: 'Cannot be determined from the evidence provided'. Each judge is compared only with its own abstention rate in A7, where there is nothing to be unsure about. Since the pilot it also runs P0, one irrelevant report, where nothing settles the answer, as a check beside A7: [[abstain-p0-check]].",
    "weight": 2,
    "aliases": [
     "abstention arm",
@@ -3146,6 +3161,11 @@ a.ref:hover { background: var(--surface-2); }
      "file": "pipeline/prompt.py",
      "loc": "ABSTAIN",
      "quote": "ABSTAIN = \"Cannot be determined from the evidence provided\""
+    },
+    {
+     "file": "README.md",
+     "loc": "Arms",
+     "quote": "X1-X5, A7 and P0, with a \"cannot be determined from the evidence provided\" option"
     }
    ],
    "links": [
@@ -3160,6 +3180,10 @@ a.ref:hover { background: var(--surface-2); }
     {
      "to": "h6",
      "rel": "tests"
+    },
+    {
+     "to": "abstain-p0-check",
+     "rel": "involves"
     }
    ],
    "points": [
@@ -3798,7 +3822,7 @@ a.ref:hover { background: var(--surface-2); }
    "type": "design",
    "cluster": "measuring",
    "title": "Confidence screen",
-   "summary": "Before a judge's numbers are trusted, two checks. Ordering: its probability on the truth must rise across three single reports, irrelevant (P0) < narrows to two (P1) < names the answer (P2). Discrimination: its number must be higher when it is right than when it is wrong. A judge that fails is reported as uninformative on confidence; its decisions still count.",
+   "summary": "Before a judge's numbers are trusted, it must pass the ordering check: its probability on the truth must rise across three single reports, irrelevant (P0) < narrows to two (P1) < names the answer (P2). A judge that fails is reported as uninformative on confidence; its decisions still count. Discrimination, whether its number is higher when it is right than when it is wrong, is reported beside it, but since the pilot it excludes no judge: [[screen-ordering-gate]].",
    "visual": "screenDesign",
    "weight": 2,
    "aliases": [
@@ -3808,7 +3832,8 @@ a.ref:hover { background: var(--surface-2); }
    "points": [
     "Graded by how informative a report is, not by how many reports agree, so the check does not assume the behaviour under study.",
     "Only P1 is hand-written (the case's screen sentence). P0 is a filler sentence; P2 is B's first frozen rewording.",
-    "Ordering is tested across cases with Page's test, as the proposal asks: [[screen-ordering-test]]. Discrimination passes a judge when one condition with 10 right and 10 wrong decisions has AUROC clearly above 0.5: [[discrimination-rule]]."
+    "Ordering is tested across cases with Page's test, as the proposal asks: [[screen-ordering-test]]. Discrimination's first rule, which counted a condition with 10 right and 10 wrong decisions, is printed but not applied: [[discrimination-rule]].",
+    "P0 also runs in the abstention arm, with the abstain option, as a check beside A7: [[abstain-p0-check]]."
    ],
    "evidence": [
     {
@@ -3820,6 +3845,11 @@ a.ref:hover { background: var(--surface-2); }
      "file": "pipeline/conditions.py",
      "loc": "build_screen",
      "quote": "three single-report trials graded by informativeness, not by evidence count"
+    },
+    {
+     "file": "README.md",
+     "loc": "Measures, in order of weight",
+     "quote": "A judge that fails it is reported as uninformative on confidence; its decisions still count."
     }
    ],
    "links": [
@@ -3841,6 +3871,10 @@ a.ref:hover { background: var(--surface-2); }
     },
     {
      "to": "open-discrimination",
+     "rel": "involves"
+    },
+    {
+     "to": "screen-ordering-gate",
      "rel": "involves"
     }
    ]
@@ -4010,7 +4044,8 @@ a.ref:hover { background: var(--surface-2); }
    "points": [
     "Worked example: confidence 90 and 80 when right, 70 and 85 when wrong. Three of the four right-wrong pairs favour the right one, so AUROC = 0.75. With each decision from a different case, two of the six ways to deal those numbers reach 0.75, so luck does this 1 time in 3 (p = 1/3).",
     "The p-value treats the case as the unit. A case's repeats are near-copies, so the test shuffles whole cases; counting each decision, as the Mann-Whitney test does, makes p far too small.",
-    "The full entry: [[methods-doc]]."
+    "The full entry: [[methods-doc]].",
+    "Since the pilot, the discrimination check that uses it is reported but excludes no judge: in these conditions a low AUROC shows a judge surer when it follows the two agreeing reports: [[screen-ordering-gate]]."
    ],
    "evidence": [
     {
@@ -4037,6 +4072,11 @@ a.ref:hover { background: var(--surface-2); }
      "file": "pipeline/score.py",
      "loc": "auroc_p",
      "quote": "A case's repeats are near-copies"
+    },
+    {
+     "file": "docs/methods.md",
+     "loc": "AUROC",
+     "quote": "Since the pilot that verdict is printed but excludes no judge."
     }
    ],
    "links": [
@@ -4046,6 +4086,10 @@ a.ref:hover { background: var(--surface-2); }
     },
     {
      "to": "significance-level",
+     "rel": "related"
+    },
+    {
+     "to": "screen-ordering-gate",
      "rel": "related"
     }
    ]
@@ -4131,14 +4175,15 @@ a.ref:hover { background: var(--surface-2); }
    "cluster": "measuring",
    "title": "Discrimination passes a judge on one informative condition",
    "label": "Discrimination rule",
-   "summary": "A condition counts when it has at least 10 right and 10 wrong decisions; A0 never does. A judge passes when at least one counted condition has AUROC above 0.5 at p below 0.05 divided by the number counted, the p from shuffling whole cases. With no counted condition the check cannot be assessed, and the judge is excluded, as one failing ordering is.",
+   "summary": "Superseded by [[screen-ordering-gate]]. A condition counts when it has at least 10 right and 10 wrong decisions; A0 never does. A judge passes when at least one counted condition has AUROC above 0.5 at p below 0.05 divided by the number counted, the p from shuffling whole cases. With no counted condition the check cannot be assessed, and the judge is excluded, as one failing ordering is.",
    "date": "2026-10-18",
    "points": [
     "A test, not a fixed AUROC: at 12 right and 48 wrong independent decisions, about one pilot conflict condition, a judge whose numbers carry no information reaches 0.60 by luck more than 1 time in 10, but passes the test about 1 time in 20.",
     "The case is the unit of the p-value. A case's repeats are near-copies, so counting each decision passes a judge whose numbers carry no information about 1 time in 4, while shuffling whole cases passes it about 1 time in 20. Kai Rong raised this in review: [[auroc]].",
     "At least one condition, not every: in [[x1]] being wrong mostly means following the two agreeing reports, which a judge can do confidently. That is the effect under study, so AUROC can fall below 0.5 there for a judge whose numbers carry information.",
     "A judge that states the same number on every answer sits at 0.5 everywhere and still fails.",
-    "An excluded judge gets no [[neff]] and no H6 result: [[margin-cutoff]]. In the pilot, on 5 cases, the check is weak, so a fail there is a preview, and the pilot is scored with --show-excluded so that n_eff and H6 still meet real data: [[pilot-programme]]."
+    "An excluded judge gets no [[neff]] and no H6 result: [[margin-cutoff]]. In the pilot, on 5 cases, the check is weak, so a fail there is a preview, and the pilot is scored with --show-excluded so that n_eff and H6 still meet real data: [[pilot-programme]].",
+    "Replaced on 2026-10-21, after the pilot: the verdict is printed, marked as not applied, but excludes no judge."
    ],
    "evidence": [
     {
@@ -4195,6 +4240,11 @@ a.ref:hover { background: var(--surface-2); }
      "file": "docs/decisions.md",
      "loc": "The pilot runs the whole programme on M1-M5",
      "quote": "The pilot is therefore likely to exclude most judges"
+    },
+    {
+     "file": "docs/decisions.md",
+     "loc": "Discrimination passes a judge on one informative condition",
+     "quote": "Replaced 2026-10-21, after the pilot: the verdict is printed but excludes no judge;"
     }
    ],
    "links": [
@@ -4224,6 +4274,254 @@ a.ref:hover { background: var(--surface-2); }
     },
     {
      "to": "pilot-programme",
+     "rel": "related"
+    }
+   ],
+   "status": "superseded"
+  },
+  {
+   "id": "screen-ordering-gate",
+   "type": "decision",
+   "cluster": "measuring",
+   "title": "Only ordering decides whose stated numbers count",
+   "label": "Screen: ordering only",
+   "summary": "Since the pilot, a judge's stated probabilities count when it passes the ordering check. Discrimination is still computed and printed for every judge and condition, beside the verdict its first rule would have given, but it excludes no judge: in this study's conditions a wrong answer is almost always the two agreeing reports' claim, so a low AUROC shows a judge that is surer when it follows them, not numbers without information. Decided after the pilot, so the write-up reports it as a departure from the proposal.",
+   "date": "2026-10-21",
+   "points": [
+    "Why: in the pilot every wrong answer in the conflict block, 379 across the three judges, was A's claim, and every parsed agreement answer was right. So in every condition, right and wrong differed only by whether the judge followed the count: [[pilot-results]].",
+    "Why not count 'not assessable' as 'not assessed' and keep the rest: on 40 cases, X1 and X3 would fill up for GPT-5.4 and Opus and then fail, at AUROC 0.02 to 0.10, so a judge would be excluded for how often it resists the majority.",
+    "Ordering still fails a judge that states a high number on every answer, the case the proposal's screen is for: [[screen-ordering-test]]. The ceiling that ordering cannot see is handled where it matters, in n_eff: [[neff-ceiling]].",
+    "The belief results the pilot previewed are not among the reasons, so no result chose the rule. Kai Rong raised the change after reading the pilot's logs, and Jason agreed."
+   ],
+   "evidence": [
+    {
+     "file": "docs/decisions.md",
+     "loc": "Only ordering decides whose stated numbers count",
+     "quote": "the confidence screen is the ordering check alone."
+    },
+    {
+     "file": "docs/decisions.md",
+     "loc": "Only ordering decides whose stated numbers count",
+     "quote": "beside it the scorer prints the verdict of the rule as first registered, marked \"not applied\""
+    },
+    {
+     "file": "docs/decisions.md",
+     "loc": "Only ordering decides whose stated numbers count",
+     "quote": "every wrong answer in the conflict block, 379 across the three judges, was A's claim, and every parsed answer in A1-A7 was right."
+    },
+    {
+     "file": "docs/decisions.md",
+     "loc": "Only ordering decides whose stated numbers count",
+     "quote": "and a judge would be excluded for how often it resists the majority."
+    },
+    {
+     "file": "docs/decisions.md",
+     "loc": "Only ordering decides whose stated numbers count",
+     "quote": "resting the change on the belief results the pilot previewed, such as X1 to X3, which would let a result choose the rule."
+    },
+    {
+     "file": "docs/decisions.md",
+     "loc": "Only ordering decides whose stated numbers count",
+     "quote": "Kai Rong raised it after reading the pilot's logs, and Jason agreed."
+    },
+    {
+     "file": "pipeline/score.py",
+     "loc": "report_discrimination",
+     "quote": "rule as first registered, not applied:"
+    },
+    {
+     "file": "README.md",
+     "loc": "Measures, in order of weight",
+     "quote": "is reported for every judge but, since the pilot, excludes none"
+    }
+   ],
+   "links": [
+    {
+     "to": "discrimination-rule",
+     "rel": "replaces"
+    },
+    {
+     "to": "screen",
+     "rel": "needs"
+    },
+    {
+     "to": "auroc",
+     "rel": "needs"
+    },
+    {
+     "to": "screen-ordering-test",
+     "rel": "needs"
+    },
+    {
+     "to": "pilot-results",
+     "rel": "needs"
+    },
+    {
+     "to": "x1",
+     "rel": "related"
+    },
+    {
+     "to": "x3",
+     "rel": "related"
+    },
+    {
+     "to": "open-screen-pass",
+     "rel": "related"
+    },
+    {
+     "to": "neff-ceiling",
+     "rel": "related"
+    }
+   ]
+  },
+  {
+   "id": "neff-ceiling",
+   "type": "decision",
+   "cluster": "measuring",
+   "title": "n_eff at the clip reads \"at ceiling\"",
+   "label": "n_eff at ceiling",
+   "summary": "Before taking log-odds, the scorer clips a cell's mean probability on the truth to 1–99%, so a cell beyond the clip gives a bound, not a value. Its n_eff, and every CN, IS or RP computed from it, now reads \"at ceiling\"; a clipped A0 or A1 makes every value read so. The rule is the same for every judge, and the clip was in the code before the pilot.",
+   "date": "2026-10-21",
+   "points": [
+    "Why: in M2–M5, GPT-5.4's mean P(truth) in A4, A6 and A7 was 99.5 to 100, so all three were clipped, and its IS and RP read 0.0, set by the clip, not by the judge: [[pilot-results]].",
+    "Kai Rong raised it for GPT-5.4. Jason chose a rule for every judge at the existing clip, not a label for one judge or a new cut-off chosen after the pilot.",
+    "Per judge, the scorer prints how many cases have a value at ceiling, beside the undefined rate."
+   ],
+   "evidence": [
+    {
+     "file": "docs/decisions.md",
+     "loc": "n_eff at the clip reads \"at ceiling\"",
+     "quote": "gives a bound, not a value. Its n_eff reads \"at ceiling\", and so does every CN, IS or RP computed from it"
+    },
+    {
+     "file": "docs/decisions.md",
+     "loc": "n_eff at the clip reads \"at ceiling\"",
+     "quote": "Jason chose a rule for every judge at the existing clip."
+    },
+    {
+     "file": "docs/decisions.md",
+     "loc": "n_eff at the clip reads \"at ceiling\"",
+     "quote": "The clip was in the code before the pilot, so no number is chosen after seeing data."
+    },
+    {
+     "file": "pipeline/score.py",
+     "loc": "_logit",
+     "quote": "p = min(0.99, max(0.01, p))"
+    },
+    {
+     "file": "pipeline/score.py",
+     "loc": "neff",
+     "quote": "return {k: \"at ceiling\" if uses.get(k, set()) & at else v for k, v in out.items()}"
+    },
+    {
+     "file": "runs/score-pilot.txt",
+     "loc": "N_EFF",
+     "quote": "'clipped': 3, 'CN': 0.85, 'IS': 0.0, 'RP': 0.0"
+    },
+    {
+     "file": "README.md",
+     "loc": "The independence index",
+     "quote": "not a value: its index, and every number computed from it, reads \"at ceiling\"."
+    }
+   ],
+   "links": [
+    {
+     "to": "neff",
+     "rel": "needs"
+    },
+    {
+     "to": "log-odds",
+     "rel": "needs"
+    },
+    {
+     "to": "pilot-results",
+     "rel": "related"
+    }
+   ]
+  },
+  {
+   "id": "abstain-p0-check",
+   "type": "decision",
+   "cluster": "conditions",
+   "title": "H6 is read from its rates, with P0 as a check beside A7",
+   "label": "H6: rates + P0 check",
+   "summary": "H6's test is unchanged and is reported as the scorer prints it: how many conflict-block records' numbers do not back the answer, and how often the judge abstains, inside each condition and in A7. Since the pilot the abstention arm also runs P0, one irrelevant report, with the abstain option. Nothing there settles the answer, so a judge that does not abstain even in P0 abstains nowhere, and its H6 is reported as not testable; one that abstains in P0 but nowhere in the conflict block or A7 gives a null.",
+   "date": "2026-10-21",
+   "points": [
+    "Why: in the pilot only 8 of 900 conflict-block records were flagged, and Opus and Sonnet never abstained. A7 catches a judge that abstains everywhere, but not one that abstains nowhere: [[pilot-results]].",
+    "P0 is uncertain by design: in the pilot, Opus's top two options were within 10 points in all 20 of its P0 trials, and it still had to answer.",
+    "480 calls at 40 cases, about $0.85 at the proposal's rate. It runs once on M1–M5 first: 60 calls, about $0.10.",
+    "More abstention repeats would not help: 5,760 more calls, and a judge at 0 stays at 0. Kai Rong proposed reporting the rates; Jason added the P0 check."
+   ],
+   "evidence": [
+    {
+     "file": "docs/decisions.md",
+     "loc": "H6 is read from its rates, with P0 as a check beside A7",
+     "quote": "The abstention arm also runs P0, the screen's irrelevant report, offering the abstain option"
+    },
+    {
+     "file": "docs/decisions.md",
+     "loc": "H6 is read from its rates, with P0 as a check beside A7",
+     "quote": "A judge that abstains nowhere, P0 included, is the README's nuisance case for H6 and is reported as not testable, not as a null"
+    },
+    {
+     "file": "docs/decisions.md",
+     "loc": "H6 is read from its rates, with P0 as a check beside A7",
+     "quote": "Opus's top two options were within 10 points in all 20 of its P0 trials"
+    },
+    {
+     "file": "docs/decisions.md",
+     "loc": "H6 is read from its rates, with P0 as a check beside A7",
+     "quote": "Kai Rong proposed reporting the low rates as the result, and Jason added the P0 check."
+    },
+    {
+     "file": "pipeline/run.py",
+     "loc": "PROGRAMME",
+     "quote": "Entry(\"abstain-p0\", \"abstain\", [\"P0\"], 4, PRIMARY_JUDGES, False),"
+    },
+    {
+     "file": "pipeline/score.py",
+     "loc": "report_h6",
+     "quote": "check beside A7, not the test: abstained in P0, one irrelevant report,"
+    },
+    {
+     "file": "README.md",
+     "loc": "What counts as support, fixed before any data",
+     "quote": "one judge abstains everywhere or nowhere"
+    },
+    {
+     "file": "README.md",
+     "loc": "Arms",
+     "quote": "P0, the screen's irrelevant report, was added after the pilot as a check beside A7"
+    }
+   ],
+   "links": [
+    {
+     "to": "h6",
+     "rel": "needs"
+    },
+    {
+     "to": "abstain-arm",
+     "rel": "needs"
+    },
+    {
+     "to": "a7",
+     "rel": "needs"
+    },
+    {
+     "to": "screen",
+     "rel": "needs"
+    },
+    {
+     "to": "margin-cutoff",
+     "rel": "needs"
+    },
+    {
+     "to": "pilot-results",
+     "rel": "related"
+    },
+    {
+     "to": "open-h6-data",
      "rel": "related"
     }
    ]
@@ -4554,7 +4852,7 @@ a.ref:hover { background: var(--surface-2); }
    ],
    "points": [
     "Derived numbers: CN = n_eff(A4) − 1 (credit for independence that is not there); IS = n_eff(A7) − n_eff(A4) (should be 2); RP = n_eff(A4) − n_eff(A6) (what the 'same source' note claws back).",
-    "Guards: undefined when one report moves belief by less than 0.2 logits; a negative step is an anomaly ([[negative-step]]); only for judges that pass the [[screen]]; per judge and case, never pooled.",
+    "Guards: undefined when one report moves belief by less than 0.2 logits; a negative step is an anomaly ([[negative-step]]); only for judges that pass the [[screen]]; per judge and case, never pooled; a cell beyond the 1–99% clip reads \"at ceiling\", and so does every number computed from it: [[neff-ceiling]].",
     "It is a behaviour index on the judge's own scale, not its internal probability."
    ],
    "evidence": [
@@ -4567,6 +4865,11 @@ a.ref:hover { background: var(--surface-2); }
      "file": "pipeline/score.py",
      "loc": "neff",
      "quote": "Undefined when |w| < 0.2 logits, and an anomaly when w is negative"
+    },
+    {
+     "file": "README.md",
+     "loc": "The independence index",
+     "quote": "not a value: its index, and every number computed from it, reads \"at ceiling\"."
     }
    ],
    "links": [
@@ -4601,6 +4904,10 @@ a.ref:hover { background: var(--surface-2); }
     {
      "to": "screen",
      "rel": "needs"
+    },
+    {
+     "to": "neff-ceiling",
+     "rel": "involves"
     }
    ]
   },
@@ -5194,7 +5501,7 @@ a.ref:hover { background: var(--surface-2); }
    "cluster": "pipeline",
    "title": "Scorer (pipeline/score.py)",
    "label": "Scorer",
-   "summary": "Reads one or more JSONL logs and prints, per judge, arm and case: correct, abstain and no_match rates, mean probability on the truth and on the majority claim, margin, stability and its chance baseline; then the ladder, the screen (ordering and discrimination), n_eff, H6's test and run health.",
+   "summary": "Reads one or more JSONL logs and prints, per judge, arm and case: correct, abstain and no_match rates, mean probability on the truth and on the majority claim, margin, stability and its chance baseline; then the ladder, the screen (ordering), the discrimination check, n_eff, H6's test and run health.",
    "aliases": [
     "scorer"
    ],
@@ -5208,6 +5515,11 @@ a.ref:hover { background: var(--surface-2); }
      "file": "pipeline/score.py",
      "loc": "module docstring",
      "quote": "Several logs (for example from staged runs) are scored together."
+    },
+    {
+     "file": "pipeline/score.py",
+     "loc": "module docstring",
+     "quote": "screen (ordering), the discrimination check, the independence index n_eff, H6's test,"
     }
    ],
    "links": [
@@ -6438,11 +6750,12 @@ a.ref:hover { background: var(--surface-2); }
    "cluster": "process",
    "title": "What the main programme costs",
    "label": "Programme cost",
-   "summary": "Per case: 480 calls, $0.78. At 40 cases, with the length arm and the wording ladder on ten of them, the main programme is 21,720 calls ($37.48), which plan --cases 40 reproduces. The optional sub-experiments would add 1,112 calls ($2.78). The proposal requests $75.",
+   "summary": "Per case: 480 calls, $0.78. At 40 cases, with the length arm and the wording ladder on ten of them, the proposal's main programme is 21,720 calls ($37.48). The P0 check added after the pilot adds 480 calls ($0.85), so plan --cases 40 now gives 22,200 calls and $38.34. The optional sub-experiments would add 1,112 calls ($2.78). The proposal requests $75.",
    "visual": "costBreakdown",
    "points": [
     "Rates: writing and rating rewordings $0.00025 per call; judging short reports $0.00178; judging long reports $0.0030 (the one estimated figure).",
-    "The pilot measures the real cost per call by arm, the long-report rate included: [[pilot-programme]]."
+    "The pilot measures the real cost per call by arm, the long-report rate included: [[pilot-programme]].",
+    "The P0 check, added after the pilot: [[abstain-p0-check]]."
    ],
    "data": {
     "perCase": [
@@ -6510,6 +6823,16 @@ a.ref:hover { background: var(--surface-2); }
      "file": "docs/proposal.pdf",
      "loc": "p.20 §5",
      "quote": "We request $75"
+    },
+    {
+     "file": "docs/decisions.md",
+     "loc": "The runner encodes the proposal's main programme",
+     "quote": "The P0 check added to the abstention arm on 2026-10-21 adds 480 calls at 40 cases."
+    },
+    {
+     "file": "docs/work-plan.md",
+     "loc": "Phase 5",
+     "quote": "the proposal's $37.48 plus the P0 check added after the pilot"
     }
    ],
    "links": [
@@ -6523,6 +6846,10 @@ a.ref:hover { background: var(--surface-2); }
     },
     {
      "to": "runner",
+     "rel": "related"
+    },
+    {
+     "to": "abstain-p0-check",
      "rel": "related"
     }
    ]
@@ -6694,9 +7021,9 @@ a.ref:hover { background: var(--surface-2); }
    "points": [
     "Generation took 240 calls, and every source was accepted in its first round. The judge step ran 3,420 trials: 3,416 parsed, 3 gave an answer that is not an option, and 1 did not parse. The 3 were GPT-5.4 writing the option's number before it (\"4. 15%\"), which the parser did not then accept, since the prompt numbers the options; it does now: [[numbered-answers]]. No call failed, no judge reasoned, and each judge stayed on its pinned provider.",
     "Ordering kept all three judges: P(truth) rose from P0 to P1 to P2 in all five cases (rank correlation 1.0, p 0.0001): [[screen]].",
-    "Discrimination excluded all three. For Opus and GPT-5.4 no condition had 10 right and 10 wrong decisions, because their decisions went almost all one way in each condition, so the check could not be assessed. Sonnet's one counted condition, X2, reached AUROC 0.59 at p 0.24. A pilot fail is a preview: [[discrimination-rule]]. Whether the main run passes any judge is open: [[open-screen-pass]].",
-    "n_eff, as a check: one report moved belief by 1.37 to 4.04 logits, with no anomaly, so the arithmetic was defined in every cell. GPT-5.4's P(truth) reached 99.5 to 100 in A4, A6 and A7 in four of the five cases, so three cells hit the clip and its IS and RP read 0: [[neff]].",
-    "H6, as a check: 8 of the 900 conflict-block records were flagged (5, 1 and 2 by judge). Opus and Sonnet never abstained, and GPT-5.4 abstained only in X1, in 4 of 20 trials. The README names a judge that abstains nowhere as a nuisance for H6: [[margin-cutoff]]. Open for the main run: [[open-h6-data]].",
+    "Discrimination excluded all three. For Opus and GPT-5.4 no condition had 10 right and 10 wrong decisions, because their decisions went almost all one way in each condition, so the check could not be assessed. Sonnet's one counted condition, X2, reached AUROC 0.59 at p 0.24. A pilot fail is a preview: [[discrimination-rule]]. Settled after the pilot: only ordering decides whose numbers count, and discrimination is reported beside it: [[screen-ordering-gate]].",
+    "n_eff, as a check: one report moved belief by 1.37 to 4.04 logits, with no anomaly, so the arithmetic was defined in every cell. GPT-5.4's P(truth) reached 99.5 to 100 in A4, A6 and A7 in four of the five cases, so three cells hit the clip and its IS and RP read 0: [[neff]]. Such cells now read \"at ceiling\": [[neff-ceiling]].",
+    "H6, as a check: 8 of the 900 conflict-block records were flagged (5, 1 and 2 by judge). Opus and Sonnet never abstained, and GPT-5.4 abstained only in X1, in 4 of 20 trials. The README names a judge that abstains nowhere as a nuisance for H6: [[margin-cutoff]]. Settled after the pilot: H6 is read from its rates, with P0 as a check beside A7: [[abstain-p0-check]].",
     "The ladder and the length arm ran and parsed.",
     "Measured cost per call: the short arm cost about $0.0019 a call across the three judges, against the $0.00178 estimate; long reports cost $0.0022 (Sonnet) and $0.0018 (GPT-5.4), against the estimated $0.0030. The main-run budget can now use measured rates: [[cost-model]]."
    ],
@@ -6887,30 +7214,25 @@ a.ref:hover { background: var(--surface-2); }
    "id": "open-screen-pass",
    "type": "issue",
    "cluster": "issues",
-   "title": "The screen may pass no judge in the main run",
-   "label": "Screen may pass no judge",
-   "summary": "In the pilot, discrimination excluded all three judges: two could not be assessed, because their decisions went almost all one way in every condition, and the third failed on the one condition that counted. If the main run does the same on 40 cases, no judge's stated probabilities count, so the belief results go unreported: the agreement block, n_eff, the belief half of H3, and H6. Decisions still count. Decide before the main run whether anything changes, and record any change as made after the pilot.",
-   "status": "open",
+   "title": "The screen could pass no judge in the main run",
+   "label": "Screen may pass no judge (settled)",
+   "summary": "Settled. In the pilot, discrimination excluded all three judges: two could not be assessed, because their decisions went almost all one way in every condition, and the third failed on the one condition that counted. Had the main run done the same on 40 cases, no judge's stated probabilities would have counted, and every belief result would have gone unreported. On 2026-10-21 the team made ordering the only check that decides, with discrimination reported beside it: [[screen-ordering-gate]].",
+   "status": "current",
    "date": "2026-10-19",
    "points": [
-    "Where the pilot's decisions were mixed, the judges were more confident when wrong: X1 and X3 reached AUROCs of only 0.02 to 0.10. The rule expects this, since being wrong there means following the two agreeing reports: [[discrimination-rule]].",
+    "Where the pilot's decisions were mixed, the judges were more confident when wrong: X1 and X3 reached AUROCs of only 0.02 to 0.10. The first rule expected this, since being wrong there means following the two agreeing reports: [[discrimination-rule]].",
     "Apart from A0, which never counts, only Sonnet's X2 had 10 right and 10 wrong decisions: [[pilot-results]]."
    ],
    "evidence": [
     {
      "file": "README.md",
      "loc": "Status and open items",
-     "quote": "First, discrimination excluded all three judges; if it does so on 40 cases, no judge's stated probabilities count, so n_eff and every other belief result go unreported, while decisions still count."
+     "quote": "only ordering decides whose stated numbers count, and discrimination is reported beside it"
     },
     {
      "file": "README.md",
      "loc": "Measures, in order of weight",
      "quote": "Stated probabilities count as evidence only for a judge that passes the confidence screen"
-    },
-    {
-     "file": "README.md",
-     "loc": "Measures, in order of weight",
-     "quote": "A judge that fails either check is reported as uninformative on confidence; its decisions still count."
     },
     {
      "file": "runs/score-pilot.txt",
@@ -6936,6 +7258,11 @@ a.ref:hover { background: var(--surface-2); }
      "file": "docs/decisions.md",
      "loc": "Discrimination passes a judge on one informative condition",
      "quote": "Not assessable counts as a fail, because the proposal admits a number only once it passes."
+    },
+    {
+     "file": "docs/decisions.md",
+     "loc": "Only ordering decides whose stated numbers count",
+     "quote": "the confidence screen is the ordering check alone."
     }
    ],
    "links": [
@@ -6962,6 +7289,10 @@ a.ref:hover { background: var(--surface-2); }
     {
      "to": "status-board",
      "rel": "part-of"
+    },
+    {
+     "to": "screen-ordering-gate",
+     "rel": "related"
     }
    ]
   },
@@ -6969,10 +7300,10 @@ a.ref:hover { background: var(--surface-2); }
    "id": "open-h6-data",
    "type": "issue",
    "cluster": "issues",
-   "title": "H6 may have almost nothing to test in the main run",
-   "label": "H6 has little data",
-   "summary": "H6's test needs forced-choice trials whose numbers do not back the answer, and judges that abstain when they may. In the pilot only 8 of 900 conflict-block records were flagged, Opus and Sonnet never abstained, and GPT-5.4's four abstentions all came in X1, in trials whose numbers did back the answer. The README counts a judge that abstains nowhere as a nuisance, so H6 could end unreadable rather than null. H6 also needs the screen: [[open-screen-pass]]. Decide before the main run whether anything changes, and record any change as made after the pilot.",
-   "status": "open",
+   "title": "H6 could have almost nothing to test in the main run",
+   "label": "H6 has little data (settled)",
+   "summary": "Settled. H6's test needs forced-choice trials whose numbers do not back the answer, and judges that abstain when they may. In the pilot only 8 of 900 conflict-block records were flagged, Opus and Sonnet never abstained, and GPT-5.4's four abstentions all came in X1, in trials whose numbers did back the answer. The README counts a judge that abstains nowhere as a nuisance, so H6 could have ended unreadable rather than null. On 2026-10-21 the team chose to read H6 from its rates, with P0 offered the abstain option as a check beside A7, which tells a judge that abstains nowhere from one that was never unsure: [[abstain-p0-check]].",
+   "status": "current",
    "date": "2026-10-19",
    "points": [
     "Only repeats 1 to 4 have an abstention twin, since the abstention arm runs 4 repeats and the conflict block 12, so most flagged records have no twin to compare: [[margin-cutoff]]."
@@ -6981,7 +7312,7 @@ a.ref:hover { background: var(--surface-2); }
     {
      "file": "README.md",
      "loc": "Status and open items",
-     "quote": "Second, H6 had almost nothing to test: 8 of 900 conflict-block records were flagged, and two judges never abstained."
+     "quote": "H6 had almost nothing to test: 8 of 900 conflict-block records were flagged, and two judges never abstained"
     },
     {
      "file": "runs/score-pilot.txt",
@@ -7012,6 +7343,11 @@ a.ref:hover { background: var(--surface-2); }
      "file": "pipeline/run.py",
      "loc": "PROGRAMME",
      "quote": "Entry(\"abstain\", \"abstain\", ABSTAIN_ARM, 4, PRIMARY_JUDGES, False),"
+    },
+    {
+     "file": "docs/decisions.md",
+     "loc": "H6 is read from its rates, with P0 as a check beside A7",
+     "quote": "The abstention arm also runs P0, the screen's irrelevant report, offering the abstain option"
     }
    ],
    "links": [
@@ -7038,6 +7374,10 @@ a.ref:hover { background: var(--surface-2); }
     {
      "to": "status-board",
      "rel": "part-of"
+    },
+    {
+     "to": "abstain-p0-check",
+     "rel": "related"
     }
    ]
   },
@@ -7771,6 +8111,35 @@ a.ref:hover { background: var(--surface-2); }
    "changed": [
     "pilot-results"
    ]
+  },
+  {
+   "date": "2026-10-21",
+   "summary": "Settled the pilot's two open questions after the pilot and before the main run, following Kai Rong's review of the logs. Only ordering decides whose stated numbers count; discrimination is printed with its first rule's verdict but excludes no judge. n_eff at the 1–99% clip reads \"at ceiling\", for every judge. H6 is read from its rates, and the abstention arm gains P0 as a check beside A7 (480 calls at 40 cases; once on M1–M5 first).",
+   "added": [
+    "screen-ordering-gate",
+    "neff-ceiling",
+    "abstain-p0-check"
+   ],
+   "changed": [
+    "screen",
+    "auroc",
+    "neff",
+    "abstain-arm",
+    "h6",
+    "arms",
+    "scorer",
+    "pilot-results",
+    "cost-model",
+    "open-screen-pass",
+    "open-h6-data"
+   ],
+   "superseded": [
+    "discrimination-rule"
+   ],
+   "closed": [
+    "open-screen-pass",
+    "open-h6-data"
+   ]
   }
  ]
 }</script>
@@ -8043,7 +8412,7 @@ const VISUALS = {
   },
   arms(n) {
     const r = [['Short', 'all 13', '3', '6 (A) · 12 (X)', '40'], ['Length', 'X1–X5, A1, A2', '2 (Sonnet 5, GPT-5.4)', '12 (X) · 6 (A1, A2)', '10'],
-      ['Abstention', 'X1–X5 + A7', '3', '4', '40'], ['Screen', 'P0, P1, P2', '3', '4', '40'], ['Wording ladder', 'W1–W3', '3', '12', '10']];
+      ['Abstention', 'X1–X5, A7 + P0', '3', '4', '40'], ['Screen', 'P0, P1, P2', '3', '4', '40'], ['Wording ladder', 'W1–W3', '3', '12', '10']];
     return fig(`<table class="vtable"><thead><tr><th>Arm</th><th>Conditions</th><th>Judges</th><th>Repeats</th><th class="c">Cases</th></tr></thead><tbody>${r.map(x => `<tr><td><b>${x[0]}</b></td><td>${x[1]}</td><td>${x[2]}</td><td>${x[3]}</td><td class="c">${x[4]}</td></tr>`).join('')}</tbody></table>`,
       'Cases are out of the planned 40. The length arm and the wording ladder share the same 10 cases.');
   },
@@ -8092,7 +8461,7 @@ const VISUALS = {
     b += T(80, 122, 'independent sources the judge acts as if it saw', 'v-small');
     return fig(`<div class="mono" style="text-align:center;font-size:13px">n_eff(c) = ( l(c) − l(A0) ) ÷ ( l(A1) − l(A0) )</div>` + svgWrap(420, 128, b, 'Normative n_eff values: A4 1, A6 1, A7 3')
       + `<table class="vtable" style="margin-top:6px"><tbody><tr><td><b>CN</b> = n_eff(A4) − 1</td><td>credit for independence that is not there · should be 0</td></tr><tr><td><b>IS</b> = n_eff(A7) − n_eff(A4)</td><td>tells copies from real sources · should be 2</td></tr><tr><td><b>RP</b> = n_eff(A4) − n_eff(A6)</td><td>what the “same source” note claws back</td></tr></tbody></table>`,
-      'l(c) is the log-odds of the judge’s stated probability on the truth in condition c. The bottom of the fraction is one report’s step, w.');
+      'l(c) is the log-odds of the judge’s stated probability on the truth in condition c. The bottom of the fraction is one report’s step, w. A cell beyond the 1–99% clip reads “at ceiling”, and so does every number computed from it.');
   },
   screenDesign(n) {
     const s = [['P0 · irrelevant', 'Logbooks are collected from the mechanical engineering general office and must be signed by a demonstrator…', '≈ 25 (chance)', 34],
@@ -8190,7 +8559,7 @@ const VISUALS = {
     const calls = rows => rows.reduce((a, r) => a + r[1], 0).toLocaleString('en-US');
     return fig(`<div style="font-size:12.5px;font-weight:600">Per case: ${calls(d.perCase)} calls, $${sum(d.perCase).toFixed(2)}</div>` + stack(d.perCase, sum(d.perCase)) + legend(d.perCase)
       + `<div style="font-size:12.5px;font-weight:600;margin-top:10px">Programme at 40 cases: ${calls(d.programme)} calls, $${sum(d.programme).toFixed(2)}</div>` + stack(d.programme, sum(d.programme)) + legend(d.programme),
-      'The proposal’s per-call rates, measured on one sample case except long-report judging ($0.0030 per call), which is estimated. <code>python -m pipeline.run plan --cases 40</code> reproduces these figures.');
+      'The proposal’s per-call rates, measured on one sample case except long-report judging ($0.0030 per call), which is estimated. <code>python -m pipeline.run plan --cases 40</code> reproduces these figures, plus the P0 check added after the pilot: 480 calls, $0.85.');
   },
   positioning(n) {
     const cols = ['nothing', 'source identity or type', 'dependence', 'relative quality'], rows = ['independent rewordings', 'word-for-word copies', 'distinct documents'];

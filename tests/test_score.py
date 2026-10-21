@@ -178,11 +178,12 @@ def test_discrimination_is_within_condition_on_the_short_arm():
                rec("M3", "X1", False, 60), rec("M1", "A4", True, 95),
                rec("M4", "X1", True, 10, arm="long")]
     with contextlib.redirect_stdout(io.StringIO()) as out:
-        excluded = report_discrimination(records)
+        report_discrimination(records)
     line = out.getvalue()
     assert "X1 1.00 (1/2)" in line and "A4 n/a (1/0)" in line
-    # a perfect AUROC on three decisions is not evidence: no condition has 10 per class
-    assert "not assessable" in line and excluded == {"mock"}
+    # a perfect AUROC on three decisions is not evidence: no condition has 10 per class.
+    # The rule as first registered would exclude the judge; that verdict is only printed
+    assert "not applied: not assessable" in line and "would be excluded" in line
 
 
 def test_auroc_p_shuffles_whole_cases():
@@ -264,24 +265,69 @@ def test_discrimination_holds_its_level_when_repeats_are_near_copies():
     assert shuffled / 200 < 0.08 and counted / 200 > 0.20
 
 
-def test_a_judge_failing_discrimination_gets_no_neff():
-    """A judge whose numbers cannot be checked for discrimination (here it is never wrong)
-    is excluded like one that fails ordering, so its n_eff is not reported."""
-    p = {"A0": 25.0, "A1": 55.0, "A4": 85.0, "A6": 85.0, "A7": 85.0}
-    records = [dict(_rec("15%"), judge_model="mock", case_id="M1", arm="short", condition=c,
-                    run_index=1, p_truth=v, confidence_elicited=v) for c, v in p.items()]
+def test_only_ordering_decides_whose_numbers_count():
+    """docs/decisions.md, 2026-10-21: discrimination no longer excludes. A judge that is
+    never wrong cannot be assessed for discrimination, which the rule as first registered
+    counted as a fail; on two cases in the predicted order it passes ordering, so its
+    n_eff is reported. On one case it fails ordering (p = 1/6), so it gets none, and the
+    pilot's --show-excluded prints the arithmetic as a check that still counts as
+    undefined."""
+    def records(cases):
+        p = {"A0": 25.0, "A1": 55.0, "A4": 85.0, "A6": 85.0, "A7": 85.0}
+        screen = {"P0": ("irrelevant", 25.0), "P1": ("partial", 50.0),
+                  "P2": ("determinate", 90.0)}
+        return ([dict(_rec("15%"), judge_model="mock", case_id=cid, arm="short",
+                      condition=c, run_index=1, p_truth=v, confidence_elicited=v)
+                 for cid in cases for c, v in p.items()]
+                + [dict(_rec("15%"), judge_model="mock", case_id=cid, arm="screen",
+                        condition=lvl, run_index=1, p_truth=v,
+                        factors={"informativeness": inf})
+                   for cid in cases for lvl, (inf, v) in screen.items()])
+
     with contextlib.redirect_stdout(io.StringIO()) as out:
-        report(records)
+        report(records(["M1", "M2"]))
     text = out.getvalue()
-    assert "not assessable" in text and "judge failed the confidence screen" in text
-    assert "for checking only" not in text
-    # the pilot's --show-excluded: the arithmetic is printed as a check, and still counts
-    # as undefined
+    assert "would be excluded" in text and "-- retained" in text
+    assert "judge failed the confidence screen" not in text
+    assert "M1: mean P(truth)" in text and "-> {'A4': 2.18" in text
     with contextlib.redirect_stdout(io.StringIO()) as out:
-        report(records, show_excluded=True)
+        report(records(["M1"]))
+    text = out.getvalue()
+    assert "judge failed the confidence screen" in text and "for checking only" not in text
+    with contextlib.redirect_stdout(io.StringIO()) as out:
+        report(records(["M1"]), show_excluded=True)
     text = out.getvalue()
     assert "'for checking only, not a result': {'A4': 2.18" in text
     assert "N_EFF UNDEFINED judge mock: 1/1 cells (1.00)" in text
+
+
+def test_neff_at_the_clip_reads_at_ceiling():
+    """docs/decisions.md, 2026-10-21: a cell's mean P(truth) outside 1-99 is clipped
+    before the logit, so it is a bound, not a value, and so is every number computed from
+    it. GPT-5.4's pilot cells at 99.5-100 in A4, A6 and A7 would otherwise read IS 0 and
+    RP 0; a clipped A1 clips the unit, so every value is at ceiling."""
+    p = lambda **v: {c: {"p_truth": v.get(c, 85.0)} for c in ("A0", "A1", "A4", "A6", "A7")}
+    top = neff(p(A0=25.0, A1=90.0, A4=99.5, A6=99.5, A7=100.0))
+    assert top["clipped"] == 3
+    assert all(top[k] == "at ceiling" for k in ("A4", "A6", "A7", "CN", "IS", "RP"))
+    part = neff(p(A0=25.0, A1=55.0, A7=99.5))
+    assert (part["A4"], part["A6"], part["CN"], part["RP"]) == (2.18, 2.18, 1.18, 0.0)
+    assert part["A7"] == part["IS"] == "at ceiling"
+    unit = neff(p(A0=25.0, A1=99.5))
+    assert all(unit[k] == "at ceiling" for k in ("A4", "A6", "A7", "CN", "IS", "RP"))
+    assert "at ceiling" not in neff(p(A0=25.0, A1=55.0)).values()
+
+
+def test_cells_at_ceiling_are_counted_per_judge():
+    def recs(case_id, p_a7):
+        p = {"A0": 25.0, "A1": 55.0, "A4": 85.0, "A6": 85.0, "A7": p_a7}
+        return [dict(_rec("15%"), judge_model="mock", case_id=case_id, arm="short",
+                     condition=c, p_truth=v) for c, v in p.items()]
+
+    with contextlib.redirect_stdout(io.StringIO()) as out:
+        report_neff(recs("M1", 85.0) + recs("M2", 100.0))
+    assert ("N_EFF UNDEFINED judge mock: 0/2 cells (0.00); a value at ceiling in 1/2"
+            in out.getvalue())
 
 
 def test_five_cases_give_discrimination_little_room():
@@ -337,6 +383,29 @@ def test_h6_pairs_each_forced_choice_trial_with_its_abstention_twin():
         report_h6(records, excluded={"j"}, show_excluded=True)
     assert ("H6 judge j (failed the confidence screen: for checking only, not a result): "
             "3/5") in out.getvalue()
+
+
+def test_h6_prints_the_p0_check_beside_a7():
+    """docs/decisions.md, 2026-10-21: P0 offered the abstain option, where one irrelevant
+    report cannot settle the answer, is printed beside A7 as a check, outside the test:
+    its trials are nobody's twin. Logs without it, like the pilot's, print no line."""
+    key = dict(judge_model="j", case_id="M1")
+    records = ([dict(_rec("25%", margin=30), arm="short", condition="X1", run_index=1,
+                     coherent=True, **key),
+                dict(_rec(None), arm="abstain", condition="X1", run_index=1, **key)]
+               + [dict(_rec(None), arm="abstain", condition="A7", run_index=r, **key)
+                  for r in range(1, 5)]
+               + [dict(_rec(None, abstained=r < 4), arm="abstain", condition="P0",
+                       run_index=r, **key) for r in range(1, 5)])
+    with contextlib.redirect_stdout(io.StringIO()) as out:
+        report_h6(records)
+    text = out.getvalue()
+    assert "X1 flagged 0/0 (n/a), not flagged 0/1 (0.00)" in text
+    assert "own A7 0/4 (0.00)" in text
+    assert "not the test: abstained in P0, one irrelevant report, 3/4 (0.75)" in text
+    with contextlib.redirect_stdout(io.StringIO()) as out:
+        report_h6([r for r in records if r["condition"] != "P0"])
+    assert "P0" not in out.getvalue()
 
 
 def test_h6_compares_inside_each_condition_never_pooled():

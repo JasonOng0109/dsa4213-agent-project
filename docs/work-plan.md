@@ -417,8 +417,9 @@ In the table, `...` is short for `uv run --env-file .env python -m`.
 | 3.3 | Jason | `... pipeline.run generate --max-calls 600`. The README allows 120 per case for two rounds; 5 × 120 = 600 |
 | 3.4 | each author and reviewer | Read your case in `runs/frozen_reports.json` (see below) |
 | 3.5 | Jason | One programme entry at a time (2E), e.g. `... pipeline.run judge --arms conflict --log trials-conflict.jsonl --max-calls 900`. Each entry's calls are in `docs/decisions.md` |
-| 3.6 | Jason | `uv run python -m pipeline.score --show-excluded runs/trials-*.jsonl`, all the logs together. `--show-excluded` also prints n_eff and H6 for judges the screen excludes, as checks: on 5 cases, discrimination is likely to exclude most judges (`docs/decisions.md`, the pilot entry). Share the output |
+| 3.6 | Jason | `uv run python -m pipeline.score --show-excluded runs/trials-*.jsonl`, all the logs together. `--show-excluded` also prints n_eff and H6 for judges the screen excludes, as checks: on 5 cases, discrimination, then part of the screen, was likely to exclude most judges (`docs/decisions.md`, the pilot entry). Share the output |
 | 3.7 | Jason | Commit everything in `runs/`. Record the results in the map |
+| 3.8 | Jason | Added after the pilot (`docs/decisions.md`, 2026-10-21): the P0 check once on M1–M5, `... pipeline.run judge --arms abstain-p0 --log trials-abstain-p0.jsonl --max-calls 60`, about $0.10. Then score all the logs together again and commit |
 
 **3.4 Reading the frozen reports.** Never edit them. Check three things:
 
@@ -501,7 +502,8 @@ Outline only. Detailed tasks will be added after the pilot.
 
 - **Before**: all 40 cases merged. Every open item closed except the optional
   sub-experiments. Spend approved. The proposal asks for $75. The main programme at 40
-  cases is $37.48 (`uv run python -m pipeline.run plan --cases 40`).
+  cases is $38.34 at the proposal's rates (`uv run python -m pipeline.run plan --cases
+  40`): the proposal's $37.48 plus the P0 check added after the pilot.
 - **Run** (Jason): same steps as Phase 3, with the same reading of frozen reports by
   each case's author and reviewer.
 - **Analysis**: read results only against the table "What counts as support, fixed
@@ -566,5 +568,6 @@ Change "to do" to "done" when a task is finished.
 | 2E What the pilot runs | Jason + group | — | done |
 | 3.1–3.7 Pilot run | Jason | M2–M5 merged, 2E | done |
 | 3.4 Read frozen reports | authors and reviewers | 3.3 | done |
+| 3.8 P0 check on M1–M5 | Jason | the post-pilot decisions merged | to do |
 | Phase 4 drafts | everyone | Kai Rong's first batches | to do |
 | Phase 4 merges | Jason | pilot done | to do |
