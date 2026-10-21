@@ -422,14 +422,20 @@ Add an entry when you make a choice a reader could not guess from the code.
   author, of which M14 and M22 are the two T2 (`docs/work-plan.md`, case register).
   A case of the ten that is relabelled T2 once its frozen reports are read (R16) stays
   in the ten, so the ten may end with more than three T2 cases: swapping it out would
-  choose cases after seeing results.
+  choose cases after seeing results. Amended 2026-10-21: the other 25 cases were assigned
+  together, before anyone drafted them, so each marked case's replacement is named in the
+  case register as its backup, with the same domain, dimension and tier and a different
+  author: M16 for M6, M8 for M14, M9 for M22, M17 for M30 and M32 for M38.
 - **Why** [STATED: team decision, 2026-10-18]: the ten are chosen before any of them is
   run, so neither the pilot's results nor how cases turn out can steer the choice.
   [STATED: `docs/work-plan.md`, Phase 1] M1-M5 "cover all 3 domains and all 4 quality
   dimensions". Three T2 in ten is close to the corpus's target of about 10 in 40
   (`docs/work-plan.md`, "Targets for all 40"). [STATED: team decision, 2026-10-19] A
   case relabelled T2 stays in the ten: Kai Rong raised it reviewing this entry, and
-  Jason agreed.
+  Jason agreed. [STATED: Kai Rong, 2026-10-21] with the other 25 cases assigned
+  together, "the next assigned case" can fit two cases, such as M11 and M17 for M30, so
+  each backup is named before any of them is written. A different author means one
+  author's drafts cannot lose both a marked case and its backup.
 - **Rejected**: choosing the ten once all 40 are merged, the earlier plan in
   `docs/work-plan.md` (2D), when the pilot's results on M1-M5 would already be known.
 - **Breaks if changed**: a subset chosen after seeing results could favour cases where
@@ -612,3 +618,23 @@ Add an entry when you make a choice a reader could not guess from the code.
 - **Rejected**: keeping the subject out of filler, which would rewrite five Phase 4 cases
   and part from three pilot cases for no measured gain.
 - **Breaks if changed**: nothing the scorer reads; a ban would only add rewrites.
+
+### 2026-10-21 — Near-copies in A7 are noted, not failed
+
+- **Decision**: when two of B's, C's and D's frozen reports read almost alike while their
+  `cross_overlap` stays under R17's 0.50, the case's author and reviewer note it when
+  they read the frozen reports (step 3.4 in `docs/work-plan.md`). The case does not
+  fail, and its reports are not regenerated.
+- **Why** [STATED: team decision, 2026-10-21]: Kathleen asked on the pilot pull request
+  whether to flag such pairs, and Jason answered "it's fine as is. but yes, do note pairs
+  like this when you do 3.4 (more of like keeping a note than marking it as a fail)":
+  frozen reports are never edited, and n_eff is reported per case, so such a case stays
+  visible. [INFERRED: from `runs/frozen_reports.json` and `build_conditions` in
+  `pipeline/conditions.py`, which gives A7 each source's first accepted report] her
+  example, M4, puts B's "The Yhotak B162 Vacuum features a 6000Pa water lift." beside
+  D's "The Yhotak B162 Vacuum features a water lift of 6000Pa." in A7, at a
+  `cross_overlap` of 0.42.
+- **Rejected**: failing such a case at 3.4, which would regenerate reports that pass R17.
+- **Breaks if changed**: B, C and D share only A7, where independent agreement is
+  measured, so near-copies there can make a judge look less sensitive to independence
+  than it is; without the note, nobody reading that case's n_eff would know why.

@@ -371,10 +371,11 @@ it.
   "Set-level counts" show the spread.
 - **Marked 2026-10-19**, with the first Phase 4 batches, before anyone drafted them: M6,
   M14, M22, M30 and M38, under "Subset" in the case register in Phase 4 below.
-- **Do in the next batches**: give each of the five a backup, a case with the same
-  domain, dimension and tier, so the replacement rule has a case to take if one is
-  dropped. None of the cases assigned so far is one. The two T2 backups need an
-  incident_status / method case and a product_spec / directness case.
+- **Backups named 2026-10-21**, when the other 25 cases were assigned, before anyone
+  drafted them: M16 for M6, M8 for M14, M9 for M22, M17 for M30 and M32 for M38. Each
+  backup has the same domain, dimension and tier as its case, and a different author. A
+  backup is written and reviewed like any other case, and joins the ten only if its case
+  is dropped.
 - **Do before the main run**, once all 40 cases are merged: reorder the tuple in
   `cases/__init__.py` so the ten come first. `uv run pytest`.
 - **Done when**: the five are marked, and the reordered tuple is merged.
@@ -432,6 +433,9 @@ In the table, `...` is short for `uv run --env-file .env python -m`.
    grade")? If not, the conflict measures nothing.
 3. **No leaks**: no report names who wrote it.
 
+Also note, but do not fail, any two of B's, C's and D's reports that read almost alike
+while their `cross_overlap` stays under 0.50 (R17), like M4's B and D (0.42) in the pilot.
+
 Tell Jason what you found.
 
 **Pilot numbers are a preview, not findings.** `docs/decisions.md` calls the pilot's
@@ -441,11 +445,11 @@ screen verdict "a preview".
 
 ## Phase 4 — Write the other 35 cases
 
-Same steps as Phase 1, in batches of two cases. Each author keeps the same reviewer.
-Kai Rong gives each batch its domain, dimension and tier.
+Same steps as Phase 1. Each author keeps the same reviewer. Kai Rong gives each case its
+domain, dimension and tier: two per author on 2026-10-19, the rest on 2026-10-21.
 
 **When**: start drafting now, before the pilot (`docs/decisions.md`, "Phase 4 drafting
-starts before the pilot"). Your batches are in the case register below. Use the lessons
+starts before the pilot"). Your cases are in the case register below. Use the lessons
 from the review comments on the Phase 1 pull requests and the current
 `docs/authoring-rules.md`. Keep each case on its own branch until the pilot has run:
 Jason merges Phase 4 cases only after it, because the run takes every case in
@@ -478,14 +482,39 @@ Jason merges Phase 4 cases only after it, because the run takes every case in
 | M5 | incident_status | authority | T1 | Kai Rong | Crystal | merged | yes |
 | M6 | institutional_logistics | primary_source | T1 | Crystal | Rachel | assigned | yes |
 | M7 | product_spec | authority | T1 | Crystal | Rachel | assigned | |
+| M8 | incident_status | method | T2 | Crystal | Rachel | assigned | backup for M14 |
+| M9 | product_spec | directness | T2 | Crystal | Rachel | assigned | backup for M22 |
+| M10 | institutional_logistics | authority | T1 | Crystal | Rachel | assigned | |
+| M11 | institutional_logistics | directness | T1 | Crystal | Rachel | assigned | |
+| M12 | product_spec | method | T1 | Crystal | Rachel | assigned | |
+| M13 | incident_status | primary_source | T1 | Crystal | Rachel | assigned | |
 | M14 | incident_status | method | T2 | Rachel | Kathleen | assigned | yes |
 | M15 | institutional_logistics | authority | T1 | Rachel | Kathleen | assigned | |
+| M16 | institutional_logistics | primary_source | T1 | Rachel | Kathleen | assigned | backup for M6 |
+| M17 | institutional_logistics | directness | T1 | Rachel | Kathleen | assigned | backup for M30 |
+| M18 | product_spec | primary_source | T1 | Rachel | Kathleen | assigned | |
+| M19 | incident_status | directness | T2 | Rachel | Kathleen | assigned | |
+| M20 | product_spec | method | T1 | Rachel | Kathleen | assigned | |
+| M21 | incident_status | authority | T1 | Rachel | Kathleen | assigned | |
 | M22 | product_spec | directness | T2 | Kathleen | Kai Rong | assigned | yes |
 | M23 | institutional_logistics | method | T1 | Kathleen | Kai Rong | assigned | |
+| M24 | institutional_logistics | primary_source | T2 | Kathleen | Kai Rong | assigned | |
+| M25 | product_spec | authority | T1 | Kathleen | Kai Rong | assigned | |
+| M26 | incident_status | method | T1 | Kathleen | Kai Rong | assigned | |
+| M27 | institutional_logistics | authority | T1 | Kathleen | Kai Rong | assigned | |
+| M28 | product_spec | primary_source | T1 | Kathleen | Kai Rong | assigned | |
+| M29 | incident_status | directness | T1 | Kathleen | Kai Rong | assigned | |
 | M30 | institutional_logistics | directness | T1 | Kai Rong | Crystal | assigned | yes |
 | M31 | product_spec | primary_source | T2 | Kai Rong | Crystal | assigned | |
+| M32 | incident_status | primary_source | T1 | Kai Rong | Crystal | assigned | backup for M38 |
+| M33 | incident_status | authority | T2 | Kai Rong | Crystal | assigned | |
+| M34 | product_spec | authority | T1 | Kai Rong | Crystal | assigned | |
+| M35 | institutional_logistics | method | T1 | Kai Rong | Crystal | assigned | |
+| M36 | product_spec | directness | T1 | Kai Rong | Crystal | assigned | |
+| M37 | incident_status | method | T1 | Kai Rong | Crystal | assigned | |
 | M38 | incident_status | primary_source | T1 | Jason | Kathleen | assigned | yes |
 | M39 | incident_status | directness | T1 | Jason | Kathleen | assigned | |
+| M40 | institutional_logistics | method | T2 | Jason | Kathleen | assigned | |
 
 **Subset** marks the ten cases the length arm and the wording ladder run on (2D): M1–M5,
 and five Phase 4 cases marked on 2026-10-19 with the first batches, before anyone drafted
@@ -493,9 +522,16 @@ them. The five are one per author, and two of them are T2. Every domain has at l
 the ten and every dimension at least 2, and the ten's three T2 cases (M1, M14, M22) are
 in three different domains and three different dimensions. M1–M5 and the first batches
 together have 5 cases in each domain and cover all 12 pairs of domain and dimension.
+"Backup for" names the case that takes a marked case's place if it is dropped (2D).
 
-Add a row when a batch is assigned, with status "assigned". Change it to "merged" when
-Jason merges the case.
+**All 40**, as assigned on 2026-10-21: 13 institutional_logistics, 13 product_spec and 14
+incident_status cases; 10 in each dimension; 30 T1 and 10 T2, with T2 cases in every
+domain and every dimension; and 3 or 4 cases in each of the 12 pairs of domain and
+dimension. Each of the four authors with eight cases has two in each dimension and two
+T2, and no pair of domain and dimension twice. A T1 case can still become T2 once its
+frozen reports are read (R16).
+
+Every case has a row. Change its status from "assigned" to "merged" when Jason merges it.
 
 ---
 
@@ -566,6 +602,7 @@ Change "to do" to "done" when a task is finished.
 | 2D Case register (ongoing) | Kai Rong | each merge | to do |
 | 2D Ten-case subset: the rule | Jason + group | — | done |
 | 2D Ten-case subset: mark five | Kai Rong | Phase 4 batches | done |
+| 2D Ten-case subset: name backups | Kai Rong | all Phase 4 cases assigned | done |
 | 2D Ten-case subset: reorder the tuple | Kai Rong | all 40 cases | to do |
 | 2E What the pilot runs | Jason + group | — | done |
 | 3.1–3.7 Pilot run | Jason | M2–M5 merged, 2E | done |

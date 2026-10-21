@@ -1677,7 +1677,7 @@ a.ref:hover { background: var(--surface-2); }
     "T2"
    ],
    "points": [
-    "Target at 40 cases: about 30 T1 and 10 T2.",
+    "Target at 40 cases: about 30 T1 and 10 T2. As assigned on 2026-10-21, the 40 are 30 T1 and 10 T2, with T2 cases in every domain and every dimension.",
     "For T2, read belief (the probability on the truth), never accuracy: accuracy sits at chance by design.",
     "A T1 label is provisional until someone reads the frozen reports and confirms the hint survived. A case whose hint is lost becomes T2.",
     "T1 hints are varied across cases, so one dropped phrase cannot turn many T1 cases into T2 at once: [[hint-variety]]."
@@ -1687,6 +1687,11 @@ a.ref:hover { background: var(--surface-2); }
      "file": "docs/authoring-rules.md",
      "loc": "Tiers",
      "quote": "Aim for about three T1 cases per T2 case (roughly 30 and 10 at 40 cases)"
+    },
+    {
+     "file": "docs/work-plan.md",
+     "loc": "Case register",
+     "quote": "30 T1 and 10 T2, with T2 cases in every domain and every dimension"
     },
     {
      "file": "docs/authoring-rules.md",
@@ -2320,6 +2325,55 @@ a.ref:hover { background: var(--surface-2); }
     },
     {
      "to": "author-reviewer",
+     "rel": "related"
+    }
+   ]
+  },
+  {
+   "id": "a7-near-copies-noted",
+   "type": "decision",
+   "cluster": "cases",
+   "title": "Near-copies in A7 are noted, not failed",
+   "label": "A7 near-copies: a note",
+   "summary": "When two of B's, C's and D's frozen reports read almost alike but stay under the 0.50 overlap limit, the case's author and reviewer note it when they read the frozen reports (step 3.4). The case does not fail, and its reports are not regenerated.",
+   "date": "2026-10-21",
+   "points": [
+    "B, C and D appear together only in A7, where independent agreement is measured, so near-copies there can make a judge look less sensitive to independence than it is: [[a7]].",
+    "Frozen reports are never edited, and n_eff is reported per case, so a case like this stays visible: [[neff]].",
+    "Kathleen raised it reading the pilot's frozen reports: in M4, A7 shows B's and D's reports at an overlap of 0.42. Jason decided."
+   ],
+   "evidence": [
+    {
+     "file": "docs/work-plan.md",
+     "loc": "3.4 Reading the frozen reports",
+     "quote": "Also note, but do not fail, any two of B's, C's and D's reports that read almost alike"
+    },
+    {
+     "file": "docs/decisions.md",
+     "loc": "Near-copies in A7 are noted, not failed",
+     "quote": "do note pairs like this when you do 3.4 (more of like keeping a note than marking it as a fail)"
+    },
+    {
+     "file": "runs/frozen_reports.json",
+     "loc": "M4, D",
+     "quote": "The Yhotak B162 Vacuum features a water lift of 6000Pa."
+    }
+   ],
+   "links": [
+    {
+     "to": "a7",
+     "rel": "needs"
+    },
+    {
+     "to": "acceptance",
+     "rel": "needs"
+    },
+    {
+     "to": "human-checks",
+     "rel": "related"
+    },
+    {
+     "to": "neff",
      "rel": "related"
     }
    ]
@@ -4534,7 +4588,7 @@ a.ref:hover { background: var(--surface-2); }
     "Marked on 2026-10-19 with the first Phase 4 batches, before anyone drafted them: M6, M14, M22, M30 and M38, one per author, with M14 and M22 the two T2. Still to do: put the ten first in cases/__init__.py before the main run: [[open-subset]].",
     "The ten's three T2 cases, M1, M14 and M22, are in three different domains and three different dimensions.",
     "A case of the ten that is relabelled T2 once its frozen reports are read stays in the ten, so the ten may end with more than three T2 cases: swapping it out would choose cases after seeing results. Kai Rong raised this in review, and Jason agreed.",
-    "Kai Rong gives each of the five a backup with the same domain, dimension and tier in the next batches, since none of the cases assigned so far could replace one."
+    "Each of the five has a named backup, with the same domain, dimension and tier and a different author, which joins the ten only if its case is dropped: M16 for M6, M8 for M14, M9 for M22, M17 for M30 and M32 for M38. Kai Rong named them on 2026-10-21, when the other 25 cases were assigned together, before anyone drafted them."
    ],
    "evidence": [
     {
@@ -4573,9 +4627,14 @@ a.ref:hover { background: var(--surface-2); }
      "quote": "stays in the ten, so the ten may end with more than three T2 cases"
     },
     {
+     "file": "docs/decisions.md",
+     "loc": "The ten-case subset is fixed by a rule before the pilot",
+     "quote": "each marked case's replacement is named in the case register as its backup, with the same domain, dimension and tier and a different author: M16 for M6, M8 for M14, M9 for M22, M17 for M30 and M32 for M38."
+    },
+    {
      "file": "docs/work-plan.md",
      "loc": "2D",
-     "quote": "give each of the five a backup, a case with the same domain, dimension and tier"
+     "quote": "A backup is written and reviewed like any other case, and joins the ten only if its case is dropped."
     },
     {
      "file": "docs/decisions.md",
@@ -6404,7 +6463,7 @@ a.ref:hover { background: var(--surface-2); }
     "The four pilot cases, with M1, cover all three domains and all four quality dimensions: [[quality-dimensions]].",
     "Each open number is agreed before anyone looks at pilot results, so it cannot be bent to fit them: [[precommit]].",
     "Every case has a reviewer who did not write it: [[author-reviewer]].",
-    "Kai Rong keeps the case register: each case's domain, dimension, tier, author, reviewer, status, and whether it is in the ten-case subset."
+    "Kai Rong keeps the case register: each case's domain, dimension, tier, author, reviewer, status, and whether it is in the ten-case subset or a backup for one. Every case had its row by 2026-10-21."
    ],
    "evidence": [
     {
@@ -6441,6 +6500,16 @@ a.ref:hover { background: var(--surface-2); }
      "file": "docs/work-plan.md",
      "loc": "Case register",
      "quote": "Subset marks the ten cases the length arm and the wording ladder run on"
+    },
+    {
+     "file": "docs/work-plan.md",
+     "loc": "Case register",
+     "quote": "\"Backup for\" names the case that takes a marked case's place if it is dropped (2D)."
+    },
+    {
+     "file": "docs/work-plan.md",
+     "loc": "Case register",
+     "quote": "Every case has a row."
     }
    ],
    "links": [
@@ -7977,6 +8046,22 @@ a.ref:hover { background: var(--surface-2); }
     "rules-filler",
     "no-independent-type",
     "h5"
+   ]
+  },
+  {
+   "date": "2026-10-21",
+   "summary": "Kai Rong assigned the other 25 Phase 4 cases, so all 40 have a domain, dimension and tier (30 T1, 10 T2), and named a backup for each of the five marked subset cases: M16 for M6, M8 for M14, M9 for M22, M17 for M30, M32 for M38.",
+   "changed": [
+    "subset-rule",
+    "tiers",
+    "work-plan"
+   ]
+  },
+  {
+   "date": "2026-10-21",
+   "summary": "Recorded Jason's answer to Kathleen's question on the pilot pull request: two of B's, C's and D's reports that read almost alike while under the 0.50 overlap limit are noted at step 3.4, not failed. The work plan's step 3.4 now says so.",
+   "added": [
+    "a7-near-copies-noted"
    ]
   }
  ]
