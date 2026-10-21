@@ -2330,6 +2330,55 @@ a.ref:hover { background: var(--surface-2); }
    ]
   },
   {
+   "id": "a7-near-copies-noted",
+   "type": "decision",
+   "cluster": "cases",
+   "title": "Near-copies in A7 are noted, not failed",
+   "label": "A7 near-copies: a note",
+   "summary": "When two of B's, C's and D's frozen reports read almost alike but stay under the 0.50 overlap limit, the case's author and reviewer note it when they read the frozen reports (step 3.4). The case does not fail, and its reports are not regenerated.",
+   "date": "2026-10-21",
+   "points": [
+    "B, C and D appear together only in A7, where independent agreement is measured, so near-copies there can make a judge look less sensitive to independence than it is: [[a7]].",
+    "Frozen reports are never edited, and n_eff is reported per case, so a case like this stays visible: [[neff]].",
+    "Kathleen raised it reading the pilot's frozen reports: in M4, A7 shows B's and D's reports at an overlap of 0.42. Jason decided."
+   ],
+   "evidence": [
+    {
+     "file": "docs/work-plan.md",
+     "loc": "3.4 Reading the frozen reports",
+     "quote": "Also note, but do not fail, any two of B's, C's and D's reports that read almost alike"
+    },
+    {
+     "file": "docs/decisions.md",
+     "loc": "Near-copies in A7 are noted, not failed",
+     "quote": "do note pairs like this when you do 3.4 (more of like keeping a note than marking it as a fail)"
+    },
+    {
+     "file": "runs/frozen_reports.json",
+     "loc": "M4, D",
+     "quote": "The Yhotak B162 Vacuum features a water lift of 6000Pa."
+    }
+   ],
+   "links": [
+    {
+     "to": "a7",
+     "rel": "needs"
+    },
+    {
+     "to": "acceptance",
+     "rel": "needs"
+    },
+    {
+     "to": "human-checks",
+     "rel": "related"
+    },
+    {
+     "to": "neff",
+     "rel": "related"
+    }
+   ]
+  },
+  {
    "id": "specificity",
    "type": "concept",
    "cluster": "cases",
@@ -8006,6 +8055,13 @@ a.ref:hover { background: var(--surface-2); }
     "subset-rule",
     "tiers",
     "work-plan"
+   ]
+  },
+  {
+   "date": "2026-10-21",
+   "summary": "Recorded Jason's answer to Kathleen's question on the pilot pull request: two of B's, C's and D's reports that read almost alike while under the 0.50 overlap limit are noted at step 3.4, not failed. The work plan's step 3.4 now says so.",
+   "added": [
+    "a7-near-copies-noted"
    ]
   }
  ]

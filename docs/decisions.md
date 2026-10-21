@@ -618,3 +618,23 @@ Add an entry when you make a choice a reader could not guess from the code.
 - **Rejected**: keeping the subject out of filler, which would rewrite five Phase 4 cases
   and part from three pilot cases for no measured gain.
 - **Breaks if changed**: nothing the scorer reads; a ban would only add rewrites.
+
+### 2026-10-21 — Near-copies in A7 are noted, not failed
+
+- **Decision**: when two of B's, C's and D's frozen reports read almost alike while their
+  `cross_overlap` stays under R17's 0.50, the case's author and reviewer note it when
+  they read the frozen reports (step 3.4 in `docs/work-plan.md`). The case does not
+  fail, and its reports are not regenerated.
+- **Why** [STATED: team decision, 2026-10-21]: Kathleen asked on the pilot pull request
+  whether to flag such pairs, and Jason answered "it's fine as is. but yes, do note pairs
+  like this when you do 3.4 (more of like keeping a note than marking it as a fail)":
+  frozen reports are never edited, and n_eff is reported per case, so such a case stays
+  visible. [INFERRED: from `runs/frozen_reports.json` and `build_conditions` in
+  `pipeline/conditions.py`, which gives A7 each source's first accepted report] her
+  example, M4, puts B's "The Yhotak B162 Vacuum features a 6000Pa water lift." beside
+  D's "The Yhotak B162 Vacuum features a water lift of 6000Pa." in A7, at a
+  `cross_overlap` of 0.42.
+- **Rejected**: failing such a case at 3.4, which would regenerate reports that pass R17.
+- **Breaks if changed**: B, C and D share only A7, where independent agreement is
+  measured, so near-copies there can make a judge look less sensitive to independence
+  than it is; without the note, nobody reading that case's n_eff would know why.

@@ -433,6 +433,9 @@ In the table, `...` is short for `uv run --env-file .env python -m`.
    grade")? If not, the conflict measures nothing.
 3. **No leaks**: no report names who wrote it.
 
+Also note, but do not fail, any two of B's, C's and D's reports that read almost alike
+while their `cross_overlap` stays under 0.50 (R17), like M4's B and D (0.42) in the pilot.
+
 Tell Jason what you found.
 
 **Pilot numbers are a preview, not findings.** `docs/decisions.md` calls the pilot's
