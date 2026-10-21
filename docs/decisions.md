@@ -422,14 +422,20 @@ Add an entry when you make a choice a reader could not guess from the code.
   author, of which M14 and M22 are the two T2 (`docs/work-plan.md`, case register).
   A case of the ten that is relabelled T2 once its frozen reports are read (R16) stays
   in the ten, so the ten may end with more than three T2 cases: swapping it out would
-  choose cases after seeing results.
+  choose cases after seeing results. Amended 2026-10-21: the other 25 cases were assigned
+  together, before anyone drafted them, so each marked case's replacement is named in the
+  case register as its backup, with the same domain, dimension and tier and a different
+  author: M16 for M6, M8 for M14, M9 for M22, M17 for M30 and M32 for M38.
 - **Why** [STATED: team decision, 2026-10-18]: the ten are chosen before any of them is
   run, so neither the pilot's results nor how cases turn out can steer the choice.
   [STATED: `docs/work-plan.md`, Phase 1] M1-M5 "cover all 3 domains and all 4 quality
   dimensions". Three T2 in ten is close to the corpus's target of about 10 in 40
   (`docs/work-plan.md`, "Targets for all 40"). [STATED: team decision, 2026-10-19] A
   case relabelled T2 stays in the ten: Kai Rong raised it reviewing this entry, and
-  Jason agreed.
+  Jason agreed. [STATED: Kai Rong, 2026-10-21] with the other 25 cases assigned
+  together, "the next assigned case" can fit two cases, such as M11 and M17 for M30, so
+  each backup is named before any of them is written. A different author means one
+  author's drafts cannot lose both a marked case and its backup.
 - **Rejected**: choosing the ten once all 40 are merged, the earlier plan in
   `docs/work-plan.md` (2D), when the pilot's results on M1-M5 would already be known.
 - **Breaks if changed**: a subset chosen after seeing results could favour cases where
