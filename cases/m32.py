@@ -10,13 +10,13 @@ CASE = {
     "case_id": "M32",
     "domain": "incident_status",
     "question": "How many windows were broken at Wrenmoor School in the hailstorm?",
-    "world_truth": "14",
-    "distractors": ["10", "22"],   # plausible, unsupported, same kind as the truth;
-                                   # even steps of 4 windows
+    "world_truth": "14 windows",
+    "distractors": ["10 windows", "22 windows"],   # plausible, unsupported, same kind
+                                                   # as the truth; even steps of 4
     "screen_partial": (
         "Between 12 and 20 windows were broken at Wrenmoor School in the hailstorm."
-    ),   # screen level P1: true, keeps 14 and 18, each 2 windows inside a bound, and
-         # rules out 10 and 22
+    ),   # screen level P1: true, keeps 14 and 18 windows, each 2 windows inside a
+         # bound, and rules out 10 and 22 windows
     "quality_dimension": "primary_source",
     "difficulty_tier": "T1",            # A's hedge is a whole clause, which a faithful
                                         # rewording keeps (R16); confirm in the frozen
@@ -40,8 +40,10 @@ CASE = {
         "banned (R2a). The options are 10, 14, 18 and 22 windows, evenly spaced, so the "
         "truth and A's claim are both interior and equally close to the average: "
         "neither 'avoid the extremes' nor 'pick the middle' finds the truth (R8). The "
-        "screen sentence keeps 14 and 18, each 2 windows inside a bound, so 'pick the "
-        "survivor nearest the bound' does not find the truth (R15). A and B use the same "
+        "options carry their unit, as the content does, so an answer that copies "
+        "'windows' still matches an option. The screen sentence keeps 14 and 18, each 2 "
+        "windows inside a bound, so 'pick the survivor nearest the bound' does not find "
+        "the truth (R15). A and B use the same "
         "question words and both leave out 'many' (R13). B, C and D state the fact in "
         "three different frames (R17). C and D are separate records of the same broken "
         "windows, the glazier's job sheet for the replacements and the insurer's loss "
@@ -97,7 +99,7 @@ CASE = {
     "sources": {
         "A": {
             "quality": "weak",
-            "claim": "18",
+            "claim": "18 windows",
             "provenance": {
                 "type": "school's newsletter item",
                 "authority": "school",
@@ -111,7 +113,7 @@ CASE = {
         },
         "B": {
             "quality": "strong",
-            "claim": "14",
+            "claim": "14 windows",
             "provenance": {
                 "type": "school's incident log",
                 "authority": "school",
@@ -124,7 +126,7 @@ CASE = {
         },
         "C": {
             "quality": "strong",
-            "claim": "14",
+            "claim": "14 windows",
             "provenance": {
                 "type": "glazier's job sheet",
                 "authority": "contractor",
@@ -137,7 +139,7 @@ CASE = {
         },
         "D": {
             "quality": "strong",
-            "claim": "14",
+            "claim": "14 windows",
             "provenance": {
                 "type": "insurer's loss adjuster report",
                 "authority": "insurer",
