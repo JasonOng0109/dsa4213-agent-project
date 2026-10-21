@@ -4642,7 +4642,8 @@ a.ref:hover { background: var(--surface-2); }
     "Why: in the pilot only 8 of 900 conflict-block records were flagged, and Opus and Sonnet never abstained. A7 catches a judge that abstains everywhere, but not one that abstains nowhere: [[pilot-results]].",
     "P0 is uncertain by design: in the pilot, Opus's top two options were within 10 points in all 20 of its P0 trials, and it still had to answer.",
     "480 calls at 40 cases, about $0.85 at the proposal's rate. It runs once on M1–M5 first: 60 calls, about $0.10.",
-    "More abstention repeats would not help: 5,760 more calls, and a judge at 0 stays at 0. Kai Rong proposed reporting the rates; Jason added the P0 check."
+    "More abstention repeats would not help: 5,760 more calls, and a judge at 0 stays at 0. Kai Rong proposed reporting the rates; Jason added the P0 check.",
+    "Ran once on M1–M5 on 2026-10-21: all three judges abstained in 20 of 20 P0 trials: [[pilot-results]]."
    ],
    "evidence": [
     {
@@ -4684,6 +4685,11 @@ a.ref:hover { background: var(--surface-2); }
      "file": "README.md",
      "loc": "Arms",
      "quote": "P0, the screen's irrelevant report, was added after the pilot as a check beside A7"
+    },
+    {
+     "file": "README.md",
+     "loc": "Status and open items",
+     "quote": "every judge abstained in all 20 of its P0 trials"
     }
    ],
    "links": [
@@ -7216,7 +7222,8 @@ a.ref:hover { background: var(--surface-2); }
     "n_eff, as a check: one report moved belief by 1.37 to 4.04 logits, with no anomaly, so the arithmetic was defined in every cell. GPT-5.4's P(truth) reached 99.5 to 100 in A4, A6 and A7 in four of the five cases, so three cells hit the clip and its IS and RP read 0: [[neff]]. Such cells now read \"at ceiling\": [[neff-ceiling]].",
     "H6, as a check: 8 of the 900 conflict-block records were flagged (5, 1 and 2 by judge). Opus and Sonnet never abstained, and GPT-5.4 abstained only in X1, in 4 of 20 trials. The README names a judge that abstains nowhere as a nuisance for H6: [[margin-cutoff]]. Settled after the pilot: H6 is read from its rates, with P0 as a check beside A7: [[abstain-p0-check]].",
     "The ladder and the length arm ran and parsed.",
-    "Measured cost per call: the short arm cost about $0.0019 a call across the three judges, against the $0.00178 estimate; long reports cost $0.0022 (Sonnet) and $0.0018 (GPT-5.4), against the estimated $0.0030. The main-run budget can now use measured rates: [[cost-model]]."
+    "Measured cost per call: the short arm cost about $0.0019 a call across the three judges, against the $0.00178 estimate; long reports cost $0.0022 (Sonnet) and $0.0018 (GPT-5.4), against the estimated $0.0030. The main-run budget can now use measured rates: [[cost-model]].",
+    "The P0 check ran on M1–M5 after the pilot (60 calls, $0.12): every judge abstained in all 20 of its P0 trials, so Opus's and Sonnet's zero abstentions in the conflict block read as a null, not as a judge that abstains nowhere: [[abstain-p0-check]]."
    ],
    "evidence": [
     {
@@ -7348,6 +7355,11 @@ a.ref:hover { background: var(--surface-2); }
      "file": "pipeline/run.py",
      "loc": "RATE_LONG",
      "quote": "RATE_LONG = 0.0030"
+    },
+    {
+     "file": "runs/score-pilot-2026-10-21.txt",
+     "loc": "H6",
+     "quote": "check beside A7, not the test: abstained in P0, one irrelevant report, 20/20 (1.00)"
     }
    ],
    "links": [
@@ -8346,6 +8358,14 @@ a.ref:hover { background: var(--surface-2); }
     "rules-filler",
     "no-independent-type",
     "h5"
+   ]
+  },
+  {
+   "date": "2026-10-21",
+   "summary": "Step 3.8 ran: the P0 check on M1–M5, 60 calls. Every judge abstained in all 20 of its P0 trials, so the pilot's zero abstentions in the conflict block read as a null. A preview, not a finding.",
+   "changed": [
+    "pilot-results",
+    "abstain-p0-check"
    ]
   }
  ]

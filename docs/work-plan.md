@@ -423,7 +423,7 @@ In the table, `...` is short for `uv run --env-file .env python -m`.
 | 3.5 | Jason | One programme entry at a time (2E), e.g. `... pipeline.run judge --arms conflict --log trials-conflict.jsonl --max-calls 900`. Each entry's calls are in `docs/decisions.md` |
 | 3.6 | Jason | `uv run python -m pipeline.score --show-excluded runs/trials-*.jsonl`, all the logs together. `--show-excluded` also prints n_eff and H6 for judges the screen excludes, as checks: on 5 cases, discrimination, then part of the screen, was likely to exclude most judges (`docs/decisions.md`, the pilot entry). Share the output |
 | 3.7 | Jason | Commit everything in `runs/`. Record the results in the map |
-| 3.8 | Jason | Added after the pilot (`docs/decisions.md`, 2026-10-21): the P0 check once on M1–M5, `... pipeline.run judge --arms abstain-p0 --log trials-abstain-p0.jsonl --max-calls 60`, about $0.10. Then score all the logs together again and commit |
+| 3.8 | Jason | Added after the pilot (`docs/decisions.md`, 2026-10-21): the P0 check once on M1–M5, `... pipeline.run judge --arms abstain-p0 --log trials-abstain-p0.jsonl --max-calls 60`, about $0.10. Then score all the logs together again into `runs/score-pilot-2026-10-21.txt` and commit |
 
 **3.4 Reading the frozen reports.** Never edit them. Check three things:
 
@@ -572,6 +572,6 @@ Change "to do" to "done" when a task is finished.
 | 2E What the pilot runs | Jason + group | — | done |
 | 3.1–3.7 Pilot run | Jason | M2–M5 merged, 2E | done |
 | 3.4 Read frozen reports | authors and reviewers | 3.3 | done |
-| 3.8 P0 check on M1–M5 | Jason | the post-pilot decisions merged | to do |
+| 3.8 P0 check on M1–M5 | Jason | the post-pilot decisions | done |
 | Phase 4 drafts | everyone | Kai Rong's first batches | to do |
 | Phase 4 merges | Jason | pilot done | to do |
