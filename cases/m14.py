@@ -23,39 +23,45 @@ CASE = {
         "B 'loses 48 kilowatts through dissipation of heat', so both describe a current figure "
         "rather than one a capability and one a reading. All quality sits in provenance (R2, R19): "
         "an uncalibrated handheld thermal scan against a calibrated in-line calorimeter reading, "
-        "so the method differs while authority is held constant (both 'individual'). Sources use "
+        "so the method differs while authority is held constant (both 'individual'). B's why "
+        "describes a direct instrument reading, not a calculation, to match its type name and to "
+        "stay distinct from C's calculation. Sources use "
         "distinct frames (R17): A leads with the quantity and 'stands at', B leads with the loop "
         "and describes heat dissipation, C is place-fronted, D is number-fronted. Content lengths "
         "are A=12 and B=14 words, within 2 of each other (R20). Each filler set is exactly 79 "
         "words. Filler describes the physical site only, as three parts of the same "
         "compound (the fenced perimeter, a brick building, the approach road), each with its own "
         "nouns and adjectives, so reports in one trial stay on the site without repeating "
-        "features or phrasing across slots (R12). The only shared word is 'compound'. It avoids "
+        "features or phrasing across slots (R12). The only shared word is 'compound'. It is "
+        "written as plain factual statements, one register throughout, so it does not read as story writing (R10). "
+        "It describes the site in a clean, neutral condition, with no damage, wear, age or cordon "
+        "wording, so it carries neither a hazard cue nor a staleness cue that would grow with "
+        "report length (R3, R9, R10). It avoids "
         "ways of checking or observing, anything about heat, cooling or electrical plant, and any "
         "insider vantage (R9, R10). It contains no word that appears only in a source's "
         "provenance type, no option value and no time marker (R2a, R3, R8)."
     ),
     "filler_sets": [
         [
-            "A tall chain-link fence encloses the compound, its broad gravel apron edged by dense spiky shrubs.",
-            "Wooden stakes with orange tape mark the corners of an empty plot beside the southern fence.",
-            "A pair of tall poplar trees leans over a narrow ditch choked with reeds and leaves.",
-            "Pale dust covers the gravel, and a rusted barrel lies on its side near the fence.",
-            "Sparrows perch along the top rail, and a faded flag hangs from a short pole.",
+            "The compound is enclosed by a chain-link fence with a single gate on its southern side.",
+            "A strip of gravel sits inside the fence, and shrubs are planted along its outer boundary on every side.",
+            "The gate is made of steel bars and opens inward onto a gravel apron.",
+            "Wooden posts mark each corner of the fenced area, and a lock secures the gate.",
+            "The fence is covered with a grey mesh screen that hides the ground behind it.",
         ],
         [
-            "A squat brick building with a flat tar roof stands alone inside the compound.",
-            "Its double doors are painted dark green, and a brass handle is fixed to each wide leaf.",
-            "Three arched windows with white frames face the path, and one pane is cracked along its edge.",
-            "A stone step worn smooth leads up to the doors beneath a small iron lamp.",
-            "Grey moss spreads over the roof edge, and a loose paving slab tilts by the step.",
+            "A single-storey brick building stands in the middle of the compound.",
+            "The roof is flat and coated with tar, and a short step leads up to the entrance.",
+            "The entrance has a pair of green doors with brass handles and a small window above.",
+            "Three arched windows face the front path, and each has a white frame and a stone sill.",
+            "A metal gutter runs along the front of the roof, and a concrete slab lies outside the entrance.",
         ],
         [
-            "A winding road climbs a bare hillside to the compound past a cluster of rounded boulders.",
-            "Half-way up, a signpost points to the left and its lettering has peeled almost bare.",
-            "A concrete bus shelter with a splintered bench waits at a bend where the verge turns to mud.",
-            "Two crows circle above a lone thorn bush, and clouds drift slowly over the ridge.",
-            "Yellow stripes run along the road, and a cairn of round pebbles crowns the crest.",
+            "One narrow road reaches the compound from the main highway and ends at a turning circle.",
+            "The road is surfaced with asphalt, with a yellow line along its centre and a ditch at each edge.",
+            "A bus shelter with a timber bench is built beside the road about halfway along.",
+            "Rounded boulders lie on the grassy slope above the road, and a dirt track branches off near the bend.",
+            "A signpost near the turn points straight toward the compound.",
         ],
     ],
 
@@ -85,7 +91,7 @@ CASE = {
                 "type": "calibrated in-line calorimeter reading",
                 "authority": "individual",
                 "quality": "strong",
-                "why": "precision multi-point enthalpy balance calculation measuring mass flow and temperature differentials",
+                "why": "direct reading from a calorimeter fitted in the loop and calibrated against a reference standard, so the figure is measured rather than estimated",
             },
         },
         "C": {
