@@ -30,8 +30,9 @@ CASE = {
         "lives in provenance; the one cue in the content is A's clause-level hedge, 'is "
         "presumed to', a hedge of the size a faithful rewording should keep (R16). "
         "Whether it survives is only known once the frozen reports are read; if it is "
-        "lost, the case is relabelled T2. No other case uses 'is presumed to', so it "
-        "adds a hedge to the corpus rather than leaning on one already in use. B is flat "
+        "lost, the case is relabelled T2. No other case used 'is presumed to' when this "
+        "one was written, so it added a hedge to the corpus rather than leaning on one "
+        "already in use. B is flat "
         "and carries no cue. The two type names carry the primary-source dimension and "
         "nothing else: both are the school's own, so the writer's standing is the same, "
         "and they differ only in the document, the incident log the school kept against "
@@ -53,8 +54,10 @@ CASE = {
         "The school, the storm and the damage are invented (R4). Filler describes the "
         "school's grounds in set 1, its hall and library in set 2, and its canteen and "
         "classrooms in set 3, with nothing about windows, glass, weather, damage, "
-        "repairs or records, no figures and no second person, so no slot carries the "
-        "feel of either source (R3, R9, R10). No distinctive word is in all three sets, "
+        "repairs or records, no figures and no second person. It reads as a plain site "
+        "description, not as a note to parents, since A is the school's newsletter "
+        "item, so no slot carries the feel of either source (R3, R9, R10). No "
+        "distinctive word is in more than one set, "
         "so the slots stay apart (R12). Each filler set is 81 words and A's and B's "
         "sentences are 12 and 10 words, so every long report starts at 91 to 93 words "
         "and stays inside 88 to 96 after rewording (R20). When the frozen reports are "
@@ -70,7 +73,7 @@ CASE = {
             "A red brick wall runs around the grounds, with a green gate at the front.",
             "The playground has painted hopscotch squares and a climbing frame by the "
             "fence.",
-            "Behind the main building, the children tend a vegetable patch and a herb bed.",
+            "Behind the main building lie a vegetable patch, a herb bed and a pond.",
             "A covered bike shed stands beside the path to the side entrance.",
             "Wooden benches face the playing field, which tall hedges screen from the "
             "road.",
@@ -78,17 +81,17 @@ CASE = {
         [   # the hall and the library
             "The hall has a polished floor of pale oak and a raised stage for assemblies.",
             "Gym ropes are tied back neatly against the rear of the hall.",
-            "The library is a carpeted space with low shelves and bright, squashy "
+            "The library is carpeted in blue, with low shelves and brightly coloured "
             "beanbags.",
-            "Picture books are kept in plastic tubs within easy reach of the pupils.",
+            "Picture books are kept in plastic tubs on wheeled trolleys by the door.",
             "A reading corner has cushions and a rug printed with a map of the world.",
-            "Paintings by the pupils hang along the passage that leads to the library.",
+            "Large framed paintings of local scenes hang along the passage to the library.",
         ],
         [   # the canteen and the classrooms
             "Lunch is served in a canteen with long tables, stackable chairs and a salad "
             "bar.",
             "The kitchen has steel counters and a hatch that opens onto the canteen.",
-            "Each classroom has a carpet area where a class gathers for stories.",
+            "Each classroom has a carpet area beneath a whiteboard and a pinboard.",
             "Coat pegs and shoe racks line the corridor outside each classroom.",
             "The staff room has a kettle, a sink, a fridge and a round table.",
             "A music room holds a piano, with drums, bells and shakers stacked in crates "
