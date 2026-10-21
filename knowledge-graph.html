@@ -392,7 +392,7 @@ a.ref:hover { background: var(--surface-2); }
   "title": "Project Knowledge Graph",
   "project": "DSA4213 Group 14 · Counting Reports or Counting Evidence",
   "oneLiner": "Can an AI orchestrator that combines reports from several agents tell three copies of one source from three independent sources, and which piece of information fixes its mistakes: a source name, a 'these share a source' note, or a 'this source is better' note?",
-  "updated": "2026-10-19",
+  "updated": "2026-10-21",
   "tour": [
    "question",
    "false-consensus",
@@ -952,7 +952,8 @@ a.ref:hover { background: var(--surface-2); }
    ],
    "points": [
     "Secondary; connects the results to prior work on source names.",
-    "Tested by [[x1]] vs [[x2]], only over cases whose type names carry the quality dimension ([[rules-other|R19]])."
+    "Tested by [[x1]] vs [[x2]], only over cases whose type names carry the quality dimension ([[rules-other|R19]]).",
+    "From Phase 4, A's and B's names differ only in the case's dimension, so a gain cannot come from one source simply sounding more official: [[types-dimension-only]]."
    ],
    "evidence": [
     {
@@ -993,13 +994,19 @@ a.ref:hover { background: var(--surface-2); }
    ],
    "points": [
     "Primary target. Watched through [[coherence-margin]] in normal trials, and tested in the [[abstain-arm]].",
-    "Counting a record as 'nearly level' needs a margin cut-off that is not set yet ([[open-margin-threshold]])."
+    "A record counts as nearly level when its top two probabilities are less than 10 points apart: [[margin-cutoff]].",
+    "Tested inside each condition, so a condition that simply has more of both close numbers and abstaining cannot pass for H6: [[margin-cutoff]]."
    ],
    "evidence": [
     {
      "file": "README.md",
      "loc": "Hypotheses",
      "quote": "Forced choice conceals a judge's belief state"
+    },
+    {
+     "file": "docs/methods.md",
+     "loc": "Margin",
+     "quote": "It compares inside each condition and then combines the conditions"
     }
    ],
    "links": [
@@ -1670,15 +1677,21 @@ a.ref:hover { background: var(--surface-2); }
     "T2"
    ],
    "points": [
-    "Target at 40 cases: about 30 T1 and 10 T2.",
+    "Target at 40 cases: about 30 T1 and 10 T2. As assigned on 2026-10-21, the 40 are 30 T1 and 10 T2, with T2 cases in every domain and every dimension.",
     "For T2, read belief (the probability on the truth), never accuracy: accuracy sits at chance by design.",
-    "A T1 label is provisional until someone reads the frozen reports and confirms the hint survived. A case whose hint is lost becomes T2."
+    "A T1 label is provisional until someone reads the frozen reports and confirms the hint survived. A case whose hint is lost becomes T2.",
+    "T1 hints are varied across cases, so one dropped phrase cannot turn many T1 cases into T2 at once: [[hint-variety]]."
    ],
    "evidence": [
     {
      "file": "docs/authoring-rules.md",
      "loc": "Tiers",
      "quote": "Aim for about three T1 cases per T2 case (roughly 30 and 10 at 40 cases)"
+    },
+    {
+     "file": "docs/work-plan.md",
+     "loc": "Case register",
+     "quote": "30 T1 and 10 T2, with T2 cases in every domain and every dimension"
     },
     {
      "file": "docs/authoring-rules.md",
@@ -1837,7 +1850,14 @@ a.ref:hover { background: var(--surface-2); }
     {
      "to": "screen",
      "rel": "related"
+    },
+    {
+     "to": "screen-other-survivor",
+     "rel": "involves"
     }
+   ],
+   "points": [
+    "The screen sentence's other survivor may be A's claim or a distractor: [[screen-other-survivor]]."
    ]
   },
   {
@@ -1856,7 +1876,8 @@ a.ref:hover { background: var(--surface-2); }
     "R20"
    ],
    "points": [
-    "Why R12 matters: if filler followed the source, the two reports from the shared source would carry identical padding and give away that they share a source."
+    "Why R12 matters: if filler followed the source, the two reports from the shared source would carry identical padding and give away that they share a source.",
+    "Filler may name the case's subject; it still may not mention an option: [[filler-names-subject]]."
    ],
    "evidence": [
     {
@@ -1891,6 +1912,10 @@ a.ref:hover { background: var(--surface-2); }
     {
      "to": "long-band",
      "rel": "needs"
+    },
+    {
+     "to": "filler-names-subject",
+     "rel": "involves"
     }
    ]
   },
@@ -1900,7 +1925,7 @@ a.ref:hover { background: var(--surface-2); }
    "cluster": "cases",
    "title": "Rules that survive rewording",
    "label": "Wording rules (R13, R16, R17)",
-   "summary": "The question's words must not favour A or B (R13). A T1 hint must survive rewording, so not a single pronoun (R16). Sources shown together must use different sentence shapes so their rewordings do not look like copies (R17: word-pair overlap below 0.40).",
+   "summary": "The question's words must not favour A or B (R13). A T1 hint must survive rewording, so not a single pronoun, and different cases use different hints (R16). Sources shown together must use different sentence shapes so their rewordings do not look like copies (R17: word-pair overlap below 0.40).",
    "aliases": [
     "R13",
     "R16",
@@ -1921,6 +1946,11 @@ a.ref:hover { background: var(--surface-2); }
      "file": "docs/authoring-rules.md",
      "loc": "R17",
      "quote": "Bigram overlap between the content of any two co-occurring sources must be below 0.40."
+    },
+    {
+     "file": "docs/authoring-rules.md",
+     "loc": "R16",
+     "quote": "Vary the cue across cases."
     }
    ],
    "links": [
@@ -1935,15 +1965,74 @@ a.ref:hover { background: var(--surface-2); }
    ]
   },
   {
+   "id": "hint-variety",
+   "type": "decision",
+   "cluster": "cases",
+   "title": "T1 cases vary their hedge",
+   "label": "Vary the T1 hint",
+   "summary": "Each T1 case should use a different hint from the cases already written. If one phrase carries many T1 cases and the reporter drops it, all of them become T2 at once. Authors list the hedges in use, pick the one used least or another kind of cue, and name theirs in the case's design notes.",
+   "date": "2026-10-18",
+   "points": [
+    "When the rule was made, three of the four T1 pilot cases hinted with 'is understood to'; only M5 used another phrase, 'is believed to have been'.",
+    "'Is believed to', 'is thought to' and 'is estimated at' are hints of the same size. 'Reportedly', 'allegedly' and 'apparently' are banned as attribution or hearsay.",
+    "Whether a hint survived is read in the frozen reports; a case whose hint is lost becomes T2: [[tiers]]."
+   ],
+   "evidence": [
+    {
+     "file": "docs/decisions.md",
+     "loc": "T1 cases vary their hedge",
+     "quote": "If the reporter drops that one phrase, three of the four T1 pilot cases become T2 together."
+    },
+    {
+     "file": "docs/decisions.md",
+     "loc": "T1 cases vary their hedge",
+     "quote": "R16's only example hedge was \"is understood to be\", which is likely why it spread."
+    },
+    {
+     "file": "docs/authoring-rules.md",
+     "loc": "R16",
+     "quote": "Vary the cue across cases. If one phrase carries many T1 cases and the reporter drops it, they all become T2 together."
+    },
+    {
+     "file": "docs/authoring-rules.md",
+     "loc": "R16",
+     "quote": "\"Reportedly\", \"allegedly\" and \"apparently\" are not available: R2's lint rejects them."
+    },
+    {
+     "file": "cases/m5.py",
+     "loc": "module docstring",
+     "quote": "A's hedge, \"is believed to have been\", is the one mild cue, and is meant to survive rewording (R16)."
+    }
+   ],
+   "links": [
+    {
+     "to": "tiers",
+     "rel": "needs"
+    },
+    {
+     "to": "rules-wording",
+     "rel": "part-of"
+    },
+    {
+     "to": "human-checks",
+     "rel": "related"
+    }
+   ]
+  },
+  {
    "id": "rules-other",
    "type": "design",
    "cluster": "cases",
    "title": "Freeze order and type names",
    "label": "R18, R19",
-   "summary": "Sources are frozen in a fixed order, B first (R18), so runs can be reproduced. A source's type name must carry the case's quality dimension (R19), so H5 can be tested.",
+   "summary": "Sources are frozen in a fixed order, B first (R18), so runs can be reproduced. A source's type name must carry the case's quality dimension (R19), so H5 can be tested, and from Phase 4 A's and B's names differ in that dimension only.",
    "aliases": [
     "R18",
     "R19"
+   ],
+   "points": [
+    "A type name never says 'independent', since that is X3's job: [[no-independent-type]].",
+    "Only the case's dimension differs between A's and B's names: [[types-dimension-only]]."
    ],
    "evidence": [
     {
@@ -1965,6 +2054,242 @@ a.ref:hover { background: var(--surface-2); }
     {
      "to": "quality-dimensions",
      "rel": "needs"
+    },
+    {
+     "to": "types-dimension-only",
+     "rel": "involves"
+    }
+   ]
+  },
+  {
+   "id": "no-independent-type",
+   "type": "decision",
+   "cluster": "cases",
+   "title": "Type names never say \"independent\"",
+   "label": "No \"independent\"",
+   "summary": "A source's type name must not use the word 'independent'. X2 shows the judge A's and B's type names, and X3's note is the condition that tells it one report comes from an independent source, so the word would do part of X3's job inside X2. R19's paragraph on the word uses 'accredited laboratory test report' as its example.",
+   "date": "2026-10-18",
+   "points": [
+    "Found in the review of M4, whose B was named 'independent laboratory report' after R19's old example.",
+    "Only A's and B's type names are ever shown, and only in [[x2]]; C's and D's are used only to police their rewordings."
+   ],
+   "evidence": [
+    {
+     "file": "docs/decisions.md",
+     "loc": "Type names never say \"independent\"",
+     "quote": "X2 shows the judge A's and B's type names, and X3's note says the strong report \"comes from a different, independent source\", so the word would give X2 part of X3's job."
+    },
+    {
+     "file": "docs/authoring-rules.md",
+     "loc": "R19",
+     "quote": "Keep \"independent\" out of type names."
+    },
+    {
+     "file": "pipeline/conditions.py",
+     "loc": "build_conditions",
+     "quote": "{ind}'s information comes from a different, independent source."
+    },
+    {
+     "file": "pipeline/conditions.py",
+     "loc": "build_conditions",
+     "quote": "x2 = [dict(r, provenance_id=case[\"sources\"][r[\"source_key\"]][\"provenance\"][\"type\"])"
+    },
+    {
+     "file": "pipeline/conditions.py",
+     "loc": "build_conditions",
+     "quote": "# conflict block: two reports of weak A, one of strong B at indep_slot"
+    },
+    {
+     "file": "pipeline/reporter.py",
+     "loc": "leak_terms",
+     "quote": "Words of provenance[\"type\"] that appear in neither the content nor the question: banned from this source's reports."
+    },
+    {
+     "file": "docs/authoring-rules.md",
+     "loc": "R19",
+     "quote": "\"Accredited laboratory test report\" says the same about method without it."
+    }
+   ],
+   "links": [
+    {
+     "to": "rules-other",
+     "rel": "part-of"
+    },
+    {
+     "to": "x2",
+     "rel": "needs"
+    },
+    {
+     "to": "x3",
+     "rel": "needs"
+    }
+   ]
+  },
+  {
+   "id": "types-dimension-only",
+   "type": "decision",
+   "cluster": "cases",
+   "title": "A's and B's type names differ only in the case's dimension",
+   "label": "Names differ in one dimension",
+   "summary": "From Phase 4 on, A's and B's type names differ in the case's quality dimension and in nothing else. In a directness, method or primary-source case both writers have the same standing; in an authority case the names differ in standing only, with no word about method, closeness or copying. M1–M5 keep their names, since they ran before the rule.",
+   "date": "2026-10-21",
+   "points": [
+    "Why: results are broken down by dimension, which cannot separate two dimensions that move together. And H5's warning sign is a gain only for official-sounding sources; with standing held equal, a case shows whether a judge reads the dimension itself: [[h5]].",
+    "Examples now in R19: two participants for directness, two student volunteers for method, one manufacturer for primary source.",
+    "C's and D's names are free, since no condition shows them: [[no-independent-type]].",
+    "Reviewers asked for it on the M14, M15 and M6 pull requests; Jason made it a rule."
+   ],
+   "evidence": [
+    {
+     "file": "docs/decisions.md",
+     "loc": "A's and B's type names differ only in the case's dimension",
+     "quote": "A's and B's `provenance.type` names differ in the case's quality dimension and in nothing else"
+    },
+    {
+     "file": "docs/authoring-rules.md",
+     "loc": "R19",
+     "quote": "Only the case's dimension differs"
+    },
+    {
+     "file": "docs/authoring-rules.md",
+     "loc": "R19",
+     "quote": "In a directness, method or primary-source case, both writers have the same standing"
+    },
+    {
+     "file": "docs/authoring-rules.md",
+     "loc": "R19",
+     "quote": "M1-M5 were written before this rule and keep their names."
+    },
+    {
+     "file": "docs/proposal.pdf",
+     "loc": "p.10 §3",
+     "quote": "recorded per case so that results can be broken down by dimension"
+    },
+    {
+     "file": "README.md",
+     "loc": "What counts as support, fixed before any data",
+     "quote": "the gain appears only for types matching a familiar real institution"
+    }
+   ],
+   "links": [
+    {
+     "to": "rules-other",
+     "rel": "needs"
+    },
+    {
+     "to": "quality-dimensions",
+     "rel": "needs"
+    },
+    {
+     "to": "h5",
+     "rel": "needs"
+    },
+    {
+     "to": "x2",
+     "rel": "related"
+    },
+    {
+     "to": "no-independent-type",
+     "rel": "related"
+    }
+   ]
+  },
+  {
+   "id": "screen-other-survivor",
+   "type": "decision",
+   "cluster": "cases",
+   "title": "The screen sentence may keep A's claim or a distractor",
+   "label": "Screen keeps either",
+   "summary": "The screen sentence keeps the truth and one other option. That other option may be A's claim or a distractor: the screen reads only the probability on the truth, so which one survives does not matter.",
+   "date": "2026-10-21",
+   "points": [
+    "Asked by reviewers on the M14, M6 and M7 pull requests; Jason decided.",
+    "M2 already kept A's claim and the truth in the pilot, and every judge's probability on the truth rose from P0 to P1 to P2 on it: [[pilot-results]]."
+   ],
+   "evidence": [
+    {
+     "file": "docs/decisions.md",
+     "loc": "The screen sentence may keep A's claim or a distractor",
+     "quote": "besides the truth, the option that `screen_partial` keeps may be A's claim or a distractor."
+    },
+    {
+     "file": "docs/authoring-rules.md",
+     "loc": "R15",
+     "quote": "The other survivor may be A's claim or a distractor: the screen reads only the probability on the truth, so which one does not matter."
+    },
+    {
+     "file": "cases/m2.py",
+     "loc": "screen_partial",
+     "quote": "greater than 50 Wh and less than 70 Wh."
+    },
+    {
+     "file": "runs/score-pilot.txt",
+     "loc": "SCREEN",
+     "quote": "M2 25.0, 49.8, 79.5"
+    }
+   ],
+   "links": [
+    {
+     "to": "rules-options",
+     "rel": "needs"
+    },
+    {
+     "to": "screen",
+     "rel": "needs"
+    },
+    {
+     "to": "pilot-results",
+     "rel": "related"
+    }
+   ]
+  },
+  {
+   "id": "filler-names-subject",
+   "type": "decision",
+   "cluster": "cases",
+   "title": "Filler may name the case's subject",
+   "label": "Filler may name the subject",
+   "summary": "Filler may name the case's subject, such as \"Kestrel Court is a residential estate\": it bears on no option. Filler still may not mention an option, or support, exclude or hedge one.",
+   "date": "2026-10-21",
+   "points": [
+    "The first filler sentence is also P0, the screen's irrelevant report; one that names the subject is a report about it that settles nothing: [[screen]].",
+    "In the pilot, M2, M4 and M5's first filler sentences name their subject, and the probability on the truth at P0 stayed level with A0: [[pilot-results]].",
+    "Rachel raised it on the M6 and M7 pull requests; Jason decided."
+   ],
+   "evidence": [
+    {
+     "file": "docs/decisions.md",
+     "loc": "Filler may name the case's subject",
+     "quote": "filler may name the case's subject"
+    },
+    {
+     "file": "docs/authoring-rules.md",
+     "loc": "R9",
+     "quote": "Naming the case's subject is fine, since it bears on no option"
+    },
+    {
+     "file": "cases/m5.py",
+     "loc": "filler_sets",
+     "quote": "Kestrel Court is a residential estate"
+    },
+    {
+     "file": "runs/score-pilot.txt",
+     "loc": "SCREEN",
+     "quote": "M5 41.2, 61.2, 83.8"
+    }
+   ],
+   "links": [
+    {
+     "to": "rules-filler",
+     "rel": "needs"
+    },
+    {
+     "to": "screen",
+     "rel": "related"
+    },
+    {
+     "to": "pilot-results",
+     "rel": "related"
     }
    ]
   },
@@ -2000,6 +2325,55 @@ a.ref:hover { background: var(--surface-2); }
     },
     {
      "to": "author-reviewer",
+     "rel": "related"
+    }
+   ]
+  },
+  {
+   "id": "a7-near-copies-noted",
+   "type": "decision",
+   "cluster": "cases",
+   "title": "Near-copies in A7 are noted, not failed",
+   "label": "A7 near-copies: a note",
+   "summary": "When two of B's, C's and D's frozen reports read almost alike but stay under the 0.50 overlap limit, the case's author and reviewer note it when they read the frozen reports (step 3.4). The case does not fail, and its reports are not regenerated.",
+   "date": "2026-10-21",
+   "points": [
+    "B, C and D appear together only in A7, where independent agreement is measured, so near-copies there can make a judge look less sensitive to independence than it is: [[a7]].",
+    "Frozen reports are never edited, and n_eff is reported per case, so a case like this stays visible: [[neff]].",
+    "Kathleen raised it reading the pilot's frozen reports: in M4, A7 shows B's and D's reports at an overlap of 0.42. Jason decided."
+   ],
+   "evidence": [
+    {
+     "file": "docs/work-plan.md",
+     "loc": "3.4 Reading the frozen reports",
+     "quote": "Also note, but do not fail, any two of B's, C's and D's reports that read almost alike"
+    },
+    {
+     "file": "docs/decisions.md",
+     "loc": "Near-copies in A7 are noted, not failed",
+     "quote": "do note pairs like this when you do 3.4 (more of like keeping a note than marking it as a fail)"
+    },
+    {
+     "file": "runs/frozen_reports.json",
+     "loc": "M4, D",
+     "quote": "The Yhotak B162 Vacuum features a water lift of 6000Pa."
+    }
+   ],
+   "links": [
+    {
+     "to": "a7",
+     "rel": "needs"
+    },
+    {
+     "to": "acceptance",
+     "rel": "needs"
+    },
+    {
+     "to": "human-checks",
+     "rel": "related"
+    },
+    {
+     "to": "neff",
      "rel": "related"
     }
    ]
@@ -2825,7 +3199,7 @@ a.ref:hover { background: var(--surface-2); }
    ],
    "points": [
     "Why A and B must be close in length: each slot's filler is shared by A's and B's reports, and the band is only 8 words wide.",
-    "It applies to all 40 cases, because the ten that run the length arm are not chosen yet: [[open-subset]].",
+    "It applies to all 40 cases: when it was set, the ten that run the length arm had not been chosen ([[subset-rule]]).",
     "This guarantee holds because only the conditions the length arm runs are length-checked: [[long-check-scope]]."
    ],
    "evidence": [
@@ -2853,6 +3227,11 @@ a.ref:hover { background: var(--surface-2); }
      "file": "docs/work-plan.md",
      "loc": "1.7 Write the filler",
      "quote": "size each filler set so that the set plus A's sentence and the set plus B's sentence are both 91–93 words"
+    },
+    {
+     "file": "docs/decisions.md",
+     "loc": "Long reports leave 3 words of room for rewording",
+     "quote": "kept R20 for all 40 cases, since the ten length-arm cases are not chosen"
     }
    ],
    "links": [
@@ -2883,6 +3262,10 @@ a.ref:hover { background: var(--surface-2); }
     {
      "to": "long-check-scope",
      "rel": "needs"
+    },
+    {
+     "to": "subset-rule",
+     "rel": "related"
     }
    ]
   },
@@ -3023,6 +3406,9 @@ a.ref:hover { background: var(--surface-2); }
      "to": "h6",
      "rel": "tests"
     }
+   ],
+   "points": [
+    "H6's test pairs each forced-choice trial with its twin here: [[margin-cutoff]]."
    ]
   },
   {
@@ -3043,7 +3429,7 @@ a.ref:hover { background: var(--surface-2); }
    ],
    "points": [
     "3 rungs × 10 cases × 12 repeats × 3 judges = 1,080 calls, in the main programme.",
-    "Each rung is X5 with only the intensity word changed: same reports, same dependence note, same rotation. Its exact sentence awaits the team's review ([[open-ladder-wording]])."
+    "Each rung is X5 with only the intensity word changed: same reports, same dependence note, same rotation. The team reviewed the exact sentence and kept it: [[ladder-sentence]]."
    ],
    "evidence": [
     {
@@ -3074,6 +3460,57 @@ a.ref:hover { background: var(--surface-2); }
     {
      "to": "open-ladder-wording",
      "rel": "involves"
+    }
+   ]
+  },
+  {
+   "id": "ladder-sentence",
+   "type": "decision",
+   "cluster": "conditions",
+   "title": "The ladder's sentence is kept as built",
+   "label": "Ladder sentence kept",
+   "summary": "The team reviewed the sentence each rung adds and kept it: X5's dependence note, then '[agent]'s source is somewhat / considerably / far more reliable than the source shared by [the other two]'. Only the intensity word changes between rungs, and the phrase is the proposal's own.",
+   "date": "2026-10-18",
+   "visual": "qualityLadder",
+   "points": [
+    "Checked on M1's prompts in a dry run: W1, W2 and W3 differ only in that one word.",
+    "'More reliable' names quality without hinting at age or officialness, and fits all four [[quality-dimensions]].",
+    "X5's clause is labels ('a primary, authoritative record' against 'a secondhand or unofficial one'), not a comparison. So the write-up reads X5 as the top reference point, not as a fourth rung."
+   ],
+   "evidence": [
+    {
+     "file": "docs/decisions.md",
+     "loc": "The wording ladder's sentence is kept as built",
+     "quote": "W1-W3 keep the sentence in `pipeline/conditions.py` (`rung`): X5's dependence note"
+    },
+    {
+     "file": "docs/decisions.md",
+     "loc": "The wording ladder's sentence is kept as built",
+     "quote": "W1, W2 and W3 differ only in the intensity word."
+    },
+    {
+     "file": "docs/decisions.md",
+     "loc": "The wording ladder's sentence is kept as built",
+     "quote": "So the write-up reads X5 as the categorical reference the proposal calls the ceiling, not as a fourth rung."
+    },
+    {
+     "file": "pipeline/conditions.py",
+     "loc": "build_conditions",
+     "quote": "rung = (f\" {ind}'s source is {FACTORS[w]['quality_wording']} more reliable than \""
+    }
+   ],
+   "links": [
+    {
+     "to": "graded-ladder",
+     "rel": "needs"
+    },
+    {
+     "to": "quality-dimensions",
+     "rel": "related"
+    },
+    {
+     "to": "open-ladder-wording",
+     "rel": "related"
     }
    ]
   },
@@ -3376,7 +3813,8 @@ a.ref:hover { background: var(--surface-2); }
     "margin"
    ],
    "points": [
-    "Example: 34/33/33 with a confident-looking answer passes the coherence check; only the margin reveals it."
+    "Example: 34/33/33 with a confident-looking answer passes the coherence check; only the margin reveals it.",
+    "How the margin is read, and H6's cut-off of 10 points: [[margin]]."
    ],
    "evidence": [
     {
@@ -3397,6 +3835,210 @@ a.ref:hover { background: var(--surface-2); }
    ]
   },
   {
+   "id": "margin",
+   "type": "concept",
+   "cluster": "measuring",
+   "title": "Margin (the top-two gap)",
+   "label": "Margin",
+   "summary": "How far the judge's top option leads the runner-up: its highest stated probability minus its second highest, in points. Coherence catches a judge that thinks one answer and gives another; the margin catches nearly level numbers behind a confident-looking answer.",
+   "visual": "h6states",
+   "aliases": [
+    "top-two margin",
+    "near indifference"
+   ],
+   "points": [
+    "34/33/33/0 is coherent, yet says almost nothing: its margin is 1.",
+    "It is taken after the stated numbers are rescaled to add up to 100, so numbers that add up to more than 100 shrink the lead.",
+    "H6 counts a margin below 10 as near indifference: [[margin-cutoff]].",
+    "The full entry, with worked examples: [[methods-doc]]."
+   ],
+   "evidence": [
+    {
+     "file": "docs/methods.md",
+     "loc": "Margin",
+     "quote": "How far the judge's top option leads the runner-up: its highest stated probability minus its second highest, in points."
+    },
+    {
+     "file": "docs/methods.md",
+     "loc": "Margin",
+     "quote": "The margin catches a near-level spread behind a confident-looking answer: 34/33/33/0 is coherent, yet says almost nothing."
+    },
+    {
+     "file": "docs/methods.md",
+     "loc": "Margin",
+     "quote": "H6 counts a margin below 10 as near indifference."
+    },
+    {
+     "file": "docs/methods.md",
+     "loc": "Margin",
+     "quote": "and takes the margin after rescaling: numbers that add up to more than 100 shrink the lead"
+    }
+   ],
+   "links": [
+    {
+     "to": "methods-doc",
+     "rel": "part-of"
+    },
+    {
+     "to": "coherence-margin",
+     "rel": "related"
+    }
+   ]
+  },
+  {
+   "id": "margin-cutoff",
+   "type": "decision",
+   "cluster": "measuring",
+   "title": "H6 counts a margin below 10 points as near indifference",
+   "label": "Margin cut-off: 10",
+   "summary": "A forced-choice record does not back its answer when the answer is not its top option, or its top two probabilities are less than 10 points apart. H6's test asks whether the judge abstains more in those same trials of the abstention arm than in the rest, inside each condition, against its own abstention rate in A7.",
+   "date": "2026-10-18",
+   "visual": "marginCut",
+   "data": {
+    "cut": 10,
+    "rows": [
+     [
+      "34 / 33 / 33 / 0",
+      1
+     ],
+     [
+      "50 / 45 / 3 / 2",
+      5
+     ],
+     [
+      "50 / 40 / 5 / 5",
+      10
+     ],
+     [
+      "50 / 40 / 10 / 5",
+      9.52
+     ],
+     [
+      "90 / 5 / 3 / 2",
+      85
+     ]
+    ],
+    "caption": "The judge gives the first option as its answer each time; each bar is the margin, taken after the numbers are rescaled to add up to 100, so 50 / 40 / 10 / 5, which adds up to 105, falls just short of 10. A bar ending left of the dashed cut-off of 10 points counts as near indifference. An answer that is not the top option is flagged whatever its margin."
+   },
+   "points": [
+    "Fixed before any pilot result: 50 against 45 counts as near indifference, while 50 against 40 already leans one way.",
+    "Each forced-choice trial is paired with its twin in the [[abstain-arm]]: same case, condition and repeat, so the same reports in the same order.",
+    "The scorer also prints the comparison at 5 and 20 points, declared in advance as a sensitivity check; conclusions rest on 10.",
+    "Reported only for judges the [[screen]] retains, since the flag reads stated numbers.",
+    "Compared inside each conflict condition and then combined, never on the block pooled. A judge that abstains in half its X1 trials whatever its numbers, and never in X5, looks like H6 when pooled (10 of 24 flagged trials against 10 of 56) but not inside either condition. Kai Rong raised this in review, and Jason agreed.",
+    "The margin is taken after the numbers are rescaled to add up to 100, so 50 against 40 written with a total of 105 is 9.52, and is flagged. It stays that way, since P(truth), confidence and coherence come from the same rescaled numbers; Kai Rong raised it in review, and Jason agreed."
+   ],
+   "evidence": [
+    {
+     "file": "docs/decisions.md",
+     "loc": "H6 counts a margin below 10 points as near indifference",
+     "quote": "less than 10 points apart (`MARGIN_THRESHOLD` and `unbacked` in `pipeline/score.py`)"
+    },
+    {
+     "file": "docs/decisions.md",
+     "loc": "H6 counts a margin below 10 points as near indifference",
+     "quote": "such as 50 against 45, counts as near indifference, while 50 against 40 already leans one way."
+    },
+    {
+     "file": "docs/decisions.md",
+     "loc": "H6 counts a margin below 10 points as near indifference",
+     "quote": "declared in advance as a sensitivity check; conclusions rest on 10."
+    },
+    {
+     "file": "docs/decisions.md",
+     "loc": "H6 counts a margin below 10 points as near indifference",
+     "quote": "Like n_eff, it is reported only for judges the confidence screen retains, since the flag reads stated numbers."
+    },
+    {
+     "file": "pipeline/score.py",
+     "loc": "MARGIN_THRESHOLD",
+     "quote": "MARGIN_THRESHOLD = 10"
+    },
+    {
+     "file": "docs/methods.md",
+     "loc": "Margin",
+     "quote": "| 34 / 33 / 33 / 0 | 1 | yes: near indifference |"
+    },
+    {
+     "file": "docs/methods.md",
+     "loc": "Margin",
+     "quote": "| 50 / 45 / 3 / 2 | 5 | yes: near indifference |"
+    },
+    {
+     "file": "docs/methods.md",
+     "loc": "Margin",
+     "quote": "| 50 / 40 / 5 / 5 | 10 | no: it leans one way |"
+    },
+    {
+     "file": "docs/methods.md",
+     "loc": "Margin",
+     "quote": "| 90 / 5 / 3 / 2 | 85 | no |"
+    },
+    {
+     "file": "docs/decisions.md",
+     "loc": "H6 counts a margin below 10 points as near indifference",
+     "quote": "made inside each conflict condition and then combined"
+    },
+    {
+     "file": "docs/decisions.md",
+     "loc": "H6 counts a margin below 10 points as near indifference",
+     "quote": "abstains pooled in 10 of 24 flagged trials against 10 of 56 others, yet equally often inside each condition."
+    },
+    {
+     "file": "docs/decisions.md",
+     "loc": "H6 counts a margin below 10 points as near indifference",
+     "quote": "so 50 against 40 written with a total of 105 is a margin of 9.52 and is flagged."
+    },
+    {
+     "file": "docs/methods.md",
+     "loc": "Margin",
+     "quote": "| 50 / 40 / 10 / 5 | 9.52 | yes: they add up to 105, so rescaled it is 47.62 against 38.10 |"
+    },
+    {
+     "file": "pipeline/score.py",
+     "loc": "_mh_difference",
+     "quote": "def _mh_difference(strata: list[tuple[list, list]]) -> float | None:"
+    },
+    {
+     "file": "docs/decisions.md",
+     "loc": "H6 counts a margin below 10 points as near indifference",
+     "quote": "The comparison is made inside each condition, and the margin stays on the rescaled numbers: Kai Rong raised both reviewing this entry, and Jason agreed."
+    },
+    {
+     "file": "docs/decisions.md",
+     "loc": "H6 counts a margin below 10 points as near indifference",
+     "quote": "P(truth), the confidence that discrimination reads and coherence all come from the same rescaled numbers, so the margin does too."
+    },
+    {
+     "file": "pipeline/judge.py",
+     "loc": "_parse_object",
+     "quote": "p = {o: round(100 * p[o] / total, 2) for o in options}"
+    }
+   ],
+   "links": [
+    {
+     "to": "margin",
+     "rel": "needs"
+    },
+    {
+     "to": "h6",
+     "rel": "tests"
+    },
+    {
+     "to": "abstain-arm",
+     "rel": "involves"
+    },
+    {
+     "to": "screen",
+     "rel": "related"
+    },
+    {
+     "to": "open-margin-threshold",
+     "rel": "related"
+    }
+   ]
+  },
+  {
    "id": "screen",
    "type": "design",
    "cluster": "measuring",
@@ -3411,7 +4053,7 @@ a.ref:hover { background: var(--surface-2); }
    "points": [
     "Graded by how informative a report is, not by how many reports agree, so the check does not assume the behaviour under study.",
     "Only P1 is hand-written (the case's screen sentence). P0 is a filler sentence; P2 is B's first frozen rewording.",
-    "Ordering is tested across cases with Page's test, as the proposal asks: [[screen-ordering-test]]. Discrimination is reported but has no pass mark yet: [[open-discrimination]]."
+    "Ordering is tested across cases with Page's test, as the proposal asks: [[screen-ordering-test]]. Discrimination passes a judge when one condition with 10 right and 10 wrong decisions has AUROC clearly above 0.5: [[discrimination-rule]]."
    ],
    "evidence": [
     {
@@ -3598,6 +4240,62 @@ a.ref:hover { background: var(--surface-2); }
    ]
   },
   {
+   "id": "auroc",
+   "type": "concept",
+   "cluster": "measuring",
+   "title": "AUROC",
+   "label": "AUROC",
+   "summary": "The chance that a right decision carries a higher stated probability than a wrong one. 0.5 means the number carries no information about being right; above 0.5 the judge is surer when right, below 0.5 surer when wrong. It is computed within one condition, since across conditions it would mostly measure the manipulation.",
+   "aliases": [
+    "AUROC",
+    "area under the ROC curve",
+    "Mann-Whitney",
+    "case shuffle"
+   ],
+   "points": [
+    "Worked example: confidence 90 and 80 when right, 70 and 85 when wrong. Three of the four right-wrong pairs favour the right one, so AUROC = 0.75. With each decision from a different case, two of the six ways to deal those numbers reach 0.75, so luck does this 1 time in 3 (p = 1/3).",
+    "The p-value treats the case as the unit. A case's repeats are near-copies, so the test shuffles whole cases; counting each decision, as the Mann-Whitney test does, makes p far too small.",
+    "The full entry: [[methods-doc]]."
+   ],
+   "evidence": [
+    {
+     "file": "docs/methods.md",
+     "loc": "AUROC",
+     "quote": "The chance that a right decision carries a higher stated probability than a wrong one. 0.5 means the number carries no information about being right."
+    },
+    {
+     "file": "docs/methods.md",
+     "loc": "AUROC",
+     "quote": "It is computed within one condition. Across conditions it would mostly measure the manipulation"
+    },
+    {
+     "file": "docs/methods.md",
+     "loc": "AUROC",
+     "quote": "Two of the six reach 0.75, so luck does this 1 time in 3: p = 1/3."
+    },
+    {
+     "file": "docs/methods.md",
+     "loc": "AUROC",
+     "quote": "So the p-value shuffles whole cases."
+    },
+    {
+     "file": "pipeline/score.py",
+     "loc": "auroc_p",
+     "quote": "A case's repeats are near-copies"
+    }
+   ],
+   "links": [
+    {
+     "to": "methods-doc",
+     "rel": "part-of"
+    },
+    {
+     "to": "significance-level",
+     "rel": "related"
+    }
+   ]
+  },
+  {
    "id": "screen-ordering-test",
    "type": "decision",
    "cluster": "measuring",
@@ -3673,6 +4371,109 @@ a.ref:hover { background: var(--surface-2); }
    ]
   },
   {
+   "id": "discrimination-rule",
+   "type": "decision",
+   "cluster": "measuring",
+   "title": "Discrimination passes a judge on one informative condition",
+   "label": "Discrimination rule",
+   "summary": "A condition counts when it has at least 10 right and 10 wrong decisions; A0 never does. A judge passes when at least one counted condition has AUROC above 0.5 at p below 0.05 divided by the number counted, the p from shuffling whole cases. With no counted condition the check cannot be assessed, and the judge is excluded, as one failing ordering is.",
+   "date": "2026-10-18",
+   "points": [
+    "A test, not a fixed AUROC: at 12 right and 48 wrong independent decisions, about one pilot conflict condition, a judge whose numbers carry no information reaches 0.60 by luck more than 1 time in 10, but passes the test about 1 time in 20.",
+    "The case is the unit of the p-value. A case's repeats are near-copies, so counting each decision passes a judge whose numbers carry no information about 1 time in 4, while shuffling whole cases passes it about 1 time in 20. Kai Rong raised this in review: [[auroc]].",
+    "At least one condition, not every: in [[x1]] being wrong mostly means following the two agreeing reports, which a judge can do confidently. That is the effect under study, so AUROC can fall below 0.5 there for a judge whose numbers carry information.",
+    "A judge that states the same number on every answer sits at 0.5 everywhere and still fails.",
+    "An excluded judge gets no [[neff]] and no H6 result: [[margin-cutoff]]. In the pilot, on 5 cases, the check is weak, so a fail there is a preview, and the pilot is scored with --show-excluded so that n_eff and H6 still meet real data: [[pilot-programme]]."
+   ],
+   "evidence": [
+    {
+     "file": "docs/decisions.md",
+     "loc": "Discrimination passes a judge on one informative condition",
+     "quote": "a condition counts when it has at least 10 correct and 10 incorrect decisions (`MIN_CLASS` in `pipeline/score.py`); A0 never counts."
+    },
+    {
+     "file": "docs/decisions.md",
+     "loc": "Discrimination passes a judge on one informative condition",
+     "quote": "A judge passes when at least one counted condition has AUROC above 0.5 with a one-sided p below 0.05 divided by the number of counted conditions"
+    },
+    {
+     "file": "docs/decisions.md",
+     "loc": "Discrimination passes a judge on one informative condition",
+     "quote": "With no counted condition the check cannot be assessed, and the judge is excluded."
+    },
+    {
+     "file": "docs/decisions.md",
+     "loc": "Discrimination passes a judge on one informative condition",
+     "quote": "passes the test about 1 time in 20, but reaches an AUROC of 0.60 by luck more than 1 time in 10."
+    },
+    {
+     "file": "docs/decisions.md",
+     "loc": "Discrimination passes a judge on one informative condition",
+     "quote": "in X1, being wrong mostly means following the two agreeing reports, which a judge can do confidently, and that is the effect under study"
+    },
+    {
+     "file": "pipeline/score.py",
+     "loc": "MIN_CLASS",
+     "quote": "MIN_CLASS = 10"
+    },
+    {
+     "file": "tests/test_score.py",
+     "loc": "test_discrimination_test_holds_its_level_where_a_fixed_mark_does_not",
+     "quote": "assert 0.02 < test < 0.09 and fixed > 0.10"
+    },
+    {
+     "file": "docs/decisions.md",
+     "loc": "Discrimination passes a judge on one informative condition",
+     "quote": "while shuffling whole cases passes it about 1 time in 20 (9 of 200)"
+    },
+    {
+     "file": "tests/test_score.py",
+     "loc": "test_discrimination_holds_its_level_when_repeats_are_near_copies",
+     "quote": "assert shuffled / 200 < 0.08 and counted / 200 > 0.20"
+    },
+    {
+     "file": "pipeline/score.py",
+     "loc": "SHUFFLES",
+     "quote": "SHUFFLES = 2000"
+    },
+    {
+     "file": "docs/decisions.md",
+     "loc": "The pilot runs the whole programme on M1-M5",
+     "quote": "The pilot is therefore likely to exclude most judges"
+    }
+   ],
+   "links": [
+    {
+     "to": "auroc",
+     "rel": "needs"
+    },
+    {
+     "to": "significance-level",
+     "rel": "needs"
+    },
+    {
+     "to": "screen",
+     "rel": "needs"
+    },
+    {
+     "to": "x1",
+     "rel": "related"
+    },
+    {
+     "to": "neff",
+     "rel": "related"
+    },
+    {
+     "to": "open-discrimination",
+     "rel": "related"
+    },
+    {
+     "to": "pilot-programme",
+     "rel": "related"
+    }
+   ]
+  },
+  {
    "id": "pilot-size",
    "type": "decision",
    "cluster": "pipeline",
@@ -3682,7 +4483,7 @@ a.ref:hover { background: var(--surface-2); }
    "date": "2026-10-12",
    "points": [
     "At the fixed level of 0.05: with 2 cases a judge passes only if both are perfectly ordered; with 3 or 4, one fully reversed case fails it; with 5, it does not (p = 0.039).",
-    "The 5 come from the 40, so no case is written only for the pilot. Only 1 is written so far: [[open-corpus]].",
+    "The 5 come from the 40, so no case is written only for the pilot. How many are written so far: [[open-corpus]].",
     "The pilot's screen verdict is a preview; the main run's verdict uses all 40 cases."
    ],
    "evidence": [
@@ -3772,6 +4573,194 @@ a.ref:hover { background: var(--surface-2); }
     ],
     "caption": "One case fully reversed, the rest in the predicted order. The dashed line is the 0.05 pass mark: 5 is the fewest cases at which the judge still passes."
    }
+  },
+  {
+   "id": "subset-rule",
+   "type": "decision",
+   "cluster": "pipeline",
+   "title": "The ten-case subset is fixed by a rule before the pilot",
+   "label": "Subset rule",
+   "summary": "The length arm and the wording ladder run on M1–M5 plus five Phase 4 cases that Kai Rong marks when assigning the batches, before they are written. Two of the five are T2, so three of the ten are; every domain has at least 3 of the ten and every quality dimension at least 2.",
+   "date": "2026-10-18",
+   "points": [
+    "Chosen before any of the ten is run, so neither the pilot's results nor how cases turn out can steer the choice.",
+    "M1–M5 already cover all three domains and all four quality dimensions.",
+    "Marked on 2026-10-19 with the first Phase 4 batches, before anyone drafted them: M6, M14, M22, M30 and M38, one per author, with M14 and M22 the two T2. Still to do: put the ten first in cases/__init__.py before the main run: [[open-subset]].",
+    "The ten's three T2 cases, M1, M14 and M22, are in three different domains and three different dimensions.",
+    "A case of the ten that is relabelled T2 once its frozen reports are read stays in the ten, so the ten may end with more than three T2 cases: swapping it out would choose cases after seeing results. Kai Rong raised this in review, and Jason agreed.",
+    "Each of the five has a named backup, with the same domain, dimension and tier and a different author, which joins the ten only if its case is dropped: M16 for M6, M8 for M14, M9 for M22, M17 for M30 and M32 for M38. Kai Rong named them on 2026-10-21, when the other 25 cases were assigned together, before anyone drafted them."
+   ],
+   "evidence": [
+    {
+     "file": "docs/decisions.md",
+     "loc": "The ten-case subset is fixed by a rule before the pilot",
+     "quote": "the ten cases for the length arm and the wording ladder are M1-M5 plus five Phase 4 cases that Kai Rong marks when assigning the batches, before they are written."
+    },
+    {
+     "file": "docs/decisions.md",
+     "loc": "The ten-case subset is fixed by a rule before the pilot",
+     "quote": "Two of the five are T2 and three T1, so three of the ten are T2."
+    },
+    {
+     "file": "docs/decisions.md",
+     "loc": "The ten-case subset is fixed by a rule before the pilot",
+     "quote": "the ten are chosen before any of them is run, so neither the pilot's results nor how cases turn out can steer the choice."
+    },
+    {
+     "file": "docs/work-plan.md",
+     "loc": "Phase 1",
+     "quote": "Together with M1, these cover all 3 domains and all 4 quality dimensions."
+    },
+    {
+     "file": "docs/decisions.md",
+     "loc": "The ten-case subset is fixed by a rule before the pilot",
+     "quote": "Marked 2026-10-19, with the first Phase 4 batches: M6, M14, M22, M30 and M38, one per author"
+    },
+    {
+     "file": "docs/work-plan.md",
+     "loc": "Case register",
+     "quote": "the ten's three T2 cases (M1, M14, M22) are in three different domains and three different dimensions"
+    },
+    {
+     "file": "docs/decisions.md",
+     "loc": "The ten-case subset is fixed by a rule before the pilot",
+     "quote": "stays in the ten, so the ten may end with more than three T2 cases"
+    },
+    {
+     "file": "docs/decisions.md",
+     "loc": "The ten-case subset is fixed by a rule before the pilot",
+     "quote": "each marked case's replacement is named in the case register as its backup, with the same domain, dimension and tier and a different author: M16 for M6, M8 for M14, M9 for M22, M17 for M30 and M32 for M38."
+    },
+    {
+     "file": "docs/work-plan.md",
+     "loc": "2D",
+     "quote": "A backup is written and reviewed like any other case, and joins the ten only if its case is dropped."
+    },
+    {
+     "file": "docs/decisions.md",
+     "loc": "The ten-case subset is fixed by a rule before the pilot",
+     "quote": "A case relabelled T2 stays in the ten: Kai Rong raised it reviewing this entry, and Jason agreed."
+    }
+   ],
+   "links": [
+    {
+     "to": "tiers",
+     "rel": "needs"
+    },
+    {
+     "to": "quality-dimensions",
+     "rel": "needs"
+    },
+    {
+     "to": "length-arm",
+     "rel": "involves"
+    },
+    {
+     "to": "graded-ladder",
+     "rel": "involves"
+    },
+    {
+     "to": "open-subset",
+     "rel": "related"
+    }
+   ]
+  },
+  {
+   "id": "pilot-programme",
+   "type": "decision",
+   "cluster": "pipeline",
+   "title": "The pilot runs the whole programme",
+   "label": "Pilot: whole programme",
+   "summary": "The pilot runs every arm on M1–M5: 3,660 calls, $7.03, with the group approving up to $10. Each arm can fail in its own way, so each meets real models once before the main run, and the pilot measures the real cost per call, which the budget request for the main run needs.",
+   "date": "2026-10-18",
+   "points": [
+    "Ceilings: generate at 600 calls, two full rounds for every source; the judge step one programme entry at a time, each with its planned calls.",
+    "The judge step makes one call at a time and stops on a failed call, which cannot be resumed. One entry per log limits a stop to one entry; the scorer reads the logs together.",
+    "It measures the long-report rate, the one rate the proposal estimates rather than measures: [[cost-model]].",
+    "Scored with --show-excluded. On 5 cases, discrimination is likely to exclude most judges, since its p-value shuffles whole cases and 5 cases allow only 120 arrangements, so the option still prints their n_eff and H6, marked as checks: [[discrimination-rule]]. Kai Rong raised this in review, and Jason agreed.",
+    "It ran on 2026-10-19, and its numbers are a preview, not findings: [[pilot-results]]."
+   ],
+   "evidence": [
+    {
+     "file": "docs/decisions.md",
+     "loc": "The pilot runs the whole programme on M1-M5",
+     "quote": "the pilot runs every entry of `PROGRAMME` (`pipeline/run.py`) on M1-M5."
+    },
+    {
+     "file": "docs/decisions.md",
+     "loc": "The pilot runs the whole programme on M1-M5",
+     "quote": "`plan --cases 5` gives 3,660 calls and $7.03, of which 240 calls generate the reports."
+    },
+    {
+     "file": "docs/decisions.md",
+     "loc": "The pilot runs the whole programme on M1-M5",
+     "quote": "The group approves up to $10."
+    },
+    {
+     "file": "docs/decisions.md",
+     "loc": "The pilot runs the whole programme on M1-M5",
+     "quote": "so one entry per log limits a stop to one entry."
+    },
+    {
+     "file": "README.md",
+     "loc": "Status and open items",
+     "quote": "The pilot ran the whole programme, 3,660 calls planned at $7.03, with the group approving up to $10."
+    },
+    {
+     "file": "docs/decisions.md",
+     "loc": "The pilot runs the whole programme on M1-M5",
+     "quote": "the pilot is scored with `--show-excluded`"
+    },
+    {
+     "file": "docs/decisions.md",
+     "loc": "The pilot runs the whole programme on M1-M5",
+     "quote": "and 5 cases allow only 120 arrangements"
+    },
+    {
+     "file": "pipeline/score.py",
+     "loc": "module docstring",
+     "quote": "prints n_eff and H6 for the judges the confidence screen excludes"
+    },
+    {
+     "file": "docs/decisions.md",
+     "loc": "The pilot runs the whole programme on M1-M5",
+     "quote": "The pilot is scored with `--show-excluded`: Kai Rong raised it reviewing this entry, and Jason agreed."
+    }
+   ],
+   "links": [
+    {
+     "to": "pilot-size",
+     "rel": "needs"
+    },
+    {
+     "to": "arms",
+     "rel": "needs"
+    },
+    {
+     "to": "runner",
+     "rel": "involves"
+    },
+    {
+     "to": "cost-model",
+     "rel": "involves"
+    },
+    {
+     "to": "stop-conditions",
+     "rel": "related"
+    },
+    {
+     "to": "open-pilot-scope",
+     "rel": "related"
+    },
+    {
+     "to": "discrimination-rule",
+     "rel": "related"
+    },
+    {
+     "to": "pilot-results",
+     "rel": "related"
+    }
+   ]
   },
   {
    "id": "log-odds",
@@ -3976,6 +4965,9 @@ a.ref:hover { background: var(--surface-2); }
    "aliases": [
     "no_match"
    ],
+   "points": [
+    "An answer written with its option number from the prompt, such as \"4. 15%\", is read as that option, not as no_match: [[numbered-answers]]."
+   ],
    "evidence": [
     {
      "file": "pipeline/judge.py",
@@ -3987,6 +4979,69 @@ a.ref:hover { background: var(--surface-2); }
     {
      "to": "elicitation",
      "rel": "needs"
+    },
+    {
+     "to": "numbered-answers",
+     "rel": "related"
+    }
+   ]
+  },
+  {
+   "id": "numbered-answers",
+   "type": "decision",
+   "cluster": "measuring",
+   "title": "The parser reads an answer written with its option number",
+   "label": "Numbered answers read",
+   "summary": "The prompt numbers the options, and in the pilot GPT-5.4 sometimes copied the number into its reply, writing \"4. 15%\". The parser logged those as answers that are not an option, so right answers counted against its accuracy. It now reads them as the option, but only when the number is that option's place in the list.",
+   "date": "2026-10-19",
+   "points": [
+    "A number and a text that disagree, such as \"2. 15%\" when 15% is option 4, still give no_match, so the parser never guesses between them: [[no-match]].",
+    "The pilot's three such answers stay as they were logged, since the pilot's numbers are a preview."
+   ],
+   "evidence": [
+    {
+     "file": "docs/decisions.md",
+     "loc": "The parser reads an answer written with its option number",
+     "quote": "is read as that option, but only when the number is that option's place in the list"
+    },
+    {
+     "file": "docs/decisions.md",
+     "loc": "The parser reads an answer written with its option number",
+     "quote": "GPT-5.4 answered \"4. 15%\" and \"4. 6 hours\" in three A7 trials"
+    },
+    {
+     "file": "docs/decisions.md",
+     "loc": "The parser reads an answer written with its option number",
+     "quote": "The pilot's logs stay as they were logged."
+    },
+    {
+     "file": "pipeline/prompt.py",
+     "loc": "module docstring",
+     "quote": "Options are numbered, never lettered"
+    },
+    {
+     "file": "pipeline/judge.py",
+     "loc": "_option",
+     "quote": "if named is not None and options.index(named) + 1 == int(m.group(1)):"
+    },
+    {
+     "file": "tests/test_judge.py",
+     "loc": "test_an_answer_written_with_its_option_number_is_read",
+     "quote": "raw = '{\"answer\":\"4. 15%\",\"p\":{\"1. 25%\":0,\"2. 10%\":0,\"3. 30%\":0,\"4. 15%\":100}}'"
+    }
+   ],
+   "links": [
+    {
+     "to": "no-match",
+     "rel": "needs"
+    },
+    {
+     "to": "elicitation",
+     "rel": "needs"
+    },
+    {
+     "to": "parse-failures",
+     "rel": "related"
     }
    ]
   },
@@ -4389,7 +5444,7 @@ a.ref:hover { background: var(--surface-2); }
    "cluster": "pipeline",
    "title": "Scorer (pipeline/score.py)",
    "label": "Scorer",
-   "summary": "Reads one or more JSONL logs and prints, per judge, arm and case: correct, abstain and no_match rates, mean probability on the truth and on the majority claim, margin, stability and its chance baseline; then the ladder, the screen, discrimination, n_eff and run health.",
+   "summary": "Reads one or more JSONL logs and prints, per judge, arm and case: correct, abstain and no_match rates, mean probability on the truth and on the majority claim, margin, stability and its chance baseline; then the ladder, the screen (ordering and discrimination), n_eff, H6's test and run health.",
    "aliases": [
     "scorer"
    ],
@@ -5311,7 +6366,7 @@ a.ref:hover { background: var(--surface-2); }
     "methods dictionary"
    ],
    "points": [
-    "Entries so far: [[page-test]] and [[significance-level]].",
+    "Entries so far: [[page-test]], [[significance-level]], [[margin]] and [[auroc]].",
     "Each entry has five parts: In one line, How it works, Worked example, Reading the number, and In the code."
    ],
    "evidence": [
@@ -5343,22 +6398,72 @@ a.ref:hover { background: var(--surface-2); }
    ]
   },
   {
+   "id": "phase4-early",
+   "type": "decision",
+   "cluster": "process",
+   "title": "Phase 4 drafting starts before the pilot",
+   "label": "Draft Phase 4 early",
+   "summary": "Authors start drafting their Phase 4 cases now, before the pilot, using the lessons from the Phase 1 reviews and the current authoring rules. The cases are merged only after the pilot has run: the run takes every case in cases/__init__.py, so a case merged earlier would join the pilot.",
+   "date": "2026-10-19",
+   "points": [
+    "Each author drafts once Kai Rong has given them a batch, and the five subset cases are marked then, before they are written: [[subset-rule]].",
+    "The pilot stays the programme the group approved, on M1–M5 only: [[pilot-programme]]."
+   ],
+   "evidence": [
+    {
+     "file": "docs/decisions.md",
+     "loc": "Phase 4 drafting starts before the pilot",
+     "quote": "authors start drafting their Phase 4 cases now, before the pilot run, once Kai Rong has given them their first batch"
+    },
+    {
+     "file": "docs/decisions.md",
+     "loc": "Phase 4 drafting starts before the pilot",
+     "quote": "generate and judge take every case in cases/__init__.py, so a Phase 4 case merged before the pilot would join it"
+    },
+    {
+     "file": "docs/work-plan.md",
+     "loc": "Phase 4",
+     "quote": "Keep each case on its own branch until the pilot has run"
+    },
+    {
+     "file": "pipeline/run.py",
+     "loc": "main",
+     "quote": "\"generate\": cmd_generate, \"judge\": cmd_judge}[args.cmd](args, CASES)"
+    }
+   ],
+   "links": [
+    {
+     "to": "work-plan",
+     "rel": "part-of"
+    },
+    {
+     "to": "pilot-programme",
+     "rel": "needs"
+    },
+    {
+     "to": "subset-rule",
+     "rel": "related"
+    }
+   ]
+  },
+  {
    "id": "work-plan",
    "type": "process",
    "cluster": "process",
    "title": "Who does what next",
    "label": "Work plan",
-   "summary": "docs/work-plan.md splits the next work among the five members, in small steps written for newcomers. Everyone first learns the basics. Four members then write and cross-review the four pilot cases, M2 to M5, while each owns one open decision. Jason runs the paid pilot, and then all five write the other 35 cases.",
+   "summary": "docs/work-plan.md splits the next work among the five members, in small steps written for newcomers. Everyone first learns the basics. Four members then write and cross-review the four pilot cases, M2 to M5, while each owns one Phase 2 decision. Jason runs the paid pilot; all five start drafting the other 35 cases before it, and those are merged after it ([[phase4-early]]).",
    "aliases": [
     "work-plan.md",
     "work plan"
    ],
    "points": [
     "Jason (Ong Jia Xi in the proposal) runs every step that spends money, after the group approves, and merges pull requests.",
-    "Owners of open items: [[open-ladder-wording]], Rachel. [[open-margin-threshold]], Crystal. [[open-discrimination]], Kai Rong. [[open-subset]], Kathleen. [[open-pilot-scope]], Jason with the group.",
+    "Phase 2's five items were decided on 2026-10-18, before any pilot result: [[ladder-sentence]], [[margin-cutoff]], [[discrimination-rule]], [[subset-rule]] and [[pilot-programme]]. Kai Rong marked the subset's five Phase 4 cases with the first batches; putting the ten first in cases/__init__.py waits for the main run: [[open-subset]].",
     "The four pilot cases, with M1, cover all three domains and all four quality dimensions: [[quality-dimensions]].",
     "Each open number is agreed before anyone looks at pilot results, so it cannot be bent to fit them: [[precommit]].",
-    "Every case has a reviewer who did not write it: [[author-reviewer]]."
+    "Every case has a reviewer who did not write it: [[author-reviewer]].",
+    "Kai Rong keeps the case register: each case's domain, dimension, tier, author, reviewer, status, and whether it is in the ten-case subset or a backup for one. Every case had its row by 2026-10-21."
    ],
    "evidence": [
     {
@@ -5385,6 +6490,26 @@ a.ref:hover { background: var(--surface-2); }
      "file": "docs/work-plan.md",
      "loc": "Phase 2",
      "quote": "Agree each number before anyone looks at pilot results."
+    },
+    {
+     "file": "docs/work-plan.md",
+     "loc": "Case register",
+     "quote": "Case register (Kai Rong keeps this current)"
+    },
+    {
+     "file": "docs/work-plan.md",
+     "loc": "Case register",
+     "quote": "Subset marks the ten cases the length arm and the wording ladder run on"
+    },
+    {
+     "file": "docs/work-plan.md",
+     "loc": "Case register",
+     "quote": "\"Backup for\" names the case that takes a marked case's place if it is dropped (2D)."
+    },
+    {
+     "file": "docs/work-plan.md",
+     "loc": "Case register",
+     "quote": "Every case has a row."
     }
    ],
    "links": [
@@ -5508,6 +6633,66 @@ a.ref:hover { background: var(--surface-2); }
    ]
   },
   {
+   "id": "count-at-merge",
+   "type": "decision",
+   "cluster": "process",
+   "title": "Authors do not update the corpus count",
+   "label": "Count updated at merge",
+   "summary": "Case authors leave the count of written cases alone: README's corpus bullet, the open-corpus node and the 'cases written' card. Jason updates all three when he merges each case. On a case branch the graph test fails on the open-corpus quote until then, and that is expected.",
+   "date": "2026-10-18",
+   "points": [
+    "Before the rule, authors did it three ways, and two branches that both changed the count needed fixing by hand when the second merged.",
+    "In Phase 4, 35 cases are written in parallel, so if every case pull request changed the count, each would conflict with every other.",
+    "The open-corpus node keeps quoting the CASES line of cases/__init__.py: that failing check is the reminder to update the count at merge.",
+    "CLAUDE.md tells agents the same, so an author's agent does not 'fix' the count: [[kg-rule]]."
+   ],
+   "evidence": [
+    {
+     "file": "docs/decisions.md",
+     "loc": "Authors do not update the corpus count",
+     "quote": "case authors leave the corpus count alone: README's corpus bullet, the `open-corpus` node and the \"cases written\" card in `knowledge-graph.html`."
+    },
+    {
+     "file": "docs/decisions.md",
+     "loc": "Authors do not update the corpus count",
+     "quote": "In Phase 4, 35 cases are written in parallel, so every case pull request would conflict with every other."
+    },
+    {
+     "file": "docs/decisions.md",
+     "loc": "Authors do not update the corpus count",
+     "quote": "That failing check is what reminds Jason to update the count when he merges."
+    },
+    {
+     "file": "CLAUDE.md",
+     "loc": "One exception: the corpus count",
+     "quote": "On a case branch, do not update how many cases are written"
+    },
+    {
+     "file": "docs/work-plan.md",
+     "loc": "1.10 Open a pull request",
+     "quote": "fails on the `open-corpus` quote. Every other test must pass."
+    }
+   ],
+   "links": [
+    {
+     "to": "open-corpus",
+     "rel": "needs"
+    },
+    {
+     "to": "author-reviewer",
+     "rel": "related"
+    },
+    {
+     "to": "work-plan",
+     "rel": "related"
+    },
+    {
+     "to": "kg-rule",
+     "rel": "related"
+    }
+   ]
+  },
+  {
    "id": "cost-model",
    "type": "process",
    "cluster": "process",
@@ -5516,7 +6701,8 @@ a.ref:hover { background: var(--surface-2); }
    "summary": "Per case: 480 calls, $0.78. At 40 cases, with the length arm and the wording ladder on ten of them, the main programme is 21,720 calls ($37.48), which plan --cases 40 reproduces. The optional sub-experiments would add 1,112 calls ($2.78). The proposal requests $75.",
    "visual": "costBreakdown",
    "points": [
-    "Rates: writing and rating rewordings $0.00025 per call; judging short reports $0.00178; judging long reports $0.0030 (the one estimated figure)."
+    "Rates: writing and rating rewordings $0.00025 per call; judging short reports $0.00178; judging long reports $0.0030 (the one estimated figure).",
+    "The pilot measures the real cost per call by arm, the long-report rate included: [[pilot-programme]]."
    ],
    "data": {
     "perCase": [
@@ -5629,6 +6815,11 @@ a.ref:hover { background: var(--surface-2); }
      "file": "CLAUDE.md",
      "loc": "Writing rules for the graph",
      "quote": "reuse a figure the page defines, or add one to the figure code"
+    },
+    {
+     "file": "CLAUDE.md",
+     "loc": "One exception: the corpus count",
+     "quote": "Jason updates them when he merges each case"
     }
    ],
    "links": [
@@ -5647,7 +6838,8 @@ a.ref:hover { background: var(--surface-2); }
    ],
    "points": [
     "The sweep covers what the checker cannot see: text hard-coded in the page's figures, as well as the README, docs and code comments. A figure's caption once kept describing the confidence screen's old rule after the code changed.",
-    "Where a picture explains better than words, a node gets a figure: an existing one, or a new one added to the page's figure code, showing only what the node's evidence supports."
+    "Where a picture explains better than words, a node gets a figure: an existing one, or a new one added to the page's figure code, showing only what the node's evidence supports.",
+    "One exception: on a case branch nobody updates the corpus count. Jason does when he merges: [[count-at-merge]]."
    ]
   },
   {
@@ -5714,16 +6906,21 @@ a.ref:hover { background: var(--surface-2); }
    "id": "open-first-run",
    "type": "issue",
    "cluster": "issues",
-   "title": "No real run has happened yet",
-   "label": "No real run yet",
-   "summary": "Nothing has been generated or judged for real in this repository. runs/ fills from the first generate step, after the open choices below are settled and the spend is approved.",
-   "status": "open",
+   "title": "No real run had happened yet",
+   "label": "First run (settled)",
+   "summary": "Settled. The pilot ran every programme entry on M1–M5 on 2026-10-19: 240 calls generated the reports and 3,420 judge trials ran. Its numbers are a preview, not findings: [[pilot-results]]. The main run is still to come.",
+   "status": "current",
    "date": "2026-10-12",
    "evidence": [
     {
      "file": "README.md",
      "loc": "Status and open items",
-     "quote": "No real run has happened in this repository."
+     "quote": "The pilot has run (2026-10-19), every programme entry on M1-M5: 240 calls generated the reports and 3,420 judge trials ran."
+    },
+    {
+     "file": "docs/work-plan.md",
+     "loc": "Phase 3",
+     "quote": "Pilot numbers are a preview, not findings."
     }
    ],
    "links": [
@@ -5738,6 +6935,369 @@ a.ref:hover { background: var(--surface-2); }
     {
      "to": "status-board",
      "rel": "part-of"
+    },
+    {
+     "to": "pilot-results",
+     "rel": "related"
+    }
+   ]
+  },
+  {
+   "id": "pilot-results",
+   "type": "finding",
+   "cluster": "pipeline",
+   "title": "The pilot ran: every arm worked, and the screen excluded all three judges",
+   "label": "Pilot results (preview)",
+   "summary": "The pilot ran every programme entry on M1–M5, and the scorer read all seven logs together. Every arm ran and parsed. The ordering check kept all three judges, but discrimination excluded all three, two of them because no condition had both 10 right and 10 wrong decisions, so n_eff and H6 were printed only as checks. These numbers are a preview, not findings.",
+   "date": "2026-10-19",
+   "internal": true,
+   "points": [
+    "Generation took 240 calls, and every source was accepted in its first round. The judge step ran 3,420 trials: 3,416 parsed, 3 gave an answer that is not an option, and 1 did not parse. The 3 were GPT-5.4 writing the option's number before it (\"4. 15%\"), which the parser did not then accept, since the prompt numbers the options; it does now: [[numbered-answers]]. No call failed, no judge reasoned, and each judge stayed on its pinned provider.",
+    "Ordering kept all three judges: P(truth) rose from P0 to P1 to P2 in all five cases (rank correlation 1.0, p 0.0001): [[screen]].",
+    "Discrimination excluded all three. For Opus and GPT-5.4 no condition had 10 right and 10 wrong decisions, because their decisions went almost all one way in each condition, so the check could not be assessed. Sonnet's one counted condition, X2, reached AUROC 0.59 at p 0.24. A pilot fail is a preview: [[discrimination-rule]]. Whether the main run passes any judge is open: [[open-screen-pass]].",
+    "n_eff, as a check: one report moved belief by 1.37 to 4.04 logits, with no anomaly, so the arithmetic was defined in every cell. GPT-5.4's P(truth) reached 99.5 to 100 in A4, A6 and A7 in four of the five cases, so three cells hit the clip and its IS and RP read 0: [[neff]].",
+    "H6, as a check: 8 of the 900 conflict-block records were flagged (5, 1 and 2 by judge). Opus and Sonnet never abstained, and GPT-5.4 abstained only in X1, in 4 of 20 trials. The README names a judge that abstains nowhere as a nuisance for H6: [[margin-cutoff]]. Open for the main run: [[open-h6-data]].",
+    "The ladder and the length arm ran and parsed.",
+    "Measured cost per call: the short arm cost about $0.0019 a call across the three judges, against the $0.00178 estimate; long reports cost $0.0022 (Sonnet) and $0.0018 (GPT-5.4), against the estimated $0.0030. The main-run budget can now use measured rates: [[cost-model]]."
+   ],
+   "evidence": [
+    {
+     "file": "runs/generation_report.json",
+     "loc": "calls",
+     "quote": "\"calls\": 240"
+    },
+    {
+     "file": "runs/score-pilot.txt",
+     "loc": "first line",
+     "quote": "Loaded 3420 trials. Parse failures: 1. Status counts: {'ok': 3416, 'no_match': 3, 'failed_fallback': 1}"
+    },
+    {
+     "file": "runs/trials-abstain.jsonl",
+     "loc": "M1_A7_abstain_run4",
+     "quote": "4. 15%"
+    },
+    {
+     "file": "pipeline/prompt.py",
+     "loc": "module docstring",
+     "quote": "Options are numbered, never lettered"
+    },
+    {
+     "file": "runs/score-pilot.txt",
+     "loc": "HEALTH",
+     "quote": "call errors 0, providers ['OpenAI'], reasoning tokens 0"
+    },
+    {
+     "file": "runs/score-pilot.txt",
+     "loc": "HEALTH",
+     "quote": "call errors 0, providers ['Claude Platform on AWS'], reasoning tokens 0"
+    },
+    {
+     "file": "pipeline/run.py",
+     "loc": "PINS",
+     "quote": "PINS = {\"anthropic/claude-sonnet-5\": (\"claude-on-aws\", \"Claude Platform on AWS\"),"
+    },
+    {
+     "file": "runs/score-pilot.txt",
+     "loc": "SCREEN",
+     "quote": "Page's L 70.0, rank correlation 1.0, one-sided p 0.0001, 5 cases -- retained"
+    },
+    {
+     "file": "runs/score-pilot.txt",
+     "loc": "DISCRIMINATION",
+     "quote": "X1 n/a (0/60), X2 n/a (60/0), X3 0.10 (2/58), X4 n/a (60/0), X5 n/a (60/0)"
+    },
+    {
+     "file": "runs/score-pilot.txt",
+     "loc": "DISCRIMINATION",
+     "quote": "not assessable: no condition has 10 correct and 10 incorrect decisions -- EXCLUDED"
+    },
+    {
+     "file": "runs/score-pilot.txt",
+     "loc": "DISCRIMINATION",
+     "quote": "X2 p 0.2399; passes below 0.05 / 1 = 0.0500 -- EXCLUDED"
+    },
+    {
+     "file": "runs/score-pilot.txt",
+     "loc": "N_EFF",
+     "quote": "'w': 1.369"
+    },
+    {
+     "file": "runs/score-pilot.txt",
+     "loc": "N_EFF",
+     "quote": "'w': 4.043"
+    },
+    {
+     "file": "runs/score-pilot.txt",
+     "loc": "N_EFF",
+     "quote": "'clipped': 3, 'CN': 0.85, 'IS': 0.0, 'RP': 0.0"
+    },
+    {
+     "file": "runs/score-pilot.txt",
+     "loc": "H6",
+     "quote": "5/300 conflict-block records do not identify the answer given"
+    },
+    {
+     "file": "runs/score-pilot.txt",
+     "loc": "H6",
+     "quote": "1/300 conflict-block records do not identify the answer given"
+    },
+    {
+     "file": "runs/score-pilot.txt",
+     "loc": "H6",
+     "quote": "2/300 conflict-block records do not identify the answer given"
+    },
+    {
+     "file": "runs/score-pilot.txt",
+     "loc": "H6",
+     "quote": "X1 flagged 0/0 (n/a), not flagged 4/20 (0.20)"
+    },
+    {
+     "file": "README.md",
+     "loc": "What counts as support, fixed before any data",
+     "quote": "one judge abstains everywhere or nowhere"
+    },
+    {
+     "file": "runs/score-pilot.txt",
+     "loc": "HEALTH",
+     "quote": "short $0.00327 (n=540, total $1.7673)"
+    },
+    {
+     "file": "runs/score-pilot.txt",
+     "loc": "HEALTH",
+     "quote": "short $0.00131 (n=540, total $0.7069)"
+    },
+    {
+     "file": "runs/score-pilot.txt",
+     "loc": "HEALTH",
+     "quote": "short $0.00116 (n=540, total $0.6278)"
+    },
+    {
+     "file": "runs/score-pilot.txt",
+     "loc": "HEALTH",
+     "quote": "long $0.00216 (n=360, total $0.7790)"
+    },
+    {
+     "file": "runs/score-pilot.txt",
+     "loc": "HEALTH",
+     "quote": "long $0.00182 (n=360, total $0.6562)"
+    },
+    {
+     "file": "pipeline/run.py",
+     "loc": "RATE_SHORT",
+     "quote": "RATE_SHORT = 0.00178"
+    },
+    {
+     "file": "pipeline/run.py",
+     "loc": "RATE_LONG",
+     "quote": "RATE_LONG = 0.0030"
+    }
+   ],
+   "links": [
+    {
+     "to": "pilot-programme",
+     "rel": "needs"
+    },
+    {
+     "to": "screen",
+     "rel": "needs"
+    },
+    {
+     "to": "discrimination-rule",
+     "rel": "needs"
+    },
+    {
+     "to": "neff",
+     "rel": "needs"
+    },
+    {
+     "to": "margin-cutoff",
+     "rel": "needs"
+    },
+    {
+     "to": "judges",
+     "rel": "involves"
+    },
+    {
+     "to": "parse-failures",
+     "rel": "related"
+    },
+    {
+     "to": "cost-model",
+     "rel": "related"
+    },
+    {
+     "to": "open-first-run",
+     "rel": "related"
+    },
+    {
+     "to": "open-screen-pass",
+     "rel": "related"
+    },
+    {
+     "to": "open-h6-data",
+     "rel": "related"
+    },
+    {
+     "to": "numbered-answers",
+     "rel": "related"
+    }
+   ]
+  },
+  {
+   "id": "open-screen-pass",
+   "type": "issue",
+   "cluster": "issues",
+   "title": "The screen may pass no judge in the main run",
+   "label": "Screen may pass no judge",
+   "summary": "In the pilot, discrimination excluded all three judges: two could not be assessed, because their decisions went almost all one way in every condition, and the third failed on the one condition that counted. If the main run does the same on 40 cases, no judge's stated probabilities count, so the belief results go unreported: the agreement block, n_eff, the belief half of H3, and H6. Decisions still count. Decide before the main run whether anything changes, and record any change as made after the pilot.",
+   "status": "open",
+   "date": "2026-10-19",
+   "points": [
+    "Where the pilot's decisions were mixed, the judges were more confident when wrong: X1 and X3 reached AUROCs of only 0.02 to 0.10. The rule expects this, since being wrong there means following the two agreeing reports: [[discrimination-rule]].",
+    "Apart from A0, which never counts, only Sonnet's X2 had 10 right and 10 wrong decisions: [[pilot-results]]."
+   ],
+   "evidence": [
+    {
+     "file": "README.md",
+     "loc": "Status and open items",
+     "quote": "First, discrimination excluded all three judges; if it does so on 40 cases, no judge's stated probabilities count, so n_eff and every other belief result go unreported, while decisions still count."
+    },
+    {
+     "file": "README.md",
+     "loc": "Measures, in order of weight",
+     "quote": "Stated probabilities count as evidence only for a judge that passes the confidence screen"
+    },
+    {
+     "file": "README.md",
+     "loc": "Measures, in order of weight",
+     "quote": "A judge that fails either check is reported as uninformative on confidence; its decisions still count."
+    },
+    {
+     "file": "runs/score-pilot.txt",
+     "loc": "DISCRIMINATION",
+     "quote": "not assessable: no condition has 10 correct and 10 incorrect decisions -- EXCLUDED"
+    },
+    {
+     "file": "runs/score-pilot.txt",
+     "loc": "DISCRIMINATION",
+     "quote": "X1 0.02 (3/57), X2 0.74 (59/1), X3 0.10 (6/54)"
+    },
+    {
+     "file": "runs/score-pilot.txt",
+     "loc": "DISCRIMINATION",
+     "quote": "X2 0.59 (31/29)"
+    },
+    {
+     "file": "docs/decisions.md",
+     "loc": "Discrimination passes a judge on one informative condition",
+     "quote": "being wrong mostly means following the two agreeing reports, which a judge can do confidently"
+    },
+    {
+     "file": "docs/decisions.md",
+     "loc": "Discrimination passes a judge on one informative condition",
+     "quote": "Not assessable counts as a fail, because the proposal admits a number only once it passes."
+    }
+   ],
+   "links": [
+    {
+     "to": "screen",
+     "rel": "needs"
+    },
+    {
+     "to": "discrimination-rule",
+     "rel": "needs"
+    },
+    {
+     "to": "pilot-results",
+     "rel": "needs"
+    },
+    {
+     "to": "neff",
+     "rel": "involves"
+    },
+    {
+     "to": "open-h6-data",
+     "rel": "related"
+    },
+    {
+     "to": "status-board",
+     "rel": "part-of"
+    }
+   ]
+  },
+  {
+   "id": "open-h6-data",
+   "type": "issue",
+   "cluster": "issues",
+   "title": "H6 may have almost nothing to test in the main run",
+   "label": "H6 has little data",
+   "summary": "H6's test needs forced-choice trials whose numbers do not back the answer, and judges that abstain when they may. In the pilot only 8 of 900 conflict-block records were flagged, Opus and Sonnet never abstained, and GPT-5.4's four abstentions all came in X1, in trials whose numbers did back the answer. The README counts a judge that abstains nowhere as a nuisance, so H6 could end unreadable rather than null. H6 also needs the screen: [[open-screen-pass]]. Decide before the main run whether anything changes, and record any change as made after the pilot.",
+   "status": "open",
+   "date": "2026-10-19",
+   "points": [
+    "Only repeats 1 to 4 have an abstention twin, since the abstention arm runs 4 repeats and the conflict block 12, so most flagged records have no twin to compare: [[margin-cutoff]]."
+   ],
+   "evidence": [
+    {
+     "file": "README.md",
+     "loc": "Status and open items",
+     "quote": "Second, H6 had almost nothing to test: 8 of 900 conflict-block records were flagged, and two judges never abstained."
+    },
+    {
+     "file": "runs/score-pilot.txt",
+     "loc": "H6",
+     "quote": "5/300 conflict-block records do not identify the answer given"
+    },
+    {
+     "file": "runs/score-pilot.txt",
+     "loc": "H6",
+     "quote": "X3 flagged 0/2 (0.00), not flagged 0/18 (0.00)"
+    },
+    {
+     "file": "runs/score-pilot.txt",
+     "loc": "H6",
+     "quote": "X2 flagged 0/1 (0.00), not flagged 0/19 (0.00)"
+    },
+    {
+     "file": "runs/score-pilot.txt",
+     "loc": "H6",
+     "quote": "X1 flagged 0/0 (n/a), not flagged 4/20 (0.20)"
+    },
+    {
+     "file": "README.md",
+     "loc": "What counts as support, fixed before any data",
+     "quote": "one judge abstains everywhere or nowhere"
+    },
+    {
+     "file": "pipeline/run.py",
+     "loc": "PROGRAMME",
+     "quote": "Entry(\"abstain\", \"abstain\", ABSTAIN_ARM, 4, PRIMARY_JUDGES, False),"
+    }
+   ],
+   "links": [
+    {
+     "to": "h6",
+     "rel": "needs"
+    },
+    {
+     "to": "margin-cutoff",
+     "rel": "needs"
+    },
+    {
+     "to": "abstain-arm",
+     "rel": "needs"
+    },
+    {
+     "to": "pilot-results",
+     "rel": "needs"
+    },
+    {
+     "to": "open-screen-pass",
+     "rel": "related"
+    },
+    {
+     "to": "status-board",
+     "rel": "part-of"
     }
    ]
   },
@@ -5745,10 +7305,10 @@ a.ref:hover { background: var(--surface-2); }
    "id": "open-ladder-wording",
    "type": "issue",
    "cluster": "issues",
-   "title": "The wording ladder's sentence needs review",
-   "label": "Ladder wording?",
-   "summary": "The proposal fixes the three intensity words of the ladder but not the full sentence around them. The code uses one built on X5's dependence note; the team should review it before the main run.",
-   "status": "open",
+   "title": "The wording ladder's sentence needed review",
+   "label": "Ladder wording (settled)",
+   "summary": "Settled. The proposal fixes the ladder's three intensity words but not the sentence around them, so the team reviewed the code's sentence on 2026-10-18 and kept it: [[ladder-sentence]].",
+   "status": "current",
    "date": "2026-10-12",
    "evidence": [
     {
@@ -5757,9 +7317,9 @@ a.ref:hover { background: var(--surface-2); }
      "quote": "the sentence above needs the team's review before the main run."
     },
     {
-     "file": "README.md",
-     "loc": "Status and open items",
-     "quote": "review the wording ladder's sentence"
+     "file": "docs/decisions.md",
+     "loc": "The graded wording ladder",
+     "quote": "Reviewed and kept on 2026-10-18; see that day's entry."
     }
    ],
    "links": [
@@ -5770,6 +7330,10 @@ a.ref:hover { background: var(--surface-2); }
     {
      "to": "status-board",
      "rel": "part-of"
+    },
+    {
+     "to": "ladder-sentence",
+     "rel": "related"
     }
    ]
   },
@@ -5777,9 +7341,9 @@ a.ref:hover { background: var(--surface-2); }
    "id": "open-subset",
    "type": "issue",
    "cluster": "issues",
-   "title": "Which ten cases form the subset?",
-   "label": "Which ten cases?",
-   "summary": "The length arm and the wording ladder run on the same 10 of the 40 cases, but the proposal does not say which ten. The code takes the first ten in corpus order for now.",
+   "title": "The ten-case subset: put the ten first before the main run",
+   "label": "Subset: put ten first",
+   "summary": "Before the main run, cases/__init__.py must put the ten-case subset first, because the code takes the first ten in corpus order. The ten are chosen: M1–M5 plus M6, M14, M22, M30 and M38, which Kai Rong marked with the first Phase 4 batches, before anyone drafted them ([[subset-rule]]). The reorder waits until all 40 cases are merged.",
    "status": "open",
    "date": "2026-10-12",
    "evidence": [
@@ -5792,6 +7356,21 @@ a.ref:hover { background: var(--surface-2); }
      "file": "pipeline/run.py",
      "loc": "subset",
      "quote": "Which ten is not fixed by the proposal"
+    },
+    {
+     "file": "docs/decisions.md",
+     "loc": "The runner encodes the proposal's main programme",
+     "quote": "The rule for choosing them was fixed on 2026-10-18; see that day's entry."
+    },
+    {
+     "file": "README.md",
+     "loc": "Status and open items",
+     "quote": "cases/__init__.py puts the ten-case subset first (the code takes the first ten)"
+    },
+    {
+     "file": "docs/work-plan.md",
+     "loc": "2D",
+     "quote": "reorder the tuple in cases/__init__.py so the ten come first"
     }
    ],
    "links": [
@@ -5806,6 +7385,10 @@ a.ref:hover { background: var(--surface-2); }
     {
      "to": "status-board",
      "rel": "part-of"
+    },
+    {
+     "to": "subset-rule",
+     "rel": "related"
     }
    ]
   },
@@ -5813,10 +7396,10 @@ a.ref:hover { background: var(--surface-2); }
    "id": "open-discrimination",
    "type": "issue",
    "cluster": "issues",
-   "title": "The discrimination check has no pass mark",
-   "label": "AUROC pass mark?",
-   "summary": "The scorer reports discrimination (AUROC, within condition), but nothing fixes the value a judge must reach or the smallest class size worth reporting, so the check cannot yet exclude a judge.",
-   "status": "open",
+   "title": "The discrimination check had no pass mark",
+   "label": "Discrimination rule (settled)",
+   "summary": "Settled. The scorer reported discrimination (AUROC within condition) with no pass mark and no smallest class size, so it could not exclude a judge. The team set both on 2026-10-18: [[discrimination-rule]].",
+   "status": "current",
    "date": "2026-10-12",
    "evidence": [
     {
@@ -5825,14 +7408,14 @@ a.ref:hover { background: var(--surface-2); }
      "quote": "Open: the team sets both before the main run."
     },
     {
-     "file": "README.md",
-     "loc": "Status and open items",
-     "quote": "set the discrimination check's pass mark and smallest usable class size"
-    },
-    {
      "file": "docs/proposal.pdf",
      "loc": "p.18 §5",
      "quote": "Area under the ROC curve"
+    },
+    {
+     "file": "docs/decisions.md",
+     "loc": "The discrimination check is reported",
+     "quote": "Both set on 2026-10-18; see that day's entry."
     }
    ],
    "links": [
@@ -5847,6 +7430,10 @@ a.ref:hover { background: var(--surface-2); }
     {
      "to": "status-board",
      "rel": "part-of"
+    },
+    {
+     "to": "discrimination-rule",
+     "rel": "related"
     }
    ]
   },
@@ -5854,10 +7441,10 @@ a.ref:hover { background: var(--surface-2); }
    "id": "open-margin-threshold",
    "type": "issue",
    "cluster": "issues",
-   "title": "The 'small margin' cut-off is not set",
-   "label": "Margin threshold?",
-   "summary": "H6 counts records whose top-two margin falls 'below a stated threshold', but no number has been stated. The margin itself is already logged on every trial.",
-   "status": "open",
+   "title": "The 'small margin' cut-off was not set",
+   "label": "Margin cut-off (settled)",
+   "summary": "Settled. H6 counts records whose top-two margin falls 'below a stated threshold', and the proposal states no number. The team set it at 10 points before any pilot result: [[margin-cutoff]].",
+   "status": "current",
    "date": "2026-10-12",
    "evidence": [
     {
@@ -5866,9 +7453,9 @@ a.ref:hover { background: var(--surface-2); }
      "quote": "below a stated threshold"
     },
     {
-     "file": "README.md",
-     "loc": "Status and open items",
-     "quote": "set the margin below which H6 counts a judge as indifferent"
+     "file": "docs/decisions.md",
+     "loc": "H6 counts a margin below 10 points as near indifference",
+     "quote": "The proposal states no number."
     }
    ],
    "links": [
@@ -5883,6 +7470,10 @@ a.ref:hover { background: var(--surface-2); }
     {
      "to": "status-board",
      "rel": "part-of"
+    },
+    {
+     "to": "margin-cutoff",
+     "rel": "related"
     }
    ]
   },
@@ -5917,29 +7508,29 @@ a.ref:hover { background: var(--surface-2); }
    "id": "open-pilot-scope",
    "type": "issue",
    "cluster": "issues",
-   "title": "What does the pilot run?",
-   "label": "Pilot scope",
-   "summary": "The pilot is fixed at 5 cases, but nothing says which arms it runs or how many calls it may make. The whole programme on 5 cases would be 3,660 calls, about $7. Jason and the group decide before the pilot, and approve the spend.",
-   "status": "open",
+   "title": "The pilot's arms and call ceiling were not decided",
+   "label": "Pilot scope (settled)",
+   "summary": "Settled. The pilot was fixed at 5 cases, but nothing said which arms it runs or how many calls it may make. It runs the whole programme, 3,660 calls and $7.03: [[pilot-programme]].",
+   "status": "current",
    "date": "2026-10-12",
    "points": [
     "The number of cases is settled: [[pilot-size]]. The work plan gives this item to Jason: [[work-plan]]."
    ],
    "evidence": [
     {
-     "file": "README.md",
-     "loc": "Status and open items",
-     "quote": "Which arms the pilot runs, and its call ceiling, are not decided yet."
-    },
-    {
      "file": "docs/work-plan.md",
      "loc": "2E What the pilot runs",
-     "quote": "Nothing yet says which arms the pilot runs, or its call ceiling."
+     "quote": "Nothing said which arms the pilot runs, or its call ceiling."
     },
     {
      "file": "docs/work-plan.md",
      "loc": "2E What the pilot runs",
      "quote": "The whole programme on 5 cases is 3,660 calls, $7.03."
+    },
+    {
+     "file": "docs/decisions.md",
+     "loc": "The pilot runs the whole programme on M1-M5",
+     "quote": "The group approves up to $10."
     }
    ],
    "links": [
@@ -5958,6 +7549,10 @@ a.ref:hover { background: var(--surface-2); }
     {
      "to": "status-board",
      "rel": "part-of"
+    },
+    {
+     "to": "pilot-programme",
+     "rel": "related"
     }
    ]
   },
@@ -6245,6 +7840,81 @@ a.ref:hover { background: var(--surface-2); }
   },
   {
    "date": "2026-10-18",
+   "summary": "Recorded Jason's rule that case authors do not update the corpus count; he updates it when he merges each case. CLAUDE.md and work-plan step 1.10 now say so, and the work plan's status lines no longer repeat numbers that go stale.",
+   "added": [
+    "count-at-merge"
+   ],
+   "changed": [
+    "pilot-size",
+    "kg-rule"
+   ]
+  },
+  {
+   "date": "2026-10-18",
+   "summary": "Settled Phase 2 before any pilot result. The ladder's sentence is kept. H6 counts a top-two margin below 10 points as near indifference. Discrimination passes a judge when one condition with 10 right and 10 wrong decisions has AUROC above 0.5 at the screen's level, and the scorer now applies it and prints H6's test. A rule fixes the ten-case subset (M1–M5 plus five Phase 4 cases marked at assignment). The pilot runs the whole programme. docs/methods.md gains Margin and AUROC.",
+   "added": [
+    "ladder-sentence",
+    "margin",
+    "margin-cutoff",
+    "auroc",
+    "discrimination-rule",
+    "subset-rule",
+    "pilot-programme"
+   ],
+   "changed": [
+    "open-ladder-wording",
+    "open-margin-threshold",
+    "open-discrimination",
+    "open-pilot-scope",
+    "open-subset",
+    "h6",
+    "graded-ladder",
+    "screen",
+    "coherence-margin",
+    "methods-doc",
+    "work-plan",
+    "abstain-arm",
+    "cost-model",
+    "scorer",
+    "length-room"
+   ],
+   "closed": [
+    "open-ladder-wording",
+    "open-margin-threshold",
+    "open-discrimination",
+    "open-pilot-scope"
+   ]
+  },
+  {
+   "date": "2026-10-18",
+   "summary": "R16 now asks Phase 4 authors to vary the T1 hint: three of the four T1 pilot cases hint with 'is understood to', so if the reporter drops that phrase they all become T2 together. Work-plan step 1.4 points to it.",
+   "added": [
+    "hint-variety"
+   ],
+   "changed": [
+    "rules-wording",
+    "tiers"
+   ]
+  },
+  {
+   "date": "2026-10-18",
+   "summary": "Type names never say 'independent': X2 shows A's and B's type names, and the word would give X2 part of X3's dependence statement. R19's method example is now 'accredited laboratory test report'.",
+   "added": [
+    "no-independent-type"
+   ],
+   "changed": [
+    "rules-other"
+   ]
+  },
+  {
+   "date": "2026-10-18",
+   "summary": "M4's pull request moved its hint to 'is thought to be', so hint-variety now gives the three-of-four count as it stood when the rule was made.",
+   "changed": [
+    "hint-variety"
+   ]
+  },
+  {
+   "date": "2026-10-18",
    "summary": "M4 (product specification, method, T1) joined the corpus, now 4 of 40, so the pilot needs one more case.",
    "changed": [
     "open-corpus"
@@ -6252,9 +7922,146 @@ a.ref:hover { background: var(--surface-2); }
   },
   {
    "date": "2026-10-19",
+   "summary": "Phase 4 drafting starts now, before the pilot, with the lessons from the Phase 1 reviews and the current rules. Phase 4 cases are merged only after the pilot, since the run takes every registered case.",
+   "added": [
+    "phase4-early"
+   ],
+   "changed": [
+    "work-plan"
+   ]
+  },
+  {
+   "date": "2026-10-19",
+   "summary": "Kai Rong keeps the case register: assigns the Phase 4 batches, marks the five subset cases and keeps the register current.",
+   "changed": [
+    "subset-rule",
+    "open-subset",
+    "phase4-early",
+    "work-plan"
+   ]
+  },
+  {
+   "date": "2026-10-19",
    "summary": "M2 (product specification, primary source, T1) joined the corpus, now 5 of 40, so the pilot's five cases are all written.",
    "changed": [
     "open-corpus"
+   ]
+  },
+  {
+   "date": "2026-10-19",
+   "summary": "Discrimination's p-value now shuffles whole cases. A case's repeats are near-copies, so the first version, which counted each decision, passed a judge whose numbers carry no information about 1 time in 4 instead of 1 in 20. Kai Rong raised it in review, and Jason agreed.",
+   "changed": [
+    "auroc",
+    "discrimination-rule"
+   ]
+  },
+  {
+   "date": "2026-10-19",
+   "summary": "Kai Rong gave out the first Phase 4 batches and marked the five subset cases, M6, M14, M22, M30 and M38, before anyone drafted them. The case register gains a Subset column; putting the ten first in cases/__init__.py stays open until the main run.",
+   "changed": [
+    "open-subset",
+    "subset-rule",
+    "work-plan",
+    "length-room"
+   ]
+  },
+  {
+   "date": "2026-10-19",
+   "summary": "Kai Rong's review of the Phase 2 decisions. H6's abstention comparison is made inside each conflict condition, since pooling can show H6 where no trial does; the margin is taken after rescaling, now stated; the pilot is scored with --show-excluded, since on 5 cases discrimination is likely to exclude most judges; a subset case relabelled T2 stays in the ten, and each subset case gets a backup.",
+   "changed": [
+    "margin-cutoff",
+    "margin",
+    "h6",
+    "pilot-programme",
+    "discrimination-rule",
+    "subset-rule"
+   ]
+  },
+  {
+   "date": "2026-10-19",
+   "summary": "Jason agreed to Kai Rong's Phase 2 review changes, now recorded as team decisions: H6 compared inside each condition, the margin kept on the rescaled numbers, the pilot scored with --show-excluded, and a subset case relabelled T2 kept in the ten.",
+   "changed": [
+    "margin-cutoff",
+    "pilot-programme",
+    "subset-rule"
+   ]
+  },
+  {
+   "date": "2026-10-19",
+   "summary": "The pilot ran: every entry on M1–M5, 3,420 judge trials, scored together with --show-excluded. Every arm ran and parsed; ordering kept all three judges and discrimination excluded all three, so n_eff and H6 ran only as checks. The numbers are internal: a preview, not findings.",
+   "added": [
+    "pilot-results"
+   ],
+   "changed": [
+    "open-first-run",
+    "pilot-programme"
+   ],
+   "closed": [
+    "open-first-run"
+   ]
+  },
+  {
+   "date": "2026-10-19",
+   "summary": "Two open questions from the pilot for the main run: the screen may pass no judge, which would leave every belief result unreported, and H6 may have almost nothing to test.",
+   "added": [
+    "open-screen-pass",
+    "open-h6-data"
+   ],
+   "changed": [
+    "pilot-results"
+   ],
+   "opened": [
+    "open-screen-pass",
+    "open-h6-data"
+   ]
+  },
+  {
+   "date": "2026-10-19",
+   "summary": "The parser reads an answer written with its option number, such as \"4. 15%\", when the number is that option's own; the pilot logged three such GPT-5.4 answers as no_match.",
+   "added": [
+    "numbered-answers"
+   ],
+   "changed": [
+    "no-match"
+   ]
+  },
+  {
+   "date": "2026-10-19",
+   "summary": "pilot-results now says the parser has since been fixed for the three numbered answers, and links the fix.",
+   "changed": [
+    "pilot-results"
+   ]
+  },
+  {
+   "date": "2026-10-21",
+   "summary": "Three authoring questions from the Phase 4 reviews, settled by Jason: the screen sentence may keep A's claim or a distractor (R15); from Phase 4, A's and B's type names differ only in the case's dimension, with a new R19 example table, M1–M5 exempt; filler may name the case's subject (R9).",
+   "added": [
+    "screen-other-survivor",
+    "types-dimension-only",
+    "filler-names-subject"
+   ],
+   "changed": [
+    "rules-options",
+    "rules-other",
+    "rules-filler",
+    "no-independent-type",
+    "h5"
+   ]
+  },
+  {
+   "date": "2026-10-21",
+   "summary": "Kai Rong assigned the other 25 Phase 4 cases, so all 40 have a domain, dimension and tier (30 T1, 10 T2), and named a backup for each of the five marked subset cases: M16 for M6, M8 for M14, M9 for M22, M17 for M30, M32 for M38.",
+   "changed": [
+    "subset-rule",
+    "tiers",
+    "work-plan"
+   ]
+  },
+  {
+   "date": "2026-10-21",
+   "summary": "Recorded Jason's answer to Kathleen's question on the pilot pull request: two of B's, C's and D's reports that read almost alike while under the 0.50 overlap limit are noted at step 3.4, not failed. The work plan's step 3.4 now says so.",
+   "added": [
+    "a7-near-copies-noted"
    ]
   }
  ]
@@ -6625,6 +8432,22 @@ const VISUALS = {
     b += `<line x1="${X(d.level)}" x2="${X(d.level)}" y1="2" y2="${h + 4}" class="v-grid" style="stroke:var(--muted)"/>`
       + T(X(d.level), h + 16, `pass mark ${d.level}`, 'v-small', 'middle');
     return fig(svgWrap(440, h + 22, b, d.rows.map(([l, v]) => `${l}: p = ${v}`).join('; ')), esc(d.caption));
+  },
+  marginCut(n) {
+    // top-two margins from the node's data on a 0-100 scale, against H6's cut-off (dashed):
+    // a bar ending left of the line is flagged as near indifference.
+    const d = n.data, L = 140, W = 200, X = v => L + W * v / 100;
+    const h = d.rows.length * 28;
+    let b = '';
+    d.rows.forEach(([label, v], i) => {
+      const y = i * 28 + 4, flagged = v < d.cut;
+      b += T(L - 8, y + 15, label, 'v-label', 'end') + `<rect x="${L}" y="${y + 4}" width="${W}" height="16" rx="4" class="b-track"/>`
+        + `<rect x="${L}" y="${y + 4}" width="${Math.max(2, X(v) - L)}" height="16" rx="4" class="${flagged ? 'b-open' : 'b-good'}"><title>${esc(label)}: margin ${v}</title></rect>`
+        + T(L + W + 10, y + 15, `${v} · ${flagged ? 'flagged' : 'not flagged'}`, 'v-val');
+    });
+    b += `<line x1="${X(d.cut)}" x2="${X(d.cut)}" y1="2" y2="${h + 4}" class="v-grid" style="stroke:var(--muted)"/>`
+      + T(X(d.cut), h + 16, `cut-off ${d.cut}`, 'v-small', 'middle');
+    return fig(svgWrap(440, h + 22, b, d.rows.map(([l, v]) => `${l}: margin ${v}`).join('; ')), esc(d.caption));
   },
   acceptance(n) {
     const steps = ['6 candidates', 'rubric: 4 flags', 'not a copy (≤ 0.70)', 'differs (≤ 0.50)', 'length ± 3 words', 'no leak', 'freeze'];

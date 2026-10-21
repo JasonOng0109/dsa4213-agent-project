@@ -1,0 +1,2419 @@
+{
+  "reporter": "openrouter:google/gemma-4-31b-it",
+  "rater": "openrouter:anthropic/claude-sonnet-5",
+  "sources": {
+    "M1/B": {
+      "status": "OK",
+      "needed": 3,
+      "generated": 6,
+      "accepted": 3,
+      "rounds": 1,
+      "calls": 12,
+      "candidates": [
+        {
+          "text": "The ME2103 lab logbook carries 15% of the final module grade.",
+          "semantic": 1.0,
+          "copy_overlap": 1.0,
+          "rubric": {
+            "all_details": true,
+            "nothing_added": true,
+            "values_unchanged": true,
+            "scope_kept": true,
+            "score": 1.0,
+            "ok": true,
+            "failed": [],
+            "raw": "{\"all_details\": true, \"nothing_added\": true, \"values_unchanged\": true, \"scope_kept\": true, \"score\": 100}"
+          },
+          "accepted": false,
+          "rejected_because": [
+            "copy overlap 1.00 > 0.7"
+          ]
+        },
+        {
+          "text": "Fifteen percent of the final grade for the ME2103 module is determined by the lab logbook.",
+          "semantic": 1.0,
+          "copy_overlap": 0.13636363636363635,
+          "rubric": {
+            "all_details": true,
+            "nothing_added": true,
+            "values_unchanged": true,
+            "scope_kept": true,
+            "score": 1.0,
+            "ok": true,
+            "failed": [],
+            "raw": "{\"all_details\": true, \"nothing_added\": true, \"values_unchanged\": true, \"scope_kept\": true, \"score\": 100}"
+          },
+          "accepted": false,
+          "rejected_because": [
+            "length +5 words > 3 from the source"
+          ]
+        },
+        {
+          "text": "A total of 15% of the final grade for the ME2103 module is attributed to the lab logbook.",
+          "semantic": 1.0,
+          "copy_overlap": 0.17391304347826086,
+          "rubric": {
+            "all_details": true,
+            "nothing_added": true,
+            "values_unchanged": true,
+            "scope_kept": true,
+            "score": 1.0,
+            "ok": true,
+            "failed": [],
+            "raw": "{\"all_details\": true, \"nothing_added\": true, \"values_unchanged\": true, \"scope_kept\": true, \"score\": 100}"
+          },
+          "accepted": false,
+          "rejected_because": [
+            "length +7 words > 3 from the source"
+          ]
+        },
+        {
+          "text": "The lab logbook accounts for 15% of the final grade in the ME2103 module.",
+          "semantic": 1.0,
+          "copy_overlap": 0.2777777777777778,
+          "rubric": {
+            "all_details": true,
+            "nothing_added": true,
+            "values_unchanged": true,
+            "scope_kept": true,
+            "score": 1.0,
+            "ok": true,
+            "failed": [],
+            "raw": "{\"all_details\": true, \"nothing_added\": true, \"values_unchanged\": true, \"scope_kept\": true, \"score\": 100}"
+          },
+          "accepted": true,
+          "rejected_because": []
+        },
+        {
+          "text": "For the ME2103 module, the lab logbook contributes 15% toward the final grade.",
+          "semantic": 1.0,
+          "copy_overlap": 0.15789473684210525,
+          "rubric": {
+            "all_details": true,
+            "nothing_added": true,
+            "values_unchanged": true,
+            "scope_kept": true,
+            "score": 1.0,
+            "ok": true,
+            "failed": [],
+            "raw": "{\"all_details\": true, \"nothing_added\": true, \"values_unchanged\": true, \"scope_kept\": true, \"score\": 100}"
+          },
+          "accepted": true,
+          "rejected_because": []
+        },
+        {
+          "text": "The lab logbook represents 15% of the overall grade for the ME2103 module.",
+          "semantic": 1.0,
+          "copy_overlap": 0.2222222222222222,
+          "rubric": {
+            "all_details": true,
+            "nothing_added": true,
+            "values_unchanged": true,
+            "scope_kept": true,
+            "score": 1.0,
+            "ok": true,
+            "failed": [],
+            "raw": "{\"all_details\": true, \"nothing_added\": true, \"values_unchanged\": true, \"scope_kept\": true, \"score\": 100}"
+          },
+          "accepted": true,
+          "rejected_because": []
+        }
+      ]
+    },
+    "M1/A": {
+      "status": "OK",
+      "needed": 2,
+      "generated": 6,
+      "accepted": 2,
+      "rounds": 1,
+      "calls": 12,
+      "candidates": [
+        {
+          "text": "The ME2103 lab logbook counts for 25% of the final module grade.",
+          "semantic": 0.97,
+          "copy_overlap": 0.6923076923076923,
+          "rubric": {
+            "all_details": true,
+            "nothing_added": true,
+            "values_unchanged": true,
+            "scope_kept": true,
+            "score": 0.97,
+            "ok": true,
+            "failed": [],
+            "raw": "{\"all_details\": true, \"nothing_added\": true, \"values_unchanged\": true, \"scope_kept\": true, \"score\": 97}"
+          },
+          "accepted": false,
+          "rejected_because": [
+            "eligible but not needed (quota filled first)"
+          ]
+        },
+        {
+          "text": "A final module grade for ME2103 is comprised of 25% from the lab logbook.",
+          "semantic": 0.97,
+          "copy_overlap": 0.043478260869565216,
+          "rubric": {
+            "all_details": true,
+            "nothing_added": true,
+            "values_unchanged": true,
+            "scope_kept": true,
+            "score": 0.97,
+            "ok": true,
+            "failed": [],
+            "raw": "{\"all_details\": true, \"nothing_added\": true, \"values_unchanged\": true, \"scope_kept\": true, \"score\": 97}"
+          },
+          "accepted": false,
+          "rejected_because": [
+            "eligible but not needed (quota filled first)"
+          ]
+        },
+        {
+          "text": "Twenty-five percent of the final grade for module ME2103 is determined by the lab logbook.",
+          "semantic": 1.0,
+          "copy_overlap": 0.0,
+          "rubric": {
+            "all_details": true,
+            "nothing_added": true,
+            "values_unchanged": true,
+            "scope_kept": true,
+            "score": 1.0,
+            "ok": true,
+            "failed": [],
+            "raw": "{\"all_details\": true, \"nothing_added\": true, \"values_unchanged\": true, \"scope_kept\": true, \"score\": 100}"
+          },
+          "accepted": true,
+          "rejected_because": []
+        },
+        {
+          "text": "The lab logbook contributes 25% toward the final grade for module ME2103.",
+          "semantic": 1.0,
+          "copy_overlap": 0.047619047619047616,
+          "rubric": {
+            "all_details": true,
+            "nothing_added": true,
+            "values_unchanged": true,
+            "scope_kept": true,
+            "score": 1.0,
+            "ok": true,
+            "failed": [],
+            "raw": "{\"all_details\": true, \"nothing_added\": true, \"values_unchanged\": true, \"scope_kept\": true, \"score\": 100}"
+          },
+          "accepted": false,
+          "rejected_because": [
+            "eligible but not needed (quota filled first)"
+          ]
+        },
+        {
+          "text": "The lab logbook accounts for 25% of the final grade in module ME2103.",
+          "semantic": 1.0,
+          "copy_overlap": 0.15,
+          "rubric": {
+            "all_details": true,
+            "nothing_added": true,
+            "values_unchanged": true,
+            "scope_kept": true,
+            "score": 1.0,
+            "ok": true,
+            "failed": [],
+            "raw": "{\"all_details\": true, \"nothing_added\": true, \"values_unchanged\": true, \"scope_kept\": true, \"score\": 100}"
+          },
+          "accepted": false,
+          "rejected_because": [
+            "eligible but not needed (quota filled first)"
+          ]
+        },
+        {
+          "text": "For module ME2103, the lab logbook represents 25% of the final grade.",
+          "semantic": 1.0,
+          "copy_overlap": 0.1,
+          "rubric": {
+            "all_details": true,
+            "nothing_added": true,
+            "values_unchanged": true,
+            "scope_kept": true,
+            "score": 1.0,
+            "ok": true,
+            "failed": [],
+            "raw": "{\"all_details\": true, \"nothing_added\": true, \"values_unchanged\": true, \"scope_kept\": true, \"score\": 100}"
+          },
+          "accepted": true,
+          "rejected_because": []
+        }
+      ]
+    },
+    "M1/C": {
+      "status": "OK",
+      "needed": 1,
+      "generated": 6,
+      "accepted": 1,
+      "rounds": 1,
+      "calls": 12,
+      "candidates": [
+        {
+          "text": "Fifteen per cent of the available ME2103 marks are awarded for the lab logbook.",
+          "semantic": 1.0,
+          "copy_overlap": 0.5294117647058824,
+          "rubric": {
+            "all_details": true,
+            "nothing_added": true,
+            "values_unchanged": true,
+            "scope_kept": true,
+            "score": 1.0,
+            "ok": true,
+            "failed": [],
+            "raw": "{\"all_details\": true, \"nothing_added\": true, \"values_unchanged\": true, \"scope_kept\": true, \"score\": 100}"
+          },
+          "accepted": false,
+          "rejected_because": [
+            "eligible but not needed (quota filled first)"
+          ]
+        },
+        {
+          "text": "The lab logbook accounts for fifteen per cent of the available marks for ME2103.",
+          "semantic": 1.0,
+          "copy_overlap": 0.18181818181818182,
+          "rubric": {
+            "all_details": true,
+            "nothing_added": true,
+            "values_unchanged": true,
+            "scope_kept": true,
+            "score": 1.0,
+            "ok": true,
+            "failed": [],
+            "raw": "{\"all_details\": true, \"nothing_added\": true, \"values_unchanged\": true, \"scope_kept\": true, \"score\": 100}"
+          },
+          "accepted": false,
+          "rejected_because": [
+            "pairwise overlap 0.53 > 0.5"
+          ]
+        },
+        {
+          "text": "The lab logbook contributes fifteen per cent of the total available marks for ME2103.",
+          "semantic": 1.0,
+          "copy_overlap": 0.18181818181818182,
+          "rubric": {
+            "all_details": true,
+            "nothing_added": true,
+            "values_unchanged": true,
+            "scope_kept": true,
+            "score": 1.0,
+            "ok": true,
+            "failed": [],
+            "raw": "{\"all_details\": true, \"nothing_added\": true, \"values_unchanged\": true, \"scope_kept\": true, \"score\": 100}"
+          },
+          "accepted": true,
+          "rejected_because": []
+        },
+        {
+          "text": "The lab logbook is worth fifteen per cent of the marks available for ME2103.",
+          "semantic": 1.0,
+          "copy_overlap": 0.18181818181818182,
+          "rubric": {
+            "all_details": true,
+            "nothing_added": true,
+            "values_unchanged": true,
+            "scope_kept": true,
+            "score": 1.0,
+            "ok": true,
+            "failed": [],
+            "raw": "{\"all_details\": true, \"nothing_added\": true, \"values_unchanged\": true, \"scope_kept\": true, \"score\": 100}"
+          },
+          "accepted": false,
+          "rejected_because": [
+            "eligible but not needed (quota filled first)"
+          ]
+        },
+        {
+          "text": "Fifteen per cent of the available marks for ME2103 are given for the lab logbook.",
+          "semantic": 1.0,
+          "copy_overlap": 0.2857142857142857,
+          "rubric": {
+            "all_details": true,
+            "nothing_added": true,
+            "values_unchanged": true,
+            "scope_kept": true,
+            "score": 1.0,
+            "ok": true,
+            "failed": [],
+            "raw": "{\"all_details\": true, \"nothing_added\": true, \"values_unchanged\": true, \"scope_kept\": true, \"score\": 100}"
+          },
+          "accepted": false,
+          "rejected_because": [
+            "eligible but not needed (quota filled first)"
+          ]
+        },
+        {
+          "text": "The lab logbook provides fifteen per cent of the marks available for ME2103.",
+          "semantic": 1.0,
+          "copy_overlap": 0.19047619047619047,
+          "rubric": {
+            "all_details": true,
+            "nothing_added": true,
+            "values_unchanged": true,
+            "scope_kept": true,
+            "score": 1.0,
+            "ok": true,
+            "failed": [],
+            "raw": "{\"all_details\": true, \"nothing_added\": true, \"values_unchanged\": true, \"scope_kept\": true, \"score\": 100}"
+          },
+          "accepted": false,
+          "rejected_because": [
+            "eligible but not needed (quota filled first)"
+          ]
+        }
+      ]
+    },
+    "M1/D": {
+      "status": "OK",
+      "needed": 1,
+      "generated": 6,
+      "accepted": 1,
+      "rounds": 1,
+      "calls": 12,
+      "candidates": [
+        {
+          "text": "The lab logbook contributes 15% towards a student's overall ME2103 result.",
+          "semantic": 1.0,
+          "copy_overlap": 1.0,
+          "rubric": {
+            "all_details": true,
+            "nothing_added": true,
+            "values_unchanged": true,
+            "scope_kept": true,
+            "score": 1.0,
+            "ok": true,
+            "failed": [],
+            "raw": "{\"all_details\": true, \"nothing_added\": true, \"values_unchanged\": true, \"scope_kept\": true, \"score\": 100}"
+          },
+          "accepted": false,
+          "rejected_because": [
+            "copy overlap 1.00 > 0.7"
+          ]
+        },
+        {
+          "text": "A student's overall ME2103 result is composed of 15% from the lab logbook.",
+          "semantic": 1.0,
+          "copy_overlap": 0.2222222222222222,
+          "rubric": {
+            "all_details": true,
+            "nothing_added": true,
+            "values_unchanged": true,
+            "scope_kept": true,
+            "score": 1.0,
+            "ok": true,
+            "failed": [],
+            "raw": "{\"all_details\": true, \"nothing_added\": true, \"values_unchanged\": true, \"scope_kept\": true, \"score\": 100}"
+          },
+          "accepted": false,
+          "rejected_because": [
+            "eligible but not needed (quota filled first)"
+          ]
+        },
+        {
+          "text": "Fifteen percent of a student's total ME2103 result is derived from the lab logbook.",
+          "semantic": 1.0,
+          "copy_overlap": 0.09523809523809523,
+          "rubric": {
+            "all_details": true,
+            "nothing_added": true,
+            "values_unchanged": true,
+            "scope_kept": true,
+            "score": 1.0,
+            "ok": true,
+            "failed": [],
+            "raw": "{\"all_details\": true, \"nothing_added\": true, \"values_unchanged\": true, \"scope_kept\": true, \"score\": 100}"
+          },
+          "accepted": true,
+          "rejected_because": []
+        },
+        {
+          "text": "The lab logbook accounts for 15% of the overall ME2103 result for a student.",
+          "semantic": 1.0,
+          "copy_overlap": 0.15,
+          "rubric": {
+            "all_details": true,
+            "nothing_added": true,
+            "values_unchanged": true,
+            "scope_kept": true,
+            "score": 1.0,
+            "ok": true,
+            "failed": [],
+            "raw": "{\"all_details\": true, \"nothing_added\": true, \"values_unchanged\": true, \"scope_kept\": true, \"score\": 100}"
+          },
+          "accepted": false,
+          "rejected_because": [
+            "eligible but not needed (quota filled first)"
+          ]
+        },
+        {
+          "text": "For a student, 15% of the total ME2103 result is made up of the lab logbook.",
+          "semantic": 1.0,
+          "copy_overlap": 0.043478260869565216,
+          "rubric": {
+            "all_details": true,
+            "nothing_added": true,
+            "values_unchanged": true,
+            "scope_kept": true,
+            "score": 1.0,
+            "ok": true,
+            "failed": [],
+            "raw": "{\"all_details\": true, \"nothing_added\": true, \"values_unchanged\": true, \"scope_kept\": true, \"score\": 100}"
+          },
+          "accepted": false,
+          "rejected_because": [
+            "length +5 words > 3 from the source"
+          ]
+        },
+        {
+          "text": "The lab logbook represents a 15% portion of a student's overall ME2103 result.",
+          "semantic": 1.0,
+          "copy_overlap": 0.375,
+          "rubric": {
+            "all_details": true,
+            "nothing_added": true,
+            "values_unchanged": true,
+            "scope_kept": true,
+            "score": 1.0,
+            "ok": true,
+            "failed": [],
+            "raw": "{\"all_details\": true, \"nothing_added\": true, \"values_unchanged\": true, \"scope_kept\": true, \"score\": 100}"
+          },
+          "accepted": false,
+          "rejected_because": [
+            "eligible but not needed (quota filled first)"
+          ]
+        }
+      ]
+    },
+    "M2/B": {
+      "status": "OK",
+      "needed": 3,
+      "generated": 6,
+      "accepted": 3,
+      "rounds": 1,
+      "calls": 12,
+      "candidates": [
+        {
+          "text": "The Arden Air 14 laptop features a battery with a capacity of 65 Wh.",
+          "semantic": 1.0,
+          "copy_overlap": 0.4444444444444444,
+          "rubric": {
+            "all_details": true,
+            "nothing_added": true,
+            "values_unchanged": true,
+            "scope_kept": true,
+            "score": 1.0,
+            "ok": true,
+            "failed": [],
+            "raw": "{\"all_details\": true, \"nothing_added\": true, \"values_unchanged\": true, \"scope_kept\": true, \"score\": 100}"
+          },
+          "accepted": false,
+          "rejected_because": [
+            "eligible but not needed (quota filled first)"
+          ]
+        },
+        {
+          "text": "A 65 Wh capacity battery is included in the Arden Air 14 laptop.",
+          "semantic": 1.0,
+          "copy_overlap": 0.19047619047619047,
+          "rubric": {
+            "all_details": true,
+            "nothing_added": true,
+            "values_unchanged": true,
+            "scope_kept": true,
+            "score": 1.0,
+            "ok": true,
+            "failed": [],
+            "raw": "{\"all_details\": true, \"nothing_added\": true, \"values_unchanged\": true, \"scope_kept\": true, \"score\": 100}"
+          },
+          "accepted": true,
+          "rejected_because": []
+        },
+        {
+          "text": "The Arden Air 14 laptop is equipped with a battery that holds 65 Wh.",
+          "semantic": 1.0,
+          "copy_overlap": 0.23809523809523808,
+          "rubric": {
+            "all_details": true,
+            "nothing_added": true,
+            "values_unchanged": true,
+            "scope_kept": true,
+            "score": 1.0,
+            "ok": true,
+            "failed": [],
+            "raw": "{\"all_details\": true, \"nothing_added\": true, \"values_unchanged\": true, \"scope_kept\": true, \"score\": 100}"
+          },
+          "accepted": true,
+          "rejected_because": []
+        },
+        {
+          "text": "The battery capacity for the Arden Air 14 laptop is 65 Wh.",
+          "semantic": 1.0,
+          "copy_overlap": 0.3333333333333333,
+          "rubric": {
+            "all_details": true,
+            "nothing_added": true,
+            "values_unchanged": true,
+            "scope_kept": true,
+            "score": 1.0,
+            "ok": true,
+            "failed": [],
+            "raw": "{\"all_details\": true, \"nothing_added\": true, \"values_unchanged\": true, \"scope_kept\": true, \"score\": 100}"
+          },
+          "accepted": false,
+          "rejected_because": [
+            "eligible but not needed (quota filled first)"
+          ]
+        },
+        {
+          "text": "The Arden Air 14 laptop's battery provides 65 Wh of capacity.",
+          "semantic": 1.0,
+          "copy_overlap": 0.15,
+          "rubric": {
+            "all_details": true,
+            "nothing_added": true,
+            "values_unchanged": true,
+            "scope_kept": true,
+            "score": 1.0,
+            "ok": true,
+            "failed": [],
+            "raw": "{\"all_details\": true, \"nothing_added\": true, \"values_unchanged\": true, \"scope_kept\": true, \"score\": 100}"
+          },
+          "accepted": true,
+          "rejected_because": []
+        },
+        {
+          "text": "The Arden Air 14 laptop utilizes a battery with a 65 Wh capacity.",
+          "semantic": 1.0,
+          "copy_overlap": 0.19047619047619047,
+          "rubric": {
+            "all_details": true,
+            "nothing_added": true,
+            "values_unchanged": true,
+            "scope_kept": true,
+            "score": 1.0,
+            "ok": true,
+            "failed": [],
+            "raw": "{\"all_details\": true, \"nothing_added\": true, \"values_unchanged\": true, \"scope_kept\": true, \"score\": 100}"
+          },
+          "accepted": false,
+          "rejected_because": [
+            "eligible but not needed (quota filled first)"
+          ]
+        }
+      ]
+    },
+    "M2/A": {
+      "status": "OK",
+      "needed": 2,
+      "generated": 6,
+      "accepted": 2,
+      "rounds": 1,
+      "calls": 12,
+      "candidates": [
+        {
+          "text": "The Arden Air 14 laptop is understood to have a battery capacity of 55 Wh.",
+          "semantic": 1.0,
+          "copy_overlap": 1.0,
+          "rubric": {
+            "all_details": true,
+            "nothing_added": true,
+            "values_unchanged": true,
+            "scope_kept": true,
+            "score": 1.0,
+            "ok": true,
+            "failed": [],
+            "raw": "{\"all_details\": true, \"nothing_added\": true, \"values_unchanged\": true, \"scope_kept\": true, \"score\": 100}"
+          },
+          "accepted": false,
+          "rejected_because": [
+            "copy overlap 1.00 > 0.7"
+          ]
+        },
+        {
+          "text": "A battery capacity of 55 Wh is understood for the Arden Air 14 laptop.",
+          "semantic": 1.0,
+          "copy_overlap": 0.42105263157894735,
+          "rubric": {
+            "all_details": true,
+            "nothing_added": true,
+            "values_unchanged": true,
+            "scope_kept": true,
+            "score": 1.0,
+            "ok": true,
+            "failed": [],
+            "raw": "{\"all_details\": true, \"nothing_added\": true, \"values_unchanged\": true, \"scope_kept\": true, \"score\": 100}"
+          },
+          "accepted": false,
+          "rejected_because": [
+            "eligible but not needed (quota filled first)"
+          ]
+        },
+        {
+          "text": "It is understood that the battery capacity for the Arden Air 14 laptop is 55 Wh.",
+          "semantic": 1.0,
+          "copy_overlap": 0.38095238095238093,
+          "rubric": {
+            "all_details": true,
+            "nothing_added": true,
+            "values_unchanged": true,
+            "scope_kept": true,
+            "score": 1.0,
+            "ok": true,
+            "failed": [],
+            "raw": "{\"all_details\": true, \"nothing_added\": true, \"values_unchanged\": true, \"scope_kept\": true, \"score\": 100}"
+          },
+          "accepted": false,
+          "rejected_because": [
+            "eligible but not needed (quota filled first)"
+          ]
+        },
+        {
+          "text": "The Arden Air 14 laptop's battery capacity is understood to be 55 Wh.",
+          "semantic": 1.0,
+          "copy_overlap": 0.3684210526315789,
+          "rubric": {
+            "all_details": true,
+            "nothing_added": true,
+            "values_unchanged": true,
+            "scope_kept": true,
+            "score": 1.0,
+            "ok": true,
+            "failed": [],
+            "raw": "{\"all_details\": true, \"nothing_added\": true, \"values_unchanged\": true, \"scope_kept\": true, \"score\": 100}"
+          },
+          "accepted": true,
+          "rejected_because": []
+        },
+        {
+          "text": "The battery capacity for the Arden Air 14 laptop is understood to be 55 Wh.",
+          "semantic": 1.0,
+          "copy_overlap": 0.47368421052631576,
+          "rubric": {
+            "all_details": true,
+            "nothing_added": true,
+            "values_unchanged": true,
+            "scope_kept": true,
+            "score": 1.0,
+            "ok": true,
+            "failed": [],
+            "raw": "{\"all_details\": true, \"nothing_added\": true, \"values_unchanged\": true, \"scope_kept\": true, \"score\": 100}"
+          },
+          "accepted": false,
+          "rejected_because": [
+            "pairwise overlap 0.53 > 0.5"
+          ]
+        },
+        {
+          "text": "It is understood that the Arden Air 14 laptop possesses a 55 Wh battery capacity.",
+          "semantic": 1.0,
+          "copy_overlap": 0.21739130434782608,
+          "rubric": {
+            "all_details": true,
+            "nothing_added": true,
+            "values_unchanged": true,
+            "scope_kept": true,
+            "score": 1.0,
+            "ok": true,
+            "failed": [],
+            "raw": "{\"all_details\": true, \"nothing_added\": true, \"values_unchanged\": true, \"scope_kept\": true, \"score\": 100}"
+          },
+          "accepted": true,
+          "rejected_because": []
+        }
+      ]
+    },
+    "M2/C": {
+      "status": "OK",
+      "needed": 1,
+      "generated": 6,
+      "accepted": 1,
+      "rounds": 1,
+      "calls": 12,
+      "candidates": [
+        {
+          "text": "The battery capacity of the Arden Air 14 laptop is sixty-five watt-hours.",
+          "semantic": 1.0,
+          "copy_overlap": 0.4666666666666667,
+          "rubric": {
+            "all_details": true,
+            "nothing_added": true,
+            "values_unchanged": true,
+            "scope_kept": true,
+            "score": 1.0,
+            "ok": true,
+            "failed": [],
+            "raw": "{\"all_details\": true, \"nothing_added\": true, \"values_unchanged\": true, \"scope_kept\": true, \"score\": 100}"
+          },
+          "accepted": false,
+          "rejected_because": [
+            "eligible but not needed (quota filled first)"
+          ]
+        },
+        {
+          "text": "The Arden Air 14 laptop features a battery capacity of sixty-five watt-hours.",
+          "semantic": 1.0,
+          "copy_overlap": 0.29411764705882354,
+          "rubric": {
+            "all_details": true,
+            "nothing_added": true,
+            "values_unchanged": true,
+            "scope_kept": true,
+            "score": 1.0,
+            "ok": true,
+            "failed": [],
+            "raw": "{\"all_details\": true, \"nothing_added\": true, \"values_unchanged\": true, \"scope_kept\": true, \"score\": 100}"
+          },
+          "accepted": false,
+          "rejected_because": [
+            "eligible but not needed (quota filled first)"
+          ]
+        },
+        {
+          "text": "The Arden Air 14 laptop is equipped with a battery capacity of sixty-five watt-hours.",
+          "semantic": 1.0,
+          "copy_overlap": 0.2631578947368421,
+          "rubric": {
+            "all_details": true,
+            "nothing_added": true,
+            "values_unchanged": true,
+            "scope_kept": true,
+            "score": 1.0,
+            "ok": true,
+            "failed": [],
+            "raw": "{\"all_details\": true, \"nothing_added\": true, \"values_unchanged\": true, \"scope_kept\": true, \"score\": 100}"
+          },
+          "accepted": false,
+          "rejected_because": [
+            "cross-source overlap 0.53 > 0.5"
+          ]
+        },
+        {
+          "text": "A battery capacity of sixty-five watt-hours is found in the Arden Air 14 laptop.",
+          "semantic": 1.0,
+          "copy_overlap": 0.5,
+          "rubric": {
+            "all_details": true,
+            "nothing_added": true,
+            "values_unchanged": true,
+            "scope_kept": true,
+            "score": 1.0,
+            "ok": true,
+            "failed": [],
+            "raw": "{\"all_details\": true, \"nothing_added\": true, \"values_unchanged\": true, \"scope_kept\": true, \"score\": 100}"
+          },
+          "accepted": false,
+          "rejected_because": [
+            "eligible but not needed (quota filled first)"
+          ]
+        },
+        {
+          "text": "The Arden Air 14 laptop has a sixty-five watt-hour battery capacity.",
+          "semantic": 1.0,
+          "copy_overlap": 0.16666666666666666,
+          "rubric": {
+            "all_details": true,
+            "nothing_added": true,
+            "values_unchanged": true,
+            "scope_kept": true,
+            "score": 1.0,
+            "ok": true,
+            "failed": [],
+            "raw": "{\"all_details\": true, \"nothing_added\": true, \"values_unchanged\": true, \"scope_kept\": true, \"score\": 100}"
+          },
+          "accepted": true,
+          "rejected_because": []
+        },
+        {
+          "text": "The Arden Air 14 laptop's battery capacity is sixty-five watt-hours.",
+          "semantic": 1.0,
+          "copy_overlap": 0.25,
+          "rubric": {
+            "all_details": true,
+            "nothing_added": true,
+            "values_unchanged": true,
+            "scope_kept": true,
+            "score": 1.0,
+            "ok": true,
+            "failed": [],
+            "raw": "{\"all_details\": true, \"nothing_added\": true, \"values_unchanged\": true, \"scope_kept\": true, \"score\": 100}"
+          },
+          "accepted": false,
+          "rejected_because": [
+            "eligible but not needed (quota filled first)"
+          ]
+        }
+      ]
+    },
+    "M2/D": {
+      "status": "OK",
+      "needed": 1,
+      "generated": 6,
+      "accepted": 1,
+      "rounds": 1,
+      "calls": 12,
+      "candidates": [
+        {
+          "text": "The Arden Air 14 laptop contains a 65 Wh battery.",
+          "semantic": 1.0,
+          "copy_overlap": 0.5833333333333334,
+          "rubric": {
+            "all_details": true,
+            "nothing_added": true,
+            "values_unchanged": true,
+            "scope_kept": true,
+            "score": 1.0,
+            "ok": true,
+            "failed": [],
+            "raw": "{\"all_details\": true, \"nothing_added\": true, \"values_unchanged\": true, \"scope_kept\": true, \"score\": 100}"
+          },
+          "accepted": false,
+          "rejected_because": [
+            "eligible but not needed (quota filled first)"
+          ]
+        },
+        {
+          "text": "A 65 Wh battery is featured in the Arden Air 14 laptop.",
+          "semantic": 1.0,
+          "copy_overlap": 0.3125,
+          "rubric": {
+            "all_details": true,
+            "nothing_added": true,
+            "values_unchanged": true,
+            "scope_kept": true,
+            "score": 1.0,
+            "ok": true,
+            "failed": [],
+            "raw": "{\"all_details\": true, \"nothing_added\": true, \"values_unchanged\": true, \"scope_kept\": true, \"score\": 100}"
+          },
+          "accepted": false,
+          "rejected_because": [
+            "cross-source overlap 0.53 > 0.5"
+          ]
+        },
+        {
+          "text": "The battery capacity of the Arden Air 14 laptop is 65 Wh.",
+          "semantic": 1.0,
+          "copy_overlap": 0.23529411764705882,
+          "rubric": {
+            "all_details": true,
+            "nothing_added": true,
+            "values_unchanged": true,
+            "scope_kept": true,
+            "score": 1.0,
+            "ok": true,
+            "failed": [],
+            "raw": "{\"all_details\": true, \"nothing_added\": true, \"values_unchanged\": true, \"scope_kept\": true, \"score\": 100}"
+          },
+          "accepted": true,
+          "rejected_because": []
+        },
+        {
+          "text": "The Arden Air 14 laptop is equipped with a 65 Wh battery.",
+          "semantic": 1.0,
+          "copy_overlap": 0.5,
+          "rubric": {
+            "all_details": true,
+            "nothing_added": true,
+            "values_unchanged": true,
+            "scope_kept": true,
+            "score": 1.0,
+            "ok": true,
+            "failed": [],
+            "raw": "{\"all_details\": true, \"nothing_added\": true, \"values_unchanged\": true, \"scope_kept\": true, \"score\": 100}"
+          },
+          "accepted": false,
+          "rejected_because": [
+            "eligible but not needed (quota filled first)"
+          ]
+        },
+        {
+          "text": "The Arden Air 14 laptop is powered by a 65 Wh battery.",
+          "semantic": 1.0,
+          "copy_overlap": 0.5,
+          "rubric": {
+            "all_details": true,
+            "nothing_added": true,
+            "values_unchanged": true,
+            "scope_kept": true,
+            "score": 1.0,
+            "ok": true,
+            "failed": [],
+            "raw": "{\"all_details\": true, \"nothing_added\": true, \"values_unchanged\": true, \"scope_kept\": true, \"score\": 100}"
+          },
+          "accepted": false,
+          "rejected_because": [
+            "eligible but not needed (quota filled first)"
+          ]
+        },
+        {
+          "text": "The Arden Air 14 laptop has a battery capacity of 65 Wh.",
+          "semantic": 1.0,
+          "copy_overlap": 0.23529411764705882,
+          "rubric": {
+            "all_details": true,
+            "nothing_added": true,
+            "values_unchanged": true,
+            "scope_kept": true,
+            "score": 1.0,
+            "ok": true,
+            "failed": [],
+            "raw": "{\"all_details\": true, \"nothing_added\": true, \"values_unchanged\": true, \"scope_kept\": true, \"score\": 100}"
+          },
+          "accepted": false,
+          "rejected_because": [
+            "eligible but not needed (quota filled first)"
+          ]
+        }
+      ]
+    },
+    "M3/B": {
+      "status": "OK",
+      "needed": 3,
+      "generated": 6,
+      "accepted": 3,
+      "rounds": 1,
+      "calls": 12,
+      "candidates": [
+        {
+          "text": "The Star Reservoir basin holds water to a depth of 14 metres.",
+          "semantic": 1.0,
+          "copy_overlap": 1.0,
+          "rubric": {
+            "all_details": true,
+            "nothing_added": true,
+            "values_unchanged": true,
+            "scope_kept": true,
+            "score": 1.0,
+            "ok": true,
+            "failed": [],
+            "raw": "{\"all_details\": true, \"nothing_added\": true, \"values_unchanged\": true, \"scope_kept\": true, \"score\": 100}"
+          },
+          "accepted": false,
+          "rejected_because": [
+            "copy overlap 1.00 > 0.7"
+          ]
+        },
+        {
+          "text": "Water in the Star Reservoir basin reaches a depth of 14 metres.",
+          "semantic": 0.97,
+          "copy_overlap": 0.4666666666666667,
+          "rubric": {
+            "all_details": true,
+            "nothing_added": true,
+            "values_unchanged": true,
+            "scope_kept": true,
+            "score": 0.97,
+            "ok": true,
+            "failed": [],
+            "raw": "{\"all_details\": true, \"nothing_added\": true, \"values_unchanged\": true, \"scope_kept\": true, \"score\": 97}"
+          },
+          "accepted": false,
+          "rejected_because": [
+            "eligible but not needed (quota filled first)"
+          ]
+        },
+        {
+          "text": "A depth of 14 metres of water is held in the Star Reservoir basin.",
+          "semantic": 1.0,
+          "copy_overlap": 0.2631578947368421,
+          "rubric": {
+            "all_details": true,
+            "nothing_added": true,
+            "values_unchanged": true,
+            "scope_kept": true,
+            "score": 1.0,
+            "ok": true,
+            "failed": [],
+            "raw": "{\"all_details\": true, \"nothing_added\": true, \"values_unchanged\": true, \"scope_kept\": true, \"score\": 100}"
+          },
+          "accepted": true,
+          "rejected_because": []
+        },
+        {
+          "text": "The depth of the water within the Star Reservoir basin is 14 metres.",
+          "semantic": 1.0,
+          "copy_overlap": 0.2777777777777778,
+          "rubric": {
+            "all_details": true,
+            "nothing_added": true,
+            "values_unchanged": true,
+            "scope_kept": true,
+            "score": 1.0,
+            "ok": true,
+            "failed": [],
+            "raw": "{\"all_details\": true, \"nothing_added\": true, \"values_unchanged\": true, \"scope_kept\": true, \"score\": 100}"
+          },
+          "accepted": true,
+          "rejected_because": []
+        },
+        {
+          "text": "The Star Reservoir basin contains water that is 14 metres deep.",
+          "semantic": 1.0,
+          "copy_overlap": 0.16666666666666666,
+          "rubric": {
+            "all_details": true,
+            "nothing_added": true,
+            "values_unchanged": true,
+            "scope_kept": true,
+            "score": 1.0,
+            "ok": true,
+            "failed": [],
+            "raw": "{\"all_details\": true, \"nothing_added\": true, \"values_unchanged\": true, \"scope_kept\": true, \"score\": 100}"
+          },
+          "accepted": true,
+          "rejected_because": []
+        },
+        {
+          "text": "Water is held to a depth of 14 metres in the Star Reservoir basin.",
+          "semantic": 1.0,
+          "copy_overlap": 0.3333333333333333,
+          "rubric": {
+            "all_details": true,
+            "nothing_added": true,
+            "values_unchanged": true,
+            "scope_kept": true,
+            "score": 1.0,
+            "ok": true,
+            "failed": [],
+            "raw": "{\"all_details\": true, \"nothing_added\": true, \"values_unchanged\": true, \"scope_kept\": true, \"score\": 100}"
+          },
+          "accepted": false,
+          "rejected_because": [
+            "pairwise overlap 0.62 > 0.5"
+          ]
+        }
+      ]
+    },
+    "M3/A": {
+      "status": "OK",
+      "needed": 2,
+      "generated": 6,
+      "accepted": 2,
+      "rounds": 1,
+      "calls": 12,
+      "candidates": [
+        {
+          "text": "The water depth of the Star Reservoir basin is understood to be 17 metres.",
+          "semantic": 1.0,
+          "copy_overlap": 1.0,
+          "rubric": {
+            "all_details": true,
+            "nothing_added": true,
+            "values_unchanged": true,
+            "scope_kept": true,
+            "score": 1.0,
+            "ok": true,
+            "failed": [],
+            "raw": "{\"all_details\": true, \"nothing_added\": true, \"values_unchanged\": true, \"scope_kept\": true, \"score\": 100}"
+          },
+          "accepted": false,
+          "rejected_because": [
+            "copy overlap 1.00 > 0.7"
+          ]
+        },
+        {
+          "text": "It is understood that the Star Reservoir basin has a water depth of 17 metres.",
+          "semantic": 1.0,
+          "copy_overlap": 0.35,
+          "rubric": {
+            "all_details": true,
+            "nothing_added": true,
+            "values_unchanged": true,
+            "scope_kept": true,
+            "score": 1.0,
+            "ok": true,
+            "failed": [],
+            "raw": "{\"all_details\": true, \"nothing_added\": true, \"values_unchanged\": true, \"scope_kept\": true, \"score\": 100}"
+          },
+          "accepted": false,
+          "rejected_because": [
+            "pairwise overlap 0.58 > 0.5"
+          ]
+        },
+        {
+          "text": "The Star Reservoir basin is understood to have a water depth of 17 metres.",
+          "semantic": 1.0,
+          "copy_overlap": 0.5294117647058824,
+          "rubric": {
+            "all_details": true,
+            "nothing_added": true,
+            "values_unchanged": true,
+            "scope_kept": true,
+            "score": 1.0,
+            "ok": true,
+            "failed": [],
+            "raw": "{\"all_details\": true, \"nothing_added\": true, \"values_unchanged\": true, \"scope_kept\": true, \"score\": 100}"
+          },
+          "accepted": false,
+          "rejected_because": [
+            "eligible but not needed (quota filled first)"
+          ]
+        },
+        {
+          "text": "The Star Reservoir basin's water depth is understood to be 17 metres.",
+          "semantic": 1.0,
+          "copy_overlap": 0.5,
+          "rubric": {
+            "all_details": true,
+            "nothing_added": true,
+            "values_unchanged": true,
+            "scope_kept": true,
+            "score": 1.0,
+            "ok": true,
+            "failed": [],
+            "raw": "{\"all_details\": true, \"nothing_added\": true, \"values_unchanged\": true, \"scope_kept\": true, \"score\": 100}"
+          },
+          "accepted": false,
+          "rejected_because": [
+            "eligible but not needed (quota filled first)"
+          ]
+        },
+        {
+          "text": "A water depth of 17 metres is understood for the Star Reservoir basin.",
+          "semantic": 1.0,
+          "copy_overlap": 0.25,
+          "rubric": {
+            "all_details": true,
+            "nothing_added": true,
+            "values_unchanged": true,
+            "scope_kept": true,
+            "score": 1.0,
+            "ok": true,
+            "failed": [],
+            "raw": "{\"all_details\": true, \"nothing_added\": true, \"values_unchanged\": true, \"scope_kept\": true, \"score\": 100}"
+          },
+          "accepted": true,
+          "rejected_because": []
+        },
+        {
+          "text": "It is understood that the basin of the Star Reservoir reaches a water depth of 17 metres.",
+          "semantic": 1.0,
+          "copy_overlap": 0.3181818181818182,
+          "rubric": {
+            "all_details": true,
+            "nothing_added": true,
+            "values_unchanged": true,
+            "scope_kept": true,
+            "score": 1.0,
+            "ok": true,
+            "failed": [],
+            "raw": "{\"all_details\": true, \"nothing_added\": true, \"values_unchanged\": true, \"scope_kept\": true, \"score\": 100}"
+          },
+          "accepted": true,
+          "rejected_because": []
+        }
+      ]
+    },
+    "M3/C": {
+      "status": "OK",
+      "needed": 1,
+      "generated": 6,
+      "accepted": 1,
+      "rounds": 1,
+      "calls": 12,
+      "candidates": [
+        {
+          "text": "Water inside the Star Reservoir basin reaches a depth of fourteen metres.",
+          "semantic": 1.0,
+          "copy_overlap": 1.0,
+          "rubric": {
+            "all_details": true,
+            "nothing_added": true,
+            "values_unchanged": true,
+            "scope_kept": true,
+            "score": 1.0,
+            "ok": true,
+            "failed": [],
+            "raw": "{\"all_details\": true, \"nothing_added\": true, \"values_unchanged\": true, \"scope_kept\": true, \"score\": 100}"
+          },
+          "accepted": false,
+          "rejected_because": [
+            "copy overlap 1.00 > 0.7"
+          ]
+        },
+        {
+          "text": "The depth of water within the Star Reservoir basin is fourteen metres.",
+          "semantic": 1.0,
+          "copy_overlap": 0.29411764705882354,
+          "rubric": {
+            "all_details": true,
+            "nothing_added": true,
+            "values_unchanged": true,
+            "scope_kept": true,
+            "score": 1.0,
+            "ok": true,
+            "failed": [],
+            "raw": "{\"all_details\": true, \"nothing_added\": true, \"values_unchanged\": true, \"scope_kept\": true, \"score\": 100}"
+          },
+          "accepted": false,
+          "rejected_because": [
+            "cross-source overlap 0.53 > 0.5"
+          ]
+        },
+        {
+          "text": "The Star Reservoir basin contains water that is fourteen metres deep.",
+          "semantic": 1.0,
+          "copy_overlap": 0.16666666666666666,
+          "rubric": {
+            "all_details": true,
+            "nothing_added": true,
+            "values_unchanged": true,
+            "scope_kept": true,
+            "score": 1.0,
+            "ok": true,
+            "failed": [],
+            "raw": "{\"all_details\": true, \"nothing_added\": true, \"values_unchanged\": true, \"scope_kept\": true, \"score\": 100}"
+          },
+          "accepted": false,
+          "rejected_because": [
+            "cross-source overlap 0.67 > 0.5"
+          ]
+        },
+        {
+          "text": "Fourteen metres is the depth of the water in the Star Reservoir basin.",
+          "semantic": 1.0,
+          "copy_overlap": 0.15,
+          "rubric": {
+            "all_details": true,
+            "nothing_added": true,
+            "values_unchanged": true,
+            "scope_kept": true,
+            "score": 1.0,
+            "ok": true,
+            "failed": [],
+            "raw": "{\"all_details\": true, \"nothing_added\": true, \"values_unchanged\": true, \"scope_kept\": true, \"score\": 100}"
+          },
+          "accepted": false,
+          "rejected_because": [
+            "eligible but not needed (quota filled first)"
+          ]
+        },
+        {
+          "text": "The Star Reservoir basin's water depth is fourteen metres.",
+          "semantic": 1.0,
+          "copy_overlap": 0.1875,
+          "rubric": {
+            "all_details": true,
+            "nothing_added": true,
+            "values_unchanged": true,
+            "scope_kept": true,
+            "score": 1.0,
+            "ok": true,
+            "failed": [],
+            "raw": "{\"all_details\": true, \"nothing_added\": true, \"values_unchanged\": true, \"scope_kept\": true, \"score\": 100}"
+          },
+          "accepted": true,
+          "rejected_because": []
+        },
+        {
+          "text": "The basin of the Star Reservoir has water reaching a depth of fourteen metres.",
+          "semantic": 1.0,
+          "copy_overlap": 0.3333333333333333,
+          "rubric": {
+            "all_details": true,
+            "nothing_added": true,
+            "values_unchanged": true,
+            "scope_kept": true,
+            "score": 1.0,
+            "ok": true,
+            "failed": [],
+            "raw": "{\"all_details\": true, \"nothing_added\": true, \"values_unchanged\": true, \"scope_kept\": true, \"score\": 100}"
+          },
+          "accepted": false,
+          "rejected_because": [
+            "eligible but not needed (quota filled first)"
+          ]
+        }
+      ]
+    },
+    "M3/D": {
+      "status": "OK",
+      "needed": 1,
+      "generated": 6,
+      "accepted": 1,
+      "rounds": 1,
+      "calls": 12,
+      "candidates": [
+        {
+          "text": "Hydrostatic sounding indicates there are 14 metres of water in the Star Reservoir basin.",
+          "semantic": 1.0,
+          "copy_overlap": 0.7142857142857143,
+          "rubric": {
+            "all_details": true,
+            "nothing_added": true,
+            "values_unchanged": true,
+            "scope_kept": true,
+            "score": 1.0,
+            "ok": true,
+            "failed": [],
+            "raw": "{\"all_details\": true, \"nothing_added\": true, \"values_unchanged\": true, \"scope_kept\": true, \"score\": 100}"
+          },
+          "accepted": false,
+          "rejected_because": [
+            "copy overlap 0.71 > 0.7"
+          ]
+        },
+        {
+          "text": "The Star Reservoir basin contains 14 metres of water, as indicated by hydrostatic sounding.",
+          "semantic": 1.0,
+          "copy_overlap": 0.2,
+          "rubric": {
+            "all_details": true,
+            "nothing_added": true,
+            "values_unchanged": true,
+            "scope_kept": true,
+            "score": 1.0,
+            "ok": true,
+            "failed": [],
+            "raw": "{\"all_details\": true, \"nothing_added\": true, \"values_unchanged\": true, \"scope_kept\": true, \"score\": 100}"
+          },
+          "accepted": false,
+          "rejected_because": [
+            "eligible but not needed (quota filled first)"
+          ]
+        },
+        {
+          "text": "Based on hydrostatic sounding, the water depth in the Star Reservoir basin is 14 metres.",
+          "semantic": 1.0,
+          "copy_overlap": 0.13636363636363635,
+          "rubric": {
+            "all_details": true,
+            "nothing_added": true,
+            "values_unchanged": true,
+            "scope_kept": true,
+            "score": 1.0,
+            "ok": true,
+            "failed": [],
+            "raw": "{\"all_details\": true, \"nothing_added\": true, \"values_unchanged\": true, \"scope_kept\": true, \"score\": 100}"
+          },
+          "accepted": false,
+          "rejected_because": [
+            "eligible but not needed (quota filled first)"
+          ]
+        },
+        {
+          "text": "Hydrostatic sounding shows that the Star Reservoir basin has a water depth of 14 metres.",
+          "semantic": 1.0,
+          "copy_overlap": 0.13636363636363635,
+          "rubric": {
+            "all_details": true,
+            "nothing_added": true,
+            "values_unchanged": true,
+            "scope_kept": true,
+            "score": 1.0,
+            "ok": true,
+            "failed": [],
+            "raw": "{\"all_details\": true, \"nothing_added\": true, \"values_unchanged\": true, \"scope_kept\": true, \"score\": 100}"
+          },
+          "accepted": true,
+          "rejected_because": []
+        },
+        {
+          "text": "There are 14 metres of water in the Star Reservoir basin, as shown by hydrostatic sounding.",
+          "semantic": 1.0,
+          "copy_overlap": 0.3684210526315789,
+          "rubric": {
+            "all_details": true,
+            "nothing_added": true,
+            "values_unchanged": true,
+            "scope_kept": true,
+            "score": 1.0,
+            "ok": true,
+            "failed": [],
+            "raw": "{\"all_details\": true, \"nothing_added\": true, \"values_unchanged\": true, \"scope_kept\": true, \"score\": 100}"
+          },
+          "accepted": false,
+          "rejected_because": [
+            "length +4 words > 3 from the source"
+          ]
+        },
+        {
+          "text": "A water depth of 14 metres in the Star Reservoir basin is indicated by hydrostatic sounding.",
+          "semantic": 1.0,
+          "copy_overlap": 0.18181818181818182,
+          "rubric": {
+            "all_details": true,
+            "nothing_added": true,
+            "values_unchanged": true,
+            "scope_kept": true,
+            "score": 1.0,
+            "ok": true,
+            "failed": [],
+            "raw": "{\"all_details\": true, \"nothing_added\": true, \"values_unchanged\": true, \"scope_kept\": true, \"score\": 100}"
+          },
+          "accepted": false,
+          "rejected_because": [
+            "length +4 words > 3 from the source"
+          ]
+        }
+      ]
+    },
+    "M4/B": {
+      "status": "OK",
+      "needed": 3,
+      "generated": 6,
+      "accepted": 3,
+      "rounds": 1,
+      "calls": 12,
+      "candidates": [
+        {
+          "text": "The Yhotak B162 Vacuum has a water lift of 6000Pa.",
+          "semantic": 1.0,
+          "copy_overlap": 0.38461538461538464,
+          "rubric": {
+            "all_details": true,
+            "nothing_added": true,
+            "values_unchanged": true,
+            "scope_kept": true,
+            "score": 1.0,
+            "ok": true,
+            "failed": [],
+            "raw": "{\"all_details\": true, \"nothing_added\": true, \"values_unchanged\": true, \"scope_kept\": true, \"score\": 100}"
+          },
+          "accepted": false,
+          "rejected_because": [
+            "eligible but not needed (quota filled first)"
+          ]
+        },
+        {
+          "text": "A water lift of 6000Pa is provided by the Yhotak B162 Vacuum.",
+          "semantic": 1.0,
+          "copy_overlap": 0.25,
+          "rubric": {
+            "all_details": true,
+            "nothing_added": true,
+            "values_unchanged": true,
+            "scope_kept": true,
+            "score": 1.0,
+            "ok": true,
+            "failed": [],
+            "raw": "{\"all_details\": true, \"nothing_added\": true, \"values_unchanged\": true, \"scope_kept\": true, \"score\": 100}"
+          },
+          "accepted": true,
+          "rejected_because": []
+        },
+        {
+          "text": "The Yhotak B162 Vacuum features a 6000Pa water lift.",
+          "semantic": 1.0,
+          "copy_overlap": 0.21428571428571427,
+          "rubric": {
+            "all_details": true,
+            "nothing_added": true,
+            "values_unchanged": true,
+            "scope_kept": true,
+            "score": 1.0,
+            "ok": true,
+            "failed": [],
+            "raw": "{\"all_details\": true, \"nothing_added\": true, \"values_unchanged\": true, \"scope_kept\": true, \"score\": 100}"
+          },
+          "accepted": true,
+          "rejected_because": []
+        },
+        {
+          "text": "The Yhotak B162 Vacuum delivers 6000Pa of water lift.",
+          "semantic": 1.0,
+          "copy_overlap": 0.21428571428571427,
+          "rubric": {
+            "all_details": true,
+            "nothing_added": true,
+            "values_unchanged": true,
+            "scope_kept": true,
+            "score": 1.0,
+            "ok": true,
+            "failed": [],
+            "raw": "{\"all_details\": true, \"nothing_added\": true, \"values_unchanged\": true, \"scope_kept\": true, \"score\": 100}"
+          },
+          "accepted": true,
+          "rejected_because": []
+        },
+        {
+          "text": "The Yhotak B162 Vacuum is equipped with a 6000Pa water lift.",
+          "semantic": 1.0,
+          "copy_overlap": 0.26666666666666666,
+          "rubric": {
+            "all_details": true,
+            "nothing_added": true,
+            "values_unchanged": true,
+            "scope_kept": true,
+            "score": 1.0,
+            "ok": true,
+            "failed": [],
+            "raw": "{\"all_details\": true, \"nothing_added\": true, \"values_unchanged\": true, \"scope_kept\": true, \"score\": 100}"
+          },
+          "accepted": false,
+          "rejected_because": [
+            "eligible but not needed (quota filled first)"
+          ]
+        },
+        {
+          "text": "The Yhotak B162 Vacuum's water lift is 6000Pa.",
+          "semantic": 1.0,
+          "copy_overlap": 0.3333333333333333,
+          "rubric": {
+            "all_details": true,
+            "nothing_added": true,
+            "values_unchanged": true,
+            "scope_kept": true,
+            "score": 1.0,
+            "ok": true,
+            "failed": [],
+            "raw": "{\"all_details\": true, \"nothing_added\": true, \"values_unchanged\": true, \"scope_kept\": true, \"score\": 100}"
+          },
+          "accepted": false,
+          "rejected_because": [
+            "eligible but not needed (quota filled first)"
+          ]
+        }
+      ]
+    },
+    "M4/A": {
+      "status": "OK",
+      "needed": 2,
+      "generated": 6,
+      "accepted": 2,
+      "rounds": 1,
+      "calls": 12,
+      "candidates": [
+        {
+          "text": "The water lift for the Yhotak B162 Vacuum is thought to be 4000Pa.",
+          "semantic": 1.0,
+          "copy_overlap": 0.5333333333333333,
+          "rubric": {
+            "all_details": true,
+            "nothing_added": true,
+            "values_unchanged": true,
+            "scope_kept": true,
+            "score": 1.0,
+            "ok": true,
+            "failed": [],
+            "raw": "{\"all_details\": true, \"nothing_added\": true, \"values_unchanged\": true, \"scope_kept\": true, \"score\": 100}"
+          },
+          "accepted": false,
+          "rejected_because": [
+            "eligible but not needed (quota filled first)"
+          ]
+        },
+        {
+          "text": "The Yhotak B162 Vacuum is believed to have a water lift of 4000Pa.",
+          "semantic": 1.0,
+          "copy_overlap": 0.15,
+          "rubric": {
+            "all_details": true,
+            "nothing_added": true,
+            "values_unchanged": true,
+            "scope_kept": true,
+            "score": 1.0,
+            "ok": true,
+            "failed": [],
+            "raw": "{\"all_details\": true, \"nothing_added\": true, \"values_unchanged\": true, \"scope_kept\": true, \"score\": 100}"
+          },
+          "accepted": false,
+          "rejected_because": [
+            "eligible but not needed (quota filled first)"
+          ]
+        },
+        {
+          "text": "It is thought that the Yhotak B162 Vacuum has a water lift of 4000Pa.",
+          "semantic": 1.0,
+          "copy_overlap": 0.2,
+          "rubric": {
+            "all_details": true,
+            "nothing_added": true,
+            "values_unchanged": true,
+            "scope_kept": true,
+            "score": 1.0,
+            "ok": true,
+            "failed": [],
+            "raw": "{\"all_details\": true, \"nothing_added\": true, \"values_unchanged\": true, \"scope_kept\": true, \"score\": 100}"
+          },
+          "accepted": true,
+          "rejected_because": []
+        },
+        {
+          "text": "A water lift of 4000Pa is suspected for the Yhotak B162 Vacuum.",
+          "semantic": 1.0,
+          "copy_overlap": 0.2222222222222222,
+          "rubric": {
+            "all_details": true,
+            "nothing_added": true,
+            "values_unchanged": true,
+            "scope_kept": true,
+            "score": 1.0,
+            "ok": true,
+            "failed": [],
+            "raw": "{\"all_details\": true, \"nothing_added\": true, \"values_unchanged\": true, \"scope_kept\": true, \"score\": 100}"
+          },
+          "accepted": true,
+          "rejected_because": []
+        },
+        {
+          "text": "It is suspected that the Yhotak B162 Vacuum possesses a water lift of 4000Pa.",
+          "semantic": 1.0,
+          "copy_overlap": 0.14285714285714285,
+          "rubric": {
+            "all_details": true,
+            "nothing_added": true,
+            "values_unchanged": true,
+            "scope_kept": true,
+            "score": 1.0,
+            "ok": true,
+            "failed": [],
+            "raw": "{\"all_details\": true, \"nothing_added\": true, \"values_unchanged\": true, \"scope_kept\": true, \"score\": 100}"
+          },
+          "accepted": false,
+          "rejected_because": [
+            "pairwise overlap 0.53 > 0.5"
+          ]
+        },
+        {
+          "text": "The Yhotak B162 Vacuum is considered to have a water lift of 4000Pa.",
+          "semantic": 1.0,
+          "copy_overlap": 0.15,
+          "rubric": {
+            "all_details": true,
+            "nothing_added": true,
+            "values_unchanged": true,
+            "scope_kept": true,
+            "score": 1.0,
+            "ok": true,
+            "failed": [],
+            "raw": "{\"all_details\": true, \"nothing_added\": true, \"values_unchanged\": true, \"scope_kept\": true, \"score\": 100}"
+          },
+          "accepted": false,
+          "rejected_because": [
+            "eligible but not needed (quota filled first)"
+          ]
+        }
+      ]
+    },
+    "M4/C": {
+      "status": "OK",
+      "needed": 1,
+      "generated": 6,
+      "accepted": 1,
+      "rounds": 1,
+      "calls": 12,
+      "candidates": [
+        {
+          "text": "The Yhotak B162 Vacuum has a specified water lift rating of 6000Pa.",
+          "semantic": 1.0,
+          "copy_overlap": 0.2222222222222222,
+          "rubric": {
+            "all_details": true,
+            "nothing_added": true,
+            "values_unchanged": true,
+            "scope_kept": true,
+            "score": 1.0,
+            "ok": true,
+            "failed": [],
+            "raw": "{\"all_details\": true, \"nothing_added\": true, \"values_unchanged\": true, \"scope_kept\": true, \"score\": 100}"
+          },
+          "accepted": false,
+          "rejected_because": [
+            "eligible but not needed (quota filled first)"
+          ]
+        },
+        {
+          "text": "The Yhotak B162 Vacuum features a water lift rating of 6000Pa.",
+          "semantic": 1.0,
+          "copy_overlap": 0.23529411764705882,
+          "rubric": {
+            "all_details": true,
+            "nothing_added": true,
+            "values_unchanged": true,
+            "scope_kept": true,
+            "score": 1.0,
+            "ok": true,
+            "failed": [],
+            "raw": "{\"all_details\": true, \"nothing_added\": true, \"values_unchanged\": true, \"scope_kept\": true, \"score\": 100}"
+          },
+          "accepted": false,
+          "rejected_because": [
+            "eligible but not needed (quota filled first)"
+          ]
+        },
+        {
+          "text": "The Yhotak B162 Vacuum is rated for a water lift of 6000Pa.",
+          "semantic": 1.0,
+          "copy_overlap": 0.15789473684210525,
+          "rubric": {
+            "all_details": true,
+            "nothing_added": true,
+            "values_unchanged": true,
+            "scope_kept": true,
+            "score": 1.0,
+            "ok": true,
+            "failed": [],
+            "raw": "{\"all_details\": true, \"nothing_added\": true, \"values_unchanged\": true, \"scope_kept\": true, \"score\": 100}"
+          },
+          "accepted": false,
+          "rejected_because": [
+            "eligible but not needed (quota filled first)"
+          ]
+        },
+        {
+          "text": "The Yhotak B162 Vacuum carries a water lift rating of 6000Pa.",
+          "semantic": 1.0,
+          "copy_overlap": 0.23529411764705882,
+          "rubric": {
+            "all_details": true,
+            "nothing_added": true,
+            "values_unchanged": true,
+            "scope_kept": true,
+            "score": 1.0,
+            "ok": true,
+            "failed": [],
+            "raw": "{\"all_details\": true, \"nothing_added\": true, \"values_unchanged\": true, \"scope_kept\": true, \"score\": 100}"
+          },
+          "accepted": false,
+          "rejected_because": [
+            "eligible but not needed (quota filled first)"
+          ]
+        },
+        {
+          "text": "For the Yhotak B162 Vacuum, the specified water lift rating is 6000Pa.",
+          "semantic": 1.0,
+          "copy_overlap": 0.375,
+          "rubric": {
+            "all_details": true,
+            "nothing_added": true,
+            "values_unchanged": true,
+            "scope_kept": true,
+            "score": 1.0,
+            "ok": true,
+            "failed": [],
+            "raw": "{\"all_details\": true, \"nothing_added\": true, \"values_unchanged\": true, \"scope_kept\": true, \"score\": 100}"
+          },
+          "accepted": false,
+          "rejected_because": [
+            "eligible but not needed (quota filled first)"
+          ]
+        },
+        {
+          "text": "The Yhotak B162 Vacuum's water lift is rated at 6000Pa.",
+          "semantic": 1.0,
+          "copy_overlap": 0.17647058823529413,
+          "rubric": {
+            "all_details": true,
+            "nothing_added": true,
+            "values_unchanged": true,
+            "scope_kept": true,
+            "score": 1.0,
+            "ok": true,
+            "failed": [],
+            "raw": "{\"all_details\": true, \"nothing_added\": true, \"values_unchanged\": true, \"scope_kept\": true, \"score\": 100}"
+          },
+          "accepted": true,
+          "rejected_because": []
+        }
+      ]
+    },
+    "M4/D": {
+      "status": "OK",
+      "needed": 1,
+      "generated": 6,
+      "accepted": 1,
+      "rounds": 1,
+      "calls": 12,
+      "candidates": [
+        {
+          "text": "The Yhotak B162 Vacuum delivers 6000Pa of water lift.",
+          "semantic": 1.0,
+          "copy_overlap": 1.0,
+          "rubric": {
+            "all_details": true,
+            "nothing_added": true,
+            "values_unchanged": true,
+            "scope_kept": true,
+            "score": 1.0,
+            "ok": true,
+            "failed": [],
+            "raw": "{\"all_details\": true, \"nothing_added\": true, \"values_unchanged\": true, \"scope_kept\": true, \"score\": 100}"
+          },
+          "accepted": false,
+          "rejected_because": [
+            "copy overlap 1.00 > 0.7",
+            "cross-source overlap 1.00 > 0.5"
+          ]
+        },
+        {
+          "text": "A water lift of 6000Pa is provided by the Yhotak B162 Vacuum.",
+          "semantic": 1.0,
+          "copy_overlap": 0.11764705882352941,
+          "rubric": {
+            "all_details": true,
+            "nothing_added": true,
+            "values_unchanged": true,
+            "scope_kept": true,
+            "score": 1.0,
+            "ok": true,
+            "failed": [],
+            "raw": "{\"all_details\": true, \"nothing_added\": true, \"values_unchanged\": true, \"scope_kept\": true, \"score\": 100}"
+          },
+          "accepted": false,
+          "rejected_because": [
+            "cross-source overlap 1.00 > 0.5"
+          ]
+        },
+        {
+          "text": "The Yhotak B162 Vacuum is capable of 6000Pa of water lift.",
+          "semantic": 0.97,
+          "copy_overlap": 0.5,
+          "rubric": {
+            "all_details": true,
+            "nothing_added": true,
+            "values_unchanged": true,
+            "scope_kept": true,
+            "score": 0.97,
+            "ok": true,
+            "failed": [],
+            "raw": "{\"all_details\": true, \"nothing_added\": true, \"values_unchanged\": true, \"scope_kept\": true, \"score\": 97}"
+          },
+          "accepted": false,
+          "rejected_because": [
+            "eligible but not needed (quota filled first)"
+          ]
+        },
+        {
+          "text": "The Yhotak B162 Vacuum's water lift is 6000Pa.",
+          "semantic": 1.0,
+          "copy_overlap": 0.15384615384615385,
+          "rubric": {
+            "all_details": true,
+            "nothing_added": true,
+            "values_unchanged": true,
+            "scope_kept": true,
+            "score": 1.0,
+            "ok": true,
+            "failed": [],
+            "raw": "{\"all_details\": true, \"nothing_added\": true, \"values_unchanged\": true, \"scope_kept\": true, \"score\": 100}"
+          },
+          "accepted": false,
+          "rejected_because": [
+            "cross-source overlap 0.60 > 0.5"
+          ]
+        },
+        {
+          "text": "The Yhotak B162 Vacuum features a water lift of 6000Pa.",
+          "semantic": 1.0,
+          "copy_overlap": 0.21428571428571427,
+          "rubric": {
+            "all_details": true,
+            "nothing_added": true,
+            "values_unchanged": true,
+            "scope_kept": true,
+            "score": 1.0,
+            "ok": true,
+            "failed": [],
+            "raw": "{\"all_details\": true, \"nothing_added\": true, \"values_unchanged\": true, \"scope_kept\": true, \"score\": 100}"
+          },
+          "accepted": true,
+          "rejected_because": []
+        },
+        {
+          "text": "The Yhotak B162 Vacuum produces 6000Pa of water lift.",
+          "semantic": 1.0,
+          "copy_overlap": 0.6,
+          "rubric": {
+            "all_details": true,
+            "nothing_added": true,
+            "values_unchanged": true,
+            "scope_kept": true,
+            "score": 1.0,
+            "ok": true,
+            "failed": [],
+            "raw": "{\"all_details\": true, \"nothing_added\": true, \"values_unchanged\": true, \"scope_kept\": true, \"score\": 100}"
+          },
+          "accepted": false,
+          "rejected_because": [
+            "cross-source overlap 0.60 > 0.5"
+          ]
+        }
+      ]
+    },
+    "M5/B": {
+      "status": "OK",
+      "needed": 3,
+      "generated": 6,
+      "accepted": 3,
+      "rounds": 1,
+      "calls": 12,
+      "candidates": [
+        {
+          "text": "The water supply to Kestrel Court was cut off for 6 hours.",
+          "semantic": 1.0,
+          "copy_overlap": 1.0,
+          "rubric": {
+            "all_details": true,
+            "nothing_added": true,
+            "values_unchanged": true,
+            "scope_kept": true,
+            "score": 1.0,
+            "ok": true,
+            "failed": [],
+            "raw": "{\"all_details\": true, \"nothing_added\": true, \"values_unchanged\": true, \"scope_kept\": true, \"score\": 100}"
+          },
+          "accepted": false,
+          "rejected_because": [
+            "copy overlap 1.00 > 0.7"
+          ]
+        },
+        {
+          "text": "For a duration of 6 hours, Kestrel Court was without water supply.",
+          "semantic": 1.0,
+          "copy_overlap": 0.1,
+          "rubric": {
+            "all_details": true,
+            "nothing_added": true,
+            "values_unchanged": true,
+            "scope_kept": true,
+            "score": 1.0,
+            "ok": true,
+            "failed": [],
+            "raw": "{\"all_details\": true, \"nothing_added\": true, \"values_unchanged\": true, \"scope_kept\": true, \"score\": 100}"
+          },
+          "accepted": true,
+          "rejected_because": []
+        },
+        {
+          "text": "A 6-hour outage of the water supply occurred at Kestrel Court.",
+          "semantic": 1.0,
+          "copy_overlap": 0.10526315789473684,
+          "rubric": {
+            "all_details": true,
+            "nothing_added": true,
+            "values_unchanged": true,
+            "scope_kept": true,
+            "score": 1.0,
+            "ok": true,
+            "failed": [],
+            "raw": "{\"all_details\": true, \"nothing_added\": true, \"values_unchanged\": true, \"scope_kept\": true, \"score\": 100}"
+          },
+          "accepted": true,
+          "rejected_because": []
+        },
+        {
+          "text": "Kestrel Court experienced a water supply cutoff lasting 6 hours.",
+          "semantic": 1.0,
+          "copy_overlap": 0.17647058823529413,
+          "rubric": {
+            "all_details": true,
+            "nothing_added": true,
+            "values_unchanged": true,
+            "scope_kept": true,
+            "score": 1.0,
+            "ok": true,
+            "failed": [],
+            "raw": "{\"all_details\": true, \"nothing_added\": true, \"values_unchanged\": true, \"scope_kept\": true, \"score\": 100}"
+          },
+          "accepted": false,
+          "rejected_because": [
+            "eligible but not needed (quota filled first)"
+          ]
+        },
+        {
+          "text": "Water supply at Kestrel Court was unavailable for a period of 6 hours.",
+          "semantic": 0.97,
+          "copy_overlap": 0.21052631578947367,
+          "rubric": {
+            "all_details": true,
+            "nothing_added": true,
+            "values_unchanged": true,
+            "scope_kept": true,
+            "score": 0.97,
+            "ok": true,
+            "failed": [],
+            "raw": "{\"all_details\": true, \"nothing_added\": true, \"values_unchanged\": true, \"scope_kept\": true, \"score\": 97}"
+          },
+          "accepted": false,
+          "rejected_because": [
+            "eligible but not needed (quota filled first)"
+          ]
+        },
+        {
+          "text": "Kestrel Court's water supply was interrupted for a six-hour period.",
+          "semantic": 1.0,
+          "copy_overlap": 0.05263157894736842,
+          "rubric": {
+            "all_details": true,
+            "nothing_added": true,
+            "values_unchanged": true,
+            "scope_kept": true,
+            "score": 1.0,
+            "ok": true,
+            "failed": [],
+            "raw": "{\"all_details\": true, \"nothing_added\": true, \"values_unchanged\": true, \"scope_kept\": true, \"score\": 100}"
+          },
+          "accepted": true,
+          "rejected_because": []
+        }
+      ]
+    },
+    "M5/A": {
+      "status": "OK",
+      "needed": 2,
+      "generated": 6,
+      "accepted": 2,
+      "rounds": 1,
+      "calls": 12,
+      "candidates": [
+        {
+          "text": "Kestrel Court's water supply is believed to have been cut off for 9 hours.",
+          "semantic": 1.0,
+          "copy_overlap": 1.0,
+          "rubric": {
+            "all_details": true,
+            "nothing_added": true,
+            "values_unchanged": true,
+            "scope_kept": true,
+            "score": 1.0,
+            "ok": true,
+            "failed": [],
+            "raw": "{\"all_details\": true, \"nothing_added\": true, \"values_unchanged\": true, \"scope_kept\": true, \"score\": 100}"
+          },
+          "accepted": false,
+          "rejected_because": [
+            "copy overlap 1.00 > 0.7"
+          ]
+        },
+        {
+          "text": "It is believed that the water supply to Kestrel Court was cut off for a duration of 9 hours.",
+          "semantic": 1.0,
+          "copy_overlap": 0.19230769230769232,
+          "rubric": {
+            "all_details": true,
+            "nothing_added": true,
+            "values_unchanged": true,
+            "scope_kept": true,
+            "score": 1.0,
+            "ok": true,
+            "failed": [],
+            "raw": "{\"all_details\": true, \"nothing_added\": true, \"values_unchanged\": true, \"scope_kept\": true, \"score\": 100}"
+          },
+          "accepted": false,
+          "rejected_because": [
+            "length +5 words > 3 from the source"
+          ]
+        },
+        {
+          "text": "The water supply to Kestrel Court is thought to have been unavailable for a period of 9 hours.",
+          "semantic": 1.0,
+          "copy_overlap": 0.15384615384615385,
+          "rubric": {
+            "all_details": true,
+            "nothing_added": true,
+            "values_unchanged": true,
+            "scope_kept": true,
+            "score": 1.0,
+            "ok": true,
+            "failed": [],
+            "raw": "{\"all_details\": true, \"nothing_added\": true, \"values_unchanged\": true, \"scope_kept\": true, \"score\": 100}"
+          },
+          "accepted": false,
+          "rejected_because": [
+            "length +4 words > 3 from the source"
+          ]
+        },
+        {
+          "text": "A 9-hour interruption of the water supply to Kestrel Court is believed to have occurred.",
+          "semantic": 0.98,
+          "copy_overlap": 0.17391304347826086,
+          "rubric": {
+            "all_details": true,
+            "nothing_added": true,
+            "values_unchanged": true,
+            "scope_kept": true,
+            "score": 0.98,
+            "ok": true,
+            "failed": [],
+            "raw": "{\"all_details\": true, \"nothing_added\": true, \"values_unchanged\": true, \"scope_kept\": true, \"score\": 98}"
+          },
+          "accepted": true,
+          "rejected_because": []
+        },
+        {
+          "text": "It is believed that the water supply at Kestrel Court was interrupted for 9 hours.",
+          "semantic": 0.98,
+          "copy_overlap": 0.17391304347826086,
+          "rubric": {
+            "all_details": true,
+            "nothing_added": true,
+            "values_unchanged": true,
+            "scope_kept": true,
+            "score": 0.98,
+            "ok": true,
+            "failed": [],
+            "raw": "{\"all_details\": true, \"nothing_added\": true, \"values_unchanged\": true, \"scope_kept\": true, \"score\": 98}"
+          },
+          "accepted": false,
+          "rejected_because": [
+            "eligible but not needed (quota filled first)"
+          ]
+        },
+        {
+          "text": "The water supply at Kestrel Court is thought to have been disconnected for 9 hours.",
+          "semantic": 1.0,
+          "copy_overlap": 0.22727272727272727,
+          "rubric": {
+            "all_details": true,
+            "nothing_added": true,
+            "values_unchanged": true,
+            "scope_kept": true,
+            "score": 1.0,
+            "ok": true,
+            "failed": [],
+            "raw": "{\"all_details\": true, \"nothing_added\": true, \"values_unchanged\": true, \"scope_kept\": true, \"score\": 100}"
+          },
+          "accepted": true,
+          "rejected_because": []
+        }
+      ]
+    },
+    "M5/C": {
+      "status": "OK",
+      "needed": 1,
+      "generated": 6,
+      "accepted": 1,
+      "rounds": 1,
+      "calls": 12,
+      "candidates": [
+        {
+          "text": "No mains water reached the flats at Kestrel Court for six hours.",
+          "semantic": 1.0,
+          "copy_overlap": 0.5714285714285714,
+          "rubric": {
+            "all_details": true,
+            "nothing_added": true,
+            "values_unchanged": true,
+            "scope_kept": true,
+            "score": 1.0,
+            "ok": true,
+            "failed": [],
+            "raw": "{\"all_details\": true, \"nothing_added\": true, \"values_unchanged\": true, \"scope_kept\": true, \"score\": 100}"
+          },
+          "accepted": false,
+          "rejected_because": [
+            "eligible but not needed (quota filled first)"
+          ]
+        },
+        {
+          "text": "The flats at Kestrel Court were without mains water for a duration of six hours.",
+          "semantic": 1.0,
+          "copy_overlap": 0.19047619047619047,
+          "rubric": {
+            "all_details": true,
+            "nothing_added": true,
+            "values_unchanged": true,
+            "scope_kept": true,
+            "score": 1.0,
+            "ok": true,
+            "failed": [],
+            "raw": "{\"all_details\": true, \"nothing_added\": true, \"values_unchanged\": true, \"scope_kept\": true, \"score\": 100}"
+          },
+          "accepted": false,
+          "rejected_because": [
+            "eligible but not needed (quota filled first)"
+          ]
+        },
+        {
+          "text": "Mains water was unavailable to the Kestrel Court flats for a six-hour period.",
+          "semantic": 1.0,
+          "copy_overlap": 0.045454545454545456,
+          "rubric": {
+            "all_details": true,
+            "nothing_added": true,
+            "values_unchanged": true,
+            "scope_kept": true,
+            "score": 1.0,
+            "ok": true,
+            "failed": [],
+            "raw": "{\"all_details\": true, \"nothing_added\": true, \"values_unchanged\": true, \"scope_kept\": true, \"score\": 100}"
+          },
+          "accepted": false,
+          "rejected_because": [
+            "eligible but not needed (quota filled first)"
+          ]
+        },
+        {
+          "text": "A six-hour outage of mains water occurred at the Kestrel Court flats.",
+          "semantic": 0.97,
+          "copy_overlap": 0.047619047619047616,
+          "rubric": {
+            "all_details": true,
+            "nothing_added": true,
+            "values_unchanged": true,
+            "scope_kept": true,
+            "score": 0.97,
+            "ok": true,
+            "failed": [],
+            "raw": "{\"all_details\": true, \"nothing_added\": true, \"values_unchanged\": true, \"scope_kept\": true, \"score\": 97}"
+          },
+          "accepted": false,
+          "rejected_because": [
+            "eligible but not needed (quota filled first)"
+          ]
+        },
+        {
+          "text": "The flats at Kestrel Court experienced a six-hour period without mains water.",
+          "semantic": 1.0,
+          "copy_overlap": 0.15789473684210525,
+          "rubric": {
+            "all_details": true,
+            "nothing_added": true,
+            "values_unchanged": true,
+            "scope_kept": true,
+            "score": 1.0,
+            "ok": true,
+            "failed": [],
+            "raw": "{\"all_details\": true, \"nothing_added\": true, \"values_unchanged\": true, \"scope_kept\": true, \"score\": 100}"
+          },
+          "accepted": false,
+          "rejected_because": [
+            "eligible but not needed (quota filled first)"
+          ]
+        },
+        {
+          "text": "Kestrel Court's flats lacked mains water for six hours.",
+          "semantic": 1.0,
+          "copy_overlap": 0.11764705882352941,
+          "rubric": {
+            "all_details": true,
+            "nothing_added": true,
+            "values_unchanged": true,
+            "scope_kept": true,
+            "score": 1.0,
+            "ok": true,
+            "failed": [],
+            "raw": "{\"all_details\": true, \"nothing_added\": true, \"values_unchanged\": true, \"scope_kept\": true, \"score\": 100}"
+          },
+          "accepted": true,
+          "rejected_because": []
+        }
+      ]
+    },
+    "M5/D": {
+      "status": "OK",
+      "needed": 1,
+      "generated": 6,
+      "accepted": 1,
+      "rounds": 1,
+      "calls": 12,
+      "candidates": [
+        {
+          "text": "The mains water feeding Kestrel Court was shut off for 6 hours.",
+          "semantic": 1.0,
+          "copy_overlap": 1.0,
+          "rubric": {
+            "all_details": true,
+            "nothing_added": true,
+            "values_unchanged": true,
+            "scope_kept": true,
+            "score": 1.0,
+            "ok": true,
+            "failed": [],
+            "raw": "{\"all_details\": true, \"nothing_added\": true, \"values_unchanged\": true, \"scope_kept\": true, \"score\": 100}"
+          },
+          "accepted": false,
+          "rejected_because": [
+            "copy overlap 1.00 > 0.7"
+          ]
+        },
+        {
+          "text": "A 6-hour shutdown occurred for the mains water feeding Kestrel Court.",
+          "semantic": 1.0,
+          "copy_overlap": 0.23529411764705882,
+          "rubric": {
+            "all_details": true,
+            "nothing_added": true,
+            "values_unchanged": true,
+            "scope_kept": true,
+            "score": 1.0,
+            "ok": true,
+            "failed": [],
+            "raw": "{\"all_details\": true, \"nothing_added\": true, \"values_unchanged\": true, \"scope_kept\": true, \"score\": 100}"
+          },
+          "accepted": false,
+          "rejected_because": [
+            "eligible but not needed (quota filled first)"
+          ]
+        },
+        {
+          "text": "Kestrel Court's mains water supply was cut off for a duration of 6 hours.",
+          "semantic": 1.0,
+          "copy_overlap": 0.14285714285714285,
+          "rubric": {
+            "all_details": true,
+            "nothing_added": true,
+            "values_unchanged": true,
+            "scope_kept": true,
+            "score": 1.0,
+            "ok": true,
+            "failed": [],
+            "raw": "{\"all_details\": true, \"nothing_added\": true, \"values_unchanged\": true, \"scope_kept\": true, \"score\": 100}"
+          },
+          "accepted": true,
+          "rejected_because": []
+        },
+        {
+          "text": "For a period of 6 hours, the mains water feeding Kestrel Court was shut off.",
+          "semantic": 1.0,
+          "copy_overlap": 0.3888888888888889,
+          "rubric": {
+            "all_details": true,
+            "nothing_added": true,
+            "values_unchanged": true,
+            "scope_kept": true,
+            "score": 1.0,
+            "ok": true,
+            "failed": [],
+            "raw": "{\"all_details\": true, \"nothing_added\": true, \"values_unchanged\": true, \"scope_kept\": true, \"score\": 100}"
+          },
+          "accepted": false,
+          "rejected_because": [
+            "eligible but not needed (quota filled first)"
+          ]
+        },
+        {
+          "text": "The mains water supply to Kestrel Court experienced a shutdown lasting 6 hours.",
+          "semantic": 0.97,
+          "copy_overlap": 0.21052631578947367,
+          "rubric": {
+            "all_details": true,
+            "nothing_added": true,
+            "values_unchanged": true,
+            "scope_kept": true,
+            "score": 0.97,
+            "ok": true,
+            "failed": [],
+            "raw": "{\"all_details\": true, \"nothing_added\": true, \"values_unchanged\": true, \"scope_kept\": true, \"score\": 97}"
+          },
+          "accepted": false,
+          "rejected_because": [
+            "eligible but not needed (quota filled first)"
+          ]
+        },
+        {
+          "text": "A 6-hour shut off was implemented for the mains water feeding Kestrel Court.",
+          "semantic": 1.0,
+          "copy_overlap": 0.2777777777777778,
+          "rubric": {
+            "all_details": true,
+            "nothing_added": true,
+            "values_unchanged": true,
+            "scope_kept": true,
+            "score": 1.0,
+            "ok": true,
+            "failed": [],
+            "raw": "{\"all_details\": true, \"nothing_added\": true, \"values_unchanged\": true, \"scope_kept\": true, \"score\": 100}"
+          },
+          "accepted": false,
+          "rejected_because": [
+            "eligible but not needed (quota filled first)"
+          ]
+        }
+      ]
+    }
+  },
+  "stopped": null,
+  "calls": 240
+}
