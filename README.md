@@ -283,8 +283,10 @@ varies one thing on top of the conditions above (`pipeline/run.py`, `PROGRAMME`)
 - **Abstention** is read against the same judge's abstention rate in A7, where three
   independent sources agree, because models differ hugely in how readily they abstain.
   P0, the screen's irrelevant report, was added after the pilot as a check beside A7:
-  nothing there settles the answer, so a judge that does not abstain even in P0 is one
-  that abstains nowhere (`docs/decisions.md`, 2026-10-21).
+  nothing there settles the answer, so a judge that abstains in under half of its P0
+  trials is one that abstains nowhere, and one that abstains in at least half of its A7
+  trials abstains everywhere. The scorer prints which reading applies to each judge,
+  with these cut-offs fixed before the main run (`docs/decisions.md`, 2026-10-21).
 - **The wording ladder** is H4's defence: X5's wording is categorical, so a flip there
   may be compliance. If the weaker rungs also move decisions, the judge is weighing
   evidence.
@@ -331,7 +333,10 @@ where its stated probability separates its correct decisions from its incorrect 
 (AUROC within condition; also in `docs/methods.md`), is reported for every judge but,
 since the pilot, excludes none: in these conditions a wrong answer is almost always the
 two agreeing reports' claim, so AUROC there shows how sure a judge is when it follows
-them (`docs/decisions.md`, 2026-10-21).
+them (`docs/decisions.md`, 2026-10-21). Ordering alone cannot catch a judge that states
+100 on whatever it picks, since its mean P(truth) is then 100 times its accuracy, so
+beside each judge's n_eff the scorer prints how many of its answers put 100 on one
+option: a description, not a gate.
 
 ### The independence index
 

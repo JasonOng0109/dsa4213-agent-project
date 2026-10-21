@@ -9,8 +9,8 @@ import random
 from collections import Counter
 
 from pipeline.score import (_mh_difference, auroc, auroc_p, cell, discrimination_verdict,
-                            neff, page_test, report, report_discrimination, report_h6,
-                            report_ladder,
+                            h6_reading, neff, page_test, report, report_discrimination,
+                            report_h6, report_ladder,
                             report_neff, screen_verdict, stability, stability_chance,
                             unbacked)
 
@@ -305,16 +305,17 @@ def test_neff_at_the_clip_reads_at_ceiling():
     """docs/decisions.md, 2026-10-21: a cell's mean P(truth) outside 1-99 is clipped
     before the logit, so it is a bound, not a value, and so is every number computed from
     it. GPT-5.4's pilot cells at 99.5-100 in A4, A6 and A7 would otherwise read IS 0 and
-    RP 0; a clipped A1 clips the unit, so every value is at ceiling."""
+    RP 0; a clipped A1 clips the unit, so every value is at ceiling, the unit w too."""
     p = lambda **v: {c: {"p_truth": v.get(c, 85.0)} for c in ("A0", "A1", "A4", "A6", "A7")}
     top = neff(p(A0=25.0, A1=90.0, A4=99.5, A6=99.5, A7=100.0))
     assert top["clipped"] == 3
     assert all(top[k] == "at ceiling" for k in ("A4", "A6", "A7", "CN", "IS", "RP"))
+    assert isinstance(top["w"], float)
     part = neff(p(A0=25.0, A1=55.0, A7=99.5))
     assert (part["A4"], part["A6"], part["CN"], part["RP"]) == (2.18, 2.18, 1.18, 0.0)
     assert part["A7"] == part["IS"] == "at ceiling"
     unit = neff(p(A0=25.0, A1=99.5))
-    assert all(unit[k] == "at ceiling" for k in ("A4", "A6", "A7", "CN", "IS", "RP"))
+    assert all(unit[k] == "at ceiling" for k in ("A4", "A6", "A7", "CN", "IS", "RP", "w"))
     assert "at ceiling" not in neff(p(A0=25.0, A1=55.0)).values()
 
 
@@ -328,6 +329,30 @@ def test_cells_at_ceiling_are_counted_per_judge():
         report_neff(recs("M1", 85.0) + recs("M2", 100.0))
     assert ("N_EFF UNDEFINED judge mock: 0/2 cells (0.00); a value at ceiling in 1/2"
             in out.getvalue())
+    # an excluded judge's count reads the values printed for checking
+    with contextlib.redirect_stdout(io.StringIO()) as out:
+        report_neff(recs("M1", 85.0) + recs("M2", 100.0), excluded={"mock"},
+                    show_excluded=True)
+    assert ("N_EFF UNDEFINED judge mock: 2/2 cells (1.00); a value at ceiling in 1/2"
+            in out.getvalue())
+
+
+def test_answers_stated_at_100_are_counted_beside_neff():
+    """docs/decisions.md, 2026-10-21: a judge that states 100 on whatever it picks passes
+    ordering, since its mean P(truth) is 100 times its accuracy, so beside n_eff the
+    scorer prints how many agreement-block answers put 100 on one option. The conflict
+    block, and answers with no usable numbers, are not counted."""
+    def rec(condition, top, margin=0.0):
+        p = {"15%": top, "25%": 100 - top, "10%": 0.0, "30%": 0.0}
+        return dict(_rec("15%", margin=margin), p=p, judge_model="mock", case_id="M1",
+                    arm="short", condition=condition, p_truth=top)
+
+    records = [rec("A0", 100.0, 100.0), rec("A1", 100.0, 100.0), rec("A4", 70.0, 40.0),
+               rec("A6", 60.0, 20.0), rec("A7", 100.0, 100.0), rec("X1", 100.0, 100.0),
+               rec("A2", 100.0, None)]
+    with contextlib.redirect_stdout(io.StringIO()) as out:
+        report_neff(records)
+    assert "100 stated on one option in 3/5 (0.60) agreement-block answers" in out.getvalue()
 
 
 def test_five_cases_give_discrimination_little_room():
@@ -376,6 +401,7 @@ def test_h6_pairs_each_forced_choice_trial_with_its_abstention_twin():
     assert "(Mantel-Haenszel): +1.00; own A7 1/4 (0.25)" in text
     # at 5, repeat 1 (margin 5) is no longer flagged; at 20, repeat 4 (margin 10) is
     assert "margin < 5: +0.67; margin < 20: +0.67" in text
+    assert "the test applies: abstained in 2/4 conflict-block trials" in text
     with contextlib.redirect_stdout(io.StringIO()) as out:
         report_h6(records, excluded={"j"})
     assert "not assessed, the judge failed the confidence screen" in out.getvalue()
@@ -388,7 +414,8 @@ def test_h6_pairs_each_forced_choice_trial_with_its_abstention_twin():
 def test_h6_prints_the_p0_check_beside_a7():
     """docs/decisions.md, 2026-10-21: P0 offered the abstain option, where one irrelevant
     report cannot settle the answer, is printed beside A7 as a check, outside the test:
-    its trials are nobody's twin. Logs without it, like the pilot's, print no line."""
+    its trials are nobody's twin. Logs without it, like the pilot's, print no line, and
+    give no reading."""
     key = dict(judge_model="j", case_id="M1")
     records = ([dict(_rec("25%", margin=30), arm="short", condition="X1", run_index=1,
                      coherent=True, **key),
@@ -403,9 +430,25 @@ def test_h6_prints_the_p0_check_beside_a7():
     assert "X1 flagged 0/0 (n/a), not flagged 0/1 (0.00)" in text
     assert "own A7 0/4 (0.00)" in text
     assert "not the test: abstained in P0, one irrelevant report, 3/4 (0.75)" in text
+    assert "clean null: abstained in at least half of its P0 trials" in text
     with contextlib.redirect_stdout(io.StringIO()) as out:
         report_h6([r for r in records if r["condition"] != "P0"])
-    assert "P0" not in out.getvalue()
+    text = out.getvalue()
+    assert "abstained in P0" not in text and "not assessed: no P0 trials" in text
+
+
+def test_h6_reading_uses_cut_offs_fixed_before_the_main_run():
+    """docs/decisions.md, 2026-10-21: at least half of A7 is abstaining everywhere and
+    under half of P0 is abstaining nowhere, either one not testable; at least half of P0
+    but never in the conflict block is a clean null; any abstention in the conflict block
+    means the test applies."""
+    no, yes, half = [False] * 4, [True] * 4, [True, True, False, False]
+    assert h6_reading(yes, half, yes).endswith("so it abstains everywhere")
+    assert (h6_reading([True] + no, [True] + no, no)
+            == "the test applies: abstained in 1/5 conflict-block trials")
+    assert h6_reading(no, [True] + no, half).startswith("clean null")
+    assert h6_reading(no, no, [True] + no).endswith("so it abstains nowhere")
+    assert h6_reading(no, no, []) == "not assessed: no P0 trials"
 
 
 def test_h6_compares_inside_each_condition_never_pooled():

@@ -572,10 +572,12 @@ Add an entry when you make a choice a reader could not guess from the code.
   class counts, but it excludes no judge: beside it the scorer prints the verdict of the
   rule as first registered, marked "not applied" (`report_discrimination` in
   `pipeline/score.py`). A judge that fails ordering is still excluded: it gets no n_eff
-  and no H6 result, and its decisions still count. This replaces the pass rule of the
-  2026-10-18 discrimination entry; its test is unchanged. It was decided after the pilot
-  and before the main run, and it departs from the proposal, which admits a number "only
-  if it passes both checks", so the write-up reports it as a departure.
+  and no H6 result, and its decisions still count. Beside each judge's n_eff the scorer
+  prints how many of its agreement-block answers put 100 on one option (`report_neff`),
+  a description, not a gate. This replaces the pass rule of the 2026-10-18
+  discrimination entry; its test is unchanged. It was decided after the pilot and before
+  the main run, and it departs from the proposal, which admits a number "only if it
+  passes both checks", so the write-up reports it as a departure.
 - **Why** [STATED: team decision, 2026-10-21]: Kai Rong raised it after reading the
   pilot's logs, and Jason agreed. [STATED: `runs/score-pilot.txt`] discrimination
   excluded all three judges in the pilot: Opus and GPT-5.4 could not be assessed, and
@@ -591,11 +593,16 @@ Add an entry when you make a choice a reader could not guess from the code.
   about 16 in X3, so those conditions count and fail (AUROC 0.02 to 0.10 in the pilot),
   and a judge would be excluded for how often it resists the majority. [STATED: proposal
   §5] the screen exists because "a judge that returns a high number on every answer
-  would make the measure uninformative"; ordering fails such a judge, whose P(truth)
-  cannot rise from P0 to P2. [STATED: `build_screen` in `pipeline/conditions.py`] its
-  trials are "graded by informativeness, not by evidence count", so ordering does not
-  assume the behaviour under study, while discrimination inside the study's own
-  conditions does.
+  would make the measure uninformative". Ordering alone does not catch every such judge.
+  [INFERRED: from `screen_verdict` in `pipeline/score.py`, Kai Rong's check in review]
+  one that states 100 on whatever it picks has a mean P(truth) of 100 times its
+  accuracy, which rises from P0 to P2 with the evidence: right 25%, 50% and 95% of the
+  time, it is retained at p 0.0005 on 5 cases. So its share of answers stated at 100 is
+  printed, a description that picks no rule after seeing data; in the pilot, GPT-5.4's
+  was 151 of 239 agreement-block answers. [STATED: `build_screen` in
+  `pipeline/conditions.py`] its trials are "graded by informativeness, not by evidence
+  count", so ordering does not assume the behaviour under study, while discrimination
+  inside the study's own conditions does.
 - **Rejected**: keeping the rule, which leaves every belief result unreported because of
   the design, whatever the judges do; counting "not assessable" as "not assessed" while a
   counted condition still decides; reporting an excluded judge's belief results labelled
@@ -606,15 +613,17 @@ Add an entry when you make a choice a reader could not guess from the code.
 - **Breaks if changed**: with discrimination back as a gate, this design excludes a judge
   for following the count where the study predicts it will, and with it every belief
   result. Without the printed verdict of the first rule, the departure from the proposal
-  is hidden.
+  is hidden. Without the share of answers stated at 100, a judge that states 100 on
+  whatever it picks passes the screen unseen, and its n_eff reads its accuracy.
 
 ### 2026-10-21 — n_eff at the clip reads "at ceiling"
 
 - **Decision**: a cell whose mean P(truth) lies outside 1-99%, where `_logit` in
   `pipeline/score.py` clips it, gives a bound, not a value. Its n_eff reads "at
   ceiling", and so does every CN, IS or RP computed from it; a clipped A0 or A1 clips the
-  unit, so then every value does (`neff`). Beside each judge's undefined rate, the scorer
-  prints how many of its cases have a value at ceiling. The rule applies to every judge.
+  unit, so then every value does, the unit w included (`neff`). Beside each judge's
+  undefined rate, the scorer prints how many of its cases have a value at ceiling. The
+  rule applies to every judge.
 - **Why** [STATED: team decision, 2026-10-21]: Kai Rong raised it for GPT-5.4, and Jason
   chose a rule for every judge at the existing clip. [STATED: `runs/score-pilot.txt`]
   GPT-5.4's mean P(truth) in A4, A6 and A7 was 99.5 to 100 in M2-M5, so three of its five
@@ -640,8 +649,12 @@ Add an entry when you make a choice a reader could not guess from the code.
   `build_screen` with `allow_abstain`). Its abstention rate is printed beside A7's, as a
   check outside the test (`report_h6` in `pipeline/score.py`). A judge that abstains
   nowhere, P0 included, is the README's nuisance case for H6 and is reported as not
-  testable, not as a null; one that abstains in P0 but nowhere in the conflict block or
-  A7 can abstain and did not, the README's clean null. The check runs once on M1-M5
+  testable, not as a null; one that abstains in P0 but never in the conflict block can
+  abstain and did not, the README's clean null. The cut-offs are fixed before the main
+  run, and the scorer prints the reading per judge (`h6_reading`): abstaining in under
+  half of its P0 trials is abstaining nowhere; abstaining in at least half of its A7
+  trials is abstaining everywhere, the other nuisance case, also not testable; any
+  abstention in the conflict block means the test applies. The check runs once on M1-M5
   before the main run: 60 calls, about $0.10.
 - **Why** [STATED: team decision, 2026-10-21]: Kai Rong proposed reporting the low rates
   as the result, and Jason added the P0 check. [STATED: `runs/score-pilot.txt`] in the
@@ -655,9 +668,14 @@ Add an entry when you make a choice a reader could not guess from the code.
   abstention repeats would not help: 12 instead of 4 gives every conflict trial a twin,
   for 5,760 more calls, but a judge at 0 stays at 0. [STATED: proposal §5] "If none
   occurs, their absence is reported as evidence against H6 rather than passed over."
+  [STATED: team decision, 2026-10-21] Kai Rong asked in review for the cut-off to be
+  fixed now, so it is not chosen after seeing the main run's numbers; Jason chose half,
+  for A7 too. [STATED: `runs/score-pilot-2026-10-21.txt`] every judge abstained in 20 of
+  20 P0 trials in the step 3.8 check, so no pilot number sits near the cut-off.
 - **Rejected**: the rates alone, which cannot tell a judge that never abstains from one
   that was never unsure; 12 abstention repeats; P0 inside H6's test, which would change
-  the test after the pilot.
+  the test after the pilot; any P0 abstention at all as the cut-off, under which one
+  abstention in 160 P0 trials would read as a judge that can abstain.
 - **Breaks if changed**: without P0, a judge that never abstains leaves H6 unreadable
   rather than null.
 

@@ -4535,7 +4535,7 @@ a.ref:hover { background: var(--surface-2); }
    "points": [
     "Why: in the pilot every wrong answer in the conflict block, 379 across the three judges, was A's claim, and every parsed agreement answer was right. So in every condition, right and wrong differed only by whether the judge followed the count: [[pilot-results]].",
     "Why not count 'not assessable' as 'not assessed' and keep the rest: on 40 cases, X1 and X3 would fill up for GPT-5.4 and Opus and then fail, at AUROC 0.02 to 0.10, so a judge would be excluded for how often it resists the majority.",
-    "Ordering still fails a judge that states a high number on every answer, the case the proposal's screen is for: [[screen-ordering-test]]. The ceiling that ordering cannot see is handled where it matters, in n_eff: [[neff-ceiling]].",
+    "Ordering alone does not catch a judge that states 100 on whatever it picks: its mean P(truth) is 100 times its accuracy, which rises from P0 to P2 with the evidence: [[screen-ordering-test]]. So beside each judge's n_eff the scorer prints how many of its agreement-block answers put 100 on one option, a description, not a gate; in the pilot GPT-5.4's was 151 of 239. Kai Rong found the gap in review. Cells past the clip are handled in n_eff: [[neff-ceiling]].",
     "The belief results the pilot previewed are not among the reasons, so no result chose the rule. Kai Rong raised the change after reading the pilot's logs, and Jason agreed."
    ],
    "evidence": [
@@ -4543,6 +4543,26 @@ a.ref:hover { background: var(--surface-2); }
      "file": "docs/decisions.md",
      "loc": "Only ordering decides whose stated numbers count",
      "quote": "the confidence screen is the ordering check alone."
+    },
+    {
+     "file": "docs/decisions.md",
+     "loc": "Only ordering decides whose stated numbers count",
+     "quote": "Ordering alone does not catch every such judge."
+    },
+    {
+     "file": "docs/decisions.md",
+     "loc": "Only ordering decides whose stated numbers count",
+     "quote": "it is retained at p 0.0005 on 5 cases"
+    },
+    {
+     "file": "pipeline/score.py",
+     "loc": "report_neff",
+     "quote": "100 stated on one option in"
+    },
+    {
+     "file": "runs/score-pilot-2026-10-21.txt",
+     "loc": "N_EFF",
+     "quote": "100 stated on one option in 151/239 (0.63) agreement-block answers"
     },
     {
      "file": "docs/decisions.md",
@@ -4625,18 +4645,29 @@ a.ref:hover { background: var(--surface-2); }
    "cluster": "measuring",
    "title": "n_eff at the clip reads \"at ceiling\"",
    "label": "n_eff at ceiling",
-   "summary": "Before taking log-odds, the scorer clips a cell's mean probability on the truth to 1–99%, so a cell beyond the clip gives a bound, not a value. Its n_eff, and every CN, IS or RP computed from it, now reads \"at ceiling\"; a clipped A0 or A1 makes every value read so. The rule is the same for every judge, and the clip was in the code before the pilot.",
+   "summary": "Before taking log-odds, the scorer clips a cell's mean probability on the truth to 1–99%, so a cell beyond the clip gives a bound, not a value. Its n_eff, and every CN, IS or RP computed from it, now reads \"at ceiling\"; a clipped A0 or A1 makes every value read so, the unit w included. The rule is the same for every judge, and the clip was in the code before the pilot.",
    "date": "2026-10-21",
    "points": [
     "Why: in M2–M5, GPT-5.4's mean P(truth) in A4, A6 and A7 was 99.5 to 100, so all three were clipped, and its IS and RP read 0.0, set by the clip, not by the judge: [[pilot-results]].",
     "Kai Rong raised it for GPT-5.4. Jason chose a rule for every judge at the existing clip, not a label for one judge or a new cut-off chosen after the pilot.",
-    "Per judge, the scorer prints how many cases have a value at ceiling, beside the undefined rate."
+    "Per judge, the scorer prints how many cases have a value at ceiling, beside the undefined rate.",
+    "Kai Rong's review caught two slips, both fixed: the unit w still printed as a number when A0 or A1 was clipped, and a judge that failed the screen always counted 0 values at ceiling, even in the values printed for checking."
    ],
    "evidence": [
     {
      "file": "docs/decisions.md",
      "loc": "n_eff at the clip reads \"at ceiling\"",
      "quote": "gives a bound, not a value. Its n_eff reads \"at ceiling\", and so does every CN, IS or RP computed from it"
+    },
+    {
+     "file": "docs/decisions.md",
+     "loc": "n_eff at the clip reads \"at ceiling\"",
+     "quote": "so then every value does, the unit w included"
+    },
+    {
+     "file": "pipeline/score.py",
+     "loc": "neff",
+     "quote": "\"RP\": {\"A4\", \"A6\"}, \"w\": {\"A0\", \"A1\"}}"
     },
     {
      "file": "docs/decisions.md",
@@ -4690,20 +4721,46 @@ a.ref:hover { background: var(--surface-2); }
    "cluster": "conditions",
    "title": "H6 is read from its rates, with P0 as a check beside A7",
    "label": "H6: rates + P0 check",
-   "summary": "H6's test is unchanged and is reported as the scorer prints it: how many conflict-block records' numbers do not back the answer, and how often the judge abstains, inside each condition and in A7. Since the pilot the abstention arm also runs P0, one irrelevant report, with the abstain option. Nothing there settles the answer, so a judge that does not abstain even in P0 abstains nowhere, and its H6 is reported as not testable; one that abstains in P0 but nowhere in the conflict block or A7 gives a null.",
+   "summary": "H6's test is unchanged and is reported as the scorer prints it: how many conflict-block records' numbers do not back the answer, and how often the judge abstains, inside each condition and in A7. Since the pilot the abstention arm also runs P0, one irrelevant report, with the abstain option. Nothing there settles the answer, so a judge that abstains in under half of its P0 trials abstains nowhere, and one that abstains in at least half of its A7 trials abstains everywhere; either way its H6 is reported as not testable. One that abstains in at least half of P0 but never in the conflict block gives a clean null. The scorer prints the reading per judge, with these cut-offs fixed before the main run.",
    "date": "2026-10-21",
    "points": [
     "Why: in the pilot only 8 of 900 conflict-block records were flagged, and Opus and Sonnet never abstained. A7 catches a judge that abstains everywhere, but not one that abstains nowhere: [[pilot-results]].",
     "P0 is uncertain by design: in the pilot, Opus's top two options were within 10 points in all 20 of its P0 trials, and it still had to answer.",
     "480 calls at 40 cases, about $0.85 at the proposal's rate. It runs once on M1–M5 first: 60 calls, about $0.10.",
     "More abstention repeats would not help: 5,760 more calls, and a judge at 0 stays at 0. Kai Rong proposed reporting the rates; Jason added the P0 check.",
-    "Ran once on M1–M5 on 2026-10-21: all three judges abstained in 20 of 20 P0 trials: [[pilot-results]]."
+    "Ran once on M1–M5 on 2026-10-21: all three judges abstained in 20 of 20 P0 trials: [[pilot-results]].",
+    "The cut-offs: Kai Rong asked in review for them to be fixed before the main run, so they are not chosen after its numbers; Jason chose half, for A7 too. Every judge was at 20 of 20 in P0, so no pilot number sits near the cut-off. On the pilot's logs the reading is a clean null for Opus and Sonnet; GPT-5.4 abstained in 4 of 100 conflict-block trials, so the test applies. A preview, not a finding."
    ],
    "evidence": [
     {
      "file": "docs/decisions.md",
      "loc": "H6 is read from its rates, with P0 as a check beside A7",
      "quote": "The abstention arm also runs P0, the screen's irrelevant report, offering the abstain option"
+    },
+    {
+     "file": "docs/decisions.md",
+     "loc": "H6 is read from its rates, with P0 as a check beside A7",
+     "quote": "abstaining in under half of its P0 trials is abstaining nowhere; abstaining in at least half of its A7 trials is abstaining everywhere"
+    },
+    {
+     "file": "docs/decisions.md",
+     "loc": "H6 is read from its rates, with P0 as a check beside A7",
+     "quote": "Kai Rong asked in review for the cut-off to be fixed now, so it is not chosen after seeing the main run's numbers; Jason chose half, for A7 too."
+    },
+    {
+     "file": "pipeline/score.py",
+     "loc": "h6_reading",
+     "quote": "half = lambda xs: bool(xs) and sum(xs) >= len(xs) / 2"
+    },
+    {
+     "file": "runs/score-pilot-2026-10-21.txt",
+     "loc": "H6",
+     "quote": "reading, cut-offs fixed before the main run: the test applies: abstained in 4/100 conflict-block trials"
+    },
+    {
+     "file": "README.md",
+     "loc": "Arms",
+     "quote": "a judge that abstains in under half of its P0 trials is one that abstains nowhere"
     },
     {
      "file": "docs/decisions.md",
@@ -8465,6 +8522,15 @@ a.ref:hover { background: var(--surface-2); }
    "summary": "M31 (product specification, primary source, T2) joined the corpus, now 7 of 40.",
    "changed": [
     "open-corpus"
+   ]
+  },
+  {
+   "date": "2026-10-21",
+   "summary": "Kai Rong's review of the post-pilot decisions: ordering alone does not catch a judge that states 100 on whatever it picks, so each judge's share of answers stated at 100 is printed beside its n_eff; H6's reading has cut-offs fixed before the main run, under half of P0 for abstaining nowhere and at least half of A7 for abstaining everywhere; the unit w reads \"at ceiling\" too; work plan 2C says its pass rule was replaced.",
+   "changed": [
+    "screen-ordering-gate",
+    "neff-ceiling",
+    "abstain-p0-check"
    ]
   }
  ]

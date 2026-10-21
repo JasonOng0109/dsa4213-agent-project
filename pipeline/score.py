@@ -25,7 +25,7 @@ from collections import Counter, defaultdict
 from functools import lru_cache
 from itertools import permutations
 
-from pipeline.conditions import CONFLICT_BLOCK, LADDER
+from pipeline.conditions import AGREEMENT_BLOCK, CONFLICT_BLOCK, LADDER
 from pipeline.judge import PARSE_FAILURES
 
 ORDER = ["A0", "A1", "A2", "A3", "A4", "A5", "A6", "A7", "X1", "X2", "X3", "X4", "X5",
@@ -385,7 +385,7 @@ def neff(cells: dict) -> dict:
                IS=round(n["A7"] - n["A4"], 2), RP=round(n["A4"] - n["A6"], 2))
     at = clipped | ({"A4", "A6", "A7"} if clipped & {"A0", "A1"} else set())
     uses = {"A4": {"A4"}, "A6": {"A6"}, "A7": {"A7"}, "CN": {"A4"}, "IS": {"A4", "A7"},
-            "RP": {"A4", "A6"}}
+            "RP": {"A4", "A6"}, "w": {"A0", "A1"}}
     return {k: "at ceiling" if uses.get(k, set()) & at else v for k, v in out.items()}
 
 
@@ -395,11 +395,19 @@ def report_neff(records: list[dict], excluded: set = frozenset(),
     do not order has no usable scale, so its n_eff is undefined even when the arithmetic
     would run. The undefined rate is itself reported per judge, and beside it how many
     cells have a value at ceiling. `show_excluded` prints that arithmetic for an excluded
-    judge, marked as a check; the value still counts as undefined."""
+    judge, marked as a check; the value still counts as undefined.
+
+    Beside them, how many of the judge's agreement-block answers put 100 on one option: a
+    judge that states 100 on whatever it picks has a mean P(truth) of 100 times its
+    accuracy, which rises from P0 to P2, so ordering cannot catch it, and its n_eff would
+    read its accuracy. A description, not a gate (docs/decisions.md, 2026-10-21)."""
     groups = defaultdict(lambda: defaultdict(list))
+    at_100 = defaultdict(list)             # judge -> one bool per agreement-block answer
     for r in records:
         if r["arm"] == "short":
             groups[(r["judge_model"], r["case_id"])][r["condition"]].append(r)
+            if r["condition"] in AGREEMENT_BLOCK and r.get("margin") is not None:
+                at_100[r["judge_model"]].append(max(r["p"].values()) >= 100)
     undefined = defaultdict(list)          # judge -> one bool per case
     ceiling = defaultdict(list)            # judge -> one bool per case: a value at ceiling
     for (judge, case_id), conds in sorted(groups.items()):
@@ -410,13 +418,15 @@ def report_neff(records: list[dict], excluded: set = frozenset(),
         if judge in excluded and show_excluded:
             value["for checking only, not a result"] = neff(cells)
         undefined[judge].append("undefined" in value)
-        ceiling[judge].append("at ceiling" in value.values())
+        shown = value.get("for checking only, not a result", value)
+        ceiling[judge].append("at ceiling" in shown.values())
         print(f"N_EFF judge {judge} | {case_id}: mean P(truth) {pt} -> {value}  "
               f"(normative A4 1, A6 1, A7 3)")
     for judge, flags in sorted(undefined.items()):
         print(f"N_EFF UNDEFINED judge {judge}: {sum(flags)}/{len(flags)} cells "
               f"({sum(flags) / len(flags):.2f}); a value at ceiling in "
-              f"{sum(ceiling[judge])}/{len(flags)}")
+              f"{sum(ceiling[judge])}/{len(flags)}; 100 stated on one option in "
+              f"{_count(at_100[judge])} agreement-block answers")
     print()
 
 
@@ -449,6 +459,29 @@ def _mh_difference(strata: list[tuple[list, list]]) -> float | None:
     return weighted / weight if weight else None
 
 
+def h6_reading(conflict: list[bool], a7: list[bool], p0: list[bool]) -> str:
+    """How one judge's H6 is read, with cut-offs fixed before the main run
+    (docs/decisions.md, 2026-10-21). Each list holds one abstained? per abstention-arm
+    trial: the conflict block's twins, A7 and P0. Abstaining in at least half of A7, where
+    three independent sources agree, is abstaining everywhere; abstaining in under half of
+    P0, where one irrelevant report settles nothing, is abstaining nowhere. Either is the
+    README's nuisance case, so H6 is not testable for that judge."""
+    half = lambda xs: bool(xs) and sum(xs) >= len(xs) / 2
+    if half(a7):
+        return ("not testable: abstained in at least half of its A7 trials, so it abstains "
+                "everywhere")
+    if any(conflict):
+        return (f"the test applies: abstained in {sum(conflict)}/{len(conflict)} "
+                f"conflict-block trials")
+    if not p0:
+        return "not assessed: no P0 trials"
+    if half(p0):
+        return ("clean null: abstained in at least half of its P0 trials, so it can, but "
+                "never in the conflict block")
+    return ("not testable: abstained in under half of its P0 trials, so it abstains "
+            "nowhere")
+
+
 def report_h6(records: list[dict], excluded: set = frozenset(),
               show_excluded: bool = False) -> None:
     """H6 (proposal §5), per judge. Observation, on the short arm's conflict block: how many
@@ -469,7 +502,8 @@ def report_h6(records: list[dict], excluded: set = frozenset(),
     Beside A7, the abstention rate in P0 offered the abstain option, where one irrelevant
     report cannot settle the answer: a check added after the pilot, not the test. A7
     shows a judge that abstains everywhere; P0 shows one that abstains nowhere, even
-    where the evidence is empty (docs/decisions.md, 2026-10-21)."""
+    where the evidence is empty. Last, the reading those give, with fixed cut-offs
+    (`h6_reading`; docs/decisions.md, 2026-10-21)."""
     forced, twins = defaultdict(dict), defaultdict(dict)
     a7, p0 = defaultdict(list), defaultdict(list)
     for r in records:
@@ -521,6 +555,9 @@ def report_h6(records: list[dict], excluded: set = frozenset(),
                   f"{_count(p0[judge])}")
         print("  sensitivity, declared in advance, not the test: "
               + "; ".join(f"margin < {t}: {difference(t)}" for t in MARGIN_SENSITIVITY))
+        conflict = [a for (_, c, _), a in twins[judge].items() if c in CONFLICT_BLOCK]
+        print(f"  reading, cut-offs fixed before the main run: "
+              f"{h6_reading(conflict, a7[judge], p0[judge])}")
     print()
 
 

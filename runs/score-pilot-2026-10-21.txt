@@ -902,9 +902,9 @@ N_EFF judge openrouter:openai/gpt-5.4 | M2: mean P(truth) {'A0': 25.0, 'A1': 87.
 N_EFF judge openrouter:openai/gpt-5.4 | M3: mean P(truth) {'A0': 25.0, 'A1': 94.5, 'A4': 99.5, 'A6': 100.0, 'A7': 99.5} -> {'A4': 'at ceiling', 'A6': 'at ceiling', 'A7': 'at ceiling', 'w': 3.942, 'clipped': 3, 'CN': 'at ceiling', 'IS': 'at ceiling', 'RP': 'at ceiling'}  (normative A4 1, A6 1, A7 3)
 N_EFF judge openrouter:openai/gpt-5.4 | M4: mean P(truth) {'A0': 22.5, 'A1': 94.3, 'A4': 100.0, 'A6': 99.5, 'A7': 100.0} -> {'A4': 'at ceiling', 'A6': 'at ceiling', 'A7': 'at ceiling', 'w': 4.043, 'clipped': 3, 'CN': 'at ceiling', 'IS': 'at ceiling', 'RP': 'at ceiling'}  (normative A4 1, A6 1, A7 3)
 N_EFF judge openrouter:openai/gpt-5.4 | M5: mean P(truth) {'A0': 25.0, 'A1': 93.0, 'A4': 99.5, 'A6': 100.0, 'A7': 100.0} -> {'A4': 'at ceiling', 'A6': 'at ceiling', 'A7': 'at ceiling', 'w': 3.685, 'clipped': 3, 'CN': 'at ceiling', 'IS': 'at ceiling', 'RP': 'at ceiling'}  (normative A4 1, A6 1, A7 3)
-N_EFF UNDEFINED judge openrouter:anthropic/claude-opus-5: 0/5 cells (0.00); a value at ceiling in 0/5
-N_EFF UNDEFINED judge openrouter:anthropic/claude-sonnet-5: 0/5 cells (0.00); a value at ceiling in 0/5
-N_EFF UNDEFINED judge openrouter:openai/gpt-5.4: 0/5 cells (0.00); a value at ceiling in 4/5
+N_EFF UNDEFINED judge openrouter:anthropic/claude-opus-5: 0/5 cells (0.00); a value at ceiling in 0/5; 100 stated on one option in 0/240 (0.00) agreement-block answers
+N_EFF UNDEFINED judge openrouter:anthropic/claude-sonnet-5: 0/5 cells (0.00); a value at ceiling in 0/5; 100 stated on one option in 18/240 (0.07) agreement-block answers
+N_EFF UNDEFINED judge openrouter:openai/gpt-5.4: 0/5 cells (0.00); a value at ceiling in 4/5; 100 stated on one option in 151/239 (0.63) agreement-block answers
 
 H6 judge openrouter:anthropic/claude-opus-5: 5/300 conflict-block records do not identify the answer given (0 incoherent, 5 by margin < 10)
   abstained in the abstention arm, inside each condition:
@@ -916,6 +916,7 @@ H6 judge openrouter:anthropic/claude-opus-5: 5/300 conflict-block records do not
   flagged minus not flagged, inside conditions (Mantel-Haenszel): +0.00; own A7 0/20 (0.00)
   check beside A7, not the test: abstained in P0, one irrelevant report, 20/20 (1.00)
   sensitivity, declared in advance, not the test: margin < 5: n/a; margin < 20: +0.00
+  reading, cut-offs fixed before the main run: clean null: abstained in at least half of its P0 trials, so it can, but never in the conflict block
 H6 judge openrouter:anthropic/claude-sonnet-5: 1/300 conflict-block records do not identify the answer given (0 incoherent, 1 by margin < 10)
   abstained in the abstention arm, inside each condition:
     X1 flagged 0/0 (n/a), not flagged 0/20 (0.00)
@@ -926,6 +927,7 @@ H6 judge openrouter:anthropic/claude-sonnet-5: 1/300 conflict-block records do n
   flagged minus not flagged, inside conditions (Mantel-Haenszel): +0.00; own A7 0/20 (0.00)
   check beside A7, not the test: abstained in P0, one irrelevant report, 20/20 (1.00)
   sensitivity, declared in advance, not the test: margin < 5: +0.00; margin < 20: +0.00
+  reading, cut-offs fixed before the main run: clean null: abstained in at least half of its P0 trials, so it can, but never in the conflict block
 H6 judge openrouter:openai/gpt-5.4: 2/300 conflict-block records do not identify the answer given (0 incoherent, 2 by margin < 10)
   abstained in the abstention arm, inside each condition:
     X1 flagged 0/0 (n/a), not flagged 4/20 (0.20)
@@ -936,6 +938,7 @@ H6 judge openrouter:openai/gpt-5.4: 2/300 conflict-block records do not identify
   flagged minus not flagged, inside conditions (Mantel-Haenszel): +0.00; own A7 0/20 (0.00)
   check beside A7, not the test: abstained in P0, one irrelevant report, 20/20 (1.00)
   sensitivity, declared in advance, not the test: margin < 5: n/a; margin < 20: +0.11
+  reading, cut-offs fixed before the main run: the test applies: abstained in 4/100 conflict-block trials
 
 HEALTH judge openrouter:anthropic/claude-opus-5: 920 trials, parse failures 0, no_match 0, other statuses [], call errors 0, providers ['Claude Platform on AWS'], reasoning tokens 0
   cost per call by arm: abstain $0.00359 (n=140, total $0.5026), ladder $0.00355 (n=180, total $0.6389), screen $0.00284 (n=60, total $0.1704), short $0.00327 (n=540, total $1.7673)
