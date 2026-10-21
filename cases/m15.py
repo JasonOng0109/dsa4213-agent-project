@@ -20,34 +20,44 @@ CASE = {
         "'seating' and 'capacity', so they share exactly the same set of question content-words "
         "(R13). The T1 cue is A's clause-level hedge 'is reckoned to contain' (R16), against B's "
         "flat assertion. A and B use different frames (R17): "
-        "A subject-first with a hedge, B number-first and passive. Quality lives only in "
-        "provenance (R2, R19): a student society orientation guide against a university estates space "
-        "audit register. C and D state the truth in their own frames without naming their document types (R2)."
-        "Content lengths are A=13 and B=13 words. Each filler set is 77-79 words. Filler is plain physical "
-        "building upkeep rather than administrative wording (R10), carries no time markers (R3), "
-        "no option values, and none of the words that occur only in a source's provenance type."
+        "A is subject-first with a hedge, B is location-fronted ('Inside the ... there are'). "
+        "Quality lives only in provenance (R2, R19) and only the authority dimension varies: "
+        "a student society orientation guide against a university estates space register. "
+        "'Audit' was dropped from B's type because it suggests a careful method, and 'certified' "
+        "was dropped from B's why for the same reason. A's why says 'written', not 'compiled', "
+        "because 'compiled' suggests the information was gathered second-hand, which is a "
+        "directness cue. "
+        "C and D state the truth in their own frames without naming their document types (R2). "
+        "Content lengths are A=13 and B=13 words (R20). Each filler set is exactly 79 words, so "
+        "filler+A and filler+B are both 92, inside the 91-93 band. Filler describes plain "
+        "physical features of the building as three separate scenes (the front of the building, "
+        "the entrance lobby, the grounds), each with its own nouns and adjectives, so reports "
+        "in one trial do not repeat features across slots (R12). It is written as plain factual "
+        "statements in one register, with no insider or administrative wording (R10), no time "
+        "markers (R3), no option values, no mention of the theatre or its seats (R9), and none "
+        "of the words that occur only in a source's provenance type (R2a)."
     ),
     "filler_sets": [
         [
-            "Tall windows along the east corridor reflect light paving and square ceiling lights.",
-            "The main staircase has broad steps, a dark wooden rail, and a landing beside glass entrance doors.",
-            "Metal cabinets stand beneath the plant room windows, with coloured labels on their doors.",
-            "The paved courtyard contains low planters, grey walls, and a covered passage linking two building entrances nearby.",
-            "A roofline follows the upper edge of the building, above long windows and a projecting concrete canopy overhead.",
+            "The front of the building is faced with red brick and has a wide stone step at its centre.",
+            "A curved metal handrail follows the step on both sides and finishes in a rounded post.",
+            "Above the step, a flat concrete canopy projects forward on two thin round pillars.",
+            "Round lamps are suspended from the canopy, and a brass plate is fixed to the brickwork.",
+            "A narrow bed of lavender runs along the brickwork under a low window sill.",
         ],
         [
-            "Ventilation grilles above the main entrance form narrow horizontal lines across the upper wall.",
-            "Fire doors along the west corridor have dark panels and square viewing windows.",
-            "The south wall has a long gutter beneath the roof edge and several evenly spaced metal brackets.",
-            "A workshop cabinet has labelled drawers, a smooth grey surface, and two handles set near its centre.",
-            "Flagpoles at the front entrance rise beside a stone path and a pair of low brick pillars.",
+            "The lobby has a tiled surface in two shades of grey and an oval rug near the middle.",
+            "Several iron hooks are mounted along one tall wooden panel, and an umbrella holder sits beside it.",
+            "Pale wooden benches face each other across the rug, each with a slim cushion.",
+            "A tall mirror with a white frame hangs above a small shelf holding a glass bowl.",
+            "Heavy double doors open onto a short passage lined with potted ferns and chairs.",
         ],
         [
-            "Concrete paths around the northern lawn form straight pale strips between clipped grass and low shrubs.",
-            "Emergency torches sit in shallow wall boxes with clear covers and small dark switches.",
-            "Radiators in the lower corridors run beneath windows, with valves at either end of each unit.",
-            "Heavy rubber mats lie beside side entrances, separated from the wall by strips of tile along the wall.",
-            "Water fountains near the cloakroom have curved metal taps, shallow basins, and tiled entrance surrounds.",
+            "A car park of dark asphalt lies to the east, edged by a clipped privet hedge.",
+            "Yellow stripes divide the bays, and a bicycle rack stands near the hedge.",
+            "A broad lawn slopes gently toward a pond with a timber jetty and an island of reeds.",
+            "Three oak trees shade a grassy mound beside the path, and a litter bin stands at its end.",
+            "A signpost at the corner of the car park shows the way to the road.",
         ],
     ],
 
@@ -63,21 +73,21 @@ CASE = {
                 "type": "student society orientation guide",
                 "authority": "individual",
                 "quality": "weak",
-                "why": "informal handbook compiled by student club members rather than university facilities officers",
+                "why": "informal handbook written by student club members rather than university facilities officers",
             },
         },
         "B": {
             "quality": "strong",
             "claim": "240 seats",
             "content": (
-                "Inside the Northwood Lecture Theatre, there are 240 seats installed altogether."
+                "Inside the Northwood Lecture Theatre, there are 240 seats installed throughout the room."
             ),
             "n_paraphrases_needed": 3,
             "provenance": {
-                "type": "university estates space audit register",
+                "type": "university estates space register",
                 "authority": "institutional",
                 "quality": "strong",
-                "why": "the governing administrative register recording certified building floor plans and safety occupancy limits",
+                "why": "the governing administrative register recording building floor plans and safety occupancy limits",
             },
         },
         "C": {
