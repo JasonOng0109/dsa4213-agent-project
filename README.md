@@ -438,12 +438,14 @@ Who does what next, step by step: [`docs/work-plan.md`](docs/work-plan.md).
   specification, primary source, T1), M3 (incident status, directness, T1), M4 (product
   specification, method, T1) and M5 (incident status, authority, T1). Authoring and
   independent review are the critical path; see `docs/authoring-rules.md`.
-- **No real run has happened in this repository.** `runs/` fills from the first
-  `generate`.
+- **The pilot has run** (2026-10-19), every programme entry on M1-M5: 240 calls
+  generated the reports and 3,420 judge trials ran. `runs/` holds the frozen reports,
+  the seven judge logs and the scorer's output, `runs/score-pilot.txt`. Its numbers are
+  a preview, not findings (`docs/work-plan.md`, Phase 3).
 - **Pilot: 5 of the 40 cases**, the fewest at which one badly ordered case cannot fail a
   judge on the confidence screen by itself (`docs/decisions.md`). All five are written
-  and reviewed. The pilot runs the whole programme: 3,660 calls, $7.03, with the group
-  approving up to $10.
+  and reviewed. The pilot ran the whole programme, 3,660 calls planned at $7.03, with
+  the group approving up to $10.
 - **Settled before the pilot** (`docs/decisions.md`, 2026-10-18): the wording ladder's
   sentence is kept; H6 counts a top-two margin below 10 points as near indifference;
   discrimination passes a judge when one condition with 10 right and 10 wrong decisions
@@ -451,6 +453,11 @@ Who does what next, step by step: [`docs/work-plan.md`](docs/work-plan.md).
   arm and the ladder; the pilot runs the whole programme.
 - **Open before the main run**: `cases/__init__.py` puts the ten-case subset first (the
   code takes the first ten). The ten are chosen: M1-M5 and five Phase 4 cases marked by
-  Kai Rong with the first batches (`docs/work-plan.md`, case register).
+  Kai Rong with the first batches (`docs/work-plan.md`, case register). Two questions
+  from the pilot (`runs/score-pilot.txt`). First, discrimination excluded all three
+  judges; if it does so on 40 cases, no judge's stated probabilities count, so n_eff and
+  every other belief result go unreported, while decisions still count. Second, H6 had
+  almost nothing to test: 8 of 900 conflict-block records were flagged, and two judges
+  never abstained.
 - **Not built**: the four optional sub-experiments. The backend already supports the
   reasoning switch and token logprobs they need.

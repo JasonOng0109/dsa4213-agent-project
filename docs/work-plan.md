@@ -10,7 +10,8 @@ kept:
 - The code is built and tested: `uv run pytest` must pass.
 - How many cases are merged: README, "Status and open items". Writing cases is the
   slowest part of the project.
-- No real run has happened yet. What the pilot waits for: Phase 3, "Start only when".
+- The pilot ran on 2026-10-19 (Phase 3); its output is `runs/score-pilot.txt`. What the
+  main run waits for: Phase 5, "Before".
 - What is still open: the "Open questions" board in `knowledge-graph.html`.
 
 ---
@@ -563,7 +564,7 @@ Change "to do" to "done" when a task is finished.
 | 2D Ten-case subset: mark five | Kai Rong | Phase 4 batches | done |
 | 2D Ten-case subset: reorder the tuple | Kai Rong | all 40 cases | to do |
 | 2E What the pilot runs | Jason + group | — | done |
-| 3.1–3.7 Pilot run | Jason | M2–M5 merged, 2E | to do |
-| 3.4 Read frozen reports | authors and reviewers | 3.3 | to do |
+| 3.1–3.7 Pilot run | Jason | M2–M5 merged, 2E | done |
+| 3.4 Read frozen reports | authors and reviewers | 3.3 | done |
 | Phase 4 drafts | everyone | Kai Rong's first batches | to do |
 | Phase 4 merges | Jason | pilot done | to do |
