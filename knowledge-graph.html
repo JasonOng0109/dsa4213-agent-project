@@ -952,7 +952,8 @@ a.ref:hover { background: var(--surface-2); }
    ],
    "points": [
     "Secondary; connects the results to prior work on source names.",
-    "Tested by [[x1]] vs [[x2]], only over cases whose type names carry the quality dimension ([[rules-other|R19]])."
+    "Tested by [[x1]] vs [[x2]], only over cases whose type names carry the quality dimension ([[rules-other|R19]]).",
+    "From Phase 4, A's and B's names differ only in the case's dimension, so a gain cannot come from one source simply sounding more official: [[types-dimension-only]]."
    ],
    "evidence": [
     {
@@ -1854,7 +1855,14 @@ a.ref:hover { background: var(--surface-2); }
     {
      "to": "screen",
      "rel": "related"
+    },
+    {
+     "to": "screen-other-survivor",
+     "rel": "involves"
     }
+   ],
+   "points": [
+    "The screen sentence's other survivor may be A's claim or a distractor: [[screen-other-survivor]]."
    ]
   },
   {
@@ -1873,7 +1881,8 @@ a.ref:hover { background: var(--surface-2); }
     "R20"
    ],
    "points": [
-    "Why R12 matters: if filler followed the source, the two reports from the shared source would carry identical padding and give away that they share a source."
+    "Why R12 matters: if filler followed the source, the two reports from the shared source would carry identical padding and give away that they share a source.",
+    "Filler may name the case's subject; it still may not mention an option: [[filler-names-subject]]."
    ],
    "evidence": [
     {
@@ -1908,6 +1917,10 @@ a.ref:hover { background: var(--surface-2); }
     {
      "to": "long-band",
      "rel": "needs"
+    },
+    {
+     "to": "filler-names-subject",
+     "rel": "involves"
     }
    ]
   },
@@ -2017,13 +2030,14 @@ a.ref:hover { background: var(--surface-2); }
    "cluster": "cases",
    "title": "Freeze order and type names",
    "label": "R18, R19",
-   "summary": "Sources are frozen in a fixed order, B first (R18), so runs can be reproduced. A source's type name must carry the case's quality dimension (R19), so H5 can be tested.",
+   "summary": "Sources are frozen in a fixed order, B first (R18), so runs can be reproduced. A source's type name must carry the case's quality dimension (R19), so H5 can be tested, and from Phase 4 A's and B's names differ in that dimension only.",
    "aliases": [
     "R18",
     "R19"
    ],
    "points": [
-    "A type name never says 'independent', since that is X3's job: [[no-independent-type]]."
+    "A type name never says 'independent', since that is X3's job: [[no-independent-type]].",
+    "Only the case's dimension differs between A's and B's names: [[types-dimension-only]]."
    ],
    "evidence": [
     {
@@ -2045,6 +2059,10 @@ a.ref:hover { background: var(--surface-2); }
     {
      "to": "quality-dimensions",
      "rel": "needs"
+    },
+    {
+     "to": "types-dimension-only",
+     "rel": "involves"
     }
    ]
   },
@@ -2054,7 +2072,7 @@ a.ref:hover { background: var(--surface-2); }
    "cluster": "cases",
    "title": "Type names never say \"independent\"",
    "label": "No \"independent\"",
-   "summary": "A source's type name must not use the word 'independent'. X2 shows the judge A's and B's type names, and X3's note is the condition that tells it one report comes from an independent source, so the word would do part of X3's job inside X2. R19's method example is now 'accredited laboratory test report'.",
+   "summary": "A source's type name must not use the word 'independent'. X2 shows the judge A's and B's type names, and X3's note is the condition that tells it one report comes from an independent source, so the word would do part of X3's job inside X2. R19's paragraph on the word uses 'accredited laboratory test report' as its example.",
    "date": "2026-10-18",
    "points": [
     "Found in the review of M4, whose B was named 'independent laboratory report' after R19's old example.",
@@ -2090,6 +2108,11 @@ a.ref:hover { background: var(--surface-2); }
      "file": "pipeline/reporter.py",
      "loc": "leak_terms",
      "quote": "Words of provenance[\"type\"] that appear in neither the content nor the question: banned from this source's reports."
+    },
+    {
+     "file": "docs/authoring-rules.md",
+     "loc": "R19",
+     "quote": "\"Accredited laboratory test report\" says the same about method without it."
     }
    ],
    "links": [
@@ -2104,6 +2127,174 @@ a.ref:hover { background: var(--surface-2); }
     {
      "to": "x3",
      "rel": "needs"
+    }
+   ]
+  },
+  {
+   "id": "types-dimension-only",
+   "type": "decision",
+   "cluster": "cases",
+   "title": "A's and B's type names differ only in the case's dimension",
+   "label": "Names differ in one dimension",
+   "summary": "From Phase 4 on, A's and B's type names differ in the case's quality dimension and in nothing else. In a directness, method or primary-source case both writers have the same standing; in an authority case the names differ in standing only, with no word about method, closeness or copying. M1–M5 keep their names, since they ran before the rule.",
+   "date": "2026-10-21",
+   "points": [
+    "Why: results are broken down by dimension, which cannot separate two dimensions that move together. And H5's warning sign is a gain only for official-sounding sources; with standing held equal, a case shows whether a judge reads the dimension itself: [[h5]].",
+    "Examples now in R19: two participants for directness, two student volunteers for method, one manufacturer for primary source.",
+    "C's and D's names are free, since no condition shows them: [[no-independent-type]].",
+    "Reviewers asked for it on the M14, M15 and M6 pull requests; Jason made it a rule."
+   ],
+   "evidence": [
+    {
+     "file": "docs/decisions.md",
+     "loc": "A's and B's type names differ only in the case's dimension",
+     "quote": "A's and B's `provenance.type` names differ in the case's quality dimension and in nothing else"
+    },
+    {
+     "file": "docs/authoring-rules.md",
+     "loc": "R19",
+     "quote": "Only the case's dimension differs"
+    },
+    {
+     "file": "docs/authoring-rules.md",
+     "loc": "R19",
+     "quote": "In a directness, method or primary-source case, both writers have the same standing"
+    },
+    {
+     "file": "docs/authoring-rules.md",
+     "loc": "R19",
+     "quote": "M1-M5 were written before this rule and keep their names."
+    },
+    {
+     "file": "docs/proposal.pdf",
+     "loc": "p.10 §3",
+     "quote": "recorded per case so that results can be broken down by dimension"
+    },
+    {
+     "file": "README.md",
+     "loc": "What counts as support, fixed before any data",
+     "quote": "the gain appears only for types matching a familiar real institution"
+    }
+   ],
+   "links": [
+    {
+     "to": "rules-other",
+     "rel": "needs"
+    },
+    {
+     "to": "quality-dimensions",
+     "rel": "needs"
+    },
+    {
+     "to": "h5",
+     "rel": "needs"
+    },
+    {
+     "to": "x2",
+     "rel": "related"
+    },
+    {
+     "to": "no-independent-type",
+     "rel": "related"
+    }
+   ]
+  },
+  {
+   "id": "screen-other-survivor",
+   "type": "decision",
+   "cluster": "cases",
+   "title": "The screen sentence may keep A's claim or a distractor",
+   "label": "Screen keeps either",
+   "summary": "The screen sentence keeps the truth and one other option. That other option may be A's claim or a distractor: the screen reads only the probability on the truth, so which one survives does not matter.",
+   "date": "2026-10-21",
+   "points": [
+    "Asked by reviewers on the M14, M6 and M7 pull requests; Jason decided.",
+    "M2 already kept A's claim and the truth in the pilot, and every judge's probability on the truth rose from P0 to P1 to P2 on it: [[pilot-results]]."
+   ],
+   "evidence": [
+    {
+     "file": "docs/decisions.md",
+     "loc": "The screen sentence may keep A's claim or a distractor",
+     "quote": "besides the truth, the option that `screen_partial` keeps may be A's claim or a distractor."
+    },
+    {
+     "file": "docs/authoring-rules.md",
+     "loc": "R15",
+     "quote": "The other survivor may be A's claim or a distractor: the screen reads only the probability on the truth, so which one does not matter."
+    },
+    {
+     "file": "cases/m2.py",
+     "loc": "screen_partial",
+     "quote": "greater than 50 Wh and less than 70 Wh."
+    },
+    {
+     "file": "runs/score-pilot.txt",
+     "loc": "SCREEN",
+     "quote": "M2 25.0, 49.8, 79.5"
+    }
+   ],
+   "links": [
+    {
+     "to": "rules-options",
+     "rel": "needs"
+    },
+    {
+     "to": "screen",
+     "rel": "needs"
+    },
+    {
+     "to": "pilot-results",
+     "rel": "related"
+    }
+   ]
+  },
+  {
+   "id": "filler-names-subject",
+   "type": "decision",
+   "cluster": "cases",
+   "title": "Filler may name the case's subject",
+   "label": "Filler may name the subject",
+   "summary": "Filler may name the case's subject, such as \"Kestrel Court is a residential estate\": it bears on no option. Filler still may not mention an option, or support, exclude or hedge one.",
+   "date": "2026-10-21",
+   "points": [
+    "The first filler sentence is also P0, the screen's irrelevant report; one that names the subject is a report about it that settles nothing: [[screen]].",
+    "In the pilot, M2, M4 and M5's first filler sentences name their subject, and the probability on the truth at P0 stayed level with A0: [[pilot-results]].",
+    "Rachel raised it on the M6 and M7 pull requests; Jason decided."
+   ],
+   "evidence": [
+    {
+     "file": "docs/decisions.md",
+     "loc": "Filler may name the case's subject",
+     "quote": "filler may name the case's subject"
+    },
+    {
+     "file": "docs/authoring-rules.md",
+     "loc": "R9",
+     "quote": "Naming the case's subject is fine, since it bears on no option"
+    },
+    {
+     "file": "cases/m5.py",
+     "loc": "filler_sets",
+     "quote": "Kestrel Court is a residential estate"
+    },
+    {
+     "file": "runs/score-pilot.txt",
+     "loc": "SCREEN",
+     "quote": "M5 41.2, 61.2, 83.8"
+    }
+   ],
+   "links": [
+    {
+     "to": "rules-filler",
+     "rel": "needs"
+    },
+    {
+     "to": "screen",
+     "rel": "related"
+    },
+    {
+     "to": "pilot-results",
+     "rel": "related"
     }
    ]
   },
@@ -8139,6 +8330,22 @@ a.ref:hover { background: var(--surface-2); }
    "closed": [
     "open-screen-pass",
     "open-h6-data"
+   ]
+  },
+  {
+   "date": "2026-10-21",
+   "summary": "Three authoring questions from the Phase 4 reviews, settled by Jason: the screen sentence may keep A's claim or a distractor (R15); from Phase 4, A's and B's type names differ only in the case's dimension, with a new R19 example table, M1–M5 exempt; filler may name the case's subject (R9).",
+   "added": [
+    "screen-other-survivor",
+    "types-dimension-only",
+    "filler-names-subject"
+   ],
+   "changed": [
+    "rules-options",
+    "rules-other",
+    "rules-filler",
+    "no-independent-type",
+    "h5"
    ]
   }
  ]

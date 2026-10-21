@@ -506,6 +506,8 @@ Add an entry when you make a choice a reader could not guess from the code.
 
 - **Decision**: no `provenance.type` uses the word "independent". R19's method example in
   `docs/authoring-rules.md` is now "accredited laboratory test report", and R19 says why.
+  On 2026-10-21 R19's table took new examples (that day's entry on type names); its
+  paragraph on "independent" keeps this one.
 - **Why** [STATED: team decision, 2026-10-18]: Kai Rong raised it reviewing M4, whose B
   was named "independent laboratory report" after R19's example, and Jason agreed.
   X2 shows the judge A's and B's type names, and X3's note says the strong report "comes
@@ -652,3 +654,61 @@ Add an entry when you make a choice a reader could not guess from the code.
   the test after the pilot.
 - **Breaks if changed**: without P0, a judge that never abstains leaves H6 unreadable
   rather than null.
+
+### 2026-10-21 — The screen sentence may keep A's claim or a distractor
+
+- **Decision**: besides the truth, the option that `screen_partial` keeps may be A's claim
+  or a distractor. R15 in `docs/authoring-rules.md` now says so.
+- **Why** [STATED: team decision, 2026-10-21]: Kathleen and Rachel asked about it on the
+  M14, M6 and M7 pull requests, and Jason decided. [STATED: R15] the sentence must be
+  true, keep the truth and rule out exactly half the options; it names no other
+  condition. [INFERRED: from `screen_verdict` in `pipeline/score.py`] the screen reads
+  only P(truth) at P0, P1 and P2, so nothing reads which other option survives.
+  [STATED: `runs/score-pilot.txt`] M2's sentence keeps A's claim and the truth, and on it
+  every judge's P(truth) rose from P0 to P1 to P2 (Opus "M2 25.0, 49.8, 79.5").
+- **Rejected**: requiring a distractor, which would rewrite five Phase 4 screen sentences
+  and depart from M2 for no gain.
+- **Breaks if changed**: nothing the scorer reads; a rule naming one kind would only add
+  rewrites.
+
+### 2026-10-21 — A's and B's type names differ only in the case's dimension
+
+- **Decision**: from Phase 4 on (M6 onward), A's and B's `provenance.type` names differ
+  in the case's quality dimension and in nothing else (R19 in `docs/authoring-rules.md`,
+  with a new example table). In a directness, method or primary-source case both writers
+  have the same standing; in an authority case the names differ in standing only, and
+  neither says how its figure was found, how close its writer was, or that it copies
+  another. C's and D's names are free, since no condition shows them. M1-M5 keep their
+  names: they ran in the pilot before the rule.
+- **Why** [STATED: team decision, 2026-10-21]: reviewers asked for it on the M14, M15 and
+  M6 pull requests, and Jason made it a rule. [STATED: proposal §3] each case's
+  dimension is "recorded per case so that results can be broken down by dimension", and a
+  breakdown cannot separate two dimensions that move together. [STATED: README, "What
+  counts as support"] H5's nuisance is a gain "only for types matching a familiar real
+  institution"; with standing held equal outside authority cases, those cases show
+  whether a judge reads the dimension itself rather than which source sounds more
+  official. [INFERRED: from the Phase 4 pull requests] the directness and method cases of
+  the first batch (M14, M22, M23, M30) already keep one kind of writer, so the rule can be
+  met.
+- **Rejected**: R19 as first written, which asked only that the name carry the dimension
+  and whose examples changed the writer's standing too; requiring it only in method and
+  directness cases, which leaves the same mix in primary-source cases; renaming M1-M5's
+  sources after they ran.
+- **Breaks if changed**: results broken down by dimension stop telling the dimensions
+  apart, and H5 can no longer be read apart from "the official-sounding source wins".
+
+### 2026-10-21 — Filler may name the case's subject
+
+- **Decision**: filler may name the case's subject; R9 in `docs/authoring-rules.md` now
+  says so. It still may not mention an option, or support, exclude or hedge one.
+- **Why** [STATED: team decision, 2026-10-21]: Rachel raised it on the M6 and M7 pull
+  requests, and Jason decided. [STATED: R9] the rule bans mentioning an option, not the
+  subject. [INFERRED: from `build_screen` in `pipeline/conditions.py`] the first filler
+  sentence is P0, the screen's irrelevant report, so one that names the subject is a
+  report about it that settles nothing. [STATED: `runs/score-pilot.txt`] M2, M4 and M5's
+  first filler sentences name their subject, and P(truth) at P0 stayed level with A0:
+  for M5, 27.0, 41.2 and 25.0 at P0 for Opus, Sonnet and GPT-5.4, against 29.3, 40.0
+  and 25.0 at A0.
+- **Rejected**: keeping the subject out of filler, which would rewrite five Phase 4 cases
+  and part from three pilot cases for no measured gain.
+- **Breaks if changed**: nothing the scorer reads; a ban would only add rewrites.

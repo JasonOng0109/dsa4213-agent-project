@@ -211,16 +211,19 @@ Same steps for each author. Replace `m2` with your case.
 **1.5 Write the provenance.**
 - **Do**: fill `type`, `authority`, `quality`, `why` for each source.
 - **Rules**: R19: the type name alone should show which source is better. Start from the
-  table in R19. R2a: do not use words in `type` that your content needs.
+  table in R19. A's and B's names differ only in your case's dimension: in a directness,
+  method or primary-source case both writers have the same standing (R19). R2a: do not
+  use words in `type` that your content needs.
 
 **1.6 Write the screen sentence.**
 - **Do**: fill `screen_partial`. One true sentence that keeps the truth and rules out
   exactly two of the four options (R15). Example: M1's "less than a fifth" rules out 25%
-  and 30%.
+  and 30%. The other option it keeps can be A's claim or a distractor.
 
 **1.7 Write the filler.**
 - **Do**: three lists of five neutral sentences, as in M1.
-- **Rules**: R9 (never mention or hint at any option), R10 (no "you", no "this
+- **Rules**: R9 (never mention or hint at any option; naming the case's subject is
+  fine), R10 (no "you", no "this
   announcement", one plain style), R12 (three sets, never tied to a source).
 - **Length** (R20): size each filler set so that the set plus A's sentence and the set
   plus B's sentence are both 91–93 words (about 77–80 words for 12–15-word sentences).
@@ -257,7 +260,8 @@ Same steps for each author. Replace `m2` with your case.
   2. Run `uv run python -m pipeline.lint`.
   3. Read the case beside `docs/authoring-rules.md`, rule by rule.
   4. Do the specificity test from 1.9 yourself.
-  5. The type-name test (R19): show someone only the two type names. Do they prefer one?
+  5. The type-name test (R19): show someone only the two type names. Do they prefer one,
+     for the case's dimension and not because one writer outranks the other?
   6. The screen test (R15): is the sentence true? Does it keep the truth? Does it rule
      out exactly two options?
   7. Comment on the pull request. Name the rule for each problem ("R13: ...").
