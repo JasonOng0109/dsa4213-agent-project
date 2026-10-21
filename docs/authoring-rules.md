@@ -90,7 +90,9 @@ interior values, so "avoid the extremes" is not a winning heuristic. **[lint]** 
 count and for mentions.
 
 **R9 — Filler does not bear on the question.** It may not support, exclude or hedge any
-option, and may not mention one. **[lint]** for mentions.
+option, and may not mention one. Naming the case's subject is fine, since it bears on no
+option: M5's filler opens with "Kestrel Court is a residential estate". **[lint]** for
+mentions.
 
 **R10 — Filler is document-neutral and register-neutral.** It never identifies or
 implies who wrote it, never describes its own document type ("each row", "this
@@ -121,12 +123,14 @@ against one report of B. So A needs **two** accepted paraphrases, B **three**, C
 truth. **[lint]**
 
 **R15 — The screen sentence.** `screen_partial` is **one sentence that is true, keeps the
-world truth among the survivors, and rules out exactly half the options.** It is level P1
-of the confidence screen; P0 is a filler sentence and P2 is B's first frozen paraphrase,
-so only this sentence needs writing. It is not a source: it never appears alongside
-other reports, and **R8 and R9 do not apply to it**, because ruling out two options is
-its job. R1 to R3 and R10 to R13 still apply, since a judge reads it. **[lint]** for
-presence, one sentence, and R3/R10 wording.
+world truth among the survivors, and rules out exactly half the options.** The other
+survivor may be A's claim or a distractor: the screen reads only the probability on the
+truth, so which one does not matter. It is level P1 of the confidence screen; P0 is a
+filler sentence and P2 is B's first frozen paraphrase, so only this sentence needs
+writing. It is not a source: it never appears alongside other reports, and **R8 and R9
+do not apply to it**, because ruling out two options is its job. R1 to R3 and R10 to R13
+still apply, since a judge reads it. **[lint]** for presence, one sentence, and R3/R10
+wording.
 
 **R16 — A T1 cue must survive paraphrasing.** The reporter rewords every source, so a cue
 carried by one function word is usually lost: a second-person pronoun does not survive.
@@ -134,6 +138,13 @@ Prefer cues at the level of the clause, such as a hedge ("is understood to be"),
 approximation, or a standardised notation, and ask: *would a faithful rewording keep
 this?* The tier label stays provisional until the frozen reports are read. A case whose
 cue is lost is relabelled T2, not rewritten, because a T2 case is a legitimate control.
+**Vary the cue across cases.** If one phrase carries many T1 cases and the reporter drops
+it, they all become T2 together. Before choosing a hedge, run
+`grep -n -i -A1 hedge cases/*.py` to see the ones in use (each case names its hedge in
+`design_notes`), and pick the one used least, or another kind of cue; then name yours in
+`design_notes` too. "Is believed to", "is thought to" and "is estimated at" are hedges of
+the same size. "Reportedly", "allegedly" and "apparently" are not available: R2's lint
+rejects them.
 
 **R17 — Sources that share a trial use different sentence frames.** B, C and D appear
 together in A7; A and B appear together in the conflict block. If two of them state the
@@ -155,15 +166,31 @@ only know why.)
 judge infers quality from a named source type alone, so the name must convey the
 dimension the case is built on.
 
+**Only the case's dimension differs** (from Phase 4, M6 on). Results are broken down by
+dimension, so A's and B's type names may differ in that dimension and in nothing else. In
+a directness, method or primary-source case, both writers have the same standing: two
+participants, two student volunteers, one manufacturer. In an authority case, the writers
+differ in standing only: neither name says how its figure was found, how close its writer
+was, or that it copies another ("audit", "accredited", "first-hand", "compiled"). C's and
+D's names are free: no condition shows them. M1-M5 were written before this rule and keep
+their names.
+
 | Dimension | A weak type name | A strong type name |
 |---|---|---|
-| Authority | student-run module wiki page | registrar's official examination timetable |
-| Directness | summary circulated by a classmate who attended | security patrol log written at the scene |
-| Method | retailer question-and-answer reply from a store representative | independent laboratory test report |
-| Primary source | online retailer product listing | manufacturer specification sheet |
+| Authority | student society's exam timetable | registrar's exam timetable |
+| Directness | summary passed on by a participant who missed the briefing | notes taken in the room by a participant at the briefing |
+| Method | student volunteer's rough guess | student volunteer's item-by-item count |
+| Primary source | manufacturer's online shop listing | manufacturer's technical datasheet |
 
-The test: strip the content and show only the two type names. Would a reader prefer one?
-If not, the case cannot serve H5; mark it as testing the other hypotheses only.
+The test: strip the content and show only the two type names. Would a reader prefer one,
+and for the case's dimension rather than because one writer outranks the other? If no
+reader would prefer one, the case cannot serve H5; mark it as testing the other
+hypotheses only.
+
+**Keep "independent" out of type names.** X2 shows the judge A's and B's type names, and
+X3's note is what tells it that one report "comes from a different, independent source".
+A type name with that word does part of X3's job inside X2. "Accredited laboratory test
+report" says the same about method without it.
 
 **R20 — Long reports leave room for rewording.** A long report is one filler set plus
 one reworded A or B sentence, and every long report must be 88 to 96 words, with the
