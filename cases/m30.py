@@ -51,12 +51,17 @@ CASE = {
         "words and both leave out 'many' (R13). B, C and D state the fact in three "
         "different frames (R17). C and D are first-hand records of the final itself, the "
         "timekeeper's sheet and a video, so neither depends on B's briefing or on each "
-        "other, and they say nothing about how their values were found (R2, R6). The "
+        "other, and they say nothing about how their values were found (R2, R6). Both "
+        "record the time each team is allowed, from the presentation clock the "
+        "timekeeper ran and the countdown clock the video shows, not how long a team "
+        "actually spoke, so B, C and D support one proposition in A7 (R1). The "
         "competition and its final are invented (R4). Filler describes how the "
         "auditorium looks, with nothing about time, timing, rules, notes, the teams or "
         "the practical arrangements a briefing would cover, no figures and no second "
-        "person, so no slot carries the feel of either source (R3, R9, R10). Each filler "
-        "set is 77 words and A's and B's sentences are 16 and 14 words, so every long "
+        "person, so no slot carries the feel of either source (R3, R9, R10). Only set 1 "
+        "describes the stage, and no distinctive word is in all three sets, so the "
+        "slots stay apart (R12). Each filler set is 77 words and A's and B's sentences "
+        "are 16 and 14 words, so every long "
         "report starts at 91 to 93 words and stays inside 88 to 96 after rewording "
         "(R20). When the frozen reports are read (step 3.4), check that A's and B's "
         "rewordings still give the time to present: a 'slot', 'turn' or 'session' can "
@@ -71,7 +76,7 @@ CASE = {
             "the main campus.",
             "Tiered seating slopes down from the entrance towards a wide stage with a "
             "polished wooden floor.",
-            "A large projection screen hangs at the back of the stage, with a lectern to "
+            "A broad projection screen hangs at the back of the stage, with a lectern to "
             "one side.",
             "Microphones on slim stands sit near the front edge of the stage, facing the "
             "audience.",
@@ -79,10 +84,10 @@ CASE = {
         ],
         [
             "The foyer outside the auditorium has a reception counter, a coat rack and a "
-            "seating area.",
-            "Large windows in the foyer look out onto a paved courtyard with a small stone "
+            "leather sofa.",
+            "Glass doors in the foyer open out onto a paved courtyard with a small stone "
             "fountain.",
-            "Tall banners in blue and white hang from the ceiling beside the stage.",
+            "Tall banners in blue and white hang from the rafters above the foyer.",
             "The seats are upholstered in dark blue fabric, and each one has a padded "
             "armrest.",
             "A control booth for sound and lighting sits above the entrance at the back of "
@@ -91,11 +96,12 @@ CASE = {
         [
             "The high ceiling is painted dark grey, and small round lamps are set evenly "
             "across it.",
-            "A ramp with a brass handrail runs up beside the stage from the seating.",
+            "A ramp with a smooth brass handrail runs gently down along the left-hand "
+            "wall.",
             "Arched windows on both sides of the hall are hung with pale grey blinds.",
-            "Potted palms stand at the foot of the stage, below heavy curtains of deep red "
-            "velvet.",
-            "Large framed paintings line one wall of the corridor that leads from the "
+            "Potted palms stand in the far corners, just below long, heavy curtains of "
+            "deep red velvet.",
+            "Gilt-framed oil paintings line one wall of the corridor that leads from the "
             "foyer to the hall.",
         ],
     ],
@@ -138,8 +144,8 @@ CASE = {
                 "type": "timekeeper's sheet filled in at the final",
                 "authority": "event staff",
                 "quality": "strong",
-                "why": "kept by the timekeeper who timed every presentation in the final "
-                       "as it happened",
+                "why": "kept by the timekeeper, who ran the presentation clock for every "
+                       "team in the final",
             },
             "content": ("Nine minutes is the time each team gets to present in the "
                         "Brightwater Case Challenge final."),
@@ -152,7 +158,8 @@ CASE = {
                 "type": "video recording of the final",
                 "authority": "recording",
                 "quality": "strong",
-                "why": "shows every presentation in the final from start to finish",
+                "why": "shows the stage countdown clock at the start of every presentation "
+                       "in the final",
             },
             "content": ("Each team in the Brightwater Case Challenge final presents for "
                         "nine minutes."),
