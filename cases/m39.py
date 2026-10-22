@@ -12,8 +12,9 @@ CASE = {
     "distractors": ["23 cars", "47 cars"],   # plausible, unsupported, same kind as the
                                             # truth; even steps of 8 cars
     "screen_partial": (
-        "Fewer than 35 cars were damaged in the Aldmoor car park fire."
-    ),   # screen level P1: true, keeps 23 and 31 cars, and rules out 39 and 47 cars
+        "Between 19 and 35 cars were damaged in the Aldmoor car park fire."
+    ),   # screen level P1: true, keeps 23 and 31 cars, each 4 inside a bound, and
+         # rules out 39 and 47 cars
     "quality_dimension": "directness",
     "difficulty_tier": "T1",            # A's hedge is a whole clause, which a faithful
                                         # rewording keeps (R16); confirm in the frozen
