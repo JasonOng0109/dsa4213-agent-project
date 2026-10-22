@@ -490,7 +490,7 @@ Jason merges Phase 4 cases only after it, because the run takes every case in
 | M11 | institutional_logistics | directness | T1 | Crystal | Rachel | assigned | |
 | M12 | product_spec | method | T1 | Crystal | Rachel | assigned | |
 | M13 | incident_status | primary_source | T1 | Crystal | Rachel | assigned | |
-| M14 | incident_status | method | T2 | Rachel | Kathleen | assigned | yes |
+| M14 | incident_status | method | T2 | Rachel | Kathleen | merged | yes |
 | M15 | institutional_logistics | authority | T1 | Rachel | Kathleen | assigned | |
 | M16 | institutional_logistics | primary_source | T1 | Rachel | Kathleen | assigned | backup for M6 |
 | M17 | institutional_logistics | directness | T1 | Rachel | Kathleen | assigned | backup for M30 |
@@ -508,8 +508,8 @@ Jason merges Phase 4 cases only after it, because the run takes every case in
 | M29 | incident_status | directness | T1 | Kathleen | Kai Rong | assigned | |
 | M30 | institutional_logistics | directness | T1 | Kai Rong | Crystal | merged | yes |
 | M31 | product_spec | primary_source | T2 | Kai Rong | Crystal | merged | |
-| M32 | incident_status | primary_source | T1 | Kai Rong | Crystal | assigned | backup for M38 |
-| M33 | incident_status | authority | T2 | Kai Rong | Crystal | assigned | |
+| M32 | incident_status | primary_source | T1 | Kai Rong | Crystal | merged | backup for M38 |
+| M33 | incident_status | authority | T2 | Kai Rong | Crystal | merged | |
 | M34 | product_spec | authority | T1 | Kai Rong | Crystal | assigned | |
 | M35 | institutional_logistics | method | T1 | Kai Rong | Crystal | assigned | |
 | M36 | product_spec | directness | T1 | Kai Rong | Crystal | assigned | |
