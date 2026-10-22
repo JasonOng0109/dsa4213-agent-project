@@ -217,8 +217,10 @@ Same steps for each author. Replace `m2` with your case.
 
 **1.6 Write the screen sentence.**
 - **Do**: fill `screen_partial`. One true sentence that keeps the truth and rules out
-  exactly two of the four options (R15). Example: M1's "less than a fifth" rules out 25%
-  and 30%. The other option it keeps can be A's claim or a distractor.
+  exactly two of the four options (R15). A sentence with bounds uses two, with both kept
+  options the same distance inside them. Example: M1's "more than a twentieth and less
+  than a fifth" keeps 10% and 15%, each 5 points inside a bound, and rules out 25% and
+  30%. The other option it keeps can be A's claim or a distractor.
 
 **1.7 Write the filler.**
 - **Do**: three lists of five neutral sentences, as in M1.
@@ -506,7 +508,7 @@ Jason merges Phase 4 cases only after it, because the run takes every case in
 | M29 | incident_status | directness | T1 | Kathleen | Kai Rong | assigned | |
 | M30 | institutional_logistics | directness | T1 | Kai Rong | Crystal | merged | yes |
 | M31 | product_spec | primary_source | T2 | Kai Rong | Crystal | merged | |
-| M32 | incident_status | primary_source | T1 | Kai Rong | Crystal | assigned | backup for M38 |
+| M32 | incident_status | primary_source | T1 | Kai Rong | Crystal | merged | backup for M38 |
 | M33 | incident_status | authority | T2 | Kai Rong | Crystal | assigned | |
 | M34 | product_spec | authority | T1 | Kai Rong | Crystal | assigned | |
 | M35 | institutional_logistics | method | T1 | Kai Rong | Crystal | assigned | |
@@ -540,10 +542,19 @@ Every case has a row. Change its status from "assigned" to "merged" when Jason m
 Outline only. Detailed tasks will be added after the pilot.
 
 - **Before**: all 40 cases merged. Every open item closed except the optional
-  sub-experiments. Spend approved. The proposal asks for $75. The main programme at 40
-  cases is $37.48 (`uv run python -m pipeline.run plan --cases 40`).
+  sub-experiments. Spend approved. The proposal asks for $75; the key's limit is $50,
+  and the coordinator tops it up again only after seeing it spent. The main programme at
+  40 cases is $37.48 at the proposal's rates (`uv run python -m pipeline.run plan
+  --cases 40`), about $38.89 at the pilot's.
 - **Run** (Jason): same steps as Phase 3, with the same reading of frozen reports by
-  each case's author and reviewer.
+  each case's author and reviewer, in two stages (`docs/decisions.md`, 2026-10-22).
+  Stage 1, $33.79: generate ($0.48), then `screen` ($2.40), `conflict` ($13.78),
+  `agreement` ($11.02), `abstain` ($6.11) and any entry added later that does not run on
+  the ten-case subset. Stage 2, after the top-up, $5.11: `long-conflict` ($2.39),
+  `long-agreement` ($0.48) and `ladder` ($2.24), then the optional sub-experiments.
+  These costs use the pilot's measured cost per call; `judge` prints the proposal's
+  rates, which run 16% low for `abstain`. Run `probe` before each stage, and before each
+  entry check that `balance` covers its cost plus 10%.
 - **Analysis**: read results only against the table "What counts as support, fixed
   before any data" in the README.
 - **Optional sub-experiments**: not built yet. Only if budget allows, in the order the

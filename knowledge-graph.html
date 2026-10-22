@@ -392,7 +392,7 @@ a.ref:hover { background: var(--surface-2); }
   "title": "Project Knowledge Graph",
   "project": "DSA4213 Group 14 · Counting Reports or Counting Evidence",
   "oneLiner": "Can an AI orchestrator that combines reports from several agents tell three copies of one source from three independent sources, and which piece of information fixes its mistakes: a source name, a 'these share a source' note, or a 'this source is better' note?",
-  "updated": "2026-10-21",
+  "updated": "2026-10-22",
   "tour": [
    "question",
    "false-consensus",
@@ -442,7 +442,7 @@ a.ref:hover { background: var(--surface-2); }
     "four-options"
    ],
    [
-    "7 of 40",
+    "8 of 40",
     "cases written",
     "open-corpus"
    ],
@@ -1854,10 +1854,15 @@ a.ref:hover { background: var(--surface-2); }
     {
      "to": "screen-other-survivor",
      "rel": "involves"
+    },
+    {
+     "to": "screen-bounds",
+     "rel": "involves"
     }
    ],
    "points": [
-    "The screen sentence's other survivor may be A's claim or a distractor: [[screen-other-survivor]]."
+    "The screen sentence's other survivor may be A's claim or a distractor: [[screen-other-survivor]].",
+    "A screen sentence with bounds uses two, with both kept options the same distance inside them: [[screen-bounds]]."
    ]
   },
   {
@@ -2239,6 +2244,62 @@ a.ref:hover { background: var(--surface-2); }
     },
     {
      "to": "pilot-results",
+     "rel": "related"
+    }
+   ]
+  },
+  {
+   "id": "screen-bounds",
+   "type": "decision",
+   "cluster": "cases",
+   "title": "A screen sentence with bounds keeps both options equally far inside two",
+   "label": "Screen: two even bounds",
+   "summary": "When the screen sentence rules options out with a bound, it uses two, and both options it keeps sit the same distance inside them. With one bound, a reader takes 'less than 15 metres' to mean just under 15, so the option nearest the bound draws extra belief, and in every case written that way that option was the truth.",
+   "date": "2026-10-22",
+   "points": [
+    "Kai Rong asked for it, as optional, on the M22 and M23 pull requests; Jason made it a rule after the pilot and before the main run.",
+    "The screen sentence is level P1 of the ordering check, so anything that lifts the probability on the truth at P1, other than the narrowing, makes ordering easier to pass: [[screen]].",
+    "Seven cases had one bound with the truth nearest it: M1, M3, M4 and M5 on main, and M15, M22 and M39 in their pull requests. Each gained the missing bound and keeps the same two options: M3's 'less than 15 metres' is now 'between 10 and 15 metres'.",
+    "P1 is the authored sentence used as written, never reworded or frozen, so nothing else in those cases changes."
+   ],
+   "evidence": [
+    {
+     "file": "docs/authoring-rules.md",
+     "loc": "R15",
+     "quote": "A sentence with bounds uses two, and both survivors sit the same distance inside them"
+    },
+    {
+     "file": "docs/authoring-rules.md",
+     "loc": "R15",
+     "quote": "a reader takes \"less than 15 metres\" to mean just under 15."
+    },
+    {
+     "file": "docs/decisions.md",
+     "loc": "A screen sentence with bounds keeps both options equally far inside two",
+     "quote": "in all seven cases written with one bound (M1, M3, M4, M5, M15, M22 and M39) the truth was the survivor nearest it, so the cue always pushed toward the truth"
+    },
+    {
+     "file": "cases/m3.py",
+     "loc": "screen_partial",
+     "quote": "The water depth of the Star Reservoir basin is between 10 and 15 metres."
+    },
+    {
+     "file": "pipeline/conditions.py",
+     "loc": "build_screen",
+     "quote": "P1 the authored `screen_partial`"
+    }
+   ],
+   "links": [
+    {
+     "to": "rules-options",
+     "rel": "needs"
+    },
+    {
+     "to": "screen",
+     "rel": "needs"
+    },
+    {
+     "to": "screen-other-survivor",
      "rel": "related"
     }
    ]
@@ -6702,7 +6763,8 @@ a.ref:hover { background: var(--surface-2); }
    "visual": "costBreakdown",
    "points": [
     "Rates: writing and rating rewordings $0.00025 per call; judging short reports $0.00178; judging long reports $0.0030 (the one estimated figure).",
-    "The pilot measures the real cost per call by arm, the long-report rate included: [[pilot-programme]]."
+    "The pilot measures the real cost per call by arm, the long-report rate included: [[pilot-programme]].",
+    "The key's limit is $50, and the coordinator tops it up again only after seeing it spent, so the main run goes in two stages: [[main-run-staged]]."
    ],
    "data": {
     "perCase": [
@@ -6770,6 +6832,11 @@ a.ref:hover { background: var(--surface-2); }
      "file": "docs/proposal.pdf",
      "loc": "p.20 §5",
      "quote": "We request $75"
+    },
+    {
+     "file": "docs/work-plan.md",
+     "loc": "Phase 5",
+     "quote": "the key's limit is $50, and the coordinator tops it up again only after seeing it spent."
     }
    ],
    "links": [
@@ -6783,6 +6850,69 @@ a.ref:hover { background: var(--surface-2); }
     },
     {
      "to": "runner",
+     "rel": "related"
+    },
+    {
+     "to": "main-run-staged",
+     "rel": "related"
+    }
+   ]
+  },
+  {
+   "id": "main-run-staged",
+   "type": "decision",
+   "cluster": "process",
+   "title": "The main run goes in two stages, split by programme entry",
+   "label": "Main run: two stages",
+   "summary": "The API key's limit is $50, and the course coordinator tops it up again only after seeing it spent. So the main run goes in two stages, each programme entry into its own log. Stage 1 is generation and every entry that runs on all 40 cases, about $33.79 at the pilot's measured rates; stage 2, after the top-up, is the length arm and the wording ladder, about $5.11, then the optional sub-experiments. The corpus is not split: stage 1 starts only when all 40 cases are merged.",
+   "date": "2026-10-22",
+   "points": [
+    "Stage 1 holds every condition behind H1-H6 and the confidence screen; stage 2 holds the checks that need long reports or graded wording.",
+    "The whole programme, about $38.89 at the pilot's rates, would leave nothing for an entry that stops, and a stopped log cannot be resumed: [[pilot-programme]].",
+    "Costs use the pilot's measured cost per call; judge prints the proposal's rates, which run 16% low for the abstention arm, so balance is checked before each entry: [[cost-model]].",
+    "Not split by case: rules still change while cases are written, as the screen-bounds rule changed four merged cases: [[screen-bounds]]."
+   ],
+   "evidence": [
+    {
+     "file": "docs/decisions.md",
+     "loc": "The main run goes in two stages, split by programme entry",
+     "quote": "the course coordinator raised the API key's limit to $50 in all and tops it up again only after he sees that money spent"
+    },
+    {
+     "file": "docs/decisions.md",
+     "loc": "The main run goes in two stages, split by programme entry",
+     "quote": "Stage 2 is the three subset entries, `long-conflict`, `long-agreement` and `ladder`, then the optional sub-experiments, once the key is topped up."
+    },
+    {
+     "file": "docs/work-plan.md",
+     "loc": "Phase 5",
+     "quote": "Run `probe` before each stage, and before each entry check that `balance` covers its cost plus 10%."
+    },
+    {
+     "file": "pipeline/run.py",
+     "loc": "judge --log",
+     "quote": "a new name per staged run"
+    }
+   ],
+   "links": [
+    {
+     "to": "cost-model",
+     "rel": "needs"
+    },
+    {
+     "to": "runner",
+     "rel": "needs"
+    },
+    {
+     "to": "pilot-programme",
+     "rel": "related"
+    },
+    {
+     "to": "optional-subexps",
+     "rel": "involves"
+    },
+    {
+     "to": "screen-bounds",
      "rel": "related"
     }
    ]
@@ -6869,9 +6999,9 @@ a.ref:hover { background: var(--surface-2); }
    "id": "open-corpus",
    "type": "issue",
    "cluster": "issues",
-   "title": "Only seven of 40 cases are written",
-   "label": "Corpus: 7 of 40",
-   "summary": "The corpus holds seven cases, M1 to M5, M30 and M31. The study plans 40, and authoring with independent review is the critical path.",
+   "title": "Only eight of 40 cases are written",
+   "label": "Corpus: 8 of 40",
+   "summary": "The corpus holds eight cases, M1 to M5 and M30 to M32. The study plans 40, and authoring with independent review is the critical path.",
    "status": "open",
    "date": "2026-10-12",
    "weight": 2,
@@ -6879,12 +7009,12 @@ a.ref:hover { background: var(--surface-2); }
     {
      "file": "README.md",
      "loc": "Status and open items",
-     "quote": "Corpus: 7 of 40 cases. M1 (institutional logistics, authority, T2), M2 (product specification, primary source, T1), M3 (incident status, directness, T1), M4 (product specification, method, T1), M5 (incident status, authority, T1), M30 (institutional logistics, directness, T1) and M31 (product specification, primary source, T2)."
+     "quote": "Corpus: 8 of 40 cases. M1 (institutional logistics, authority, T2), M2 (product specification, primary source, T1), M3 (incident status, directness, T1), M4 (product specification, method, T1), M5 (incident status, authority, T1), M30 (institutional logistics, directness, T1), M31 (product specification, primary source, T2) and M32 (incident status, primary source, T1)."
     },
     {
      "file": "cases/__init__.py",
      "loc": "CASES",
-     "quote": "CASES = {case[\"case_id\"]: case for case in (m1.CASE, m2.CASE, m3.CASE, m4.CASE, m5.CASE, m30.CASE, m31.CASE)}"
+     "quote": "CASES = {case[\"case_id\"]: case for case in (m1.CASE, m2.CASE, m3.CASE, m4.CASE, m5.CASE, m30.CASE, m31.CASE, m32.CASE)}"
     }
    ],
    "links": [
@@ -8077,6 +8207,33 @@ a.ref:hover { background: var(--surface-2); }
    "changed": [
     "open-corpus"
    ]
+  },
+  {
+   "date": "2026-10-22",
+   "summary": "R15: a screen sentence with bounds uses two, with both kept options equally far inside, so 'pick the survivor nearest the bound' cannot find the truth. M1, M3, M4 and M5 gained the missing bound and keep the same two options; the screen figure shows M1's new sentence.",
+   "added": [
+    "screen-bounds"
+   ],
+   "changed": [
+    "rules-options"
+   ]
+  },
+  {
+   "date": "2026-10-22",
+   "summary": "The main run goes in two stages, split by programme entry: the key's limit is $50 and the coordinator tops it up only after seeing it spent. Stage 1, about $33.79 at the pilot's rates, runs every entry on all 40 cases; stage 2, about $5.11, the length arm and the ladder after the top-up.",
+   "added": [
+    "main-run-staged"
+   ],
+   "changed": [
+    "cost-model"
+   ]
+  },
+  {
+   "date": "2026-10-22",
+   "summary": "M32 (incident status, primary source, T1) joined the corpus, now 8 of 40.",
+   "changed": [
+    "open-corpus"
+   ]
   }
  ]
 }</script>
@@ -8402,7 +8559,7 @@ const VISUALS = {
   },
   screenDesign(n) {
     const s = [['P0 · irrelevant', 'Logbooks are collected from the mechanical engineering general office and must be signed by a demonstrator…', '≈ 25 (chance)', 34],
-      ['P1 · narrows to two', 'The ME2103 lab logbook is worth less than a fifth of the final module grade.', '≈ 50', 62],
+      ['P1 · narrows to two', 'The ME2103 lab logbook is worth more than a twentieth and less than a fifth of the final module grade.', '≈ 50', 62],
       ['P2 · names the answer', 'Source B’s first frozen rewording, which states the 15% outright.', 'high', 100]];
     return fig(`<div class="stair">${s.map(x => `<div style="width:${x[3]}%;min-width:62%"><b>${x[0]}</b> → P(truth) ${x[2]}<br><span style="color:var(--muted)">${esc(x[1])}</span></div>`).join('')}</div>`,
       'One report each, no provenance, on case M1. A judge passes ordering if, across cases, its probability on the truth rises P0 < P1 < P2 more consistently than chance: Page’s test, one-sided p < 0.05.');
