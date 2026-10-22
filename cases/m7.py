@@ -18,78 +18,83 @@ CASE = {
     "difficulty_tier": "T1",
     "design_notes": (
         "This case tests the authority quality dimension using conflicting "
-        "brightness ratings for the fictional LumaDesk S3 desk lamp. "
-        "Source A is an informal product-review website claiming 500 lm, "
-        "while Source B is an accredited lighting performance authority "
+        "rated brightness values for the fictional LumaDesk S3 desk lamp. "
+        "Source A is a hobbyist website's product page claiming 500 lm, "
+        "while Source B is a national standards authority's product register "
         "supporting the true value of 600 lm. "
-        "A is weaker because the reviewer lacks recognised authority to "
-        "establish the lamp's rated brightness, whereas B has recognised "
-        "expertise in lighting performance (R19). "
-        "A and B describe the same product and brightness rating, using "
-        "equally specific claims with no exceptions or changes (R1). "
-        "Both retain the relevant question terms identifying the lamp "
-        "and its brightness (R13). "
-        "Source A contains the mild clause-level hedge 'is believed to have', "
-        "which is intended to survive reporter paraphrasing (R16). "
+        "A is weaker because the hobbyist website lacks recognised institutional "
+        "standing, whereas B has official responsibility for product ratings. "
+        "The comparison isolates authority rather than testing methodology (R19). "
+        "A and B describe the same lamp and rated brightness with equally "
+        "specific claims and no changes or exceptions (R1). "
+        "Both identify the same LumaDesk S3 desk lamp and brightness property, "
+        "so neither benefits from a difference in question-related wording (R13). "
+        "Source A contains the mild clause-level hedge 'is presumed to have', "
+        "which is intended to survive faithful reporter paraphrasing (R16). "
         "The T1 classification remains provisional until the frozen reports "
-        "are checked; if the hedge disappears, the case becomes T2. "
-        "Source identity, authority and assessment methods are kept in "
+        "are checked; if the hedge disappears, the case is relabelled T2. "
+        "Source identity, authority and evidence-production methods remain in "
         "provenance rather than content (R2). "
-        "Sources B, C and D use distinct sentence structures while "
-        "supporting the same brightness value (R17). "
-        "Their independence must be checked to ensure that A7 represents "
-        "three independent sources rather than repeated evidence. "
-        "The four options are 400, 500, 600 and 700 lm, with both competing "
-        "claims occupying the interior positions (R8). "
-        "The screening sentence preserves 500 and 600 lm while excluding "
-        "400 and 700 lm, retaining the world truth (R15). "
-        "The three filler sets describe neutral physical features of the "
-        "lamp without mentioning brightness, electrical performance or "
-        "source-identifying language (R9, R10). "
-        "The filler lengths and source sentence lengths have been checked "
-        "against the required long-report range, with no R20 warnings."
+        "Sources B, C and D support the same rated brightness of 600 lm using "
+        "different sentence frames (R17). C is an accredited assessment body "
+        "and D is a product compliance organisation, with separately maintained "
+        "evaluations rather than copies of B's register. Their independence "
+        "must still be checked before interpreting A7 as three independent "
+        "sources (R6). "
+        "The four options are 400, 500, 600 and 700 lm, with the truth and "
+        "A's incorrect claim occupying the two interior positions (R8). "
+        "The screening sentence retains 500 and 600 lm while excluding "
+        "400 and 700 lm, preserving the world truth (R15). "
+        "The three filler sets describe distinct physical aspects: the lamp's "
+        "base and underside, its shade and exterior, and its packaging and "
+        "protective materials. They avoid brightness, controls, electrical "
+        "performance, source-identifying language and repeated scenes "
+        "(R9, R10, R12). "
+        "Each filler set contains 78 words, and the A and B sentences contain "
+        "15 and 13 words respectively, producing long reports of 93 and 91 "
+        "words before paraphrasing (R20)."
     ),
     # Filler belongs to the SLOT, not the source (R12): one set per report position, so
     # two reports of the shared source never carry identical padding.
     "filler_sets": [
         [
-            "The LumaDesk S3 desk lamp has a circular base with a matte finish and rounded edges.",
-            "A slender stem rises from the base and curves toward a broad shade with a surface.",
-            "The shade has a shallow dome shape, and its rim follows a smooth line around the opening.",
-            "A joint connects the shade to the stem, allowing the head to tilt in different directions.",
-            "The base rests flat on a desk, with a pad covering its underside.",
+            "The lamp rests on a broad circular foot with a slightly raised and rounded rim along its edge.",            
+            "Its underside carries a dark rubber ring that grips the surface beneath it.",
+            "A shallow groove runs around the edge, separating the upper shell from the lower plate.",
+            "The foot has a gently curved profile without sharp corners or exposed fasteners.",
+            "A small recessed panel underneath sits flush with the surrounding material and can be lifted using a narrow notch.",
         ],
         [
-            "The LumaDesk S3 desk lamp stands on a compact base with a slightly textured surface.",
-            "Its upright stem has a narrow profile and meets the shade through a discreet adjustable joint.",
-            "The shade is shaped like a shallow bowl, with a smooth rim and a curved exterior.",
-            "A small control button sits near the base, flush with the surrounding surface.",
-            "The stem and shade share a consistent finish, while the underside of the base has a protective lining.",
+            "The upper shade has a shallow dome with a neatly rolled and gently curved rim around its circular opening.",
+            "Its exterior is coated in a muted cream colour, while the inner surface has a plain finish.",            
+            "A narrow collar sits at the top where the curved housing meets its support.",
+            "The outside has no printed markings, decorative patterns or raised lettering.",
+            "A thin seam follows the contour of the housing, and the rounded edge feels smooth when touched.",
         ],
         [
-            "The LumaDesk S3 desk lamp features a circular base and a gently angled supporting stem.",
-            "The shade has a rounded outline with a smooth exterior and a finished edge.",
-            "A hinged connection joins the shade to the stem, letting the head move without shifting the base.",
-            "The control surface is plain, with a small button set into the top of the base.",
-            "A pad beneath the base helps protect the desk, and the stem has no visible decoration.",
+            "The lamp arrives inside a rectangular cardboard carton with carefully folded flaps at either end and a reinforced bottom panel.",
+            "Moulded paper inserts hold the separate pieces in place during handling.",
+            "A soft fabric sleeve covers the main body, protecting it from scratches inside the box.",
+            "The smaller accessories sit in a plain paper envelope tucked beside the inserts.",
+            "The carton closes with a tucked tab, and its exterior has a simple geometric pattern printed along the sides.",
         ],
     ],
     "sources": {
         "A": {
             "quality": "weak",
             "claim": "500 lm",
-           "content": (
-                "The LumaDesk S3 desk lamp is believed to have "
+            "content": (
+                "The LumaDesk S3 desk lamp is presumed to have "
                 "a rated brightness of 500 lm."
             ),
             "n_paraphrases_needed": 2,
             "provenance": {
-                "type": "informal product-review website",
-                "authority": "Independent hobbyist reviewer",
+                "type": "hobbyist website's product page",
+                "authority": "informal product commentator",
                 "quality": "weak",
                 "why": (
-                    "The reviewer has no recognised authority to "
-                    "establish the lamp's rated brightness."
+                    "The website has no recognised institutional standing "
+                    "to establish the lamp's rated brightness."
                 ),
             },
         },
@@ -98,16 +103,16 @@ CASE = {
             "claim": "600 lm",
             "content": (
                 "A rated brightness of 600 lm applies to "
-                "the LumaDesk S3 desk lamp model."
+                "the LumaDesk S3 desk lamp."
             ),
             "n_paraphrases_needed": 3,
             "provenance": {
-                "type": "accredited lighting performance authority",
-                "authority": "Recognised lighting standards body",
+                "type": "national standards authority's product register",
+                "authority": "national standards authority",
                 "quality": "strong",
                 "why": (
-                    "The body has recognised expertise and authority "
-                    "in evaluating lighting performance."
+                    "The authority has recognised institutional responsibility "
+                    "for maintaining official product ratings."
                 ),
             },
         },
@@ -115,12 +120,12 @@ CASE = {
             "quality": "strong",
             "claim": "600 lm",
             "content": (
-                "The LumaDesk S3 desk lamp produces "
-                "a brightness of 600 lm."
+                "The LumaDesk S3 desk lamp is rated "
+                "to give 600 lm."
             ),
             "n_paraphrases_needed": 1,
             "provenance": {
-                "type": "independent lighting assessment body",
+                "type": "accredited assessment body",
                 "authority": "Accredited lighting assessment organisation",
                 "quality": "strong",
                 "why": (
@@ -138,7 +143,7 @@ CASE = {
             ),
             "n_paraphrases_needed": 1,
             "provenance": {
-                "type": "accredited lighting compliance assessor",
+                "type": "product compliance organisation",
                 "authority": "Recognised lighting compliance organisation",
                 "quality": "strong",
                 "why": (
