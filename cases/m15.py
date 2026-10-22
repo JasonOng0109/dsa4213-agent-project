@@ -10,7 +10,8 @@ CASE = {
     "world_truth": "240 seats",
     "distractors": ["205 seats", "310 seats"],  # options: [205, 240, 275, 310]
     "screen_partial": (
-        "The Northwood Lecture Theatre has a seating capacity of less than 260 seats."
+        "The Northwood Lecture Theatre has a seating capacity of between 185 and 260 "
+        "seats."
     ),  # true, keeps 205 and 240 (truth), rules out 275 and 310
     "quality_dimension": "authority",
     "difficulty_tier": "T1",
