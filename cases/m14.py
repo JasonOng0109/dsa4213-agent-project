@@ -24,8 +24,12 @@ CASE = {
         "rather than one a capability and one a reading. All quality sits in provenance (R2, R19): "
         "an uncalibrated handheld thermal scan against a calibrated in-line calorimeter reading, "
         "so the method differs while authority is held constant (both 'individual'). B's why "
-        "describes a direct instrument reading, not a calculation, to match its type name and to "
-        "stay distinct from C's calculation. Sources use "
+        "describes a direct instrument reading, not a calculation, to match its type name. "
+        "C and D each have their own origin, distinct from B's in-loop calorimeter and from each "
+        "other: C is the equipment contractor's full-load test and D is the grid operator's "
+        "remote monitoring. Their whys name who produced the figure and from where, not a shared "
+        "flow-and-temperature balance, so A7 does not read as one method three times. "
+        "'Commissioning' was avoided in C's type because it reads as an older measurement (R3). Sources use "
         "distinct frames (R17): A leads with the quantity and 'stands at', B leads with the loop "
         "and describes heat dissipation, C is place-fronted, D is number-fronted. Content lengths "
         "are A=12 and B=14 words, within 2 of each other (R20). Each filler set is exactly 79 "
@@ -102,10 +106,10 @@ CASE = {
             ),
             "n_paraphrases_needed": 1,
             "provenance": {
-                "type": "thermodynamic mass flow calculation",
-                "authority": "instrument",
+                "type": "contractor full-load test record",
+                "authority": "contractor",
                 "quality": "strong",
-                "why": "steady-state thermal balance based on flow meters and calibrated heat sensors",
+                "why": "the equipment contractor ran the loop at its full duty on a dedicated test rig of its own and recorded the heat the loop rejected",
             },
         },
         "D": {
@@ -116,10 +120,10 @@ CASE = {
             ),
             "n_paraphrases_needed": 1,
             "provenance": {
-                "type": "chilled water loop energy balance log",
-                "authority": "instrument",
+                "type": "grid operator monitoring feed",
+                "authority": "operator",
                 "quality": "strong",
-                "why": "continuous automated digital logging of heat transfer across the heat exchanger",
+                "why": "the grid operator's control centre tracks the substation's heat output through its own remote telemetry, separate from the equipment on site",
             },
         },
     },
