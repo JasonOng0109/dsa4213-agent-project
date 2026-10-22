@@ -508,7 +508,7 @@ Jason merges Phase 4 cases only after it, because the run takes every case in
 | M29 | incident_status | directness | T1 | Kathleen | Kai Rong | assigned | |
 | M30 | institutional_logistics | directness | T1 | Kai Rong | Crystal | merged | yes |
 | M31 | product_spec | primary_source | T2 | Kai Rong | Crystal | merged | |
-| M32 | incident_status | primary_source | T1 | Kai Rong | Crystal | assigned | backup for M38 |
+| M32 | incident_status | primary_source | T1 | Kai Rong | Crystal | merged | backup for M38 |
 | M33 | incident_status | authority | T2 | Kai Rong | Crystal | assigned | |
 | M34 | product_spec | authority | T1 | Kai Rong | Crystal | assigned | |
 | M35 | institutional_logistics | method | T1 | Kai Rong | Crystal | assigned | |
