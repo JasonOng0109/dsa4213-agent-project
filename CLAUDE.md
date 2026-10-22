@@ -18,6 +18,12 @@ Keep it true without being asked.
 - documents and code are found to disagree with each other (drift);
 - a run produces new results, or an open item is settled.
 
+**One exception: the corpus count.** On a case branch, do not update how many cases are
+written: README's corpus bullet, the `open-corpus` node and the "cases written" card.
+Jason updates them when he merges each case (`docs/decisions.md`, "Authors do not update
+the corpus count"). Until then `test_knowledge_graph_checks_clean` fails on the
+`open-corpus` quote; that failure is expected, so leave it.
+
 **How to update it:**
 1. If the decision exists only in conversation, first record it in `docs/decisions.md` in
    that file's five-field format, so the graph has a file to cite. Likewise, a method or

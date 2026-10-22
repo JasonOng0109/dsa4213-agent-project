@@ -26,6 +26,24 @@ def _norm(text) -> str:
     return re.sub(r"[\s,.]", "", str(text)).lower()
 
 
+# the prompt numbers the options ("  4. 15%"), and a judge may copy the number into its
+# reply: "4. 15%"
+NUMBERED = re.compile(r"\s*(\d+)\.\s+(.+)", re.S)
+
+
+def _option(text: str, options: list[str], by_norm: dict) -> str | None:
+    """The option an answer or a "p" key names: as written, after formatting drift, or
+    with its number from the prompt's list ("4. 15%"). The number must be that option's
+    own, so a reply whose number and text disagree is not guessed at."""
+    found = text if text in options else by_norm.get(_norm(text))
+    m = NUMBERED.fullmatch(text) if found is None else None
+    if m:
+        named = m.group(2) if m.group(2) in options else by_norm.get(_norm(m.group(2)))
+        if named is not None and options.index(named) + 1 == int(m.group(1)):
+            found = named
+    return found
+
+
 def parse(raw: str, options: list[str], world_truth: str | None = None,
           majority_claim: str | None = None, allow_abstain: bool = False) -> dict:
     """Statuses:
@@ -52,7 +70,7 @@ def _parse_object(obj: dict, options, world_truth, majority_claim, allow_abstain
         return _fail("ambiguous")
     abstained = allow_abstain and _norm(answer) == _norm(ABSTAIN)
     if not abstained:
-        answer = answer if answer in options else by_norm.get(_norm(answer))
+        answer = _option(answer, options, by_norm)
         if answer is None:
             return _fail("no_match")
     raw_p = obj.get("p")
@@ -61,7 +79,7 @@ def _parse_object(obj: dict, options, world_truth, majority_claim, allow_abstain
            "p_majority": None, "coherent": None, "margin": None, "confidence_elicited": None}
     p = {}
     for k, val in (raw_p.items() if isinstance(raw_p, dict) else []):
-        opt = k if k in options else by_norm.get(_norm(k))
+        opt = _option(k, options, by_norm)
         if isinstance(val, str) and val.strip().isdigit():
             val = int(val)
         if opt is not None and isinstance(val, (int, float)) and not isinstance(val, bool) \
