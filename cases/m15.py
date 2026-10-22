@@ -30,9 +30,9 @@ CASE = {
         "directness cue. "
         "C and D state the truth in their own frames without naming their document types (R2). "
         "B, C and D each have their own origin so A7 does not read as one source three times: "
-        "B is the estates office's own register of the buildings it looks after, C is the "
-        "registrar's booking system set up and counted by the registrar's own staff, and D is the "
-        "architects' design drawings."
+        "B is the estates office's register, with each room's seats counted by the office's own "
+        "staff, C is the registrar's booking system set up and counted by the registrar's own "
+        "staff, and D is the architects' design drawings. "
         "Content lengths are A=13 and B=13 words (R20). Each filler set is exactly 79 words, so "
         "filler+A and filler+B are both 92, inside the 91-93 band. Filler describes plain "
         "physical features of the building as three separate scenes (the front of the building, "
@@ -92,7 +92,7 @@ CASE = {
                 "type": "university estates space register",
                 "authority": "institutional",
                 "quality": "strong",
-                "why": "the governing administrative register kept by the estates office for the buildings it owns and looks after",
+                "why": "the governing administrative register kept by the estates office for the buildings it owns and looks after, with each room's seats counted by the office's own staff",
             },
         },
         "C": {
