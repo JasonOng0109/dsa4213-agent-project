@@ -125,12 +125,15 @@ truth. **[lint]**
 **R15 — The screen sentence.** `screen_partial` is **one sentence that is true, keeps the
 world truth among the survivors, and rules out exactly half the options.** The other
 survivor may be A's claim or a distractor: the screen reads only the probability on the
-truth, so which one does not matter. It is level P1 of the confidence screen; P0 is a
-filler sentence and P2 is B's first frozen paraphrase, so only this sentence needs
-writing. It is not a source: it never appears alongside other reports, and **R8 and R9
-do not apply to it**, because ruling out two options is its job. R1 to R3 and R10 to R13
-still apply, since a judge reads it. **[lint]** for presence, one sentence, and R3/R10
-wording.
+truth, so which one does not matter. **A sentence with bounds uses two, and both
+survivors sit the same distance inside them**, so "pick the survivor nearest the bound"
+cannot find the truth: a reader takes "less than 15 metres" to mean just under 15.
+"Between 10 and 15 metres" keeps 11 and 14, each 1 metre inside a bound. It is level P1
+of the confidence screen; P0 is a filler sentence and P2 is B's first frozen paraphrase,
+so only this sentence needs writing. It is not a source: it never appears alongside
+other reports, and **R8 and R9 do not apply to it**, because ruling out two options is
+its job. R1 to R3 and R10 to R13 still apply, since a judge reads it. **[lint]** for
+presence, one sentence, and R3/R10 wording.
 
 **R16 — A T1 cue must survive paraphrasing.** The reporter rewords every source, so a cue
 carried by one function word is usually lost: a second-person pronoun does not survive.
@@ -215,7 +218,8 @@ skips the length check for that case and says so. Follow the R20 warning, not th
   precisely, the case is broken and nothing else saves it.
 - **R15's meaning.** That `screen_partial` is true, keeps the truth and rules out exactly
   half the options is a meaning check. A linter can confirm the field exists, not that it
-  does its job.
+  does its job. Check too that a sentence with bounds has two, and that both survivors
+  sit the same distance inside them.
 - **Denominator consistency across the frozen reports.** A's and B's accepted paraphrases
   must refer to the same whole, or their claims stop contradicting each other and the
   conflict block measures nothing. "The total grade for module ME2103" and "the final
