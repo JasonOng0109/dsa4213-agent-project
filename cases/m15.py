@@ -28,6 +28,10 @@ CASE = {
         "because 'compiled' suggests the information was gathered second-hand, which is a "
         "directness cue. "
         "C and D state the truth in their own frames without naming their document types (R2). "
+        "B, C and D each have their own origin so A7 does not read as one source three times: "
+        "B is the estates office's own register of the buildings it looks after, C is the "
+        "registrar's booking system set up and counted by the registrar's own staff, and D is the "
+        "architects' design drawings."
         "Content lengths are A=13 and B=13 words (R20). Each filler set is exactly 79 words, so "
         "filler+A and filler+B are both 92, inside the 91-93 band. Filler describes plain "
         "physical features of the building as three separate scenes (the front of the building, "
@@ -87,7 +91,7 @@ CASE = {
                 "type": "university estates space register",
                 "authority": "institutional",
                 "quality": "strong",
-                "why": "the governing administrative register recording building floor plans and safety occupancy limits",
+                "why": "the governing administrative register kept by the estates office for the buildings it owns and looks after",
             },
         },
         "C": {
@@ -99,9 +103,9 @@ CASE = {
             "n_paraphrases_needed": 1,
             "provenance": {
                 "type": "campus timetabling venue capacity list",
-                "authority": "institutional",
+                "authority": "central registrar",
                 "quality": "strong",
-                "why": "academic scheduling database used by the central registrar for lecture bookings",
+                "why": "the registrar's own booking system, whose room entries are set up and counted by the registrar's own staff rather than copied from the estates office",
             },
         },
         "D": {
@@ -113,9 +117,9 @@ CASE = {
             "n_paraphrases_needed": 1,
             "provenance": {
                 "type": "campus architectural floor plan",
-                "authority": "institutional",
+                "authority": "chartered architects",
                 "quality": "strong",
-                "why": "blueprint specifications drawn and certified by licensed chartered facility architects",
+                "why": "drawings prepared by the chartered architects who designed the building, showing the seating layout they specified",
             },
         },
     },
