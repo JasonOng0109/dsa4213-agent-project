@@ -9,7 +9,9 @@ CASE = {
     "question": "What is the water depth of the Star Reservoir basin?",
     "world_truth": "14 metres",
     "distractors": ["11 metres", "19 metres"],
-    "screen_partial": "The water depth of the Star Reservoir basin is less than 15 metres.",
+    "screen_partial": (
+        "The water depth of the Star Reservoir basin is between 10 and 15 metres."
+    ),
     "quality_dimension": "directness",
     "difficulty_tier": "T1",
     "design_notes": (
