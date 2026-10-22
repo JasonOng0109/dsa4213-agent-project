@@ -756,3 +756,69 @@ Add an entry when you make a choice a reader could not guess from the code.
 - **Breaks if changed**: B, C and D share only A7, where independent agreement is
   measured, so near-copies there can make a judge look less sensitive to independence
   than it is; without the note, nobody reading that case's n_eff would know why.
+
+### 2026-10-22 — A screen sentence with bounds keeps both options equally far inside two
+
+- **Decision**: a `screen_partial` that rules options out with a bound uses two bounds,
+  and the two options it keeps sit the same distance inside them, so "pick the survivor
+  nearest the bound" cannot find the truth. R15 in `docs/authoring-rules.md` now says so.
+  M1, M3, M4 and M5 each had one bound with the truth as the survivor nearest it; each
+  gained the missing bound and keeps the same two survivors, e.g. M3's "less than 15
+  metres" is now "between 10 and 15 metres" (`cases/m3.py`). P1 is the authored sentence
+  used as written, never reworded or frozen (`build_screen` in
+  `pipeline/conditions.py`), so nothing else in those cases changes; the mock's key for
+  M1 (`_SCREEN_TABLE` in `pipeline/llm.py`) follows the new sentence. Open cases that
+  broke the rule were changed the same way in their pull requests. Decided after the
+  pilot and before the main run.
+- **Why** [STATED: team decision, 2026-10-22]: Kai Rong asked for it, as optional, on the
+  M22 and M23 pull requests, and Jason made it a rule. [INFERRED: from `screen_verdict`
+  in `pipeline/score.py`] the ordering check asks whether P(truth) rises from P0 to P1 to
+  P2, and P1 is this sentence, so a cue that lifts P(truth) at P1 for any reason but the
+  narrowing makes ordering easier to pass. [INFERRED: from the cases' `screen_partial`]
+  a reader takes "less than 15 metres" to mean just under 15, and in all seven cases
+  written with one bound (M1, M3, M4, M5, M15, M22 and M39) the truth was the survivor
+  nearest it, so the cue always pushed toward the truth; every other case already kept
+  both survivors equally far inside two bounds. [STATED: `runs/score-pilot.txt`] in the
+  pilot, every judge's P1 in M1, M3, M4 and M5 was above 50, from 50.2 to 70.0, while
+  M2, whose survivors sit 5 Wh inside each of two bounds, got 49.8 and 55.0 from Opus and
+  Sonnet but 72.2 from GPT-5.4. That is a preview, so the rule rests on the design, not
+  on these numbers.
+- **Rejected**: leaving the pilot cases as they ran, as R19 did for their type names,
+  which keeps a push toward the truth in four of the 40 screen sentences; one bound with
+  the truth farther from it, which reverses the push instead of removing it.
+- **Breaks if changed**: with one bound, the survivor nearest it draws belief for a
+  reason other than the narrowing; where that survivor is the truth, P1 rises without
+  the judge using the sentence, and the ordering check retains judges for it.
+
+### 2026-10-22 — The main run goes in two stages, split by programme entry
+
+- **Decision**: the main run (Phase 5 in `docs/work-plan.md`) runs in two stages, each
+  programme entry into its own log as in the pilot (`judge --arms`). Stage 1 is
+  generation and every entry that runs on all cases: `screen`, `conflict`, `agreement`,
+  `abstain`, `abstain-p0`, and any entry added to `PROGRAMME` later that does not run on
+  the ten-case subset. Stage 2 is the three subset entries, `long-conflict`,
+  `long-agreement` and `ladder`, then the optional sub-experiments, once the key is
+  topped up. The corpus is not split: stage 1 starts only when all 40 cases are merged.
+- **Why** [STATED: team decision, 2026-10-22]: the course coordinator raised the API
+  key's limit to $50 in all and tops it up again only after he sees that money spent, so
+  Jason chose to spend it on a first stage and then ask for more. [STATED: `pipeline.run
+  balance`, 2026-10-22] $38.93 of the $50 was left. [INFERRED: from each judge's cost per
+  call by arm in `runs/score-pilot.txt` (HEALTH), applied to the calls `plan --cases 40`
+  prints] at the pilot's measured rates stage 1 costs about $34.74 (generation $0.48,
+  `screen` $2.40, `conflict` $13.78, `agreement` $11.02, `abstain` $6.11, `abstain-p0`
+  $0.95, the last from `runs/trials-abstain-p0.jsonl`) and stage 2 about $5.11
+  (`long-conflict` $2.39, `long-agreement` $0.48, `ladder` $2.24). The whole programme,
+  about $39.84, would leave nothing for an entry that stops, and a stopped log
+  cannot be resumed (the 2026-10-18 pilot entry). [STATED: README, "Arms"] stage 1 holds
+  every condition behind H1-H6 and the confidence screen, while stage 2 holds the checks
+  that need long reports or graded wording: the length arm tells token volume from
+  redundancy, and "the wording ladder is H4's defence".
+- **Rejected**: splitting the corpus and starting now on the merged cases, since rules
+  still change while cases are written (the entry above changed four merged cases),
+  `judge` requires every registered case to be frozen (`check_frozen` in
+  `pipeline/run.py`), and real results would exist while cases are still unwritten;
+  running the whole programme on what is left, which a stopped entry would leave
+  unfinished.
+- **Breaks if changed**: running a stage 2 entry in stage 1 uses up the money kept for an
+  entry that stops; starting before all 40 cases are merged lets results exist while
+  rules can still change.
