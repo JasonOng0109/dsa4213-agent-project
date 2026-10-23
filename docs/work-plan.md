@@ -10,7 +10,8 @@ kept:
 - The code is built and tested: `uv run pytest` must pass.
 - How many cases are merged: README, "Status and open items". Writing cases is the
   slowest part of the project.
-- No real run has happened yet. What the pilot waits for: Phase 3, "Start only when".
+- The pilot ran on 2026-10-19 (Phase 3); its output is `runs/score-pilot.txt`. What the
+  main run waits for: Phase 5, "Before".
 - What is still open: the "Open questions" board in `knowledge-graph.html`.
 
 ---
@@ -210,16 +211,21 @@ Same steps for each author. Replace `m2` with your case.
 **1.5 Write the provenance.**
 - **Do**: fill `type`, `authority`, `quality`, `why` for each source.
 - **Rules**: R19: the type name alone should show which source is better. Start from the
-  table in R19. R2a: do not use words in `type` that your content needs.
+  table in R19. A's and B's names differ only in your case's dimension: in a directness,
+  method or primary-source case both writers have the same standing (R19). R2a: do not
+  use words in `type` that your content needs.
 
 **1.6 Write the screen sentence.**
 - **Do**: fill `screen_partial`. One true sentence that keeps the truth and rules out
-  exactly two of the four options (R15). Example: M1's "less than a fifth" rules out 25%
-  and 30%.
+  exactly two of the four options (R15). A sentence with bounds uses two, with both kept
+  options the same distance inside them. Example: M1's "more than a twentieth and less
+  than a fifth" keeps 10% and 15%, each 5 points inside a bound, and rules out 25% and
+  30%. The other option it keeps can be A's claim or a distractor.
 
 **1.7 Write the filler.**
 - **Do**: three lists of five neutral sentences, as in M1.
-- **Rules**: R9 (never mention or hint at any option), R10 (no "you", no "this
+- **Rules**: R9 (never mention or hint at any option; naming the case's subject is
+  fine), R10 (no "you", no "this
   announcement", one plain style), R12 (three sets, never tied to a source).
 - **Length** (R20): size each filler set so that the set plus A's sentence and the set
   plus B's sentence are both 91–93 words (about 77–80 words for 12–15-word sentences).
@@ -256,7 +262,8 @@ Same steps for each author. Replace `m2` with your case.
   2. Run `uv run python -m pipeline.lint`.
   3. Read the case beside `docs/authoring-rules.md`, rule by rule.
   4. Do the specificity test from 1.9 yourself.
-  5. The type-name test (R19): show someone only the two type names. Do they prefer one?
+  5. The type-name test (R19): show someone only the two type names. Do they prefer one,
+     for the case's dimension and not because one writer outranks the other?
   6. The screen test (R15): is the sentence true? Does it keep the truth? Does it rule
      out exactly two options?
   7. Comment on the pull request. Name the rule for each problem ("R13: ...").
@@ -366,10 +373,11 @@ it.
   "Set-level counts" show the spread.
 - **Marked 2026-10-19**, with the first Phase 4 batches, before anyone drafted them: M6,
   M14, M22, M30 and M38, under "Subset" in the case register in Phase 4 below.
-- **Do in the next batches**: give each of the five a backup, a case with the same
-  domain, dimension and tier, so the replacement rule has a case to take if one is
-  dropped. None of the cases assigned so far is one. The two T2 backups need an
-  incident_status / method case and a product_spec / directness case.
+- **Backups named 2026-10-21**, when the other 25 cases were assigned, before anyone
+  drafted them: M16 for M6, M8 for M14, M9 for M22, M17 for M30 and M32 for M38. Each
+  backup has the same domain, dimension and tier as its case, and a different author. A
+  backup is written and reviewed like any other case, and joins the ten only if its case
+  is dropped.
 - **Do before the main run**, once all 40 cases are merged: reorder the tuple in
   `cases/__init__.py` so the ten come first. `uv run pytest`.
 - **Done when**: the five are marked, and the reordered tuple is merged.
@@ -427,6 +435,9 @@ In the table, `...` is short for `uv run --env-file .env python -m`.
    grade")? If not, the conflict measures nothing.
 3. **No leaks**: no report names who wrote it.
 
+Also note, but do not fail, any two of B's, C's and D's reports that read almost alike
+while their `cross_overlap` stays under 0.50 (R17), like M4's B and D (0.42) in the pilot.
+
 Tell Jason what you found.
 
 **Pilot numbers are a preview, not findings.** `docs/decisions.md` calls the pilot's
@@ -436,11 +447,11 @@ screen verdict "a preview".
 
 ## Phase 4 — Write the other 35 cases
 
-Same steps as Phase 1, in batches of two cases. Each author keeps the same reviewer.
-Kai Rong gives each batch its domain, dimension and tier.
+Same steps as Phase 1. Each author keeps the same reviewer. Kai Rong gives each case its
+domain, dimension and tier: two per author on 2026-10-19, the rest on 2026-10-21.
 
 **When**: start drafting now, before the pilot (`docs/decisions.md`, "Phase 4 drafting
-starts before the pilot"). Your batches are in the case register below. Use the lessons
+starts before the pilot"). Your cases are in the case register below. Use the lessons
 from the review comments on the Phase 1 pull requests and the current
 `docs/authoring-rules.md`. Keep each case on its own branch until the pilot has run:
 Jason merges Phase 4 cases only after it, because the run takes every case in
@@ -473,14 +484,39 @@ Jason merges Phase 4 cases only after it, because the run takes every case in
 | M5 | incident_status | authority | T1 | Kai Rong | Crystal | merged | yes |
 | M6 | institutional_logistics | primary_source | T1 | Crystal | Rachel | assigned | yes |
 | M7 | product_spec | authority | T1 | Crystal | Rachel | assigned | |
-| M14 | incident_status | method | T2 | Rachel | Kathleen | assigned | yes |
-| M15 | institutional_logistics | authority | T1 | Rachel | Kathleen | assigned | |
+| M8 | incident_status | method | T2 | Crystal | Rachel | assigned | backup for M14 |
+| M9 | product_spec | directness | T2 | Crystal | Rachel | assigned | backup for M22 |
+| M10 | institutional_logistics | authority | T1 | Crystal | Rachel | assigned | |
+| M11 | institutional_logistics | directness | T1 | Crystal | Rachel | assigned | |
+| M12 | product_spec | method | T1 | Crystal | Rachel | assigned | |
+| M13 | incident_status | primary_source | T1 | Crystal | Rachel | assigned | |
+| M14 | incident_status | method | T2 | Rachel | Kathleen | merged | yes |
+| M15 | institutional_logistics | authority | T1 | Rachel | Kathleen | merged | |
+| M16 | institutional_logistics | primary_source | T1 | Rachel | Kathleen | assigned | backup for M6 |
+| M17 | institutional_logistics | directness | T1 | Rachel | Kathleen | assigned | backup for M30 |
+| M18 | product_spec | primary_source | T1 | Rachel | Kathleen | assigned | |
+| M19 | incident_status | directness | T2 | Rachel | Kathleen | assigned | |
+| M20 | product_spec | method | T1 | Rachel | Kathleen | assigned | |
+| M21 | incident_status | authority | T1 | Rachel | Kathleen | assigned | |
 | M22 | product_spec | directness | T2 | Kathleen | Kai Rong | assigned | yes |
 | M23 | institutional_logistics | method | T1 | Kathleen | Kai Rong | assigned | |
-| M30 | institutional_logistics | directness | T1 | Kai Rong | Crystal | assigned | yes |
-| M31 | product_spec | primary_source | T2 | Kai Rong | Crystal | assigned | |
+| M24 | institutional_logistics | primary_source | T2 | Kathleen | Kai Rong | assigned | |
+| M25 | product_spec | authority | T1 | Kathleen | Kai Rong | assigned | |
+| M26 | incident_status | method | T1 | Kathleen | Kai Rong | assigned | |
+| M27 | institutional_logistics | authority | T1 | Kathleen | Kai Rong | assigned | |
+| M28 | product_spec | primary_source | T1 | Kathleen | Kai Rong | assigned | |
+| M29 | incident_status | directness | T1 | Kathleen | Kai Rong | assigned | |
+| M30 | institutional_logistics | directness | T1 | Kai Rong | Crystal | merged | yes |
+| M31 | product_spec | primary_source | T2 | Kai Rong | Crystal | merged | |
+| M32 | incident_status | primary_source | T1 | Kai Rong | Crystal | merged | backup for M38 |
+| M33 | incident_status | authority | T2 | Kai Rong | Crystal | merged | |
+| M34 | product_spec | authority | T1 | Kai Rong | Crystal | assigned | |
+| M35 | institutional_logistics | method | T1 | Kai Rong | Crystal | assigned | |
+| M36 | product_spec | directness | T1 | Kai Rong | Crystal | assigned | |
+| M37 | incident_status | method | T1 | Kai Rong | Crystal | assigned | |
 | M38 | incident_status | primary_source | T1 | Jason | Kathleen | assigned | yes |
 | M39 | incident_status | directness | T1 | Jason | Kathleen | assigned | |
+| M40 | institutional_logistics | method | T2 | Jason | Kathleen | assigned | |
 
 **Subset** marks the ten cases the length arm and the wording ladder run on (2D): M1–M5,
 and five Phase 4 cases marked on 2026-10-19 with the first batches, before anyone drafted
@@ -488,9 +524,16 @@ them. The five are one per author, and two of them are T2. Every domain has at l
 the ten and every dimension at least 2, and the ten's three T2 cases (M1, M14, M22) are
 in three different domains and three different dimensions. M1–M5 and the first batches
 together have 5 cases in each domain and cover all 12 pairs of domain and dimension.
+"Backup for" names the case that takes a marked case's place if it is dropped (2D).
 
-Add a row when a batch is assigned, with status "assigned". Change it to "merged" when
-Jason merges the case.
+**All 40**, as assigned on 2026-10-21: 13 institutional_logistics, 13 product_spec and 14
+incident_status cases; 10 in each dimension; 30 T1 and 10 T2, with T2 cases in every
+domain and every dimension; and 3 or 4 cases in each of the 12 pairs of domain and
+dimension. Each of the four authors with eight cases has two in each dimension and two
+T2, and no pair of domain and dimension twice. A T1 case can still become T2 once its
+frozen reports are read (R16).
+
+Every case has a row. Change its status from "assigned" to "merged" when Jason merges it.
 
 ---
 
@@ -499,10 +542,19 @@ Jason merges the case.
 Outline only. Detailed tasks will be added after the pilot.
 
 - **Before**: all 40 cases merged. Every open item closed except the optional
-  sub-experiments. Spend approved. The proposal asks for $75. The main programme at 40
-  cases is $37.48 (`uv run python -m pipeline.run plan --cases 40`).
+  sub-experiments. Spend approved. The proposal asks for $75; the key's limit is $50,
+  and the coordinator tops it up again only after seeing it spent. The main programme at
+  40 cases is $37.48 at the proposal's rates (`uv run python -m pipeline.run plan
+  --cases 40`), about $38.89 at the pilot's.
 - **Run** (Jason): same steps as Phase 3, with the same reading of frozen reports by
-  each case's author and reviewer.
+  each case's author and reviewer, in two stages (`docs/decisions.md`, 2026-10-22).
+  Stage 1, $33.79: generate ($0.48), then `screen` ($2.40), `conflict` ($13.78),
+  `agreement` ($11.02), `abstain` ($6.11) and any entry added later that does not run on
+  the ten-case subset. Stage 2, after the top-up, $5.11: `long-conflict` ($2.39),
+  `long-agreement` ($0.48) and `ladder` ($2.24), then the optional sub-experiments.
+  These costs use the pilot's measured cost per call; `judge` prints the proposal's
+  rates, which run 16% low for `abstain`. Run `probe` before each stage, and before each
+  entry check that `balance` covers its cost plus 10%.
 - **Analysis**: read results only against the table "What counts as support, fixed
   before any data" in the README.
 - **Optional sub-experiments**: not built yet. Only if budget allows, in the order the
@@ -561,9 +613,10 @@ Change "to do" to "done" when a task is finished.
 | 2D Case register (ongoing) | Kai Rong | each merge | to do |
 | 2D Ten-case subset: the rule | Jason + group | — | done |
 | 2D Ten-case subset: mark five | Kai Rong | Phase 4 batches | done |
+| 2D Ten-case subset: name backups | Kai Rong | all Phase 4 cases assigned | done |
 | 2D Ten-case subset: reorder the tuple | Kai Rong | all 40 cases | to do |
 | 2E What the pilot runs | Jason + group | — | done |
-| 3.1–3.7 Pilot run | Jason | M2–M5 merged, 2E | to do |
-| 3.4 Read frozen reports | authors and reviewers | 3.3 | to do |
+| 3.1–3.7 Pilot run | Jason | M2–M5 merged, 2E | done |
+| 3.4 Read frozen reports | authors and reviewers | 3.3 | done |
 | Phase 4 drafts | everyone | Kai Rong's first batches | to do |
 | Phase 4 merges | Jason | pilot done | to do |
