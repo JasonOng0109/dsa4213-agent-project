@@ -422,14 +422,20 @@ Add an entry when you make a choice a reader could not guess from the code.
   author, of which M14 and M22 are the two T2 (`docs/work-plan.md`, case register).
   A case of the ten that is relabelled T2 once its frozen reports are read (R16) stays
   in the ten, so the ten may end with more than three T2 cases: swapping it out would
-  choose cases after seeing results.
+  choose cases after seeing results. Amended 2026-10-21: the other 25 cases were assigned
+  together, before anyone drafted them, so each marked case's replacement is named in the
+  case register as its backup, with the same domain, dimension and tier and a different
+  author: M16 for M6, M8 for M14, M9 for M22, M17 for M30 and M32 for M38.
 - **Why** [STATED: team decision, 2026-10-18]: the ten are chosen before any of them is
   run, so neither the pilot's results nor how cases turn out can steer the choice.
   [STATED: `docs/work-plan.md`, Phase 1] M1-M5 "cover all 3 domains and all 4 quality
   dimensions". Three T2 in ten is close to the corpus's target of about 10 in 40
   (`docs/work-plan.md`, "Targets for all 40"). [STATED: team decision, 2026-10-19] A
   case relabelled T2 stays in the ten: Kai Rong raised it reviewing this entry, and
-  Jason agreed.
+  Jason agreed. [STATED: Kai Rong, 2026-10-21] with the other 25 cases assigned
+  together, "the next assigned case" can fit two cases, such as M11 and M17 for M30, so
+  each backup is named before any of them is written. A different author means one
+  author's drafts cannot lose both a marked case and its backup.
 - **Rejected**: choosing the ten once all 40 are merged, the earlier plan in
   `docs/work-plan.md` (2D), when the pilot's results on M1-M5 would already be known.
 - **Breaks if changed**: a subset chosen after seeing results could favour cases where
@@ -502,6 +508,8 @@ Add an entry when you make a choice a reader could not guess from the code.
 
 - **Decision**: no `provenance.type` uses the word "independent". R19's method example in
   `docs/authoring-rules.md` is now "accredited laboratory test report", and R19 says why.
+  On 2026-10-21 R19's table took new examples (that day's entry on type names); its
+  paragraph on "independent" keeps this one.
 - **Why** [STATED: team decision, 2026-10-18]: Kai Rong raised it reviewing M4, whose B
   was named "independent laboratory report" after R19's example, and Jason agreed.
   X2 shows the judge A's and B's type names, and X3's note says the strong report "comes
@@ -552,3 +560,146 @@ Add an entry when you make a choice a reader could not guess from the code.
   `no_match`, counted against its accuracy and without stated numbers, and the loss falls
   on that judge alone, so its accuracy reads lower than it is and its P(truth) misses
   trials.
+
+### 2026-10-21 — The screen sentence may keep A's claim or a distractor
+
+- **Decision**: besides the truth, the option that `screen_partial` keeps may be A's claim
+  or a distractor. R15 in `docs/authoring-rules.md` now says so.
+- **Why** [STATED: team decision, 2026-10-21]: Kathleen and Rachel asked about it on the
+  M14, M6 and M7 pull requests, and Jason decided. [STATED: R15] the sentence must be
+  true, keep the truth and rule out exactly half the options; it names no other
+  condition. [INFERRED: from `screen_verdict` in `pipeline/score.py`] the screen reads
+  only P(truth) at P0, P1 and P2, so nothing reads which other option survives.
+  [STATED: `runs/score-pilot.txt`] M2's sentence keeps A's claim and the truth, and on it
+  every judge's P(truth) rose from P0 to P1 to P2 (Opus "M2 25.0, 49.8, 79.5").
+- **Rejected**: requiring a distractor, which would rewrite five Phase 4 screen sentences
+  and depart from M2 for no gain.
+- **Breaks if changed**: nothing the scorer reads; a rule naming one kind would only add
+  rewrites.
+
+### 2026-10-21 — A's and B's type names differ only in the case's dimension
+
+- **Decision**: from Phase 4 on (M6 onward), A's and B's `provenance.type` names differ
+  in the case's quality dimension and in nothing else (R19 in `docs/authoring-rules.md`,
+  with a new example table). In a directness, method or primary-source case both writers
+  have the same standing; in an authority case the names differ in standing only, and
+  neither says how its figure was found, how close its writer was, or that it copies
+  another. C's and D's names are free, since no condition shows them. M1-M5 keep their
+  names: they ran in the pilot before the rule.
+- **Why** [STATED: team decision, 2026-10-21]: reviewers asked for it on the M14, M15 and
+  M6 pull requests, and Jason made it a rule. [STATED: proposal §3] each case's
+  dimension is "recorded per case so that results can be broken down by dimension", and a
+  breakdown cannot separate two dimensions that move together. [STATED: README, "What
+  counts as support"] H5's nuisance is a gain "only for types matching a familiar real
+  institution"; with standing held equal outside authority cases, those cases show
+  whether a judge reads the dimension itself rather than which source sounds more
+  official. [INFERRED: from the Phase 4 pull requests] the directness and method cases of
+  the first batch (M14, M22, M23, M30) already keep one kind of writer, so the rule can be
+  met.
+- **Rejected**: R19 as first written, which asked only that the name carry the dimension
+  and whose examples changed the writer's standing too; requiring it only in method and
+  directness cases, which leaves the same mix in primary-source cases; renaming M1-M5's
+  sources after they ran.
+- **Breaks if changed**: results broken down by dimension stop telling the dimensions
+  apart, and H5 can no longer be read apart from "the official-sounding source wins".
+
+### 2026-10-21 — Filler may name the case's subject
+
+- **Decision**: filler may name the case's subject; R9 in `docs/authoring-rules.md` now
+  says so. It still may not mention an option, or support, exclude or hedge one.
+- **Why** [STATED: team decision, 2026-10-21]: Rachel raised it on the M6 and M7 pull
+  requests, and Jason decided. [STATED: R9] the rule bans mentioning an option, not the
+  subject. [INFERRED: from `build_screen` in `pipeline/conditions.py`] the first filler
+  sentence is P0, the screen's irrelevant report, so one that names the subject is a
+  report about it that settles nothing. [STATED: `runs/score-pilot.txt`] M2, M4 and M5's
+  first filler sentences name their subject, and P(truth) at P0 stayed level with A0:
+  for M5, 27.0, 41.2 and 25.0 at P0 for Opus, Sonnet and GPT-5.4, against 29.3, 40.0
+  and 25.0 at A0.
+- **Rejected**: keeping the subject out of filler, which would rewrite five Phase 4 cases
+  and part from three pilot cases for no measured gain.
+- **Breaks if changed**: nothing the scorer reads; a ban would only add rewrites.
+
+### 2026-10-21 — Near-copies in A7 are noted, not failed
+
+- **Decision**: when two of B's, C's and D's frozen reports read almost alike while their
+  `cross_overlap` stays under R17's 0.50, the case's author and reviewer note it when
+  they read the frozen reports (step 3.4 in `docs/work-plan.md`). The case does not
+  fail, and its reports are not regenerated.
+- **Why** [STATED: team decision, 2026-10-21]: Kathleen asked on the pilot pull request
+  whether to flag such pairs, and Jason answered "it's fine as is. but yes, do note pairs
+  like this when you do 3.4 (more of like keeping a note than marking it as a fail)":
+  frozen reports are never edited, and n_eff is reported per case, so such a case stays
+  visible. [INFERRED: from `runs/frozen_reports.json` and `build_conditions` in
+  `pipeline/conditions.py`, which gives A7 each source's first accepted report] her
+  example, M4, puts B's "The Yhotak B162 Vacuum features a 6000Pa water lift." beside
+  D's "The Yhotak B162 Vacuum features a water lift of 6000Pa." in A7, at a
+  `cross_overlap` of 0.42.
+- **Rejected**: failing such a case at 3.4, which would regenerate reports that pass R17.
+- **Breaks if changed**: B, C and D share only A7, where independent agreement is
+  measured, so near-copies there can make a judge look less sensitive to independence
+  than it is; without the note, nobody reading that case's n_eff would know why.
+
+### 2026-10-22 — A screen sentence with bounds keeps both options equally far inside two
+
+- **Decision**: a `screen_partial` that rules options out with a bound uses two bounds,
+  and the two options it keeps sit the same distance inside them, so "pick the survivor
+  nearest the bound" cannot find the truth. R15 in `docs/authoring-rules.md` now says so.
+  M1, M3, M4 and M5 each had one bound with the truth as the survivor nearest it; each
+  gained the missing bound and keeps the same two survivors, e.g. M3's "less than 15
+  metres" is now "between 10 and 15 metres" (`cases/m3.py`). P1 is the authored sentence
+  used as written, never reworded or frozen (`build_screen` in
+  `pipeline/conditions.py`), so nothing else in those cases changes; the mock's key for
+  M1 (`_SCREEN_TABLE` in `pipeline/llm.py`) follows the new sentence. Open cases that
+  broke the rule were changed the same way in their pull requests. Decided after the
+  pilot and before the main run.
+- **Why** [STATED: team decision, 2026-10-22]: Kai Rong asked for it, as optional, on the
+  M22 and M23 pull requests, and Jason made it a rule. [INFERRED: from `screen_verdict`
+  in `pipeline/score.py`] the ordering check asks whether P(truth) rises from P0 to P1 to
+  P2, and P1 is this sentence, so a cue that lifts P(truth) at P1 for any reason but the
+  narrowing makes ordering easier to pass. [INFERRED: from the cases' `screen_partial`]
+  a reader takes "less than 15 metres" to mean just under 15, and in all seven cases
+  written with one bound (M1, M3, M4, M5, M15, M22 and M39) the truth was the survivor
+  nearest it, so the cue always pushed toward the truth; every other case already kept
+  both survivors equally far inside two bounds. [STATED: `runs/score-pilot.txt`] in the
+  pilot, every judge's P1 in M1, M3, M4 and M5 was above 50, from 50.2 to 70.0, while
+  M2, whose survivors sit 5 Wh inside each of two bounds, got 49.8 and 55.0 from Opus and
+  Sonnet but 72.2 from GPT-5.4. That is a preview, so the rule rests on the design, not
+  on these numbers.
+- **Rejected**: leaving the pilot cases as they ran, as R19 did for their type names,
+  which keeps a push toward the truth in four of the 40 screen sentences; one bound with
+  the truth farther from it, which reverses the push instead of removing it.
+- **Breaks if changed**: with one bound, the survivor nearest it draws belief for a
+  reason other than the narrowing; where that survivor is the truth, P1 rises without
+  the judge using the sentence, and the ordering check retains judges for it.
+
+### 2026-10-22 — The main run goes in two stages, split by programme entry
+
+- **Decision**: the main run (Phase 5 in `docs/work-plan.md`) runs in two stages, each
+  programme entry into its own log as in the pilot (`judge --arms`). Stage 1 is
+  generation and every entry that runs on all cases: `screen`, `conflict`, `agreement`,
+  `abstain`, and any entry added to `PROGRAMME` later that does not run on the ten-case
+  subset. Stage 2 is the three subset entries, `long-conflict`, `long-agreement` and
+  `ladder`, then the optional sub-experiments, once the key is topped up. The corpus is
+  not split: stage 1 starts only when all 40 cases are merged.
+- **Why** [STATED: team decision, 2026-10-22]: the course coordinator raised the API
+  key's limit to $50 in all and tops it up again only after he sees that money spent, so
+  Jason chose to spend it on a first stage and then ask for more. [STATED: `pipeline.run
+  balance`, 2026-10-22] $38.93 of the $50 was left. [INFERRED: from each judge's cost per
+  call by arm in `runs/score-pilot.txt` (HEALTH), applied to the calls `plan --cases 40`
+  prints] at the pilot's measured rates stage 1 costs about $33.79 (generation $0.48,
+  `screen` $2.40, `conflict` $13.78, `agreement` $11.02, `abstain` $6.11) and stage 2
+  about $5.11 (`long-conflict` $2.39, `long-agreement` $0.48, `ladder` $2.24). The whole
+  programme, about $38.89, would leave nothing for an entry that stops, and a stopped log
+  cannot be resumed (the 2026-10-18 pilot entry). [STATED: README, "Arms"] stage 1 holds
+  every condition behind H1-H6 and the confidence screen, while stage 2 holds the checks
+  that need long reports or graded wording: the length arm tells token volume from
+  redundancy, and "the wording ladder is H4's defence".
+- **Rejected**: splitting the corpus and starting now on the merged cases, since rules
+  still change while cases are written (the entry above changed four merged cases),
+  `judge` requires every registered case to be frozen (`check_frozen` in
+  `pipeline/run.py`), and real results would exist while cases are still unwritten;
+  running the whole programme on what is left, which a stopped entry would leave
+  unfinished.
+- **Breaks if changed**: running a stage 2 entry in stage 1 uses up the money kept for an
+  entry that stops; starting before all 40 cases are merged lets results exist while
+  rules can still change.

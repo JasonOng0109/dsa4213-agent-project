@@ -12,7 +12,7 @@ CASE = {
     "distractors": ["3 hours", "12 hours"],   # plausible, unsupported, same kind
                                               # as the truth; even steps of 3 hours
     "screen_partial": (
-        "The water supply to Kestrel Court was cut off for less than eight hours."
+        "The water supply to Kestrel Court was cut off for between one and eight hours."
     ),   # screen level P1: true, keeps the truth, rules out 9 hours and 12 hours
     "quality_dimension": "authority",
     "difficulty_tier": "T1",            # A's hedge is a whole clause, which a faithful

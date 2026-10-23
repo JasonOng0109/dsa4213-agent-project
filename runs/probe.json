@@ -1,0 +1,56 @@
+[
+  {
+    "model": "anthropic/claude-sonnet-5",
+    "role": "primary",
+    "content": "4",
+    "provider": "Claude Platform on AWS",
+    "generation_id": "gen-1792344135-wdGktO7BDmAfThBFLDRh",
+    "logprobs_returned": false,
+    "n_alternatives": 0
+  },
+  {
+    "model": "openai/gpt-5.4",
+    "role": "primary",
+    "content": "4",
+    "provider": "OpenAI",
+    "generation_id": "gen-1792344137-25RgIG486ZiIsm4oBO7z",
+    "logprobs_returned": true,
+    "n_alternatives": 1
+  },
+  {
+    "model": "anthropic/claude-opus-5",
+    "role": "primary",
+    "content": "4",
+    "provider": "Claude Platform on AWS",
+    "generation_id": "gen-1792344139-sNKrebE2fjC5U6JYocsm",
+    "logprobs_returned": false,
+    "n_alternatives": 0
+  },
+  {
+    "model": "qwen/qwen3.6-27b",
+    "role": "auxiliary",
+    "error": "qwen/qwen3.6-27b returned no content (finish_reason=length); the model likely spent max_tokens=16 on reasoning.",
+    "provider": "Reka",
+    "generation_id": "gen-1792344140-cFnAGywuUhJbyEiW3gkl",
+    "logprobs_returned": false,
+    "n_alternatives": 0
+  },
+  {
+    "model": "meta-llama/llama-4-maverick",
+    "role": "auxiliary",
+    "content": "4",
+    "provider": "DigitalOcean",
+    "generation_id": "gen-1792344141-JPXj4tfa583AsjLHnJah",
+    "logprobs_returned": true,
+    "n_alternatives": 5
+  },
+  {
+    "model": "google/gemma-4-31b-it",
+    "role": "reporter",
+    "content": "4",
+    "provider": "DeepInfra",
+    "generation_id": "gen-1792344142-ttbKNxiHBzD3Ppw7SXwr",
+    "logprobs_returned": false,
+    "n_alternatives": 0
+  }
+]
