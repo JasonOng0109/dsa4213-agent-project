@@ -272,7 +272,7 @@ varies one thing on top of the conditions above (`pipeline/run.py`, `PROGRAMME`)
 | Arm | What it runs | Repeats | Judges | Cases |
 |---|---|---|---|---|
 | Short | all 13 conditions, accepted paraphrases alone | 6 agreement, 12 conflict | 3 primary | all |
-| Abstention | X1-X5 and A7, with a "cannot be determined from the evidence provided" option | 4 | 3 primary | all |
+| Abstention | X1-X5, A7 and P0, with a "cannot be determined from the evidence provided" option | 4 | 3 primary | all |
 | Confidence screen | 3 single-report trials of rising informativeness (below) | 4 rotations | 3 primary | all |
 | Length | X1-X5 and A1, A2 with each paraphrase set in authored filler: 88-96 words, longest at most 1.10 x shortest | 12 conflict, 6 for A1, A2 | Sonnet 5, GPT-5.4 | 10 |
 | Wording ladder | W1-W3: X5 with its quality statement softened to *somewhat*, *considerably*, *far* more reliable than the shared source | 12 | 3 primary | the same 10 |
@@ -282,6 +282,11 @@ varies one thing on top of the conditions above (`pipeline/run.py`, `PROGRAMME`)
   rise to redundancy as such.
 - **Abstention** is read against the same judge's abstention rate in A7, where three
   independent sources agree, because models differ hugely in how readily they abstain.
+  P0, the screen's irrelevant report, was added after the pilot as a check beside A7:
+  nothing there settles the answer, so a judge that abstains in under half of its P0
+  trials is one that abstains nowhere, and one that abstains in at least half of its A7
+  trials abstains everywhere. The scorer prints which reading applies to each judge,
+  with these cut-offs fixed before the main run (`docs/decisions.md`, 2026-10-21).
 - **The wording ladder** is H4's defence: X5's wording is categorical, so a flip there
   may be compliance. If the weaker rungs also move decisions, the judge is weighing
   evidence.
@@ -322,10 +327,16 @@ Stated probabilities count as evidence only for a judge that passes the **confid
 screen**: *ordering*, where its stated P(truth) rises across an irrelevant report (P0),
 a report ruling out two options (P1) and a report naming the answer (P2), tested across
 cases with Page's test for ordered alternatives (one-sided p < 0.05, so it needs at
-least two cases; both are explained in `docs/methods.md`); and *discrimination*, where
-its stated probability separates its correct decisions from its incorrect ones (AUROC,
-within condition). A judge that fails is reported as uninformative on confidence; its
-decisions still count.
+least two cases; both are explained in `docs/methods.md`). A judge that fails it is
+reported as uninformative on confidence; its decisions still count. *Discrimination*,
+where its stated probability separates its correct decisions from its incorrect ones
+(AUROC within condition; also in `docs/methods.md`), is reported for every judge but,
+since the pilot, excludes none: in these conditions a wrong answer is almost always the
+two agreeing reports' claim, so AUROC there shows how sure a judge is when it follows
+them (`docs/decisions.md`, 2026-10-21). Ordering alone cannot catch a judge that states
+100 on whatever it picks, since its mean P(truth) is then 100 times its accuracy, so
+beside each judge's n_eff the scorer prints how many of its answers put 100 on one
+option: a description, not a gate.
 
 ### The independence index
 
@@ -339,7 +350,9 @@ $n_\text{eff}(A4) = 1$ (three reports, one source) and $n_\text{eff}(A7) = 3$ (t
 sources), so $n_\text{eff}(A4) - 1$ is credited independence that does not exist and
 $n_\text{eff}(A4) - n_\text{eff}(A6)$ is what a dependence statement claws back. It is
 undefined where one report moves the judge by less than 0.2 logits, an anomaly where it
-moves belief the wrong way, and reported only for judges that pass the screen.
+moves belief the wrong way, and reported only for judges that pass the screen. A cell
+whose mean P(truth) is outside 1-99%, the clip applied before the logit, gives a bound,
+not a value: its index, and every number computed from it, reads "at ceiling".
 
 ### What counts as support, fixed before any data
 
@@ -378,7 +391,13 @@ uv run --env-file .env python -m pipeline.run generate --max-calls N     # N: 12
 # now read runs/frozen_reports.json by hand: cue survival, same denominator for A and B
 uv run --env-file .env python -m pipeline.run judge --max-calls N        # N: the judge calls plan reports
 uv run python -m pipeline.score runs/trials.jsonl
+uv run python -m pipeline.score --show-excluded runs/trials-*.jsonl   # the pilot
 ```
+
+In the pilot, `--show-excluded` also printed n_eff and H6 for the judges the confidence
+screen excluded, marked as checks rather than results: discrimination, then part of the
+screen, excluded all three (`docs/decisions.md`, the pilot entry). Since 2026-10-21 only
+ordering excludes a judge.
 
 `judge --arms conflict,abstain --log trials-1.jsonl` runs part of the programme into its
 own log; `pipeline.score` accepts several logs at once. A run stops itself on its call
@@ -428,20 +447,40 @@ runs/                     outputs of real runs (created by the first run)
 
 Who does what next, step by step: [`docs/work-plan.md`](docs/work-plan.md).
 
-- **Corpus: 1 of 40 cases.** M1 (institutional logistics, authority, T2). Authoring and
-  independent review are the critical path; see `docs/authoring-rules.md`.
-- **No real run has happened in this repository.** `runs/` fills from the first
-  `generate`.
+- **Corpus: 11 of 40 cases.** M1 (institutional logistics, authority, T2), M2 (product
+  specification, primary source, T1), M3 (incident status, directness, T1), M4 (product
+  specification, method, T1), M5 (incident status, authority, T1), M14 (incident status,
+  method, T2), M15 (institutional logistics, authority, T1), M30 (institutional
+  logistics, directness, T1), M31 (product specification, primary source, T2), M32
+  (incident status, primary source, T1) and M33 (incident status, authority, T2).
+  Authoring and independent review are the critical path; see `docs/authoring-rules.md`.
+- **The pilot has run** (2026-10-19), every programme entry on M1-M5: 240 calls
+  generated the reports and 3,420 judge trials ran. `runs/` holds the frozen reports,
+  the seven judge logs and the scorer's output, `runs/score-pilot.txt`. Its numbers are
+  a preview, not findings (`docs/work-plan.md`, Phase 3).
 - **Pilot: 5 of the 40 cases**, the fewest at which one badly ordered case cannot fail a
-  judge on the confidence screen by itself (`docs/decisions.md`). Four more cases must be
-  written and reviewed first. Which arms the pilot runs, and its call ceiling, are not
-  decided yet.
-- **Open before the main run** (each recorded in `docs/decisions.md`):
-  - review the wording ladder's sentence: the proposal fixes its three intensity words,
-    not the full sentence;
-  - choose the ten cases for the length arm and the ladder (the code takes the first ten);
-  - set the discrimination check's pass mark and smallest usable class size;
-  - set the margin below which H6 counts a judge as indifferent (the proposal says "a
-    stated threshold"; none is stated yet; the margin itself is already logged).
+  judge on the confidence screen by itself (`docs/decisions.md`). All five are written
+  and reviewed. The pilot ran the whole programme, 3,660 calls planned at $7.03, with
+  the group approving up to $10.
+- **Settled before the pilot** (`docs/decisions.md`, 2026-10-18): the wording ladder's
+  sentence is kept; H6 counts a top-two margin below 10 points as near indifference;
+  discrimination passes a judge when one condition with 10 right and 10 wrong decisions
+  has AUROC above 0.5 at the screen's level (replaced after the pilot, below); a rule
+  fixes the ten cases for the length arm and the ladder; the pilot runs the whole
+  programme.
+- **Settled after the pilot** (`docs/decisions.md`, 2026-10-21): only ordering decides
+  whose stated numbers count, and discrimination is reported beside it, since the pilot
+  showed it excludes every judge that follows the count where the study predicts; n_eff
+  at the 1-99% clip reads "at ceiling"; H6 is read from its rates, with P0 offered the
+  abstain option as a check beside A7, since H6 had almost nothing to test: 8 of 900
+  conflict-block records were flagged, and two judges never abstained
+  (`runs/score-pilot.txt`).
+- **Open before the main run**: `cases/__init__.py` puts the ten-case subset first (the
+  code takes the first ten). The ten are chosen: M1-M5 and five Phase 4 cases marked by
+  Kai Rong with the first batches (`docs/work-plan.md`, case register).
+- **The P0 check ran on M1-M5** (2026-10-21, 60 calls, $0.12; `docs/work-plan.md`, step
+  3.8): every judge abstained in all 20 of its P0 trials, so in the pilot Opus's and
+  Sonnet's zero abstentions in the conflict block read as a null, not as a judge that
+  abstains nowhere. A preview, not a finding (`runs/score-pilot-2026-10-21.txt`).
 - **Not built**: the four optional sub-experiments. The backend already supports the
   reasoning switch and token logprobs they need.
