@@ -1,4 +1,4 @@
-"""M27: the key deposit for the practice rooms at Dunmore College.
+"""M27: the key deposit for the practice rooms at Halvercombe College.
 
 Institutional logistics, authority dimension, tier T1.
 """
@@ -6,11 +6,11 @@ Institutional logistics, authority dimension, tier T1.
 CASE = {
     "case_id": "M27",
     "domain": "institutional_logistics",
-    "question": "What is the key deposit for the practice rooms at Dunmore College?",
+    "question": "What is the key deposit for the practice rooms at Halvercombe College?",
     "world_truth": "40 dollars",
     "distractors": ["20 dollars", "50 dollars"],
     "screen_partial": (
-        "The key deposit for the practice rooms at Dunmore College is between 35 "
+        "The key deposit for the practice rooms at Halvercombe College is between 35 "
         "and 55 dollars."
     ),  # screen level P1:
         # true, keeps the truth, rules out two of the four options; the two
@@ -20,7 +20,7 @@ CASE = {
 
     "design_notes": (
         "A and B state the same proposition about the key deposit for the "
-        "practice rooms at Dunmore College, with different values, the same "
+        "practice rooms at Halvercombe College, with different values, the same "
         "scope and precision, and no reference to a change or to each other "
         "(R1). "
         "T1: A's cue is the hedge 'is probably' (R16), not used by any other "
@@ -35,7 +35,7 @@ CASE = {
         "interior values (R8). The screen sentence gives a range whose bounds "
         "sit equally far from the two options it keeps (R15). "
         "A and B share exactly the question words key, deposit, practice, "
-        "rooms, Dunmore and College (R13); A, B, C and D use four different "
+        "rooms, Halvercombe and College (R13); A, B, C and D use four different "
         "frames (R17). "
         "Filler describes one part of the college per set (the front court, the "
         "tower, the river meadow), shares no meaningful word across sets, and "
@@ -45,7 +45,7 @@ CASE = {
     ),
     "filler_sets": [
         [
-            "Dunmore College is entered through a gatehouse on the main road.",
+            "Halvercombe College is entered through a gatehouse on the main road.",
             "Beyond the gatehouse is a square court paved with stone.",
             "A stone basin stands in the centre of the court.",
             "Gates close off the opposite side of the court.",
@@ -86,7 +86,7 @@ CASE = {
                 "why": "unofficial notice from a student society with no say "
                     "over the charge",
             },
-            "content": ("The key deposit for the practice rooms at Dunmore "
+            "content": ("The key deposit for the practice rooms at Halvercombe "
                         "College is probably 30 dollars."),
             "n_paraphrases_needed": 2,
         },
@@ -100,7 +100,7 @@ CASE = {
                 "why": "official notice from the office that sets the deposit "
                     "for each practice room key",
             },
-            "content": ("Students at Dunmore College pay 40 dollars as a key "
+            "content": ("Students at Halvercombe College pay 40 dollars as a key "
                         "deposit on practice rooms."),
             "n_paraphrases_needed": 3,
         },
@@ -114,7 +114,7 @@ CASE = {
                 "why": "the policy that fixes the deposit held for each practice "
                     "room key",
             },
-            "content": ("Dunmore College holds 40 dollars against each practice "
+            "content": ("Halvercombe College holds 40 dollars against each practice "
                         "room key it lends out."),
             "n_paraphrases_needed": 1,
         },
@@ -128,7 +128,7 @@ CASE = {
                 "why": "records the deposit taken each time a practice room key "
                     "is signed out",
             },
-            "content": ("Borrowing a key for a Dunmore College practice room "
+            "content": ("Borrowing a key for a Halvercombe College practice room "
                         "requires a deposit of 40 dollars."),
             "n_paraphrases_needed": 1,
         },
