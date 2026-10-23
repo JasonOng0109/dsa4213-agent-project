@@ -22,7 +22,8 @@ CASE = {
     "design_notes": (
         "A and B state the same proposition, how many pieces are in the Brickwell Harbour "
         "Lighthouse set, with different values, in one sentence each. Both name the same "
-        "set and give its total number of pieces, the measure printed on its box, and "
+        "set and give its total number of pieces, the measure printed on its box, which "
+        "leaves out the few spare parts, and "
         "refer to no change and to no other source (R1). Read without provenance, neither "
         "is narrower, an exception to the other, or more precise. The quality dimension, "
         "directness, lives in provenance; the one cue in the content is A's clause-level "
@@ -47,12 +48,14 @@ CASE = {
         "their unit, as the content does. The screen sentence keeps 764 and 856, each 46 "
         "pieces inside a bound, so 'pick the survivor nearest the bound' does not find the "
         "truth (R15). A and B use the same question words and both leave out 'many' (R13). "
-        "B, C and D state the fact in three different frames (R17). C and D are separate "
-        "readings of the same printed figure, a toy shop's stock card and a school "
-        "building club's register of its sets, each filled in from the box of its own copy "
-        "of the set, so neither depends on the blogger or on each other, and neither's "
-        "sentence says how its value was found (R2, R6). All three give the piece count "
-        "printed on the box, so B, C and D support one proposition in A7 (R1). The brand, "
+        "B, C and D state the fact in three different frames (R17). C and D are counts of "
+        "their own, not readings of the box: a toy magazine's reviewer counted every piece "
+        "while building a copy bought for the review, and a school building club counted "
+        "every piece of its own copy before entering the set in its register. So a "
+        "misprint on the box could not reach them, neither depends on the blogger or on "
+        "each other, and neither's sentence says how its value was found (R2, R6). Both "
+        "leave out the spares, as the printed count does, so B, C and D give the same "
+        "measure and support one proposition in A7 (R1). The brand, "
         "the set and its piece count are invented (R4). Filler describes the lighthouse "
         "tower in set 1, the keeper's cottage in set 2 and the quay in set 3, with nothing "
         "about pieces, bricks, the box, its size or how it is built, no figures and no "
@@ -136,11 +139,11 @@ CASE = {
             "quality": "strong",
             "claim": "856 pieces",
             "provenance": {
-                "type": "toy shop stock card",
-                "authority": "retailer",
+                "type": "toy magazine's build review",
+                "authority": "press",
                 "quality": "strong",
-                "why": "the shop filled in its card from the box of the set on its own "
-                       "shelf",
+                "why": "the magazine's reviewer counted every piece while building a copy "
+                       "bought for the review, leaving out the spares",
             },
             "content": "Brickwell's Harbour Lighthouse set comes with 856 pieces.",
             "n_paraphrases_needed": 1,
@@ -152,8 +155,8 @@ CASE = {
                 "type": "school building club's register of its sets",
                 "authority": "institutional",
                 "quality": "strong",
-                "why": "the club entered the set in its register from the box of its own "
-                       "copy",
+                "why": "the club counted every piece of its own copy, leaving out the "
+                       "spares, before entering the set in its register",
             },
             "content": "The Brickwell Harbour Lighthouse set is made up of 856 pieces.",
             "n_paraphrases_needed": 1,
