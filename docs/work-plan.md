@@ -205,8 +205,12 @@ Same steps for each author. Replace `m2` with your case.
   - R13: A and B use exactly the same words from the question.
   - R20: A and B are within 2 words of each other in length.
 - **T1 only** (R16): give A one mild hint that survives rewording, such as a hedge ("is
-  understood to be"). One small word like "your" does not survive. Use the hedge that
-  the merged cases use least, and name it in `design_notes` (R16, "Vary the cue").
+  understood to be"). One small word like "your" does not survive. Use a hedge that
+  fewer than three T1 cases use, on `main` or in open pull requests, preferring one
+  already in use to a new one, and name it in `design_notes` (R16, "Vary the cue").
+  `uv run python tools/case_index.py --all-branches` lists the hedges in use and the
+  slots each has left. In a method case, pick one that names no method: not
+  "estimated", "guessed" or "reckoned" (R16).
 
 **1.5 Write the provenance.**
 - **Do**: fill `type`, `authority`, `quality`, `why` for each source.
@@ -338,7 +342,9 @@ it.
   (A0 never). A judge passes when at least one counted condition has AUROC above 0.5 at
   p below 0.05 divided by the number counted. The entry "AUROC" is in `docs/methods.md`.
   Amended 2026-10-19: the p-value shuffles whole cases, since a case's repeats are
-  near-copies and counting each decision makes p far too small.
+  near-copies and counting each decision makes p far too small. Replaced 2026-10-21,
+  after the pilot: the verdict is printed but excludes no judge (`docs/decisions.md`,
+  "Only ordering decides whose stated numbers count").
 - **Why**: a judge's probabilities count only if they carry information. One check is
   AUROC: when the judge is right, does it state higher confidence than when it is wrong?
   The scorer printed it, but no pass mark was set, so it could not exclude any judge.
@@ -424,8 +430,9 @@ In the table, `...` is short for `uv run --env-file .env python -m`.
 | 3.3 | Jason | `... pipeline.run generate --max-calls 600`. The README allows 120 per case for two rounds; 5 × 120 = 600 |
 | 3.4 | each author and reviewer | Read your case in `runs/frozen_reports.json` (see below) |
 | 3.5 | Jason | One programme entry at a time (2E), e.g. `... pipeline.run judge --arms conflict --log trials-conflict.jsonl --max-calls 900`. Each entry's calls are in `docs/decisions.md` |
-| 3.6 | Jason | `uv run python -m pipeline.score --show-excluded runs/trials-*.jsonl`, all the logs together. `--show-excluded` also prints n_eff and H6 for judges the screen excludes, as checks: on 5 cases, discrimination is likely to exclude most judges (`docs/decisions.md`, the pilot entry). Share the output |
+| 3.6 | Jason | `uv run python -m pipeline.score --show-excluded runs/trials-*.jsonl`, all the logs together. `--show-excluded` also prints n_eff and H6 for judges the screen excludes, as checks: on 5 cases, discrimination, then part of the screen, was likely to exclude most judges (`docs/decisions.md`, the pilot entry). Share the output |
 | 3.7 | Jason | Commit everything in `runs/`. Record the results in the map |
+| 3.8 | Jason | Added after the pilot (`docs/decisions.md`, 2026-10-21): the P0 check once on M1–M5, `... pipeline.run judge --arms abstain-p0 --log trials-abstain-p0.jsonl --max-calls 60`, about $0.10. Then score all the logs together again into `runs/score-pilot-2026-10-21.txt` and commit |
 
 **3.4 Reading the frozen reports.** Never edit them. Check three things:
 
@@ -482,41 +489,41 @@ Jason merges Phase 4 cases only after it, because the run takes every case in
 | M3 | incident_status | directness | T1 | Rachel | Kathleen | merged | yes |
 | M4 | product_spec | method | T1 | Kathleen | Kai Rong | merged | yes |
 | M5 | incident_status | authority | T1 | Kai Rong | Crystal | merged | yes |
-| M6 | institutional_logistics | primary_source | T1 | Crystal | Rachel | assigned | yes |
-| M7 | product_spec | authority | T1 | Crystal | Rachel | assigned | |
+| M6 | institutional_logistics | primary_source | T1 | Crystal | Rachel | merged | yes |
+| M7 | product_spec | authority | T1 | Crystal | Rachel | merged | |
 | M8 | incident_status | method | T2 | Crystal | Rachel | assigned | backup for M14 |
-| M9 | product_spec | directness | T2 | Crystal | Rachel | assigned | backup for M22 |
+| M9 | product_spec | directness | T2 | Crystal | Rachel | merged | backup for M22 |
 | M10 | institutional_logistics | authority | T1 | Crystal | Rachel | assigned | |
 | M11 | institutional_logistics | directness | T1 | Crystal | Rachel | assigned | |
 | M12 | product_spec | method | T1 | Crystal | Rachel | assigned | |
 | M13 | incident_status | primary_source | T1 | Crystal | Rachel | assigned | |
-| M14 | incident_status | method | T2 | Rachel | Kathleen | assigned | yes |
-| M15 | institutional_logistics | authority | T1 | Rachel | Kathleen | assigned | |
-| M16 | institutional_logistics | primary_source | T1 | Rachel | Kathleen | assigned | backup for M6 |
-| M17 | institutional_logistics | directness | T1 | Rachel | Kathleen | assigned | backup for M30 |
+| M14 | incident_status | method | T2 | Rachel | Kathleen | merged | yes |
+| M15 | institutional_logistics | authority | T1 | Rachel | Kathleen | merged | |
+| M16 | institutional_logistics | primary_source | T1 | Rachel | Kathleen | merged | backup for M6 |
+| M17 | institutional_logistics | directness | T1 | Rachel | Kathleen | merged | backup for M30 |
 | M18 | product_spec | primary_source | T1 | Rachel | Kathleen | assigned | |
 | M19 | incident_status | directness | T2 | Rachel | Kathleen | assigned | |
-| M20 | product_spec | method | T1 | Rachel | Kathleen | assigned | |
+| M20 | product_spec | method | T1 | Rachel | Kathleen | merged | |
 | M21 | incident_status | authority | T1 | Rachel | Kathleen | assigned | |
-| M22 | product_spec | directness | T2 | Kathleen | Kai Rong | assigned | yes |
-| M23 | institutional_logistics | method | T1 | Kathleen | Kai Rong | assigned | |
-| M24 | institutional_logistics | primary_source | T2 | Kathleen | Kai Rong | assigned | |
-| M25 | product_spec | authority | T1 | Kathleen | Kai Rong | assigned | |
-| M26 | incident_status | method | T1 | Kathleen | Kai Rong | assigned | |
-| M27 | institutional_logistics | authority | T1 | Kathleen | Kai Rong | assigned | |
-| M28 | product_spec | primary_source | T1 | Kathleen | Kai Rong | assigned | |
+| M22 | product_spec | directness | T2 | Kathleen | Kai Rong | merged | yes |
+| M23 | institutional_logistics | method | T1 | Kathleen | Kai Rong | merged | |
+| M24 | institutional_logistics | primary_source | T2 | Kathleen | Kai Rong | merged | |
+| M25 | product_spec | authority | T1 | Kathleen | Kai Rong | merged | |
+| M26 | incident_status | method | T1 | Kathleen | Kai Rong | merged | |
+| M27 | institutional_logistics | authority | T1 | Kathleen | Kai Rong | merged | |
+| M28 | product_spec | primary_source | T1 | Kathleen | Kai Rong | merged | |
 | M29 | incident_status | directness | T1 | Kathleen | Kai Rong | assigned | |
 | M30 | institutional_logistics | directness | T1 | Kai Rong | Crystal | merged | yes |
 | M31 | product_spec | primary_source | T2 | Kai Rong | Crystal | merged | |
-| M32 | incident_status | primary_source | T1 | Kai Rong | Crystal | assigned | backup for M38 |
-| M33 | incident_status | authority | T2 | Kai Rong | Crystal | assigned | |
-| M34 | product_spec | authority | T1 | Kai Rong | Crystal | assigned | |
-| M35 | institutional_logistics | method | T1 | Kai Rong | Crystal | assigned | |
-| M36 | product_spec | directness | T1 | Kai Rong | Crystal | assigned | |
-| M37 | incident_status | method | T1 | Kai Rong | Crystal | assigned | |
-| M38 | incident_status | primary_source | T1 | Jason | Kathleen | assigned | yes |
-| M39 | incident_status | directness | T1 | Jason | Kathleen | assigned | |
-| M40 | institutional_logistics | method | T2 | Jason | Kathleen | assigned | |
+| M32 | incident_status | primary_source | T1 | Kai Rong | Crystal | merged | backup for M38 |
+| M33 | incident_status | authority | T2 | Kai Rong | Crystal | merged | |
+| M34 | product_spec | authority | T1 | Kai Rong | Crystal | merged | |
+| M35 | institutional_logistics | method | T1 | Kai Rong | Crystal | merged | |
+| M36 | product_spec | directness | T1 | Kai Rong | Crystal | merged | |
+| M37 | incident_status | method | T1 | Kai Rong | Crystal | merged | |
+| M38 | incident_status | primary_source | T1 | Jason | Kathleen | merged | yes |
+| M39 | incident_status | directness | T1 | Jason | Kathleen | merged | |
+| M40 | institutional_logistics | method | T2 | Jason | Kathleen | merged | |
 
 **Subset** marks the ten cases the length arm and the wording ladder run on (2D): M1–M5,
 and five Phase 4 cases marked on 2026-10-19 with the first batches, before anyone drafted
@@ -544,17 +551,18 @@ Outline only. Detailed tasks will be added after the pilot.
 - **Before**: all 40 cases merged. Every open item closed except the optional
   sub-experiments. Spend approved. The proposal asks for $75; the key's limit is $50,
   and the coordinator tops it up again only after seeing it spent. The main programme at
-  40 cases is $37.48 at the proposal's rates (`uv run python -m pipeline.run plan
-  --cases 40`), about $38.89 at the pilot's.
+  40 cases is $38.34 at the proposal's rates (`uv run python -m pipeline.run plan --cases
+  40`): the proposal's $37.48 plus the P0 check added after the pilot. At the pilot's
+  rates it is about $39.84.
 - **Run** (Jason): same steps as Phase 3, with the same reading of frozen reports by
   each case's author and reviewer, in two stages (`docs/decisions.md`, 2026-10-22).
-  Stage 1, $33.79: generate ($0.48), then `screen` ($2.40), `conflict` ($13.78),
-  `agreement` ($11.02), `abstain` ($6.11) and any entry added later that does not run on
-  the ten-case subset. Stage 2, after the top-up, $5.11: `long-conflict` ($2.39),
-  `long-agreement` ($0.48) and `ladder` ($2.24), then the optional sub-experiments.
-  These costs use the pilot's measured cost per call; `judge` prints the proposal's
-  rates, which run 16% low for `abstain`. Run `probe` before each stage, and before each
-  entry check that `balance` covers its cost plus 10%.
+  Stage 1, $34.74: generate ($0.48), then `screen` ($2.40), `conflict` ($13.78),
+  `agreement` ($11.02), `abstain` ($6.11), `abstain-p0` ($0.95) and any entry added
+  later that does not run on the ten-case subset. Stage 2, after the top-up, $5.11:
+  `long-conflict` ($2.39), `long-agreement` ($0.48) and `ladder` ($2.24), then the
+  optional sub-experiments. These costs use the pilot's measured cost per call; `judge`
+  prints the proposal's rates, which run 16% low for `abstain`. Run `probe` before each
+  stage, and before each entry check that `balance` covers its cost plus 10%.
 - **Analysis**: read results only against the table "What counts as support, fixed
   before any data" in the README.
 - **Optional sub-experiments**: not built yet. Only if budget allows, in the order the
@@ -618,5 +626,6 @@ Change "to do" to "done" when a task is finished.
 | 2E What the pilot runs | Jason + group | — | done |
 | 3.1–3.7 Pilot run | Jason | M2–M5 merged, 2E | done |
 | 3.4 Read frozen reports | authors and reviewers | 3.3 | done |
+| 3.8 P0 check on M1–M5 | Jason | the post-pilot decisions | done |
 | Phase 4 drafts | everyone | Kai Rong's first batches | to do |
 | Phase 4 merges | Jason | pilot done | to do |
