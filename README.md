@@ -447,15 +447,16 @@ runs/                     outputs of real runs (created by the first run)
 
 Who does what next, step by step: [`docs/work-plan.md`](docs/work-plan.md).
 
-- **Corpus: 14 of 40 cases.** M1 (institutional logistics, authority, T2), M2 (product
+- **Corpus: 15 of 40 cases.** M1 (institutional logistics, authority, T2), M2 (product
   specification, primary source, T1), M3 (incident status, directness, T1), M4 (product
   specification, method, T1), M5 (incident status, authority, T1), M7 (product
   specification, authority, T1), M14 (incident status, method, T2), M15 (institutional
   logistics, authority, T1), M22 (product specification, directness, T2), M23
   (institutional logistics, method, T1), M30 (institutional logistics, directness, T1),
   M31 (product specification, primary source, T2), M32 (incident status, primary source,
-  T1) and M33 (incident status, authority, T2). Authoring and independent review are the
-  critical path; see `docs/authoring-rules.md`.
+  T1), M33 (incident status, authority, T2) and M34 (product specification, authority,
+  T1). Authoring and independent review are the critical path; see
+  `docs/authoring-rules.md`.
 - **The pilot has run** (2026-10-19), every programme entry on M1-M5: 240 calls
   generated the reports and 3,420 judge trials ran. `runs/` holds the frozen reports,
   the seven judge logs and the scorer's output, `runs/score-pilot.txt`. Its numbers are
