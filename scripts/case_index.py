@@ -22,6 +22,8 @@ from pathlib import Path
 CASE_FILE = re.compile(r"^cases/m\d+\.py$")
 HEDGE = re.compile(r"""hedge[^'"]{0,20}['"]([^'"]{3,40})['"]""", re.IGNORECASE)
 FILLER_WORDS = {"is", "are", "it", "that", "to", "be", "have", "been", "has"}
+APPROX = re.compile(r"\b(about|around|roughly|approximately|some|nearly|almost|"
+                    r"close to|just over|just under)\b", re.IGNORECASE)
 
 
 def git(*args: str) -> str:
@@ -56,12 +58,17 @@ def topic(case: dict) -> str:
 
 
 def hedge(case: dict) -> str:
+    """A's T1 cue: the named hedge, else an approximation word in A's content."""
     if case.get("difficulty_tier") == "T2":
         return "(none, T2)"
     for text in (case.get("design_notes", ""), case["_doc"]):
         match = HEDGE.search(text)
         if match:
             return match.group(1).strip()
+    content = case.get("sources", {}).get("A", {}).get("content", "")
+    match = APPROX.search(content)
+    if match:
+        return f"approximation: '{match.group(1).lower()}'"
     return "?"
 
 
@@ -106,7 +113,7 @@ def branch_cases(found: dict) -> None:
 
 
 def table(found: dict) -> str:
-    rows = ["| Case | Topic | Domain | Dimension | Tier | A's hedge | Author "
+    rows = ["| Case | Topic | Domain | Dimension | Tier | A's cue | Author "
             "| Branches |",
             "|---|---|---|---|---|---|---|---|"]
     for cid in sorted(found, key=lambda c: int(re.sub(r"\D", "", c) or 0)):
@@ -130,7 +137,7 @@ def clashes(found: dict) -> str:
     groups = defaultdict(list)
     for cid, (case, _, _) in found.items():
         h = hedge(case)
-        if h not in ("(none, T2)", "?"):
+        if h not in ("(none, T2)", "?") and not h.startswith("approximation"):
             groups[hedge_key(h)].append(f"{cid} ('{h}')")
     lines = [f"- **{key}**: {', '.join(sorted(ids))}"
              for key, ids in sorted(groups.items()) if len(ids) > 1]
