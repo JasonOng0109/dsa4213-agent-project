@@ -132,7 +132,7 @@ CASE = {
                        "stands behind the tent's specifications, giving the packed weight "
                        "of the tent with its poles and pegs in its bag",
             },
-            "content": "The packed weight of the Torvik Ridgeline tent comes to 2.9 kg.",
+            "content": "Torvik's Ridgeline tent has a packed weight that comes to 2.9 kg.",
             "n_paraphrases_needed": 3,
         },
         "C": {

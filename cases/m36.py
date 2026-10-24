@@ -132,7 +132,7 @@ CASE = {
                 "why": "the blogger read the piece count off the box of the set on their "
                        "own desk",
             },
-            "content": "There are 856 pieces in the Brickwell Harbour Lighthouse set.",
+            "content": "The Harbour Lighthouse set made by Brickwell has 856 pieces.",
             "n_paraphrases_needed": 3,
         },
         "C": {
