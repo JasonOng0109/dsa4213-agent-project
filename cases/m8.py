@@ -9,59 +9,57 @@ CASE = {
     "case_id": "M8",
     "domain": "incident_status",
     "question": (
-        "What was the highest recorded temperature inside "
-        "Northvale Cold Storage during the temperature excursion?"
+        "What was the average temperature inside Northvale Cold Storage "
+        "during the temperature excursion?"
     ),
-    "world_truth": "10°C",
-    "distractors": ["6°C", "12°C"],
+    "world_truth": "16°C",
+    "distractors": ["12°C", "18°C"],
     "screen_partial": (
-        "The highest recorded temperature inside Northvale Cold Storage "
-        "during the excursion was above 7°C and below 11°C."
+        "The average temperature inside Northvale Cold Storage "
+        "during the excursion was between 13°C and 17°C."
     ),
     "quality_dimension": "method",
     "difficulty_tier": "T2",
     "design_notes": (
-        "This case tests the method quality dimension using conflicting "
-        "peak temperature readings during a fictional temperature excursion "
-        "at Northvale Cold Storage. Source A reports 8°C, while Source B "
-        "supports the true maximum of 10°C. Both describe the same incident, "
-        "compartment, observation window and maximum recorded temperature "
-        "using equally specific claims without exceptions or changes (R1). "
+        "M8 tests the method quality dimension using conflicting average "
+        "temperature readings during a fictional temperature excursion "
+        "at Northvale Cold Storage. Source A claims 14°C, while Source B "
+        "supports the true average of 16°C. Both describe the same "
+        "temperature quantity, location and observation window without "
+        "exceptions or changes (R1). "
         "The case is T2 because A and B are equally confident statements "
         "with no uncertainty hedge or source-quality cue in their content. "
-        "The difference in reliability is carried entirely by provenance. "
+        "Their reliability difference is carried entirely by provenance. "
         "Source A uses an uncalibrated temperature logger, whereas Source B "
-        "uses a calibrated logger checked against a known reference. Both "
-        "are operated by facility monitoring technicians with matching "
-        "authority, isolating measurement method rather than institutional "
-        "standing (R19). "
-        "Source identity, calibration and measurement procedures are kept "
-        "in provenance rather than content (R2). A and B retain the same "
-        "relevant question terms and describe the same temperature quantity "
-        "(R13). Sources B, C and D support 10°C using different sentence "
-        "structures (R17). C and D use separately calibrated instruments "
-        "with their own sensors and stored measurements, rather than copying "
-        "B's readings (R6, A7). Their independence and comparability depend "
-        "on matching compartment placement, sampling intervals and the "
-        "observation window, which require manual verification. "
-        "The four options are 6°C, 8°C, 10°C and 12°C, with the truth "
-        "and A's incorrect claim occupying the two interior positions (R8). "
-        "The screening sentence retains 8°C and 10°C while excluding "
-        "6°C and 12°C, preserving the world truth (R15). "
-        "The three filler sets describe distinct areas of the facility: "
+        "uses a calibrated logger. Both are operated by facility monitoring "
+        "technicians with matching authority, isolating measurement method "
+        "rather than institutional standing (R19). "
+        "Source identity and calibration procedures remain in provenance "
+        "rather than content (R2). A and B refer to the same average "
+        "temperature during the excursion (R13). "
+        "Sources B, C and D support 16°C using different sentence "
+        "structures (R17). Each logger independently records temperatures "
+        "from the same central rack over the same observation window. "
+        "B, C and D use separate calibration references and stored "
+        "measurements, reducing shared measurement errors (R6, A7). "
+        "The options 12°C, 14°C, 16°C and 18°C are evenly spaced, with "
+        "both competing claims in the interior positions (R8). "
+        "The screening sentence retains 14°C and 16°C while excluding "
+        "12°C and 18°C, preserving the world truth (R15). "
+        "The three filler sets describe distinct facility locations: "
         "the loading bay, staff break room and administrative office. "
-        "They contain no temperature information, incident details, "
-        "measurement methods or source-identifying language, and use "
-        "different settings and vocabulary (R9, R10, R12). "
-        "The filler lengths and A/B sentence lengths satisfy the required "
-        "long-report range, with no R20 warnings."
+        "They avoid temperature information, measurement methods and "
+        "source-identifying language, with varied wording across sets "
+        "(R9, R10, R12). "
+        "Filler and source lengths must be verified against R20. "
+        "M8 is the backup for M14 in the ten-case subset."
     ),
     # Filler belongs to the SLOT, not the source (R12): one set per report position, so
     # two reports of the shared source never carry identical padding.
     "filler_sets": [
         [
             "The loading bay has a concrete apron marked with yellow lines beside the vehicle entrance.",
-            "Metal bollards stand near the doorway, protecting the corners from passing delivery trolleys and wheeled carts.",
+            "Metal bollards stand along the apron, protecting the corners from passing delivery trolleys and wheeled carts.",
             "A painted pedestrian crossing leads toward a sheltered side entrance with glass panels and steel handles.",
             "Wooden pallets are stacked neatly against a brick wall, away from the main vehicle turning area.",
             "The roof extends over the loading platform, supported by square pillars with guards around their bases.",
@@ -69,93 +67,96 @@ CASE = {
         [
             "The staff break room contains a wooden table surrounded by chairs with dark fabric seats.",
             "A small bookshelf stands beside the window, holding magazines, board games and a few decorative objects.",
-            "The walls are painted cream, with framed landscape pictures hanging above a low storage cabinet.",
+            "A cream sofa is set opposite the bookshelf, with striped cushions piled at either end.",
             "A coat stand sits near the doorway, and a woven rug covers part of the tiled floor.",
             "Several potted plants rest along the windowsill, while a noticeboard displays photographs from past staff gatherings.",
         ],
         [
             "The administrative office has pale walls, carpeted flooring and desks arranged beside wide windows.",
             "Filing cabinets line the far wall, with labelled drawers and plain metal handles on each unit.",
-            "A reception counter faces the entrance, and upholstered visitor chairs sit beside a small side table.",
+            "A reception counter faces the lobby, and upholstered visitor chairs sit beside a small side table.",
             "The ceiling has recessed panels, while vertical blinds hang across the windows overlooking the courtyard.",
-            "A framed landscape print hangs near the doorway, and a tall cupboard stores spare stationery and empty folders.",
+            "A framed landscape print hangs beside the counter, and a tall cupboard stores spare stationery and empty folders.",
         ],
     ],
     "sources": {
         "A": {
             "quality": "weak",
-            "claim": "8°C",
+            "claim": "14°C",
             "provenance": {
                 "type": "uncalibrated temperature logger record",
                 "authority": "facility monitoring technician",
                 "quality": "weak",
                 "why": (
-                    "The technician used an uncalibrated logger "
-                    "to record temperatures throughout the excursion. "
-                    "Its readings have not been checked against a "
-                    "known reference."
+                    "A facility monitoring technician used an uncalibrated logger "
+                    "on the central rack to calculate the average temperature "
+                    "over the excursion. Its readings were not checked against "
+                    "a reference."
                 ),
             },
             "content": (
-                "The highest recorded temperature inside Northvale Cold "
-                "Storage during the excursion was 8°C."
+                "Inside Northvale Cold Storage, the average temperature "
+                "during the excursion stood at 14°C."
             ),
             "n_paraphrases_needed": 2,
         },
         "B": {
             "quality": "strong",
-            "claim": "10°C",
+            "claim": "16°C",
             "provenance": {
                 "type": "calibrated temperature logger record",
                 "authority": "facility monitoring technician",
                 "quality": "strong",
                 "why": (
-                    "The technician used a calibrated logger to record "
-                    "temperatures throughout the same excursion, with "
-                    "readings checked against a known reference."
+                    "A facility monitoring technician used a calibrated logger "
+                    "on the same central rack to calculate the average over "
+                    "the excursion, with calibration checked against its own "
+                    "reference thermometer."
                 ),
             },
             "content": (
-                "Inside Northvale Cold Storage, the highest temperature "
-                "recorded during the excursion reached 10°C."
+                "During the excursion, temperatures inside Northvale Cold "
+                "Storage had an average of 16°C."
             ),
             "n_paraphrases_needed": 3,
         },
         "C": {
             "quality": "strong",
-            "claim": "10°C",
+            "claim": "16°C",
             "provenance": {
                 "type": "separately calibrated monitoring logger record",
                 "authority": "facility monitoring technician",
                 "quality": "strong",
                 "why": (
-                    "A separate calibrated logger independently recorded "
-                    "temperatures in the same compartment over the same "
-                    "observation window, without copying B's readings."
+                    "A separate logger on the same central rack independently "
+                    "recorded temperatures over the same observation window. "
+                    "It was calibrated against a different reference thermometer "
+                    "and did not copy B's readings."
                 ),
             },
             "content": (
-                "Northvale Cold Storage's maximum recorded temperature "
-                "during the excursion was 10°C."
+                "Northvale Cold Storage's interior averaged 16°C "
+                "throughout the excursion."
             ),
             "n_paraphrases_needed": 1,
         },
         "D": {
             "quality": "strong",
-            "claim": "10°C",
+            "claim": "16°C",
             "provenance": {
                 "type": "third calibrated monitoring logger record",
                 "authority": "facility monitoring technician",
                 "quality": "strong",
                 "why": (
-                    "A third independently calibrated logger measured "
-                    "the same compartment over the same observation "
-                    "window, using its own sensor and stored readings."
-                ),
+                "A third logger on the same central rack independently "
+                "recorded temperatures over the same observation window. "
+                "It used its own calibration reference and stored its "
+                "measurements separately from B and C."
+            ),
             },
             "content": (
-                "A peak temperature of 10°C was recorded inside "
-                "Northvale Cold Storage during the excursion."
+                "Averaged over the excursion, the temperature inside "
+                "Northvale Cold Storage was 16°C."
             ),
             "n_paraphrases_needed": 1,
         },
