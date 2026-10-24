@@ -28,9 +28,9 @@ CASE = {
         "when a water main burst on Corvanne High Street, with different values, "
         "the same scope and precision, and no reference to a change or to each "
         "other (R1). "
-        "T1: A's cue is the modal hedge 'may have flooded' (R16), a new hedge, "
-        "since the hedges already in use are full (R16 allows at most three "
-        "cases per hedge). At step 3.4, check that A's rewordings keep a modal of "
+        "T1: A's cue is the modal hedge 'may have flooded' (R16), shared with, "
+        "M12 ('may well have'), within R16's three cases per hedge. At step 3.4, "
+        "check that A's rewordings keep a modal of "
         "doubt ('may', 'might'). "
         "Directness only: A and B are both messages from traders "
         "('individual'), but A repeats what another trader said while B was "
@@ -69,7 +69,7 @@ CASE = {
             "A lychgate with a tiled roof opens onto the churchyard.",
             "Yews line the path to the porch.",
             "Stained glass is fitted in the windows of the nave.",
-            "A brass cross tops the spire.",
+            "A brass cross crowns the spire.",
             "Ivy climbs the churchyard boundary beside the lychgate.",
             "Headstones rest in the grass beside the path.",
             "The porch has a bench of elm.",
