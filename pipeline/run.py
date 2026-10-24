@@ -66,6 +66,9 @@ PROGRAMME = [
     Entry("conflict", "short", CONFLICT_BLOCK, 12, PRIMARY_JUDGES, False),
     # 4: every truth position once; A7 is each judge's own no-conflict baseline
     Entry("abstain", "abstain", ABSTAIN_ARM, 4, PRIMARY_JUDGES, False),
+    # added after the pilot: P0 offered the abstain option, a check beside A7 -- does the
+    # judge abstain where one irrelevant report cannot settle the answer?
+    Entry("abstain-p0", "abstain", ["P0"], 4, PRIMARY_JUDGES, False),
     Entry("screen", "screen", list(SCREEN_LEVELS), 4, PRIMARY_JUDGES, False),
     # the length arm crosses the conflict block (H3, H4) and A1, A2 (H2)
     Entry("long-conflict", "long", CONFLICT_BLOCK, 12, LENGTH_JUDGES, True),
@@ -94,11 +97,12 @@ def build_entry(entry: Entry, cases: dict, frozen: dict, seed: int = 42):
     ids = subset(cases) if entry.subset else list(cases)
     out = []
     for r in range(1, entry.repeats + 1):
-        if entry.arm == "screen":
+        if set(entry.conditions) <= set(SCREEN_LEVELS):
             s = rotation_schedule(r)
             trials = [t for cid in ids
                       for t in build_screen(cid, cases[cid], frozen[cid], s["option_rotation"],
-                                            s["wrong_offset"])]
+                                            s["wrong_offset"],
+                                            allow_abstain=entry.arm == "abstain")]
         else:
             trials = [t for cid in ids
                       for t in build_repeat(cid, cases[cid], frozen[cid], r, seed,

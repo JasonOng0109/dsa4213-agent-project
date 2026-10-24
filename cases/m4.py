@@ -10,7 +10,7 @@ CASE = {
     "world_truth": "6000Pa",
     "distractors": ["2000Pa", "8000Pa"],  # plausible, unsupported, same kind as the truth
     "screen_partial": (
-        "The water lift of the Yhotak B162 Vacuum is more than 5000Pa."
+        "The water lift of the Yhotak B162 Vacuum is between 5000Pa and 9000Pa."
     ),   # screen level P1:
         #true, keeps the truth, rules out 2000Pa and 4000Pa.
     "quality_dimension": "method",
