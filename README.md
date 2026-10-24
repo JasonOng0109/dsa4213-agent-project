@@ -447,24 +447,24 @@ runs/                     outputs of real runs (created by the first run)
 
 Who does what next, step by step: [`docs/work-plan.md`](docs/work-plan.md).
 
-- **Corpus: 31 of 40 cases.** M1 (institutional logistics, authority, T2), M2 (product
+- **Corpus: 32 of 40 cases.** M1 (institutional logistics, authority, T2), M2 (product
   specification, primary source, T1), M3 (incident status, directness, T1), M4 (product
   specification, method, T1), M5 (incident status, authority, T1), M6 (institutional
-  logistics, primary source, T1), M7 (product specification, authority, T1), M9 (product
-  specification, directness, T2), M14 (incident status, method, T2), M15 (institutional
-  logistics, authority, T1), M16 (institutional logistics, primary source, T1), M17
-  (institutional logistics, directness, T1), M20 (product specification, method, T1), M22
-  (product specification, directness, T2), M23 (institutional logistics, method, T1), M24
-  (institutional logistics, primary source, T2), M25 (product specification, authority,
-  T1), M26 (incident status, method, T1), M27 (institutional logistics, authority, T1),
-  M28 (product specification, primary source, T1), M30 (institutional logistics,
-  directness, T1), M31 (product specification, primary source, T2), M32 (incident status,
-  primary source, T1), M33 (incident status, authority, T2), M34 (product specification,
-  authority, T1), M35 (institutional logistics, method, T1), M36 (product specification,
-  directness, T1), M37 (incident status, method, T1), M38 (incident status, primary
-  source, T1), M39 (incident status, directness, T1) and M40 (institutional logistics,
-  method, T2). Authoring and independent review are the critical path; see
-  `docs/authoring-rules.md`.
+  logistics, primary source, T1), M7 (product specification, authority, T1), M8 (incident
+  status, method, T2), M9 (product specification, directness, T2), M14 (incident status,
+  method, T2), M15 (institutional logistics, authority, T1), M16 (institutional
+  logistics, primary source, T1), M17 (institutional logistics, directness, T1), M20
+  (product specification, method, T1), M22 (product specification, directness, T2), M23
+  (institutional logistics, method, T1), M24 (institutional logistics, primary source,
+  T2), M25 (product specification, authority, T1), M26 (incident status, method, T1), M27
+  (institutional logistics, authority, T1), M28 (product specification, primary source,
+  T1), M30 (institutional logistics, directness, T1), M31 (product specification, primary
+  source, T2), M32 (incident status, primary source, T1), M33 (incident status,
+  authority, T2), M34 (product specification, authority, T1), M35 (institutional
+  logistics, method, T1), M36 (product specification, directness, T1), M37 (incident
+  status, method, T1), M38 (incident status, primary source, T1), M39 (incident status,
+  directness, T1) and M40 (institutional logistics, method, T2). Authoring and
+  independent review are the critical path; see `docs/authoring-rules.md`.
 - **The pilot has run** (2026-10-19), every programme entry on M1-M5: 240 calls
   generated the reports and 3,420 judge trials ran. `runs/` holds the frozen reports,
   the seven judge logs and the scorer's output, `runs/score-pilot.txt`. Its numbers are
