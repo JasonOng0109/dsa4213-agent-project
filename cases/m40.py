@@ -88,7 +88,7 @@ CASE = {
             "Landscape paintings in gilt frames hang between the windows.",
         ],
         [   # the building and its entrance
-            "The hall stands alone at the end of a gravel drive lined with hedges.",
+            "The hall stands alone at the top of a gravel drive lined with hedges.",
             "Its brickwork is red, with a slate roof and buff terracotta trim.",
             "A sloping path leads up to an arched entrance, flanked by bronze lamps.",
             "A copper weathervane in the shape of a leaping hare turns on the roof "
