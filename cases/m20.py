@@ -18,7 +18,7 @@ CASE = {
         "Method dimension, T1. A and B state the same proposition (the continuous runtime "
         "of the AeroGlide T5 vacuum cleaner) as single sentences with identical scope (R1). "
         "Both share the exact same six question content-words: continuous, runtime, AeroGlide, "
-        "T5, vacuum, and cleaner (R13). The T1 cue is A's clause-level hedge 'is anticipated to be' "
+        "T5, vacuum, and cleaner (R13). The T1 cue is A's clause-level hedge 'is estimated to be' "
         "(R16), which survives faithful rephrasing and is verified unused across other active cases. "
         "Quality resides purely in provenance (R2, R19): both sources share identical author standing "
         "as appliance testing technicians, isolating method quality via an informal manual stopwatch "
@@ -65,7 +65,7 @@ CASE = {
             "quality": "weak",
             "claim": "40 minutes",
             "content": (
-                "The continuous runtime of the AeroGlide T5 vacuum cleaner is anticipated to be 40 minutes."
+                "The continuous runtime of the AeroGlide T5 vacuum cleaner is estimated to be 40 minutes."
             ),
             "n_paraphrases_needed": 2,
             "provenance": {
