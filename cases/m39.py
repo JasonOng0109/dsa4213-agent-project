@@ -45,9 +45,12 @@ CASE = {
         "other, and neither says how its value was found (R2, R6). All three whys count "
         "every car the fire damaged, so B, C and D support one proposition in A7 (R1). "
         "The car park and the "
-        "fire are invented (R4). Filler describes the car park building, the street "
-        "outside it and the town around it, with nothing about the fire, damage, cars, "
-        "parking spaces or how full the car park was, no figures and no second person. "
+        "fire are invented (R4). Filler describes the car park from outside (its "
+        "cladding, its fence and the roads around it), the street across from it and the "
+        "town around it, with nothing about the fire, damage, cars, its decks, floors or "
+        "ramps, parking spaces or how full the car park was, so nothing hints at how many "
+        "cars it holds or how a fire could spread through it, and no figures and no "
+        "second person. "
         "It describes what anyone could see on a map or a postcard, so no slot implies "
         "that its writer was there (R3, R9, R10), and no distinctive word is in more than "
         "one set (R12). Each filler set is 79 words and A's and "
@@ -62,13 +65,12 @@ CASE = {
     "filler_sets": [
         [
             "The Aldmoor car park stands at the edge of the business district, next to a "
-            "dual carriageway.",
-            "Its concrete decks are joined by a spiral ramp at the north end of the "
-            "building.",
-            "Stairwell towers clad in copper panels rise at opposite ends.",
-            "Pedestrian exits on the ground floor lead onto a narrow side road.",
-            "The top deck is open to the sky and edged with a high mesh fence.",
-            "Glass lifts climb the outer walls of the towers.",
+            "ring road.",
+            "Its outer walls are clad in tall copper panels set close together.",
+            "A high mesh fence encloses the site, with a hedge of laurel planted inside it.",
+            "Pedestrian exits open onto a narrow side road laid with granite setts.",
+            "Office blocks of glass and steel rise on the far side of the ring road.",
+            "The entrance barrier has black and yellow bands.",
         ],
         [
             "Across the street is a parade of shops with striped awnings and a bakery.",
@@ -89,7 +91,7 @@ CASE = {
             "fruit.",
             "The museum fills a timber-framed house near the parish church and its yews.",
             "Allotments and playing fields stretch along the riverbank to the south.",
-            "A bandstand on the village green is framed by flower beds.",
+            "A bandstand on the town green is framed by flower beds.",
         ],
     ],
 
