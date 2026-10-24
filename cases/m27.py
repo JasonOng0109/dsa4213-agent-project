@@ -24,8 +24,8 @@ CASE = {
         "scope and precision, and no reference to a change or to each other "
         "(R1). B gives the deposit without naming who pays it, so its scope "
         "matches A's and the two cannot both be true. "
-        "T1: A's cue is the clause-level hedge 'is thought to be' (R16), shared "
-        "with M4 (R16 allows at most three per hedge). "
+        "T1: A's cue is the clause-level hedge 'is reckoned to be' (R16), "
+        "shared with M15 and M25, which fills its three slots. "
         "Authority only: A and B are the same kind of document, a notice, but A "
         "is posted by a student society ('individual') with no say over the "
         "charge and B by the college office that sets it ('institutional'), so "
@@ -97,7 +97,7 @@ CASE = {
                     "over the charge",
             },
             "content": ("The key deposit for the practice rooms at Halvercombe "
-                        "College is thought to be 30 dollars."),
+                        "College is reckoned to be 30 dollars."),
             "n_paraphrases_needed": 2,
         },
         "B": {
