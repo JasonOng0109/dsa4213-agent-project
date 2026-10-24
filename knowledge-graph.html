@@ -392,7 +392,7 @@ a.ref:hover { background: var(--surface-2); }
   "title": "Project Knowledge Graph",
   "project": "DSA4213 Group 14 · Counting Reports or Counting Evidence",
   "oneLiner": "Can an AI orchestrator that combines reports from several agents tell three copies of one source from three independent sources, and which piece of information fixes its mistakes: a source name, a 'these share a source' note, or a 'this source is better' note?",
-  "updated": "2026-10-22",
+  "updated": "2026-10-24",
   "tour": [
    "question",
    "false-consensus",
@@ -442,7 +442,7 @@ a.ref:hover { background: var(--surface-2); }
     "four-options"
    ],
    [
-    "11 of 40",
+    "13 of 40",
     "cases written",
     "open-corpus"
    ],
@@ -7399,9 +7399,9 @@ a.ref:hover { background: var(--surface-2); }
    "id": "open-corpus",
    "type": "issue",
    "cluster": "issues",
-   "title": "Only eleven of 40 cases are written",
-   "label": "Corpus: 11 of 40",
-   "summary": "The corpus holds eleven cases, M1 to M5, M14, M15 and M30 to M33. The study plans 40, and authoring with independent review is the critical path.",
+   "title": "Only thirteen of 40 cases are written",
+   "label": "Corpus: 13 of 40",
+   "summary": "The corpus holds thirteen cases, M1 to M5, M14, M15, M22, M23 and M30 to M33. The study plans 40, and authoring with independent review is the critical path.",
    "status": "open",
    "date": "2026-10-12",
    "weight": 2,
@@ -7409,12 +7409,12 @@ a.ref:hover { background: var(--surface-2); }
     {
      "file": "README.md",
      "loc": "Status and open items",
-     "quote": "Corpus: 11 of 40 cases. M1 (institutional logistics, authority, T2), M2 (product specification, primary source, T1), M3 (incident status, directness, T1), M4 (product specification, method, T1), M5 (incident status, authority, T1), M14 (incident status, method, T2), M15 (institutional logistics, authority, T1), M30 (institutional logistics, directness, T1), M31 (product specification, primary source, T2), M32 (incident status, primary source, T1) and M33 (incident status, authority, T2)."
+     "quote": "Corpus: 13 of 40 cases. M1 (institutional logistics, authority, T2), M2 (product specification, primary source, T1), M3 (incident status, directness, T1), M4 (product specification, method, T1), M5 (incident status, authority, T1), M14 (incident status, method, T2), M15 (institutional logistics, authority, T1), M22 (product specification, directness, T2), M23 (institutional logistics, method, T1), M30 (institutional logistics, directness, T1), M31 (product specification, primary source, T2), M32 (incident status, primary source, T1) and M33 (incident status, authority, T2)."
     },
     {
      "file": "cases/__init__.py",
      "loc": "CASES",
-     "quote": "CASES = {case[\"case_id\"]: case for case in (m1.CASE, m2.CASE, m3.CASE, m4.CASE, m5.CASE, m14.CASE, m15.CASE, m30.CASE, m31.CASE, m32.CASE, m33.CASE)}"
+     "quote": "CASES = {case[\"case_id\"]: case for case in (m1.CASE, m2.CASE, m3.CASE, m4.CASE, m5.CASE, m14.CASE, m15.CASE, m22.CASE, m23.CASE, m30.CASE, m31.CASE, m32.CASE, m33.CASE)}"
     }
    ],
    "links": [
@@ -8717,6 +8717,20 @@ a.ref:hover { background: var(--surface-2); }
   {
    "date": "2026-10-22",
    "summary": "M15 (institutional logistics, authority, T1) joined the corpus, now 11 of 40.",
+   "changed": [
+    "open-corpus"
+   ]
+  },
+  {
+   "date": "2026-10-24",
+   "summary": "M22 (product specification, directness, T2) joined the corpus, now 12 of 40. Its pull request merged on 2026-10-23 without registering the case; it is registered now.",
+   "changed": [
+    "open-corpus"
+   ]
+  },
+  {
+   "date": "2026-10-24",
+   "summary": "M23 (institutional logistics, method, T1) joined the corpus, now 13 of 40. Its pull request merged on 2026-10-23 without registering the case; it is registered now.",
    "changed": [
     "open-corpus"
    ]
