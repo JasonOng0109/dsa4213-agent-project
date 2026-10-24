@@ -28,7 +28,8 @@ def _quiet(fn, *args, **kw):
 
 def test_plan_reproduces_the_proposal_budget():
     """Proposal §5: 480 calls and $0.78 per case for the arms run on every case;
-    21,720 calls and $37.48 for the 40-case main programme."""
+    21,720 calls and $37.48 for the 40-case main programme. The P0 check added after the
+    pilot (docs/decisions.md, 2026-10-21) adds 12 calls per case, 480 at 40 cases."""
     rows = {name: (calls, cost) for name, calls, cost in run.plan(1)}
     every_case = ["generate and accept reports", "agreement", "conflict", "abstain", "screen"]
     assert [rows[n][0] for n in every_case] == [48, 144, 180, 72, 36]
@@ -36,8 +37,10 @@ def test_plan_reproduces_the_proposal_budget():
     rows40 = {name: (calls, cost) for name, calls, cost in run.plan(40)}
     assert rows40["long-conflict"][0] == 1200 and rows40["long-agreement"][0] == 240
     assert rows40["ladder"][0] == 1080
-    assert sum(c for c, _ in rows40.values()) == 21720
-    assert round(sum(c for _, c in rows40.values()), 2) == 37.48
+    proposal = {n: v for n, v in rows40.items() if n != "abstain-p0"}
+    assert sum(c for c, _ in proposal.values()) == 21720
+    assert round(sum(c for _, c in proposal.values()), 2) == 37.48
+    assert rows["abstain-p0"][0] == 12 and rows40["abstain-p0"][0] == 480
 
 
 def test_length_arm_runs_exactly_the_conditions_that_are_length_checked():
@@ -61,7 +64,7 @@ def test_dry_run_end_to_end(tmp_path):
     _, out = _quiet(run.main, ["dry", "--out", str(tmp_path)])
     assert f"{JUDGE_CALLS} trials logged" in out and "0 parse failures" in out
     for section in ("SCREEN judge", "LADDER judge", "DISCRIMINATION judge", "N_EFF judge",
-                    "HEALTH judge"):
+                    "H6 judge", "HEALTH judge"):
         assert section in out, section
     recs = [json.loads(line) for line in open(tmp_path / "trials.jsonl")]
     per_arm = {}

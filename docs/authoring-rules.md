@@ -90,7 +90,9 @@ interior values, so "avoid the extremes" is not a winning heuristic. **[lint]** 
 count and for mentions.
 
 **R9 — Filler does not bear on the question.** It may not support, exclude or hedge any
-option, and may not mention one. **[lint]** for mentions.
+option, and may not mention one. Naming the case's subject is fine, since it bears on no
+option: M5's filler opens with "Kestrel Court is a residential estate". **[lint]** for
+mentions.
 
 **R10 — Filler is document-neutral and register-neutral.** It never identifies or
 implies who wrote it, never describes its own document type ("each row", "this
@@ -112,7 +114,8 @@ share **exactly the same set** of question content-words, so the question cannot
 toward one side. A word used by both is symmetric and harmless. Question words present
 in some of B, C, D but not others are reported, not enforced: those three only ever
 appear together, where nothing can point at a winner. The screen sentence is exempt.
-**[lint]**
+**[lint]** The linter sees which words are used, not their order, so a sentence that is
+the question turned into a statement is a reviewer's check ("Checks no script performs").
 
 **R14 — The shared source is always B, the strong one.** The agreement block repeats
 evidence that supports the truth; A appears only in the conflict block, repeated twice
@@ -121,7 +124,12 @@ against one report of B. So A needs **two** accepted paraphrases, B **three**, C
 truth. **[lint]**
 
 **R15 — The screen sentence.** `screen_partial` is **one sentence that is true, keeps the
-world truth among the survivors, and rules out exactly half the options.** It is level P1
+world truth among the survivors, and rules out exactly half the options.** The other
+survivor may be A's claim or a distractor: the screen reads only the probability on the
+truth, so which one does not matter. **A sentence with bounds uses two, and both
+survivors sit the same distance inside them**, so "pick the survivor nearest the bound"
+cannot find the truth: a reader takes "less than 15 metres" to mean just under 15.
+"Between 10 and 15 metres" keeps 11 and 14, each 1 metre inside a bound. It is level P1
 of the confidence screen; P0 is a filler sentence and P2 is B's first frozen paraphrase,
 so only this sentence needs writing. It is not a source: it never appears alongside
 other reports, and **R8 and R9 do not apply to it**, because ruling out two options is
@@ -134,6 +142,23 @@ Prefer cues at the level of the clause, such as a hedge ("is understood to be"),
 approximation, or a standardised notation, and ask: *would a faithful rewording keep
 this?* The tier label stays provisional until the frozen reports are read. A case whose
 cue is lost is relabelled T2, not rewritten, because a T2 case is a legitimate control.
+**Vary the cue across cases.** If one phrase carries many T1 cases and the reporter drops
+it, they all become T2 together. **At most three T1 cases share a hedge**, counted by its
+main word: "is likely to" and "it is likely that" are one hedge. Before choosing, run
+`git fetch origin`, then `uv run python tools/case_index.py --all-branches`: it lists the
+cases on `main` and on every pull-request branch, where most cases are drafted, with each
+hedge in use and how many of its three slots are left (it reads the hedge each case names
+in `design_notes`). Pick a hedge with fewer than three cases, preferring one already in
+use to a new one, or another kind of cue; then name yours in `design_notes` too. A new
+hedge must still read as doubt in its sentence: "is expected to be" can read as a planned
+figure, "is taken as" as a set working value, and "it appears that" rewords easily to
+"apparently". "Is believed to", "is thought to" and "is estimated at" are hedges of the
+same size. "Reportedly", "allegedly" and "apparently" are not available: R2's lint
+rejects them. **In a method case the cue names no method.** The case's dimension is how
+each figure was found, and that lives in provenance (R2), so "is estimated to be", "is
+guessed to" or "is reckoned at" would state A's method in its sentence. Use a hedge of
+plain doubt there. An approximation stays available: it says how exact a figure is, not
+how it was found (M35).
 
 **R17 — Sources that share a trial use different sentence frames.** B, C and D appear
 together in A7; A and B appear together in the conflict block. If two of them state the
@@ -155,15 +180,31 @@ only know why.)
 judge infers quality from a named source type alone, so the name must convey the
 dimension the case is built on.
 
+**Only the case's dimension differs** (from Phase 4, M6 on). Results are broken down by
+dimension, so A's and B's type names may differ in that dimension and in nothing else. In
+a directness, method or primary-source case, both writers have the same standing: two
+participants, two student volunteers, one manufacturer. In an authority case, the writers
+differ in standing only: neither name says how its figure was found, how close its writer
+was, or that it copies another ("audit", "accredited", "first-hand", "compiled"). C's and
+D's names are free: no condition shows them. M1-M5 were written before this rule and keep
+their names.
+
 | Dimension | A weak type name | A strong type name |
 |---|---|---|
-| Authority | student-run module wiki page | registrar's official examination timetable |
-| Directness | summary circulated by a classmate who attended | security patrol log written at the scene |
-| Method | retailer question-and-answer reply from a store representative | independent laboratory test report |
-| Primary source | online retailer product listing | manufacturer specification sheet |
+| Authority | student society's exam timetable | registrar's exam timetable |
+| Directness | summary passed on by a participant who missed the briefing | notes taken in the room by a participant at the briefing |
+| Method | student volunteer's rough guess | student volunteer's item-by-item count |
+| Primary source | manufacturer's online shop listing | manufacturer's technical datasheet |
 
-The test: strip the content and show only the two type names. Would a reader prefer one?
-If not, the case cannot serve H5; mark it as testing the other hypotheses only.
+The test: strip the content and show only the two type names. Would a reader prefer one,
+and for the case's dimension rather than because one writer outranks the other? If no
+reader would prefer one, the case cannot serve H5; mark it as testing the other
+hypotheses only.
+
+**Keep "independent" out of type names.** X2 shows the judge A's and B's type names, and
+X3's note is what tells it that one report "comes from a different, independent source".
+A type name with that word does part of X3's job inside X2. "Accredited laboratory test
+report" says the same about method without it.
 
 **R20 — Long reports leave room for rewording.** A long report is one filler set plus
 one reworded A or B sentence, and every long report must be 88 to 96 words, with the
@@ -188,10 +229,28 @@ skips the length check for that case and says so. Follow the R20 warning, not th
   precisely, the case is broken and nothing else saves it.
 - **R15's meaning.** That `screen_partial` is true, keeps the truth and rules out exactly
   half the options is a meaning check. A linter can confirm the field exists, not that it
-  does its job.
+  does its job. Check too that a sentence with bounds has two, and that both survivors
+  sit the same distance inside them.
 - **Denominator consistency across the frozen reports.** A's and B's accepted paraphrases
   must refer to the same whole, or their claims stop contradicting each other and the
   conflict block measures nothing. "The total grade for module ME2103" and "the final
   module grade" are the same whole; "the continuous-assessment mark" is not.
 - **Cue survival.** For a T1 case, read the accepted paraphrases and confirm the cue is
   still there. If it is not, relabel the case T2.
+- **Separate origins in A7.** B, C and D must each reach the figure by their own route, so
+  that a slip in one could not reach the others. Three readings of one printed figure (a
+  box, a datasheet, a register filled in from it) are one origin, and A7 would show one
+  source three times, which is A4's job. For a figure an institution sets, the fact is
+  the decision itself: a record made where it was decided, or someone seeing the rule
+  applied, is its own route; a copy of the governing document, or the minutes it was
+  drafted from, is not. Each source's `why` names its route.
+- **A scenario of its own.** Two cases may ask about the same attribute of different
+  things, such as the battery capacity of a laptop and of a phone. A case that repeats
+  another case's scenario with new names, such as passengers evacuated from a stalled
+  train, takes a new topic.
+- **The question turned into a statement.** If A or B keeps the question's words in the
+  question's order with the answer filled in ("The key deposit for the practice rooms at
+  Halvercombe College is reckoned to be 30 dollars" for "What is the key deposit for the
+  practice rooms at Halvercombe College?") while the other rewords it, the first reads as
+  the ready-made answer: a pull toward one side that provenance does not explain. Reword
+  it. Both may still name the subject in full.

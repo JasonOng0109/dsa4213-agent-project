@@ -1,31 +1,44 @@
 """
 The scorer: reads a JSONL trial log and prints, per judge, arm and case, a table of
 every cell and the comparisons the proposal pre-registers (§5), then the confidence
-screen, the independence index n_eff, and run health.
+screen (ordering), the discrimination check, the independence index n_eff, H6's test,
+and run health.
 
 Cells are judge x arm x case x condition. Comparisons find their cells by factor
 vector, never by condition name. Every comparison is reported per judge before any
 pooling.
 
     python -m pipeline.score runs/trials.jsonl [more logs ...]
+    python -m pipeline.score --show-excluded runs/trials-*.jsonl      # the pilot
 
-Several logs (for example from staged runs) are scored together.
+Several logs (for example from staged runs) are scored together. `--show-excluded` also
+prints n_eff and H6 for the judges the confidence screen excludes, marked as checks, not
+results. It was added for the pilot, where discrimination, then part of the screen,
+excluded all three judges; since 2026-10-21 only ordering excludes (docs/decisions.md).
 """
 
 from __future__ import annotations
 import json
 import math
+import random
 from collections import Counter, defaultdict
 from functools import lru_cache
 from itertools import permutations
 
-from pipeline.conditions import LADDER
+from pipeline.conditions import AGREEMENT_BLOCK, CONFLICT_BLOCK, LADDER
 from pipeline.judge import PARSE_FAILURES
 
 ORDER = ["A0", "A1", "A2", "A3", "A4", "A5", "A6", "A7", "X1", "X2", "X3", "X4", "X5",
          "W1", "W2", "W3", "P0", "P1", "P2"]
 SCREEN = ["irrelevant", "partial", "determinate"]   # P0 < P1 < P2 in stated P(truth)
 SCREEN_ALPHA = 0.05     # one-sided; the proposal names no level, the team fixed this one
+MIN_CLASS = 10          # discrimination counts a condition with this many correct and incorrect
+SHUFFLES = 2000         # discrimination's p-value: this many shuffles of whole cases ...
+SHUFFLE_SEED = 0        # ... from a fixed seed, so the same log always gives the same p
+# H6: a top-two margin below this many points is near indifference; the sensitivity
+# cut-offs are printed beside it, declared in advance (team decisions, 2026-10-18)
+MARGIN_THRESHOLD = 10
+MARGIN_SENSITIVITY = (5, 20)
 # the conflict block's hub: nothing, dependence, quality, both -- all on the 2-vs-1
 # conflict with no source names shown
 PRIMARY = [("X1", False, False), ("X3", True, False), ("X4", False, True), ("X5", True, True)]
@@ -115,11 +128,13 @@ def _by_factor(cells: dict, **want) -> dict | None:
     return hits[0] if len(hits) == 1 else None
 
 
-def main(*paths: str) -> None:
-    report([r for p in paths for r in load(p)])
+def main(*args: str) -> None:
+    """Score every log named; `--show-excluded` is explained in the module docstring."""
+    paths = [a for a in args if a != "--show-excluded"]
+    report([r for p in paths for r in load(p)], show_excluded="--show-excluded" in args)
 
 
-def report(records: list[dict]) -> None:
+def report(records: list[dict], show_excluded: bool = False) -> None:
     status = Counter(r["parsing_status"] for r in records)
     n_fail = sum(status.get(s, 0) for s in PARSE_FAILURES)
     print(f"Loaded {len(records)} trials. Parse failures: {n_fail}. "
@@ -175,7 +190,8 @@ def report(records: list[dict]) -> None:
             excluded.add(judge)
     print()
     report_discrimination(records)
-    report_neff(records, excluded)
+    report_neff(records, excluded, show_excluded)
+    report_h6(records, excluded, show_excluded)
     report_health(records)
 
 
@@ -209,24 +225,129 @@ def auroc(correct: list[float], incorrect: list[float]) -> float | None:
     return round(wins / (len(correct) * len(incorrect)), 3)
 
 
+def _split(by_case: dict) -> tuple[list[float], list[float]]:
+    """(stated probabilities when correct, when incorrect) over every case and repeat of
+    one condition, given as {case_id: {run_index: (stated probability, correct)}}."""
+    decisions = [d for runs in by_case.values() for d in runs.values()]
+    return [s for s, ok in decisions if ok], [s for s, ok in decisions if not ok]
+
+
+def _ranks(values: list[float]) -> list[float]:
+    """Ranks from 1, tied values sharing the average of their ranks. Sorts once, so unlike
+    `_midranks` it stays fast on the hundreds of decisions a shuffle test reranks."""
+    order = sorted(range(len(values)), key=values.__getitem__)
+    ranks = [0.0] * len(values)
+    start = 0
+    while start < len(order):
+        end = start
+        while end + 1 < len(order) and values[order[end + 1]] == values[order[start]]:
+            end += 1
+        for i in order[start:end + 1]:
+            ranks[i] = (start + end) / 2 + 1
+        start = end + 1
+    return ranks
+
+
+def auroc_p(by_case: dict, shuffles: int = SHUFFLES,
+            seed: int = SHUFFLE_SEED) -> float | None:
+    """One-sided p for AUROC above 0.5, with the case as the unit. `by_case` is one judge's
+    condition: {case_id: {run_index: (stated probability, correct)}}.
+
+    A case's repeats are near-copies -- temperature 0, and only the order of the options
+    and reports changes -- so the judge answers them almost alike. A test that counted
+    each decision as separate evidence would make p far too small. So whole cases are
+    shuffled instead: each shuffle scores every case's stated probabilities against the
+    right/wrong record of another case, repeat by repeat (a repeat has the same rotations
+    in every case). p is the share of shuffles whose AUROC is at least the observed one,
+    with the observed arrangement counted as one of them, so p is never 0. 1.0 when every
+    value is tied, as when a judge states the same number on every answer. None when
+    either class is empty."""
+    cases = sorted(by_case)
+    stated = [(case, run, s) for case in cases
+              for run, (s, _) in sorted(by_case[case].items())]
+    record = {(case, run): ok for case in cases for run, (_, ok) in by_case[case].items()}
+    all_ranks = _ranks([s for _, _, s in stated])
+
+    def shuffled_auroc(record_of: dict) -> float | None:
+        """AUROC when each case's stated probabilities are scored against the record of
+        case record_of[case]. A repeat missing from that record (a failed parse) is left
+        out of this shuffle, and the rest are reranked."""
+        labels = [record.get((record_of[case], run)) for case, run, _ in stated]
+        keep = [i for i, label in enumerate(labels) if label is not None]
+        ranks = (all_ranks if len(keep) == len(stated)
+                 else _ranks([stated[i][2] for i in keep]))
+        n_ok = sum(labels[i] for i in keep)
+        n_bad = len(keep) - n_ok
+        if not n_ok or not n_bad:
+            return None
+        rank_sum = sum(rank for rank, i in zip(ranks, keep) if labels[i])
+        return (rank_sum - n_ok * (n_ok + 1) / 2) / (n_ok * n_bad)
+
+    observed = shuffled_auroc({case: case for case in cases})
+    if observed is None:
+        return None
+    rng = random.Random(seed)
+    at_least = 0
+    for _ in range(shuffles):
+        donors = cases[:]
+        rng.shuffle(donors)
+        value = shuffled_auroc(dict(zip(cases, donors)))
+        at_least += value is not None and value >= observed - 1e-9
+    return (at_least + 1) / (shuffles + 1)
+
+
+def discrimination_verdict(conds: dict) -> tuple[str, str]:
+    """Discrimination check (proposal §5), from one judge's {condition: {case_id:
+    {run_index: (stated probability, correct)}}}. A condition counts when both classes hold
+    MIN_CLASS decisions; A0 never does, since with no report a right answer is a lucky
+    guess about a made-up fact. The judge is retained when at least one counted condition
+    has AUROC above 0.5 at one-sided p below SCREEN_ALPHA divided by the number counted,
+    the p from `auroc_p`, which shuffles whole cases because a case's repeats are
+    near-copies. At least one, not every: in X1 being wrong mostly means following the two
+    agreeing reports, which a judge can do confidently -- the effect under study -- so
+    AUROC can fall below 0.5 there although its numbers carry information. A judge
+    stating the same number on every answer sits at 0.5 everywhere and fails. With no
+    counted condition the check cannot be assessed, and the judge is EXCLUDED. This is the
+    rule as first registered; since 2026-10-21 its verdict is printed but not applied
+    (docs/decisions.md)."""
+    counted = [c for c in sorted(conds, key=ORDER.index)
+               if c != "A0" and min(map(len, _split(conds[c]))) >= MIN_CLASS]
+    if not counted:
+        return "EXCLUDED", (f"not assessable: no condition has {MIN_CLASS} correct and "
+                            f"{MIN_CLASS} incorrect decisions")
+    level = SCREEN_ALPHA / len(counted)
+    p = {c: auroc_p(conds[c]) for c in counted}
+    verdict = "retained" if min(p.values()) < level else "EXCLUDED"
+    return verdict, (", ".join(f"{c} p {v:.4f}" for c, v in p.items())
+                     + f"; passes below {SCREEN_ALPHA} / {len(counted)} = {level:.4f}")
+
+
 def report_discrimination(records: list[dict]) -> None:
-    """The screen's second check (proposal §5): does the stated probability of the chosen
-    answer separate correct decisions from incorrect ones? Within condition, pooled across
-    cases and repeats, on the short arm, where every condition runs for every judge:
-    pooled across conditions it would mostly measure the manipulation itself. The class
-    counts are printed alongside, since a handful of trials in one class makes the number
-    meaningless. No pass mark is fixed yet, so this check does not exclude a judge."""
-    groups = defaultdict(lambda: defaultdict(lambda: ([], [])))
+    """The proposal's second check (§5): does the stated probability of the chosen answer
+    separate correct decisions from incorrect ones? Within condition, on the short arm,
+    where every condition runs for every judge: pooled across conditions it would mostly
+    measure the manipulation itself. The printed AUROC pools a condition's cases and
+    repeats; its p-value treats the case as the unit (`auroc_p`). The class counts are
+    printed alongside, since a handful of trials in one class makes the number
+    meaningless. Reported for every judge, but it excludes none: in this study's
+    conditions a wrong answer is almost always the two agreeing reports' claim, so AUROC
+    there shows how sure a judge is when it follows them. The verdict of the rule as first
+    registered is printed beside it, marked as not applied (docs/decisions.md,
+    2026-10-21)."""
+    groups = defaultdict(lambda: defaultdict(lambda: defaultdict(dict)))
     for r in records:
         if r["arm"] == "short" and r.get("confidence_elicited") is not None:
-            groups[r["judge_model"]][r["condition"]][0 if r["decision_correct"] else 1] \
-                .append(r["confidence_elicited"])
+            groups[r["judge_model"]][r["condition"]][r["case_id"]][r["run_index"]] = \
+                (r["confidence_elicited"], bool(r["decision_correct"]))
     for judge, conds in sorted(groups.items()):
         parts = []
         for c in sorted(conds, key=ORDER.index):
-            ok, bad = conds[c]
+            ok, bad = _split(conds[c])
             parts.append(f"{c} {_rate(auroc(ok, bad))} ({len(ok)}/{len(bad)})")
         print(f"DISCRIMINATION judge {judge}: AUROC (n correct/incorrect) " + ", ".join(parts))
+        verdict, detail = discrimination_verdict(conds)
+        print(f"  rule as first registered, not applied: {detail} -- would be "
+              f"{verdict.lower()}")
     print()
 
 
@@ -242,45 +363,201 @@ def neff(cells: dict) -> dict:
     belief in it falls after one report has a backwards unit, and every value derived
     from it would invert. Returns the values plus CN (correlation neglect), IS
     (independence sensitivity), RP (repair from disclosure) and how many cells were
-    clipped."""
+    clipped. A clipped cell gives a bound, not a value, so every value computed from it
+    reads "at ceiling"; a clipped A0 or A1 clips the unit, so then every value does
+    (docs/decisions.md, 2026-10-21)."""
     need = ["A0", "A1", "A4", "A6", "A7"]
     if any(cells.get(c) is None or cells[c].get("p_truth") is None for c in need):
         return {"undefined": "missing P(truth) in " + str([c for c in need if not cells.get(c)])}
     p = {c: cells[c]["p_truth"] / 100 for c in need}
-    clipped = sum(1 for v in p.values() if not 0.01 <= v <= 0.99)
+    clipped = {c for c, v in p.items() if not 0.01 <= v <= 0.99}
     l = {c: _logit(v) for c, v in p.items()}
     w = l["A1"] - l["A0"]
     if abs(w) < 0.2:
-        return {"undefined": f"w = l(A1) - l(A0) = {w:.3f} < 0.2 logits", "clipped": clipped}
+        return {"undefined": f"w = l(A1) - l(A0) = {w:.3f} < 0.2 logits",
+                "clipped": len(clipped)}
     if w < 0:
         return {"undefined": f"anomaly: w = l(A1) - l(A0) = {w:.3f} is negative, one "
                              f"supporting report lowered belief in the truth",
-                "anomaly": True, "clipped": clipped}
+                "anomaly": True, "clipped": len(clipped)}
     n = {c: round((l[c] - l["A0"]) / w, 2) for c in ("A4", "A6", "A7")}
-    return dict(n, w=round(w, 3), clipped=clipped, CN=round(n["A4"] - 1, 2),
-                IS=round(n["A7"] - n["A4"], 2), RP=round(n["A4"] - n["A6"], 2))
+    out = dict(n, w=round(w, 3), clipped=len(clipped), CN=round(n["A4"] - 1, 2),
+               IS=round(n["A7"] - n["A4"], 2), RP=round(n["A4"] - n["A6"], 2))
+    at = clipped | ({"A4", "A6", "A7"} if clipped & {"A0", "A1"} else set())
+    uses = {"A4": {"A4"}, "A6": {"A6"}, "A7": {"A7"}, "CN": {"A4"}, "IS": {"A4", "A7"},
+            "RP": {"A4", "A6"}, "w": {"A0", "A1"}}
+    return {k: "at ceiling" if uses.get(k, set()) & at else v for k, v in out.items()}
 
 
-def report_neff(records: list[dict], excluded: set = frozenset()) -> None:
+def report_neff(records: list[dict], excluded: set = frozenset(),
+                show_excluded: bool = False) -> None:
     """n_eff only for judges the confidence screen retains: a judge whose stated numbers
     do not order has no usable scale, so its n_eff is undefined even when the arithmetic
-    would run. The undefined rate is itself reported per judge."""
+    would run. The undefined rate is itself reported per judge, and beside it how many
+    cells have a value at ceiling. `show_excluded` prints that arithmetic for an excluded
+    judge, marked as a check; the value still counts as undefined.
+
+    Beside them, how many of the judge's agreement-block answers put 100 on one option: a
+    judge that states 100 on whatever it picks has a mean P(truth) of 100 times its
+    accuracy, which rises from P0 to P2, so ordering cannot catch it, and its n_eff would
+    read its accuracy. A description, not a gate (docs/decisions.md, 2026-10-21)."""
     groups = defaultdict(lambda: defaultdict(list))
+    at_100 = defaultdict(list)             # judge -> one bool per agreement-block answer
     for r in records:
         if r["arm"] == "short":
             groups[(r["judge_model"], r["case_id"])][r["condition"]].append(r)
+            if r["condition"] in AGREEMENT_BLOCK and r.get("margin") is not None:
+                at_100[r["judge_model"]].append(max(r["p"].values()) >= 100)
     undefined = defaultdict(list)          # judge -> one bool per case
+    ceiling = defaultdict(list)            # judge -> one bool per case: a value at ceiling
     for (judge, case_id), conds in sorted(groups.items()):
         cells = {c: cell(rs) for c, rs in conds.items()}
         pt = {c: cells[c]["p_truth"] for c in ("A0", "A1", "A4", "A6", "A7") if c in cells}
         value = ({"undefined": "judge failed the confidence screen"} if judge in excluded
                  else neff(cells))
+        if judge in excluded and show_excluded:
+            value["for checking only, not a result"] = neff(cells)
         undefined[judge].append("undefined" in value)
+        shown = value.get("for checking only, not a result", value)
+        ceiling[judge].append("at ceiling" in shown.values())
         print(f"N_EFF judge {judge} | {case_id}: mean P(truth) {pt} -> {value}  "
               f"(normative A4 1, A6 1, A7 3)")
     for judge, flags in sorted(undefined.items()):
         print(f"N_EFF UNDEFINED judge {judge}: {sum(flags)}/{len(flags)} cells "
-              f"({sum(flags) / len(flags):.2f})")
+              f"({sum(flags) / len(flags):.2f}); a value at ceiling in "
+              f"{sum(ceiling[judge])}/{len(flags)}; 100 stated on one option in "
+              f"{_count(at_100[judge])} agreement-block answers")
+    print()
+
+
+def unbacked(r: dict, threshold: float = MARGIN_THRESHOLD) -> bool | None:
+    """H6's flag on a forced-choice record: its stated numbers do not identify the answer
+    given, because another option holds the highest probability (incoherent) or the top
+    two are less than `threshold` points apart (near indifference; a tie at the top is a
+    margin of 0). None when the record has no usable numbers."""
+    if r.get("margin") is None:
+        return None
+    return r["coherent"] is False or r["margin"] < threshold
+
+
+def _count(hits: list) -> str:
+    return f"{sum(hits)}/{len(hits)} ({_rate(sum(hits) / len(hits) if hits else None)})"
+
+
+def _mh_difference(strata: list[tuple[list, list]]) -> float | None:
+    """Abstention rate in flagged trials minus in the rest, compared inside each stratum
+    and then combined, a Mantel-Haenszel difference: each stratum is one condition, given
+    as (abstained? for its flagged trials, for its other trials), and weighs
+    n_flagged * n_other / n, so a condition with few of either kind counts for little.
+    Strata missing either kind are left out; None when every one is."""
+    weighted = weight = 0.0
+    for flagged, other in strata:
+        n1, n0 = len(flagged), len(other)
+        if n1 and n0:
+            weighted += (sum(flagged) * n0 - sum(other) * n1) / (n1 + n0)
+            weight += n1 * n0 / (n1 + n0)
+    return weighted / weight if weight else None
+
+
+def h6_reading(conflict: list[bool], a7: list[bool], p0: list[bool]) -> str:
+    """How one judge's H6 is read, with cut-offs fixed before the main run
+    (docs/decisions.md, 2026-10-21). Each list holds one abstained? per abstention-arm
+    trial: the conflict block's twins, A7 and P0. Abstaining in at least half of A7, where
+    three independent sources agree, is abstaining everywhere; abstaining in under half of
+    P0, where one irrelevant report settles nothing, is abstaining nowhere. Either is the
+    README's nuisance case, so H6 is not testable for that judge."""
+    half = lambda xs: bool(xs) and sum(xs) >= len(xs) / 2
+    if half(a7):
+        return ("not testable: abstained in at least half of its A7 trials, so it abstains "
+                "everywhere")
+    if any(conflict):
+        return (f"the test applies: abstained in {sum(conflict)}/{len(conflict)} "
+                f"conflict-block trials")
+    if not p0:
+        return "not assessed: no P0 trials"
+    if half(p0):
+        return ("clean null: abstained in at least half of its P0 trials, so it can, but "
+                "never in the conflict block")
+    return ("not testable: abstained in under half of its P0 trials, so it abstains "
+            "nowhere")
+
+
+def report_h6(records: list[dict], excluded: set = frozenset(),
+              show_excluded: bool = False) -> None:
+    """H6 (proposal §5), per judge. Observation, on the short arm's conflict block: how many
+    records' stated numbers do not identify the answer given (`unbacked`). Test: does the
+    judge abstain more in the same trials of the abstention arm -- same case, condition
+    and repeat, so the same reports in the same order -- than in the trials whose numbers
+    did identify the answer, read against its own abstention rate in A7?
+
+    The two are compared inside each condition and then combined (`_mh_difference`),
+    never across the block pooled. Close numbers and abstaining can both simply be
+    commoner in some conditions than in others -- X1 leaves the conflict open, X5 settles
+    it -- and pooling would turn that into an H6 effect that no single trial shows, the
+    same reason discrimination stays within condition. Only for judges the confidence
+    screen retains, since the flag reads stated numbers; `show_excluded` prints the
+    others, marked as checks. The MARGIN_SENSITIVITY lines are declared in advance and are
+    not the test.
+
+    Beside A7, the abstention rate in P0 offered the abstain option, where one irrelevant
+    report cannot settle the answer: a check added after the pilot, not the test. A7
+    shows a judge that abstains everywhere; P0 shows one that abstains nowhere, even
+    where the evidence is empty. Last, the reading those give, with fixed cut-offs
+    (`h6_reading`; docs/decisions.md, 2026-10-21)."""
+    forced, twins = defaultdict(dict), defaultdict(dict)
+    a7, p0 = defaultdict(list), defaultdict(list)
+    for r in records:
+        key = (r["case_id"], r["condition"], r["run_index"])
+        if r["arm"] == "short" and r["condition"] in CONFLICT_BLOCK:
+            forced[r["judge_model"]][key] = r
+        elif r["arm"] == "abstain" and r["parsing_status"] not in PARSE_FAILURES:
+            if r["condition"] == "A7":
+                a7[r["judge_model"]].append(r["abstained"])
+            elif r["condition"] == "P0":
+                p0[r["judge_model"]].append(r["abstained"])
+            else:
+                twins[r["judge_model"]][key] = r["abstained"]
+    for judge, recs in sorted(forced.items()):
+        label = ""
+        if judge in excluded:
+            if not show_excluded:
+                print(f"H6 judge {judge}: not assessed, the judge failed the confidence "
+                      "screen")
+                continue
+            label = " (failed the confidence screen: for checking only, not a result)"
+        flags = [unbacked(r) for r in recs.values()]
+        hit = sum(f is True for f in flags)
+        inc = sum(r.get("coherent") is False for r in recs.values())
+        print(f"H6 judge {judge}{label}: {hit}/{sum(f is not None for f in flags)} "
+              f"conflict-block records do not identify the answer given ({inc} incoherent, "
+              f"{hit - inc} by margin < {MARGIN_THRESHOLD})")
+
+        def by_condition(threshold):
+            """{condition: (abstained? in the twins of flagged trials, of the others)}"""
+            pairs = defaultdict(lambda: ([], []))
+            for key, r in recs.items():
+                flag = unbacked(r, threshold)
+                if key in twins[judge] and flag is not None:
+                    pairs[key[1]][0 if flag else 1].append(twins[judge][key])
+            return {c: pairs[c] for c in CONFLICT_BLOCK if c in pairs}
+
+        def difference(threshold):
+            d = _mh_difference(list(by_condition(threshold).values()))
+            return "n/a" if d is None else f"{d:+.2f}"
+
+        print("  abstained in the abstention arm, inside each condition:")
+        for c, (flagged, other) in by_condition(MARGIN_THRESHOLD).items():
+            print(f"    {c} flagged {_count(flagged)}, not flagged {_count(other)}")
+        print(f"  flagged minus not flagged, inside conditions (Mantel-Haenszel): "
+              f"{difference(MARGIN_THRESHOLD)}; own A7 {_count(a7[judge])}")
+        if p0[judge]:
+            print(f"  check beside A7, not the test: abstained in P0, one irrelevant report, "
+                  f"{_count(p0[judge])}")
+        print("  sensitivity, declared in advance, not the test: "
+              + "; ".join(f"margin < {t}: {difference(t)}" for t in MARGIN_SENSITIVITY))
+        conflict = [a for (_, c, _), a in twins[judge].items() if c in CONFLICT_BLOCK]
+        print(f"  reading, cut-offs fixed before the main run: "
+              f"{h6_reading(conflict, a7[judge], p0[judge])}")
     print()
 
 
