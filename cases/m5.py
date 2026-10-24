@@ -41,7 +41,8 @@ CASE = {
         "its water cut are invented (R4). Filler describes the estate's buildings and "
         "grounds only, with nothing about water, time, rules, notices or residents' "
         "news, no figures and no second person, so no slot carries the feel of either "
-        "source (R3, R9, R10). Each filler set is 79 words and A's and B's sentences "
+        "source (R3, R9, R10), and no content word is in two sets (R12). Each filler "
+        "set is 79 words and A's and B's sentences "
         "are 14 and 12 words, so every long report starts at 91 to 93 words and stays "
         "inside 88 to 96 after rewording (R20)."
     ),
@@ -61,27 +62,28 @@ CASE = {
             "The garden has a playground at one end and a fitness corner at the other.",
         ],
         [
-            "A small guardhouse stands beside the main entrance, with marked parking bays "
-            "for visitors next to it.",
-            "The car park lies beneath the garden and is reached by a ramp from the side "
-            "road.",
+            "A small guardhouse sits by the front entrance, with marked parking bays for "
+            "visitors next to it.",
+            "The car park lies underground and is reached by a long ramp from the quiet "
+            "service lane.",
             "A function room on the ground floor has folding tables, stacked chairs and a "
             "small kitchen.",
-            "Refuse chutes on every floor lead to a bin centre behind the furthest block.",
-            "Potted plants line the corridors, and most flats have a small balcony facing "
-            "the garden.",
+            "Refuse chutes on every floor lead to a bin centre behind the furthest "
+            "building.",
+            "Potted plants line the corridors, and most homes have a balcony looking over "
+            "the greenery.",
         ],
         [
-            "The blocks are painted pale grey, and each carries its letter in large print "
+            "The towers are painted pale grey, and each carries its letter in large print "
             "near the roof.",
             "A minimarket and a laundrette operate from units at the base of the nearest "
-            "block.",
-            "Tall trees along the perimeter fence shade a jogging path that loops around "
-            "the whole estate.",
-            "Low hedges border the lawns, and wooden benches face the playground from the "
-            "shaded side.",
-            "Each stairwell is lit and has a window on every landing, with handrails on "
-            "both sides.",
+            "tower.",
+            "Tall trees along the perimeter fence shade a jogging path that loops all the "
+            "way round.",
+            "Low hedges border the lawns, and wooden benches rest in the dappled shade "
+            "below.",
+            "Each stairwell is lit and has a window on every landing, with a handrail on "
+            "each flight.",
         ],
     ],
 

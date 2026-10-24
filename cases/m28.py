@@ -65,7 +65,7 @@ CASE = {
             "The upper face of the lid is engraved with a spiral.",
             "The wood has an oiled finish with visible grain.",
             "The edge of the lid is cut at an angle.",
-            "The knob is shaped like an acorn.",
+            "The knob is modelled on an acorn.",
             "The grain of the wood crosses the lid edge to edge.",
         ],
         [

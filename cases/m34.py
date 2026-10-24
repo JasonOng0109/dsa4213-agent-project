@@ -77,7 +77,7 @@ CASE = {
     # two reports of the shared source never carry identical padding.
     "filler_sets": [
         [   # the flysheet and the porch
-            "The Torvik Ridgeline tent has a green flysheet with reflective guy lines.",
+            "The Torvik Ridgeline tent has a green flysheet with reflective guy ropes.",
             "Its seams are taped to seal out driving rain.",
             "A porch at the front is closed by a single zip running from the peak.",
             "The flysheet sits low on every side, close to the grass.",

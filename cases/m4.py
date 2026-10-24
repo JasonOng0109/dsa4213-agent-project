@@ -25,7 +25,8 @@ CASE = {
         "All quality information sits in provenance, which the reporter never sees. "
         "B, C, and D state the fact in three different sentence frames "
         "so their paraphrases cannot converge (R17). "
-        "Filler is neutral and assigned by report slot, not source (R9-R12). "
+        "Filler is neutral, assigned by report slot, not source, and no content word "
+        "is in two sets (R9-R12). "
         "Each filler set is exactly 81 words and A's and B's sentences are 12 and 10 "
         "words, so the set plus either sentence is 91 to 93 words, "
         "and any accepted rewording still lands between 88 and 96 (R20)."
@@ -44,22 +45,22 @@ CASE = {
             "soft bristles.",
         ],
         [
-            "A hinged lid on top opens onto the compartment that holds the dust bag.",
-            "A small clear window in the lid shows how full the dust bag is.",
-            "A washable filter sits behind a slotted grille at the back of the body.",
-            "A large foot pedal beside the grille switches the machine on and off.",
-            "Rubber bumpers run around the base of the body to protect furniture from "
-            "knocks.",
-            "A strap on the side of the body holds the folded hose.",
+            "A hinged cover opens onto the compartment that holds the paper bag.",
+            "A clear window in the cover shows how full the bag is.",
+            "The bag slots onto a cardboard collar just inside the compartment.",
+            "A foot pedal near the compartment switches the vacuum on and off.",
+            "Rubber bumpers circle the base to protect furniture from knocks.",
+            "A strap holds the folded tubing when it is put away.",
+            "Spare bags come in a box of white card with a tear-off lid.",
         ],
         [
-            "A crevice tool and a dusting brush clip onto the side of the wand.",
-            "An upholstery nozzle with a lint strip sits in a holder on the hose.",
-            "For storage, the wand hooks into a slot on the back so the machine stands "
-            "upright.",
-            "The floor head has a small lever that raises the bristles for hard floors.",
-            "A zipped pouch for the tools hangs from the carry handle.",
-            "The model name is printed in small white letters on the lid.",
+            "A crevice tool and a dusting brush clip onto the extension stem.",
+            "An upholstery nozzle with a lint strip rests in a holder.",
+            "For upright storage, a hook on the frame takes the extension stem.",
+            "A zipped pouch for the tools hangs from a loop on the side.",
+            "The model name is printed in neat silver letters on the casing.",
+            "A narrow nozzle reaches behind radiators and into tight gaps.",
+            "A stair tool with a short stiff brush fits the steps.",
         ],
     ],
     "sources": {

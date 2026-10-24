@@ -76,7 +76,7 @@ CASE = {
             "A stone pillar at the highest point is carved with the names of nearby "
             "peaks.",
             "Skylarks nest in the long grass, and their song carries across the open top.",
-            "A low drystone wall marks the edge of the summit.",
+            "A low drystone wall bounds the edge of the summit.",
             "Kestrels often hover high above the hill.",
         ],
         [   # the shops at the bottom of the lane

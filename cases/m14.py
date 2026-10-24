@@ -36,7 +36,7 @@ CASE = {
         "words. Filler describes the physical site only, as three parts of the same "
         "compound (the fenced perimeter, a brick building, the approach road), each with its own "
         "nouns and adjectives, so reports in one trial stay on the site without repeating "
-        "features or phrasing across slots (R12). The only shared word is 'compound'. It is "
+        "features or phrasing across slots, and no content word is in two sets (R12). It is "
         "written as plain factual statements, one register throughout, so it does not read as story writing (R10). "
         "It describes the site in a clean, neutral condition, with no damage, wear, age or cordon "
         "wording, so it carries neither a hazard cue nor a staleness cue that would grow with "
@@ -47,25 +47,25 @@ CASE = {
     ),
     "filler_sets": [
         [
-            "The compound is enclosed by a chain-link fence with a single gate on its southern side.",
+            "The compound is enclosed by a chain-link fence with a steel gate on its southern side.",
             "A strip of gravel sits inside the fence, and shrubs are planted along its outer boundary on every side.",
             "The gate is made of steel bars and opens inward onto a gravel apron.",
             "Wooden posts mark each corner of the fenced area, and a lock secures the gate.",
             "The fence is covered with a grey mesh screen that hides the ground behind it.",
         ],
         [
-            "A single-storey brick building stands in the middle of the compound.",
+            "A low brick building stands in the middle of the plot.",
             "The roof is flat and coated with tar, and a short step leads up to the entrance.",
             "The entrance has a pair of green doors with brass handles and a small window above.",
             "Three arched windows face the front path, and each has a white frame and a stone sill.",
             "A metal gutter runs along the front of the roof, and a concrete slab lies outside the entrance.",
         ],
         [
-            "One narrow road reaches the compound from the main highway and ends at a turning circle.",
+            "A narrow road reaches the substation from the main highway and ends at a turning circle.",
             "The road is surfaced with asphalt, with a yellow line along its centre and a ditch at each edge.",
             "A bus shelter with a timber bench is built beside the road about halfway along.",
-            "Rounded boulders lie on the grassy slope above the road, and a dirt track branches off near the bend.",
-            "A signpost near the turn points straight toward the compound.",
+            "Rounded boulders rest on the grassy slope above the road, and a dirt track branches off near the bend.",
+            "A signpost near the turn points straight toward the substation.",
         ],
     ],
 

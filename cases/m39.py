@@ -78,7 +78,7 @@ CASE = {
             "Plane trees line the wide pavement, and cycle racks are bolted between their "
             "trunks.",
             "Painted stripes mark a walkway over to the broad steps of the public library.",
-            "A red post box sits on the corner beside the bus shelter.",
+            "A red post box is on the corner beside the bus shelter.",
             "Hanging baskets of petunias and trailing ivy decorate the lampposts along the "
             "pavement.",
         ],

@@ -67,7 +67,7 @@ CASE = {
         ],
         [
             "The front of the device is covered almost entirely by its display.",
-            "A black border of even width surrounds the whole display.",
+            "A black border of uniform width surrounds the whole display.",
             "A round cutout is placed near the top of the display.",
             "An earpiece slot is cut along the top, just above the display.",
             "The display curves at its margins to follow the outline of the device.",

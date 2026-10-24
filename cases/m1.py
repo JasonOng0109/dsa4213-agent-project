@@ -43,26 +43,27 @@ CASE = {
             "workshop is used.",
         ],
         [
-            "Safety induction is required before anyone may work with the heavy machines in "
-            "the basement workshop.",
-            "Laboratory coats and eye protection are provided at the workshop entrance, "
-            "and bags are left on the racks outside the working area.",
-            "Apparatus faults are reported to the demonstrator on duty rather than to "
-            "the department office.",
-            "Demonstrator office hours run alongside each laboratory session for "
-            "questions about apparatus or procedure.",
-            "Groups repeating the module keep their existing session unless a change is "
-            "requested.",
+            "Safety induction is required before students may operate the heavy machines "
+            "in the teaching lab downstairs.",
+            "Lab coats and goggles are provided by the door, and bags are left on wall "
+            "racks in the corridor outside.",
+            "Faults with the machines go straight to the technician on duty.",
+            "Technicians hold drop-in hours alongside each class for questions about the "
+            "equipment.",
+            "Students repeating the course stay in their usual class unless they ask to "
+            "move.",
+            "Closed shoes are needed in the lab.",
         ],
         [
-            "ME2103 is a second-year module administered by the mechanical engineering "
-            "department, and its laboratory sessions are held in the basement workshop.",
-            "Session lists and bench numbers are posted at the workshop entrance and at "
-            "the general office.",
-            "Equipment for each experiment is set out before the session and returned "
-            "to the equipment store afterwards.",
-            "Students work in pairs, and each student keeps a logbook of their own.",
-            "Benches are numbered, and the same bench is used by a group throughout.",
+            "ME2103 is a core module, and its practicals take place in a long room under "
+            "the main hall.",
+            "Bench numbers and partner lists are pinned up by the stairs and at the front "
+            "desk.",
+            "Kit for each experiment is laid out beforehand and returned to the store "
+            "afterwards.",
+            "Everyone works in pairs, and each person keeps a logbook of their own.",
+            "Benches are numbered, and each pair works at the same bench.",
+            "Sinks line the far end of the room.",
         ],
     ],
 
