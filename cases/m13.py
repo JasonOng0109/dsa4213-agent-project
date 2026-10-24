@@ -93,8 +93,8 @@ CASE = {
                 ),
             },
             "content": (
-                "Four lanes are believed to have been closed "
-                "at Bellmere Junction following the traffic incident."
+                "Following the traffic incident, 4 lanes are believed "
+                "to have been closed at Bellmere Junction."
             ),
             "n_paraphrases_needed": 2,
         },
