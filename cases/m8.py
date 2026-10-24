@@ -1,4 +1,4 @@
-"""M8: Peak temperature during the Northvale Cold Storage incident.
+"""M8: Average temperature during the Northvale Cold Storage excursion.
 
 Incident status domain, method quality dimension, tier T2.
 Tests conflicting temperature readings obtained using different
@@ -51,7 +51,8 @@ CASE = {
         "They avoid temperature information, measurement methods and "
         "source-identifying language, with varied wording across sets "
         "(R9, R10, R12). "
-        "Filler and source lengths must be verified against R20. "
+        "Each filler set is 79 words and A and B are 13 words each, so every long "
+        "report starts at 92 words (R20). "
         "M8 is the backup for M14 in the ten-case subset."
     ),
     # Filler belongs to the SLOT, not the source (R12): one set per report position, so
@@ -59,24 +60,24 @@ CASE = {
     "filler_sets": [
         [
             "The loading bay has a concrete apron marked with yellow lines beside the vehicle entrance.",
-            "Metal bollards stand along the apron, protecting the corners from passing delivery trolleys and wheeled carts.",
+            "Metal bollards ring the apron's edge, protecting the corners from passing delivery trolleys and wheeled carts.",
             "A painted pedestrian crossing leads toward a sheltered side entrance with glass panels and steel handles.",
-            "Wooden pallets are stacked neatly against a brick wall, away from the main vehicle turning area.",
+            "Timber pallets are stacked neatly against a brick wall, away from the main vehicle turning area.",
             "The roof extends over the loading platform, supported by square pillars with guards around their bases.",
         ],
         [
             "The staff break room contains a wooden table surrounded by chairs with dark fabric seats.",
-            "A small bookshelf stands beside the window, holding magazines, board games and a few decorative objects.",
+            "A small bookshelf rests beside the window, holding magazines, board games and a few decorative objects.",
             "A cream sofa is set opposite the bookshelf, with striped cushions piled at either end.",
             "A coat stand sits near the doorway, and a woven rug covers part of the tiled floor.",
-            "Several potted plants rest along the windowsill, while a noticeboard displays photographs from past staff gatherings.",
+            "Several potted plants rest along the windowsill, while a noticeboard displays photographs of local hiking trails.",
         ],
         [
-            "The administrative office has pale walls, carpeted flooring and desks arranged beside wide windows.",
-            "Filing cabinets line the far wall, with labelled drawers and plain metal handles on each unit.",
-            "A reception counter faces the lobby, and upholstered visitor chairs sit beside a small side table.",
-            "The ceiling has recessed panels, while vertical blinds hang across the windows overlooking the courtyard.",
-            "A framed landscape print hangs beside the counter, and a tall cupboard stores spare stationery and empty folders.",
+            "The administrative office has pale green plaster and a carpet in a muted blue.",
+            "Tall filing cabinets with labelled drawers and plain brass pulls run the length of the office.",
+            "A reception counter faces the lobby, and a padded visitor bench lies beneath a large map.",
+            "The ceiling has recessed lights, and vertical blinds hang across glazing that overlooks the courtyard.",
+            "A framed landscape print hangs behind the counter, and a deep cupboard stores spare stationery and empty folders.",
         ],
     ],
     "sources": {
@@ -84,7 +85,7 @@ CASE = {
             "quality": "weak",
             "claim": "14°C",
             "provenance": {
-                "type": "uncalibrated temperature logger record",
+                "type": "uncalibrated temperature logger",
                 "authority": "facility monitoring technician",
                 "quality": "weak",
                 "why": (
@@ -104,7 +105,7 @@ CASE = {
             "quality": "strong",
             "claim": "16°C",
             "provenance": {
-                "type": "calibrated temperature logger record",
+                "type": "calibrated temperature logger",
                 "authority": "facility monitoring technician",
                 "quality": "strong",
                 "why": (
@@ -124,7 +125,7 @@ CASE = {
             "quality": "strong",
             "claim": "16°C",
             "provenance": {
-                "type": "separately calibrated monitoring logger record",
+                "type": "separately calibrated monitoring logger",
                 "authority": "facility monitoring technician",
                 "quality": "strong",
                 "why": (
@@ -144,7 +145,7 @@ CASE = {
             "quality": "strong",
             "claim": "16°C",
             "provenance": {
-                "type": "third calibrated monitoring logger record",
+                "type": "third calibrated monitoring logger",
                 "authority": "facility monitoring technician",
                 "quality": "strong",
                 "why": (
@@ -160,5 +161,5 @@ CASE = {
             ),
             "n_paraphrases_needed": 1,
         },
-    },   
+    },
 }
