@@ -27,8 +27,9 @@ CASE = {
         "an exception to the other, or more precise. The quality dimension, directness, "
         "lives in provenance; the one cue in the content is A's clause-level hedge, 'is "
         "likely to have', a hedge of the size a faithful rewording should keep (R16). "
-        "Only M23 also uses it, among the hedges least used when this case was written; "
-        "if it is lost in the frozen reports, the case is relabelled T2. B is flat and "
+        "Only M23 used it when this case was written, among the hedges least used then, "
+        "and M37 has taken it since ('it is likely that'); if it is lost in the frozen "
+        "reports, the case is relabelled T2. B is flat and "
         "carries no cue. The options are 23, 31, 39 and 47 cars, evenly spaced and none "
         "a round number, so the truth and A's claim are both interior and equally close "
         "to the average: neither 'avoid the extremes' nor 'pick the middle' finds the "
@@ -41,12 +42,15 @@ CASE = {
         "leave out 'many' (R13). B, C and D state the fact in three different frames "
         "(R17). C and D are counts made by others, the fire service that put out the fire "
         "and the car park's operator, so neither depends on the reporter or on each "
-        "other, and neither says how its value was found (R2, R6). The car park and the "
+        "other, and neither says how its value was found (R2, R6). All three whys count "
+        "every car the fire damaged, so B, C and D support one proposition in A7 (R1). "
+        "The car park and the "
         "fire are invented (R4). Filler describes the car park building, the street "
         "outside it and the town around it, with nothing about the fire, damage, cars, "
         "parking spaces or how full the car park was, no figures and no second person. "
         "It describes what anyone could see on a map or a postcard, so no slot implies "
-        "that its writer was there (R3, R9, R10). Each filler set is 79 words and A's and "
+        "that its writer was there (R3, R9, R10), and no distinctive word is in more than "
+        "one set (R12). Each filler set is 79 words and A's and "
         "B's sentences are 14 and 12 words, so every long report starts at 91 to 93 words "
         "and stays inside 88 to 96 after rewording (R20). When the frozen reports are "
         "read (step 3.4), check that A's and B's rewordings still count cars: 'vehicles' "
@@ -57,27 +61,27 @@ CASE = {
     # two reports of the shared source never carry identical padding.
     "filler_sets": [
         [
-            "The Aldmoor car park stands at the edge of the shopping district, next to a "
+            "The Aldmoor car park stands at the edge of the business district, next to a "
             "dual carriageway.",
             "Its concrete decks are joined by a spiral ramp at the north end of the "
             "building.",
             "Stairwell towers clad in copper panels rise at opposite ends.",
-            "Pay machines are fixed by the pedestrian exits on the ground floor.",
+            "Pedestrian exits on the ground floor lead onto a narrow side road.",
             "The top deck is open to the sky and edged with a high mesh fence.",
-            "Lifts with glass doors climb to the top deck.",
+            "Glass lifts climb the outer walls of the towers.",
         ],
         [
-            "Facing the entrance is a parade of shops with striped awnings and a bakery.",
+            "Across the street is a parade of shops with striped awnings and a bakery.",
             "A bus shelter with a maroon canopy faces the bakery's front window.",
             "Plane trees line the wide pavement, and cycle racks are bolted between their "
             "trunks.",
             "Painted stripes mark a walkway over to the broad steps of the public library.",
-            "A florist's barrow with buckets of tulips waits by the bus stop.",
+            "A red post box sits on the corner beside the bus shelter.",
             "Hanging baskets of petunias and trailing ivy decorate the lampposts along the "
             "pavement.",
         ],
         [
-            "Aldmoor's cobbled market square lies a short walk to the west, past the "
+            "The cobbled market square lies a short way to the west, beyond the "
             "guildhall.",
             "The river Tamble loops around the centre, spanned by a footbridge and a stone "
             "bridge.",
@@ -112,7 +116,7 @@ CASE = {
                 "authority": "local reporter",
                 "quality": "strong",
                 "why": "written by a reporter who walked every deck of the car park once "
-                       "the fire was out",
+                       "the fire was out and saw every car the fire damaged",
             },
             "content": ("Altogether, 31 cars were damaged when the Aldmoor car park caught "
                         "fire."),
@@ -126,10 +130,10 @@ CASE = {
                 "authority": "fire service",
                 "quality": "strong",
                 "why": "kept by the crews who put out the fire, with their own count of "
-                       "the cars it reached",
+                       "every car the fire damaged",
             },
-            "content": ("Thirty-one cars were damaged by the blaze in the Aldmoor car "
-                        "park."),
+            "content": ("Damage from the blaze in the Aldmoor car park reached 31 "
+                        "cars."),
             "n_paraphrases_needed": 1,
         },
         "D": {
@@ -139,7 +143,8 @@ CASE = {
                 "type": "car park operator's insurance survey",
                 "authority": "car park operator",
                 "quality": "strong",
-                "why": "the operator's own check of every bay, made for its insurers",
+                "why": "the operator's own check of every bay for cars the fire damaged, "
+                       "made for its insurers",
             },
             "content": "The Aldmoor car park fire left 31 cars damaged.",
             "n_paraphrases_needed": 1,
