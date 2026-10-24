@@ -31,8 +31,9 @@ CASE = {
         "whereas B uses a calibrated displacement gauge. Both "
         "measurements are performed by product testing technicians "
         "with matching authority, isolating method quality (R19). "
-        "Source A contains the mild hedge 'is estimated to be', "
-        "which is intended to survive faithful paraphrasing (R16). "
+        "Source A contains the mild hedge 'may well have', "
+        "which is intended to survive faithful paraphrasing (R16); "
+        "it names no method, which a method case's hedge must not. "
         "If the hedge disappears from frozen reports, the case "
         "will be relabelled T2. "
         "Source identities and measurement procedures remain "
@@ -93,8 +94,8 @@ CASE = {
                 ),
             },
             "content": (
-                "The key-travel distance of the Velora K8 "
-                "wireless keyboard is estimated to be 1.8 mm."
+                "The Velora K8 wireless keyboard may well have "
+                "a key-travel distance of 1.8 mm."
             ),
             "n_paraphrases_needed": 2,
         },
