@@ -17,12 +17,9 @@ CASE = {
     "design_notes": (
         "Primary-source dimension, T1. A and B state the same proposition (the laptop loan "
         "period at Ravenscar Hall) as flat single sentences with the same scope (R1). Both "
-        "contain exactly the same five question content-words: laptop, loan, period, Ravenscar "
+        "contain exactly the same five question content-words: laptops, loan, period, Ravenscar "
         "and Hall (R13). The T1 cue is A's clause-level hedge 'are understood to have' (R16), against "
-        "B's flat assertion. A and B use different frames (R17): A is 'The ... period at "
-        "... are understood to have', B is plural-noun-fronted ('At ... laptops are lent for'); C is "
-        "a direct possessive statement and D is place-fronted with a spelled-out number. The entity "
-        "name is the only chunk they share. "
+        "B's flat assertion. This hedge is now used 3 times across all cases (used by M2 M3 and M16). "
         "Quality lives only in provenance (R2, R19) and only the primary-source dimension "
         "differs: both writers are the same hall office (same authority value), A's type is "
         "the hall's website summary of its lending terms and B's is the hall's own rulebook, "
@@ -45,27 +42,29 @@ CASE = {
         "features across slots (R12). It is one plain register with no insider or "
         "administrative wording, no story-like narration, no damage, wear or age wording, no "
         "document-type words, no time markers, no numbers, and nothing about borrowing (R3, R9, "
-        "R10). It contains none of the words that occur only in a source's provenance type (R2a)."
+        "R10). It contains none of the words that occur only in a source's provenance type (R2a). "
+        "When reading the frozen reports in step 3.4, check that rewordings still give the "
+        "loan period itself, not 'up to' or 'with renewals'."
     ),
     "filler_sets": [
         [
-            "The building is faced with warm red brick and topped by a steep slate roof.",
+            "The building is faced with red brick walls and topped by a slate tiled roof.",
             "Tall sash windows with white frames are set evenly along the front, on every level.",
-            "A central porch with fluted stone pillars protects a heavy oak door painted deep blue.",
+            "A central porch with fluted stone pillars protects an oak door painted a dark blue.",
             "Iron railings run along the street edge, and a brass bell hangs beside the porch.",
             "Brick chimney stacks rise from the ridge, each topped with a round clay pot and a metal cap.",
         ],
         [
-            "The common room has soft green sofas arranged in a ring around a low ash stool.",
+            "The common room has green fabric sofas arranged in a ring around a low ash stool.",
             "Shelves cover the long wall opposite the fireplace and hold board games, jigsaw boxes, and plants.",
             "A woven grey rug with a diamond pattern covers most of the floorboards.",
             "Cushions in orange and yellow lie along the bay seat, and a standard lamp stands beside it.",
             "Watercolours of nearby hills are mounted above the sofas, and a leafy fern fills a corner tub.",
         ],
         [
-            "A gravel drive curves from the gate between neat flowerbeds of lavender and roses.",
+            "A gravel drive curves from the gate between long flowerbeds of lavender and roses.",
             "Behind the house, a broad lawn slopes down to a reedy pond with a timber jetty.",
-            "Apple trees grow in the orchard, with a wooden bench encircling the widest trunk.",
+            "Apple trees grow in the orchard, with a wooden bench encircling the largest trunk.",
             "A bicycle shelter with a sloping tin canopy sits near the side gate beside a holly hedge.",
             "A narrow footpath of packed earth leads beyond the shelter to a vegetable garden with raised beds.",
         ],
@@ -90,7 +89,7 @@ CASE = {
             "quality": "strong",
             "claim": "22 days",
             "content": (
-                "At Ravenscar Hall, laptops are lent for a loan period of 22 days."
+                "Ravenscar Hall lends out its laptops for a loan period lasting 22 days."
             ),
             "n_paraphrases_needed": 3,
             "provenance": {
