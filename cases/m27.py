@@ -22,26 +22,36 @@ CASE = {
         "A and B state the same proposition about the key deposit for the "
         "practice rooms at Halvercombe College, with different values, the same "
         "scope and precision, and no reference to a change or to each other "
-        "(R1). "
-        "T1: A's cue is the hedge 'is probably' (R16), not used by any other "
-        "case. "
+        "(R1). B gives the deposit without naming who pays it, so its scope "
+        "matches A's and the two cannot both be true. "
+        "T1: A's cue is the clause-level hedge 'is thought to be' (R16), shared "
+        "with M4 (R16 allows at most three per hedge). "
         "Authority only: A and B are the same kind of document, a notice, but A "
         "is posted by a student society ('individual') with no say over the "
         "charge and B by the college office that sets it ('institutional'), so "
         "the pair differs in who issued it, not in document type, directness or "
-        "method (R2, R19). B, C and D all give the deposit held for each practice "
-        "room key, so the three agreeing sources state the same figure in A7. "
+        "method (R2, R19). A's type, 'student society notice', gives the writer "
+        "no tie to the rooms or the charge, so it differs from B's in standing "
+        "alone. "
+        "B, C and D each reach the figure by their own route: B is the office "
+        "that sets the deposit, C is an outside auditor's count of the cash held "
+        "against keys on loan, and D is the porter's own entry of the cash "
+        "handed over at each sign-out, so a slip in one would not reach the "
+        "others and no source copies another in A7. "
         "The options are evenly spaced, with the truth and A's claim as the two "
-        "interior values (R8). The screen sentence gives a range whose bounds "
-        "sit equally far from the two options it keeps (R15). "
+        "interior values (R8). All four are round tens, which suits a deposit; "
+        "since they are equally round and the most usual amounts (20 and 50) "
+        "are the distractors, a habit for usual values favours neither claim. "
+        "The screen sentence gives a range whose bounds sit equally far from "
+        "the two options it keeps (R15). "
         "A and B share exactly the question words key, deposit, practice, "
         "rooms, Halvercombe and College (R13); A, B, C and D use four different "
         "frames (R17). "
         "Filler describes one part of the college per set (the front court, the "
         "tower, the river meadow), shares no meaningful word across sets, and "
         "never mentions music, rooms, keys, money or people (R9-R12). "
-        "Each filler set is 77 words and A and B are 14 words each, so long "
-        "reports are 91 words (R20)."
+        "Each filler set is 77 words and A and B are 16 and 14 words, so long "
+        "reports are 93 and 91 words (R20)."
     ),
     "filler_sets": [
         [
@@ -80,14 +90,14 @@ CASE = {
             "quality": "weak",
             "claim": "30 dollars",
             "provenance": {
-                "type": "student-run music society notice",
+                "type": "student society notice",
                 "authority": "individual",
                 "quality": "weak",
                 "why": "unofficial notice from a student society with no say "
                     "over the charge",
             },
             "content": ("The key deposit for the practice rooms at Halvercombe "
-                        "College is probably 30 dollars."),
+                        "College is thought to be 30 dollars."),
             "n_paraphrases_needed": 2,
         },
         "B": {
@@ -100,7 +110,7 @@ CASE = {
                 "why": "official notice from the office that sets the deposit "
                     "for each practice room key",
             },
-            "content": ("Students at Halvercombe College pay 40 dollars as a key "
+            "content": ("At Halvercombe College, 40 dollars is paid as a key "
                         "deposit on practice rooms."),
             "n_paraphrases_needed": 3,
         },
@@ -108,11 +118,12 @@ CASE = {
             "quality": "strong",
             "claim": "40 dollars",
             "provenance": {
-                "type": "college finance policy",
-                "authority": "institutional",
+                "type": "external auditor's report",
+                "authority": "auditor",
                 "quality": "strong",
-                "why": "the policy that fixes the deposit held for each practice "
-                    "room key",
+                "why": "an outside auditor's count of the cash held against "
+                    "practice room keys on loan, not a figure taken from any "
+                    "college notice or policy",
             },
             "content": ("Halvercombe College holds 40 dollars against each practice "
                         "room key it lends out."),
@@ -125,8 +136,8 @@ CASE = {
                 "type": "porters' lodge sign-out sheet",
                 "authority": "institutional",
                 "quality": "strong",
-                "why": "records the deposit taken each time a practice room key "
-                    "is signed out",
+                "why": "the porter on duty writes in the cash handed over each "
+                    "time a practice room key is signed out",
             },
             "content": ("Borrowing a key for a Halvercombe College practice room "
                         "requires a deposit of 40 dollars."),
