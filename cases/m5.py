@@ -110,7 +110,7 @@ CASE = {
                 "why": "issued by the town council, which manages Kestrel Court and "
                        "arranged the repair",
             },
-            "content": "The water supply to Kestrel Court was cut off for 6 hours.",
+            "content": "At Kestrel Court, the water supply was cut off for 6 hours.",
             "n_paraphrases_needed": 3,
         },
         "C": {
