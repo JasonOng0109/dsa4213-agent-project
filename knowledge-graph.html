@@ -2144,7 +2144,7 @@ a.ref:hover { background: var(--surface-2); }
    "date": "2026-10-25",
    "points": [
     "Kai Rong and Kathleen raised it reviewing Phase 4 pull requests, and Jason decided to apply it to every case.",
-    "Applied on 2026-10-25 to M30, M31, M34 and M36 on main and to M6, M12, M13, M27 and M38 in their pull requests. M3, M4 and M5 keep their sentences, since they ran in the pilot.",
+    "Applied on 2026-10-25 to M3, M4, M5, M30, M31, M34 and M36 on main and to M6, M12, M13, M27 and M38 in their pull requests. The pilot cases M3 to M5 were reworded too, since the main run generates every case's reports afresh.",
     "It sits beside R13, which keeps the question's words from favouring A or B: [[rules-wording]]."
    ],
    "evidence": [
@@ -2157,6 +2157,11 @@ a.ref:hover { background: var(--surface-2); }
      "file": "docs/decisions.md",
      "loc": "Neither A nor B is the question turned into a statement",
      "quote": "the one that echoes the question is reworded."
+    },
+    {
+     "file": "docs/decisions.md",
+     "loc": "M3, M4 and M5 are reworded too",
+     "quote": "this drops the pilot exemption in the entry above."
     },
     {
      "file": "pipeline/prompt.py",
@@ -9112,6 +9117,13 @@ a.ref:hover { background: var(--surface-2); }
    "summary": "In a method case, A's hedge names no method, such as 'estimated', 'guessed' or 'reckoned'; an approximation stays allowed. M12 changes its hedge. Rachel raised it.",
    "added": [
     "method-hedge"
+   ]
+  },
+  {
+   "date": "2026-10-25",
+   "summary": "M3, M4 and M5 follow the question-echo rule too: the main run generates every case's reports afresh, so the pilot exemption is dropped. Jason decided.",
+   "changed": [
+    "question-echo"
    ]
   }
  ]

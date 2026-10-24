@@ -960,3 +960,18 @@ Add an entry when you make a choice a reader could not guess from the code.
   precision rather than method.
 - **Breaks if changed**: method cases carry their dimension in the sentence, so results
   broken down by dimension stop comparing like with like.
+
+### 2026-10-25 — M3, M4 and M5 are reworded too
+
+- **Decision**: M3's A and M4's and M5's B, each the question turned into a statement,
+  are reworded like the other cases; this drops the pilot exemption in the entry above.
+  The pilot's outputs in `runs/` stay as they are, and M1-M5 keep their type names
+  (2026-10-21).
+- **Why** [STATED: team decision, 2026-10-25]: Jason decided, since the main run
+  generates every case's reports afresh. [STATED: `pipeline/run.py`] "Real outputs go to
+  runs/ and are never overwritten: frozen reports and trial logs are evidence, so a step
+  whose output exists refuses to start until the old file is moved."
+- **Rejected**: keeping the pilot's sentences, which would leave three of the ten subset
+  cases with a pull toward one side that no condition varies.
+- **Breaks if changed**: nothing the pilot reported changes; only the main run reads the
+  reworded sentences.
