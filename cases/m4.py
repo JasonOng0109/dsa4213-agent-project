@@ -87,8 +87,8 @@ CASE = {
                 "why": "independent laboratory test report using calibrated pressure "
                     "sensors",
             },
-            "content": ("The water lift of the Yhotak B162 Vacuum "
-                        "is 6000Pa."),
+            "content": ("Yhotak's B162 Vacuum has a water lift "
+                        "that reaches 6000Pa."),
             "n_paraphrases_needed": 3,
         },
         "C": {
