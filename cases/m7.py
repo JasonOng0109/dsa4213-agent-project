@@ -19,12 +19,11 @@ CASE = {
     "design_notes": (
         "This case tests the authority quality dimension using conflicting "
         "rated brightness values for the fictional LumaDesk S3 desk lamp. "
-        "Source A is a hobbyist website's product page claiming 500 lm, "
-        "while Source B is a national standards authority's product register "
-        "supporting the true value of 600 lm. "
-        "A is weaker because the hobbyist website lacks recognised institutional "
-        "standing, whereas B has official responsibility for product ratings. "
-        "The comparison isolates authority rather than testing methodology (R19). "
+        "Source A is a hobbyist's product listing claiming 500 lm, "
+        "while Source B is a national standards authority's product "
+        "listing supporting the true value of 600 lm. "
+        "Both sources use the same document format, so their quality "
+        "difference is institutional standing rather than document type (R19). "
         "A and B describe the same lamp and rated brightness with equally "
         "specific claims and no changes or exceptions (R1). "
         "Both identify the same LumaDesk S3 desk lamp and brightness property, "
@@ -53,6 +52,10 @@ CASE = {
         "Each filler set contains 78 words, and the A and B sentences contain "
         "15 and 13 words respectively, producing long reports of 93 and 91 "
         "words before paraphrasing (R20)."
+        "When reading frozen reports in step 3.4, check that A's and B's "
+        "paraphrases preserve the rated-brightness meaning. "
+        "A shift from rated brightness to actual light output could "
+        "make the two claims appear compatible. "
     ),
     # Filler belongs to the SLOT, not the source (R12): one set per report position, so
     # two reports of the shared source never carry identical padding.
@@ -89,7 +92,7 @@ CASE = {
             ),
             "n_paraphrases_needed": 2,
             "provenance": {
-                "type": "hobbyist website's product page",
+                "type": "hobbyist's product listing",
                 "authority": "informal product commentator",
                 "quality": "weak",
                 "why": (
@@ -107,7 +110,7 @@ CASE = {
             ),
             "n_paraphrases_needed": 3,
             "provenance": {
-                "type": "national standards authority's product register",
+                "type": "national standards authority's product listing",
                 "authority": "national standards authority",
                 "quality": "strong",
                 "why": (
