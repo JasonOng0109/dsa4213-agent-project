@@ -18,7 +18,8 @@ CASE = {
         "Primary-source dimension, T1. A and B state the same proposition (the water tank "
         "capacity of the HydroBrew C8 coffee maker) as single sentences with identical scope (R1). "
         "Both share the question content-words: water, tank, capacity, HydroBrew, C8, coffee, "
-        "and maker (R13). The T1 cue is A's clause-level hedge 'is estimated to be' (R16). Quality resides "
+        "and maker (R13). The T1 cue is A's clause-level hedge 'is estimated to be' (R16). "
+        "The hedge is used in M12, M18 and M20 (3 slots all filled). Quality resides "
         "strictly in provenance (R2, R19). Under Phase 4 primary-source rules, both writers share "
         "identical manufacturer standing ('maker product team'), isolating the primary-source dimension: "
         "A is the maker's online shop listing, while B is the maker's technical datasheet (R19). "
@@ -31,31 +32,31 @@ CASE = {
         "placing both survivors (1060 and 1440) exactly 160 ml inside the bounds (R15). Content lengths "
         "are A=14 and B=13 words (|A - B| <= 2). Each filler set is 78 words, landing every long report "
         "at 91 or 92 words within the tight 91-93 band (R20). Fillers describe neutral physical aspects "
-        "of the machine without cross-set noun repetition (R12), containing no numbers, measurements, time markers, or "
-        "coffee brewing vocabulary (R3, R9, R10)."
+        "of the machine as three separate feature groups with no repeated distinctive nouns across sets (R12), "
+        "containing no numbers, measurements, time markers, or coffee brewing vocabulary (R3, R9, R10). "
     ),
 
     "filler_sets": [
         [
-            "The HydroBrew C8 coffee maker has a matte black housing with rounded corners and a finish.",
-            "A silver strip runs beneath the upper rim beside a circular indicator with a dark centre.",
-            "The side panels slope toward a platform with a charcoal finish and clean joins.",
-            "Rubber feet support the appliance above a flat surface without visible gaps or loose edges.",
-            "A small metal emblem sits near the front face beside a recessed handle with a curved outline.",
+            "The HydroBrew C8 coffee maker has a matte black casing with rounded corners and charcoal finish.",
+            "A narrow silver band runs beneath the top lid along its front edge near the hinge.",
+            "The upper cover slopes gently toward a broad crown with a charcoal surface and shallow profile.",
+            "A circular indicator appears beside the lid hinge on the rear portion of the cover.",
+            "A small emblem is fixed near the upper rim above the front panel of casing.",
         ],
         [
-            "A removable tray has a grey surface and a lip around its rim, with rounded corners.",
-            "A perforated metal grille sits beside a recess below the front fascia and a display.",
-            "Rounded plastic corners meet a dark side frame beneath a rectangular display with a clear cover.",
-            "A back plate has raised strips and recessed screw heads beside a horizontal seam.",
-            "Catches sit below the lower rim beside a curved cover with a satin finish and plain surface.",
+            "A rectangular display is set into the front panel above several small front controls.",
+            "A perforated grille spans the upper fascia beneath the display on the front panel near the top.",
+            "Two narrow buttons sit beside a small circular indicator on the front face of casing.",
+            "A smooth front border surrounds the controls and joins the side casing along its lower edge.",
+            "A curved handle projects from the lower front edge beneath the control panel near the base.",
         ],
         [
-            "A power cord leaves the back through a round rubber opening set below the appliance.",
-            "A shallow channel runs beneath the underside beside rectangular clips and a recessed groove.",
-            "A square rocker switch sits near the lower border beside a smooth plastic surround with curved corners.",
-            "The back shell has narrow ventilation slots arranged beneath a broad horizontal seam and smooth lip.",
-            "Raised strips cross the underside between the supports and the back, leaving a clear central space.",
+            "A black power cord leaves the rear through a round rubber grommet near the lower rear base.",
+            "Four short feet lift the base above the supporting surface on a low frame below.",
+            "A square rocker switch is mounted beside the rear cable outlet on the lower rear casing.",
+            "Narrow vents run across the underside between the rear supports along a flat underside panel.",
+            "A broad base plate covers the lower frame beneath the appliance with a plain edge.",
         ],
     ],
 
