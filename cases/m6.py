@@ -51,7 +51,12 @@ CASE = {
         "(R9, R10, R12). Each filler set contains 80 words, while A and B "
         "contain 13 and 11 words respectively, producing long reports of "
         "93 and 91 words before paraphrasing (R20)."
-    ),
+        "When reading the frozen reports in step 3.4, check that A's and "
+        "B's paraphrases both preserve the assigned-room meaning. "
+        "A shift toward describing where a session was held could "
+        "introduce a room-change interpretation that makes both claims "
+        "appear compatible. "
+            ),
     # Filler belongs to the SLOT, not the source (R12): one set per report position, so
     # two reports of the shared source never carry identical padding.
     "filler_sets": [
@@ -121,7 +126,7 @@ CASE = {
             ),
             "n_paraphrases_needed": 3,
             "provenance": {
-                "type": "original university room-allocation register",
+            "type": "university room-allocation register",
                 "authority": "university administration",
                 "quality": "strong",
                 "why": (
@@ -143,10 +148,10 @@ CASE = {
                 "authority": "university teaching staff",
                 "quality": "strong",
                 "why": (
-                    "The attendance sheet was completed during the tutorial "
-                    "in room B-206, providing a firsthand record of where "
-                    "the session took place rather than copying the "
-                    "room-allocation register."
+                    "The attendance sheet was completed in room B-206 "
+                    "for every tutorial session throughout the term, "
+                    "providing a firsthand record of the tutorial's usual "
+                    "location rather than copying the room-allocation register."
                 ),
             },
         },
@@ -163,9 +168,9 @@ CASE = {
                 "authority": "university teaching staff",
                 "quality": "strong",
                 "why": (
-                    "The tutor recorded the tutorial's location from "
-                    "firsthand experience in room B-206, independently "
-                    "of the room-allocation register and attendance sheet."
+                    "The tutor recorded the location of every tutorial session "
+                    "throughout the term from firsthand experience in room B-206, "
+                    "independently of the allocation register and attendance sheets."
                 ),
             },
         },
