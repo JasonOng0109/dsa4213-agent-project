@@ -21,8 +21,10 @@ CASE = {
         "A and B state the same proposition about the burn time of the Tavrenne "
         "T4 candle, with different values, the same scope and precision, and no "
         "reference to a change or to each other (R1). "
-        "T1: A's cue is the clause-level hedge 'is understood to have' (R16), "
-        "shared with M2 (R16 allows at most three per hedge). "
+        "T1: A's cue is the clause-level hedge 'is guessed to have' (R16), a "
+        "new hedge, since the hedges already in use are full "
+        "(R16 allows at most three cases per hedge); 'guessed' reads as doubt "
+        "and cannot be taken for a set or planned figure. "
         "Primary source only: A and B both come from the brand "
         "('institutional'), but A is a social media post restating the figure "
         "while B is the product specification that defines it, so the pair "
@@ -88,7 +90,7 @@ CASE = {
                 "why": "secondary: a promotional post restating the figure from "
                     "the brand's specification",
             },
-            "content": ("The Tavrenne T4 candle is understood to have a burn time "
+            "content": ("The Tavrenne T4 candle is guessed to have a burn time "
                         "of 38 hours."),
             "n_paraphrases_needed": 2,
         },
