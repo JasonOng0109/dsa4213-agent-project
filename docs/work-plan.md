@@ -507,7 +507,7 @@ Jason merges Phase 4 cases only after it, because the run takes every case in
 | M21 | incident_status | authority | T1 | Rachel | Kathleen | assigned | |
 | M22 | product_spec | directness | T2 | Kathleen | Kai Rong | merged | yes |
 | M23 | institutional_logistics | method | T1 | Kathleen | Kai Rong | merged | |
-| M24 | institutional_logistics | primary_source | T2 | Kathleen | Kai Rong | assigned | |
+| M24 | institutional_logistics | primary_source | T2 | Kathleen | Kai Rong | merged | |
 | M25 | product_spec | authority | T1 | Kathleen | Kai Rong | assigned | |
 | M26 | incident_status | method | T1 | Kathleen | Kai Rong | assigned | |
 | M27 | institutional_logistics | authority | T1 | Kathleen | Kai Rong | assigned | |
