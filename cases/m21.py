@@ -1,4 +1,4 @@
-"""M21: Evacuation radius for the Branford depot gas leak.
+"""M21: Evacuation radius for the Brackenford depot gas leak.
 
 Incident status domain, authority quality dimension, tier T1.
 """
@@ -6,65 +6,64 @@ Incident status domain, authority quality dimension, tier T1.
 CASE = {
     "case_id": "M21",
     "domain": "incident_status",
-    "question": "What is the evacuation radius for the Branford depot gas leak?",
-    "world_truth": "800 metres",
-    "distractors": ["400 metres", "1200 metres"],  # [400, 600, 800, 1200] 
+    "question": "What is the evacuation radius for the Brackenford depot gas leak?",
+    "world_truth": "780 metres",
+    "distractors": ["460 metres", "940 metres"],  # [460, 620, 780, 940]
     "screen_partial": (
-        "The evacuation radius for the Branford depot gas leak is between 500 metres and 900 metres."
-    ),  # keeps 600 and 800 (truth); rules out 400 and 1200; both survivors sit 100 metres inside bounds (R15)
+        "The evacuation radius for the Brackenford depot gas leak is between 540 metres and 860 metres."
+    ),  # keeps 620 and 780 (truth); rules out 460 and 940; both survivors sit 80 metres inside bounds (R15)
     "quality_dimension": "authority",
     "difficulty_tier": "T1",
     "design_notes": (
         "Authority dimension, T1. A and B state the same proposition (the evacuation radius "
-        "for the Branford depot gas leak) as single sentences with identical scope (R1). Both contain "
-        "the exact same six question content-words: evacuation, radius, Branford, depot, gas, and leak (R13). "
-        "The T1 cue is A's clause-level hedge 'is assumed to be' (R16), which survives faithful reporter "
-        "paraphrasing while varying from hedges used in previous cases. "
+        "for the Brackenford depot gas leak) as single sentences with identical scope (R1). Both contain "
+        "the same six question content-words: evacuation, radius, Brackenford, depot, gas, and leak (R13). "
+        "The T1 cue is A's clause-level hedge 'is assumed to be' (R16), also used in M34 & M38 (all 3 slots full). "
         "Quality resides purely in provenance (R2, R19): both writers attend on-site perimeter response briefings, "
         "holding directness, setting, and methodology constant while isolating authority: A is an entry-level "
         "volunteer trainee ('depot safety trainee briefing notes'), whereas B is the governing on-scene authority "
         "('incident commander perimeter directive log') (R19). Neither type name leaks authority clues or methodology "
         "into content, and 'independent' is strictly omitted (R19). Sources B, C, and D state the truth using distinct "
         "syntactic frames to keep pairwise bigram overlap strictly below 0.40, fully satisfying A7 (R17). Options form "
-        "a balanced spread [400, 600, 800, 1200] metres, with the truth (800) and A's claim (600) occupying interior "
-        "positions (R8). The screen sentence uses two bounds (500 and 900 metres), placing both survivors equidistant "
-        "at exactly 100 metres inside the bounds (R15). Content lengths are A=15 and B=15 words (|A - B| = 0 <= 2). "
-        "Each filler set is exactly 77 words, landing every long report at exactly 92 words (77 + 15), within the tight "
-        "91-93 band (R20). Fillers describe neutral physical depot infrastructure across three distinct zones (approach avenue, "
-        "maintenance storage shelter, administrative annex) with zero non-stopword content overlap across sets (R12), "
-        "containing no numbers, time markers, or gas incident vocabulary (R3, R9, R10)."
+        "an evenly spaced spread [460, 620, 780, 940] metres, with the truth (780) and A's claim (620) occupying interior "
+        "positions (R8). The screen sentence uses two bounds (540 and 860 metres), placing both survivors equidistant "
+        "at exactly 80 metres inside the bounds (R15). Content lengths are A=15 and B=14 words (|A - B| <= 2). "
+        "Each filler set is 77 words, landing every long report within the tight "
+        "91-93 band after accepted rewording (R20). Fillers describe neutral physical depot infrastructure across three "
+        "distinct zones with distinct vocabulary and no repeated non-stopword content words across sets (R12), containing "
+        "no numbers, time or presence markers, process or register wording, or gas incident vocabulary (R3, R9, R10)."
     ),
 
     "filler_sets": [
         [
-            "The concrete approach avenue features yellow painted central lane dividers running toward the primary barrier gate.",
-            "Dark bronze perimeter stanchions support sturdy linked alloy chains alongside the paved lorry bypass apron.",
-            "A raised security checkpoint booth houses tinted shatterproof viewing windows beneath an overhanging aluminium canopy.",
-            "Automated license plate recognition cameras mount atop slender galvanised poles beside the main access turning circle.",
-            "Precast stone kerbstones border neatly manicured grass verges leading outward facing the outer transit thoroughfare.",
+            "A paved avenue crosses a broad forecourt beside pale concrete kerbs and a low masonry wall.",
+            "Flat ochre slabs form a walkway beside a square planter filled with clipped shrubs and gravel.",
+            "A circular canopy covers a loading platform beside a tall brick facade with narrow arches.",
+            "Smooth basalt paving surrounds a shallow ornamental pool beside plain stone posts.",
+            "The entrance facade has a blue metal canopy, steps, and a round clock set above the entrance doors.",
         ],
         [
-            "The maintenance storage shelter incorporates corrugated zinc exterior cladding secured over a rigid structural boxwork frame.",
-            "Open service parking bays contain durable rubber wheel stops anchored securely into the tarmac floor.",
-            "Overhead high-pressure sodium luminaires produce continuous warm amber illumination across the lower industrial service yard.",
-            "A freestanding metal shelving rack holds spare silicone hoses, brass pipe fittings, and empty utility toolboxes.",
-            "Perforated drainage trenches lined with slotted metallic grates channel surface rainwater runoff into underground sumps.",
+            "A long shed has pale timber boards, a shallow roof, and wide canvas panels along one side.",
+            "Grey paving surrounds a low round planter filled with lavender, thyme, and small white stones.",
+            "A wooden bench stands beside a square noticeboard with a plain green frame and blank centre.",
+            "Tall cypress shrubs line a gravel path beside a low wall topped with terracotta tiles.",
+            "The shelter facade has cream plaster, dark blue shutters, and a broad rectangular doorway.",
         ],
         [
-            "The single-storey administrative annex displays exposed light red brickwork accented by broad double-glazed casement window apertures.",
-            "Dense hawthorn hedgerows grow along the southern property margin, providing an effective visual screening hedge.",
-            "A timber pedestrian boardwalk meanders through planted wildflower beds between the annex and visitor footpaths.",
-            "External terracotta masonry sconces project gentle downward lighting along the recessed administrative office entry foyer doorway.",
-            "Crushed river gravel pathways crunch softly underfoot while guiding personnel into designated scenic breakout courtyards.",
+            "A low office wing has white rendered walls, a slate roof, and tall arched windows with alder foliage.",
+            "Pale gravel borders a rectangular lawn with a stone sundial near the centre.",
+            "A covered walkway links the wing to a round courtyard enclosed by brick posts.",
+            "The side wall has green shutters, a copper drainpipe, and a narrow wooden door with trim.",
+            "Several ornamental pear trees stand beside a tiled terrace and a shallow brick parapet near offices.",
         ],
     ],
 
     "sources": {
         "A": {
             "quality": "weak",
-            "claim": "600 metres",
+            "claim": "620 metres",
             "content": (
-                "The evacuation radius for the Branford depot gas leak is assumed to be 600 metres."
+                "For the Brackenford depot gas leak, the evacuation radius is assumed to be 620 metres."
             ),
             "n_paraphrases_needed": 2,
             "provenance": {
@@ -76,9 +75,9 @@ CASE = {
         },
         "B": {
             "quality": "strong",
-            "claim": "800 metres",
+            "claim": "780 metres",
             "content": (
-                "Emergency evacuation limits for the Branford depot gas leak establish a radius of 800 metres."
+                "At the Brackenford depot, a 780-metre evacuation radius applies around the gas leak perimeter."
             ),
             "n_paraphrases_needed": 3,
             "provenance": {
@@ -90,32 +89,30 @@ CASE = {
         },
         "C": {
             "quality": "strong",
-            "claim": "800 metres",
-            # 14 words: Active agent syntax keeping bigram overlap strictly below 0.40 (R17, A7)
+            "claim": "780 metres",
             "content": (
-                "Safety officials maintain eight hundred metres as the mandatory protective zone around Branford depot."
+                "Residents within 780 metres of the Brackenford depot gas leak were evacuated."
             ),
             "n_paraphrases_needed": 1,
             "provenance": {
-                "type": "civil protection dispatch register",
-                "authority": "dispatch coordinator",
+                "type": "police cordon officer's own log",
+                "authority": "police cordon officer",
                 "quality": "strong",
-                "why": "regional civil protection log coordinating emergency perimeter cordons",
+                "why": "the officer's own record of where the cordon was set up, measured from the depot",
             },
         },
         "D": {
             "quality": "strong",
-            "claim": "800 metres",
-            # 13 words: Quantity-fronted frame ensuring distinct syntax (R17, A7)
+            "claim": "780 metres",
             "content": (
-                "Eight hundred metres defines the perimeter boundary cordoned off by Branford depot responders."
+                "The Brackenford depot gas leak led to an evacuation 780 metres in every direction."
             ),
             "n_paraphrases_needed": 1,
             "provenance": {
-                "type": "municipal emergency response order",
-                "authority": "emergency director",
+                "type": "gas utility's evacuation map",
+                "authority": "gas utility engineers",
                 "quality": "strong",
-                "why": "municipal emergency decree establishing statutory exclusion perimeters for civic safety",
+                "why": "the utility's engineers marked every street they cleared on their own map",
             },
         },
     },
