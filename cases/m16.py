@@ -56,7 +56,7 @@ CASE = {
         ],
         [
             "The common room has green fabric sofas arranged in a ring around a low ash stool.",
-            "Shelves cover the long wall opposite the fireplace and hold board games, jigsaw boxes, and plants.",
+            "Shelves cover the whole alcove opposite the fireplace and hold board games, jigsaw boxes, and plants.",
             "A woven grey rug with a diamond pattern covers most of the floorboards.",
             "Cushions in orange and yellow lie along the bay seat, and a standard lamp stands beside it.",
             "Watercolours of nearby hills are mounted above the sofas, and a leafy fern fills a corner tub.",
