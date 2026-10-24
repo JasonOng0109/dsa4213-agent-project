@@ -1,6 +1,6 @@
 """M29: how long passengers were stuck on the stalled Corvanne Funicular Railway.
 
-Incident or status reports, directness dimension, tier T1.
+Incident status report, directness dimension, tier T1.
 """
 
 CASE = {
