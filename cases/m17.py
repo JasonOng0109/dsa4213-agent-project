@@ -17,49 +17,62 @@ CASE = {
     "design_notes": (
         "Directness dimension, T1. A and B state the same proposition (the package holding "
         "limit at Highfield Parcel Centre) as single sentences with identical scope (R1). "
-        "Both contain the exact same six question content-words: package, holding, limit, "
-        "Highfield, Parcel, and Centre (R13). The T1 cue is A's clause-level hedge "
-        "'is presumed to be' (R16), which survives faithful paraphrasing while varying from "
-        "cues used in earlier cases ('is understood to', 'is believed to', 'is reckoned to'). "
-        "Quality resides strictly in provenance (R2, R19). Under Phase 4 "
-        "directness rules, both writers have the same individual standing as logistics couriers, "
-        "isolating directness: A relies on second-hand information passed on by a driver who was "
-        "not at the depot, whereas B relies on first-hand notes written at the intake desk itself (R19). "
-        "Neither type name leaks methodology, authority differences, or the word 'independent' (R19). "
-        "Sources B, C, and D state the truth using distinct syntactic frames to keep bigram overlap "
-        "below 0.40 (R17). B, C, and D also reach the figure by separate routes: B records the briefing, "
-        "C records the decision that set the limit, and D observes the limit applied to an uncollected test "
-        "parcel. Distractors form a balanced spread [13, 16, 19, 22], with the truth (19) and "
-        "A's claim (16) occupying the interior positions (R8). The screen sentence uses two bounds "
-        "(15 and 20 days), placing both survivors (16 and 19) exactly 1 day inside the bounds (R15). "
-        "Content lengths are A=14, & B=14 words. Each filler set is 77-79 words, "
-        "landing every long report is within the tight 91-93 band (R20). Fillers describe "
-        "neutral physical building environments across three separate zones without cross-set noun sharing "
-        "(R12), and contain no numbers, time markers, "
-        "prohibited words, or package holding vocabulary (R3, R9, R10)."
+        "Both contain exactly the same six question content-words: package, holding, limit, "
+        "Highfield, Parcel and Centre (R13). The T1 cue is A's clause-level hedge "
+        "'is presumed to be' (R16), against B's flat assertion. This hedge is now used by M7, M17 and M32. "
+        "Quality lives only in provenance (R2, R19) and only the directness dimension differs: "
+        "both writers are couriers with the same standing (authority 'individual'). A's type is "
+        "a summary passed on by a courier who missed the intake briefing, and B's is notes taken "
+        "at the intake desk by a courier who was at the briefing. A's why says the figure was "
+        "heard from another courier instead of being recorded at the briefing itself, and B's "
+        "why says the notes were written at the desk while the briefing took place. Neither "
+        "type name says how the figure was found beyond that, or contains 'independent'. "
+        "Sources A and B use different frames (R17): A is possessive-fronted with the hedge, B "
+        "is plural-noun-fronted ('Packages at ... are stored for'). C and D are written as "
+        "plain statements of the rule in their own frames: C is centre-fronted with an active "
+        "verb ('sends back any package left uncollected'), D is article-fronted ('An "
+        "uncollected package at ... goes back to its sender'). Neither names a document, a "
+        "writer or a method, and both name the centre, so each is self-contained (R2, R6, R7). "
+        "Their routes sit in provenance only. B, C and D reach the figure separately (A7): B "
+        "is a courier's notes from the briefing, C is the centre manager's own notes taken when "
+        "the holding limit was set and kept apart from the briefing material, and D is a "
+        "consumer group's log of test parcels it left uncollected at the centre. None of the "
+        "whys says one source copies another. "
+        "Options are 13, 16, 19 and 22 days, evenly spaced so that 'closest to the mean' does "
+        "not favour the truth, with the truth (19) and A's claim (16) both interior (R8). The "
+        "screen sentence has two bounds, 15 and 20 days, and keeps 16 and 19 (the survivors "
+        "are each 1 day inside a bound) while ruling out 13 and 22 (R15). "
+        "Content lengths are A=14 and B=14 words (R20). Each filler set is 78 words, so "
+        "filler+A and filler+B are both 92, inside the 91-93 band. Filler describes three "
+        "separate places in plain factual sentences (the yard behind the building, the entrance "
+        "hall, the front grounds), one register throughout (R10). A script check found no stem "
+        "shared across two sets apart from function words, so reports in one trial do not "
+        "repeat features across slots (R12). Filler has no numbers, time markers, option "
+        "values or holding-limit vocabulary, and none of the words that occur only in a "
+        "source's provenance type (R2a, R3, R9)."
     ),
 
     "filler_sets": [
         [
-            "The concrete loading apron has yellow perimeter lines beside raised docking platforms and broad metal doors.",
-            "A steel roller shutter covers the central machinery ramp above a dark strip of ribbed flooring.",
-            "Heavy rubber buffers sit beside wide openings, with square blocks fixed along the concrete wall.",
-            "Overhead floodlights cast pale reflections across the tarmac beneath tall lattice supports and roof gutters.",
-            "Galvanised drainage grilles cross a shallow trench beside the paving and a low retaining wall.",
+            "The yard behind the building has a concrete surface marked with yellow lines.",
+            "Several loading bays open onto the gate, with rubber buffers bolted beside each bay.",
+            "A floodlight on a steel mast stands at one corner of the yard.",
+            "Bollards line the edge of a ramp, and a drainage grille crosses the approach to the gate.",
+            "A coil of hose lies on a bracket next to an outdoor tap close to the ramp and the yard drain.",
         ],
         [
-            "Polished terrazzo tiles lead from glass entry partitions toward a curved oak staircase and a tall arched window.",
-            "A brass handrail follows the stair curve above pale plaster walls and a dark wooden skirting board.",
-            "Soft ceiling panels form a broad pattern beneath pendant lamps and a circular skylight.",
-            "A tall ceramic planter holds glossy leaves beside a narrow doorway with frosted glass.",
-            "Framed landscape prints hang above a long console with turned legs and a stone surface.",
+            "The entrance hall has a tiled floor in a chequered pattern and a coir mat by the door.",
+            "A staircase with a brass handrail rises to a landing lit by a glass globe.",
+            "Coat hooks are fixed beside the door, and an umbrella holder keeps a few umbrellas.",
+            "A mirror is mounted above a radiator, and a potted fern fills the space between them.",
+            "A pair of chairs with cushions is placed opposite the staircase near the mat.",
         ],
         [
-            "A gravel driveway curves beside clipped hedges, pale walls, and a low slate roof beyond the entrance.",
-            "Cedar shutters frame the tall windows of a detached stone cottage beside a narrow flower border.",
-            "A wooden footbridge crosses a shallow ornamental stream between smooth lawns and planted beds.",
-            "Smooth paving surrounds a circular fountain with a carved basin and a low surrounding parapet.",
-            "Ivy climbs a garden wall beside a small glasshouse with white frames and a peaked roof.",
+            "A lawn stretches from the road to a gravel path that curves toward the steps.",
+            "Rose bushes grow in beds beside the path, and a holly hedge borders the lawn.",
+            "A bench with iron arms looks over a birdbath in the middle of the lawn.",
+            "Maple trees shade the pavement by the road, and a lamp post marks the start of the path.",
+            "A timber fence runs along the boundary, and a water butt sits under a downpipe.",
         ],
     ],
 
@@ -75,7 +88,7 @@ CASE = {
                 "type": "summary passed on by a courier who missed the intake briefing",
                 "authority": "individual",
                 "quality": "weak",
-                "why": "second-hand information heard from another driver rather than directly recorded during the depot briefing",
+                "why": "second-hand information heard from another courier rather than recorded at the intake briefing itself",
             },
         },
         "B": {
@@ -89,28 +102,28 @@ CASE = {
                 "type": "notes taken at the intake desk by a courier at the briefing",
                 "authority": "individual",
                 "quality": "strong",
-                "why": "first-hand notes recorded contemporaneously on site during the parcel centre's intake briefing",
+                "why": "first-hand notes written at the intake desk by a courier while the briefing took place",
             },
         },
         "C": {
             "quality": "strong",
             "claim": "19 days",
             "content": (
-                "A parcel-centre entry records that an uncollected package is returned after 19 days."
+                "Highfield Parcel Centre sends back any package left uncollected after 19 days."
             ),
             "n_paraphrases_needed": 1,
             "provenance": {
-                "type": "warden's own decision notes",
-                "authority": "parcel centre warden",
+                "type": "centre manager's own notes",
+                "authority": "centre manager",
                 "quality": "strong",
-                "why": "the warden's own entry recording the committee decision that set the package holding limit",
+                "why": "notes the centre manager took when the holding limit was set, kept apart from the briefing material",
             },
         },
         "D": {
             "quality": "strong",
             "claim": "19 days",
             "content": (
-                "A consumer group found that an uncollected package was returned after 19 days at Highfield Parcel Centre."
+                "An uncollected package at Highfield Parcel Centre goes back to its sender after 19 days."
             ),
             "n_paraphrases_needed": 1,
             "provenance": {
