@@ -18,7 +18,7 @@ CASE = {
         "Authority dimension, T1. A and B state the same proposition (the evacuation radius "
         "for the Branford depot gas leak) as single sentences with identical scope (R1). Both contain "
         "the exact same six question content-words: evacuation, radius, Branford, depot, gas, and leak (R13). "
-        "The T1 cue is A's clause-level hedge 'is projected to be' (R16), which survives faithful reporter "
+        "The T1 cue is A's clause-level hedge 'is assumed to be' (R16), which survives faithful reporter "
         "paraphrasing while varying from hedges used in previous cases. "
         "Quality resides purely in provenance (R2, R19): both writers attend on-site perimeter response briefings, "
         "holding directness, setting, and methodology constant while isolating authority: A is an entry-level "
@@ -64,7 +64,7 @@ CASE = {
             "quality": "weak",
             "claim": "600 metres",
             "content": (
-                "The evacuation radius for the Branford depot gas leak is projected to be 600 metres."
+                "The evacuation radius for the Branford depot gas leak is assumed to be 600 metres."
             ),
             "n_paraphrases_needed": 2,
             "provenance": {
