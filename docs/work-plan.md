@@ -205,8 +205,9 @@ Same steps for each author. Replace `m2` with your case.
   - R13: A and B use exactly the same words from the question.
   - R20: A and B are within 2 words of each other in length.
 - **T1 only** (R16): give A one mild hint that survives rewording, such as a hedge ("is
-  understood to be"). One small word like "your" does not survive. Use the hedge that
-  the merged cases use least, and name it in `design_notes` (R16, "Vary the cue").
+  understood to be"). One small word like "your" does not survive. Use a hedge that
+  fewer than three T1 cases use, on `main` or in open pull requests, preferring one
+  already in use to a new one, and name it in `design_notes` (R16, "Vary the cue").
 
 **1.5 Write the provenance.**
 - **Do**: fill `type`, `authority`, `quality`, `why` for each source.
