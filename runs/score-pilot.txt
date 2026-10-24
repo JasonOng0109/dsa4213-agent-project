@@ -1,0 +1,932 @@
+Loaded 3420 trials. Parse failures: 1. Status counts: {'ok': 3416, 'no_match': 3, 'failed_fallback': 1}
+
+##### judge openrouter:anthropic/claude-opus-5 | arm abstain | M1 #####
+  cond   n chance correct abstain no_match P(truth) P(maj) margin        stab s_chance
+  A7     4   0.25    1.00    0.00     0.00     95.0   None   93.0   1.00(n=4)     0.49
+  X1     4   0.25    0.00    0.00     0.00     18.8   76.5   57.8   1.00(n=4)     0.49
+  X2     4   0.25    1.00    0.00     0.00     75.0   22.2   52.8   1.00(n=4)     0.49
+  X3     4   0.25    0.00    0.00     0.00     37.2   57.5   20.2   1.00(n=4)     0.49
+  X4     4   0.25    1.00    0.00     0.00     65.2   31.0   34.2   1.00(n=4)     0.49
+  X5     4   0.25    1.00    0.00     0.00     71.0   25.0   46.0   1.00(n=4)     0.49
+  -- X1 -> X3 -> X4 -> X5 (none, dependence, quality, both) --
+  correct   : 0.00 -> 0.00 -> 1.00 -> 1.00
+  p_truth   : 18.8 -> 37.2 -> 65.2 -> 71.0
+  p_majority: 76.5 -> 57.5 -> 31.0 -> 25.0
+  abstain   : 0.00 -> 0.00 -> 0.00 -> 0.00
+  abstain delta vs own A7 (0.00): X1 +0.00, X3 +0.00, X4 +0.00, X5 +0.00
+
+##### judge openrouter:anthropic/claude-opus-5 | arm abstain | M2 #####
+  cond   n chance correct abstain no_match P(truth) P(maj) margin        stab s_chance
+  A7     4   0.25    1.00    0.00     0.00     94.2   None   92.2   1.00(n=4)     0.49
+  X1     4   0.25    0.00    0.00     0.00     26.5   68.8   42.2   1.00(n=4)     0.49
+  X2     4   0.25    1.00    0.00     0.00     60.5   35.5   25.0   1.00(n=4)     0.49
+  X3     4   0.25    0.00    0.00     0.00     39.8   54.2   14.5   1.00(n=4)     0.49
+  X4     4   0.25    1.00    0.00     0.00     67.0   29.2   37.8   1.00(n=4)     0.49
+  X5     4   0.25    1.00    0.00     0.00     68.2   27.2   41.0   1.00(n=4)     0.49
+  -- X1 -> X3 -> X4 -> X5 (none, dependence, quality, both) --
+  correct   : 0.00 -> 0.00 -> 1.00 -> 1.00
+  p_truth   : 26.5 -> 39.8 -> 67.0 -> 68.2
+  p_majority: 68.8 -> 54.2 -> 29.2 -> 27.2
+  abstain   : 0.00 -> 0.00 -> 0.00 -> 0.00
+  abstain delta vs own A7 (0.00): X1 +0.00, X3 +0.00, X4 +0.00, X5 +0.00
+
+##### judge openrouter:anthropic/claude-opus-5 | arm abstain | M3 #####
+  cond   n chance correct abstain no_match P(truth) P(maj) margin        stab s_chance
+  A7     4   0.25    1.00    0.00     0.00     95.5   None   94.0   1.00(n=4)     0.49
+  X1     4   0.25    0.00    0.00     0.00     21.0   75.0   54.0   1.00(n=4)     0.49
+  X2     4   0.25    1.00    0.00     0.00     71.2   25.8   45.5   1.00(n=4)     0.49
+  X3     4   0.25    0.00    0.00     0.00     38.8   55.2   16.5   1.00(n=4)     0.49
+  X4     4   0.25    1.00    0.00     0.00     64.8   31.0   33.8   1.00(n=4)     0.49
+  X5     4   0.25    1.00    0.00     0.00     65.8   29.2   36.5   1.00(n=4)     0.49
+  -- X1 -> X3 -> X4 -> X5 (none, dependence, quality, both) --
+  correct   : 0.00 -> 0.00 -> 1.00 -> 1.00
+  p_truth   : 21.0 -> 38.8 -> 64.8 -> 65.8
+  p_majority: 75.0 -> 55.2 -> 31.0 -> 29.2
+  abstain   : 0.00 -> 0.00 -> 0.00 -> 0.00
+  abstain delta vs own A7 (0.00): X1 +0.00, X3 +0.00, X4 +0.00, X5 +0.00
+
+##### judge openrouter:anthropic/claude-opus-5 | arm abstain | M4 #####
+  cond   n chance correct abstain no_match P(truth) P(maj) margin        stab s_chance
+  A7     4   0.25    1.00    0.00     0.00     93.8   None   91.5   1.00(n=4)     0.49
+  X1     4   0.25    0.00    0.00     0.00     27.2   66.8   39.5   1.00(n=4)     0.49
+  X2     4   0.25    1.00    0.00     0.00     70.0   26.5   43.5   1.00(n=4)     0.49
+  X3     4   0.25    0.50    0.00     0.00     45.2   48.2    9.0   0.50(n=4)     0.49
+  X4     4   0.25    1.00    0.00     0.00     71.5   24.5   47.0   1.00(n=4)     0.49
+  X5     4   0.25    1.00    0.00     0.00     70.8   24.8   46.0   1.00(n=4)     0.49
+  -- X1 -> X3 -> X4 -> X5 (none, dependence, quality, both) --
+  correct   : 0.00 -> 0.50 -> 1.00 -> 1.00
+  p_truth   : 27.2 -> 45.2 -> 71.5 -> 70.8
+  p_majority: 66.8 -> 48.2 -> 24.5 -> 24.8
+  abstain   : 0.00 -> 0.00 -> 0.00 -> 0.00
+  abstain delta vs own A7 (0.00): X1 +0.00, X3 +0.00, X4 +0.00, X5 +0.00
+
+##### judge openrouter:anthropic/claude-opus-5 | arm abstain | M5 #####
+  cond   n chance correct abstain no_match P(truth) P(maj) margin        stab s_chance
+  A7     4   0.25    1.00    0.00     0.00     96.8   None   95.5   1.00(n=4)     0.49
+  X1     4   0.25    0.00    0.00     0.00     25.5   70.5   45.0   1.00(n=4)     0.49
+  X2     4   0.25    1.00    0.00     0.00     63.2   33.5   29.8   1.00(n=4)     0.49
+  X3     4   0.25    0.00    0.00     0.00     39.5   55.2   15.8   1.00(n=4)     0.49
+  X4     4   0.25    1.00    0.00     0.00     70.0   26.5   43.5   1.00(n=4)     0.49
+  X5     4   0.25    1.00    0.00     0.00     74.0   22.8   51.2   1.00(n=4)     0.49
+  -- X1 -> X3 -> X4 -> X5 (none, dependence, quality, both) --
+  correct   : 0.00 -> 0.00 -> 1.00 -> 1.00
+  p_truth   : 25.5 -> 39.5 -> 70.0 -> 74.0
+  p_majority: 70.5 -> 55.2 -> 26.5 -> 22.8
+  abstain   : 0.00 -> 0.00 -> 0.00 -> 0.00
+  abstain delta vs own A7 (0.00): X1 +0.00, X3 +0.00, X4 +0.00, X5 +0.00
+
+##### judge openrouter:anthropic/claude-opus-5 | arm ladder | M1 #####
+  cond   n chance correct abstain no_match P(truth) P(maj) margin        stab s_chance
+  W1    12   0.25    1.00    0.00     0.00     53.3   41.2   12.1  1.00(n=12)     0.41
+  W2    12   0.25    1.00    0.00     0.00     63.8   31.2   32.6  1.00(n=12)     0.41
+  W3    12   0.25    1.00    0.00     0.00     68.8   26.8   41.9  1.00(n=12)     0.41
+
+##### judge openrouter:anthropic/claude-opus-5 | arm ladder | M2 #####
+  cond   n chance correct abstain no_match P(truth) P(maj) margin        stab s_chance
+  W1    12   0.25    1.00    0.00     0.00     53.2   41.2   12.1  1.00(n=12)     0.41
+  W2    12   0.25    1.00    0.00     0.00     63.7   31.4   32.2  1.00(n=12)     0.41
+  W3    12   0.25    1.00    0.00     0.00     67.8   27.7   40.1  1.00(n=12)     0.41
+
+##### judge openrouter:anthropic/claude-opus-5 | arm ladder | M3 #####
+  cond   n chance correct abstain no_match P(truth) P(maj) margin        stab s_chance
+  W1    12   0.25    1.00    0.00     0.00     52.2   41.2   11.0  1.00(n=12)     0.41
+  W2    12   0.25    1.00    0.00     0.00     63.6   30.1   33.5  1.00(n=12)     0.41
+  W3    12   0.25    1.00    0.00     0.00     67.4   26.5   40.9  1.00(n=12)     0.41
+
+##### judge openrouter:anthropic/claude-opus-5 | arm ladder | M4 #####
+  cond   n chance correct abstain no_match P(truth) P(maj) margin        stab s_chance
+  W1    12   0.25    1.00    0.00     0.00     53.8   39.8   14.0  1.00(n=12)     0.41
+  W2    12   0.25    1.00    0.00     0.00     64.9   29.6   35.3  1.00(n=12)     0.41
+  W3    12   0.25    1.00    0.00     0.00     67.5   27.3   40.2  1.00(n=12)     0.41
+
+##### judge openrouter:anthropic/claude-opus-5 | arm ladder | M5 #####
+  cond   n chance correct abstain no_match P(truth) P(maj) margin        stab s_chance
+  W1    12   0.25    1.00    0.00     0.00     54.9   40.1   14.8  1.00(n=12)     0.41
+  W2    12   0.25    1.00    0.00     0.00     67.6   27.9   39.7  1.00(n=12)     0.41
+  W3    12   0.25    1.00    0.00     0.00     71.0   24.8   46.2  1.00(n=12)     0.41
+
+##### judge openrouter:anthropic/claude-opus-5 | arm screen | M1 #####
+  cond   n chance correct abstain no_match P(truth) P(maj) margin        stab s_chance
+  P0     4   0.25    1.00    0.00     0.00     29.5   None    4.5   1.00(n=4)     0.53
+  P1     4   0.25    1.00    0.00     0.00     53.8   None   15.5   1.00(n=4)     0.53
+  P2     4   0.25    1.00    0.00     0.00     69.2   None   57.5   1.00(n=4)     0.53
+
+##### judge openrouter:anthropic/claude-opus-5 | arm screen | M2 #####
+  cond   n chance correct abstain no_match P(truth) P(maj) margin        stab s_chance
+  P0     4   0.25    0.25    0.00     0.00     25.0   None    0.0   0.75(n=4)     0.53
+  P1     4   0.25    0.50    0.00     0.00     49.8   None    5.0   0.50(n=4)     0.53
+  P2     4   0.25    1.00    0.00     0.00     79.5   None   71.5   1.00(n=4)     0.53
+
+##### judge openrouter:anthropic/claude-opus-5 | arm screen | M3 #####
+  cond   n chance correct abstain no_match P(truth) P(maj) margin        stab s_chance
+  P0     4   0.25    1.00    0.00     0.00     25.0   None    0.0   1.00(n=4)     0.53
+  P1     4   0.25    1.00    0.00     0.00     66.0   None   41.5   1.00(n=4)     0.53
+  P2     4   0.25    1.00    0.00     0.00     74.2   None   65.5   1.00(n=4)     0.53
+
+##### judge openrouter:anthropic/claude-opus-5 | arm screen | M4 #####
+  cond   n chance correct abstain no_match P(truth) P(maj) margin        stab s_chance
+  P0     4   0.25    0.25    0.00     0.00     25.8   None    1.0   0.75(n=4)     0.53
+  P1     4   0.25    1.00    0.00     0.00     59.5   None   27.5   1.00(n=4)     0.53
+  P2     4   0.25    1.00    0.00     0.00     73.0   None   63.0   1.00(n=4)     0.53
+
+##### judge openrouter:anthropic/claude-opus-5 | arm screen | M5 #####
+  cond   n chance correct abstain no_match P(truth) P(maj) margin        stab s_chance
+  P0     4   0.25    1.00    0.00     0.00     27.0   None    2.2   1.00(n=4)     0.53
+  P1     4   0.25    1.00    0.00     0.00     64.5   None   34.5   1.00(n=4)     0.53
+  P2     4   0.25    1.00    0.00     0.00     87.8   None   83.0   1.00(n=4)     0.53
+
+##### judge openrouter:anthropic/claude-opus-5 | arm short | M1 #####
+  cond   n chance correct abstain no_match P(truth) P(maj) margin        stab s_chance
+  A0     6   0.25    1.00    0.00     0.00     30.0   None    4.5   1.00(n=6)     0.47
+  A1     6   0.25    1.00    0.00     0.00     67.2   None   54.2   1.00(n=6)     0.47
+  A2     6   0.25    1.00    0.00     0.00     78.8   78.8   70.5   1.00(n=6)     0.47
+  A3     6   0.25    1.00    0.00     0.00     91.0   91.0   87.5   1.00(n=6)     0.47
+  A4     6   0.25    1.00    0.00     0.00     92.3   92.3   89.2   1.00(n=6)     0.47
+  A5     6   0.25    1.00    0.00     0.00     88.2   88.2   83.7   1.00(n=6)     0.47
+  A6     6   0.25    1.00    0.00     0.00     85.3   85.3   79.7   1.00(n=6)     0.47
+  A7     6   0.25    1.00    0.00     0.00     94.7   None   92.7   1.00(n=6)     0.47
+  X1    12   0.25    0.00    0.00     0.00     18.8   76.3   57.5  1.00(n=12)     0.41
+  X2    12   0.25    1.00    0.00     0.00     73.8   22.8   50.9  1.00(n=12)     0.41
+  X3    12   0.25    0.00    0.00     0.00     36.5   58.2   21.8  1.00(n=12)     0.41
+  X4    12   0.25    1.00    0.00     0.00     67.8   28.0   39.8  1.00(n=12)     0.41
+  X5    12   0.25    1.00    0.00     0.00     69.6   26.0   43.6  1.00(n=12)     0.41
+  -- X1 -> X3 -> X4 -> X5 (none, dependence, quality, both) --
+  correct   : 0.00 -> 0.00 -> 1.00 -> 1.00
+  p_truth   : 18.8 -> 36.5 -> 67.8 -> 69.6
+  p_majority: 76.3 -> 58.2 -> 28.0 -> 26.0
+
+##### judge openrouter:anthropic/claude-opus-5 | arm short | M2 #####
+  cond   n chance correct abstain no_match P(truth) P(maj) margin        stab s_chance
+  A0     6   0.25    0.00    0.00     0.00     25.0   None    4.3   1.00(n=6)     0.47
+  A1     6   0.25    1.00    0.00     0.00     78.3   None   69.2   1.00(n=6)     0.47
+  A2     6   0.25    1.00    0.00     0.00     81.7   81.7   74.3   1.00(n=6)     0.47
+  A3     6   0.25    1.00    0.00     0.00     91.8   91.8   88.8   1.00(n=6)     0.47
+  A4     6   0.25    1.00    0.00     0.00     94.2   94.2   92.2   1.00(n=6)     0.47
+  A5     6   0.25    1.00    0.00     0.00     87.3   87.3   82.7   1.00(n=6)     0.47
+  A6     6   0.25    1.00    0.00     0.00     85.5   85.5   80.0   1.00(n=6)     0.47
+  A7     6   0.25    1.00    0.00     0.00     93.7   None   91.3   1.00(n=6)     0.47
+  X1    12   0.25    0.00    0.00     0.00     25.2   69.2   44.0  1.00(n=12)     0.41
+  X2    12   0.25    1.00    0.00     0.00     62.3   33.9   28.4  1.00(n=12)     0.41
+  X3    12   0.25    0.00    0.00     0.00     41.3   53.4   12.1  1.00(n=12)     0.41
+  X4    12   0.25    1.00    0.00     0.00     67.1   28.2   38.8  1.00(n=12)     0.41
+  X5    12   0.25    1.00    0.00     0.00     68.4   26.8   41.6  1.00(n=12)     0.41
+  -- X1 -> X3 -> X4 -> X5 (none, dependence, quality, both) --
+  correct   : 0.00 -> 0.00 -> 1.00 -> 1.00
+  p_truth   : 25.2 -> 41.3 -> 67.1 -> 68.4
+  p_majority: 69.2 -> 53.4 -> 28.2 -> 26.8
+
+##### judge openrouter:anthropic/claude-opus-5 | arm short | M3 #####
+  cond   n chance correct abstain no_match P(truth) P(maj) margin        stab s_chance
+  A0     6   0.25    0.83    0.00     0.00     25.8   None    1.2   0.83(n=6)     0.47
+  A1     6   0.25    1.00    0.00     0.00     77.3   None   69.5   1.00(n=6)     0.47
+  A2     6   0.25    1.00    0.00     0.00     81.2   81.2   74.7   1.00(n=6)     0.47
+  A3     6   0.25    1.00    0.00     0.00     94.2   94.2   92.2   1.00(n=6)     0.47
+  A4     6   0.25    1.00    0.00     0.00     94.2   94.2   92.2   1.00(n=6)     0.47
+  A5     6   0.25    1.00    0.00     0.00     90.7   90.7   87.5   1.00(n=6)     0.47
+  A6     6   0.25    1.00    0.00     0.00     86.5   86.5   81.8   1.00(n=6)     0.47
+  A7     6   0.25    1.00    0.00     0.00     95.0   None   93.2   1.00(n=6)     0.47
+  X1    12   0.25    0.00    0.00     0.00     22.4   72.1   49.7  1.00(n=12)     0.41
+  X2    12   0.25    1.00    0.00     0.00     70.9   25.8   45.2  1.00(n=12)     0.41
+  X3    12   0.25    0.00    0.00     0.00     37.9   54.8   16.9  1.00(n=12)     0.41
+  X4    12   0.25    1.00    0.00     0.00     66.2   29.0   37.2  1.00(n=12)     0.41
+  X5    12   0.25    1.00    0.00     0.00     65.7   28.2   37.4  1.00(n=12)     0.41
+  -- X1 -> X3 -> X4 -> X5 (none, dependence, quality, both) --
+  correct   : 0.00 -> 0.00 -> 1.00 -> 1.00
+  p_truth   : 22.4 -> 37.9 -> 66.2 -> 65.7
+  p_majority: 72.1 -> 54.8 -> 29.0 -> 28.2
+
+##### judge openrouter:anthropic/claude-opus-5 | arm short | M4 #####
+  cond   n chance correct abstain no_match P(truth) P(maj) margin        stab s_chance
+  A0     6   0.25    0.17    0.00     0.00     25.5   None    5.8   0.83(n=6)     0.47
+  A1     6   0.25    1.00    0.00     0.00     71.3   None   60.7   1.00(n=6)     0.47
+  A2     6   0.25    1.00    0.00     0.00     83.7   83.7   77.8   1.00(n=6)     0.47
+  A3     6   0.25    1.00    0.00     0.00     92.7   92.7   90.2   1.00(n=6)     0.47
+  A4     6   0.25    1.00    0.00     0.00     93.2   93.2   90.8   1.00(n=6)     0.47
+  A5     6   0.25    1.00    0.00     0.00     88.2   88.2   84.0   1.00(n=6)     0.47
+  A6     6   0.25    1.00    0.00     0.00     83.8   83.8   78.3   1.00(n=6)     0.47
+  A7     6   0.25    1.00    0.00     0.00     93.5   None   91.0   1.00(n=6)     0.47
+  X1    12   0.25    0.00    0.00     0.00     27.8   66.2   38.3  1.00(n=12)     0.41
+  X2    12   0.25    1.00    0.00     0.00     69.2   27.0   42.2  1.00(n=12)     0.41
+  X3    12   0.25    0.17    0.00     0.00     42.3   50.9   11.2  0.83(n=12)     0.41
+  X4    12   0.25    1.00    0.00     0.00     71.4   24.5   46.9  1.00(n=12)     0.41
+  X5    12   0.25    1.00    0.00     0.00     69.8   25.3   44.4  1.00(n=12)     0.41
+  -- X1 -> X3 -> X4 -> X5 (none, dependence, quality, both) --
+  correct   : 0.00 -> 0.17 -> 1.00 -> 1.00
+  p_truth   : 27.8 -> 42.3 -> 71.4 -> 69.8
+  p_majority: 66.2 -> 50.9 -> 24.5 -> 25.3
+
+##### judge openrouter:anthropic/claude-opus-5 | arm short | M5 #####
+  cond   n chance correct abstain no_match P(truth) P(maj) margin        stab s_chance
+  A0     6   0.25    1.00    0.00     0.00     29.3   None    4.5   1.00(n=6)     0.47
+  A1     6   0.25    1.00    0.00     0.00     87.5   None   83.0   1.00(n=6)     0.47
+  A2     6   0.25    1.00    0.00     0.00     88.7   88.7   84.7   1.00(n=6)     0.47
+  A3     6   0.25    1.00    0.00     0.00     93.8   93.8   91.7   1.00(n=6)     0.47
+  A4     6   0.25    1.00    0.00     0.00     96.8   96.8   95.7   1.00(n=6)     0.47
+  A5     6   0.25    1.00    0.00     0.00     90.5   90.5   87.2   1.00(n=6)     0.47
+  A6     6   0.25    1.00    0.00     0.00     85.8   85.8   81.0   1.00(n=6)     0.47
+  A7     6   0.25    1.00    0.00     0.00     96.5   None   95.2   1.00(n=6)     0.47
+  X1    12   0.25    0.00    0.00     0.00     25.2   70.8   45.7  1.00(n=12)     0.41
+  X2    12   0.25    1.00    0.00     0.00     63.1   32.5   30.6  1.00(n=12)     0.41
+  X3    12   0.25    0.00    0.00     0.00     40.7   54.2   13.5  1.00(n=12)     0.41
+  X4    12   0.25    1.00    0.00     0.00     71.2   25.2   46.1  1.00(n=12)     0.41
+  X5    12   0.25    1.00    0.00     0.00     71.3   24.2   47.2  1.00(n=12)     0.41
+  -- X1 -> X3 -> X4 -> X5 (none, dependence, quality, both) --
+  correct   : 0.00 -> 0.00 -> 1.00 -> 1.00
+  p_truth   : 25.2 -> 40.7 -> 71.2 -> 71.3
+  p_majority: 70.8 -> 54.2 -> 25.2 -> 24.2
+
+##### judge openrouter:anthropic/claude-sonnet-5 | arm abstain | M1 #####
+  cond   n chance correct abstain no_match P(truth) P(maj) margin        stab s_chance
+  A7     4   0.25    1.00    0.00     0.00     97.2   None   95.5   1.00(n=4)     0.49
+  X1     4   0.25    0.00    0.00     0.00     18.0   71.2   53.2   1.00(n=4)     0.49
+  X2     4   0.25    1.00    0.00     0.00     55.0   37.5   17.5   1.00(n=4)     0.49
+  X3     4   0.25    0.00    0.00     0.00     28.2   61.2   33.0   1.00(n=4)     0.49
+  X4     4   0.25    1.00    0.00     0.00     71.2   22.8   48.5   1.00(n=4)     0.49
+  X5     4   0.25    1.00    0.00     0.00     65.0   29.0   36.0   1.00(n=4)     0.49
+  -- X1 -> X3 -> X4 -> X5 (none, dependence, quality, both) --
+  correct   : 0.00 -> 0.00 -> 1.00 -> 1.00
+  p_truth   : 18.0 -> 28.2 -> 71.2 -> 65.0
+  p_majority: 71.2 -> 61.2 -> 22.8 -> 29.0
+  abstain   : 0.00 -> 0.00 -> 0.00 -> 0.00
+  abstain delta vs own A7 (0.00): X1 +0.00, X3 +0.00, X4 +0.00, X5 +0.00
+
+##### judge openrouter:anthropic/claude-sonnet-5 | arm abstain | M2 #####
+  cond   n chance correct abstain no_match P(truth) P(maj) margin        stab s_chance
+  A7     4   0.25    1.00    0.00     0.00     94.5   None   92.2   1.00(n=4)     0.49
+  X1     4   0.25    0.00    0.00     0.00     23.8   70.0   46.2   1.00(n=4)     0.49
+  X2     4   0.25    0.00    0.00     0.00     30.0   65.0   35.0   1.00(n=4)     0.49
+  X3     4   0.25    0.00    0.00     0.00     30.0   60.0   30.0   1.00(n=4)     0.49
+  X4     4   0.25    1.00    0.00     0.00     72.5   21.5   51.0   1.00(n=4)     0.49
+  X5     4   0.25    1.00    0.00     0.00     68.8   26.0   42.8   1.00(n=4)     0.49
+  -- X1 -> X3 -> X4 -> X5 (none, dependence, quality, both) --
+  correct   : 0.00 -> 0.00 -> 1.00 -> 1.00
+  p_truth   : 23.8 -> 30.0 -> 72.5 -> 68.8
+  p_majority: 70.0 -> 60.0 -> 21.5 -> 26.0
+  abstain   : 0.00 -> 0.00 -> 0.00 -> 0.00
+  abstain delta vs own A7 (0.00): X1 +0.00, X3 +0.00, X4 +0.00, X5 +0.00
+
+##### judge openrouter:anthropic/claude-sonnet-5 | arm abstain | M3 #####
+  cond   n chance correct abstain no_match P(truth) P(maj) margin        stab s_chance
+  A7     4   0.25    1.00    0.00     0.00     94.2   None   92.0   1.00(n=4)     0.49
+  X1     4   0.25    0.00    0.00     0.00     18.8   70.0   51.2   1.00(n=4)     0.49
+  X2     4   0.25    1.00    0.00     0.00     60.0   31.5   28.5   1.00(n=4)     0.49
+  X3     4   0.25    0.00    0.00     0.00     31.2   61.2   30.0   1.00(n=4)     0.49
+  X4     4   0.25    1.00    0.00     0.00     73.0   21.8   51.2   1.00(n=4)     0.49
+  X5     4   0.25    1.00    0.00     0.00     70.2   24.8   45.5   1.00(n=4)     0.49
+  -- X1 -> X3 -> X4 -> X5 (none, dependence, quality, both) --
+  correct   : 0.00 -> 0.00 -> 1.00 -> 1.00
+  p_truth   : 18.8 -> 31.2 -> 73.0 -> 70.2
+  p_majority: 70.0 -> 61.2 -> 21.8 -> 24.8
+  abstain   : 0.00 -> 0.00 -> 0.00 -> 0.00
+  abstain delta vs own A7 (0.00): X1 +0.00, X3 +0.00, X4 +0.00, X5 +0.00
+
+##### judge openrouter:anthropic/claude-sonnet-5 | arm abstain | M4 #####
+  cond   n chance correct abstain no_match P(truth) P(maj) margin        stab s_chance
+  A7     4   0.25    1.00    0.00     0.00     94.0   None   91.0   1.00(n=4)     0.49
+  X1     4   0.25    0.00    0.00     0.00     22.5   68.8   46.2   1.00(n=4)     0.49
+  X2     4   0.25    1.00    0.00     0.00     61.8   32.2   29.5   1.00(n=4)     0.49
+  X3     4   0.25    0.00    0.00     0.00     32.5   58.8   26.2   1.00(n=4)     0.49
+  X4     4   0.25    1.00    0.00     0.00     76.2   17.8   58.5   1.00(n=4)     0.49
+  X5     4   0.25    1.00    0.00     0.00     67.5   26.5   41.0   1.00(n=4)     0.49
+  -- X1 -> X3 -> X4 -> X5 (none, dependence, quality, both) --
+  correct   : 0.00 -> 0.00 -> 1.00 -> 1.00
+  p_truth   : 22.5 -> 32.5 -> 76.2 -> 67.5
+  p_majority: 68.8 -> 58.8 -> 17.8 -> 26.5
+  abstain   : 0.00 -> 0.00 -> 0.00 -> 0.00
+  abstain delta vs own A7 (0.00): X1 +0.00, X3 +0.00, X4 +0.00, X5 +0.00
+
+##### judge openrouter:anthropic/claude-sonnet-5 | arm abstain | M5 #####
+  cond   n chance correct abstain no_match P(truth) P(maj) margin        stab s_chance
+  A7     4   0.25    1.00    0.00     0.00     98.8   None   98.2   1.00(n=4)     0.49
+  X1     4   0.25    0.00    0.00     0.00     22.5   67.0   44.5   1.00(n=4)     0.49
+  X2     4   0.25    0.75    0.00     0.00     51.2   40.8   25.5   0.75(n=4)     0.49
+  X3     4   0.25    0.00    0.00     0.00     33.8   56.2   22.5   1.00(n=4)     0.49
+  X4     4   0.25    1.00    0.00     0.00     78.8   16.5   62.2   1.00(n=4)     0.49
+  X5     4   0.25    1.00    0.00     0.00     70.0   22.5   47.5   1.00(n=4)     0.49
+  -- X1 -> X3 -> X4 -> X5 (none, dependence, quality, both) --
+  correct   : 0.00 -> 0.00 -> 1.00 -> 1.00
+  p_truth   : 22.5 -> 33.8 -> 78.8 -> 70.0
+  p_majority: 67.0 -> 56.2 -> 16.5 -> 22.5
+  abstain   : 0.00 -> 0.00 -> 0.00 -> 0.00
+  abstain delta vs own A7 (0.00): X1 +0.00, X3 +0.00, X4 +0.00, X5 +0.00
+
+##### judge openrouter:anthropic/claude-sonnet-5 | arm ladder | M1 #####
+  cond   n chance correct abstain no_match P(truth) P(maj) margin        stab s_chance
+  W1    12   0.25    0.58    0.00     0.00     47.9   42.9   16.7  0.58(n=12)     0.41
+  W2    12   0.25    1.00    0.00     0.00     64.0   27.8   36.2  1.00(n=12)     0.41
+  W3    12   0.25    1.00    0.00     0.00     71.8   21.2   50.6  1.00(n=12)     0.41
+
+##### judge openrouter:anthropic/claude-sonnet-5 | arm ladder | M2 #####
+  cond   n chance correct abstain no_match P(truth) P(maj) margin        stab s_chance
+  W1    12   0.25    0.50    0.00     0.00     46.7   45.6   15.1  0.50(n=12)     0.41
+  W2    12   0.25    1.00    0.00     0.00     63.0   29.2   33.8  1.00(n=12)     0.41
+  W3    12   0.25    1.00    0.00     0.00     67.3   26.3   41.0  1.00(n=12)     0.41
+
+##### judge openrouter:anthropic/claude-sonnet-5 | arm ladder | M3 #####
+  cond   n chance correct abstain no_match P(truth) P(maj) margin        stab s_chance
+  W1    12   0.25    0.67    0.00     0.00     49.6   42.4   14.7  0.67(n=12)     0.41
+  W2    12   0.25    1.00    0.00     0.00     67.6   26.1   41.5  1.00(n=12)     0.41
+  W3    12   0.25    1.00    0.00     0.00     73.9   20.2   53.7  1.00(n=12)     0.41
+
+##### judge openrouter:anthropic/claude-sonnet-5 | arm ladder | M4 #####
+  cond   n chance correct abstain no_match P(truth) P(maj) margin        stab s_chance
+  W1    12   0.25    0.75    0.00     0.00     49.8   42.3   13.7  0.75(n=12)     0.41
+  W2    12   0.25    1.00    0.00     0.00     65.2   27.4   37.8  1.00(n=12)     0.41
+  W3    12   0.25    1.00    0.00     0.00     71.1   22.5   48.6  1.00(n=12)     0.41
+
+##### judge openrouter:anthropic/claude-sonnet-5 | arm ladder | M5 #####
+  cond   n chance correct abstain no_match P(truth) P(maj) margin        stab s_chance
+  W1    12   0.25    1.00    0.00     0.00     54.6   35.4   19.2  1.00(n=12)     0.41
+  W2    12   0.25    1.00    0.00     0.00     68.8   24.0   44.8  1.00(n=12)     0.41
+  W3    12   0.25    1.00    0.00     0.00     74.4   18.8   55.7  1.00(n=12)     0.41
+
+##### judge openrouter:anthropic/claude-sonnet-5 | arm long | M1 #####
+  cond   n chance correct abstain no_match P(truth) P(maj) margin        stab s_chance
+  A1     6   0.25    1.00    0.00     0.00     73.3   None   62.5   1.00(n=6)     0.47
+  A2     6   0.25    1.00    0.00     0.00     88.3   88.3   83.8   1.00(n=6)     0.47
+  X1    12   0.25    0.00    0.00     0.00     20.0   71.7   51.7  1.00(n=12)     0.41
+  X2    12   0.25    0.17    0.00     0.00     29.8   62.8   44.6  0.83(n=12)     0.41
+  X3    12   0.25    0.00    0.00     0.00     23.6   69.0   45.4  1.00(n=12)     0.41
+  X4    12   0.25    1.00    0.00     0.00     74.2   17.2   57.0  1.00(n=12)     0.41
+  X5    12   0.25    1.00    0.00     0.00     69.2   21.5   47.8  1.00(n=12)     0.41
+  -- X1 -> X3 -> X4 -> X5 (none, dependence, quality, both) --
+  correct   : 0.00 -> 0.00 -> 1.00 -> 1.00
+  p_truth   : 20.0 -> 23.6 -> 74.2 -> 69.2
+  p_majority: 71.7 -> 69.0 -> 17.2 -> 21.5
+
+##### judge openrouter:anthropic/claude-sonnet-5 | arm long | M2 #####
+  cond   n chance correct abstain no_match P(truth) P(maj) margin        stab s_chance
+  A1     6   0.25    1.00    0.00     0.00     76.7   None   67.5   1.00(n=6)     0.47
+  A2     6   0.25    1.00    0.00     0.00     88.8   88.8   84.7   1.00(n=6)     0.47
+  X1    12   0.25    0.00    0.00     0.00     17.6   74.7   57.1  1.00(n=12)     0.41
+  X2    12   0.25    0.17    0.00     0.00     27.8   65.0   44.6  0.83(n=12)     0.41
+  X3    12   0.25    0.00    0.00     0.00     23.8   66.2   42.5  1.00(n=12)     0.41
+  X4    12   0.25    1.00    0.00     0.00     78.8   15.6   63.2  1.00(n=12)     0.41
+  X5    12   0.25    1.00    0.00     0.00     70.4   22.2   48.2  1.00(n=12)     0.41
+  -- X1 -> X3 -> X4 -> X5 (none, dependence, quality, both) --
+  correct   : 0.00 -> 0.00 -> 1.00 -> 1.00
+  p_truth   : 17.6 -> 23.8 -> 78.8 -> 70.4
+  p_majority: 74.7 -> 66.2 -> 15.6 -> 22.2
+
+##### judge openrouter:anthropic/claude-sonnet-5 | arm long | M3 #####
+  cond   n chance correct abstain no_match P(truth) P(maj) margin        stab s_chance
+  A1     6   0.25    1.00    0.00     0.00     76.7   None   67.5   1.00(n=6)     0.47
+  A2     6   0.25    1.00    0.00     0.00     91.6   91.6   88.4   1.00(n=5)     0.50  PARSE FAIL x1
+  X1    12   0.25    0.00    0.00     0.00     18.8   72.1   53.3  1.00(n=12)     0.41
+  X2    12   0.25    0.25    0.00     0.00     32.9   57.1   45.8  0.75(n=12)     0.41
+  X3    12   0.25    0.00    0.00     0.00     27.5   63.3   35.8  1.00(n=12)     0.41
+  X4    12   0.25    1.00    0.00     0.00     76.7   15.9   60.8  1.00(n=12)     0.41
+  X5    12   0.25    1.00    0.00     0.00     69.8   20.9   48.9  1.00(n=12)     0.41
+  -- X1 -> X3 -> X4 -> X5 (none, dependence, quality, both) --
+  correct   : 0.00 -> 0.00 -> 1.00 -> 1.00
+  p_truth   : 18.8 -> 27.5 -> 76.7 -> 69.8
+  p_majority: 72.1 -> 63.3 -> 15.9 -> 20.9
+
+##### judge openrouter:anthropic/claude-sonnet-5 | arm long | M4 #####
+  cond   n chance correct abstain no_match P(truth) P(maj) margin        stab s_chance
+  A1     6   0.25    1.00    0.00     0.00     77.5   None   68.0   1.00(n=6)     0.47
+  A2     6   0.25    1.00    0.00     0.00     90.3   90.3   85.8   1.00(n=6)     0.47
+  X1    12   0.25    0.00    0.00     0.00     20.8   70.0   49.2  1.00(n=12)     0.41
+  X2    12   0.25    0.33    0.00     0.00     37.3   54.2   36.1  0.67(n=12)     0.41
+  X3    12   0.25    0.00    0.00     0.00     28.3   61.7   33.3  1.00(n=12)     0.41
+  X4    12   0.25    1.00    0.00     0.00     76.9   15.5   61.4  1.00(n=12)     0.41
+  X5    12   0.25    1.00    0.00     0.00     73.3   19.4   53.9  1.00(n=12)     0.41
+  -- X1 -> X3 -> X4 -> X5 (none, dependence, quality, both) --
+  correct   : 0.00 -> 0.00 -> 1.00 -> 1.00
+  p_truth   : 20.8 -> 28.3 -> 76.9 -> 73.3
+  p_majority: 70.0 -> 61.7 -> 15.5 -> 19.4
+
+##### judge openrouter:anthropic/claude-sonnet-5 | arm long | M5 #####
+  cond   n chance correct abstain no_match P(truth) P(maj) margin        stab s_chance
+  A1     6   0.25    1.00    0.00     0.00     78.3   None   70.0   1.00(n=6)     0.47
+  A2     6   0.25    1.00    0.00     0.00     92.3   92.3   89.5   1.00(n=6)     0.47
+  X1    12   0.25    0.00    0.00     0.00     22.2   68.3   46.1  1.00(n=12)     0.41
+  X2    12   0.25    0.00    0.00     0.00     26.5   66.2   39.8  1.00(n=12)     0.41
+  X3    12   0.25    0.00    0.00     0.00     28.8   62.9   34.2  1.00(n=12)     0.41
+  X4    12   0.25    1.00    0.00     0.00     81.1   12.7   68.4  1.00(n=12)     0.41
+  X5    12   0.25    1.00    0.00     0.00     74.4   17.2   57.2  1.00(n=12)     0.41
+  -- X1 -> X3 -> X4 -> X5 (none, dependence, quality, both) --
+  correct   : 0.00 -> 0.00 -> 1.00 -> 1.00
+  p_truth   : 22.2 -> 28.8 -> 81.1 -> 74.4
+  p_majority: 68.3 -> 62.9 -> 12.7 -> 17.2
+
+##### judge openrouter:anthropic/claude-sonnet-5 | arm screen | M1 #####
+  cond   n chance correct abstain no_match P(truth) P(maj) margin        stab s_chance
+  P0     4   0.25    0.75    0.00     0.00     32.5   None   13.8   0.75(n=4)     0.53
+  P1     4   0.25    1.00    0.00     0.00     55.0   None   27.5   1.00(n=4)     0.53
+  P2     4   0.25    1.00    0.00     0.00     75.0   None   62.5   1.00(n=4)     0.53
+
+##### judge openrouter:anthropic/claude-sonnet-5 | arm screen | M2 #####
+  cond   n chance correct abstain no_match P(truth) P(maj) margin        stab s_chance
+  P0     4   0.25    0.00    0.00     0.00     20.0   None   17.5   1.00(n=4)     0.53
+  P1     4   0.25    0.75    0.00     0.00     55.0   None   26.2   0.75(n=4)     0.53
+  P2     4   0.25    1.00    0.00     0.00     75.0   None   65.0   1.00(n=4)     0.53
+
+##### judge openrouter:anthropic/claude-sonnet-5 | arm screen | M3 #####
+  cond   n chance correct abstain no_match P(truth) P(maj) margin        stab s_chance
+  P0     4   0.25    0.25    0.00     0.00     25.0   None   15.0   0.75(n=4)     0.53
+  P1     4   0.25    1.00    0.00     0.00     61.2   None   40.0   1.00(n=4)     0.53
+  P2     4   0.25    1.00    0.00     0.00     72.5   None   61.2   1.00(n=4)     0.53
+
+##### judge openrouter:anthropic/claude-sonnet-5 | arm screen | M4 #####
+  cond   n chance correct abstain no_match P(truth) P(maj) margin        stab s_chance
+  P0     4   0.25    0.00    0.00     0.00     26.2   None   21.2   0.75(n=4)     0.53
+  P1     4   0.25    1.00    0.00     0.00     55.8   None   22.0   1.00(n=4)     0.53
+  P2     4   0.25    1.00    0.00     0.00     73.8   None   62.0   1.00(n=4)     0.53
+
+##### judge openrouter:anthropic/claude-sonnet-5 | arm screen | M5 #####
+  cond   n chance correct abstain no_match P(truth) P(maj) margin        stab s_chance
+  P0     4   0.25    1.00    0.00     0.00     41.2   None   20.0   1.00(n=4)     0.53
+  P1     4   0.25    1.00    0.00     0.00     61.2   None   38.8   1.00(n=4)     0.53
+  P2     4   0.25    1.00    0.00     0.00     83.8   None   77.5   1.00(n=4)     0.53
+
+##### judge openrouter:anthropic/claude-sonnet-5 | arm short | M1 #####
+  cond   n chance correct abstain no_match P(truth) P(maj) margin        stab s_chance
+  A0     6   0.25    1.00    0.00     0.00     39.2   None   14.2   1.00(n=6)     0.47
+  A1     6   0.25    1.00    0.00     0.00     71.7   None   60.0   1.00(n=6)     0.47
+  A2     6   0.25    1.00    0.00     0.00     83.3   83.3   76.7   1.00(n=6)     0.47
+  A3     6   0.25    1.00    0.00     0.00     92.8   92.8   90.2   1.00(n=6)     0.47
+  A4     6   0.25    1.00    0.00     0.00     93.2   93.2   90.5   1.00(n=6)     0.47
+  A5     6   0.25    1.00    0.00     0.00     94.0   94.0   91.8   1.00(n=6)     0.47
+  A6     6   0.25    1.00    0.00     0.00     90.7   90.7   86.8   1.00(n=6)     0.47
+  A7     6   0.25    1.00    0.00     0.00     95.8   None   94.3   1.00(n=6)     0.47
+  X1    12   0.25    0.00    0.00     0.00     18.8   72.5   53.7  1.00(n=12)     0.41
+  X2    12   0.25    0.50    0.00     0.00     44.6   45.4   25.8  0.50(n=12)     0.41
+  X3    12   0.25    0.00    0.00     0.00     27.2   63.8   36.6  1.00(n=12)     0.41
+  X4    12   0.25    1.00    0.00     0.00     73.8   18.8   55.1  1.00(n=12)     0.41
+  X5    12   0.25    1.00    0.00     0.00     66.2   24.6   41.7  1.00(n=12)     0.41
+  -- X1 -> X3 -> X4 -> X5 (none, dependence, quality, both) --
+  correct   : 0.00 -> 0.00 -> 1.00 -> 1.00
+  p_truth   : 18.8 -> 27.2 -> 73.8 -> 66.2
+  p_majority: 72.5 -> 63.8 -> 18.8 -> 24.6
+
+##### judge openrouter:anthropic/claude-sonnet-5 | arm short | M2 #####
+  cond   n chance correct abstain no_match P(truth) P(maj) margin        stab s_chance
+  A0     6   0.25    0.17    0.00     0.00     25.8   None   13.3   0.83(n=6)     0.47
+  A1     6   0.25    1.00    0.00     0.00     75.0   None   65.8   1.00(n=6)     0.47
+  A2     6   0.25    1.00    0.00     0.00     85.0   85.0   79.7   1.00(n=6)     0.47
+  A3     6   0.25    1.00    0.00     0.00     93.8   93.8   91.5   1.00(n=6)     0.47
+  A4     6   0.25    1.00    0.00     0.00     93.7   93.7   91.3   1.00(n=6)     0.47
+  A5     6   0.25    1.00    0.00     0.00     93.3   93.3   90.7   1.00(n=6)     0.47
+  A6     6   0.25    1.00    0.00     0.00     88.5   88.5   84.2   1.00(n=6)     0.47
+  A7     6   0.25    1.00    0.00     0.00     93.8   None   91.5   1.00(n=6)     0.47
+  X1    12   0.25    0.00    0.00     0.00     20.2   72.0   51.8  1.00(n=12)     0.41
+  X2    12   0.25    0.00    0.00     0.00     28.0   64.5   36.5  1.00(n=12)     0.41
+  X3    12   0.25    0.00    0.00     0.00     31.7   58.8   27.1  1.00(n=12)     0.41
+  X4    12   0.25    1.00    0.00     0.00     68.8   23.9   44.8  1.00(n=12)     0.41
+  X5    12   0.25    1.00    0.00     0.00     66.1   26.6   39.5  1.00(n=12)     0.41
+  -- X1 -> X3 -> X4 -> X5 (none, dependence, quality, both) --
+  correct   : 0.00 -> 0.00 -> 1.00 -> 1.00
+  p_truth   : 20.2 -> 31.7 -> 68.8 -> 66.1
+  p_majority: 72.0 -> 58.8 -> 23.9 -> 26.6
+
+##### judge openrouter:anthropic/claude-sonnet-5 | arm short | M3 #####
+  cond   n chance correct abstain no_match P(truth) P(maj) margin        stab s_chance
+  A0     6   0.25    0.33    0.00     0.00     28.3   None   15.0   0.67(n=6)     0.47
+  A1     6   0.25    1.00    0.00     0.00     74.2   None   64.2   1.00(n=6)     0.47
+  A2     6   0.25    1.00    0.00     0.00     80.8   80.8   73.3   1.00(n=6)     0.47
+  A3     6   0.25    1.00    0.00     0.00     96.0   96.0   94.5   1.00(n=6)     0.47
+  A4     6   0.25    1.00    0.00     0.00     93.7   93.7   91.3   1.00(n=6)     0.47
+  A5     6   0.25    1.00    0.00     0.00     95.5   95.5   93.8   1.00(n=6)     0.47
+  A6     6   0.25    1.00    0.00     0.00     91.7   91.7   88.3   1.00(n=6)     0.47
+  A7     6   0.25    1.00    0.00     0.00     94.7   None   92.7   1.00(n=6)     0.47
+  X1    12   0.25    0.00    0.00     0.00     18.5   72.2   53.7  1.00(n=12)     0.41
+  X2    12   0.25    1.00    0.00     0.00     64.2   27.4   36.8  1.00(n=12)     0.41
+  X3    12   0.25    0.00    0.00     0.00     32.9   57.5   24.6  1.00(n=12)     0.41
+  X4    12   0.25    1.00    0.00     0.00     69.3   23.5   45.8  1.00(n=12)     0.41
+  X5    12   0.25    1.00    0.00     0.00     67.3   25.8   41.5  1.00(n=12)     0.41
+  -- X1 -> X3 -> X4 -> X5 (none, dependence, quality, both) --
+  correct   : 0.00 -> 0.00 -> 1.00 -> 1.00
+  p_truth   : 18.5 -> 32.9 -> 69.3 -> 67.3
+  p_majority: 72.2 -> 57.5 -> 23.5 -> 25.8
+
+##### judge openrouter:anthropic/claude-sonnet-5 | arm short | M4 #####
+  cond   n chance correct abstain no_match P(truth) P(maj) margin        stab s_chance
+  A0     6   0.25    0.00    0.00     0.00     22.5   None   26.7   1.00(n=6)     0.47
+  A1     6   0.25    1.00    0.00     0.00     75.8   None   65.5   1.00(n=6)     0.47
+  A2     6   0.25    1.00    0.00     0.00     81.2   81.2   72.8   1.00(n=6)     0.47
+  A3     6   0.25    1.00    0.00     0.00     92.7   92.7   90.0   1.00(n=6)     0.47
+  A4     6   0.25    1.00    0.00     0.00     91.8   91.8   88.3   1.00(n=6)     0.47
+  A5     6   0.25    1.00    0.00     0.00     93.3   93.3   90.8   1.00(n=6)     0.47
+  A6     6   0.25    1.00    0.00     0.00     89.7   89.7   85.5   1.00(n=6)     0.47
+  A7     6   0.25    1.00    0.00     0.00     93.5   None   90.7   1.00(n=6)     0.47
+  X1    12   0.25    0.00    0.00     0.00     23.2   66.9   43.8  1.00(n=12)     0.41
+  X2    12   0.25    0.75    0.00     0.00     55.9   35.7   36.9  0.75(n=12)     0.41
+  X3    12   0.25    0.00    0.00     0.00     32.1   57.9   25.8  1.00(n=12)     0.41
+  X4    12   0.25    1.00    0.00     0.00     77.5   16.2   61.3  1.00(n=12)     0.41
+  X5    12   0.25    1.00    0.00     0.00     66.3   26.1   40.2  1.00(n=12)     0.41
+  -- X1 -> X3 -> X4 -> X5 (none, dependence, quality, both) --
+  correct   : 0.00 -> 0.00 -> 1.00 -> 1.00
+  p_truth   : 23.2 -> 32.1 -> 77.5 -> 66.3
+  p_majority: 66.9 -> 57.9 -> 16.2 -> 26.1
+
+##### judge openrouter:anthropic/claude-sonnet-5 | arm short | M5 #####
+  cond   n chance correct abstain no_match P(truth) P(maj) margin        stab s_chance
+  A0     6   0.25    1.00    0.00     0.00     40.0   None   16.7   1.00(n=6)     0.47
+  A1     6   0.25    1.00    0.00     0.00     83.3   None   77.2   1.00(n=6)     0.47
+  A2     6   0.25    1.00    0.00     0.00     86.7   86.7   81.2   1.00(n=6)     0.47
+  A3     6   0.25    1.00    0.00     0.00     96.3   96.3   95.0   1.00(n=6)     0.47
+  A4     6   0.25    1.00    0.00     0.00     99.0   99.0   98.7   1.00(n=6)     0.47
+  A5     6   0.25    1.00    0.00     0.00     99.0   99.0   98.7   1.00(n=6)     0.47
+  A6     6   0.25    1.00    0.00     0.00     91.3   91.3   87.8   1.00(n=6)     0.47
+  A7     6   0.25    1.00    0.00     0.00     96.0   None   94.5   1.00(n=6)     0.47
+  X1    12   0.25    0.00    0.00     0.00     21.7   70.0   48.3  1.00(n=12)     0.41
+  X2    12   0.25    0.33    0.00     0.00     43.3   47.9   22.1  0.67(n=12)     0.41
+  X3    12   0.25    0.00    0.00     0.00     32.9   57.5   24.6  1.00(n=12)     0.41
+  X4    12   0.25    1.00    0.00     0.00     77.9   15.3   62.6  1.00(n=12)     0.41
+  X5    12   0.25    1.00    0.00     0.00     70.5   21.2   49.3  1.00(n=12)     0.41
+  -- X1 -> X3 -> X4 -> X5 (none, dependence, quality, both) --
+  correct   : 0.00 -> 0.00 -> 1.00 -> 1.00
+  p_truth   : 21.7 -> 32.9 -> 77.9 -> 70.5
+  p_majority: 70.0 -> 57.5 -> 15.3 -> 21.2
+
+##### judge openrouter:openai/gpt-5.4 | arm abstain | M1 #####
+  cond   n chance correct abstain no_match P(truth) P(maj) margin        stab s_chance
+  A7     4   0.25    0.75    0.00     0.25    100.0   None  100.0   0.75(n=4)     0.49
+  X1     4   0.25    0.00    0.00     0.00     21.0   76.5   55.5   1.00(n=4)     0.49
+  X2     4   0.25    1.00    0.00     0.00     62.2   31.2   31.0   1.00(n=4)     0.49
+  X3     4   0.25    0.00    0.00     0.00     25.8   66.8   41.0   1.00(n=4)     0.49
+  X4     4   0.25    1.00    0.00     0.00     80.0   14.8   65.2   1.00(n=4)     0.49
+  X5     4   0.25    1.00    0.00     0.00     75.5   19.2   56.2   1.00(n=4)     0.49
+  -- X1 -> X3 -> X4 -> X5 (none, dependence, quality, both) --
+  correct   : 0.00 -> 0.00 -> 1.00 -> 1.00
+  p_truth   : 21.0 -> 25.8 -> 80.0 -> 75.5
+  p_majority: 76.5 -> 66.8 -> 14.8 -> 19.2
+  abstain   : 0.00 -> 0.00 -> 0.00 -> 0.00
+  abstain delta vs own A7 (0.00): X1 +0.00, X3 +0.00, X4 +0.00, X5 +0.00
+
+##### judge openrouter:openai/gpt-5.4 | arm abstain | M2 #####
+  cond   n chance correct abstain no_match P(truth) P(maj) margin        stab s_chance
+  A7     4   0.25    1.00    0.00     0.00    100.0   None  100.0   1.00(n=4)     0.49
+  X1     4   0.25    0.00    0.00     0.00     20.0   72.5   52.5   1.00(n=4)     0.49
+  X2     4   0.25    1.00    0.00     0.00     60.0   33.8   26.2   1.00(n=4)     0.49
+  X3     4   0.25    0.00    0.00     0.00     27.0   61.5   34.5   1.00(n=4)     0.49
+  X4     4   0.25    1.00    0.00     0.00     79.2   17.2   62.0   1.00(n=4)     0.49
+  X5     4   0.25    1.00    0.00     0.00     76.0   21.0   55.0   1.00(n=4)     0.49
+  -- X1 -> X3 -> X4 -> X5 (none, dependence, quality, both) --
+  correct   : 0.00 -> 0.00 -> 1.00 -> 1.00
+  p_truth   : 20.0 -> 27.0 -> 79.2 -> 76.0
+  p_majority: 72.5 -> 61.5 -> 17.2 -> 21.0
+  abstain   : 0.00 -> 0.00 -> 0.00 -> 0.00
+  abstain delta vs own A7 (0.00): X1 +0.00, X3 +0.00, X4 +0.00, X5 +0.00
+
+##### judge openrouter:openai/gpt-5.4 | arm abstain | M3 #####
+  cond   n chance correct abstain no_match P(truth) P(maj) margin        stab s_chance
+  A7     4   0.25    1.00    0.00     0.00    100.0   None  100.0   1.00(n=4)     0.49
+  X1     4   0.25    0.00    0.00     0.00     23.2   75.5   52.2   1.00(n=4)     0.49
+  X2     4   0.25    1.00    0.00     0.00     68.2   24.8   43.5   1.00(n=4)     0.49
+  X3     4   0.25    0.00    0.00     0.00     32.0   63.0   31.0   1.00(n=4)     0.49
+  X4     4   0.25    1.00    0.00     0.00     82.0   14.0   68.0   1.00(n=4)     0.49
+  X5     4   0.25    1.00    0.00     0.00     74.5   22.2   52.2   1.00(n=4)     0.49
+  -- X1 -> X3 -> X4 -> X5 (none, dependence, quality, both) --
+  correct   : 0.00 -> 0.00 -> 1.00 -> 1.00
+  p_truth   : 23.2 -> 32.0 -> 82.0 -> 74.5
+  p_majority: 75.5 -> 63.0 -> 14.0 -> 22.2
+  abstain   : 0.00 -> 0.00 -> 0.00 -> 0.00
+  abstain delta vs own A7 (0.00): X1 +0.00, X3 +0.00, X4 +0.00, X5 +0.00
+
+##### judge openrouter:openai/gpt-5.4 | arm abstain | M4 #####
+  cond   n chance correct abstain no_match P(truth) P(maj) margin        stab s_chance
+  A7     4   0.25    1.00    0.00     0.00    100.0   None  100.0   1.00(n=4)     0.49
+  X1     4   0.25    0.00    0.50     0.00     40.8   55.5   29.5   0.50(n=4)     0.49
+  X2     4   0.25    1.00    0.00     0.00     75.5   20.2   55.2   1.00(n=4)     0.49
+  X3     4   0.25    0.00    0.00     0.00     30.0   60.5   30.5   1.00(n=4)     0.49
+  X4     4   0.25    1.00    0.00     0.00     86.2   10.2   76.0   1.00(n=4)     0.49
+  X5     4   0.25    1.00    0.00     0.00     80.8   15.2   65.5   1.00(n=4)     0.49
+  -- X1 -> X3 -> X4 -> X5 (none, dependence, quality, both) --
+  correct   : 0.00 -> 0.00 -> 1.00 -> 1.00
+  p_truth   : 40.8 -> 30.0 -> 86.2 -> 80.8
+  p_majority: 55.5 -> 60.5 -> 10.2 -> 15.2
+  abstain   : 0.50 -> 0.00 -> 0.00 -> 0.00
+  abstain delta vs own A7 (0.00): X1 +0.50, X3 +0.00, X4 +0.00, X5 +0.00
+
+##### judge openrouter:openai/gpt-5.4 | arm abstain | M5 #####
+  cond   n chance correct abstain no_match P(truth) P(maj) margin        stab s_chance
+  A7     4   0.25    0.75    0.00     0.25    100.0   None  100.0   0.75(n=4)     0.49
+  X1     4   0.25    0.00    0.50     0.00     30.8   65.8   54.0   0.50(n=4)     0.49
+  X2     4   0.25    1.00    0.00     0.00     65.0   28.2   36.8   1.00(n=4)     0.49
+  X3     4   0.25    0.00    0.00     0.00     31.5   67.0   35.5   1.00(n=4)     0.49
+  X4     4   0.25    1.00    0.00     0.00     86.0   10.2   75.8   1.00(n=4)     0.49
+  X5     4   0.25    1.00    0.00     0.00     79.2   17.5   61.8   1.00(n=4)     0.49
+  -- X1 -> X3 -> X4 -> X5 (none, dependence, quality, both) --
+  correct   : 0.00 -> 0.00 -> 1.00 -> 1.00
+  p_truth   : 30.8 -> 31.5 -> 86.0 -> 79.2
+  p_majority: 65.8 -> 67.0 -> 10.2 -> 17.5
+  abstain   : 0.50 -> 0.00 -> 0.00 -> 0.00
+  abstain delta vs own A7 (0.00): X1 +0.50, X3 +0.00, X4 +0.00, X5 +0.00
+
+##### judge openrouter:openai/gpt-5.4 | arm ladder | M1 #####
+  cond   n chance correct abstain no_match P(truth) P(maj) margin        stab s_chance
+  W1    12   0.25    1.00    0.00     0.00     52.2   35.8   16.3  1.00(n=12)     0.41
+  W2    12   0.25    1.00    0.00     0.00     68.6   21.8   46.8  1.00(n=12)     0.41
+  W3    12   0.25    1.00    0.00     0.00     75.1   17.2   57.8  1.00(n=12)     0.41
+
+##### judge openrouter:openai/gpt-5.4 | arm ladder | M2 #####
+  cond   n chance correct abstain no_match P(truth) P(maj) margin        stab s_chance
+  W1    12   0.25    1.00    0.00     0.00     52.2   37.0   15.2  1.00(n=12)     0.41
+  W2    12   0.25    1.00    0.00     0.00     71.8   21.5   50.3  1.00(n=12)     0.41
+  W3    12   0.25    1.00    0.00     0.00     75.1   18.8   56.2  1.00(n=12)     0.41
+
+##### judge openrouter:openai/gpt-5.4 | arm ladder | M3 #####
+  cond   n chance correct abstain no_match P(truth) P(maj) margin        stab s_chance
+  W1    12   0.25    1.00    0.00     0.00     52.7   37.2   15.5  1.00(n=12)     0.41
+  W2    12   0.25    1.00    0.00     0.00     70.0   22.7   47.3  1.00(n=12)     0.41
+  W3    12   0.25    1.00    0.00     0.00     75.8   18.2   57.7  1.00(n=12)     0.41
+
+##### judge openrouter:openai/gpt-5.4 | arm ladder | M4 #####
+  cond   n chance correct abstain no_match P(truth) P(maj) margin        stab s_chance
+  W1    12   0.25    1.00    0.00     0.00     54.1   32.9   21.2  1.00(n=12)     0.41
+  W2    12   0.25    1.00    0.00     0.00     71.8   19.6   52.2  1.00(n=12)     0.41
+  W3    12   0.25    1.00    0.00     0.00     76.0   16.9   59.1  1.00(n=12)     0.41
+
+##### judge openrouter:openai/gpt-5.4 | arm ladder | M5 #####
+  cond   n chance correct abstain no_match P(truth) P(maj) margin        stab s_chance
+  W1    12   0.25    1.00    0.00     0.00     54.4   34.3   20.1  1.00(n=12)     0.41
+  W2    12   0.25    1.00    0.00     0.00     71.2   21.5   49.7  1.00(n=12)     0.41
+  W3    12   0.25    1.00    0.00     0.00     77.9   15.9   62.0  1.00(n=12)     0.41
+
+##### judge openrouter:openai/gpt-5.4 | arm long | M1 #####
+  cond   n chance correct abstain no_match P(truth) P(maj) margin        stab s_chance
+  A1     6   0.25    1.00    0.00     0.00     92.0   None   88.7   1.00(n=6)     0.47
+  A2     6   0.25    1.00    0.00     0.00     96.2   96.2   94.7   1.00(n=6)     0.47
+  X1    12   0.25    0.00    0.00     0.00     15.6   77.6   62.0  1.00(n=12)     0.41
+  X2    12   0.25    0.67    0.00     0.00     52.8   39.2   37.3  0.67(n=12)     0.41
+  X3    12   0.25    0.00    0.00     0.00     20.5   71.3   50.8  1.00(n=12)     0.41
+  X4    12   0.25    1.00    0.00     0.00     81.2   13.6   67.7  1.00(n=12)     0.41
+  X5    12   0.25    1.00    0.00     0.00     72.9   20.2   52.8  1.00(n=12)     0.41
+  -- X1 -> X3 -> X4 -> X5 (none, dependence, quality, both) --
+  correct   : 0.00 -> 0.00 -> 1.00 -> 1.00
+  p_truth   : 15.6 -> 20.5 -> 81.2 -> 72.9
+  p_majority: 77.6 -> 71.3 -> 13.6 -> 20.2
+
+##### judge openrouter:openai/gpt-5.4 | arm long | M2 #####
+  cond   n chance correct abstain no_match P(truth) P(maj) margin        stab s_chance
+  A1     6   0.25    1.00    0.00     0.00     92.5   None   89.7   1.00(n=6)     0.47
+  A2     6   0.25    1.00    0.00     0.00     95.8   95.8   94.2   1.00(n=6)     0.47
+  X1    12   0.25    0.00    0.00     0.00     18.2   75.4   57.2  1.00(n=12)     0.41
+  X2    12   0.25    0.33    0.00     0.00     36.1   55.4   36.0  0.67(n=12)     0.41
+  X3    12   0.25    0.08    0.00     0.00     27.2   61.6   36.1  0.92(n=12)     0.41
+  X4    12   0.25    1.00    0.00     0.00     79.4   15.2   64.2  1.00(n=12)     0.41
+  X5    12   0.25    1.00    0.00     0.00     73.8   19.9   53.9  1.00(n=12)     0.41
+  -- X1 -> X3 -> X4 -> X5 (none, dependence, quality, both) --
+  correct   : 0.00 -> 0.08 -> 1.00 -> 1.00
+  p_truth   : 18.2 -> 27.2 -> 79.4 -> 73.8
+  p_majority: 75.4 -> 61.6 -> 15.2 -> 19.9
+
+##### judge openrouter:openai/gpt-5.4 | arm long | M3 #####
+  cond   n chance correct abstain no_match P(truth) P(maj) margin        stab s_chance
+  A1     6   0.25    1.00    0.00     0.00     97.0   None   95.8   1.00(n=6)     0.47
+  A2     6   0.25    1.00    0.00     0.00     97.5   97.5   96.7   1.00(n=6)     0.47
+  X1    12   0.25    0.00    0.00     0.00     20.2   75.7   55.4  1.00(n=12)     0.41
+  X2    12   0.25    0.75    0.00     0.00     53.5   39.9   37.6  0.75(n=12)     0.41
+  X3    12   0.25    0.00    0.00     0.00     28.4   62.4   34.0  1.00(n=12)     0.41
+  X4    12   0.25    1.00    0.00     0.00     82.7   13.8   68.9  1.00(n=12)     0.41
+  X5    12   0.25    1.00    0.00     0.00     76.0   17.8   58.2  1.00(n=12)     0.41
+  -- X1 -> X3 -> X4 -> X5 (none, dependence, quality, both) --
+  correct   : 0.00 -> 0.00 -> 1.00 -> 1.00
+  p_truth   : 20.2 -> 28.4 -> 82.7 -> 76.0
+  p_majority: 75.7 -> 62.4 -> 13.8 -> 17.8
+
+##### judge openrouter:openai/gpt-5.4 | arm long | M4 #####
+  cond   n chance correct abstain no_match P(truth) P(maj) margin        stab s_chance
+  A1     6   0.25    1.00    0.00     0.00     96.7   None   95.3   1.00(n=6)     0.47
+  A2     6   0.25    1.00    0.00     0.00     95.8   95.8   94.3   1.00(n=6)     0.47
+  X1    12   0.25    0.08    0.00     0.00     28.3   63.5   36.8  0.92(n=12)     0.41
+  X2    12   0.25    1.00    0.00     0.00     75.2   18.2   56.9  1.00(n=12)     0.41
+  X3    12   0.25    0.50    0.00     0.00     42.6   46.1   23.7  0.50(n=12)     0.41
+  X4    12   0.25    1.00    0.00     0.00     86.0    9.5   76.5  1.00(n=12)     0.41
+  X5    12   0.25    1.00    0.00     0.00     77.0   16.9   60.1  1.00(n=12)     0.41
+  -- X1 -> X3 -> X4 -> X5 (none, dependence, quality, both) --
+  correct   : 0.08 -> 0.50 -> 1.00 -> 1.00
+  p_truth   : 28.3 -> 42.6 -> 86.0 -> 77.0
+  p_majority: 63.5 -> 46.1 -> 9.5 -> 16.9
+
+##### judge openrouter:openai/gpt-5.4 | arm long | M5 #####
+  cond   n chance correct abstain no_match P(truth) P(maj) margin        stab s_chance
+  A1     6   0.25    1.00    0.00     0.00     97.3   None   96.3   1.00(n=6)     0.47
+  A2     6   0.25    1.00    0.00     0.00     97.2   97.2   96.2   1.00(n=6)     0.47
+  X1    12   0.25    0.00    0.00     0.00     22.5   71.6   49.1  1.00(n=12)     0.41
+  X2    12   0.25    0.42    0.00     0.00     40.7   51.4   40.9  0.58(n=12)     0.41
+  X3    12   0.25    0.33    0.00     0.00     35.8   53.7   32.1  0.67(n=12)     0.41
+  X4    12   0.25    1.00    0.00     0.00     86.2   10.0   76.2  1.00(n=12)     0.41
+  X5    12   0.25    1.00    0.00     0.00     81.6   14.0   67.6  1.00(n=12)     0.41
+  -- X1 -> X3 -> X4 -> X5 (none, dependence, quality, both) --
+  correct   : 0.00 -> 0.33 -> 1.00 -> 1.00
+  p_truth   : 22.5 -> 35.8 -> 86.2 -> 81.6
+  p_majority: 71.6 -> 53.7 -> 10.0 -> 14.0
+
+##### judge openrouter:openai/gpt-5.4 | arm screen | M1 #####
+  cond   n chance correct abstain no_match P(truth) P(maj) margin        stab s_chance
+  P0     4   0.25    0.75    0.00     0.00     45.8   None   26.5   0.75(n=4)     0.53
+  P1     4   0.25    1.00    0.00     0.00     50.2   None   25.0   1.00(n=4)     0.53
+  P2     4   0.25    1.00    0.00     0.00     87.2   None   82.5   1.00(n=4)     0.53
+
+##### judge openrouter:openai/gpt-5.4 | arm screen | M2 #####
+  cond   n chance correct abstain no_match P(truth) P(maj) margin        stab s_chance
+  P0     4   0.25    0.00    0.00     0.00     25.0   None    0.0   1.00(n=4)     0.53
+  P1     4   0.25    0.75    0.00     0.00     72.2   None   61.5   0.75(n=4)     0.53
+  P2     4   0.25    1.00    0.00     0.00     89.0   None   84.8   1.00(n=4)     0.53
+
+##### judge openrouter:openai/gpt-5.4 | arm screen | M3 #####
+  cond   n chance correct abstain no_match P(truth) P(maj) margin        stab s_chance
+  P0     4   0.25    0.75    0.00     0.00     25.0   None    0.2   0.75(n=4)     0.53
+  P1     4   0.25    1.00    0.00     0.00     65.2   None   35.5   1.00(n=4)     0.53
+  P2     4   0.25    1.00    0.00     0.00     93.2   None   90.8   1.00(n=4)     0.53
+
+##### judge openrouter:openai/gpt-5.4 | arm screen | M4 #####
+  cond   n chance correct abstain no_match P(truth) P(maj) margin        stab s_chance
+  P0     4   0.25    0.00    0.00     0.00     25.0   None    0.0   1.00(n=4)     0.53
+  P1     4   0.25    1.00    0.00     0.00     70.0   None   50.8   1.00(n=4)     0.53
+  P2     4   0.25    1.00    0.00     0.00     94.5   None   92.2   1.00(n=4)     0.53
+
+##### judge openrouter:openai/gpt-5.4 | arm screen | M5 #####
+  cond   n chance correct abstain no_match P(truth) P(maj) margin        stab s_chance
+  P0     4   0.25    0.75    0.00     0.00     25.0   None    0.0   0.75(n=4)     0.53
+  P1     4   0.25    1.00    0.00     0.00     58.8   None   28.5   1.00(n=4)     0.53
+  P2     4   0.25    1.00    0.00     0.00     92.0   None   89.0   1.00(n=4)     0.53
+
+##### judge openrouter:openai/gpt-5.4 | arm short | M1 #####
+  cond   n chance correct abstain no_match P(truth) P(maj) margin        stab s_chance
+  A0     6   0.25    0.50    0.00     0.00     26.7   None    1.7   0.50(n=6)     0.47
+  A1     6   0.25    1.00    0.00     0.00     85.0   None   79.5   1.00(n=6)     0.47
+  A2     6   0.25    1.00    0.00     0.00     95.0   95.0   93.0   1.00(n=6)     0.47
+  A3     6   0.25    1.00    0.00     0.00     99.0   99.0   98.7   1.00(n=6)     0.47
+  A4     6   0.25    1.00    0.00     0.00     98.5   98.5   98.0   1.00(n=6)     0.47
+  A5     6   0.25    1.00    0.00     0.00    100.0  100.0  100.0   1.00(n=6)     0.47
+  A6     6   0.25    1.00    0.00     0.00     98.5   98.5   98.0   1.00(n=6)     0.47
+  A7     6   0.25    0.83    0.00     0.17     98.8   None   98.4   0.83(n=6)     0.47
+  X1    12   0.25    0.00    0.00     0.00     18.8   75.6   56.8  1.00(n=12)     0.41
+  X2    12   0.25    1.00    0.00     0.00     61.3   28.5   32.8  1.00(n=12)     0.41
+  X3    12   0.25    0.00    0.00     0.00     26.2   65.2   39.0  1.00(n=12)     0.41
+  X4    12   0.25    1.00    0.00     0.00     79.2   13.8   65.4  1.00(n=12)     0.41
+  X5    12   0.25    1.00    0.00     0.00     71.2   21.7   49.6  1.00(n=12)     0.41
+  -- X1 -> X3 -> X4 -> X5 (none, dependence, quality, both) --
+  correct   : 0.00 -> 0.00 -> 1.00 -> 1.00
+  p_truth   : 18.8 -> 26.2 -> 79.2 -> 71.2
+  p_majority: 75.6 -> 65.2 -> 13.8 -> 21.7
+
+##### judge openrouter:openai/gpt-5.4 | arm short | M2 #####
+  cond   n chance correct abstain no_match P(truth) P(maj) margin        stab s_chance
+  A0     6   0.25    0.33    0.00     0.00     25.0   None    0.8   0.67(n=6)     0.47
+  A1     6   0.25    1.00    0.00     0.00     87.8   None   83.3   1.00(n=6)     0.47
+  A2     6   0.25    1.00    0.00     0.00     97.0   97.0   95.8   1.00(n=6)     0.47
+  A3     6   0.25    1.00    0.00     0.00     99.5   99.5   99.3   1.00(n=6)     0.47
+  A4     6   0.25    1.00    0.00     0.00    100.0  100.0  100.0   1.00(n=6)     0.47
+  A5     6   0.25    1.00    0.00     0.00    100.0  100.0  100.0   1.00(n=6)     0.47
+  A6     6   0.25    1.00    0.00     0.00    100.0  100.0  100.0   1.00(n=6)     0.47
+  A7     6   0.25    1.00    0.00     0.00    100.0   None  100.0   1.00(n=6)     0.47
+  X1    12   0.25    0.00    0.00     0.00     18.3   75.6   57.2  1.00(n=12)     0.41
+  X2    12   0.25    1.00    0.00     0.00     60.3   33.5   26.8  1.00(n=12)     0.41
+  X3    12   0.25    0.00    0.00     0.00     28.8   61.8   33.0  1.00(n=12)     0.41
+  X4    12   0.25    1.00    0.00     0.00     77.1   18.6   58.5  1.00(n=12)     0.41
+  X5    12   0.25    1.00    0.00     0.00     77.0   17.2   59.8  1.00(n=12)     0.41
+  -- X1 -> X3 -> X4 -> X5 (none, dependence, quality, both) --
+  correct   : 0.00 -> 0.00 -> 1.00 -> 1.00
+  p_truth   : 18.3 -> 28.8 -> 77.1 -> 77.0
+  p_majority: 75.6 -> 61.8 -> 18.6 -> 17.2
+
+##### judge openrouter:openai/gpt-5.4 | arm short | M3 #####
+  cond   n chance correct abstain no_match P(truth) P(maj) margin        stab s_chance
+  A0     6   0.25    0.67    0.00     0.00     25.0   None    0.0   0.67(n=6)     0.47
+  A1     6   0.25    1.00    0.00     0.00     94.5   None   92.3   1.00(n=6)     0.47
+  A2     6   0.25    1.00    0.00     0.00     96.8   96.8   95.7   1.00(n=6)     0.47
+  A3     6   0.25    1.00    0.00     0.00     99.0   99.0   98.7   1.00(n=6)     0.47
+  A4     6   0.25    1.00    0.00     0.00     99.5   99.5   99.3   1.00(n=6)     0.47
+  A5     6   0.25    1.00    0.00     0.00    100.0  100.0  100.0   1.00(n=6)     0.47
+  A6     6   0.25    1.00    0.00     0.00    100.0  100.0  100.0   1.00(n=6)     0.47
+  A7     6   0.25    1.00    0.00     0.00     99.5   None   99.3   1.00(n=6)     0.47
+  X1    12   0.25    0.00    0.00     0.00     19.7   76.4   56.8  1.00(n=12)     0.41
+  X2    12   0.25    1.00    0.00     0.00     67.9   26.5   41.4  1.00(n=12)     0.41
+  X3    12   0.25    0.00    0.00     0.00     27.8   61.1   33.2  1.00(n=12)     0.41
+  X4    12   0.25    1.00    0.00     0.00     78.5   16.6   61.9  1.00(n=12)     0.41
+  X5    12   0.25    1.00    0.00     0.00     73.6   21.2   52.4  1.00(n=12)     0.41
+  -- X1 -> X3 -> X4 -> X5 (none, dependence, quality, both) --
+  correct   : 0.00 -> 0.00 -> 1.00 -> 1.00
+  p_truth   : 19.7 -> 27.8 -> 78.5 -> 73.6
+  p_majority: 76.4 -> 61.1 -> 16.6 -> 21.2
+
+##### judge openrouter:openai/gpt-5.4 | arm short | M4 #####
+  cond   n chance correct abstain no_match P(truth) P(maj) margin        stab s_chance
+  A0     6   0.25    0.00    0.00     0.00     22.5   None    8.3   1.00(n=6)     0.47
+  A1     6   0.25    1.00    0.00     0.00     94.3   None   92.2   1.00(n=6)     0.47
+  A2     6   0.25    1.00    0.00     0.00     98.0   98.0   97.3   1.00(n=6)     0.47
+  A3     6   0.25    1.00    0.00     0.00    100.0  100.0  100.0   1.00(n=6)     0.47
+  A4     6   0.25    1.00    0.00     0.00    100.0  100.0  100.0   1.00(n=6)     0.47
+  A5     6   0.25    1.00    0.00     0.00    100.0  100.0  100.0   1.00(n=6)     0.47
+  A6     6   0.25    1.00    0.00     0.00     99.5   99.5   99.3   1.00(n=6)     0.47
+  A7     6   0.25    1.00    0.00     0.00    100.0   None  100.0   1.00(n=6)     0.47
+  X1    12   0.25    0.25    0.00     0.00     33.5   57.7   35.0  0.75(n=12)     0.41
+  X2    12   0.25    1.00    0.00     0.00     72.9   21.5   51.4  1.00(n=12)     0.41
+  X3    12   0.25    0.50    0.00     0.00     41.2   48.4   20.2  0.50(n=12)     0.41
+  X4    12   0.25    1.00    0.00     0.00     82.8   13.2   69.7  1.00(n=12)     0.41
+  X5    12   0.25    1.00    0.00     0.00     78.9   15.7   63.2  1.00(n=12)     0.41
+  -- X1 -> X3 -> X4 -> X5 (none, dependence, quality, both) --
+  correct   : 0.25 -> 0.50 -> 1.00 -> 1.00
+  p_truth   : 33.5 -> 41.2 -> 82.8 -> 78.9
+  p_majority: 57.7 -> 48.4 -> 13.2 -> 15.7
+
+##### judge openrouter:openai/gpt-5.4 | arm short | M5 #####
+  cond   n chance correct abstain no_match P(truth) P(maj) margin        stab s_chance
+  A0     6   0.25    0.83    0.00     0.00     25.0   None    0.0   0.83(n=6)     0.47
+  A1     6   0.25    1.00    0.00     0.00     93.0   None   90.2   1.00(n=6)     0.47
+  A2     6   0.25    1.00    0.00     0.00     97.3   97.3   96.2   1.00(n=6)     0.47
+  A3     6   0.25    1.00    0.00     0.00    100.0  100.0  100.0   1.00(n=6)     0.47
+  A4     6   0.25    1.00    0.00     0.00     99.5   99.5   99.3   1.00(n=6)     0.47
+  A5     6   0.25    1.00    0.00     0.00    100.0  100.0  100.0   1.00(n=6)     0.47
+  A6     6   0.25    1.00    0.00     0.00    100.0  100.0  100.0   1.00(n=6)     0.47
+  A7     6   0.25    1.00    0.00     0.00    100.0   None  100.0   1.00(n=6)     0.47
+  X1    12   0.25    0.00    0.00     0.00     21.9   71.5   49.6  1.00(n=12)     0.41
+  X2    12   0.25    0.92    0.00     0.00     61.0   32.4   33.2  0.92(n=12)     0.41
+  X3    12   0.25    0.00    0.00     0.00     30.8   59.8   29.0  1.00(n=12)     0.41
+  X4    12   0.25    1.00    0.00     0.00     81.2   13.8   67.4  1.00(n=12)     0.41
+  X5    12   0.25    1.00    0.00     0.00     75.2   19.7   55.5  1.00(n=12)     0.41
+  -- X1 -> X3 -> X4 -> X5 (none, dependence, quality, both) --
+  correct   : 0.00 -> 0.00 -> 1.00 -> 1.00
+  p_truth   : 21.9 -> 30.8 -> 81.2 -> 75.2
+  p_majority: 71.5 -> 59.8 -> 13.8 -> 19.7
+
+LADDER judge openrouter:anthropic/claude-opus-5 | M1: correct (P(truth)) W1 somewhat 1.00 (53.3) -> W2 considerably 1.00 (63.8) -> W3 far 1.00 (68.8) -> X5 categorical 1.00 (69.6)
+LADDER judge openrouter:anthropic/claude-opus-5 | M2: correct (P(truth)) W1 somewhat 1.00 (53.2) -> W2 considerably 1.00 (63.7) -> W3 far 1.00 (67.8) -> X5 categorical 1.00 (68.4)
+LADDER judge openrouter:anthropic/claude-opus-5 | M3: correct (P(truth)) W1 somewhat 1.00 (52.2) -> W2 considerably 1.00 (63.6) -> W3 far 1.00 (67.4) -> X5 categorical 1.00 (65.7)
+LADDER judge openrouter:anthropic/claude-opus-5 | M4: correct (P(truth)) W1 somewhat 1.00 (53.8) -> W2 considerably 1.00 (64.9) -> W3 far 1.00 (67.5) -> X5 categorical 1.00 (69.8)
+LADDER judge openrouter:anthropic/claude-opus-5 | M5: correct (P(truth)) W1 somewhat 1.00 (54.9) -> W2 considerably 1.00 (67.6) -> W3 far 1.00 (71.0) -> X5 categorical 1.00 (71.3)
+LADDER judge openrouter:anthropic/claude-sonnet-5 | M1: correct (P(truth)) W1 somewhat 0.58 (47.9) -> W2 considerably 1.00 (64.0) -> W3 far 1.00 (71.8) -> X5 categorical 1.00 (66.2)
+LADDER judge openrouter:anthropic/claude-sonnet-5 | M2: correct (P(truth)) W1 somewhat 0.50 (46.7) -> W2 considerably 1.00 (63.0) -> W3 far 1.00 (67.3) -> X5 categorical 1.00 (66.1)
+LADDER judge openrouter:anthropic/claude-sonnet-5 | M3: correct (P(truth)) W1 somewhat 0.67 (49.6) -> W2 considerably 1.00 (67.6) -> W3 far 1.00 (73.9) -> X5 categorical 1.00 (67.3)
+LADDER judge openrouter:anthropic/claude-sonnet-5 | M4: correct (P(truth)) W1 somewhat 0.75 (49.8) -> W2 considerably 1.00 (65.2) -> W3 far 1.00 (71.1) -> X5 categorical 1.00 (66.3)
+LADDER judge openrouter:anthropic/claude-sonnet-5 | M5: correct (P(truth)) W1 somewhat 1.00 (54.6) -> W2 considerably 1.00 (68.8) -> W3 far 1.00 (74.4) -> X5 categorical 1.00 (70.5)
+LADDER judge openrouter:openai/gpt-5.4 | M1: correct (P(truth)) W1 somewhat 1.00 (52.2) -> W2 considerably 1.00 (68.6) -> W3 far 1.00 (75.1) -> X5 categorical 1.00 (71.2)
+LADDER judge openrouter:openai/gpt-5.4 | M2: correct (P(truth)) W1 somewhat 1.00 (52.2) -> W2 considerably 1.00 (71.8) -> W3 far 1.00 (75.1) -> X5 categorical 1.00 (77.0)
+LADDER judge openrouter:openai/gpt-5.4 | M3: correct (P(truth)) W1 somewhat 1.00 (52.7) -> W2 considerably 1.00 (70.0) -> W3 far 1.00 (75.8) -> X5 categorical 1.00 (73.6)
+LADDER judge openrouter:openai/gpt-5.4 | M4: correct (P(truth)) W1 somewhat 1.00 (54.1) -> W2 considerably 1.00 (71.8) -> W3 far 1.00 (76.0) -> X5 categorical 1.00 (78.9)
+LADDER judge openrouter:openai/gpt-5.4 | M5: correct (P(truth)) W1 somewhat 1.00 (54.4) -> W2 considerably 1.00 (71.2) -> W3 far 1.00 (77.9) -> X5 categorical 1.00 (75.2)
+
+SCREEN judge openrouter:anthropic/claude-opus-5: P(truth) at P0, P1, P2 -- M1 29.5, 53.8, 69.2; M2 25.0, 49.8, 79.5; M3 25.0, 66.0, 74.2; M4 25.8, 59.5, 73.0; M5 27.0, 64.5, 87.8 -- Page's L 70.0, rank correlation 1.0, one-sided p 0.0001, 5 cases -- retained
+SCREEN judge openrouter:anthropic/claude-sonnet-5: P(truth) at P0, P1, P2 -- M1 32.5, 55.0, 75.0; M2 20.0, 55.0, 75.0; M3 25.0, 61.2, 72.5; M4 26.2, 55.8, 73.8; M5 41.2, 61.2, 83.8 -- Page's L 70.0, rank correlation 1.0, one-sided p 0.0001, 5 cases -- retained
+SCREEN judge openrouter:openai/gpt-5.4: P(truth) at P0, P1, P2 -- M1 45.8, 50.2, 87.2; M2 25.0, 72.2, 89.0; M3 25.0, 65.2, 93.2; M4 25.0, 70.0, 94.5; M5 25.0, 58.8, 92.0 -- Page's L 70.0, rank correlation 1.0, one-sided p 0.0001, 5 cases -- retained
+
+DISCRIMINATION judge openrouter:anthropic/claude-opus-5: AUROC (n correct/incorrect) A0 0.38 (18/12), A1 n/a (30/0), A2 n/a (30/0), A3 n/a (30/0), A4 n/a (30/0), A5 n/a (30/0), A6 n/a (30/0), A7 n/a (30/0), X1 n/a (0/60), X2 n/a (60/0), X3 0.10 (2/58), X4 n/a (60/0), X5 n/a (60/0)
+  not assessable: no condition has 10 correct and 10 incorrect decisions -- EXCLUDED
+DISCRIMINATION judge openrouter:anthropic/claude-sonnet-5: AUROC (n correct/incorrect) A0 0.40 (15/15), A1 n/a (30/0), A2 n/a (30/0), A3 n/a (30/0), A4 n/a (30/0), A5 n/a (30/0), A6 n/a (30/0), A7 n/a (30/0), X1 n/a (0/60), X2 0.59 (31/29), X3 n/a (0/60), X4 n/a (60/0), X5 n/a (60/0)
+  X2 p 0.2399; passes below 0.05 / 1 = 0.0500 -- EXCLUDED
+DISCRIMINATION judge openrouter:openai/gpt-5.4: AUROC (n correct/incorrect) A0 0.38 (14/16), A1 n/a (30/0), A2 n/a (30/0), A3 n/a (30/0), A4 n/a (30/0), A5 n/a (30/0), A6 n/a (30/0), A7 n/a (29/0), X1 0.02 (3/57), X2 0.74 (59/1), X3 0.10 (6/54), X4 n/a (60/0), X5 n/a (60/0)
+  not assessable: no condition has 10 correct and 10 incorrect decisions -- EXCLUDED
+
+N_EFF judge openrouter:anthropic/claude-opus-5 | M1: mean P(truth) {'A0': 30.0, 'A1': 67.2, 'A4': 92.3, 'A6': 85.3, 'A7': 94.7} -> {'undefined': 'judge failed the confidence screen', 'for checking only, not a result': {'A4': 2.13, 'A6': 1.67, 'A7': 2.38, 'w': 1.565, 'clipped': 0, 'CN': 1.13, 'IS': 0.25, 'RP': 0.46}}  (normative A4 1, A6 1, A7 3)
+N_EFF judge openrouter:anthropic/claude-opus-5 | M2: mean P(truth) {'A0': 25.0, 'A1': 78.3, 'A4': 94.2, 'A6': 85.5, 'A7': 93.7} -> {'undefined': 'judge failed the confidence screen', 'for checking only, not a result': {'A4': 1.63, 'A6': 1.21, 'A7': 1.59, 'w': 2.382, 'clipped': 0, 'CN': 0.63, 'IS': -0.04, 'RP': 0.42}}  (normative A4 1, A6 1, A7 3)
+N_EFF judge openrouter:anthropic/claude-opus-5 | M3: mean P(truth) {'A0': 25.8, 'A1': 77.3, 'A4': 94.2, 'A6': 86.5, 'A7': 95.0} -> {'undefined': 'judge failed the confidence screen', 'for checking only, not a result': {'A4': 1.68, 'A6': 1.28, 'A7': 1.75, 'w': 2.282, 'clipped': 0, 'CN': 0.68, 'IS': 0.07, 'RP': 0.4}}  (normative A4 1, A6 1, A7 3)
+N_EFF judge openrouter:anthropic/claude-opus-5 | M4: mean P(truth) {'A0': 25.5, 'A1': 71.3, 'A4': 93.2, 'A6': 83.8, 'A7': 93.5} -> {'undefined': 'judge failed the confidence screen', 'for checking only, not a result': {'A4': 1.86, 'A6': 1.37, 'A7': 1.89, 'w': 1.982, 'clipped': 0, 'CN': 0.86, 'IS': 0.03, 'RP': 0.49}}  (normative A4 1, A6 1, A7 3)
+N_EFF judge openrouter:anthropic/claude-opus-5 | M5: mean P(truth) {'A0': 29.3, 'A1': 87.5, 'A4': 96.8, 'A6': 85.8, 'A7': 96.5} -> {'undefined': 'judge failed the confidence screen', 'for checking only, not a result': {'A4': 1.52, 'A6': 0.95, 'A7': 1.48, 'w': 2.827, 'clipped': 0, 'CN': 0.52, 'IS': -0.04, 'RP': 0.57}}  (normative A4 1, A6 1, A7 3)
+N_EFF judge openrouter:anthropic/claude-sonnet-5 | M1: mean P(truth) {'A0': 39.2, 'A1': 71.7, 'A4': 93.2, 'A6': 90.7, 'A7': 95.8} -> {'undefined': 'judge failed the confidence screen', 'for checking only, not a result': {'A4': 2.23, 'A6': 1.98, 'A7': 2.61, 'w': 1.369, 'clipped': 0, 'CN': 1.23, 'IS': 0.38, 'RP': 0.25}}  (normative A4 1, A6 1, A7 3)
+N_EFF judge openrouter:anthropic/claude-sonnet-5 | M2: mean P(truth) {'A0': 25.8, 'A1': 75.0, 'A4': 93.7, 'A6': 88.5, 'A7': 93.8} -> {'undefined': 'judge failed the confidence screen', 'for checking only, not a result': {'A4': 1.74, 'A6': 1.44, 'A7': 1.75, 'w': 2.155, 'clipped': 0, 'CN': 0.74, 'IS': 0.01, 'RP': 0.3}}  (normative A4 1, A6 1, A7 3)
+N_EFF judge openrouter:anthropic/claude-sonnet-5 | M3: mean P(truth) {'A0': 28.3, 'A1': 74.2, 'A4': 93.7, 'A6': 91.7, 'A7': 94.7} -> {'undefined': 'judge failed the confidence screen', 'for checking only, not a result': {'A4': 1.83, 'A6': 1.68, 'A7': 1.92, 'w': 1.986, 'clipped': 0, 'CN': 0.83, 'IS': 0.09, 'RP': 0.15}}  (normative A4 1, A6 1, A7 3)
+N_EFF judge openrouter:anthropic/claude-sonnet-5 | M4: mean P(truth) {'A0': 22.5, 'A1': 75.8, 'A4': 91.8, 'A6': 89.7, 'A7': 93.5} -> {'undefined': 'judge failed the confidence screen', 'for checking only, not a result': {'A4': 1.54, 'A6': 1.43, 'A7': 1.64, 'w': 2.379, 'clipped': 0, 'CN': 0.54, 'IS': 0.1, 'RP': 0.11}}  (normative A4 1, A6 1, A7 3)
+N_EFF judge openrouter:anthropic/claude-sonnet-5 | M5: mean P(truth) {'A0': 40.0, 'A1': 83.3, 'A4': 99.0, 'A6': 91.3, 'A7': 96.0} -> {'undefined': 'judge failed the confidence screen', 'for checking only, not a result': {'A4': 2.48, 'A6': 1.37, 'A7': 1.78, 'w': 2.013, 'clipped': 0, 'CN': 1.48, 'IS': -0.7, 'RP': 1.11}}  (normative A4 1, A6 1, A7 3)
+N_EFF judge openrouter:openai/gpt-5.4 | M1: mean P(truth) {'A0': 26.7, 'A1': 85.0, 'A4': 98.5, 'A6': 98.5, 'A7': 98.8} -> {'undefined': 'judge failed the confidence screen', 'for checking only, not a result': {'A4': 1.89, 'A6': 1.89, 'A7': 1.98, 'w': 2.744, 'clipped': 0, 'CN': 0.89, 'IS': 0.09, 'RP': 0.0}}  (normative A4 1, A6 1, A7 3)
+N_EFF judge openrouter:openai/gpt-5.4 | M2: mean P(truth) {'A0': 25.0, 'A1': 87.8, 'A4': 100.0, 'A6': 100.0, 'A7': 100.0} -> {'undefined': 'judge failed the confidence screen', 'for checking only, not a result': {'A4': 1.85, 'A6': 1.85, 'A7': 1.85, 'w': 3.072, 'clipped': 3, 'CN': 0.85, 'IS': 0.0, 'RP': 0.0}}  (normative A4 1, A6 1, A7 3)
+N_EFF judge openrouter:openai/gpt-5.4 | M3: mean P(truth) {'A0': 25.0, 'A1': 94.5, 'A4': 99.5, 'A6': 100.0, 'A7': 99.5} -> {'undefined': 'judge failed the confidence screen', 'for checking only, not a result': {'A4': 1.44, 'A6': 1.44, 'A7': 1.44, 'w': 3.942, 'clipped': 3, 'CN': 0.44, 'IS': 0.0, 'RP': 0.0}}  (normative A4 1, A6 1, A7 3)
+N_EFF judge openrouter:openai/gpt-5.4 | M4: mean P(truth) {'A0': 22.5, 'A1': 94.3, 'A4': 100.0, 'A6': 99.5, 'A7': 100.0} -> {'undefined': 'judge failed the confidence screen', 'for checking only, not a result': {'A4': 1.44, 'A6': 1.44, 'A7': 1.44, 'w': 4.043, 'clipped': 3, 'CN': 0.44, 'IS': 0.0, 'RP': 0.0}}  (normative A4 1, A6 1, A7 3)
+N_EFF judge openrouter:openai/gpt-5.4 | M5: mean P(truth) {'A0': 25.0, 'A1': 93.0, 'A4': 99.5, 'A6': 100.0, 'A7': 100.0} -> {'undefined': 'judge failed the confidence screen', 'for checking only, not a result': {'A4': 1.54, 'A6': 1.54, 'A7': 1.54, 'w': 3.685, 'clipped': 3, 'CN': 0.54, 'IS': 0.0, 'RP': 0.0}}  (normative A4 1, A6 1, A7 3)
+N_EFF UNDEFINED judge openrouter:anthropic/claude-opus-5: 5/5 cells (1.00)
+N_EFF UNDEFINED judge openrouter:anthropic/claude-sonnet-5: 5/5 cells (1.00)
+N_EFF UNDEFINED judge openrouter:openai/gpt-5.4: 5/5 cells (1.00)
+
+H6 judge openrouter:anthropic/claude-opus-5 (failed the confidence screen: for checking only, not a result): 5/300 conflict-block records do not identify the answer given (0 incoherent, 5 by margin < 10)
+  abstained in the abstention arm, inside each condition:
+    X1 flagged 0/0 (n/a), not flagged 0/20 (0.00)
+    X2 flagged 0/0 (n/a), not flagged 0/20 (0.00)
+    X3 flagged 0/2 (0.00), not flagged 0/18 (0.00)
+    X4 flagged 0/0 (n/a), not flagged 0/20 (0.00)
+    X5 flagged 0/0 (n/a), not flagged 0/20 (0.00)
+  flagged minus not flagged, inside conditions (Mantel-Haenszel): +0.00; own A7 0/20 (0.00)
+  sensitivity, declared in advance, not the test: margin < 5: n/a; margin < 20: +0.00
+H6 judge openrouter:anthropic/claude-sonnet-5 (failed the confidence screen: for checking only, not a result): 1/300 conflict-block records do not identify the answer given (0 incoherent, 1 by margin < 10)
+  abstained in the abstention arm, inside each condition:
+    X1 flagged 0/0 (n/a), not flagged 0/20 (0.00)
+    X2 flagged 0/1 (0.00), not flagged 0/19 (0.00)
+    X3 flagged 0/0 (n/a), not flagged 0/20 (0.00)
+    X4 flagged 0/0 (n/a), not flagged 0/20 (0.00)
+    X5 flagged 0/0 (n/a), not flagged 0/20 (0.00)
+  flagged minus not flagged, inside conditions (Mantel-Haenszel): +0.00; own A7 0/20 (0.00)
+  sensitivity, declared in advance, not the test: margin < 5: +0.00; margin < 20: +0.00
+H6 judge openrouter:openai/gpt-5.4 (failed the confidence screen: for checking only, not a result): 2/300 conflict-block records do not identify the answer given (0 incoherent, 2 by margin < 10)
+  abstained in the abstention arm, inside each condition:
+    X1 flagged 0/0 (n/a), not flagged 4/20 (0.20)
+    X2 flagged 0/0 (n/a), not flagged 0/20 (0.00)
+    X3 flagged 0/1 (0.00), not flagged 0/19 (0.00)
+    X4 flagged 0/0 (n/a), not flagged 0/20 (0.00)
+    X5 flagged 0/0 (n/a), not flagged 0/20 (0.00)
+  flagged minus not flagged, inside conditions (Mantel-Haenszel): +0.00; own A7 0/20 (0.00)
+  sensitivity, declared in advance, not the test: margin < 5: n/a; margin < 20: +0.11
+
+HEALTH judge openrouter:anthropic/claude-opus-5: 900 trials, parse failures 0, no_match 0, other statuses [], call errors 0, providers ['Claude Platform on AWS'], reasoning tokens 0
+  cost per call by arm: abstain $0.00363 (n=120, total $0.4351), ladder $0.00355 (n=180, total $0.6389), screen $0.00284 (n=60, total $0.1704), short $0.00327 (n=540, total $1.7673)
+HEALTH judge openrouter:anthropic/claude-sonnet-5: 1260 trials, parse failures 1, no_match 0, other statuses [], call errors 0, providers ['Claude Platform on AWS'], reasoning tokens 0
+  cost per call by arm: abstain $0.00145 (n=120, total $0.1740), ladder $0.00142 (n=180, total $0.2556), long $0.00216 (n=360, total $0.7790), screen $0.00114 (n=60, total $0.0682), short $0.00131 (n=540, total $0.7069)
+HEALTH judge openrouter:openai/gpt-5.4: 1260 trials, parse failures 0, no_match 3, other statuses [], call errors 0, providers ['OpenAI'], reasoning tokens 0
+  cost per call by arm: abstain $0.00128 (n=120, total $0.1533), ladder $0.00125 (n=180, total $0.2249), long $0.00182 (n=360, total $0.6562), screen $0.00102 (n=60, total $0.0614), short $0.00116 (n=540, total $0.6278)
+REASONING judge openrouter:anthropic/claude-opus-5: 0 reasoning tokens in every cell
+REASONING judge openrouter:anthropic/claude-sonnet-5: 0 reasoning tokens in every cell
+REASONING judge openrouter:openai/gpt-5.4: 0 reasoning tokens in every cell
+
+INCOHERENT records (answer is not the argmax of its own p): 0

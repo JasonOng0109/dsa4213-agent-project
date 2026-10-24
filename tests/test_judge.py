@@ -37,6 +37,19 @@ def test_parser_tolerates_fences_and_formatting_drift():
     assert fenced["parsing_status"] == "ok" and fenced["forced_choice_decision"] == "15%"
 
 
+def test_an_answer_written_with_its_option_number_is_read():
+    """The prompt numbers the options, and in the pilot GPT-5.4 copied the number into
+    three A7 replies; this one is verbatim. The number must be the option's own, so a
+    reply whose number and text disagree is still not an option."""
+    opts = ["25%", "10%", "30%", "15%"]
+    raw = '{"answer":"4. 15%","p":{"1. 25%":0,"2. 10%":0,"3. 30%":0,"4. 15%":100}}'
+    r = parse(raw, opts, "15%")
+    assert r["parsing_status"] == "ok" and r["forced_choice_decision"] == "15%"
+    assert r["p_truth"] == 100.0 and r["coherent"] is True
+    bad = parse('{"answer": "2. 15%", "p": {}}', opts, "15%")
+    assert bad["parsing_status"] == "no_match"
+
+
 def test_abstention_is_its_own_outcome():
     ab = _parse(f'{{"answer": "{ABSTAIN}", "p": {{"15%": 40, "25%": 40, "10%": 10, "30%": 10}}}}',
                 allow_abstain=True)
@@ -67,6 +80,10 @@ def test_margin_is_none_where_there_is_nothing_to_measure():
     # the margin is taken on the rescaled p, not the raw numbers
     scaled = _parse('{"answer": "15%", "p": {"15%": 55, "25%": 25, "10%": 15, "30%": 15}}')
     assert scaled["margin"] == round(50.0 - 22.73, 2)
+    # so 50 against 40 written with a total of 105 is 47.62 against 38.10, and falls under
+    # H6's 10-point cut-off (docs/methods.md, "Margin")
+    over = _parse('{"answer": "25%", "p": {"15%": 40, "25%": 50, "10%": 10, "30%": 5}}')
+    assert over["margin"] == 9.52
 
 
 def test_records_carry_the_analysis_fields(frozen):
