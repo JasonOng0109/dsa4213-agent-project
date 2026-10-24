@@ -24,9 +24,10 @@ CASE = {
         "and precision, and no reference to a change or to each other (R1). B "
         "names the district plainly, without stressing that it covers all of it, "
         "so it carries no full-count cue of its own. "
-        "T1: A's cue is the clause-level hedge 'are believed to have' (R16), "
-        "(R16 allows up to three per hedge). It is "
-        "chosen over 'It appears that', whose easiest rewording is the hearsay "
+        "T1: A's cue is the clause-level hedge 'It is suspected that' (R16), "
+        "a new hedge, since the hedges already in use are full "
+        "(R16 allows at most three cases per hedge). It is chosen over 'It "
+        "appears that', whose easiest rewording is the hearsay "
         "word 'apparently'. At step 3.4, check that A's rewordings keep a hedge "
         "that is not hearsay. "
         "Method only: A and B both come from the gas board ('institutional'); "
@@ -96,8 +97,8 @@ CASE = {
                 "why": "rough figure scaled up from the 462 complaint calls the "
                     "board received, at three households a call",
             },
-            "content": ("1386 households in the Wexley district are believed to "
-                        "have lost gas supply."),
+            "content": ("It is suspected that 1386 households in the Wexley "
+                        "district lost gas supply."),
             "n_paraphrases_needed": 2,
         },
         "B": {
