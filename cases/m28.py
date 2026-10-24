@@ -52,7 +52,7 @@ CASE = {
         [
             "The candle is set in a jar of frosted green glass.",
             "The jar has straight sides and a rounded rim.",
-            "The wax inside the jar is a pale cream colour.",
+            "The wax inside the jar is a pale cream shade.",
             "The name Tavrenne is printed in white on the front of the jar.",
             "A raised pattern of leaves runs around the base of the jar.",
             "A ridge of glass surrounds the jar just below the rim.",
