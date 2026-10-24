@@ -1,4 +1,4 @@
-"""M19: Evacuation clearing count during the Redstone Ridge trail fire.
+"""M19: Evacuation clearing count at the Redstone Ridge trail.
 
 Incident status domain, directness quality dimension, tier T2.
 """
@@ -31,38 +31,38 @@ CASE = {
         "Content lengths are A=9 and B=9 words (|A - B| = 0 <= 2). Each filler set is exactly 83 words, "
         "landing long reports at 92 words, within the tight 91-93 band (R20). "
         "Fillers describe neutral physical geography and terrain (rock formations, forestry canopy, stream basin) "
-        "with zero non-stopword content overlap across sets (R12), containing no numbers, dates, time markers, "
-        "or fire incident vocabulary (R3, R9, R10)."
+        "with distinct vocabulary and no repeated distinctive content words across sets (R12). They contain "
+        "no numbers, dates, time or process markers, damage or age wording, or fire incident vocabulary (R3, R9, R10)."
     ),
 
     "filler_sets": [
         [
-            "Exposed sandstone bluffs along the elevated plateau show prominent horizontal stratification bands across weathering rock faces above a shadowed ravine with broken terraces and pale ledges.",
-            "A natural scree slope descends towards the escarpment, carrying loose deposits of grey shale fragments.",
-            "Cracked boulders rest beside the cliff boundary, supporting hardy colonies of lichens and alpine mosses.",
-            "Windblown dust settles across narrow fissures eroded into the limestone surface by rainwater runoff.",
-            "Steep jagged crags of quartzite rise along the northern rim of the plateau.",
+            "Sandstone bluffs line the high plateau, displaying horizontal strata above pale quartzite shelves and broad upland slopes.",
+            "Loose shale slopes descend toward a broad escarpment beside grey scree and scattered granite stones.",
+            "Round stones rest along the cliff edge among hardy lichens and alpine growth beneath pale rock faces.",
+            "Fine grit fills thin grooves across the limestone face beneath jagged crags and angular quartzite ridges.",
+            "High ridges mark the northern rim with clear views across the upland and distant slate hills beyond far.",
         ],
         [
-            "Dense stands of lodgepole pine border the middle valley basin where sheltered forest understorey thrives with tall trunks, dark bark, and layered branches around the basin.",
-            "Fallen conifer needles create a thick reddish mulch over moist acidic soil beside woodland groves.",
-            "Thick clusters of wild ferns spread beneath broad leafy birch boughs near the meadow edge.",
-            "Purple heather flowers in open glades amid the timber stands and fern-covered ground.",
-            "Scattered green velvet cushions cling tightly to decayed birch roots near secluded forest hollows.",
+            "Lodgepole pine borders the middle valley with sturdy trunks, brown bark, and layered branches around sheltered woodland.",
+            "Conifer needles form a reddish carpet over moist acidic soil beside cedar groves and mossy clearings near the pasture.",
+            "Wild ferns grow beneath leafy birch boughs near the meadow margin and grassy pasture beside the woodland.",
+            "Purple heather flowers in spacious glades amid timber stands and fern-covered ground beneath the trees.",
+            "Moss patches decorate birch roots beside secluded woodland glades and leafy undergrowth across the valley.",
         ],
         [
-            "A gravel brook winds through the bottom ravine between smooth granite pebbles and dark banks under overhanging shrubs and beside moss-covered banks along a narrow channel.",
-            "Spring water gathers within carved basalt hollows before cascading over low tiered stone ledges.",
-            "Waterlogged driftwood limbs lie along silted sandbanks fringed with tall marsh reeds and sedges.",
-            "Washed river stones line the channel margins where lush wetland grasses flourish beside embankments.",
-            "Fine wet sand covers the western bend where cool currents pass beneath a wooded ravine.",
+            "A gravel brook crosses the lowland between smooth pebbles, low plants, and overhanging shrubs under willows.",
+            "Basalt pools gather beside low stone steps with reeds and sedges along the margins beside a wooded slope.",
+            "Driftwood twigs lie on silted sandbars beside marsh grasses and yellow iris near the watercourse.",
+            "River cobbles border the stream channel near wetland plants and a wooden footbridge with wooden rails.",
+            "Soft sand lines the western bend beside a wooded slope and a shallow ford beneath green twigs nearby.",
         ],
     ],
 
     "sources": {
         "A": {
             "quality": "weak",
-            "claim": "30 hikers",
+            "claim": "31 hikers",
             "content": (
                 "From the Redstone Ridge trail, 31 hikers were evacuated."
             ),
