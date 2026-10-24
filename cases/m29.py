@@ -26,8 +26,10 @@ CASE = {
         "stuck on the stalled Corvanne Funicular Railway, from the stop until "
         "the car moved again, with different values, the same scope and "
         "precision, and no reference to a change or to each other (R1). "
-        "T1: A's cue is the clause-level hedge 'It is likely that' (R16), "
-        "shared with M23 ('is likely to'; R16 allows at most three per hedge). "
+        "T1: A's cue is the modal hedge 'may have been' (R16), a new hedge, "
+        "since the hedges already in use are full (R16 allows at "
+        "most three cases per hedge). At step 3.4, check that A's rewordings "
+        "keep a modal of doubt ('may', 'might'). "
         "Directness only: A and B are both messages from passengers "
         "('individual'), but A repeats what another rider heard while B was "
         "written by a passenger who was on the stalled car, so the pair differs "
@@ -48,8 +50,8 @@ CASE = {
         "track, the summit), shares no meaningful word across sets, and never "
         "mentions people, faults, rescue, ways on or off the track, weather, "
         "time or quantities (R9-R12). "
-        "Each filler set is 77 words and A and B are 16 and 15 words, so long "
-        "reports are 93 and 92 words (R20)."
+        "Each filler set is 77 words and A and B are 15 words each, so long "
+        "reports are 92 words (R20)."
     ),
     "filler_sets": [
         [
@@ -97,7 +99,7 @@ CASE = {
                 "why": "secondhand: repeats what another rider said they had "
                     "heard",
             },
-            "content": ("It is likely that passengers were stuck on the stalled "
+            "content": ("The passengers may have been stuck on the stalled "
                         "Corvanne Funicular Railway for 64 minutes."),
             "n_paraphrases_needed": 2,
         },
