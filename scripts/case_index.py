@@ -1,0 +1,163 @@
+"""Build an index of every case: topic, domain, dimension, tier, A's hedge, author.
+
+Reads the case files without running them (it parses the CASE literal), so it is
+safe to point at teammates' branches.
+
+Usage (from the repo root):
+    uv run python scripts/case_index.py                 # cases on this branch
+    uv run python scripts/case_index.py --all-branches  # every origin branch too
+    uv run python scripts/case_index.py --out docs/case-index.md
+
+Run `git fetch origin` first when using --all-branches.
+"""
+
+import argparse
+import ast
+import re
+import subprocess
+import sys
+from collections import defaultdict
+from pathlib import Path
+
+CASE_FILE = re.compile(r"^cases/m\d+\.py$")
+HEDGE = re.compile(r"""hedge[^'"]{0,20}['"]([^'"]{3,40})['"]""", re.IGNORECASE)
+FILLER_WORDS = {"is", "are", "it", "that", "to", "be", "have", "been", "has"}
+
+
+def git(*args: str) -> str:
+    result = subprocess.run(["git", *args], capture_output=True, text=True,
+                            encoding="utf-8")
+    return result.stdout if result.returncode == 0 else ""
+
+
+def parse_case(source: str) -> dict | None:
+    """Return the CASE dict and docstring from a case file, without executing it."""
+    try:
+        tree = ast.parse(source)
+    except SyntaxError:
+        return None
+    for node in tree.body:
+        if (isinstance(node, ast.Assign) and len(node.targets) == 1
+                and isinstance(node.targets[0], ast.Name)
+                and node.targets[0].id == "CASE"):
+            try:
+                case = ast.literal_eval(node.value)
+            except ValueError:
+                return None
+            case["_doc"] = ast.get_docstring(tree) or ""
+            return case
+    return None
+
+
+def topic(case: dict) -> str:
+    first = case["_doc"].splitlines()[0] if case["_doc"] else ""
+    first = re.sub(r"^M\d+:\s*", "", first).rstrip(".")
+    return first or case.get("question", "")
+
+
+def hedge(case: dict) -> str:
+    if case.get("difficulty_tier") == "T2":
+        return "(none, T2)"
+    for text in (case.get("design_notes", ""), case["_doc"]):
+        match = HEDGE.search(text)
+        if match:
+            return match.group(1).strip()
+    return "?"
+
+
+def hedge_key(text: str) -> str:
+    """Reduce a hedge to its main word, so 'is believed to have' == 'is believed to'."""
+    words = [w for w in re.findall(r"[a-z]+", text.lower()) if w not in FILLER_WORDS]
+    return words[0] if words else text.lower()
+
+
+def first_author(path: str, ref: str | None = None) -> str:
+    args = ["log", "--diff-filter=A", "--format=%an"]
+    if ref:
+        args.append(ref)
+    out = git(*args, "--", path).strip().splitlines()
+    return out[-1] if out else "?"
+
+
+def local_cases() -> dict:
+    found = {}
+    for path in sorted(Path("cases").glob("m*.py")):
+        rel = path.as_posix()
+        case = parse_case(path.read_text(encoding="utf-8"))
+        if case:
+            found[case["case_id"]] = (case, first_author(rel), ["(this branch)"])
+    return found
+
+
+def branch_cases(found: dict) -> None:
+    refs = [r for r in git("for-each-ref", "--format=%(refname:short)",
+                           "refs/remotes/origin").split() if not r.endswith("/HEAD")]
+    for ref in refs:
+        for rel in git("ls-tree", "-r", "--name-only", ref, "--", "cases").split():
+            if not CASE_FILE.match(rel):
+                continue
+            case = parse_case(git("show", f"{ref}:{rel}"))
+            if not case:
+                continue
+            cid = case["case_id"]
+            if cid not in found:
+                found[cid] = (case, first_author(rel, ref), [])
+            found[cid][2].append(ref.removeprefix("origin/"))
+
+
+def table(found: dict) -> str:
+    rows = ["| Case | Topic | Domain | Dimension | Tier | A's hedge | Author "
+            "| Branches |",
+            "|---|---|---|---|---|---|---|---|"]
+    for cid in sorted(found, key=lambda c: int(re.sub(r"\D", "", c) or 0)):
+        case, author, branches = found[cid]
+        others = sorted(set(branches) - {"(this branch)"})
+        if "main" in others:
+            shown = "main"
+        elif others:
+            shown = ", ".join(others[:3]) + (f" (+{len(others) - 3})"
+                                             if len(others) > 3 else "")
+        else:
+            shown = "(this branch only)"
+        rows.append(f"| {cid} | {topic(case)} | {case.get('domain', '')} | "
+                    f"{case.get('quality_dimension', '')} | "
+                    f"{case.get('difficulty_tier', '')} | {hedge(case)} | {author} | "
+                    f"{shown} |")
+    return "\n".join(rows)
+
+
+def clashes(found: dict) -> str:
+    groups = defaultdict(list)
+    for cid, (case, _, _) in found.items():
+        h = hedge(case)
+        if h not in ("(none, T2)", "?"):
+            groups[hedge_key(h)].append(f"{cid} ('{h}')")
+    lines = [f"- **{key}**: {', '.join(sorted(ids))}"
+             for key, ids in sorted(groups.items()) if len(ids) > 1]
+    return "\n".join(lines) if lines else "None."
+
+
+def main() -> None:
+    parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
+    parser.add_argument("--all-branches", action="store_true",
+                        help="also read cases from every origin/* branch")
+    parser.add_argument("--out", help="write the index to this Markdown file")
+    args = parser.parse_args()
+
+    found = local_cases()
+    if args.all_branches:
+        branch_cases(found)
+    report = ("# Case index\n\nGenerated by `scripts/case_index.py`; do not edit by "
+              "hand.\n\n" + table(found) + "\n\n## Hedges used by more than one "
+              "case\n\n" + clashes(found) + "\n")
+    if args.out:
+        Path(args.out).parent.mkdir(parents=True, exist_ok=True)
+        Path(args.out).write_text(report, encoding="utf-8")
+        print(f"Wrote {args.out} ({len(found)} cases)")
+    else:
+        sys.stdout.reconfigure(encoding="utf-8")
+        print(report)
+
+
+if __name__ == "__main__":
+    main()
