@@ -95,7 +95,8 @@ Add an entry when you make a choice a reader could not guess from the code.
   of the stated probability of the chosen answer for correct against incorrect
   decisions, with both class counts (`pipeline/score.py`, `report_discrimination`). It is
   undefined only when a class is empty. It does not yet exclude any judge: only the
-  ordering check does (until 2026-10-18).
+  ordering check does (until 2026-10-18, and again from 2026-10-21; see that day's
+  entry).
 - **Why** [STATED: proposal §5]: a stated probability is admitted as evidence only if it
   passes both ordering and discrimination, "each run and reported per judge whatever the
   outcome", computed "within condition, since pooling across conditions would conflate a
@@ -114,6 +115,7 @@ Add an entry when you make a choice a reader could not guess from the code.
   arm (X1-X5 at 12 repeats, A1 and A2 at 6) with Sonnet 5 and GPT-5.4 only; and the
   wording ladder at 12 repeats with all three judges. `plan` prices it at the proposal's
   per-call rates and, at 40 cases, reproduces the proposal's 21,720 calls and $37.48.
+  The P0 check added to the abstention arm on 2026-10-21 adds 480 calls at 40 cases.
 - **Why** [STATED: proposal §5, "Run plan and cost"]: one table is the single place the
   repeat counts, judges and case scope live, so the plan, the dry run and the real run
   cannot disagree.
@@ -372,6 +374,8 @@ Add an entry when you make a choice a reader could not guess from the code.
   or by discrimination gets no n_eff and no H6 result. This sets what the 2026-10-12
   discrimination entry left open. Amended 2026-10-19: the p-value first counted each
   decision as independent evidence (the Mann-Whitney test); it now shuffles whole cases.
+  Replaced 2026-10-21, after the pilot: the verdict is printed but excludes no judge;
+  see that day's entry.
 - **Why** [STATED: proposal §5]: a stated probability is admitted as evidence "only if
   it passes both checks", discrimination is "computed within condition", and the screen
   guards against "a judge that returns a high number on every answer". [STATED: team
@@ -561,6 +565,120 @@ Add an entry when you make a choice a reader could not guess from the code.
   on that judge alone, so its accuracy reads lower than it is and its P(truth) misses
   trials.
 
+### 2026-10-21 — Only ordering decides whose stated numbers count
+
+- **Decision**: the confidence screen is the ordering check alone. Discrimination is
+  still computed for every judge and condition on the short arm and printed with its
+  class counts, but it excludes no judge: beside it the scorer prints the verdict of the
+  rule as first registered, marked "not applied" (`report_discrimination` in
+  `pipeline/score.py`). A judge that fails ordering is still excluded: it gets no n_eff
+  and no H6 result, and its decisions still count. Beside each judge's n_eff the scorer
+  prints how many of its agreement-block answers put 100 on one option (`report_neff`),
+  a description, not a gate. This replaces the pass rule of the 2026-10-18
+  discrimination entry; its test is unchanged. It was decided after the pilot and before
+  the main run, and it departs from the proposal, which admits a number "only if it
+  passes both checks", so the write-up reports it as a departure.
+- **Why** [STATED: team decision, 2026-10-21]: Kai Rong raised it after reading the
+  pilot's logs, and Jason agreed. [STATED: `runs/score-pilot.txt`] discrimination
+  excluded all three judges in the pilot: Opus and GPT-5.4 could not be assessed, and
+  Sonnet's one counted condition, X2, had p 0.24. [INFERRED: from the pilot's trial logs]
+  every wrong answer in the conflict block, 379 across the three judges, was A's claim,
+  and every parsed answer in A1-A7 was right. So inside every condition, right and wrong
+  differed only by whether the judge followed the two agreeing reports. The 2026-10-18
+  entry expected AUROC below 0.5 in X1 for that reason, and relied on another condition
+  to pass a judge; in the pilot only Sonnet's X2 had 10 decisions of each kind.
+  [INFERRED: from the pilot's class counts] counting "not assessable" as "not assessed",
+  while a counted condition still decides, would not hold on 40 cases: if the new cases
+  behave like M1-M5, GPT-5.4 gets about 24 right decisions in X1 and 48 in X3, and Opus
+  about 16 in X3, so those conditions count and fail (AUROC 0.02 to 0.10 in the pilot),
+  and a judge would be excluded for how often it resists the majority. [STATED: proposal
+  §5] the screen exists because "a judge that returns a high number on every answer
+  would make the measure uninformative". Ordering alone does not catch every such judge.
+  [INFERRED: from `screen_verdict` in `pipeline/score.py`, Kai Rong's check in review]
+  one that states 100 on whatever it picks has a mean P(truth) of 100 times its
+  accuracy, which rises from P0 to P2 with the evidence: right 25%, 50% and 95% of the
+  time, it is retained at p 0.0005 on 5 cases. So its share of answers stated at 100 is
+  printed, a description that picks no rule after seeing data; in the pilot, GPT-5.4's
+  was 151 of 239 agreement-block answers. [STATED: `build_screen` in
+  `pipeline/conditions.py`] its trials are "graded by informativeness, not by evidence
+  count", so ordering does not assume the behaviour under study, while discrimination
+  inside the study's own conditions does.
+- **Rejected**: keeping the rule, which leaves every belief result unreported because of
+  the design, whatever the judges do; counting "not assessable" as "not assessed" while a
+  counted condition still decides; reporting an excluded judge's belief results labelled
+  as unscreened, which marks the numbers as failed when the check is what failed; adding
+  trials with mixed right and wrong decisions, a new design no pilot has run; and resting
+  the change on the belief results the pilot previewed, such as X1 to X3, which would let
+  a result choose the rule.
+- **Breaks if changed**: with discrimination back as a gate, this design excludes a judge
+  for following the count where the study predicts it will, and with it every belief
+  result. Without the printed verdict of the first rule, the departure from the proposal
+  is hidden. Without the share of answers stated at 100, a judge that states 100 on
+  whatever it picks passes the screen unseen, and its n_eff reads its accuracy.
+
+### 2026-10-21 — n_eff at the clip reads "at ceiling"
+
+- **Decision**: a cell whose mean P(truth) lies outside 1-99%, where `_logit` in
+  `pipeline/score.py` clips it, gives a bound, not a value. Its n_eff reads "at
+  ceiling", and so does every CN, IS or RP computed from it; a clipped A0 or A1 clips the
+  unit, so then every value does, the unit w included (`neff`). Beside each judge's
+  undefined rate, the scorer prints how many of its cases have a value at ceiling. The
+  rule applies to every judge.
+- **Why** [STATED: team decision, 2026-10-21]: Kai Rong raised it for GPT-5.4, and Jason
+  chose a rule for every judge at the existing clip. [STATED: `runs/score-pilot.txt`]
+  GPT-5.4's mean P(truth) in A4, A6 and A7 was 99.5 to 100 in M2-M5, so three of its five
+  cells were clipped in each of those cases, and its IS and RP read 0.0, set by the clip,
+  not by the judge. [INFERRED: from the pilot's trial logs] GPT-5.4 put 100 on one option
+  and 0 on the others in 151 of its 239 parsed agreement-block answers; Opus never did,
+  and Sonnet did 18 times. [STATED: proposal §5] "Calibration summaries such as the Brier
+  score are reported only where stated values have usable spread". The clip was in the
+  code before the pilot, so no number is chosen after seeing data.
+- **Rejected**: a label for GPT-5.4 alone, a rule written for one judge after seeing its
+  numbers; a lower cut-off such as 95, chosen after seeing the pilot; printing the
+  clipped values, which read as a judge that ignores independence.
+- **Breaks if changed**: a clipped cell printed as a number gives IS and RP near 0 for a
+  judge whose numbers stopped at the top of the scale.
+
+### 2026-10-21 — H6 is read from its rates, with P0 as a check beside A7
+
+- **Decision**: H6's test is unchanged. It is reported per judge as the scorer prints it:
+  how many conflict-block records do not identify the answer given, and the abstention
+  rates inside each condition and in A7. The abstention arm also runs P0, the screen's
+  irrelevant report, offering the abstain option: 4 rotations per case for the three
+  primary judges, 480 calls at 40 cases (`abstain-p0` in `PROGRAMME`, `pipeline/run.py`;
+  `build_screen` with `allow_abstain`). Its abstention rate is printed beside A7's, as a
+  check outside the test (`report_h6` in `pipeline/score.py`). A judge that abstains
+  nowhere, P0 included, is the README's nuisance case for H6 and is reported as not
+  testable, not as a null; one that abstains in P0 but never in the conflict block can
+  abstain and did not, the README's clean null. The cut-offs are fixed before the main
+  run, and the scorer prints the reading per judge (`h6_reading`): abstaining in under
+  half of its P0 trials is abstaining nowhere; abstaining in at least half of its A7
+  trials is abstaining everywhere, the other nuisance case, also not testable; any
+  abstention in the conflict block means the test applies. The check runs once on M1-M5
+  before the main run: 60 calls, about $0.10.
+- **Why** [STATED: team decision, 2026-10-21]: Kai Rong proposed reporting the low rates
+  as the result, and Jason added the P0 check. [STATED: `runs/score-pilot.txt`] in the
+  pilot, 5, 1 and 2 of each judge's 300 conflict-block records were flagged, and Opus and
+  Sonnet never abstained. [STATED: README, "What counts as support"] H6's nuisance is
+  "one judge abstains everywhere or nowhere"; A7, where three independent sources agree,
+  shows the first but not the second, since no judge should abstain there. [INFERRED:
+  from the pilot's screen trials] P0 is uncertain by design: Opus's top two options were
+  within 10 points in all 20 of its P0 trials, GPT-5.4's in 17 and Sonnet's in 1, and
+  each still had to answer. [INFERRED: from `PROGRAMME` in `pipeline/run.py`] more
+  abstention repeats would not help: 12 instead of 4 gives every conflict trial a twin,
+  for 5,760 more calls, but a judge at 0 stays at 0. [STATED: proposal §5] "If none
+  occurs, their absence is reported as evidence against H6 rather than passed over."
+  [STATED: team decision, 2026-10-21] Kai Rong asked in review for the cut-off to be
+  fixed now, so it is not chosen after seeing the main run's numbers; Jason chose half,
+  for A7 too. [STATED: `runs/score-pilot-2026-10-21.txt`] every judge abstained in 20 of
+  20 P0 trials in the step 3.8 check, so no pilot number sits near the cut-off.
+- **Rejected**: the rates alone, which cannot tell a judge that never abstains from one
+  that was never unsure; 12 abstention repeats; P0 inside H6's test, which would change
+  the test after the pilot; any P0 abstention at all as the cut-off, under which one
+  abstention in 160 P0 trials would read as a judge that can abstain.
+- **Breaks if changed**: without P0, a judge that never abstains leaves H6 unreadable
+  rather than null.
+
 ### 2026-10-21 — The screen sentence may keep A's claim or a distractor
 
 - **Decision**: besides the truth, the option that `screen_partial` keeps may be A's claim
@@ -638,3 +756,222 @@ Add an entry when you make a choice a reader could not guess from the code.
 - **Breaks if changed**: B, C and D share only A7, where independent agreement is
   measured, so near-copies there can make a judge look less sensitive to independence
   than it is; without the note, nobody reading that case's n_eff would know why.
+
+### 2026-10-22 — A screen sentence with bounds keeps both options equally far inside two
+
+- **Decision**: a `screen_partial` that rules options out with a bound uses two bounds,
+  and the two options it keeps sit the same distance inside them, so "pick the survivor
+  nearest the bound" cannot find the truth. R15 in `docs/authoring-rules.md` now says so.
+  M1, M3, M4 and M5 each had one bound with the truth as the survivor nearest it; each
+  gained the missing bound and keeps the same two survivors, e.g. M3's "less than 15
+  metres" is now "between 10 and 15 metres" (`cases/m3.py`). P1 is the authored sentence
+  used as written, never reworded or frozen (`build_screen` in
+  `pipeline/conditions.py`), so nothing else in those cases changes; the mock's key for
+  M1 (`_SCREEN_TABLE` in `pipeline/llm.py`) follows the new sentence. Open cases that
+  broke the rule were changed the same way in their pull requests. Decided after the
+  pilot and before the main run.
+- **Why** [STATED: team decision, 2026-10-22]: Kai Rong asked for it, as optional, on the
+  M22 and M23 pull requests, and Jason made it a rule. [INFERRED: from `screen_verdict`
+  in `pipeline/score.py`] the ordering check asks whether P(truth) rises from P0 to P1 to
+  P2, and P1 is this sentence, so a cue that lifts P(truth) at P1 for any reason but the
+  narrowing makes ordering easier to pass. [INFERRED: from the cases' `screen_partial`]
+  a reader takes "less than 15 metres" to mean just under 15, and in all seven cases
+  written with one bound (M1, M3, M4, M5, M15, M22 and M39) the truth was the survivor
+  nearest it, so the cue always pushed toward the truth; every other case already kept
+  both survivors equally far inside two bounds. [STATED: `runs/score-pilot.txt`] in the
+  pilot, every judge's P1 in M1, M3, M4 and M5 was above 50, from 50.2 to 70.0, while
+  M2, whose survivors sit 5 Wh inside each of two bounds, got 49.8 and 55.0 from Opus and
+  Sonnet but 72.2 from GPT-5.4. That is a preview, so the rule rests on the design, not
+  on these numbers.
+- **Rejected**: leaving the pilot cases as they ran, as R19 did for their type names,
+  which keeps a push toward the truth in four of the 40 screen sentences; one bound with
+  the truth farther from it, which reverses the push instead of removing it.
+- **Breaks if changed**: with one bound, the survivor nearest it draws belief for a
+  reason other than the narrowing; where that survivor is the truth, P1 rises without
+  the judge using the sentence, and the ordering check retains judges for it.
+
+### 2026-10-22 — The main run goes in two stages, split by programme entry
+
+- **Decision**: the main run (Phase 5 in `docs/work-plan.md`) runs in two stages, each
+  programme entry into its own log as in the pilot (`judge --arms`). Stage 1 is
+  generation and every entry that runs on all cases: `screen`, `conflict`, `agreement`,
+  `abstain`, `abstain-p0`, and any entry added to `PROGRAMME` later that does not run on
+  the ten-case subset. Stage 2 is the three subset entries, `long-conflict`,
+  `long-agreement` and `ladder`, then the optional sub-experiments, once the key is
+  topped up. The corpus is not split: stage 1 starts only when all 40 cases are merged.
+- **Why** [STATED: team decision, 2026-10-22]: the course coordinator raised the API
+  key's limit to $50 in all and tops it up again only after he sees that money spent, so
+  Jason chose to spend it on a first stage and then ask for more. [STATED: `pipeline.run
+  balance`, 2026-10-22] $38.93 of the $50 was left. [INFERRED: from each judge's cost per
+  call by arm in `runs/score-pilot.txt` (HEALTH), applied to the calls `plan --cases 40`
+  prints] at the pilot's measured rates stage 1 costs about $34.74 (generation $0.48,
+  `screen` $2.40, `conflict` $13.78, `agreement` $11.02, `abstain` $6.11, `abstain-p0`
+  $0.95, the last from `runs/trials-abstain-p0.jsonl`) and stage 2 about $5.11
+  (`long-conflict` $2.39, `long-agreement` $0.48, `ladder` $2.24). The whole programme,
+  about $39.84, would leave nothing for an entry that stops, and a stopped log
+  cannot be resumed (the 2026-10-18 pilot entry). [STATED: README, "Arms"] stage 1 holds
+  every condition behind H1-H6 and the confidence screen, while stage 2 holds the checks
+  that need long reports or graded wording: the length arm tells token volume from
+  redundancy, and "the wording ladder is H4's defence".
+- **Rejected**: splitting the corpus and starting now on the merged cases, since rules
+  still change while cases are written (the entry above changed four merged cases),
+  `judge` requires every registered case to be frozen (`check_frozen` in
+  `pipeline/run.py`), and real results would exist while cases are still unwritten;
+  running the whole programme on what is left, which a stopped entry would leave
+  unfinished.
+- **Breaks if changed**: running a stage 2 entry in stage 1 uses up the money kept for an
+  entry that stops; starting before all 40 cases are merged lets results exist while
+  rules can still change.
+
+### 2026-10-24 — A hedge carries at most three T1 cases
+
+- **Decision**: up to three T1 cases may share a hedge, counted by its main word, so "is
+  likely to", "it is likely that" and "is likely to have" are one hedge. An author picks
+  a hedge with fewer than three cases, on `main` or in an open pull request, preferring
+  one already in use to a new one, or another kind of cue. R16 in
+  `docs/authoring-rules.md` and work-plan step 1.4 now say so. This replaces "pick the
+  one used least" from the 2026-10-18 entry; varying the hedge stays.
+- **Why** [STATED: team decision, 2026-10-24]: Kathleen asked whether the repeats were
+  acceptable, with six hedges then on two or three cases each, and Jason decided.
+  [STATED: R16] varying the hedge exists so that one phrase does not carry many T1
+  cases; at three, losing one hedge relabels at most three of the 30 T1 cases, and "a T2
+  case is a legitimate control". [STATED: `runs/frozen_reports.json`] in the pilot, all
+  eight accepted rewordings of A in M2 to M5 kept a hedge, and two changed its word: M4's
+  "is thought to be" came back as "A water lift of 4000Pa is suspected for the Yhotak
+  B162 Vacuum." and M5's "is believed to have been" as "The water supply at Kestrel Court
+  is thought to have been disconnected for 9 hours." So the reporter keeps the doubt
+  rather than the word. [STATED: team decision, 2026-10-24] once every common hedge had a
+  case, "least used" sent authors to new hedges that read as something other than doubt,
+  which Kai Rong found reviewing the Phase 4 pull requests: "is expected to be" can read
+  as a planned figure, so both claims can be true; "is considered to be" as an official
+  ruling; "is taken as" as a set working value. [INFERRED: from `ATTRIBUTION_PHRASES` in
+  `pipeline/reporter.py`] "It appears that" rewords easily to "apparently", which the
+  linter rejects in a case but the reporter's checks do not catch in a rewording.
+- **Rejected**: a new hedge for every case, which "pick the one used least" asks for once
+  every common hedge has a case; no limit, which is how three of the four T1 pilot cases
+  came to share one phrase.
+- **Breaks if changed**: with no limit, one hedge can again carry many T1 cases, and the
+  T1/T2 balance rests on whether the reporter keeps it; with one hedge per case, authors
+  reach for hedges that break R1 or turn into hearsay.
+
+### 2026-10-24 — B, C and D each reach the figure by their own route
+
+- **Decision**: in A7, B, C and D must each reach the figure by their own route, so that a
+  slip in one could not reach the others. Readings of one printed figure (a box, a
+  datasheet, a register filled in from it) are one origin. For a figure an institution
+  sets, such as a loan period, a deposit or a credit total, the fact is the decision
+  itself: a record made where it was decided, or someone seeing the rule applied, is its
+  own route; a copy of the governing document, or the minutes it was drafted from, is
+  not. Each source's `why` names its route. `docs/authoring-rules.md`, "Checks no script
+  performs".
+- **Why** [STATED: team decision, 2026-10-24]: Jason asked for it reviewing M15 and M36,
+  where B, C and D each read one printed figure. Kai Rong applied it reviewing the Phase
+  4 pull requests and asked on M16, M17 and M24 how strict it is for a figure an
+  institution sets, since every record of such a figure goes back to one decision. Jason
+  decided. [STATED: README, "Measures, in order of weight"] normatively n_eff(A4) = 1,
+  "three reports, one source", and n_eff(A7) = 3, so A7 must hold three sources;
+  [STATED: README, "Two blocks, thirteen conditions"] A4 against A7 tests "true
+  independence at equal report count". [STATED: `cases/m15.py`] "B, C and D each have
+  their own origin so A7 does not read as one source three times".
+- **Rejected**: any three different documents, which lets C and D pass on B's figure, so
+  that A7 shows one source three times, which is A4's job; a separate measurement for
+  every source, which a figure set by a decision cannot have.
+- **Breaks if changed**: A7 no longer holds three sources, so n_eff(A7) = 3 is false by
+  design, and A4 against A7 (H2) compares one source with one source.
+
+### 2026-10-24 — Cases may share an attribute, not a scenario
+
+- **Decision**: two cases may ask about the same attribute of different things, such as
+  the battery capacity of a laptop (M2) and of a phone (M22). A case that repeats another
+  case's scenario with new names takes a new topic. `docs/authoring-rules.md`, "Checks
+  no script performs". M29, drafted as the number of passengers evacuated from a stalled
+  funicular, repeated M38's question, the number of passengers evacuated from a stalled
+  train, so M29 takes a new topic in its pull request.
+- **Why** [STATED: team decision, 2026-10-24]: Kathleen listed similar pairs (M29 and M38,
+  M25 and M31, M2 and M22, M4 and M20, M5 and M26) and asked whether any needed changing,
+  and Jason decided. [STATED: `pipeline/prompt.py`] a judge prompt holds one
+  "Question: {question}", so two cases never meet in a trial. [STATED: proposal §3, in
+  the 2026-10-21 entry on type names] results are broken down by dimension, and a
+  scenario repeated with new names makes one topic count twice in the results.
+- **Rejected**: one topic per case, which would rewrite merged cases such as M2 and M22
+  for no gain; keeping M29 as drafted.
+- **Breaks if changed**: nothing the scorer reads; scenarios repeated with new names
+  narrow the range of facts the results cover.
+
+### 2026-10-24 — Authors count the hedges in use with tools/case_index.py
+
+- **Decision**: R16 in `docs/authoring-rules.md` and work-plan step 1.4 send authors to
+  `uv run python tools/case_index.py --all-branches`, which lists the cases on `main` and
+  on every pull-request branch, with A's hedge, and then each hedge in use with how many
+  of its three slots are left. The index is printed, never committed. It replaces the
+  `grep` of the 2026-10-18 entry.
+- **Why** [STATED: team decision, 2026-10-24]: Kathleen wrote the script, and Jason asked
+  that R16 point to it once it was merged. [STATED: R16] most cases are drafted on
+  pull-request branches, which a `grep` of `cases/*.py` cannot see, since it reads only
+  the author's own branch. [STATED: `tools/case_index.py`] "The index is printed, not
+  committed: it reads everyone's branches, so a saved copy goes stale with every push."
+- **Rejected**: the `grep`, which misses every case drafted on another branch; a
+  generated `docs/case-index.md` committed with the script, which goes stale with every
+  push and would make every case pull request conflict on it, as they all do on
+  `cases/__init__.py`.
+- **Breaks if changed**: an author who checks only their own branch can pick a hedge that
+  is already full on other branches, and one hedge ends up carrying more than three T1
+  cases.
+
+### 2026-10-25 — Neither A nor B is the question turned into a statement
+
+- **Decision**: if A or B keeps the question's words in the question's order, with the
+  answer filled in, while the other rewords it, the one that echoes the question is
+  reworded. `docs/authoring-rules.md`, R13 and "Checks no script performs"; a reviewer's
+  check, not linted. Applied the same day to M30, M31, M34 and M36 on `main` and to M6,
+  M12, M13, M27 and M38 in their pull requests. M29 is taking a new topic, and M3, M4 and
+  M5 keep their sentences: they ran in the pilot.
+- **Why** [STATED: team decision, 2026-10-25]: Kai Rong and Kathleen raised it reviewing
+  Phase 4 pull requests, as "R13 in spirit", and Jason decided to apply it to every case.
+  [STATED: R13] the question's wording must not distinguish the competing pair, "so the
+  question cannot lean toward one side"; the linter compares only the sets of words.
+  [INFERRED: from `pipeline/prompt.py`, which puts "Question: {question}" above the
+  reports] a report that is the question with the answer filled in reads as the direct
+  reply to what the judge was asked, and in a T2 case it is the only difference left
+  between A and B.
+- **Rejected**: leaving it to the reporter, whose faithful rewordings keep a source's
+  subject and verb, so the echo reaches the judge; rewording M3, M4 and M5 after they ran,
+  as with their type names (2026-10-21).
+- **Breaks if changed**: a case whose wrong claim echoes the question pulls the judge
+  toward A for a reason no condition varies, and one whose true claim echoes pulls toward
+  the truth; either moves that case's results by something other than provenance.
+
+### 2026-10-25 — In a method case, A's hedge names no method
+
+- **Decision**: in a method case, A's T1 cue may not name a way of finding the figure:
+  not "is estimated to be", "is guessed to" or "is reckoned at" (R16 in
+  `docs/authoring-rules.md`; work-plan step 1.4). An approximation stays allowed, since it
+  says how exact a figure is, not how it was found (M35). M12 moves off "is estimated to
+  be"; M20 had already moved to "is suspected to".
+- **Why** [STATED: team decision, 2026-10-25]: Rachel raised it reviewing M12, and Jason
+  decided. [STATED: R2] "Everything about who produced a source, how, and how reliable it
+  is goes in `provenance`." [STATED: R19] "H5 asks whether a judge infers quality from a
+  named source type alone": if A's sentence already names its method, the type names in
+  X2 add less in method cases than in the other three dimensions. [STATED:
+  `cases/m37.py`] the 3.4 check on A's rewordings, because "all of these would put the
+  method into the content".
+- **Rejected**: any hedge R16 lists, which lets a method case state its dimension in
+  content; ruling out approximations too, which would rewrite M35 for a cue about
+  precision rather than method.
+- **Breaks if changed**: method cases carry their dimension in the sentence, so results
+  broken down by dimension stop comparing like with like.
+
+### 2026-10-25 — M3, M4 and M5 are reworded too
+
+- **Decision**: M3's A and M4's and M5's B, each the question turned into a statement,
+  are reworded like the other cases; this drops the pilot exemption in the entry above.
+  The pilot's outputs in `runs/` stay as they are, and M1-M5 keep their type names
+  (2026-10-21).
+- **Why** [STATED: team decision, 2026-10-25]: Jason decided, since the main run
+  generates every case's reports afresh. [STATED: `pipeline/run.py`] "Real outputs go to
+  runs/ and are never overwritten: frozen reports and trial logs are evidence, so a step
+  whose output exists refuses to start until the old file is moved."
+- **Rejected**: keeping the pilot's sentences, which would leave three of the ten subset
+  cases with a pull toward one side that no condition varies.
+- **Breaks if changed**: nothing the pilot reported changes; only the main run reads the
+  reworded sentences.
