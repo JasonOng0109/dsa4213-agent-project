@@ -49,8 +49,8 @@ CASE = {
         "block entrance, a car park and a sports hall. They contain no room "
         "allocation information, answer clues or source-identifying language "
         "(R9, R10, R12). Each filler set contains 80 words, while A and B "
-        "contain 13 and 11 words respectively, producing long reports of "
-        "93 and 91 words before paraphrasing (R20)."
+        "contain 13 and 12 words respectively, producing long reports of "
+        "93 and 92 words before paraphrasing (R20)."
         "When reading the frozen reports in step 3.4, check that A's and "
         "B's paraphrases both preserve the assigned-room meaning. "
         "A shift toward describing where a session was held could "
@@ -121,8 +121,8 @@ CASE = {
             "quality": "strong",
             "claim": "B-206",
             "content": (
-                "Room B-206 is assigned to the WB2113 tutorial "
-                "at Westbridge University."
+                "For the WB2113 tutorial at Westbridge University, "
+                "the assigned room is B-206."
             ),
             "n_paraphrases_needed": 3,
             "provenance": {
