@@ -107,7 +107,11 @@ sits inside a long report is set by the builder, not the author. **[lint]**
 interchangeable filler sets, and the builder gives set *i* to slot *i* whichever source
 fills it. **Never attach filler to a source**: two reports of one source would then share
 their padding word for word, and the opaque conditions would display the dependence they
-exist to hide. **[lint]**
+exist to hide. **[lint]** For the same reason, no content word is in two sets, counting
+"sits" and "sit" as one: a shared word links whichever two reports fill those slots, two
+reports of one source or two independent ones. The case's subject may be named in every
+set (R9). The linter does not compare sets, so this is a reviewer's check ("Checks no
+script performs").
 
 **R13 — The question's wording must not distinguish the competing pair.** A and B must
 share **exactly the same set** of question content-words, so the question cannot lean
@@ -254,3 +258,6 @@ skips the length check for that case and says so. Follow the R20 warning, not th
   practice rooms at Halvercombe College?") while the other rewords it, the first reads as
   the ready-made answer: a pull toward one side that provenance does not explain. Reword
   it. Both may still name the subject in full.
+- **A word in two filler sets.** No content word may be in two of a case's filler sets,
+  counting "sits" and "sit" as one; the case's subject is exempt. A word two sets share
+  links the two reports that carry them, whichever sources fill those slots (R12).

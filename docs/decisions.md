@@ -975,3 +975,27 @@ Add an entry when you make a choice a reader could not guess from the code.
   cases with a pull toward one side that no condition varies.
 - **Breaks if changed**: nothing the pilot reported changes; only the main run reads the
   reworded sentences.
+
+### 2026-10-25 — No content word is in two filler sets
+
+- **Decision**: no content word is in two of a case's filler sets, counting forms such as
+  "sits" and "sit" as one; the case's subject may be named in every set
+  (`docs/authoring-rules.md`, R12 and "Checks no script performs"; a reviewer's check,
+  not linted). Applied the same day to all 32 cases on `main`: M7, M30, M31 and M32
+  first, then M1-M5 and eight cases with one or a few shared words (M14, M15, M22, M23,
+  M28, M33, M34, M39). Every set keeps its word count, so R20's lengths hold. The eight
+  proposals posted on open pull requests (M10-M13, M18, M19, M21, M29) already meet it.
+- **Why** [STATED: `cases/m34.py`]: authors already held their own cases to it, "so the
+  slots stay apart (R12)"; [STATED: team decision, 2026-10-25] Jason decided to clean
+  every case on `main` to it before the main run. [INFERRED: from R12 and
+  `build_conditions` in `pipeline/conditions.py`] the builder gives set *i* to slot *i*
+  whichever source fills it, so a word two sets share lands on whichever two reports fill
+  those slots: two reports of one source, which then show the dependence the opaque
+  conditions hide, or two independent ones, which then look copied.
+- **Rejected**: leaving single shared words such as "sit" or "lie" in eight cases, and the
+  pilot cases' sets as they ran. [STATED: the 2026-10-15 entry on padded mock
+  rewordings] "fixing filler there costs nothing: filler is added after rewording, so the
+  paid reports are reused."
+- **Breaks if changed**: a shared word links two reports in every trial of the case, a
+  cue of shared origin that no condition controls, which in an opaque condition can fall
+  on the two reports of the shared source.

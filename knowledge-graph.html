@@ -1881,7 +1881,7 @@ a.ref:hover { background: var(--surface-2); }
    "cluster": "cases",
    "title": "Rules for filler and long reports",
    "label": "Filler rules (R9–R12, R20)",
-   "summary": "Long reports wrap the key sentence in neutral filler. Filler must not touch the question (R9), must not hint at who wrote it (R10); each report has one key sentence placed by the code (R11); filler belongs to the report slot, not the source (R12); and each filler set is sized so a long report stays in the 88–96-word band with 3 words of room for rewording (R20).",
+   "summary": "Long reports wrap the key sentence in neutral filler. Filler must not touch the question (R9), must not hint at who wrote it (R10); each report has one key sentence placed by the code (R11); filler belongs to the report slot, not the source, and no content word is in two sets (R12); and each filler set is sized so a long report stays in the 88–96-word band with 3 words of room for rewording (R20).",
    "visual": "filler",
    "aliases": [
     "R9",
@@ -1892,7 +1892,8 @@ a.ref:hover { background: var(--surface-2); }
    ],
    "points": [
     "Why R12 matters: if filler followed the source, the two reports from the shared source would carry identical padding and give away that they share a source.",
-    "Filler may name the case's subject; it still may not mention an option: [[filler-names-subject]]."
+    "Filler may name the case's subject; it still may not mention an option: [[filler-names-subject]].",
+    "No content word is in two filler sets, so no word links two reports: [[filler-no-shared-word]]."
    ],
    "evidence": [
     {
@@ -1930,6 +1931,10 @@ a.ref:hover { background: var(--surface-2); }
     },
     {
      "to": "filler-names-subject",
+     "rel": "involves"
+    },
+    {
+     "to": "filler-no-shared-word",
      "rel": "involves"
     }
    ]
@@ -2665,11 +2670,65 @@ a.ref:hover { background: var(--surface-2); }
    ]
   },
   {
+   "id": "filler-no-shared-word",
+   "type": "decision",
+   "cluster": "cases",
+   "title": "No content word is in two filler sets",
+   "label": "No word in two filler sets",
+   "summary": "A case's three filler sets share no content word, counting forms such as \"sits\" and \"sit\" as one. Each set goes to a report slot whichever source fills it, so a word two sets share would link two reports in every trial: two reports of one source, giving away what an opaque condition hides, or two independent ones, which then look copied. The case's subject may still be named in every set. A reviewer checks this; the linter does not.",
+   "date": "2026-10-25",
+   "points": [
+    "Authors already held their own cases to it; Jason decided to clean every case on main to it before the main run.",
+    "Applied on 2026-10-25 to all 32 cases on main. Every set kept its word count, so long reports keep their length: [[filler-length]].",
+    "The subject exemption comes from an earlier decision: [[filler-names-subject]]."
+   ],
+   "evidence": [
+    {
+     "file": "docs/authoring-rules.md",
+     "loc": "R12",
+     "quote": "no content word is in two sets, counting \"sits\" and \"sit\" as one"
+    },
+    {
+     "file": "docs/decisions.md",
+     "loc": "No content word is in two filler sets",
+     "quote": "Applied the same day to all 32 cases on main"
+    },
+    {
+     "file": "cases/m34.py",
+     "loc": "design_notes",
+     "quote": "so the slots stay apart (R12)"
+    },
+    {
+     "file": "pipeline/conditions.py",
+     "loc": "build_conditions",
+     "quote": "Report i goes in slot i and gets filler set i -- by SLOT, never by source"
+    }
+   ],
+   "links": [
+    {
+     "to": "rules-filler",
+     "rel": "needs"
+    },
+    {
+     "to": "human-checks",
+     "rel": "part-of"
+    },
+    {
+     "to": "filler-names-subject",
+     "rel": "related"
+    },
+    {
+     "to": "filler-length",
+     "rel": "related"
+    }
+   ]
+  },
+  {
    "id": "human-checks",
    "type": "design",
    "cluster": "cases",
    "title": "Checks no script can do",
-   "summary": "Seven checks need a person: specificity asymmetry; whether the screen sentence really rules out half the options; whether A and B still talk about the same 'whole' after rewording; whether a T1 hint survived; whether B, C and D each reach the figure by their own route; whether a case repeats another case's scenario; and whether A or B is the question turned into a statement while the other is reworded.",
+   "summary": "Eight checks need a person: specificity asymmetry; whether the screen sentence really rules out half the options; whether A and B still talk about the same 'whole' after rewording; whether a T1 hint survived; whether B, C and D each reach the figure by their own route; whether a case repeats another case's scenario; whether A or B is the question turned into a statement while the other is reworded; and whether a content word is in two filler sets.",
    "aliases": [
     "human review"
    ],
@@ -9222,6 +9281,17 @@ a.ref:hover { background: var(--surface-2); }
    "summary": "M8 (incident status, method, T2) joined the corpus, now 32 of 40.",
    "changed": [
     "open-corpus"
+   ]
+  },
+  {
+   "date": "2026-10-25",
+   "summary": "No content word is in two filler sets: written into R12 and the checks no script performs, and all 32 cases on main cleaned to it. Jason decided.",
+   "added": [
+    "filler-no-shared-word"
+   ],
+   "changed": [
+    "rules-filler",
+    "human-checks"
    ]
   }
  ]
