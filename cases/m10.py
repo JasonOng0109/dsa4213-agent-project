@@ -21,53 +21,62 @@ CASE = {
     "difficulty_tier": "T1",
 
     "design_notes": (
-        "This case tests authority using conflicting guest-pass allowances "
-        "at the fictional Westbridge University library. Source A claims "
-        "4 passes while Source B supports the true allowance of 3 passes. "
-        "A and B concern the same student, library and request allowance, "
-        "with no changes or exceptions (R1). A is a student-run campus "
-        "information page, while B is a library administration notice. "
-        "Both directly state the policy, but only B has recognised "
-        "responsibility for setting library access rules (R19). "
-        "Source A uses the mild hedge 'is thought to have permission to request', "
-        "which should survive faithful paraphrasing (R16). The T1 "
-        "classification must be checked against frozen reports and "
-        "relabelled T2 if the hedge disappears. Source identity and "
-        "authority remain in provenance rather than content (R2). "
-        "The answer options are 2, 3, 4 and 5 passes, placing both "
-        "competing claims in the interior positions (R8). The screen "
-        "sentence retains 3 and 4 passes while excluding 2 and 5 "
-        "(R15). Sources B, C and D use different sentence structures "
-        "while supporting the same allowance (R17). Their evidence "
-        "origins must be checked for independence before A7 is "
-        "interpreted as three independent confirmations. "
-        "The filler sets describe distinct campus locations without "
-        "guest-pass information, library rules or source-identifying "
-        "language (R9, R10, R12). Filler and source lengths must "
-        "be verified against R20 before submission."
+        "This case tests authority using conflicting guest-pass allowances at the fictional "
+        "Westbridge University library. Source A claims 4 passes, while Source B supports the "
+        "true allowance of 3 passes. A and B concern the same students, library and "
+        "allowance, with no changes or exceptions, and neither states its scope more fully "
+        "than the other (R1). Authority only: both type names are websites, so the kind of "
+        "document is the same and only the writer's standing differs, a student society "
+        "against the library administration that sets the allowance (R19). Source A uses the "
+        "clause-level hedge 'is guessed to have permission to request' (R16), shared with "
+        "M28; 'is thought to' was already on more than three T1 cases. The T1 label must be "
+        "checked against the frozen reports and relabelled T2 if the hedge disappears. Source "
+        "identity and authority remain in provenance rather than content (R2). The answer "
+        "options are 2, 3, 4 and 5 passes, placing both competing claims in the interior "
+        "positions (R8). The screen sentence keeps 3 and 4 passes, each one step inside a "
+        "bound, and excludes 2 and 5 (R15). B, C and D each reach the figure by their own "
+        "route (A7): B is the administration that sets the allowance, C the access services "
+        "office applying it in its own guest-entry procedures, and D the visitor desk's own "
+        "log of passes issued, which stops each student at the limit. B, C and D use "
+        "different sentence frames (R17). The filler describes the library's front, its "
+        "reading room and the garden behind it, in plain one-fact sentences with no content "
+        "word in two sets, and says nothing about guests, passes, entry or rules (R9, R10, "
+        "R12). Each filler set is 77 words and A and B are 16 words each, so long reports "
+        "are 93 words (R20)."
     ),
 
     "filler_sets": [
         [
-            "The campus arts building has a broad entrance framed by pale stone pillars.",
-            "A tiled foyer contains upholstered benches and several large paintings mounted along the walls.",
-            "Tall glass panels overlook a landscaped courtyard filled with decorative shrubs and smooth pebbles.",
-            "A sculptural metal installation stands beside the staircase, with curved pieces forming an abstract pattern.",
-            "The ceiling has recessed lighting fixtures, while a woven carpet covers the centre of the spacious foyer near the entrance doors.",
+            "The Westbridge University library stands at the head of a broad lawn.",
+            "Its front is faced in honey-coloured limestone.",
+            "Tall pillars hold up a triangular pediment over the entrance.",
+            "A carved stone owl perches at the very peak of the pediment.",
+            "Wide stone steps rise between bronze lamp standards to the doors.",
+            "The doors are of dark oak with iron studs.",
+            "Ivy softens the corners of the building.",
+            "A flagpole flies the university's crest beside the steps.",
         ],
         [
-            "The university sports complex has an indoor court with wooden flooring and painted boundary markings.",
-            "Folded bleachers rest against the far wall beside neatly stacked protective mats.",
-            "High windows admit daylight through frosted glass, and large ceiling fans hang from exposed beams.",
-            "A storage alcove contains exercise cones, wheeled equipment carts and folded fabric covers.",
-            "The entrance corridor has rubber flooring, a drinking fountain and colourful geometric murals extending along the walls toward the main indoor hall.",
+            "The main reading room sits beneath a high domed ceiling.",
+            "Painted panels of blue sky and white clouds fill the dome.",
+            "Arched windows let daylight fall across long walnut tables.",
+            "Green glass shades cover the reading lights on each table.",
+            "Galleries with brass railings run around the upper walls.",
+            "Spiral staircases climb to the galleries from the floor.",
+            "Plaster garlands decorate the frieze below the dome.",
+            "The floor is laid with patterned tiles in red and cream.",
         ],
         [
-            "The campus dining hall contains wooden tables surrounded by chairs with dark upholstered seats.",
-            "Decorative pendant lamps hang above the central seating area, suspended from a high ceiling.",
-            "Large windows face an outdoor terrace with ceramic planters and small ornamental trees.",
-            "The walls feature framed illustrations of local landmarks, while tiled flooring extends across the open space.",
-            "A broad passage leads toward the entrance, with a decorative partition separating the dining area from the adjacent sheltered walkway.",
+            "Behind the library lies a sunken garden.",
+            "Gravel paths cross its beds of herbs.",
+            "A veined marble fountain plays in the middle.",
+            "Clipped yew hedges enclose the garden.",
+            "A pergola of rambling roses shelters a teak bench.",
+            "Lavender and rosemary edge the herb beds.",
+            "Goldfish swim in a lily pond near the gate.",
+            "A mulberry tree spreads its branches over the pond.",
+            "Wrens and robins nest in the hedges.",
+            "Moss grows between the flagstones of a terrace.",
         ],
     ],
 
@@ -76,35 +85,35 @@ CASE = {
             "quality": "weak",
             "claim": "4 passes",
             "provenance": {
-                "type": "student-run campus information page",
-                "authority": "student contributors",
+                "type": "student society website",
+                "authority": "student society",
                 "quality": "weak",
                 "why": (
-                    "The page is maintained by students who have no "
-                    "institutional responsibility for library access rules."
+                    "The website is run by a student society with no say "
+                    "over library access rules."
                 ),
             },
-        "content": (
-            "Each student is thought to have permission to request "
-            "4 guest passes for Westbridge University library."
-        ),
+            "content": (
+                "Each student is guessed to have permission to request "
+                "4 guest passes for Westbridge University library."
+            ),
             "n_paraphrases_needed": 2,
         },
         "B": {
             "quality": "strong",
             "claim": "3 passes",
             "provenance": {
-                "type": "university library administration notice",
+                "type": "library administration website",
                 "authority": "university library administration",
                 "quality": "strong",
                 "why": (
-                    "The library administration has recognised responsibility "
-                    "for establishing the university's guest-pass allowance."
+                    "The library administration sets the guest-pass allowance "
+                    "and publishes it on its own website."
                 ),
             },
             "content": (
-                "For Westbridge University library, each student may "
-                "request a total of 3 guest passes."
+                "For the Westbridge University library, the number of guest "
+                "passes each student may request is 3."
             ),
             "n_paraphrases_needed": 3,
         },
@@ -130,12 +139,13 @@ CASE = {
             "quality": "strong",
             "claim": "3 passes",
             "provenance": {
-                "type": "university visitor services guidance",
-                "authority": "university visitor services",
+                "type": "visitor desk issue log",
+                "authority": "library visitor desk",
                 "quality": "strong",
                 "why": (
-                    "Visitor services maintains its own operational "
-                    "confirmation of the guest-pass limit."
+                    "Staff at the visitor desk log every guest pass they "
+                    "issue and stop each student at the limit, so the log "
+                    "shows the rule being applied."
                 ),
             },
             "content": (
