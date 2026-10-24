@@ -1,4 +1,4 @@
-"""M16: Laptop loan period at the Ravenscar Hall.
+"""M16: Laptop loan period at Ravenscar Hall.
 
 Institutional logistics domain, primary-source quality dimension, tier T1.
 """
@@ -7,22 +7,21 @@ CASE = {
     "case_id": "M16",
     "domain": "institutional_logistics",
     "question": "What is the laptop loan period at Ravenscar Hall?",
-    "world_truth": "28 days",
-    "distractors": ["14 days", "35 days"],  # options: [14, 21, 28, 35]
+    "world_truth": "22 days",
+    "distractors": ["12 days", "27 days"],  # options: [12, 17, 22, 27]
     "screen_partial": (
-        "The laptop loan period at Ravenscar Hall is between 24 days and 39 days."
-    ),  # keeps 28 (truth) and 35; rules out 14 and 21; both survivors sit 4 days inside bounds (R15)
+        "The laptop loan period at Ravenscar Hall is between 15 days and 24 days."
+    ),  # keeps 17 and 22 (truth); rules out 12 and 27; both survivors sit 2 days inside bounds (R15)
     "quality_dimension": "primary_source",
     "difficulty_tier": "T1",
     "design_notes": (
         "Primary-source dimension, T1. A and B state the same proposition (the laptop loan "
         "period at Ravenscar Hall) as flat single sentences with the same scope (R1). Both "
         "contain exactly the same five question content-words: laptop, loan, period, Ravenscar "
-        "and Hall (R13). The T1 cue is A's clause-level hedge 'is considered to be' (R16), against "
-        "B's flat assertion. It varies from 'is understood to' (M2, M3), 'is believed to' (M15) "
-        "and 'is presumed to' (M7). A and B use different frames (R17): A is 'The ... period at "
-        "... is considered to be', B is plural-noun-fronted ('Laptops at ... are lent for'); C is "
-        "'Borrowers may keep ...' and D is place-fronted with a spelled-out number. The entity "
+        "and Hall (R13). The T1 cue is A's clause-level hedge 'are understood to have' (R16), against "
+        "B's flat assertion. A and B use different frames (R17): A is 'The ... period at "
+        "... are understood to have', B is plural-noun-fronted ('At ... laptops are lent for'); C is "
+        "a direct possessive statement and D is place-fronted with a spelled-out number. The entity "
         "name is the only chunk they share. "
         "Quality lives only in provenance (R2, R19) and only the primary-source dimension "
         "differs: both writers are the same hall office (same authority value), A's type is "
@@ -31,15 +30,16 @@ CASE = {
         "its writer was, or that one outranks the other, and neither contains 'independent'. "
         "Type words are not subject words (R2a): no 'loan', 'lending' or 'laptop'. "
         "B, C and D each have their own origin so A7 does not read as one source three times: "
-        "B is the hall's rulebook, C is the equipment supplier's own terms for the leased "
-        "laptops, and D is the loan desk's own handout slips. None of the whys says one source "
-        "copies another. "
-        "Options are 14, 21, 28 and 35 days, evenly spaced so that 'closest to the mean' does "
+        "B is the hall's rulebook, C is the warden's own notes taken at the committee vote that "
+        "set the period, kept apart from the minutes the rulebook was drafted from, and D is the "
+        "union representative's notes taken at that same vote, not from the rulebook or minutes. "
+        "None of the whys says one source copies another. "
+        "Options are 12, 17, 22 and 27 days, evenly spaced so that 'closest to the mean' does "
         "not favour the truth, with the truth and A's claim both interior (R8). The screen "
-        "sentence uses two bounds (24 and 39 days), placing both survivors (28 and 35) exactly "
-        "4 days inside their respective bounds (R15). "
-        "Content lengths are A=13 and B=13 words (R20). Each filler set is exactly 79 words, so "
-        "filler+A and filler+B are both 92 words, strictly within the 91-93 band (R20). Filler "
+        "sentence uses two bounds (15 and 24 days), placing both survivors (17 and 22) exactly "
+        "2 days inside their respective bounds (R15). "
+        "Content lengths are A=14 and B=13 words (R20). Each filler set is 78 or 79 words, so "
+        "filler+A and filler+B are 91 to 93 words, within the 91-93 band (R20). Filler "
         "is plain factual description of the hall's building, its common room and its grounds, "
         "one scene per set, each with its own vocabulary so reports in one trial do not repeat "
         "features across slots (R12). It is one plain register with no insider or "
@@ -50,10 +50,10 @@ CASE = {
     "filler_sets": [
         [
             "The building is faced with warm red brick and topped by a steep slate roof.",
-            "Tall sash windows with white frames are set evenly along the front, three on each level.",
-            "A central porch with two stone pillars protects a heavy oak door painted deep blue.",
+            "Tall sash windows with white frames are set evenly along the front, on every level.",
+            "A central porch with fluted stone pillars protects a heavy oak door painted deep blue.",
             "Iron railings run along the street edge, and a brass bell hangs beside the porch.",
-            "Two chimney stacks rise from the ridge, each topped with a round clay pot and a metal cap.",
+            "Brick chimney stacks rise from the ridge, each topped with a round clay pot and a metal cap.",
         ],
         [
             "The common room has soft green sofas arranged in a ring around a low ash stool.",
@@ -65,7 +65,7 @@ CASE = {
         [
             "A gravel drive curves from the gate between neat flowerbeds of lavender and roses.",
             "Behind the house, a broad lawn slopes down to a reedy pond with a timber jetty.",
-            "Four apple trees grow in the orchard, with a bench built around the widest trunk.",
+            "Apple trees grow in the orchard, with a wooden bench encircling the widest trunk.",
             "A bicycle shelter with a sloping tin canopy sits near the side gate beside a holly hedge.",
             "A narrow footpath of packed earth leads beyond the shelter to a vegetable garden with raised beds.",
         ],
@@ -74,9 +74,9 @@ CASE = {
     "sources": {
         "A": {
             "quality": "weak",
-            "claim": "21 days",
+            "claim": "17 days",
             "content": (
-                "The laptop loan period at Ravenscar Hall is considered to be 21 days."
+                "At Ravenscar Hall, laptops are understood to have a loan period of 17 days."
             ),
             "n_paraphrases_needed": 2,
             "provenance": {
@@ -88,9 +88,9 @@ CASE = {
         },
         "B": {
             "quality": "strong",
-            "claim": "28 days",
+            "claim": "22 days",
             "content": (
-                "Laptops at Ravenscar Hall are lent for a loan period of 28 days."
+                "At Ravenscar Hall, laptops are lent for a loan period of 22 days."
             ),
             "n_paraphrases_needed": 3,
             "provenance": {
@@ -102,30 +102,30 @@ CASE = {
         },
         "C": {
             "quality": "strong",
-            "claim": "28 days",
+            "claim": "22 days",
             "content": (
-                "Borrowers may keep a Ravenscar Hall laptop for 28 days."
+                "A Ravenscar Hall laptop has a loan period of 22 days."
             ),
             "n_paraphrases_needed": 1,
             "provenance": {
-                "type": "supplier lease schedule",
-                "authority": "supplier",
+                "type": "warden's own notes",
+                "authority": "hall warden",
                 "quality": "strong",
-                "why": "the equipment supplier's own terms for the leased laptops, which cap how long a unit may be away from the hall as a condition of its insurance cover",
+                "why": "notes the hall warden took at the committee vote that set the laptop loan period, kept apart from the minutes the rulebook was drafted from",
             },
         },
         "D": {
             "quality": "strong",
-            "claim": "28 days",
+            "claim": "22 days",
             "content": (
-                "At Ravenscar Hall, a laptop stays on loan for twenty-eight days."
+                "At Ravenscar Hall, the loan period for a laptop is twenty-two days."
             ),
             "n_paraphrases_needed": 1,
             "provenance": {
-                "type": "desk checkout slips",
-                "authority": "desk staff",
+                "type": "union representative's notes",
+                "authority": "student union representative",
                 "quality": "strong",
-                "why": "slips the loan desk staff write out as each laptop is handed over, carrying the return date they set themselves",
+                "why": "notes the student union's representative took at the committee vote that set the laptop loan period, not from the rulebook or the minutes",
             },
         },
     },
