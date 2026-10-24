@@ -45,10 +45,10 @@ CASE = {
         "The screening sentence retains 500 and 600 lm while excluding "
         "400 and 700 lm, preserving the world truth (R15). "
         "The three filler sets describe distinct physical aspects: the lamp's "
-        "base and underside, its shade and exterior, and its packaging and "
-        "protective materials. They avoid brightness, controls, electrical "
-        "performance, source-identifying language and repeated scenes "
-        "(R9, R10, R12). "
+        "base and underside, its shade and stem, and its packaging and "
+        "protective materials, with no content word in two sets. They avoid "
+        "brightness, controls, electrical performance and source-identifying "
+        "language (R9, R10, R12). "
         "Each filler set contains 78 words, and the A and B sentences contain "
         "15 and 13 words respectively, producing long reports of 93 and 91 "
         "words before paraphrasing (R20)."
@@ -61,24 +61,25 @@ CASE = {
     # two reports of the shared source never carry identical padding.
     "filler_sets": [
         [
-            "The lamp rests on a broad circular foot with a slightly raised and rounded rim along its edge.",            
+            "The lamp rests on a broad circular foot with a slightly raised and rounded rim along its edge.",
             "Its underside carries a dark rubber ring that grips the surface beneath it.",
             "A shallow groove runs around the edge, separating the upper shell from the lower plate.",
             "The foot has a gently curved profile without sharp corners or exposed fasteners.",
             "A small recessed panel underneath sits flush with the surrounding material and can be lifted using a narrow notch.",
         ],
         [
-            "The upper shade has a shallow dome with a neatly rolled and gently curved rim around its circular opening.",
-            "Its exterior is coated in a muted cream colour, while the inner surface has a plain finish.",            
-            "A narrow collar sits at the top where the curved housing meets its support.",
-            "The outside has no printed markings, decorative patterns or raised lettering.",
-            "A thin seam follows the contour of the housing, and the rounded edge feels smooth when touched.",
+            "The shade is a wide dome with a neatly rolled lip that frames its opening.",
+            "Its outer face is coated in a muted cream colour with a fine, even eggshell texture.",
+            "A slim chrome collar joins the shade to the stem at its crown.",
+            "The stem has a satin finish.",
+            "The shade bears no markings, motifs or lettering of any kind.",
+            "A fine seam traces the contour of the dome, and the lip feels smooth to the touch.",
         ],
         [
-            "The lamp arrives inside a rectangular cardboard carton with carefully folded flaps at either end and a reinforced bottom panel.",
-            "Moulded paper inserts hold the separate pieces in place during handling.",
+            "The lamp arrives inside a rectangular cardboard carton with carefully folded flaps at either end and a reinforced bottom board.",
+            "Moulded paper inserts hold the loose pieces in place during handling.",
             "A soft fabric sleeve covers the main body, protecting it from scratches inside the box.",
-            "The smaller accessories sit in a plain paper envelope tucked beside the inserts.",
+            "The other accessories go in a plain paper envelope tucked beside the inserts.",
             "The carton closes with a tucked tab, and its exterior has a simple geometric pattern printed along the sides.",
         ],
     ],

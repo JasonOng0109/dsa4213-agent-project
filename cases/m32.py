@@ -85,14 +85,14 @@ CASE = {
             "beanbags.",
             "Picture books are kept in plastic tubs on wheeled trolleys by the door.",
             "A reading corner has cushions and a rug printed with a map of the world.",
-            "Large framed paintings of local scenes hang along the passage to the library.",
+            "Large mounted pictures of local scenes hang along the passage to the library.",
         ],
         [   # the canteen and the classrooms
             "Lunch is served in a canteen with long tables, stackable chairs and a salad "
             "bar.",
             "The kitchen has steel counters and a hatch that opens onto the canteen.",
-            "Each classroom has a carpet area beneath a whiteboard and a pinboard.",
-            "Coat pegs and shoe racks line the corridor outside each classroom.",
+            "Each classroom has a story mat beneath a whiteboard and a pinboard.",
+            "Coat pegs and shoe racks fill the corridor outside each classroom.",
             "The staff room has a kettle, a sink, a fridge and a round table.",
             "A music room holds a piano, with drums, bells and shakers stacked in crates "
             "beside it.",

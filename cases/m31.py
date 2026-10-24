@@ -51,7 +51,7 @@ CASE = {
         "rating against two different measurements (R1). The brand, the model and its "
         "noise level are invented (R4). Filler describes one part of the machine per "
         "set, the baskets in set 1, the door and its controls in set 2, and the outer "
-        "casing and plinth in set 3, so no distinctive word is in all three sets and "
+        "casing and plinth in set 3, so no content word is in two sets and "
         "the slots stay apart (R12). It says nothing about noise, wash programmes, "
         "installation, testing, shops or documents, and has no figures and no second "
         "person, so no slot carries the feel of either source (R3, R9, R10). Each "
@@ -68,7 +68,7 @@ CASE = {
             "upper basket for cups and glasses.",
             "A slim cutlery tray slides out on runners above the upper basket.",
             "Folding tines in the lower basket lie flat to make room for larger pots.",
-            "A narrow fold-down shelf on one side of the upper basket holds small cups.",
+            "A narrow fold-down shelf at one end of the upper basket holds small cups.",
             "Spray arms turn on a hub beneath each basket.",
             "The wire baskets have a smooth white plastic coating that wipes clean easily.",
         ],
@@ -79,13 +79,13 @@ CASE = {
             "The detergent dispenser sits on the inside of the door, beside a rinse-aid "
             "cap.",
             "A soft rubber seal runs around the inner edge of the door.",
-            "A small green light beside the buttons glows when the child lock is on.",
+            "A tiny green light beside the buttons glows when the child lock is on.",
         ],
         [   # the outer casing and plinth
-            "The top of the machine is a flat panel of brushed steel with rounded corners.",
+            "The top of the machine is a solid panel of brushed steel with rounded corners.",
             "A black plinth along the bottom hides the feet and the hoses behind it.",
             "The side panels are finished in the same brushed steel as the top.",
-            "A thin strip of grey trim runs around the front edge of the casing.",
+            "A thin strip of grey trim frames the whole front face of the casing.",
             "The back panel is plain metal, with a slotted vent near the base.",
             "Short feet at each corner keep the casing just clear of the floor.",
         ],
