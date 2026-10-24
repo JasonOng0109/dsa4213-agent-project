@@ -120,8 +120,8 @@ CASE = {
                 "why": "a short summary written up from the operator's incident report, "
                        "in which figures are retyped and can slip",
             },
-            "content": ("A total of 221 passengers are assumed to have been evacuated from "
-                        "the stalled Halvering line train."),
+            "content": ("From the stalled Halvering line train, a total of 221 passengers "
+                        "are assumed to have been evacuated."),
             "n_paraphrases_needed": 2,   # A appears only in the conflict block (2 reports)
         },
         "B": {
