@@ -11,76 +11,83 @@ CASE = {
         "Which counter is assigned for collecting engineering laboratory "
         "equipment kits at Alderwick University?"
     ),
-    "world_truth": "Counter C",
-    "distractors": ["Counter A", "Counter D"],
+    "world_truth": "Counter G",
+    "distractors": ["Counter E", "Counter H"],
     "screen_partial": (
         "The assigned collection counter at Alderwick University "
-        "is alphabetically after Counter A and before Counter D."
+        "is alphabetically after Counter E and before Counter H."
     ),
     "quality_dimension": "directness",
     "difficulty_tier": "T1",
 
     "design_notes": (
-        "M11 tests directness using conflicting collection-counter "
-        "assignments for engineering laboratory equipment kits at "
-        "fictional Alderwick University. Source A claims Counter B, "
-        "while Source B supports the true assignment of Counter C. "
-        "Both concern the same kits, collection activity and location "
-        "without exceptions or changes (R1). "
-        "A is a secondhand account from a staff member who missed "
-        "the organisers' briefing, whereas B is a firsthand account "
-        "from an equally ranked staff member who attended it. "
-        "Both have the same authority, isolating directness (R19). "
-        "A uses the mild clause-level hedge 'is thought to be', "
-        "which is intended to survive paraphrasing (R16). "
-        "If the hedge disappears from frozen reports, relabel T2. "
-        "Source identity and evidence methods remain in provenance "
-        "rather than content (R2). A and B describe the same "
-        "question-related concepts (R13). B, C and D support "
-        "Counter C using different sentence frames (R17). "
-        "C and D provide separate firsthand observations of the "
-        "collection location rather than copying B's briefing account. "
-        "Their independence and consistency with the assigned counter "
-        "must be assessed during manual review (R6, A7). "
-        "The four counters are consecutive alphabetical alternatives, "
-        "with both competing claims in the interior positions (R8). "
-        "The screen preserves Counter B and Counter C while excluding "
-        "Counter A and Counter D (R15). "
-        "Three filler sets describe distinct campus settings without "
-        "equipment collection details or source-identifying language "
-        "(R9, R10, R12). Filler and source lengths must pass R20."
+        "M11 tests directness using conflicting counter assignments for collecting "
+        "engineering laboratory equipment kits at the fictional Alderwick University. Source "
+        "A claims Counter F, while Source B supports the true assignment of Counter G. Both "
+        "concern the same kits, collection and campus, without exceptions or changes (R1). "
+        "The counters are lettered E to H rather than A to D, so no option shares a letter "
+        "with the report labels the judge sees (Agent A, B and C). Directness only: A is a "
+        "summary from a staff member who missed the organisers' briefing and B notes by a "
+        "staff member at it, two writers of the same standing (R19), and the type names avoid "
+        "words a rewording of the content needs (R2a). A uses the clause-level hedge 'is "
+        "suspected to be' (R16), shared with M20 and M26; 'is thought to' was already on more "
+        "than three T1 cases. If the hedge disappears from the frozen reports, relabel the "
+        "case T2. B, C and D each reach the figure by their own route (A7): B heard the "
+        "organisers announce it, C is the organisers' own allocation sheet, filled in where "
+        "the counters were allocated, and D is the duty log kept at the counter as each kit "
+        "was handed out. B, C and D use different sentence frames (R17). The four counters "
+        "are consecutive letters with both competing claims in the interior positions (R8), "
+        "and the screen keeps Counter F and Counter G while excluding Counter E and Counter H "
+        "(R15). The filler describes the engineering building's front, the lake to the south "
+        "of the campus and the chapel's rose garden, in plain one-fact sentences with no "
+        "content word in two sets, and says nothing about kits, counters, storage or "
+        "collection (R9, R10, R12). Each filler set is 78 words and A and B are 15 and 13 "
+        "words, so long reports are 93 and 91 words (R20)."
     ),
 
     "filler_sets": [
         [
-            "The university arts centre has a broad entrance framed by tall pale stone pillars outside.",
-            "A tiled foyer contains upholstered benches and large paintings mounted along the walls.",
-            "Tall glass panels overlook a courtyard filled with ornamental shrubs and smooth pebbles.",
-            "A sculptural metal installation stands beside the staircase, with curved pieces forming an abstract pattern.",
-            "The ceiling has recessed lighting fixtures, while a woven carpet covers the centre of the spacious foyer near the main entrance doors.",
+            "The engineering building at Alderwick University is clad in pale grey stone.",
+            "Bands of copper run between its floors.",
+            "Tall narrow windows face the quadrangle.",
+            "A steel sculpture of interlocking rings stands by the steps.",
+            "The steps are flanked by low planters of grasses.",
+            "Above the doors, the faculty's name is cut into the stone.",
+            "Lamps on slim posts line the approach.",
+            "A flat roof is fitted with solar panels.",
+            "Glass doors open onto a bright, airy atrium.",
         ],
         [
-            "The campus sports hall has a wooden floor bordered by pale walls.",
-            "Folded bleachers rest against the far wall beside neatly stacked protective mats.",
-            "High windows admit daylight through frosted glass, and large ceiling fans hang from exposed beams.",
-            "A storage alcove contains exercise cones, wheeled carts and folded fabric covers.",
-            "The entrance corridor has rubber flooring, a drinking fountain and colourful geometric murals extending along the walls toward the main indoor court and the adjoining recreation area.",
+            "A small lake lies to the south of the campus.",
+            "Willows trail their branches in the water.",
+            "A wooden boardwalk crosses the reeds at the shallow end.",
+            "Swans and coots paddle near the far bank.",
+            "An island in the middle holds a heron's nest.",
+            "Water lilies cover the bay by the boathouse.",
+            "The boathouse is painted dark green with white trim.",
+            "Rowing boats are tied up at its small jetty.",
+            "Ducklings shelter among the irises along the edge.",
         ],
         [
-            "The campus dining hall contains wooden tables surrounded by chairs with upholstered seats.",
-            "Decorative pendant lamps hang above the central seating area beneath a high ceiling.",
-            "Large windows face an outdoor terrace with ceramic planters and small ornamental trees.",
-            "The walls feature framed illustrations of local landmarks, while tiled flooring extends across the open space.",
-            "A broad passage leads toward the entrance, with a decorative partition separating the dining area from an adjacent sheltered walkway beside the courtyard.",
+            "Behind the chapel is a formal rose garden.",
+            "Box hedges divide it into neat beds.",
+            "Each bed has roses of matching colour.",
+            "A brick arch hung with clematis leads into the garden.",
+            "A bronze bird bath sits at the very centre.",
+            "The chapel has slate tiles and a slender bell turret.",
+            "Coloured panes fill its eastern gable.",
+            "Oak seats overlook the beds.",
+            "Paths of herringbone brick wind between the beds.",
+            "Bees work the lavender that fills the borders.",
         ],
     ],
 
     "sources": {
         "A": {
             "quality": "weak",
-            "claim": "Counter B",
+            "claim": "Counter F",
             "provenance": {
-                "type": "summary relayed by a staff member absent from the briefing",
+                "type": "summary from a staff member who missed the briefing",
                 "authority": "university support staff",
                 "quality": "weak",
                 "why": (
@@ -90,16 +97,16 @@ CASE = {
                 ),
             },
             "content": (
-            "Collecting engineering laboratory equipment kits at Alderwick University "
-            "is thought to be assigned Counter B."
-        ),
+                "Collecting engineering laboratory equipment kits at Alderwick University "
+                "is suspected to be assigned Counter F."
+            ),
             "n_paraphrases_needed": 2,
         },
         "B": {
             "quality": "strong",
-            "claim": "Counter C",
+            "claim": "Counter G",
             "provenance": {
-                "type": "notes made by a staff member present at the briefing",
+                "type": "notes by a staff member at the briefing",
                 "authority": "university support staff",
                 "quality": "strong",
                 "why": (
@@ -108,46 +115,46 @@ CASE = {
                 ),
             },
             "content": (
-                "At Alderwick University, Counter C is assigned "
+                "At Alderwick University, Counter G is assigned "
                 "for collecting engineering laboratory equipment kits."
             ),
             "n_paraphrases_needed": 3,
         },
         "C": {
             "quality": "strong",
-            "claim": "Counter C",
+            "claim": "Counter G",
             "provenance": {
-                "type": "onsite collection observation",
-                "authority": "university support staff",
+                "type": "organisers' allocation sheet",
+                "authority": "event organisers",
                 "quality": "strong",
                 "why": (
-                    "A separate staff member personally observed "
-                    "the designated counter being used for kit collection "
-                    "without consulting B's briefing notes."
+                    "The organisers' own sheet, filled in when they "
+                    "allocated the counters, kept apart from the notes "
+                    "taken at the briefing."
                 ),
             },
             "content": (
-                "Counter C serves as the engineering laboratory "
+                "Counter G serves as the engineering laboratory "
                 "equipment kit collection point at Alderwick University."
             ),
             "n_paraphrases_needed": 1,
         },
         "D": {
             "quality": "strong",
-            "claim": "Counter C",
+            "claim": "Counter G",
             "provenance": {
-                "type": "firsthand collection duty record",
+                "type": "counter staff duty log",
                 "authority": "university support staff",
                 "quality": "strong",
                 "why": (
-                    "Another staff member independently recorded the "
-                    "counter where they personally distributed the kits, "
-                    "without relying on the other accounts."
+                    "The staff member on duty logged each kit as they "
+                    "handed it out at the counter, with no sight of the "
+                    "briefing notes or the allocation sheet."
                 ),
             },
             "content": (
                 "Students at Alderwick University collect their "
-                "engineering laboratory equipment kits at Counter C."
+                "engineering laboratory equipment kits at Counter G."
             ),
             "n_paraphrases_needed": 1,
         },
