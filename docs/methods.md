@@ -169,7 +169,8 @@ Why 10: `docs/decisions.md`.
 
 **In one line.** The chance that a right decision carries a higher stated probability
 than a wrong one. 0.5 means the number carries no information about being right. The
-confidence screen's discrimination check uses it.
+discrimination check uses it; since the pilot that check is reported beside the
+confidence screen, not part of it.
 
 **How it works.**
 
@@ -205,14 +206,19 @@ Two of the six reach 0.75, so luck does this 1 time in 3: p = 1/3.
 
 - Above 0.5, the judge is surer when it is right; below 0.5, surer when it is wrong. A
   judge that states the same number on every answer scores exactly 0.5, with p = 1.
-- The check passes a judge when at least one condition with 10 right and 10 wrong
-  decisions has p below 0.05 divided by the number of such conditions; A0 never counts.
-  Dividing keeps the false-pass rate at about 1 in 20 however many conditions count,
-  since each extra condition is one more chance to pass by luck.
+- The check, as first registered, passes a judge when at least one condition with 10
+  right and 10 wrong decisions has p below 0.05 divided by the number of such
+  conditions; A0 never counts. Dividing keeps the false-pass rate at about 1 in 20
+  however many conditions count, since each extra condition is one more chance to pass
+  by luck.
+- Since the pilot that verdict is printed but excludes no judge. In this study a
+  condition fixes what the judge sees, and in the pilot every wrong answer was the two
+  agreeing reports' claim, so a low AUROC there shows a judge surer when it follows
+  them, not numbers without information.
 - A fixed AUROC mark would not hold that rate. At 12 right and 48 wrong independent
   decisions, a judge whose numbers carry no information reaches 0.60 by luck more than
   1 time in 10, but passes the test about 1 time in 20.
 
 **In the code.** `auroc`, `auroc_p` (with `SHUFFLES` and `SHUFFLE_SEED`),
 `discrimination_verdict` and `report_discrimination` in `pipeline/score.py`. Why this
-rule, and why the case is the unit: `docs/decisions.md`.
+rule, why the case is the unit, and why the check no longer excludes: `docs/decisions.md`.

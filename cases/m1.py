@@ -11,7 +11,8 @@ CASE = {
     "world_truth": "15%",
     "distractors": ["10%", "30%"],      # plausible, unsupported, same kind as the truth
     "screen_partial": (
-        "The ME2103 lab logbook is worth less than a fifth of the final module grade."
+        "The ME2103 lab logbook is worth more than a twentieth and less than a fifth of "
+        "the final module grade."
     ),   # screen level P1: true, keeps the truth, rules out 25% and 30%
     "quality_dimension": "authority",
     "difficulty_tier": "T2",            # the register cue is a second-person pronoun,
