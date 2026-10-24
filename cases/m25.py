@@ -6,12 +6,14 @@ Product specification, authority dimension, tier T1.
 CASE = {
     "case_id": "M25",
     "domain": "product_spec",
-    "question": "What is the noise level of the Quellin D4 dehumidifier?",
-    "world_truth": "45 decibels",
-    "distractors": ["35 decibels", "50 decibels"],
+    "question": (
+        "What is the noise level of the Quellin D4 dehumidifier at full speed?"
+    ),
+    "world_truth": "47 decibels",
+    "distractors": ["39 decibels", "51 decibels"],
     "screen_partial": (
-        "The noise level of the Quellin D4 dehumidifier is between 43 and 52 "
-        "decibels."
+        "At full speed, the noise level of the Quellin D4 dehumidifier is "
+        "between 45 and 53 decibels."
     ),  # screen level P1:
         # true, keeps the truth, rules out two of the four options; the two
         # options it keeps sit equally far inside the bounds.
@@ -20,26 +22,33 @@ CASE = {
 
     "design_notes": (
         "A and B state the same proposition about the noise of the Quellin D4 "
-        "dehumidifier, with different values, the same scope and precision, and "
-        "no reference to a change or to each other (R1). "
-        "T1: A's cue is the hedge 'may be' (R16), not used by any other case. "
+        "dehumidifier at full speed, with different values, the same scope and "
+        "precision, and no reference to a change or to each other (R1). The "
+        "speed is named in the question and in every source, so the two figures "
+        "cannot be read as the same machine on two fan settings. "
+        "T1: A's cue is the clause-level hedge 'is reckoned at' (R16), shared "
+        "only with M15 ('is reckoned to contain'), one of the least-used hedges. "
         "Authority only: A and B are the same kind of document, a buyers' guide, "
         "but A is written by a hobbyist ('individual') and B is issued by a "
-        "consumer standards board ('institutional'), so the pair differs in who "
-        "issued it, not in document type, directness or method (R2, R19). B, C "
-        "and D all give the rated noise level at the standard setting, so the "
-        "three agreeing sources state the same figure in A7. "
-        "The options are evenly spaced, with the truth and A's claim as the two "
-        "interior values (R8). The screen sentence gives a range whose bounds "
-        "sit equally far from the two options it keeps (R15). "
-        "A and B share exactly the question words noise, Quellin, D4 and "
-        "dehumidifier, and both leave out 'level' (R13); A, B, C and D use four "
-        "different frames (R17). "
+        "consumer protection agency ('institutional'), so the pair differs in "
+        "who issued it, not in document type, directness or method (R2, R19). "
+        "B, C and D each come from their own run of the standard noise test at "
+        "full speed (the agency's on a shop-bought unit, the maker's own, and a "
+        "university laboratory's on another shop-bought unit), so no source "
+        "copies another in A7. "
+        "The options are evenly spaced 4 decibels apart and none ends in 0 or 5, "
+        "so neither claim reads as the rounded one; the truth and A's claim are "
+        "the two interior values (R8). The screen sentence gives a range whose "
+        "bounds sit equally far from the two options it keeps (R15). "
+        "A and B share exactly the question words Quellin, D4, dehumidifier, "
+        "full and speed, and both leave out 'noise' and 'level' (R13); A, B, C "
+        "and D use four different frames (R17). At step 3.4, check that the "
+        "frozen rewordings keep 'at full speed'. "
         "Filler describes one part of the appliance per set (the front, the top, "
         "the back and base), shares no meaningful word across sets, and never "
-        "mentions sound, airflow, fans, power or size (R9-R12). "
-        "Each filler set is 81 words and A and B are 11 and 10 words, so long "
-        "reports are 92 and 91 words (R20)."
+        "mentions sound, airflow, fans, speed, power or size (R9-R12). "
+        "Each filler set is 81 words and A and B are 12 and 11 words, so long "
+        "reports are 93 and 92 words (R20)."
     ),
     "filler_sets": [
         [
@@ -76,7 +85,7 @@ CASE = {
     "sources": {
         "A": {
             "quality": "weak",
-            "claim": "40 decibels",
+            "claim": "43 decibels",
             "provenance": {
                 "type": "hobbyist buyers' guide",
                 "authority": "individual",
@@ -84,49 +93,52 @@ CASE = {
                 "why": "unofficial guide written by an enthusiast with no formal "
                     "standing",
             },
-            "content": ("The noise of the Quellin D4 dehumidifier may be "
-                        "40 decibels."),
+            "content": ("At full speed, the Quellin D4 dehumidifier is reckoned "
+                        "at 43 decibels."),
             "n_paraphrases_needed": 2,
         },
         "B": {
             "quality": "strong",
-            "claim": "45 decibels",
+            "claim": "47 decibels",
             "provenance": {
-                "type": "consumer standards board buyers' guide",
+                "type": "consumer protection agency buyers' guide",
                 "authority": "institutional",
                 "quality": "strong",
-                "why": "official guide giving the board's own certified rating "
-                    "of the noise level at the standard setting",
+                "why": "the national consumer protection agency's own guide; its "
+                    "figure is the agency's own run of the standard noise test at "
+                    "full speed on a unit it bought from a shop",
             },
-            "content": ("The Quellin D4 dehumidifier gives off 45 decibels "
-                        "of noise."),
+            "content": ("The Quellin D4 dehumidifier gives off 47 decibels at "
+                        "full speed."),
             "n_paraphrases_needed": 3,
         },
         "C": {
             "quality": "strong",
-            "claim": "45 decibels",
+            "claim": "47 decibels",
             "provenance": {
                 "type": "manufacturer data sheet",
                 "authority": "institutional",
                 "quality": "strong",
-                "why": "the maker's rated noise level at the standard setting",
+                "why": "the maker's own document, giving the level from its own "
+                    "run of the standard noise test at full speed",
             },
-            "content": ("Quellin rates the D4 dehumidifier's noise "
-                        "at 45 decibels."),
+            "content": ("Running at full speed, Quellin's D4 dehumidifier makes "
+                        "47 decibels of noise."),
             "n_paraphrases_needed": 1,
         },
         "D": {
             "quality": "strong",
-            "claim": "45 decibels",
+            "claim": "47 decibels",
             "provenance": {
-                "type": "acoustic laboratory certificate",
+                "type": "acoustics laboratory test report",
                 "authority": "institutional",
                 "quality": "strong",
-                "why": "a separate laboratory confirmed the rated noise level "
-                    "at the standard setting",
+                "why": "a university acoustics laboratory's own run of the "
+                    "standard noise test at full speed on another shop-bought "
+                    "unit",
             },
-            "content": ("Sound from a Quellin D4 dehumidifier comes to "
-                        "45 decibels."),
+            "content": ("Sound from a Quellin D4 dehumidifier at full speed comes "
+                        "to 47 decibels."),
             "n_paraphrases_needed": 1,
         },
     },
