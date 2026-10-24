@@ -822,3 +822,98 @@ Add an entry when you make a choice a reader could not guess from the code.
 - **Breaks if changed**: running a stage 2 entry in stage 1 uses up the money kept for an
   entry that stops; starting before all 40 cases are merged lets results exist while
   rules can still change.
+
+### 2026-10-24 — A hedge carries at most three T1 cases
+
+- **Decision**: up to three T1 cases may share a hedge, counted by its main word, so "is
+  likely to", "it is likely that" and "is likely to have" are one hedge. An author picks
+  a hedge with fewer than three cases, on `main` or in an open pull request, preferring
+  one already in use to a new one, or another kind of cue. R16 in
+  `docs/authoring-rules.md` and work-plan step 1.4 now say so. This replaces "pick the
+  one used least" from the 2026-10-18 entry; varying the hedge stays.
+- **Why** [STATED: team decision, 2026-10-24]: Kathleen asked whether the repeats were
+  acceptable, with six hedges then on two or three cases each, and Jason decided.
+  [STATED: R16] varying the hedge exists so that one phrase does not carry many T1
+  cases; at three, losing one hedge relabels at most three of the 30 T1 cases, and "a T2
+  case is a legitimate control". [STATED: `runs/frozen_reports.json`] in the pilot, all
+  eight accepted rewordings of A in M2 to M5 kept a hedge, and two changed its word: M4's
+  "is thought to be" came back as "A water lift of 4000Pa is suspected for the Yhotak
+  B162 Vacuum." and M5's "is believed to have been" as "The water supply at Kestrel Court
+  is thought to have been disconnected for 9 hours." So the reporter keeps the doubt
+  rather than the word. [STATED: team decision, 2026-10-24] once every common hedge had a
+  case, "least used" sent authors to new hedges that read as something other than doubt,
+  which Kai Rong found reviewing the Phase 4 pull requests: "is expected to be" can read
+  as a planned figure, so both claims can be true; "is considered to be" as an official
+  ruling; "is taken as" as a set working value. [INFERRED: from `ATTRIBUTION_PHRASES` in
+  `pipeline/reporter.py`] "It appears that" rewords easily to "apparently", which the
+  linter rejects in a case but the reporter's checks do not catch in a rewording.
+- **Rejected**: a new hedge for every case, which "pick the one used least" asks for once
+  every common hedge has a case; no limit, which is how three of the four T1 pilot cases
+  came to share one phrase.
+- **Breaks if changed**: with no limit, one hedge can again carry many T1 cases, and the
+  T1/T2 balance rests on whether the reporter keeps it; with one hedge per case, authors
+  reach for hedges that break R1 or turn into hearsay.
+
+### 2026-10-24 — B, C and D each reach the figure by their own route
+
+- **Decision**: in A7, B, C and D must each reach the figure by their own route, so that a
+  slip in one could not reach the others. Readings of one printed figure (a box, a
+  datasheet, a register filled in from it) are one origin. For a figure an institution
+  sets, such as a loan period, a deposit or a credit total, the fact is the decision
+  itself: a record made where it was decided, or someone seeing the rule applied, is its
+  own route; a copy of the governing document, or the minutes it was drafted from, is
+  not. Each source's `why` names its route. `docs/authoring-rules.md`, "Checks no script
+  performs".
+- **Why** [STATED: team decision, 2026-10-24]: Jason asked for it reviewing M15 and M36,
+  where B, C and D each read one printed figure. Kai Rong applied it reviewing the Phase
+  4 pull requests and asked on M16, M17 and M24 how strict it is for a figure an
+  institution sets, since every record of such a figure goes back to one decision. Jason
+  decided. [STATED: README, "Measures, in order of weight"] normatively n_eff(A4) = 1,
+  "three reports, one source", and n_eff(A7) = 3, so A7 must hold three sources;
+  [STATED: README, "Two blocks, thirteen conditions"] A4 against A7 tests "true
+  independence at equal report count". [STATED: `cases/m15.py`] "B, C and D each have
+  their own origin so A7 does not read as one source three times".
+- **Rejected**: any three different documents, which lets C and D pass on B's figure, so
+  that A7 shows one source three times, which is A4's job; a separate measurement for
+  every source, which a figure set by a decision cannot have.
+- **Breaks if changed**: A7 no longer holds three sources, so n_eff(A7) = 3 is false by
+  design, and A4 against A7 (H2) compares one source with one source.
+
+### 2026-10-24 — Cases may share an attribute, not a scenario
+
+- **Decision**: two cases may ask about the same attribute of different things, such as
+  the battery capacity of a laptop (M2) and of a phone (M22). A case that repeats another
+  case's scenario with new names takes a new topic. `docs/authoring-rules.md`, "Checks
+  no script performs". M29, drafted as the number of passengers evacuated from a stalled
+  funicular, repeated M38's question, the number of passengers evacuated from a stalled
+  train, so M29 takes a new topic in its pull request.
+- **Why** [STATED: team decision, 2026-10-24]: Kathleen listed similar pairs (M29 and M38,
+  M25 and M31, M2 and M22, M4 and M20, M5 and M26) and asked whether any needed changing,
+  and Jason decided. [STATED: `pipeline/prompt.py`] a judge prompt holds one
+  "Question: {question}", so two cases never meet in a trial. [STATED: proposal §3, in
+  the 2026-10-21 entry on type names] results are broken down by dimension, and a
+  scenario repeated with new names makes one topic count twice in the results.
+- **Rejected**: one topic per case, which would rewrite merged cases such as M2 and M22
+  for no gain; keeping M29 as drafted.
+- **Breaks if changed**: nothing the scorer reads; scenarios repeated with new names
+  narrow the range of facts the results cover.
+
+### 2026-10-24 — Authors count the hedges in use with tools/case_index.py
+
+- **Decision**: R16 in `docs/authoring-rules.md` and work-plan step 1.4 send authors to
+  `uv run python tools/case_index.py --all-branches`, which lists the cases on `main` and
+  on every pull-request branch, with A's hedge, and then each hedge in use with how many
+  of its three slots are left. The index is printed, never committed. It replaces the
+  `grep` of the 2026-10-18 entry.
+- **Why** [STATED: team decision, 2026-10-24]: Kathleen wrote the script, and Jason asked
+  that R16 point to it once it was merged. [STATED: R16] most cases are drafted on
+  pull-request branches, which a `grep` of `cases/*.py` cannot see, since it reads only
+  the author's own branch. [STATED: `tools/case_index.py`] "The index is printed, not
+  committed: it reads everyone's branches, so a saved copy goes stale with every push."
+- **Rejected**: the `grep`, which misses every case drafted on another branch; a
+  generated `docs/case-index.md` committed with the script, which goes stale with every
+  push and would make every case pull request conflict on it, as they all do on
+  `cases/__init__.py`.
+- **Breaks if changed**: an author who checks only their own branch can pick a hedge that
+  is already full on other branches, and one hedge ends up carrying more than three T1
+  cases.

@@ -392,7 +392,7 @@ a.ref:hover { background: var(--surface-2); }
   "title": "Project Knowledge Graph",
   "project": "DSA4213 Group 14 · Counting Reports or Counting Evidence",
   "oneLiner": "Can an AI orchestrator that combines reports from several agents tell three copies of one source from three independent sources, and which piece of information fixes its mistakes: a source name, a 'these share a source' note, or a 'this source is better' note?",
-  "updated": "2026-10-22",
+  "updated": "2026-10-24",
   "tour": [
    "question",
    "false-consensus",
@@ -442,7 +442,7 @@ a.ref:hover { background: var(--surface-2); }
     "four-options"
    ],
    [
-    "11 of 40",
+    "17 of 40",
     "cases written",
     "open-corpus"
    ],
@@ -1985,7 +1985,8 @@ a.ref:hover { background: var(--surface-2); }
    "cluster": "cases",
    "title": "T1 cases vary their hedge",
    "label": "Vary the T1 hint",
-   "summary": "Each T1 case should use a different hint from the cases already written. If one phrase carries many T1 cases and the reporter drops it, all of them become T2 at once. Authors list the hedges in use, pick the one used least or another kind of cue, and name theirs in the case's design notes.",
+   "summary": "Superseded by [[hedge-limit]]. Each T1 case was to use a different hint from the cases already written: authors listed the hedges in use, picked the one used least or another kind of cue, and named theirs in the case's design notes. If one phrase carries many T1 cases and the reporter drops it, all of them become T2 at once.",
+   "status": "superseded",
    "date": "2026-10-18",
    "points": [
     "When the rule was made, three of the four T1 pilot cases hinted with 'is understood to'; only M5 used another phrase, 'is believed to have been'.",
@@ -2030,6 +2031,209 @@ a.ref:hover { background: var(--surface-2); }
     },
     {
      "to": "human-checks",
+     "rel": "related"
+    }
+   ]
+  },
+  {
+   "id": "hedge-limit",
+   "type": "decision",
+   "cluster": "cases",
+   "title": "A hedge carries at most three T1 cases",
+   "label": "Hedge: at most 3 cases",
+   "summary": "T1 cases still vary their hedge, but up to three may share one, counted by its main word, so 'is likely to' and 'it is likely that' are one hedge. An author picks a hedge with fewer than three cases, on main or in an open pull request, and prefers one already in use to a new one. If the reporter drops a hedge, at most three of the 30 T1 cases become T2.",
+   "date": "2026-10-24",
+   "points": [
+    "Kathleen asked whether the repeats were acceptable, with six hedges on two or three cases each, and Jason decided. It replaces 'pick the one used least': [[hint-variety]].",
+    "In the pilot, all eight accepted rewordings of A in M2 to M5 kept a hedge, and two changed its word: M4's 'is thought to be' came back as 'is suspected'. The reporter keeps the doubt rather than the word.",
+    "Hedges picked only because no case used them often read as something other than doubt: 'is expected to be' as a planned figure, 'is taken as' as a set working value, and 'it appears that' rewords easily to 'apparently'.",
+    "A case whose hedge is lost becomes T2, a legitimate control: [[tiers]]."
+   ],
+   "evidence": [
+    {
+     "file": "docs/authoring-rules.md",
+     "loc": "R16",
+     "quote": "At most three T1 cases share a hedge, counted by its main word: \"is likely to\" and \"it is likely that\" are one hedge."
+    },
+    {
+     "file": "docs/decisions.md",
+     "loc": "A hedge carries at most three T1 cases",
+     "quote": "So the reporter keeps the doubt rather than the word."
+    },
+    {
+     "file": "runs/frozen_reports.json",
+     "loc": "M4, A",
+     "quote": "A water lift of 4000Pa is suspected for the Yhotak B162 Vacuum."
+    },
+    {
+     "file": "docs/work-plan.md",
+     "loc": "1.4 Write the four content sentences",
+     "quote": "fewer than three T1 cases use, on main or in open pull requests"
+    }
+   ],
+   "links": [
+    {
+     "to": "hint-variety",
+     "rel": "replaces"
+    },
+    {
+     "to": "tiers",
+     "rel": "needs"
+    },
+    {
+     "to": "rules-wording",
+     "rel": "part-of"
+    },
+    {
+     "to": "human-checks",
+     "rel": "related"
+    }
+   ]
+  },
+  {
+   "id": "case-index",
+   "type": "design",
+   "cluster": "cases",
+   "title": "Case index (tools/case_index.py)",
+   "label": "Case index",
+   "summary": "A script that lists every case on main and on every pull-request branch, with its domain, dimension, tier and A's hedge, then each hedge in use and how many of its three slots are left. Authors run it before picking a hedge, because most cases are drafted on branches that a search of their own branch cannot see. It prints the index and never saves it, so the index cannot go stale.",
+   "aliases": [
+    "case_index.py",
+    "case index"
+   ],
+   "date": "2026-10-24",
+   "points": [
+    "Kathleen wrote it, and it replaced R16's grep, which read only the author's own branch while most cases sat on others.",
+    "A saved copy would go stale with every push, and every case pull request would conflict on it, as they all do on cases/__init__.py."
+   ],
+   "evidence": [
+    {
+     "file": "tools/case_index.py",
+     "loc": "module docstring",
+     "quote": "The index is printed, not committed: it reads everyone's branches, so a saved copy goes stale with every push."
+    },
+    {
+     "file": "docs/authoring-rules.md",
+     "loc": "R16",
+     "quote": "it lists the cases on main and on every pull-request branch, where most cases are drafted, with each hedge in use and how many of its three slots are left"
+    },
+    {
+     "file": "docs/decisions.md",
+     "loc": "Authors count the hedges in use with tools/case_index.py",
+     "quote": "It replaces the grep of the 2026-10-18 entry."
+    }
+   ],
+   "links": [
+    {
+     "to": "hedge-limit",
+     "rel": "needs"
+    },
+    {
+     "to": "linter",
+     "rel": "related"
+    }
+   ]
+  },
+  {
+   "id": "a7-own-route",
+   "type": "decision",
+   "cluster": "cases",
+   "title": "B, C and D each reach the figure by their own route",
+   "label": "A7: separate origins",
+   "summary": "The three agreeing reports in A7 must come from three real sources, so B, C and D each need their own route to the figure: three readings of one printed figure are one source, which is A4's job. For a figure an institution sets, the fact is the decision itself: a record made where it was decided, or someone seeing the rule applied, counts; a copy of the governing document, or the minutes it was drafted from, does not.",
+   "date": "2026-10-24",
+   "points": [
+    "Jason asked for it reviewing M15 and M36, where B, C and D each read one printed figure. Kai Rong applied it to the Phase 4 cases and asked how strict it is for a figure an institution sets; Jason decided.",
+    "The right n_eff in A7 is 3 only if its three reports come from three sources: [[neff]].",
+    "Each source's why names its route, and the reviewer checks it, since no script can: [[human-checks]].",
+    "It is about origin, not wording; reports that read almost alike are a separate note: [[a7-near-copies-noted]]."
+   ],
+   "evidence": [
+    {
+     "file": "docs/authoring-rules.md",
+     "loc": "Checks no script performs",
+     "quote": "B, C and D must each reach the figure by their own route, so that a slip in one could not reach the others."
+    },
+    {
+     "file": "docs/authoring-rules.md",
+     "loc": "Checks no script performs",
+     "quote": "a record made where it was decided, or someone seeing the rule applied, is its own route; a copy of the governing document, or the minutes it was drafted from, is not."
+    },
+    {
+     "file": "docs/decisions.md",
+     "loc": "B, C and D each reach the figure by their own route",
+     "quote": "Readings of one printed figure (a box, a datasheet, a register filled in from it) are one origin."
+    },
+    {
+     "file": "cases/m15.py",
+     "loc": "design_notes",
+     "quote": "B, C and D each have their own origin so A7 does not read as one source three times"
+    }
+   ],
+   "links": [
+    {
+     "to": "a7",
+     "rel": "needs"
+    },
+    {
+     "to": "a4",
+     "rel": "needs"
+    },
+    {
+     "to": "neff",
+     "rel": "related"
+    },
+    {
+     "to": "human-checks",
+     "rel": "part-of"
+    },
+    {
+     "to": "a7-near-copies-noted",
+     "rel": "related"
+    }
+   ]
+  },
+  {
+   "id": "scenario-per-case",
+   "type": "decision",
+   "cluster": "cases",
+   "title": "Cases may share an attribute, not a scenario",
+   "label": "One scenario per case",
+   "summary": "Two cases may ask about the same attribute of different things, such as the battery capacity of a laptop (M2) and of a phone (M22). A case that repeats another case's scenario with new names takes a new topic. A judge prompt holds one case, so similar topics never meet in a trial; the rule stops one scenario counting twice in the results.",
+   "date": "2026-10-24",
+   "points": [
+    "Kathleen listed similar pairs and asked whether any needed changing, and Jason decided.",
+    "M29, drafted as passengers evacuated from a stalled funicular, repeated M38's stalled-train question, so M29 takes a new topic in its pull request. The other pairs ask about one attribute of different things, and stay.",
+    "The reviewer checks it, since no script can: [[human-checks]]."
+   ],
+   "evidence": [
+    {
+     "file": "docs/authoring-rules.md",
+     "loc": "Checks no script performs",
+     "quote": "A case that repeats another case's scenario with new names, such as passengers evacuated from a stalled train, takes a new topic."
+    },
+    {
+     "file": "docs/decisions.md",
+     "loc": "Cases may share an attribute, not a scenario",
+     "quote": "so M29 takes a new topic in its pull request."
+    },
+    {
+     "file": "pipeline/prompt.py",
+     "loc": "TEMPLATE",
+     "quote": "Question: {question}"
+    }
+   ],
+   "links": [
+    {
+     "to": "human-checks",
+     "rel": "part-of"
+    },
+    {
+     "to": "case-anatomy",
+     "rel": "needs"
+    },
+    {
+     "to": "open-corpus",
      "rel": "related"
     }
    ]
@@ -2374,7 +2578,7 @@ a.ref:hover { background: var(--surface-2); }
    "type": "design",
    "cluster": "cases",
    "title": "Checks no script can do",
-   "summary": "Four checks need a person: specificity asymmetry; whether the screen sentence really rules out half the options; whether A and B still talk about the same 'whole' after rewording; and whether a T1 hint survived.",
+   "summary": "Six checks need a person: specificity asymmetry; whether the screen sentence really rules out half the options; whether A and B still talk about the same 'whole' after rewording; whether a T1 hint survived; whether B, C and D each reach the figure by their own route; and whether a case repeats another case's scenario.",
    "aliases": [
     "human review"
    ],
@@ -7399,9 +7603,9 @@ a.ref:hover { background: var(--surface-2); }
    "id": "open-corpus",
    "type": "issue",
    "cluster": "issues",
-   "title": "Only eleven of 40 cases are written",
-   "label": "Corpus: 11 of 40",
-   "summary": "The corpus holds eleven cases, M1 to M5, M14, M15 and M30 to M33. The study plans 40, and authoring with independent review is the critical path.",
+   "title": "Only seventeen of 40 cases are written",
+   "label": "Corpus: 17 of 40",
+   "summary": "The corpus holds seventeen cases, M1 to M5, M7, M14, M15, M22, M23 and M30 to M36. The study plans 40, and authoring with independent review is the critical path.",
    "status": "open",
    "date": "2026-10-12",
    "weight": 2,
@@ -7409,12 +7613,12 @@ a.ref:hover { background: var(--surface-2); }
     {
      "file": "README.md",
      "loc": "Status and open items",
-     "quote": "Corpus: 11 of 40 cases. M1 (institutional logistics, authority, T2), M2 (product specification, primary source, T1), M3 (incident status, directness, T1), M4 (product specification, method, T1), M5 (incident status, authority, T1), M14 (incident status, method, T2), M15 (institutional logistics, authority, T1), M30 (institutional logistics, directness, T1), M31 (product specification, primary source, T2), M32 (incident status, primary source, T1) and M33 (incident status, authority, T2)."
+     "quote": "Corpus: 17 of 40 cases. M1 (institutional logistics, authority, T2), M2 (product specification, primary source, T1), M3 (incident status, directness, T1), M4 (product specification, method, T1), M5 (incident status, authority, T1), M7 (product specification, authority, T1), M14 (incident status, method, T2), M15 (institutional logistics, authority, T1), M22 (product specification, directness, T2), M23 (institutional logistics, method, T1), M30 (institutional logistics, directness, T1), M31 (product specification, primary source, T2), M32 (incident status, primary source, T1), M33 (incident status, authority, T2), M34 (product specification, authority, T1), M35 (institutional logistics, method, T1) and M36 (product specification, directness, T1)."
     },
     {
      "file": "cases/__init__.py",
      "loc": "CASES",
-     "quote": "CASES = {case[\"case_id\"]: case for case in (m1.CASE, m2.CASE, m3.CASE, m4.CASE, m5.CASE, m14.CASE, m15.CASE, m30.CASE, m31.CASE, m32.CASE, m33.CASE)}"
+     "quote": "CASES = {case[\"case_id\"]: case for case in (m1.CASE, m2.CASE, m3.CASE, m4.CASE, m5.CASE, m7.CASE, m14.CASE, m15.CASE, m22.CASE, m23.CASE, m30.CASE, m31.CASE, m32.CASE, m33.CASE, m34.CASE, m35.CASE, m36.CASE)}"
     }
    ],
    "links": [
@@ -8717,6 +8921,85 @@ a.ref:hover { background: var(--surface-2); }
   {
    "date": "2026-10-22",
    "summary": "M15 (institutional logistics, authority, T1) joined the corpus, now 11 of 40.",
+   "changed": [
+    "open-corpus"
+   ]
+  },
+  {
+   "date": "2026-10-24",
+   "summary": "M22 (product specification, directness, T2) joined the corpus, now 12 of 40. Its pull request merged on 2026-10-23 without registering the case; it is registered now.",
+   "changed": [
+    "open-corpus"
+   ]
+  },
+  {
+   "date": "2026-10-24",
+   "summary": "M23 (institutional logistics, method, T1) joined the corpus, now 13 of 40. Its pull request merged on 2026-10-23 without registering the case; it is registered now.",
+   "changed": [
+    "open-corpus"
+   ]
+  },
+  {
+   "date": "2026-10-24",
+   "summary": "R16: up to three T1 cases may share a hedge, counted by its main word, and authors prefer a hedge already in use to a new one. Kathleen asked; it replaces 'pick the one used least'.",
+   "added": [
+    "hedge-limit"
+   ],
+   "superseded": [
+    "hint-variety"
+   ]
+  },
+  {
+   "date": "2026-10-24",
+   "summary": "A7: B, C and D each reach the figure by their own route; for a figure an institution sets, a record made where it was decided or the rule seen applied counts, a copy of the governing document does not. Kai Rong asked on the M16, M17 and M24 pull requests.",
+   "added": [
+    "a7-own-route"
+   ],
+   "changed": [
+    "human-checks"
+   ]
+  },
+  {
+   "date": "2026-10-24",
+   "summary": "Cases may share an attribute, not a scenario: M29 repeated M38's stalled-train question and takes a new topic. Kathleen asked.",
+   "added": [
+    "scenario-per-case"
+   ],
+   "changed": [
+    "human-checks"
+   ]
+  },
+  {
+   "date": "2026-10-24",
+   "summary": "Authors check the hedges in use with tools/case_index.py, which reads every branch; R16's grep read only the author's own branch. Kathleen wrote the script.",
+   "added": [
+    "case-index"
+   ]
+  },
+  {
+   "date": "2026-10-24",
+   "summary": "M7 (product specification, authority, T1) joined the corpus, now 14 of 40.",
+   "changed": [
+    "open-corpus"
+   ]
+  },
+  {
+   "date": "2026-10-24",
+   "summary": "M34 (product specification, authority, T1) joined the corpus, now 15 of 40.",
+   "changed": [
+    "open-corpus"
+   ]
+  },
+  {
+   "date": "2026-10-24",
+   "summary": "M35 (institutional logistics, method, T1) joined the corpus, now 16 of 40.",
+   "changed": [
+    "open-corpus"
+   ]
+  },
+  {
+   "date": "2026-10-24",
+   "summary": "M36 (product specification, directness, T1) joined the corpus, now 17 of 40.",
    "changed": [
     "open-corpus"
    ]

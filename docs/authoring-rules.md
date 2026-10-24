@@ -142,12 +142,17 @@ approximation, or a standardised notation, and ask: *would a faithful rewording 
 this?* The tier label stays provisional until the frozen reports are read. A case whose
 cue is lost is relabelled T2, not rewritten, because a T2 case is a legitimate control.
 **Vary the cue across cases.** If one phrase carries many T1 cases and the reporter drops
-it, they all become T2 together. Before choosing a hedge, run
-`grep -n -i -A1 hedge cases/*.py` to see the ones in use (each case names its hedge in
-`design_notes`), and pick the one used least, or another kind of cue; then name yours in
-`design_notes` too. "Is believed to", "is thought to" and "is estimated at" are hedges of
-the same size. "Reportedly", "allegedly" and "apparently" are not available: R2's lint
-rejects them.
+it, they all become T2 together. **At most three T1 cases share a hedge**, counted by its
+main word: "is likely to" and "it is likely that" are one hedge. Before choosing, run
+`git fetch origin`, then `uv run python tools/case_index.py --all-branches`: it lists the
+cases on `main` and on every pull-request branch, where most cases are drafted, with each
+hedge in use and how many of its three slots are left (it reads the hedge each case names
+in `design_notes`). Pick a hedge with fewer than three cases, preferring one already in use to a new one, or
+another kind of cue; then name yours in `design_notes` too. A new hedge must still read
+as doubt in its sentence: "is expected to be" can read as a planned figure, "is taken
+as" as a set working value, and "it appears that" rewords easily to "apparently". "Is
+believed to", "is thought to" and "is estimated at" are hedges of the same size.
+"Reportedly", "allegedly" and "apparently" are not available: R2's lint rejects them.
 
 **R17 — Sources that share a trial use different sentence frames.** B, C and D appear
 together in A7; A and B appear together in the conflict block. If two of them state the
@@ -226,3 +231,14 @@ skips the length check for that case and says so. Follow the R20 warning, not th
   module grade" are the same whole; "the continuous-assessment mark" is not.
 - **Cue survival.** For a T1 case, read the accepted paraphrases and confirm the cue is
   still there. If it is not, relabel the case T2.
+- **Separate origins in A7.** B, C and D must each reach the figure by their own route, so
+  that a slip in one could not reach the others. Three readings of one printed figure (a
+  box, a datasheet, a register filled in from it) are one origin, and A7 would show one
+  source three times, which is A4's job. For a figure an institution sets, the fact is
+  the decision itself: a record made where it was decided, or someone seeing the rule
+  applied, is its own route; a copy of the governing document, or the minutes it was
+  drafted from, is not. Each source's `why` names its route.
+- **A scenario of its own.** Two cases may ask about the same attribute of different
+  things, such as the battery capacity of a laptop and of a phone. A case that repeats
+  another case's scenario with new names, such as passengers evacuated from a stalled
+  train, takes a new topic.

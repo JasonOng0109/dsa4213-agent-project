@@ -205,8 +205,11 @@ Same steps for each author. Replace `m2` with your case.
   - R13: A and B use exactly the same words from the question.
   - R20: A and B are within 2 words of each other in length.
 - **T1 only** (R16): give A one mild hint that survives rewording, such as a hedge ("is
-  understood to be"). One small word like "your" does not survive. Use the hedge that
-  the merged cases use least, and name it in `design_notes` (R16, "Vary the cue").
+  understood to be"). One small word like "your" does not survive. Use a hedge that
+  fewer than three T1 cases use, on `main` or in open pull requests, preferring one
+  already in use to a new one, and name it in `design_notes` (R16, "Vary the cue").
+  `uv run python tools/case_index.py --all-branches` lists the hedges in use and the
+  slots each has left.
 
 **1.5 Write the provenance.**
 - **Do**: fill `type`, `authority`, `quality`, `why` for each source.
@@ -486,7 +489,7 @@ Jason merges Phase 4 cases only after it, because the run takes every case in
 | M4 | product_spec | method | T1 | Kathleen | Kai Rong | merged | yes |
 | M5 | incident_status | authority | T1 | Kai Rong | Crystal | merged | yes |
 | M6 | institutional_logistics | primary_source | T1 | Crystal | Rachel | assigned | yes |
-| M7 | product_spec | authority | T1 | Crystal | Rachel | assigned | |
+| M7 | product_spec | authority | T1 | Crystal | Rachel | merged | |
 | M8 | incident_status | method | T2 | Crystal | Rachel | assigned | backup for M14 |
 | M9 | product_spec | directness | T2 | Crystal | Rachel | assigned | backup for M22 |
 | M10 | institutional_logistics | authority | T1 | Crystal | Rachel | assigned | |
@@ -501,8 +504,8 @@ Jason merges Phase 4 cases only after it, because the run takes every case in
 | M19 | incident_status | directness | T2 | Rachel | Kathleen | assigned | |
 | M20 | product_spec | method | T1 | Rachel | Kathleen | assigned | |
 | M21 | incident_status | authority | T1 | Rachel | Kathleen | assigned | |
-| M22 | product_spec | directness | T2 | Kathleen | Kai Rong | assigned | yes |
-| M23 | institutional_logistics | method | T1 | Kathleen | Kai Rong | assigned | |
+| M22 | product_spec | directness | T2 | Kathleen | Kai Rong | merged | yes |
+| M23 | institutional_logistics | method | T1 | Kathleen | Kai Rong | merged | |
 | M24 | institutional_logistics | primary_source | T2 | Kathleen | Kai Rong | assigned | |
 | M25 | product_spec | authority | T1 | Kathleen | Kai Rong | assigned | |
 | M26 | incident_status | method | T1 | Kathleen | Kai Rong | assigned | |
@@ -513,9 +516,9 @@ Jason merges Phase 4 cases only after it, because the run takes every case in
 | M31 | product_spec | primary_source | T2 | Kai Rong | Crystal | merged | |
 | M32 | incident_status | primary_source | T1 | Kai Rong | Crystal | merged | backup for M38 |
 | M33 | incident_status | authority | T2 | Kai Rong | Crystal | merged | |
-| M34 | product_spec | authority | T1 | Kai Rong | Crystal | assigned | |
-| M35 | institutional_logistics | method | T1 | Kai Rong | Crystal | assigned | |
-| M36 | product_spec | directness | T1 | Kai Rong | Crystal | assigned | |
+| M34 | product_spec | authority | T1 | Kai Rong | Crystal | merged | |
+| M35 | institutional_logistics | method | T1 | Kai Rong | Crystal | merged | |
+| M36 | product_spec | directness | T1 | Kai Rong | Crystal | merged | |
 | M37 | incident_status | method | T1 | Kai Rong | Crystal | assigned | |
 | M38 | incident_status | primary_source | T1 | Jason | Kathleen | assigned | yes |
 | M39 | incident_status | directness | T1 | Jason | Kathleen | assigned | |
