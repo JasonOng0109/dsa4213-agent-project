@@ -54,7 +54,7 @@ CASE = {
 
     "filler_sets": [
         [
-            "The yard behind the building has a concrete surface marked with yellow lines.",
+            "The yard behind the building has a concrete surface painted with yellow lines.",
             "Several loading bays open onto the gate, with rubber buffers bolted beside each bay.",
             "A floodlight on a steel mast stands at one corner of the yard.",
             "Bollards line the edge of a ramp, and a drainage grille crosses the approach to the gate.",
