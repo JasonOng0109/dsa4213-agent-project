@@ -523,7 +523,7 @@ Jason merges Phase 4 cases only after it, because the run takes every case in
 | M37 | incident_status | method | T1 | Kai Rong | Crystal | merged | |
 | M38 | incident_status | primary_source | T1 | Jason | Kathleen | merged | yes |
 | M39 | incident_status | directness | T1 | Jason | Kathleen | merged | |
-| M40 | institutional_logistics | method | T2 | Jason | Kathleen | assigned | |
+| M40 | institutional_logistics | method | T2 | Jason | Kathleen | merged | |
 
 **Subset** marks the ten cases the length arm and the wording ladder run on (2D): M1–M5,
 and five Phase 4 cases marked on 2026-10-19 with the first batches, before anyone drafted
