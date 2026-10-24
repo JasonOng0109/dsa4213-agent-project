@@ -2091,6 +2091,50 @@ a.ref:hover { background: var(--surface-2); }
    ]
   },
   {
+   "id": "case-index",
+   "type": "design",
+   "cluster": "cases",
+   "title": "Case index (tools/case_index.py)",
+   "label": "Case index",
+   "summary": "A script that lists every case on main and on every pull-request branch, with its domain, dimension, tier and A's hedge, then each hedge in use and how many of its three slots are left. Authors run it before picking a hedge, because most cases are drafted on branches that a search of their own branch cannot see. It prints the index and never saves it, so the index cannot go stale.",
+   "aliases": [
+    "case_index.py",
+    "case index"
+   ],
+   "date": "2026-10-24",
+   "points": [
+    "Kathleen wrote it, and it replaced R16's grep, which read only the author's own branch while most cases sat on others.",
+    "A saved copy would go stale with every push, and every case pull request would conflict on it, as they all do on cases/__init__.py."
+   ],
+   "evidence": [
+    {
+     "file": "tools/case_index.py",
+     "loc": "module docstring",
+     "quote": "The index is printed, not committed: it reads everyone's branches, so a saved copy goes stale with every push."
+    },
+    {
+     "file": "docs/authoring-rules.md",
+     "loc": "R16",
+     "quote": "it lists the cases on main and on every pull-request branch, where most cases are drafted, with each hedge in use and how many of its three slots are left"
+    },
+    {
+     "file": "docs/decisions.md",
+     "loc": "Authors count the hedges in use with tools/case_index.py",
+     "quote": "It replaces the grep of the 2026-10-18 entry."
+    }
+   ],
+   "links": [
+    {
+     "to": "hedge-limit",
+     "rel": "needs"
+    },
+    {
+     "to": "linter",
+     "rel": "related"
+    }
+   ]
+  },
+  {
    "id": "a7-own-route",
    "type": "decision",
    "cluster": "cases",
@@ -8923,6 +8967,13 @@ a.ref:hover { background: var(--surface-2); }
    ],
    "changed": [
     "human-checks"
+   ]
+  },
+  {
+   "date": "2026-10-24",
+   "summary": "Authors check the hedges in use with tools/case_index.py, which reads every branch; R16's grep read only the author's own branch. Kathleen wrote the script.",
+   "added": [
+    "case-index"
    ]
   }
  ]

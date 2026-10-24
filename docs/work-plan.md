@@ -208,6 +208,8 @@ Same steps for each author. Replace `m2` with your case.
   understood to be"). One small word like "your" does not survive. Use a hedge that
   fewer than three T1 cases use, on `main` or in open pull requests, preferring one
   already in use to a new one, and name it in `design_notes` (R16, "Vary the cue").
+  `uv run python tools/case_index.py --all-branches` lists the hedges in use and the
+  slots each has left.
 
 **1.5 Write the provenance.**
 - **Do**: fill `type`, `authority`, `quality`, `why` for each source.

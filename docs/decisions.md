@@ -897,3 +897,23 @@ Add an entry when you make a choice a reader could not guess from the code.
   for no gain; keeping M29 as drafted.
 - **Breaks if changed**: nothing the scorer reads; scenarios repeated with new names
   narrow the range of facts the results cover.
+
+### 2026-10-24 — Authors count the hedges in use with tools/case_index.py
+
+- **Decision**: R16 in `docs/authoring-rules.md` and work-plan step 1.4 send authors to
+  `uv run python tools/case_index.py --all-branches`, which lists the cases on `main` and
+  on every pull-request branch, with A's hedge, and then each hedge in use with how many
+  of its three slots are left. The index is printed, never committed. It replaces the
+  `grep` of the 2026-10-18 entry.
+- **Why** [STATED: team decision, 2026-10-24]: Kathleen wrote the script, and Jason asked
+  that R16 point to it once it was merged. [STATED: R16] most cases are drafted on
+  pull-request branches, which a `grep` of `cases/*.py` cannot see, since it reads only
+  the author's own branch. [STATED: `tools/case_index.py`] "The index is printed, not
+  committed: it reads everyone's branches, so a saved copy goes stale with every push."
+- **Rejected**: the `grep`, which misses every case drafted on another branch; a
+  generated `docs/case-index.md` committed with the script, which goes stale with every
+  push and would make every case pull request conflict on it, as they all do on
+  `cases/__init__.py`.
+- **Breaks if changed**: an author who checks only their own branch can pick a hedge that
+  is already full on other branches, and one hedge ends up carrying more than three T1
+  cases.

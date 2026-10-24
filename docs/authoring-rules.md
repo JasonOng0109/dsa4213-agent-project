@@ -144,9 +144,10 @@ cue is lost is relabelled T2, not rewritten, because a T2 case is a legitimate c
 **Vary the cue across cases.** If one phrase carries many T1 cases and the reporter drops
 it, they all become T2 together. **At most three T1 cases share a hedge**, counted by its
 main word: "is likely to" and "it is likely that" are one hedge. Before choosing, run
-`grep -n -i -A1 hedge cases/*.py` to see the ones in use (each case names its hedge in
-`design_notes`), and check the open pull requests too, where most cases are drafted.
-Pick a hedge with fewer than three cases, preferring one already in use to a new one, or
+`git fetch origin`, then `uv run python tools/case_index.py --all-branches`: it lists the
+cases on `main` and on every pull-request branch, where most cases are drafted, with each
+hedge in use and how many of its three slots are left (it reads the hedge each case names
+in `design_notes`). Pick a hedge with fewer than three cases, preferring one already in use to a new one, or
 another kind of cue; then name yours in `design_notes` too. A new hedge must still read
 as doubt in its sentence: "is expected to be" can read as a planned figure, "is taken
 as" as a set working value, and "it appears that" rewords easily to "apparently". "Is
