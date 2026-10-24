@@ -77,7 +77,7 @@ CASE = {
             "Vertical ridges are formed on both sides of the casing.",
             "The base is a plinth in a charcoal colour.",
             "A model plate with the maker's details is fixed to the back.",
-            "The corners of the casing are rounded.",
+            "The corners of the casing are curved.",
             "The cord leaves the casing through a grommet at the foot of the back.",
             "The ridges are spaced at equal intervals.",
             "The plinth is the same width as the casing above it.",
