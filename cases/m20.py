@@ -97,7 +97,7 @@ CASE = {
             "quality": "weak",
             "claim": "41 minutes",
             "content": (
-                "The AeroGlide T5 vacuum cleaner is estimated to have a continuous runtime "
+                "The AeroGlide T5 vacuum cleaner is suspected to have a continuous runtime "
                 "of 41 minutes at the standard power setting."
             ),
             "n_paraphrases_needed": 2,
