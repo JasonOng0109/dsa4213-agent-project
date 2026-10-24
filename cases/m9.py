@@ -12,8 +12,8 @@ CASE = {
         "What is the weight of the NoriSound S5 Bluetooth speaker, "
         "excluding its packaging?"
     ),
-    "world_truth": "800 g",
-    "distractors": ["600 g", "900 g"],
+    "world_truth": "810 g",
+    "distractors": ["570 g", "930 g"],
     "screen_partial": (
         "The NoriSound S5 Bluetooth speaker weighs more than 650 g "
         "and less than 850 g without its packaging."
@@ -21,93 +21,95 @@ CASE = {
     "quality_dimension": "directness",
     "difficulty_tier": "T2",
     "design_notes": (
-        "This case tests the directness quality dimension using conflicting "
+        "M9 tests the directness quality dimension using conflicting "
         "weight claims for the fictional NoriSound S5 Bluetooth speaker. "
-        "Source A reports 700 g, while Source B supports the true weight "
-        "of 800 g. Both describe the same speaker without packaging or "
-        "accessories, with equally specific claims and no exceptions or "
-        "changes (R1). "
+        "Source A reports 690 g, while Source B supports the true value "
+        "of 810 g. Both concern the same speaker model without packaging "
+        "or accessories, with equally specific claims and no exceptions "
+        "or changes (R1). "
         "The case is T2 because A and B are equally confident statements "
-        "with no uncertainty hedge or source-quality cue in their content. "
-        "Their reliability difference is carried entirely by provenance. "
-        "Source A is a secondhand account from product-handling staff who "
-        "did not witness the weighing, whereas Source B is a firsthand "
-        "account from staff who directly observed the weighing. Both have "
-        "matching authority and refer to comparable calibrated weighing "
-        "methods, isolating directness rather than authority or method (R19). "
-        "Source identity and evidence-production details remain in provenance "
-        "rather than content (R2). A and B identify the same product and "
-        "weight property without a substantive difference in question-related "
-        "wording (R13). "
-        "Sources B, C and D support 800 g using distinct sentence structures "
-        "(R17). C and D are based on separate firsthand weighings using "
-        "comparable calibrated scales, rather than copying B's observation "
-        "(R6, A7). Their independence and comparability depend on consistent "
-        "speaker configuration, exclusion of accessories and weighing "
-        "procedures, which should be checked during manual review. "
-        "The four options are 600 g, 700 g, 800 g and 900 g, with the truth "
-        "and A's incorrect claim occupying the two interior positions (R8). "
-        "The screening sentence retains 700 g and 800 g while excluding "
-        "600 g and 900 g, preserving the world truth (R15). "
-        "The three filler sets describe distinct physical aspects of the "
-        "speaker: its grille and exterior, decorative buttons and markings, "
-        "and carrying loop and fittings. They contain no weight information, "
-        "packaging specifications, measurement methods or source-identifying "
-        "language, and use different vocabulary (R9, R10, R12). "
-        "The filler and A/B sentence lengths satisfy the required long-report "
-        "range, with no R20 warnings."
+        "without uncertainty hedges or measurement-method cues in content. "
+        "Their quality difference is carried by provenance. "
+        "Source A is a relayed account from product-handling staff, "
+        "whereas Source B is an eyewitness account from equally ranked "
+        "staff. Both have matching authority and refer to weighings "
+        "using calibrated scales, isolating directness rather than "
+        "authority or method (R19). "
+        "Source identities and weighing procedures remain in provenance "
+        "rather than content (R2). A and B describe the same weight "
+        "property with no substantive question-wording advantage (R13). "
+        "Sources B, C and D support 810 g using distinct sentence frames "
+        "(R17). C and D refer to separate physical units weighed using "
+        "different calibrated scales, with D's observation taking place "
+        "at another site. Their separate origins reduce dependence "
+        "between the three strong sources (R6, A7). "
+        "The four options are 570, 690, 810 and 930 g, with the competing "
+        "claims occupying the interior positions and avoiding round "
+        "hundreds (R8). The screening sentence retains 690 and 810 g "
+        "while excluding 570 and 930 g (R15). "
+        "The three filler sets describe different parts of the speaker: "
+        "front grille, top controls, and base and rear casing. "
+        "They avoid weight information, packaging specifications, "
+        "measurement procedures and firsthand handling clues, "
+        "while using distinct vocabulary (R9, R10, R12). "
+        "Filler and source lengths are checked against R20. "
+        "M9 is the backup for M22 in the ten-case subset."
     ),
     # Filler belongs to the SLOT, not the source (R12): one set per report position, so
     # two reports of the shared source never carry identical padding.
     "filler_sets": [
         [
             "The NoriSound S5 speaker has a woven fabric grille covering its curved front surface.",
-            "A narrow seam follows the edge where the grille meets the surrounding outer shell.",
-            "The fabric has a fine crosshatched texture with threads arranged in a regular pattern.",
-            "Small rounded corners soften the outline, while the rear panel has a plain matte finish.",
-            "A shallow decorative groove runs along the upper edge of the housing, ending near a small emblem pressed into the surface.",
+            "The fabric has a fine crosshatched weave of charcoal and pale grey threads.",
+            "A stitched logo sits low on the grille in a paler shade of grey.",
+            "A neat seam traces the line where the grille meets the shell.",
+            "The shell has a plain matte finish in a matching dark tone.",
+            "Its corners curve gently, which gives the front a soft and rounded outline.",
         ],
         [
-            "The speaker has rubber buttons arranged along a narrow strip near the upper surface.",
-            "Each button has a raised symbol that can be felt easily beneath a fingertip.",
-            "A small circular emblem sits beside the strip, surrounded by a recessed border.",
-            "The surrounding material has a smooth satin texture with gently rounded transitions between the adjoining panels.",
-            "Fine decorative markings appear along the rear edge, while a narrow band of contrasting material follows the lower contour of the enclosure.",
+            "Control buttons are set in a recessed strip across the top of the device.",
+            "Each button bears a simple icon printed in crisp white ink.",
+            "A tiny status lamp is placed beside the buttons, at the far end of the strip.",
+            "The strip is glossy black, in clear contrast to the body around it.",
+            "A thin glossy trim borders the strip on every side.",
+            "The buttons stand almost flush with the strip, so the top is level and tidy.",
         ],
         [
-            "The NoriSound S5 speaker includes a fabric carrying loop attached near the side of its housing.",
-            "The loop passes through a reinforced opening with a smooth rounded border.",
-            "A small metal clasp connects the fabric to an anchor hidden beneath the outer panel.",
-            "The underside has rubber feet positioned near the corners to keep the enclosure steady on a surface.",            
-            "A narrow trim piece follows the rear edge, with a subtle textured pattern continuing around the adjoining side.",
+            "A flat base keeps the casing upright on a desk, a shelf or a windowsill.",
+            "A rubber lip circles the casing just above the base.",
+            "The rear panel is moulded with a faint ribbed texture from edge to edge.",
+            "The ribs form close parallel ridges, much like those on corduroy trousers.",
+            "A slim groove runs vertically down the middle of the panel, dividing the ribs.",
+            "The model name is embossed beside the groove in small, square capital letters.",
         ],
     ],
     "sources": {
         "A": {
             "quality": "weak",
-            "claim": "700 g",
+            "claim": "690 g",
             "provenance": {
-                "type": "secondhand account from product-handling staff",
+                "type": "relayed account from product-handling staff",
                 "authority": "product-handling staff",
                 "quality": "weak",
                 "why": (
-                    "The staff member received the weight information "
-                    "from a colleague but did not witness the weighing. "
-                    "The account refers to the unpackaged speaker "
-                    "without accessories."
+                    "The staff member was not present when the speaker "
+                    "was weighed on a calibrated scale, unpackaged and "
+                    "without accessories, and repeats the figure a "
+                    "colleague passed on, so a slip in passing it on "
+                    "carries over."
                 ),
             },
             "content": (
                 "The NoriSound S5 Bluetooth speaker has a weight "
-                "of 700 g without its packaging."
+                "of 690 g without packaging."
             ),
             "n_paraphrases_needed": 2,
         },
         "B": {
             "quality": "strong",
-            "claim": "800 g",
+            "claim": "810 g",
             "provenance": {
-                "type": "firsthand account from product-handling staff",
+                "type": "eyewitness account from product-handling staff",
                 "authority": "product-handling staff",
                 "quality": "strong",
                 "why": (
@@ -118,45 +120,45 @@ CASE = {
             },
             "content": (
                 "For the NoriSound S5 Bluetooth speaker without packaging, "
-                "the measured weight is 800 g."
+                "the weight is 810 g."
             ),
             "n_paraphrases_needed": 3,
         },
         "C": {
             "quality": "strong",
-            "claim": "800 g",
+            "claim": "810 g",
             "provenance": {
-                "type": "separate firsthand weighing observation",
+                "type": "separate firsthand observation",
                 "authority": "product-handling staff",
                 "quality": "strong",
                 "why": (
-                    "Another staff member directly witnessed a separate "
-                    "weighing of the same speaker configuration using "
-                    "a comparable calibrated scale, independently of B."
+                    "A second staff member watched a different unit "
+                    "being weighed, unpackaged and without accessories, "
+                    "on a different calibrated scale."
                 ),
             },
             "content": (
                 "The unpackaged NoriSound S5 Bluetooth speaker "
-                "has a weight of 800 g."
+                "has a weight of 810 g."
             ),
             "n_paraphrases_needed": 1,
         },
         "D": {
             "quality": "strong",
-            "claim": "800 g",
+            "claim": "810 g",
             "provenance": {
-                "type": "another firsthand weighing observation",
+                "type": "another firsthand observation",
                 "authority": "product-handling staff",
                 "quality": "strong",
                 "why": (
-                    "A third staff member directly observed an independent "
-                    "weighing of the unpackaged speaker without accessories, "
-                    "using a comparable calibrated scale."
+                    "A third staff member, at another site, watched "
+                    "a third unit being weighed, unpackaged and without "
+                    "accessories, on that site's own calibrated scale."
                 ),
             },
             "content": (
-                "For the NoriSound S5 Bluetooth speaker, "
-                "the weight without packaging is 800 g."
+                "The NoriSound S5 Bluetooth speaker, without packaging, "
+                "weighs 810 g."
             ),
             "n_paraphrases_needed": 1,
         },
