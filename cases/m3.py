@@ -79,7 +79,7 @@ CASE = {
                 "why": "second-hand relay heard over telephone rather than direct "
                        "observation",
             },
-            "content": ("The water depth of the Star Reservoir basin is understood to be "
+            "content": ("The Star Reservoir basin is understood to have a water depth of "
                         "17 metres."),
             "n_paraphrases_needed": 2,
         },

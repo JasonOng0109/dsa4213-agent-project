@@ -174,6 +174,11 @@ def test_screen_trials(m1):
         assert ts[1]["reports"][0]["text"] == CASE["screen_partial"]
         assert ts[2]["reports"][0]["text"] == m1["B"]["accepted"][0]["text"]
         assert ts[0]["answer_options"].index("15%") == s["option_rotation"]
+        # the abstention arm's P0 check: the same trials, offering the abstain option
+        ta = build_screen("M1", CASE, m1, s["option_rotation"], s["wrong_offset"],
+                          allow_abstain=True)
+        assert all(t["arm"] == "abstain" and t["allow_abstain"] for t in ta)
+        assert [t["answer_options"] for t in ta] == [t["answer_options"] for t in ts]
 
 
 def test_both_lengths_assemble_for_every_condition(m1):
