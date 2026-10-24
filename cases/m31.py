@@ -116,7 +116,7 @@ CASE = {
                        "from the standard noise test, and the original that every "
                        "listing copies",
             },
-            "content": "The noise level of the Ostvale Arcline dishwasher is 44 dB.",
+            "content": "The Ostvale Arcline dishwasher produces a noise level of 44 dB.",
             "n_paraphrases_needed": 3,
         },
         "C": {

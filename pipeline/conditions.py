@@ -253,10 +253,13 @@ def build_repeat(case_id: str, case: dict, frozen_case: dict, run_index: int,
 
 
 def build_screen(case_id: str, case: dict, frozen_case: dict,
-                 option_rotation: int = 0, wrong_offset: int = 0) -> list[dict]:
+                 option_rotation: int = 0, wrong_offset: int = 0,
+                 allow_abstain: bool = False) -> list[dict]:
     """The confidence screen: three single-report trials graded by informativeness, not
     by evidence count. P0 is a filler sentence (non-decisive by R9), P1 the authored
-    `screen_partial`, P2 B's first frozen report. No provenance, no note, short only."""
+    `screen_partial`, P2 B's first frozen report. No provenance, no note, short only.
+    With `allow_abstain`, the same trials offer the abstain option and belong to the
+    abstention arm, which runs P0 as a check beside A7 (docs/decisions.md, 2026-10-21)."""
     opts = rotated_options(case, option_rotation, wrong_offset)
     texts = {"P0": ("filler", case["filler_sets"][0][0]),
              "P1": ("screen_partial", case["screen_partial"]),
@@ -266,8 +269,8 @@ def build_screen(case_id: str, case: dict, frozen_case: dict,
         rep = {"source_key": src, "paraphrase": text, "text": text, "slot": 0,
                "filler_set": None, "agent_label": "Agent A", "provenance_id": None}
         t = _trial(case_id, lvl, case, opts, [rep], None, None, option_rotation,
-                   wrong_offset, False, "short", None, None)
-        t.update(factors=SCREEN_FACTORS[lvl], arm="screen")
+                   wrong_offset, allow_abstain, "short", None, None)
+        t.update(factors=SCREEN_FACTORS[lvl], arm="abstain" if allow_abstain else "screen")
         trials.append(t)
     return trials
 

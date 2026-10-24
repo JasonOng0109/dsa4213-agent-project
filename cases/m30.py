@@ -61,8 +61,8 @@ CASE = {
         "person, so no slot carries the feel of either source (R3, R9, R10). Only set 1 "
         "describes the stage, and no distinctive word is in all three sets, so the "
         "slots stay apart (R12). Each filler set is 77 words and A's and B's sentences "
-        "are 16 and 14 words, so every long "
-        "report starts at 91 to 93 words and stays inside 88 to 96 after rewording "
+        "are 15 and 14 words, so every long "
+        "report starts at 91 or 92 words and stays inside 88 to 96 after rewording "
         "(R20). When the frozen reports are read (step 3.4), check that A's and B's "
         "rewordings still give the time to present: a 'slot', 'turn' or 'session' can "
         "include set-up and questions, so it would name a different whole."
@@ -118,8 +118,8 @@ CASE = {
                 "why": "written by a participant who was not at the organisers' briefing "
                        "and repeats what others said was announced there",
             },
-            "content": ("Each team is thought to get 11 minutes to present in the "
-                        "Brightwater Case Challenge final."),
+            "content": ("The Brightwater Case Challenge final is thought to give each team "
+                        "11 minutes to present."),
             "n_paraphrases_needed": 2,   # A appears only in the conflict block (2 reports)
         },
         "B": {
