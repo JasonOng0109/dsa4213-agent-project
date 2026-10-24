@@ -207,7 +207,7 @@ class MockBackend:
 
     # screen level P1: the options each screen_partial leaves open
     _SCREEN_TABLE: dict[str, list[str]] = {
-        "The ME2103 lab logbook is worth less than a fifth": ["15%", "10%"],
+        "The ME2103 lab logbook is worth more than a twentieth": ["15%", "10%"],
     }
 
     def __init__(self):
