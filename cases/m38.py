@@ -31,8 +31,9 @@ CASE = {
         "dimension, primary source, lives in provenance; the one cue in the content is "
         "A's clause-level hedge, 'are assumed to have been', a hedge of the size a "
         "faithful rewording should keep (R16). No other case used 'assumed' when this "
-        "one was written, and only M34 ('is assumed to') has taken it since, so the T1 "
-        "tier does not rest on a phrase shared by many cases; if the hedge is lost in "
+        "one was written; M34 ('is assumed to') and M21 ('is assumed to be') have taken "
+        "it since, which fills its three slots, so the T1 tier does not rest on a phrase "
+        "shared by more cases; if the hedge is lost in "
         "the frozen reports, the case is relabelled T2. B is flat and carries no cue. "
         "The options are 137, 179, 221 and 263 passengers, evenly spaced and none a "
         "round number, so B's flat figure reads as a count, not a rounded estimate, and "
@@ -54,10 +55,14 @@ CASE = {
         "and D is the police's count at the assembly point, so none of the three depends "
         "on another (A7), and neither C's nor D's sentence says how its value was found "
         "(R2, R6). The line, the train and the evacuation are invented (R4). Filler "
-        "describes the line's route, a station on it and the town below it, with nothing "
-        "about the train, its carriages, passengers, crowds or emergencies, no figures "
-        "and no second person, so no slot carries the feel of either source (R3, R9, "
-        "R10), and no distinctive word is in more than one set (R12). Each filler set is "
+        "describes the countryside the line runs through, a station's buildings and the "
+        "town below the line, with nothing about the train, its carriages, passengers, "
+        "crowds or emergencies. It names no ground the track crosses that would make "
+        "getting people off a train harder or easier, such as a viaduct or a cutting, "
+        "and no place where evacuated passengers could gather, such as a waiting room or "
+        "a car park (R9). It has no figures and no second person, so no slot carries the "
+        "feel of either source (R3, R10), and no distinctive word is in more than one set "
+        "(R12). Each filler set is "
         "76 words and A's and B's sentences are 17 and 15 words, "
         "so every long report starts at 91 to 93 words and stays inside 88 to 96 after "
         "rewording (R20). When the frozen reports are read (step 3.4), check that A's and "
@@ -71,13 +76,13 @@ CASE = {
         [
             "The Halvering line runs north from the coast through low hills and wide, "
             "open farmland.",
-            "Its single track crosses the river Senn on a long viaduct made of grey "
-            "granite.",
-            "Further inland the line passes through a deep cutting whose banks are clad "
-            "with ferns and moss.",
+            "Flint walls divide the sheep pastures on the gentle slopes to the east of the "
+            "line.",
+            "A windmill with white canvas sails crowns a grassy knoll by a village of "
+            "thatched cottages.",
             "Hawthorn hedges border the track where it runs between fields of barley and "
             "oats.",
-            "Herons wade in the reed beds where the track follows the bank of the river.",
+            "Herons wade in the reed beds at the edge of the broad, winding river Senn.",
         ],
         [
             "Fennick station has a red brick building with a slate roof and tall arched "
@@ -86,10 +91,10 @@ CASE = {
             "painted blue.",
             "A covered footbridge with latticed iron sides links the platforms on either "
             "side.",
-            "Tubs of red geraniums flank the waiting room, which has a tiled floor and "
-            "a wooden bench.",
-            "A car park next to the station is edged with a belt of silver birch "
-            "trees.",
+            "Baskets of red geraniums hang from iron brackets on the front of the brick "
+            "building.",
+            "A gilded weathervane shaped like a prowling fox turns on the roof, and ivy "
+            "clings to the gable.",
         ],
         [
             "The market town of Tarrowby sits below the railway, beside a quiet canal with "
