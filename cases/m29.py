@@ -1,20 +1,20 @@
-"""M29: passengers evacuated from the stalled Corvanne Funicular Railway.
+"""M29: how long passengers were stuck on the stalled Corvanne Funicular Railway.
 
-Incident status report, directness dimension, tier T1.
+Incident or status reports, directness dimension, tier T1.
 """
 
 CASE = {
     "case_id": "M29",
     "domain": "incident_status",
     "question": (
-        "How many passengers were evacuated from the stalled Corvanne Funicular "
+        "How long were passengers stuck on the stalled Corvanne Funicular "
         "Railway?"
     ),
-    "world_truth": "42 passengers",
-    "distractors": ["30 passengers", "48 passengers"],
+    "world_truth": "76 minutes",
+    "distractors": ["52 minutes", "88 minutes"],
     "screen_partial": (
-        "The number of passengers evacuated from the stalled Corvanne Funicular "
-        "Railway is between 39 and 51."
+        "Passengers were stuck on the stalled Corvanne Funicular Railway for "
+        "between 60 and 80 minutes."
     ),  # screen level P1:
         # true, keeps the truth, rules out two of the four options; the two
         # options it keeps sit equally far inside the bounds.
@@ -22,28 +22,34 @@ CASE = {
     "difficulty_tier": "T1",
 
     "design_notes": (
-        "A and B state the same proposition about the passengers evacuated from "
-        "the stalled Corvanne Funicular Railway, with different values, the same "
-        "scope and precision, and no reference to a change or to each other (R1). "
-        "T1: A's cue is the hedge 'It is suspected that' (R16), not used by any "
-        "other case. "
+        "A and B state the same proposition about how long passengers were "
+        "stuck on the stalled Corvanne Funicular Railway, from the stop until "
+        "the car moved again, with different values, the same scope and "
+        "precision, and no reference to a change or to each other (R1). "
+        "T1: A's cue is the clause-level hedge 'It is likely that' (R16), "
+        "shared with M23 ('is likely to'; R16 allows at most three per hedge). "
         "Directness only: A and B are both messages from passengers "
         "('individual'), but A repeats what another rider heard while B was "
         "written by a passenger who was on the stalled car, so the pair differs "
-        "in directness, not authority, medium or method (R2, R19). B, C and D "
-        "all count everyone brought off the stalled car, so the three agreeing "
-        "sources state the same figure in A7. "
-        "The options are evenly spaced, with the truth and A's claim as the two "
-        "interior values (R8). The screen sentence gives a range whose bounds "
-        "sit equally far from the two options it keeps (R15). "
-        "A and B share exactly the question words passengers, evacuated, "
-        "stalled, Corvanne, Funicular and Railway (R13); A, B, C and D use four "
+        "in directness, not authority, medium or method (R2, R19). "
+        "B, C and D each time the stop by their own route: B by a passenger on "
+        "the car, C from the operator's control room log of when the car "
+        "stopped and started, and D from the clock of a fixed camera beside the "
+        "track, so no source copies another in A7. "
+        "The options are evenly spaced 12 minutes apart and none is a round "
+        "ten or an hour mark, so a habit for round numbers favours neither "
+        "claim; the truth and A's claim are the two interior values (R8). The "
+        "screen sentence gives a range whose bounds sit equally far from the "
+        "two options it keeps (R15). "
+        "A and B share exactly the question words passengers, stuck, stalled, "
+        "Corvanne, Funicular and Railway (R13); A, B, C and D use four "
         "different frames (R17). "
         "Filler describes one part of the line per set (the lower station, the "
         "track, the summit), shares no meaningful word across sets, and never "
-        "mentions people, faults, rescue, weather or quantities (R9-R12). "
-        "Each filler set is 79 words and A and B are 14 and 12 words, so long "
-        "reports are 93 and 91 words (R20)."
+        "mentions people, faults, rescue, ways on or off the track, weather, "
+        "time or quantities (R9-R12). "
+        "Each filler set is 77 words and A and B are 16 and 15 words, so long "
+        "reports are 93 and 92 words (R20)."
     ),
     "filler_sets": [
         [
@@ -51,37 +57,39 @@ CASE = {
             "It is a building of red sandstone with a glass canopy over the entrance.",
             "Arched doors of dark wood open onto the platform.",
             "A carved stone crest is set above the doors.",
-            "Railings painted black enclose the forecourt of the station.",
+            "A black iron fence encloses the station forecourt.",
             "A bronze lamp hangs from a bracket by the entrance.",
-            "A bench with armrests stands beside the station doors.",
+            "Flowers fill a stone trough by the doors.",
             "Fluted pillars support the roof of the platform.",
         ],
         [
-            "The track climbs straight up the wooded hillside.",
-            "It runs on a bed of crushed granite between parallel rails.",
+            "The track climbs the hillside between parallel rails.",
+            "The rails rest on oak sleepers in crushed granite.",
             "Pine trees grow on either side of the line.",
-            "Partway up, the track crosses a ravine on a viaduct of iron.",
-            "Wooden fences mark the edge of the track through the forest.",
             "Ferns cover the banks of the cutting.",
-            "Brick retaining walls hold back the slope where the hill is cut.",
-            "A footpath follows the rails a short way off.",
+            "Moss grows along the tops of the banks.",
+            "Foxgloves flower among the ferns near the rails.",
+            "Holly bushes grow beneath the pines.",
+            "The granite between the oak sleepers is grey.",
+            "Birch trunks rise among the pines.",
+            "Ivy grows over the sides of the cutting.",
         ],
         [
-            "At the summit is a terminus built of pale timber.",
-            "A viewing terrace with marble balustrades looks over the valley.",
-            "Fixed telescopes face the peaks.",
+            "At the summit is a terminus of pale timber.",
+            "A terrace with marble balustrades looks over the valley.",
+            "Fixed telescopes point at the peaks.",
             "A whitewashed cafe with blue shutters adjoins the terrace.",
             "Gravel paths lead to a chapel on the summit.",
             "A flagpole carries a pennant in green and yellow.",
-            "A weathervane shaped like a fish sits on the terminus.",
-            "Marble urns are placed beside the gravel paths.",
+            "A copper fish sits on the top of the terminus.",
+            "Marble urns stand beside the gravel paths.",
             "The chapel has slate tiles and a bell tower.",
         ],
     ],
     "sources": {
         "A": {
             "quality": "weak",
-            "claim": "36 passengers",
+            "claim": "64 minutes",
             "provenance": {
                 "type": "passenger's message relaying another rider's account",
                 "authority": "individual",
@@ -89,49 +97,51 @@ CASE = {
                 "why": "secondhand: repeats what another rider said they had "
                     "heard",
             },
-            "content": ("It is suspected that 36 passengers were evacuated from "
-                        "the stalled Corvanne Funicular Railway."),
+            "content": ("It is likely that passengers were stuck on the stalled "
+                        "Corvanne Funicular Railway for 64 minutes."),
             "n_paraphrases_needed": 2,
         },
         "B": {
             "quality": "strong",
-            "claim": "42 passengers",
+            "claim": "76 minutes",
             "provenance": {
                 "type": "passenger's message sent from on board",
                 "authority": "individual",
                 "quality": "strong",
                 "why": "first-hand: written by a passenger who was on the stalled "
-                    "car and saw everyone brought off",
+                    "car from the stop until it moved again",
             },
-            "content": ("The stalled Corvanne Funicular Railway saw 42 passengers "
-                        "evacuated off its car."),
+            "content": ("When the Corvanne Funicular Railway stalled, the "
+                        "passengers on it were stuck for 76 minutes."),
             "n_paraphrases_needed": 3,
         },
         "C": {
             "quality": "strong",
-            "claim": "42 passengers",
+            "claim": "76 minutes",
             "provenance": {
-                "type": "mountain rescue incident log",
+                "type": "operator's control room log",
                 "authority": "institutional",
                 "quality": "strong",
-                "why": "lists each passenger brought off the stalled car",
+                "why": "the control room's own entries for when the car stopped "
+                    "on the track and when it started again",
             },
-            "content": ("Rescue teams led 42 people to safety when the Corvanne "
-                        "Funicular Railway stalled."),
+            "content": ("The Corvanne Funicular Railway stood still for 76 minutes "
+                        "with its riders inside."),
             "n_paraphrases_needed": 1,
         },
         "D": {
             "quality": "strong",
-            "claim": "42 passengers",
+            "claim": "76 minutes",
             "provenance": {
-                "type": "operator's boarding tally",
+                "type": "trackside camera recording",
                 "authority": "institutional",
                 "quality": "strong",
-                "why": "counts everyone who boarded the stalled trip, all of "
-                    "whom were brought off",
+                "why": "a fixed camera beside the track filmed the car from when "
+                    "it stopped until it moved again, and its clock gives the "
+                    "length of the stop",
             },
-            "content": ("Every one of the 42 people aboard the Corvanne "
-                        "Funicular Railway was evacuated."),
+            "content": ("Riders on the Corvanne Funicular Railway waited 76 "
+                        "minutes before the car moved again."),
             "n_paraphrases_needed": 1,
         },
     },
