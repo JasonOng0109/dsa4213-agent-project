@@ -19,42 +19,58 @@ CASE = {
         "for the Brackenford depot gas leak) as single sentences with identical scope (R1). Both contain "
         "the same six question content-words: evacuation, radius, Brackenford, depot, gas, and leak (R13). "
         "The T1 cue is A's clause-level hedge 'is assumed to be' (R16), also used in M34 & M38 (all 3 slots full). "
-        "Quality resides purely in provenance (R2, R19): both writers attend on-site perimeter response briefings, "
-        "holding directness, setting, and methodology constant while isolating authority: A is an entry-level "
-        "volunteer trainee ('depot safety trainee briefing notes'), whereas B is the governing on-scene authority "
-        "('incident commander perimeter directive log') (R19). Neither type name leaks authority clues or methodology "
+        "Quality resides purely in provenance (R2, R19): both sources are response logs kept on site, so "
+        "the kind of document, closeness and method are the same and only standing differs: A is an "
+        "entry-level volunteer trainee's log ('depot volunteer safety trainee response log'), B the incident "
+        "commander's ('depot incident commander response log') (R19). Neither type name leaks authority clues or methodology "
         "into content, and 'independent' is strictly omitted (R19). Sources B, C, and D state the truth using distinct "
-        "syntactic frames to keep pairwise bigram overlap strictly below 0.40, fully satisfying A7 (R17). Options form "
+        "syntactic frames to keep pairwise bigram overlap strictly below 0.40 (R17). B, C and D each reach "
+        "the figure by their own route (A7): B is the commander directing the perimeter, C the police "
+        "cordon officer's own record of where the cordon stood, measured from the depot, and D the gas "
+        "utility engineers' own map of the streets they cleared. B's sentence gives the radius around the "
+        "leak itself, the same measure as A's (R1). Options form "
         "an evenly spaced spread [460, 620, 780, 940] metres, with the truth (780) and A's claim (620) occupying interior "
         "positions (R8). The screen sentence uses two bounds (540 and 860 metres), placing both survivors equidistant "
         "at exactly 80 metres inside the bounds (R15). Content lengths are A=15 and B=14 words (|A - B| <= 2). "
-        "Each filler set is 77 words, landing every long report within the tight "
-        "91-93 band after accepted rewording (R20). Fillers describe neutral physical depot infrastructure across three "
-        "distinct zones with distinct vocabulary and no repeated non-stopword content words across sets (R12), containing "
-        "no numbers, time or presence markers, process or register wording, or gas incident vocabulary (R3, R9, R10)."
+        "Each filler set is 77 words, so long reports start at 91 or 92 words (R20). Filler describes the "
+        "gatehouse and approach road, the office building and the trees along the boundary, in plain "
+        "one-fact sentences with no content word in two sets (R12). It has nothing about gas, pipes, "
+        "people, gathering places, clocks or numbers, and no site-plan wording (R3, R9, R10)."
     ),
 
     "filler_sets": [
         [
-            "A paved avenue crosses a broad forecourt beside pale concrete kerbs and a low masonry wall.",
-            "Flat ochre slabs form a walkway beside a square planter filled with clipped shrubs and gravel.",
-            "A circular canopy covers a loading platform beside a tall brick facade with narrow arches.",
-            "Smooth basalt paving surrounds a shallow ornamental pool beside plain stone posts.",
-            "The entrance facade has a blue metal canopy, steps, and a round clock set above the entrance doors.",
+            "The Brackenford depot is reached along a straight approach road.",
+            "A small gatehouse with a flat roof stands beside the entrance.",
+            "The gatehouse is painted cream, with a green door.",
+            "A barrier arm in red and white stripes spans the road.",
+            "Low kerbs edge the road, and cat's eyes mark its centre.",
+            "A company sign with blue lettering is mounted on steel posts.",
+            "Concrete bollards flank the barrier.",
+            "Grass verges run on each side of the approach.",
         ],
         [
-            "A long shed has pale timber boards, a shallow roof, and wide canvas panels along one side.",
-            "Grey paving surrounds a low round planter filled with lavender, thyme, and small white stones.",
-            "A wooden bench stands beside a square noticeboard with a plain green frame and blank centre.",
-            "Tall cypress shrubs line a gravel path beside a low wall topped with terracotta tiles.",
-            "The shelter facade has cream plaster, dark blue shutters, and a broad rectangular doorway.",
+            "The depot office is a long building of yellow brick.",
+            "Its windows have black frames and slate sills.",
+            "A glass canopy juts out over the porch.",
+            "Climbing roses are trained up a trellis by the porch.",
+            "The office name appears in brass capitals above the canopy.",
+            "A magnolia grows against the end wall.",
+            "Hanging baskets of fuchsias hang from the eaves.",
+            "A paved apron lines the front of the office.",
+            "Its chimneys are capped with clay pots.",
         ],
         [
-            "A low office wing has white rendered walls, a slate roof, and tall arched windows with alder foliage.",
-            "Pale gravel borders a rectangular lawn with a stone sundial near the centre.",
-            "A covered walkway links the wing to a round courtyard enclosed by brick posts.",
-            "The side wall has green shutters, a copper drainpipe, and a narrow wooden door with trim.",
-            "Several ornamental pear trees stand beside a tiled terrace and a shallow brick parapet near offices.",
+            "Silver birches follow the far boundary of the depot.",
+            "Beneath them, the ground is sown with wild flowers.",
+            "Poppies and cornflowers mix with ox-eye daisies.",
+            "A hawthorn hedge borders the back lane.",
+            "Blackbirds nest in the hedge.",
+            "Horse chestnuts shade the corner by the lane.",
+            "Ferns spread thickly at the foot of the hedge.",
+            "A wooden fence divides the meadow from the lane.",
+            "Rabbits graze on the short turf.",
+            "Wrens flit among the brambles below the birches.",
         ],
     ],
 
@@ -77,7 +93,7 @@ CASE = {
             "quality": "strong",
             "claim": "780 metres",
             "content": (
-                "At the Brackenford depot, a 780-metre evacuation radius applies around the gas leak perimeter."
+                "The Brackenford depot gas leak has an evacuation radius of 780 metres around it."
             ),
             "n_paraphrases_needed": 3,
             "provenance": {
