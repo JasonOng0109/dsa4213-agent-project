@@ -92,7 +92,8 @@ CASE = {
                 "why": (
                     "The bulletin restates figures from the authority's "
                     "incident log for the public, rather than recording "
-                    "the collision itself."
+                    "the collision itself, so a slip in copying them "
+                    "carries over."
                 ),
             },
             "content": (
