@@ -822,13 +822,19 @@ a.ref:hover { background: var(--surface-2); }
    ],
    "points": [
     "Expected from prior work; tested here with rewordings instead of copies, against a known true answer.",
-    "Evidence: [[a1]] vs [[a4]] for the rise in belief, and how often [[x1]] picks the repeated wrong claim, compared with the 25% [[chance-floor]]."
+    "Evidence: [[a1]] vs [[a4]] for the rise in belief, and how often [[x1]] picks the repeated wrong claim, compared with the 25% [[chance-floor]].",
+    "Stage 1, all 40 cases: P(truth) rose from A1 to A4 in every case for every judge, and in X1 the two weak reports beat the strong one in all but 1, 2 and 26 of 480 trials (Opus, Sonnet, GPT-5.4): [[main-stage1]]."
    ],
    "evidence": [
     {
      "file": "README.md",
      "loc": "Hypotheses",
      "quote": "Correlated repetition raises the orchestrator's confidence and can beat a single better-sourced report"
+    },
+    {
+     "file": "runs/main/tally-stage1.txt",
+     "loc": "H1, each judge",
+     "quote": "H1 A1 -> A4: P(truth) rises in 40/40 cases, falls in 0"
     }
    ],
    "links": [
@@ -839,6 +845,10 @@ a.ref:hover { background: var(--surface-2); }
     {
      "to": "whose-facts",
      "rel": "because"
+    },
+    {
+     "to": "main-stage1",
+     "rel": "related"
     }
    ]
   },
@@ -853,13 +863,19 @@ a.ref:hover { background: var(--surface-2); }
    ],
    "points": [
     "Tested one factor at a time: [[a1]] → [[a2]] → [[a3]] → [[a4]]; then [[a4]] vs [[a7]] for real independence.",
-    "The [[length-arm]] also runs A1 and A2, to tell 'more words' apart from 'more restatements'."
+    "The [[length-arm]] also runs A1 and A2, to tell 'more words' apart from 'more restatements'.",
+    "Stage 1: A3 and A4 sat above A2 in 39 or 40 of the 40 cases and within 0.4 to 2.4 points of each other, Support at short length; the long-report check waits for stage 2: [[main-stage1]]."
    ],
    "evidence": [
     {
      "file": "README.md",
      "loc": "Hypotheses",
      "quote": "The rise is driven by report redundancy and segmentation, not by distinct agent identities"
+    },
+    {
+     "file": "docs/stage1-report.md",
+     "loc": "H2",
+     "quote": "Against the table: Support, at short length."
     }
    ],
    "links": [
@@ -874,6 +890,10 @@ a.ref:hover { background: var(--surface-2); }
     {
      "to": "whose-facts",
      "rel": "because"
+    },
+    {
+     "to": "main-stage1",
+     "rel": "related"
     }
    ]
   },
@@ -889,13 +909,19 @@ a.ref:hover { background: var(--surface-2); }
    ],
    "points": [
     "Primary target. Tested by [[x1]] vs [[x3]] decisions; [[x3]] vs [[x4]] separates dependence from quality.",
-    "Why not [[a5]] vs [[a6]]? With no competing answer there is no decision for the note to change."
+    "Why not [[a5]] vs [[a6]]? With no competing answer there is no decision for the note to change.",
+    "Stage 1: belief moved toward the truth from X1 to X3 for every judge, in T2 cases too. Sonnet's and GPT-5.4's decisions did not move; Opus changed 63 of 480, all in T1 cases: [[main-stage1]]."
    ],
    "evidence": [
     {
      "file": "README.md",
      "loc": "Hypotheses",
      "quote": "Stating that two reports share a source shifts belief but does not change the decision"
+    },
+    {
+     "file": "runs/main/tally-stage1.txt",
+     "loc": "H3, Opus",
+     "quote": "T1 1/360 -> 63/360, 27.1 -> 42.1; T2 0/120 -> 0/120, 21.5 -> 38.6"
     }
    ],
    "links": [
@@ -906,6 +932,10 @@ a.ref:hover { background: var(--surface-2); }
     {
      "to": "provenance",
      "rel": "needs"
+    },
+    {
+     "to": "main-stage1",
+     "rel": "related"
     }
    ]
   },
@@ -921,13 +951,19 @@ a.ref:hover { background: var(--surface-2); }
    ],
    "points": [
     "Tested by [[x1]] vs [[x4]] vs [[x5]].",
-    "Risk: blunt wording may test obedience rather than reasoning. The [[graded-ladder]] checks this."
+    "Risk: blunt wording may test obedience rather than reasoning. The [[graded-ladder]] checks this.",
+    "Stage 1: with quality stated (X4, X5) every judge was right in all 480 trials, against 63, 8 and 27 with dependence alone (X3). Whether that is compliance waits for the ladder in stage 2: [[main-stage1]]."
    ],
    "evidence": [
     {
      "file": "README.md",
      "loc": "Hypotheses",
      "quote": "Stating relative source quality does change the decision"
+    },
+    {
+     "file": "runs/main/tally-stage1.txt",
+     "loc": "conflict, Opus",
+     "quote": "X3 63/480 41.2, X4 480/480 68.9, X5 480/480 68.8"
     }
    ],
    "links": [
@@ -938,6 +974,10 @@ a.ref:hover { background: var(--surface-2); }
     {
      "to": "quality-dimensions",
      "rel": "needs"
+    },
+    {
+     "to": "main-stage1",
+     "rel": "related"
     }
    ]
   },
@@ -953,13 +993,19 @@ a.ref:hover { background: var(--surface-2); }
    "points": [
     "Secondary; connects the results to prior work on source names.",
     "Tested by [[x1]] vs [[x2]], only over cases whose type names carry the quality dimension ([[rules-other|R19]]).",
-    "From Phase 4, A's and B's names differ only in the case's dimension, so a gain cannot come from one source simply sounding more official: [[types-dimension-only]]."
+    "From Phase 4, A's and B's names differ only in the case's dimension, so a gain cannot come from one source simply sounding more official: [[types-dimension-only]].",
+    "Stage 1: naming each source's type (X2) raised right decisions from 1, 2 and 26 to 403, 193 and 283 of 480 (Opus, Sonnet, GPT-5.4). The familiar-institution check is still to do: [[main-stage1]]."
    ],
    "evidence": [
     {
      "file": "README.md",
      "loc": "Hypotheses",
      "quote": "Judges infer quality from named source types without being told"
+    },
+    {
+     "file": "runs/main/tally-stage1.txt",
+     "loc": "conflict, Opus",
+     "quote": "X1 1/480 25.7, X2 403/480 60.9"
     }
    ],
    "links": [
@@ -978,6 +1024,10 @@ a.ref:hover { background: var(--surface-2); }
     {
      "to": "authoritybench",
      "rel": "because"
+    },
+    {
+     "to": "main-stage1",
+     "rel": "related"
     }
    ]
   },
@@ -996,7 +1046,8 @@ a.ref:hover { background: var(--surface-2); }
     "Primary target. Watched through [[coherence-margin]] in normal trials, and tested in the [[abstain-arm]].",
     "A record counts as nearly level when its top two probabilities are less than 10 points apart: [[margin-cutoff]].",
     "Tested inside each condition, so a condition that simply has more of both close numbers and abstaining cannot pass for H6: [[margin-cutoff]].",
-    "Since the pilot, H6 is read from its rates, with P0 as a check beside A7, so a judge that never abstains is reported as not testable, not as a null: [[abstain-p0-check]]."
+    "Since the pilot, H6 is read from its rates, with P0 as a check beside A7, so a judge that never abstains is reported as not testable, not as a null: [[abstain-p0-check]].",
+    "Stage 1: no support. Opus and Sonnet abstained in P0 but never in the conflict block, a clean null; GPT-5.4 abstained 9 times, none where its numbers failed to back its answer, and its test gives +0.00: [[main-stage1]]."
    ],
    "evidence": [
     {
@@ -1013,6 +1064,11 @@ a.ref:hover { background: var(--surface-2); }
      "file": "docs/decisions.md",
      "loc": "H6 is read from its rates, with P0 as a check beside A7",
      "quote": "is reported as not testable, not as a null"
+    },
+    {
+     "file": "runs/main/score-stage1.txt",
+     "loc": "H6, GPT-5.4",
+     "quote": "the test applies: abstained in 9/800 conflict-block trials"
     }
    ],
    "links": [
@@ -1026,6 +1082,10 @@ a.ref:hover { background: var(--surface-2); }
     },
     {
      "to": "abstain-p0-check",
+     "rel": "related"
+    },
+    {
+     "to": "main-stage1",
      "rel": "related"
     }
    ]
@@ -8922,7 +8982,7 @@ a.ref:hover { background: var(--surface-2); }
    "cluster": "pipeline",
    "title": "Stage 1 of the main run: 17,760 trials, and the screen keeps all three judges",
    "label": "Main run: stage 1 results",
-   "summary": "Stage 1 of the main run judged every entry that runs on all 40 cases on 2026-10-25: 17,760 trials in three lanes, with no entry stopped and no call failed. The ordering screen kept all three judges, so every judge's stated numbers count. n_eff is defined in every cell, though GPT-5.4's often reads at ceiling. In the conflict block, with nothing disclosed, every judge almost always went with the two agreeing reports; naming the sources' types helped part of the way, stating the dependence alone helped little, and stating quality made every judge right in every trial. H6 reads as a clean null for Opus and Sonnet; for GPT-5.4 the test applies and gives +0.00. The comparisons behind H1 to H5 are in the score file's per-case tables, to be read against the README's support table; two of its nuisance checks need stage 2's length arm and ladder.",
+   "summary": "Stage 1 of the main run judged every entry that runs on all 40 cases on 2026-10-25: 17,760 trials in three lanes, with no entry stopped and no call failed. The ordering screen kept all three judges, so every judge's stated numbers count. n_eff is defined in every cell, though GPT-5.4's often reads at ceiling. In the conflict block, with nothing disclosed, every judge almost always went with the two agreeing reports; naming the sources' types helped part of the way, stating the dependence alone helped little, and stating quality made every judge right in every trial. H6 reads as a clean null for Opus and Sonnet; for GPT-5.4 the test applies and gives +0.00. docs/stage1-report.md lines each hypothesis up against the README's support table, from counts over cases ([[tally-tool]]): H1 and H2 match Support, H3 matches it for Sonnet and GPT-5.4, H4 and H5 match it so far, and H6 has none. Two nuisance checks need stage 2's length arm and ladder.",
    "date": "2026-10-25",
    "points": [
     "17,741 of the 17,760 trials parsed cleanly. One did not parse, two answered with something that is not an option, 15 stated probabilities whose sum was out of range, and one left some out. No call failed, no judge reasoned, and each judge stayed on its pinned provider.",
@@ -8930,6 +8990,8 @@ a.ref:hover { background: var(--surface-2); }
     "Discrimination is reported beside it. Its first rule, printed but no longer applied, would have kept Opus and excluded Sonnet and GPT-5.4: [[discrimination-rule]].",
     "n_eff is defined in all 40 cells of every judge. GPT-5.4 stated 100 on one option in 62% of its agreement-block answers, and 35 of its 40 cells have a value at ceiling, which gives a bound, not a value: [[neff-ceiling]].",
     "Decisions in the conflict block, right out of 480 for Opus, Sonnet and GPT-5.4: with nothing disclosed (X1), 1, 2 and 26; with each source's type named (X2), 403, 193 and 283; with the dependence stated alone (X3), 63, 8 and 27; with quality stated (X4), and with both (X5), all 480 for every judge. The analysis reads these against the README's support table: [[h3]], [[h4]], [[h5]].",
+    "Belief: P(truth) rose from A1 to A4 in all 40 cases for every judge, and three independent sources (A7) got about the same as three copies of one (A4). Opus and Sonnet counted both as under two sources, median n_eff(A4) 1.64 and 1.88 and n_eff(A7) 1.69 and 1.98, against 1 and 3: [[neff]].",
+    "Without the seven echo cases from the 3.4 reading, every direction holds and the counts barely move: [[main-generation]].",
     "H6: of each judge's 2,400 conflict-block records, 30 (Opus), 3 (Sonnet) and 7 (GPT-5.4) do not identify the answer given. Opus and Sonnet abstained in P0 but never in the conflict block, which the cut-offs fixed before the main run read as a clean null. GPT-5.4 abstained in 9 of its 800 conflict-block trials, all in X1 and none in a flagged record, so its test applies and gives +0.00: [[abstain-p0-check]].",
     "It ran in three lanes, judging from 13:45 to 20:26: [[stage1-lanes]]. It cost $36.78 against $34.74 planned, which left $2.11 on the key, so stage 2 waits for the top-up: [[main-run-staged]]."
    ],
@@ -9013,6 +9075,31 @@ a.ref:hover { background: var(--surface-2); }
      "file": "README.md",
      "loc": "Measures, in order of weight",
      "quote": "in these conditions a wrong answer is almost always the two agreeing reports' claim"
+    },
+    {
+     "file": "runs/main/tally-stage1.txt",
+     "loc": "H1, each judge",
+     "quote": "H1 A1 -> A4: P(truth) rises in 40/40 cases, falls in 0"
+    },
+    {
+     "file": "runs/main/tally-stage1.txt",
+     "loc": "n_eff, Opus",
+     "quote": "A4 1.64 (n=40), A6 1.24 (n=40), A7 1.69 (n=40), CN 0.64 (n=40), IS 0.05 (n=40), RP 0.40 (n=40)"
+    },
+    {
+     "file": "runs/main/tally-stage1.txt",
+     "loc": "n_eff, Sonnet",
+     "quote": "A4 1.88 (n=39), A6 1.52 (n=40), A7 1.98 (n=40)"
+    },
+    {
+     "file": "runs/main/tally-stage1-without-echoes.txt",
+     "loc": "first line",
+     "quote": "cases left out: M3, M9, M13, M23, M28, M38, M40"
+    },
+    {
+     "file": "docs/stage1-report.md",
+     "loc": "In short",
+     "quote": "The three judges count reports, not evidence."
     }
    ],
    "links": [
@@ -9054,6 +9141,45 @@ a.ref:hover { background: var(--surface-2); }
     },
     {
      "to": "h5",
+     "rel": "related"
+    },
+    {
+     "to": "tally-tool",
+     "rel": "related"
+    }
+   ]
+  },
+  {
+   "id": "tally-tool",
+   "type": "process",
+   "cluster": "pipeline",
+   "title": "tools/tally.py counts over cases for the support table",
+   "label": "Tally over cases",
+   "summary": "The scorer prints every cell per judge and case. tools/tally.py adds, per judge, the counts and means over cases that the README's support table asks about: in how many cases belief rose, right decisions per condition, each tier apart, and n_eff's medians. It reads the same logs and reuses the scorer's cells and n_eff, so its numbers match the scorer's tables. It describes; the table decides. --without leaves cases out, for checks such as the echo cases.",
+   "date": "2026-10-25",
+   "evidence": [
+    {
+     "file": "tools/tally.py",
+     "loc": "module docstring",
+     "quote": "reads the same trial logs and reuses the scorer's cells and n_eff, so its numbers match the scorer's tables. It describes; the table decides."
+    },
+    {
+     "file": "README.md",
+     "loc": "Repository layout",
+     "quote": "counts over cases, to read results against the support table"
+    }
+   ],
+   "links": [
+    {
+     "to": "scorer",
+     "rel": "needs"
+    },
+    {
+     "to": "precommit",
+     "rel": "needs"
+    },
+    {
+     "to": "main-stage1",
      "rel": "related"
     }
    ]
@@ -9936,6 +10062,22 @@ a.ref:hover { background: var(--surface-2); }
    "summary": "Stage 1's decision counts in the conflict block, which the score file prints beside discrimination, are added to main-stage1.",
    "changed": [
     "main-stage1"
+   ]
+  },
+  {
+   "date": "2026-10-25",
+   "summary": "docs/stage1-report.md lines stage 1 up against the README's support table, hypothesis by hypothesis, from tools/tally.py's counts over cases: H1 and H2 match Support, H3 for Sonnet and GPT-5.4, H4 and H5 so far, H6 none. The echo cases change no direction.",
+   "added": [
+    "tally-tool"
+   ],
+   "changed": [
+    "main-stage1",
+    "h1",
+    "h2",
+    "h3",
+    "h4",
+    "h5",
+    "h6"
    ]
   }
  ]

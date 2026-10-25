@@ -572,7 +572,8 @@ Outline only. Detailed tasks will be added after the pilot.
   $36.78 against $34.74 planned: generation $1.49 and judging $35.29, the sum of the
   five logs' call costs. That left $2.11 on the key, so stage 2 waits for the top-up.
 - **Analysis**: read results only against the table "What counts as support, fixed
-  before any data" in the README.
+  before any data" in the README. Stage 1's first reading, hypothesis by hypothesis:
+  `docs/stage1-report.md`. Its counts over cases come from `tools/tally.py`.
 - **Optional sub-experiments**: not built yet. Only if budget allows, in the order the
   proposal gives (§6).
 - **Write-up**: it must include one fully shown prompt and judge answer per block

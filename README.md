@@ -392,6 +392,7 @@ uv run --env-file .env python -m pipeline.run generate --max-calls N     # N: 12
 uv run --env-file .env python -m pipeline.run judge --max-calls N        # N: the judge calls plan reports
 uv run python -m pipeline.score runs/trials.jsonl
 uv run python -m pipeline.score --show-excluded runs/trials-*.jsonl   # the pilot
+uv run python -m tools.tally runs/main/trials-*.jsonl   # counts over cases, per judge
 ```
 
 In the pilot, `--show-excluded` also printed n_eff and H6 for the judges the confidence
@@ -427,6 +428,7 @@ docs/
   decisions.md            why the code is the way it is, and what is still open
   methods.md              how each statistical method works, with worked examples
   work-plan.md            who does what next, in small steps, for newcomers
+  stage1-report.md        what stage 1 of the main run found, hypothesis by hypothesis
 related_works/            the papers in the related-work section
 cases/                    the corpus: one module per case, registered in __init__.py
 pipeline/
@@ -440,6 +442,7 @@ pipeline/
   run.py                  the command line and the programme
 tests/                    offline tests, plus a deliberately broken case fixture
 tools/check_graph.py      checks every quote in the map against its file
+tools/tally.py            counts over cases, to read results against the support table
 runs/                     outputs of real runs (created by the first run)
 ```
 
@@ -473,9 +476,9 @@ Who does what next, step by step: [`docs/work-plan.md`](docs/work-plan.md).
   cases: 1,956 calls generated the reports, Jason read them (`runs/main/reading-3.4.md`),
   and 17,760 judge trials ran in three lanes, with no entry stopped. `runs/main/` holds
   the frozen reports, the five judge logs and the scorer's output,
-  `runs/main/score-stage1.txt`. The ordering screen kept all three judges. Stage 2, the
-  length arm and the ladder on the ten-case subset, waits for the key's top-up
-  (`docs/work-plan.md`, Phase 5).
+  `runs/main/score-stage1.txt`. The ordering screen kept all three judges. What it found,
+  hypothesis by hypothesis: `docs/stage1-report.md`. Stage 2, the length arm and the
+  ladder on the ten-case subset, waits for the key's top-up (`docs/work-plan.md`, Phase 5).
 - **The pilot has run** (2026-10-19), every programme entry on M1-M5: 240 calls
   generated the reports and 3,420 judge trials ran. `runs/` holds the frozen reports,
   the seven judge logs and the scorer's output, `runs/score-pilot.txt`. Its numbers are
