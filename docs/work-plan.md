@@ -554,8 +554,10 @@ Outline only. Detailed tasks will be added after the pilot.
   40 cases is $38.34 at the proposal's rates (`uv run python -m pipeline.run plan --cases
   40`): the proposal's $37.48 plus the P0 check added after the pilot. At the pilot's
   rates it is about $39.84.
-- **Run** (Jason): same steps as Phase 3, with the same reading of frozen reports by
-  each case's author and reviewer, in two stages (`docs/decisions.md`, 2026-10-22).
+- **Run** (Jason): same steps as Phase 3, in two stages (`docs/decisions.md`,
+  2026-10-22), except two (`docs/decisions.md`, 2026-10-25): Jason reads the frozen
+  reports before judging and the authors and reviewers check his summary, and stage
+  1's judge entries run in three lanes, each entry still into its own log.
   Stage 1, $34.74: generate ($0.48), then `screen` ($2.40), `conflict` ($13.78),
   `agreement` ($11.02), `abstain` ($6.11), `abstain-p0` ($0.95) and any entry added
   later that does not run on the ten-case subset. Stage 2, after the top-up, $5.11:

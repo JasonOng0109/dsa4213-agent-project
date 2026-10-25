@@ -7632,7 +7632,9 @@ a.ref:hover { background: var(--surface-2); }
     "Stage 1 includes the P0 check added after the pilot, about $0.95: [[abstain-p0-check]].",
     "The whole programme, about $39.84 at the pilot's rates, would leave nothing for an entry that stops, and a stopped log cannot be resumed: [[pilot-programme]].",
     "Costs use the pilot's measured cost per call; judge prints the proposal's rates, which run 16% low for the abstention arm, so balance is checked before each entry: [[cost-model]].",
-    "Not split by case: rules still change while cases are written, as the screen-bounds rule changed four merged cases: [[screen-bounds]]."
+    "Not split by case: rules still change while cases are written, as the screen-bounds rule changed four merged cases: [[screen-bounds]].",
+    "Stage 1's judge entries run in three lanes, about 6.7 hours instead of 16.4: [[stage1-lanes]].",
+    "The frozen reports are read before judging, by Jason: [[main-run-reading]]."
    ],
    "evidence": [
     {
@@ -7679,6 +7681,14 @@ a.ref:hover { background: var(--surface-2); }
     },
     {
      "to": "abstain-p0-check",
+     "rel": "involves"
+    },
+    {
+     "to": "stage1-lanes",
+     "rel": "involves"
+    },
+    {
+     "to": "main-run-reading",
      "rel": "involves"
     }
    ]
@@ -8713,6 +8723,100 @@ a.ref:hover { background: var(--surface-2); }
      "rel": "part-of"
     }
    ]
+  },
+  {
+   "id": "stage1-lanes",
+   "type": "decision",
+   "cluster": "process",
+   "title": "Stage 1's judge entries run in three lanes",
+   "label": "Stage 1: three lanes",
+   "summary": "Stage 1's five judge entries run as three processes at once instead of one after another: conflict; agreement, then abstain-p0; screen, then abstain. Each entry still writes its own log, so a stop still costs one entry. Judging takes about 6.7 hours instead of 16.4, the time conflict alone needs, so fewer outages can stop it. An entry starts only when the balance covers it and what the running entries still need, each plus 10%.",
+   "date": "2026-10-25",
+   "points": [
+    "Each process keeps the runner's 18 calls a minute and its retries; Jason chose not to change either during the main run.",
+    "OpenRouter sets no request cap on paid models; the 20 a minute the limiter's comment cites is the cap on free models.",
+    "The pilot ran one entry at a time: [[pilot-programme]]."
+   ],
+   "evidence": [
+    {
+     "file": "docs/decisions.md",
+     "loc": "Stage 1's judge entries run in three lanes",
+     "quote": "stage 1's five judge entries run as three processes at once, each entry still into its own log"
+    },
+    {
+     "file": "docs/decisions.md",
+     "loc": "Stage 1's judge entries run in three lanes",
+     "quote": "one process at 18 calls a minute takes about 16.4 hours for stage 1's 17,760 judge calls; three lanes take about 6.7"
+    },
+    {
+     "file": "docs/decisions.md",
+     "loc": "Stage 1's judge entries run in three lanes",
+     "quote": "paid models have \"no platform-level request cap\""
+    },
+    {
+     "file": "docs/work-plan.md",
+     "loc": "Phase 5",
+     "quote": "stage 1's judge entries run in three lanes, each entry still into its own log."
+    }
+   ],
+   "links": [
+    {
+     "to": "runner",
+     "rel": "needs"
+    },
+    {
+     "to": "main-run-staged",
+     "rel": "related"
+    },
+    {
+     "to": "pilot-programme",
+     "rel": "related"
+    }
+   ]
+  },
+  {
+   "id": "main-run-reading",
+   "type": "decision",
+   "cluster": "process",
+   "title": "The main run's frozen reports are read before judging, by Jason",
+   "label": "Main run: 3.4 reading",
+   "summary": "For the main run, Jason reads all 40 cases' frozen reports before any judging: is A's hint still there, do A and B talk about the same thing, does any report name its writer, and do two of A7's reports read almost alike. A T1 case whose hint is lost is relabelled T2 before judging, because every trial record stores the tier the case had when it was judged. The authors and reviewers then check his summary for their case.",
+   "date": "2026-10-25",
+   "evidence": [
+    {
+     "file": "docs/decisions.md",
+     "loc": "The main run's frozen reports are read before judging, by Jason",
+     "quote": "every trial record stores the case's difficulty_tier as it was at judging time"
+    },
+    {
+     "file": "docs/work-plan.md",
+     "loc": "Phase 5",
+     "quote": "Jason reads the frozen reports before judging and the authors and reviewers check his summary"
+    },
+    {
+     "file": "pipeline/conditions.py",
+     "loc": "build_conditions",
+     "quote": "\"difficulty_tier\": case.get(\"difficulty_tier\"),"
+    }
+   ],
+   "links": [
+    {
+     "to": "frozen-set",
+     "rel": "needs"
+    },
+    {
+     "to": "tiers",
+     "rel": "needs"
+    },
+    {
+     "to": "a7-near-copies-noted",
+     "rel": "related"
+    },
+    {
+     "to": "main-run-staged",
+     "rel": "related"
+    }
+   ]
   }
  ],
  "changelog": [
@@ -9546,6 +9650,17 @@ a.ref:hover { background: var(--surface-2); }
    ],
    "closed": [
     "open-subset"
+   ]
+  },
+  {
+   "date": "2026-10-25",
+   "summary": "Stage 1's judge entries run in three lanes, about 6.7 hours instead of 16.4, and Jason reads the frozen reports before judging, with the authors and reviewers checking his summary. Jason decided.",
+   "added": [
+    "stage1-lanes",
+    "main-run-reading"
+   ],
+   "changed": [
+    "main-run-staged"
    ]
   }
  ]

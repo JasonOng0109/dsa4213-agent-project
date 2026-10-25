@@ -1052,3 +1052,44 @@ Add an entry when you make a choice a reader could not guess from the code.
 - **Rejected**: running M14 and M1 as they were.
 - **Breaks if changed**: M14's results move toward A for a reason no condition varies,
   and M1's A7 holds two origins, not three, by its own record.
+
+### 2026-10-25 — Stage 1's judge entries run in three lanes
+
+- **Decision**: stage 1's five judge entries run as three processes at once, each entry
+  still into its own log: `conflict`; `agreement`, then `abstain-p0`; `screen`, then
+  `abstain`. An entry starts only if `balance` covers its cost plus 10% after keeping
+  back what the running entries still need plus 10%, and nothing new starts once any
+  entry stops. Each process keeps the runner's pace of 18 calls a minute
+  (`pipeline/llm.py`) and its retries, unchanged. Generation and stage 2 are not
+  affected.
+- **Why** [STATED: team decision, 2026-10-25]: Jason chose three lanes over one entry at
+  a time, and no change to the retries. [INFERRED: from `plan --cases 40` and the limiter
+  in `pipeline/llm.py`] one process at 18 calls a minute takes about 16.4 hours for stage
+  1's 17,760 judge calls; three lanes take about 6.7, the time `conflict` alone needs, so
+  a fourth lane would save nothing. [INFERRED: from `judge_all` in `pipeline/run.py` and
+  `OpenRouterBackend`] a call still failing after five tries, about 30 seconds of
+  backoff, stops its entry, and a stopped log cannot be resumed, so the shorter the run,
+  the fewer outages it can meet. [STATED: OpenRouter's documentation, "API rate limits"]
+  paid models have "no platform-level request cap"; the 20 a minute that the limiter's
+  comment cites is the cap on free models.
+- **Rejected**: one entry at a time, as in the pilot (2E), which leaves the run exposed
+  to a stop for about 16 hours; a faster pace per process or a longer retry window, which
+  would change the pipeline's code during the main run.
+- **Breaks if changed**: no log changes, since each entry's trials are built the same way
+  in any order; only the hours the run is exposed to a stop change.
+
+### 2026-10-25 — The main run's frozen reports are read before judging, by Jason
+
+- **Decision**: for the main run, Jason reads all 40 cases' frozen reports (step 3.4 in
+  `docs/work-plan.md`: hint, same whole, no leaks, near-copies in A7) before any judging,
+  and relabels T2 any T1 case whose hint did not survive before judging starts. Each
+  case's author and reviewer then check his summary for their case while judging runs.
+- **Why** [STATED: team decision, 2026-10-25]: Jason decided, so judging can start the
+  same day. [INFERRED: from `build_conditions` in `pipeline/conditions.py` and the record
+  fields in `pipeline/judge.py`] every trial record stores the case's `difficulty_tier`
+  as it was at judging time, so a relabel after judging would leave the logs with the old
+  tier.
+- **Rejected**: each author and reviewer reading their case before judging, as in the
+  pilot, which would hold judging until all five members had read.
+- **Breaks if changed**: a relabel made after judging disagrees with the tier stored in
+  that case's trial records.
