@@ -1146,7 +1146,11 @@ Add an entry when you make a choice a reader could not guess from the code.
   `runs/main/frozen_reports.json`, 2026-10-25] all 2,520 trials build, and every long
   report is inside 88-96 words.
 - **Rejected**: three lanes, as in stage 1, a decision made for stage 1 only (the
-  2026-10-25 entry); the proposal's table order, with the length arm first.
+  2026-10-25 entry); the proposal's table order, with the length arm first; a same-day
+  bridge, A1 and A2 judged again with short reports beside the length arm (240 calls,
+  about $0.30), which Jason decided against on 2026-10-26. So H2's length check compares
+  stage 2's long cells with stage 1's short ones, across days (the first entry of
+  2026-10-26).
 - **Breaks if changed**: if the length arm runs first and costs more than planned, the
   ladder may go unfunded; read only with the echo cases in, two of the ten subset cases'
   pull toward A could pass for an effect of length or wording.

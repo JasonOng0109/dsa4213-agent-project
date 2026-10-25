@@ -9342,7 +9342,8 @@ a.ref:hover { background: var(--surface-2); }
    "date": "2026-10-26",
    "points": [
     "One entry at a time, not lanes: stage 2's 2,520 calls take about 2.3 hours, and a stopped entry then keeps the rest from spending: [[stage1-lanes]].",
-    "Comparisons between stage 2 and stage 1 cross days, and the judges drift a little between days: [[drift-temperature]]."
+    "Comparisons between stage 2 and stage 1 cross days, and the judges drift a little between days: [[drift-temperature]].",
+    "No same-day bridge: Jason decided against judging A1 and A2 again with short reports beside the length arm, so H2's length check compares stage 2's long cells with stage 1's short ones, across days."
    ],
    "evidence": [
     {
@@ -9364,6 +9365,11 @@ a.ref:hover { background: var(--surface-2); }
      "file": "docs/work-plan.md",
      "loc": "Phase 5",
      "quote": "Stage 2, after the top-up, $5.11, one entry at a time"
+    },
+    {
+     "file": "docs/decisions.md",
+     "loc": "Stage 2 runs one entry at a time",
+     "quote": "So H2's length check compares stage 2's long cells with stage 1's short ones, across days"
     }
    ],
    "links": [
@@ -10587,6 +10593,13 @@ a.ref:hover { background: var(--surface-2); }
    ],
    "closed": [
     "drift-temperature"
+   ]
+  },
+  {
+   "date": "2026-10-26",
+   "summary": "Jason decided against a same-day bridge for H2's length check, so it compares stage 2's long cells with stage 1's short ones, across days.",
+   "changed": [
+    "stage2-order"
    ]
   }
  ]
