@@ -28,34 +28,47 @@ CASE = {
         "strictly below 0.40, satisfying A7 (R17). Options form an evenly spaced spread [26, 31, 36, 41] hikers, "
         "with the truth (36) and A's claim (31) occupying interior positions (R8). The screen sentence uses "
         "two bounds (28 and 39), placing both survivors (31 and 36) exactly 3 hikers inside the bounds (R15). "
-        "Content lengths are A=9 and B=9 words (|A - B| = 0 <= 2). Each filler set is exactly 83 words, "
-        "landing long reports at 92 words, within the tight 91-93 band (R20). "
-        "Fillers describe neutral physical geography and terrain (rock formations, forestry canopy, stream basin) "
-        "with distinct vocabulary and no repeated distinctive content words across sets (R12). They contain "
-        "no numbers, dates, time or process markers, damage or age wording, or fire incident vocabulary (R3, R9, R10)."
+        "Content lengths are A=9 and B=9 words (|A - B| = 0 <= 2). Filler sets are 82 to 84 words, "
+        "landing long reports at 91 to 93 words, within the tight 91-93 band (R20). "
+        "Filler describes the ridge's rock and plants, the meadows below it and the river in the valley, "
+        "in plain one-fact sentences with no content word in two sets (R12). It leaves out steep or rough "
+        "ground, paths, gathering places and people, which could bear on how hard an evacuation was (R9), "
+        "and has no numbers, time or process words, or damage or age wording (R3, R10)."
     ),
 
     "filler_sets": [
         [
-            "Sandstone bluffs line the high plateau, displaying horizontal strata above pale quartzite shelves and broad upland slopes.",
-            "Loose shale slopes descend toward a broad escarpment beside grey scree and scattered granite stones.",
-            "Round stones rest along the cliff edge among hardy lichens and alpine growth beneath pale rock faces.",
-            "Fine grit fills thin grooves across the limestone face beneath jagged crags and angular quartzite ridges.",
-            "High ridges mark the northern rim with clear views across the upland and distant slate hills beyond far.",
+            "Redstone Ridge takes its name from its rust-coloured sandstone.",
+            "Bands of pink and ochre run through the rock.",
+            "Heather grows in purple drifts along the ridge.",
+            "Gorse adds patches of bright yellow among the heather.",
+            "Lichens in silver and pale green cover many of the boulders.",
+            "Skylarks nest in the short grass on the crest.",
+            "A cairn of piled rocks marks the highest point.",
+            "From the cairn, the view stretches as far as the coast.",
+            "Bilberry bushes grow in the hollows between the rocks.",
         ],
         [
-            "Lodgepole pine borders the middle valley with sturdy trunks, brown bark, and layered branches around sheltered woodland.",
-            "Conifer needles form a reddish carpet over moist acidic soil beside cedar groves and mossy clearings near the pasture.",
-            "Wild ferns grow beneath leafy birch boughs near the meadow margin and grassy pasture beside the woodland.",
-            "Purple heather flowers in spacious glades amid timber stands and fern-covered ground beneath the trees.",
-            "Moss patches decorate birch roots beside secluded woodland glades and leafy undergrowth across the valley.",
+            "Wildflower meadows lie at the foot of the ridge.",
+            "Buttercups and clover fill the meadows from hedge to hedge.",
+            "Common blue butterflies feed on knapweed and wild thyme.",
+            "A family of hares lives near the hedgerows.",
+            "Swallows skim low over the meadows by the stream.",
+            "Barn owls roost in a broad oak beside the meadows.",
+            "Orchids flower in the damp corners of the meadows.",
+            "Moorhens raise their young among the rushes of a small pond.",
+            "Bees hum among the foxgloves along the hedgerows.",
         ],
         [
-            "A gravel brook crosses the lowland between smooth pebbles, low plants, and overhanging shrubs under willows.",
-            "Basalt pools gather beside low stone steps with reeds and sedges along the margins beside a wooded slope.",
-            "Driftwood twigs lie on silted sandbars beside marsh grasses and yellow iris near the watercourse.",
-            "River cobbles border the stream channel near wetland plants and a wooden footbridge with wooden rails.",
-            "Soft sand lines the western bend beside a wooded slope and a shallow ford beneath green twigs nearby.",
+            "The River Wend winds through the wide valley below the ridge.",
+            "Alders and willows shade its muddy banks.",
+            "A humpbacked bridge crosses the river beside a mill.",
+            "The mill has a wooden wheel, a slate roof and a weathervane.",
+            "Kingfishers dart from perches above the river.",
+            "Trout hold in the deep pools under the arch of the bridge.",
+            "Water crowfoot blooms white in the shallows.",
+            "Otters have dens among the roots of the alders.",
+            "Damselflies rest on the reeds by the bank.",
         ],
     ],
 
