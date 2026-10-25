@@ -44,14 +44,14 @@ CASE = {
     ),
     "filler_sets": [
         [
-            "The front of the building is faced with red brick and has a wide stone step at its centre.",
+            "The front of the building is clad in red brick and has a wide stone step at its centre.",
             "A curved metal handrail follows the step on both sides and finishes in a rounded post.",
             "Above the step, a flat concrete canopy projects forward on two thin round pillars.",
             "Round lamps are suspended from the canopy, and a brass plate is fixed to the brickwork.",
             "A narrow bed of lavender runs along the brickwork under a low window sill.",
         ],
         [
-            "The lobby has a tiled surface in two shades of grey and an oval rug near the middle.",
+            "The lobby has a tiled surface in pale and slate grey and an oval rug near the middle.",
             "Several iron hooks are mounted along one tall wooden panel, and an umbrella holder sits beside it.",
             "Pale wooden benches face each other across the rug, each with a slim cushion.",
             "A tall mirror with a white frame hangs above a small shelf holding a glass bowl.",
@@ -61,7 +61,7 @@ CASE = {
             "A car park of dark asphalt lies to the east, edged by a clipped privet hedge.",
             "Yellow stripes divide the bays, and a bicycle rack stands near the hedge.",
             "A broad lawn slopes gently toward a pond with a timber jetty and an island of reeds.",
-            "Three oak trees shade a grassy mound beside the path, and a litter bin stands at its end.",
+            "Broad oak trees shade a grassy mound beside the path, and a litter bin stands at its end.",
             "A signpost at the corner of the car park shows the way to the road.",
         ],
     ],
