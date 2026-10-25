@@ -19,7 +19,7 @@ CASE = {
         "capacity of the HydroBrew C8 coffee maker) as single sentences with identical scope (R1). "
         "Both share the question content-words: water, tank, capacity, HydroBrew, C8, coffee, "
         "and maker (R13). The T1 cue is A's clause-level hedge 'is estimated to be' (R16). "
-        "The hedge is used in M12, M18 and M20 (3 slots all filled). Quality resides "
+        "M12 and M20 have moved off 'estimated', so M18 is now its only case (R16). Quality resides "
         "strictly in provenance (R2, R19). Under Phase 4 primary-source rules, both writers share "
         "identical manufacturer standing ('maker product team'), isolating the primary-source dimension: "
         "A is the maker's online shop listing, while B is the maker's technical datasheet (R19). "
@@ -30,33 +30,44 @@ CASE = {
         "form a balanced spread [680, 1060, 1440, 1820] ml, with the truth (1440) and A's claim (1060) "
         "occupying the interior positions (R8). The screen sentence uses two bounds (900 ml and 1600 ml), "
         "placing both survivors (1060 and 1440) exactly 160 ml inside the bounds (R15). Content lengths "
-        "are A=14 and B=13 words (|A - B| <= 2). Each filler set is 78 words, landing every long report "
-        "at 91 or 92 words within the tight 91-93 band (R20). Fillers describe neutral physical aspects "
-        "of the machine as three separate feature groups with no repeated distinctive nouns across sets (R12), "
-        "containing no numbers, measurements, time markers, or coffee brewing vocabulary (R3, R9, R10). "
+        "are A=14 and B=13 words (|A - B| <= 2). Filler sets are 78 or 79 words, landing every long "
+        "report at 91 to 93 words within the tight 91-93 band (R20). Each filler set describes one part "
+        "of the machine (the lid and top, the front panel and display, the base and cord) in plain "
+        "one-fact sentences, so no feature appears in two slots and no content word is in two sets "
+        "(R12). Filler has no numbers or number words, measurements, time markers, liquids or brewing "
+        "vocabulary (R3, R9, R10). "
     ),
 
     "filler_sets": [
         [
-            "The HydroBrew C8 coffee maker has a matte black casing with rounded corners and charcoal finish.",
-            "A narrow silver band runs beneath the top lid along its front edge near the hinge.",
-            "The upper cover slopes gently toward a broad crown with a charcoal surface and shallow profile.",
-            "A circular indicator appears beside the lid hinge on the rear portion of the cover.",
-            "A small emblem is fixed near the upper rim above the front panel of casing.",
+            "The HydroBrew C8 coffee maker has a matte black casing with rounded corners.",
+            "A hinged lid covers the top of the machine.",
+            "A ridged grip runs along the lip of the lid.",
+            "A narrow silver band trims the rim of the lid.",
+            "The hinge is hidden beneath a smooth cover.",
+            "The top surface has a soft satin finish in charcoal.",
+            "A small engraved logo sits beside the hinge.",
+            "The corners of the lid slope gently down to the casing.",
         ],
         [
-            "A rectangular display is set into the front panel above several small front controls.",
-            "A perforated grille spans the upper fascia beneath the display on the front panel near the top.",
-            "Two narrow buttons sit beside a small circular indicator on the front face of casing.",
-            "A smooth front border surrounds the controls and joins the side casing along its lower edge.",
-            "A curved handle projects from the lower front edge beneath the control panel near the base.",
+            "A square display screen is set into the front panel.",
+            "The screen shows crisp white symbols on a dark background.",
+            "Square push buttons line up under the screen.",
+            "Each button carries a printed icon in grey.",
+            "A curved chrome handle stands out from the right side of the front panel.",
+            "The front panel has a glossy coating in deep graphite.",
+            "A thin chrome border frames the screen.",
+            "The brand name is embossed above the screen in plain capitals.",
         ],
         [
-            "A black power cord leaves the rear through a round rubber grommet near the lower rear base.",
-            "Four short feet lift the base above the supporting surface on a low frame below.",
-            "A square rocker switch is mounted beside the rear cable outlet on the lower rear casing.",
-            "Narrow vents run across the underside between the rear supports along a flat underside panel.",
-            "A broad base plate covers the lower frame beneath the appliance with a plain edge.",
+            "The base is a wide, heavy plinth in brushed steel.",
+            "Rubber feet keep the plinth steady on a kitchen counter.",
+            "A braided power cord leaves the back of the base.",
+            "The cord ends in a plug with a blue sleeve.",
+            "A rocker switch is fitted at the rear of the plinth.",
+            "Air vents form a fine mesh along the lower edge.",
+            "A cable clip on the underside holds spare cord.",
+            "The plinth has a neatly bevelled outline throughout.",
         ],
     ],
 
