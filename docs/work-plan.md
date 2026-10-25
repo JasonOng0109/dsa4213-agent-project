@@ -618,11 +618,11 @@ Change "to do" to "done" when a task is finished.
 | 2A Ladder sentence | Rachel | Phase 0 | done |
 | 2B Margin cut-off | Crystal | Phase 0 | done |
 | 2C Discrimination pass mark | Kai Rong | Phase 0 | done |
-| 2D Case register (ongoing) | Kai Rong | each merge | to do |
+| 2D Case register (ongoing) | Kai Rong | each merge | done |
 | 2D Ten-case subset: the rule | Jason + group | — | done |
 | 2D Ten-case subset: mark five | Kai Rong | Phase 4 batches | done |
 | 2D Ten-case subset: name backups | Kai Rong | all Phase 4 cases assigned | done |
-| 2D Ten-case subset: reorder the tuple | Kai Rong | all 40 cases | to do |
+| 2D Ten-case subset: reorder the tuple | Kai Rong (done by Jason) | all 40 cases | done |
 | 2E What the pilot runs | Jason + group | — | done |
 | 3.1–3.7 Pilot run | Jason | M2–M5 merged, 2E | done |
 | 3.4 Read frozen reports | authors and reviewers | 3.3 | done |

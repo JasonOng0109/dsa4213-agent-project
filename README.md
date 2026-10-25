@@ -490,9 +490,10 @@ Who does what next, step by step: [`docs/work-plan.md`](docs/work-plan.md).
   abstain option as a check beside A7, since H6 had almost nothing to test: 8 of 900
   conflict-block records were flagged, and two judges never abstained
   (`runs/score-pilot.txt`).
-- **Open before the main run**: `cases/__init__.py` puts the ten-case subset first (the
-  code takes the first ten). The ten are chosen: M1-M5 and five Phase 4 cases marked by
-  Kai Rong with the first batches (`docs/work-plan.md`, case register).
+- **Done before the main run** (2026-10-25, by Jason for Kai Rong): `cases/__init__.py`
+  puts the ten-case subset first (the code takes the first ten): M1-M5 and the five
+  Phase 4 cases Kai Rong marked with the first batches, M6, M14, M22, M30 and M38
+  (`docs/work-plan.md`, case register).
 - **The P0 check ran on M1-M5** (2026-10-21, 60 calls, $0.12; `docs/work-plan.md`, step
   3.8): every judge abstained in all 20 of its P0 trials, so in the pilot Opus's and
   Sonnet's zero abstentions in the conflict block read as a null, not as a judge that

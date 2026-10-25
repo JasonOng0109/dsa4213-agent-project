@@ -5378,7 +5378,7 @@ a.ref:hover { background: var(--surface-2); }
    "points": [
     "Chosen before any of the ten is run, so neither the pilot's results nor how cases turn out can steer the choice.",
     "M1–M5 already cover all three domains and all four quality dimensions.",
-    "Marked on 2026-10-19 with the first Phase 4 batches, before anyone drafted them: M6, M14, M22, M30 and M38, one per author, with M14 and M22 the two T2. Still to do: put the ten first in cases/__init__.py before the main run: [[open-subset]].",
+    "Marked on 2026-10-19 with the first Phase 4 batches, before anyone drafted them: M6, M14, M22, M30 and M38, one per author, with M14 and M22 the two T2. Put first in cases/__init__.py on 2026-10-25: [[open-subset]].",
     "The ten's three T2 cases, M1, M14 and M22, are in three different domains and three different dimensions.",
     "A case of the ten that is relabelled T2 once its frozen reports are read stays in the ten, so the ten may end with more than three T2 cases: swapping it out would choose cases after seeing results. Kai Rong raised this in review, and Jason agreed.",
     "Each of the five has a named backup, with the same domain, dimension and tier and a different author, which joins the ten only if its case is dropped: M16 for M6, M8 for M14, M9 for M22, M17 for M30 and M32 for M38. Kai Rong named them on 2026-10-21, when the other 25 cases were assigned together, before anyone drafted them."
@@ -7780,7 +7780,7 @@ a.ref:hover { background: var(--surface-2); }
     {
      "file": "cases/__init__.py",
      "loc": "CASES",
-     "quote": "CASES = {case[\"case_id\"]: case for case in (m1.CASE, m2.CASE, m3.CASE, m4.CASE, m5.CASE, m6.CASE, m7.CASE, m8.CASE, m9.CASE, m10.CASE, m11.CASE, m12.CASE, m13.CASE, m14.CASE, m15.CASE, m16.CASE, m17.CASE, m18.CASE, m19.CASE, m20.CASE, m21.CASE, m22.CASE, m23.CASE, m24.CASE, m25.CASE, m26.CASE, m27.CASE, m28.CASE, m29.CASE, m30.CASE, m31.CASE, m32.CASE, m33.CASE, m34.CASE, m35.CASE, m36.CASE, m37.CASE, m38.CASE, m39.CASE, m40.CASE)}"
+     "quote": "CASES = {case[\"case_id\"]: case for case in (m1.CASE, m2.CASE, m3.CASE, m4.CASE, m5.CASE, m6.CASE, m14.CASE, m22.CASE, m30.CASE, m38.CASE, m7.CASE, m8.CASE, m9.CASE, m10.CASE, m11.CASE, m12.CASE, m13.CASE, m15.CASE, m16.CASE, m17.CASE, m18.CASE, m19.CASE, m20.CASE, m21.CASE, m23.CASE, m24.CASE, m25.CASE, m26.CASE, m27.CASE, m28.CASE, m29.CASE, m31.CASE, m32.CASE, m33.CASE, m34.CASE, m35.CASE, m36.CASE, m37.CASE, m39.CASE, m40.CASE)}"
     }
    ],
    "links": [
@@ -8256,10 +8256,10 @@ a.ref:hover { background: var(--surface-2); }
    "id": "open-subset",
    "type": "issue",
    "cluster": "issues",
-   "title": "The ten-case subset: put the ten first before the main run",
-   "label": "Subset: put ten first",
-   "summary": "Before the main run, cases/__init__.py must put the ten-case subset first, because the code takes the first ten in corpus order. The ten are chosen: M1–M5 plus M6, M14, M22, M30 and M38, which Kai Rong marked with the first Phase 4 batches, before anyone drafted them ([[subset-rule]]). All 40 cases are merged, so the reorder can be done now: [[open-corpus]].",
-   "status": "open",
+   "title": "The ten-case subset was not first yet",
+   "label": "Subset first (settled)",
+   "summary": "Settled. cases/__init__.py now puts the ten-case subset first, because the code takes the first ten in corpus order: M1–M5 plus M6, M14, M22, M30 and M38, which Kai Rong marked with the first Phase 4 batches, before anyone drafted them ([[subset-rule]]). Jason reordered it for her on 2026-10-25, once all 40 cases were merged: [[open-corpus]].",
+   "status": "current",
    "date": "2026-10-12",
    "evidence": [
     {
@@ -8286,6 +8286,11 @@ a.ref:hover { background: var(--surface-2); }
      "file": "docs/work-plan.md",
      "loc": "2D",
      "quote": "reorder the tuple in cases/__init__.py so the ten come first"
+    },
+    {
+     "file": "cases/__init__.py",
+     "loc": "CASES",
+     "quote": "CASES = {case[\"case_id\"]: case for case in (m1.CASE, m2.CASE, m3.CASE, m4.CASE, m5.CASE, m6.CASE, m14.CASE, m22.CASE, m30.CASE, m38.CASE,"
     }
    ],
    "links": [
@@ -9529,6 +9534,18 @@ a.ref:hover { background: var(--surface-2); }
    ],
    "closed": [
     "drift-prerun-review"
+   ]
+  },
+  {
+   "date": "2026-10-25",
+   "summary": "The ten-case subset now comes first in cases/__init__.py: M1–M5, M6, M14, M22, M30 and M38. Jason did it for Kai Rong once all 40 cases were merged.",
+   "changed": [
+    "open-subset",
+    "open-corpus",
+    "subset-rule"
+   ],
+   "closed": [
+    "open-subset"
    ]
   }
  ]
