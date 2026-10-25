@@ -56,7 +56,7 @@ CASE = {
             "Plain white plastic covers sit snugly over the overhead lights.",
             "Cool air flows in through metal vents fitted near the ceiling.",
             "A water fountain stands at the far end of the long corridor.",
-            "A seating area with padded benches sits halfway along the corridor.",
+            "A waiting area with padded benches sits halfway along the corridor.",
             "A fire extinguisher is mounted on a bracket beside a small "
             "noticeboard.",
             "Coat hooks are screwed into a wooden rail along one stretch of wall.",

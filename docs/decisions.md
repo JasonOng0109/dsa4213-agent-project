@@ -822,3 +822,197 @@ Add an entry when you make a choice a reader could not guess from the code.
 - **Breaks if changed**: running a stage 2 entry in stage 1 uses up the money kept for an
   entry that stops; starting before all 40 cases are merged lets results exist while
   rules can still change.
+
+### 2026-10-24 — A hedge carries at most three T1 cases
+
+- **Decision**: up to three T1 cases may share a hedge, counted by its main word, so "is
+  likely to", "it is likely that" and "is likely to have" are one hedge. An author picks
+  a hedge with fewer than three cases, on `main` or in an open pull request, preferring
+  one already in use to a new one, or another kind of cue. R16 in
+  `docs/authoring-rules.md` and work-plan step 1.4 now say so. This replaces "pick the
+  one used least" from the 2026-10-18 entry; varying the hedge stays.
+- **Why** [STATED: team decision, 2026-10-24]: Kathleen asked whether the repeats were
+  acceptable, with six hedges then on two or three cases each, and Jason decided.
+  [STATED: R16] varying the hedge exists so that one phrase does not carry many T1
+  cases; at three, losing one hedge relabels at most three of the 30 T1 cases, and "a T2
+  case is a legitimate control". [STATED: `runs/frozen_reports.json`] in the pilot, all
+  eight accepted rewordings of A in M2 to M5 kept a hedge, and two changed its word: M4's
+  "is thought to be" came back as "A water lift of 4000Pa is suspected for the Yhotak
+  B162 Vacuum." and M5's "is believed to have been" as "The water supply at Kestrel Court
+  is thought to have been disconnected for 9 hours." So the reporter keeps the doubt
+  rather than the word. [STATED: team decision, 2026-10-24] once every common hedge had a
+  case, "least used" sent authors to new hedges that read as something other than doubt,
+  which Kai Rong found reviewing the Phase 4 pull requests: "is expected to be" can read
+  as a planned figure, so both claims can be true; "is considered to be" as an official
+  ruling; "is taken as" as a set working value. [INFERRED: from `ATTRIBUTION_PHRASES` in
+  `pipeline/reporter.py`] "It appears that" rewords easily to "apparently", which the
+  linter rejects in a case but the reporter's checks do not catch in a rewording.
+- **Rejected**: a new hedge for every case, which "pick the one used least" asks for once
+  every common hedge has a case; no limit, which is how three of the four T1 pilot cases
+  came to share one phrase.
+- **Breaks if changed**: with no limit, one hedge can again carry many T1 cases, and the
+  T1/T2 balance rests on whether the reporter keeps it; with one hedge per case, authors
+  reach for hedges that break R1 or turn into hearsay.
+
+### 2026-10-24 — B, C and D each reach the figure by their own route
+
+- **Decision**: in A7, B, C and D must each reach the figure by their own route, so that a
+  slip in one could not reach the others. Readings of one printed figure (a box, a
+  datasheet, a register filled in from it) are one origin. For a figure an institution
+  sets, such as a loan period, a deposit or a credit total, the fact is the decision
+  itself: a record made where it was decided, or someone seeing the rule applied, is its
+  own route; a copy of the governing document, or the minutes it was drafted from, is
+  not. Each source's `why` names its route. `docs/authoring-rules.md`, "Checks no script
+  performs".
+- **Why** [STATED: team decision, 2026-10-24]: Jason asked for it reviewing M15 and M36,
+  where B, C and D each read one printed figure. Kai Rong applied it reviewing the Phase
+  4 pull requests and asked on M16, M17 and M24 how strict it is for a figure an
+  institution sets, since every record of such a figure goes back to one decision. Jason
+  decided. [STATED: README, "Measures, in order of weight"] normatively n_eff(A4) = 1,
+  "three reports, one source", and n_eff(A7) = 3, so A7 must hold three sources;
+  [STATED: README, "Two blocks, thirteen conditions"] A4 against A7 tests "true
+  independence at equal report count". [STATED: `cases/m15.py`] "B, C and D each have
+  their own origin so A7 does not read as one source three times".
+- **Rejected**: any three different documents, which lets C and D pass on B's figure, so
+  that A7 shows one source three times, which is A4's job; a separate measurement for
+  every source, which a figure set by a decision cannot have.
+- **Breaks if changed**: A7 no longer holds three sources, so n_eff(A7) = 3 is false by
+  design, and A4 against A7 (H2) compares one source with one source.
+
+### 2026-10-24 — Cases may share an attribute, not a scenario
+
+- **Decision**: two cases may ask about the same attribute of different things, such as
+  the battery capacity of a laptop (M2) and of a phone (M22). A case that repeats another
+  case's scenario with new names takes a new topic. `docs/authoring-rules.md`, "Checks
+  no script performs". M29, drafted as the number of passengers evacuated from a stalled
+  funicular, repeated M38's question, the number of passengers evacuated from a stalled
+  train, so M29 takes a new topic in its pull request.
+- **Why** [STATED: team decision, 2026-10-24]: Kathleen listed similar pairs (M29 and M38,
+  M25 and M31, M2 and M22, M4 and M20, M5 and M26) and asked whether any needed changing,
+  and Jason decided. [STATED: `pipeline/prompt.py`] a judge prompt holds one
+  "Question: {question}", so two cases never meet in a trial. [STATED: proposal §3, in
+  the 2026-10-21 entry on type names] results are broken down by dimension, and a
+  scenario repeated with new names makes one topic count twice in the results.
+- **Rejected**: one topic per case, which would rewrite merged cases such as M2 and M22
+  for no gain; keeping M29 as drafted.
+- **Breaks if changed**: nothing the scorer reads; scenarios repeated with new names
+  narrow the range of facts the results cover.
+
+### 2026-10-24 — Authors count the hedges in use with tools/case_index.py
+
+- **Decision**: R16 in `docs/authoring-rules.md` and work-plan step 1.4 send authors to
+  `uv run python tools/case_index.py --all-branches`, which lists the cases on `main` and
+  on every pull-request branch, with A's hedge, and then each hedge in use with how many
+  of its three slots are left. The index is printed, never committed. It replaces the
+  `grep` of the 2026-10-18 entry.
+- **Why** [STATED: team decision, 2026-10-24]: Kathleen wrote the script, and Jason asked
+  that R16 point to it once it was merged. [STATED: R16] most cases are drafted on
+  pull-request branches, which a `grep` of `cases/*.py` cannot see, since it reads only
+  the author's own branch. [STATED: `tools/case_index.py`] "The index is printed, not
+  committed: it reads everyone's branches, so a saved copy goes stale with every push."
+- **Rejected**: the `grep`, which misses every case drafted on another branch; a
+  generated `docs/case-index.md` committed with the script, which goes stale with every
+  push and would make every case pull request conflict on it, as they all do on
+  `cases/__init__.py`.
+- **Breaks if changed**: an author who checks only their own branch can pick a hedge that
+  is already full on other branches, and one hedge ends up carrying more than three T1
+  cases.
+
+### 2026-10-25 — Neither A nor B is the question turned into a statement
+
+- **Decision**: if A or B keeps the question's words in the question's order, with the
+  answer filled in, while the other rewords it, the one that echoes the question is
+  reworded. `docs/authoring-rules.md`, R13 and "Checks no script performs"; a reviewer's
+  check, not linted. Applied the same day to M30, M31, M34 and M36 on `main` and to M6,
+  M12, M13, M27 and M38 in their pull requests. M29 is taking a new topic, and M3, M4 and
+  M5 keep their sentences: they ran in the pilot.
+- **Why** [STATED: team decision, 2026-10-25]: Kai Rong and Kathleen raised it reviewing
+  Phase 4 pull requests, as "R13 in spirit", and Jason decided to apply it to every case.
+  [STATED: R13] the question's wording must not distinguish the competing pair, "so the
+  question cannot lean toward one side"; the linter compares only the sets of words.
+  [INFERRED: from `pipeline/prompt.py`, which puts "Question: {question}" above the
+  reports] a report that is the question with the answer filled in reads as the direct
+  reply to what the judge was asked, and in a T2 case it is the only difference left
+  between A and B.
+- **Rejected**: leaving it to the reporter, whose faithful rewordings keep a source's
+  subject and verb, so the echo reaches the judge; rewording M3, M4 and M5 after they ran,
+  as with their type names (2026-10-21).
+- **Breaks if changed**: a case whose wrong claim echoes the question pulls the judge
+  toward A for a reason no condition varies, and one whose true claim echoes pulls toward
+  the truth; either moves that case's results by something other than provenance.
+
+### 2026-10-25 — In a method case, A's hedge names no method
+
+- **Decision**: in a method case, A's T1 cue may not name a way of finding the figure:
+  not "is estimated to be", "is guessed to" or "is reckoned at" (R16 in
+  `docs/authoring-rules.md`; work-plan step 1.4). An approximation stays allowed, since it
+  says how exact a figure is, not how it was found (M35). M12 moves off "is estimated to
+  be"; M20 had already moved to "is suspected to".
+- **Why** [STATED: team decision, 2026-10-25]: Rachel raised it reviewing M12, and Jason
+  decided. [STATED: R2] "Everything about who produced a source, how, and how reliable it
+  is goes in `provenance`." [STATED: R19] "H5 asks whether a judge infers quality from a
+  named source type alone": if A's sentence already names its method, the type names in
+  X2 add less in method cases than in the other three dimensions. [STATED:
+  `cases/m37.py`] the 3.4 check on A's rewordings, because "all of these would put the
+  method into the content".
+- **Rejected**: any hedge R16 lists, which lets a method case state its dimension in
+  content; ruling out approximations too, which would rewrite M35 for a cue about
+  precision rather than method.
+- **Breaks if changed**: method cases carry their dimension in the sentence, so results
+  broken down by dimension stop comparing like with like.
+
+### 2026-10-25 — M3, M4 and M5 are reworded too
+
+- **Decision**: M3's A and M4's and M5's B, each the question turned into a statement,
+  are reworded like the other cases; this drops the pilot exemption in the entry above.
+  The pilot's outputs in `runs/` stay as they are, and M1-M5 keep their type names
+  (2026-10-21).
+- **Why** [STATED: team decision, 2026-10-25]: Jason decided, since the main run
+  generates every case's reports afresh. [STATED: `pipeline/run.py`] "Real outputs go to
+  runs/ and are never overwritten: frozen reports and trial logs are evidence, so a step
+  whose output exists refuses to start until the old file is moved."
+- **Rejected**: keeping the pilot's sentences, which would leave three of the ten subset
+  cases with a pull toward one side that no condition varies.
+- **Breaks if changed**: nothing the pilot reported changes; only the main run reads the
+  reworded sentences.
+
+### 2026-10-25 — No content word is in two filler sets
+
+- **Decision**: no content word is in two of a case's filler sets, counting forms such as
+  "sits" and "sit" as one; the case's subject may be named in every set
+  (`docs/authoring-rules.md`, R12 and "Checks no script performs"; a reviewer's check,
+  not linted). Applied the same day to all 32 cases on `main`: M7, M30, M31 and M32
+  first, then M1-M5 and eight cases with one or a few shared words (M14, M15, M22, M23,
+  M28, M33, M34, M39). Every set keeps its word count, so R20's lengths hold. The eight
+  proposals posted on open pull requests (M10-M13, M18, M19, M21, M29) already meet it.
+- **Why** [STATED: `cases/m34.py`]: authors already held their own cases to it, "so the
+  slots stay apart (R12)"; [STATED: team decision, 2026-10-25] Jason decided to clean
+  every case on `main` to it before the main run. [INFERRED: from R12 and
+  `build_conditions` in `pipeline/conditions.py`] the builder gives set *i* to slot *i*
+  whichever source fills it, so a word two sets share lands on whichever two reports fill
+  those slots: two reports of one source, which then show the dependence the opaque
+  conditions hide, or two independent ones, which then look copied.
+- **Rejected**: leaving single shared words such as "sit" or "lie" in eight cases, and the
+  pilot cases' sets as they ran. [STATED: the 2026-10-15 entry on padded mock
+  rewordings] "fixing filler there costs nothing: filler is added after rewording, so the
+  paid reports are reused."
+- **Breaks if changed**: a shared word links two reports in every trial of the case, a
+  cue of shared origin that no condition controls, which in an opaque condition can fall
+  on the two reports of the shared source.
+
+### 2026-10-25 — A second filler pass counts every form of a word
+
+- **Decision**: under the rule above, a word's other forms count as the word itself:
+  "left" and "leave", "held" and "hold", "taken" and "take", "slotted" and "slot",
+  "modelled" and "model", "lower" and "low", "crosses" and "cross". A second pass the
+  same day swapped one word for each such pair the first pass had left on `main`: three
+  in M1 and one each in M2, M3, M28 and M33. M4's "holds" and "holder" and M14's
+  "building" and "built", related words rather than forms of one, were swapped too. Every
+  set keeps its word count, so M1's sets stay at 80 words (`tests/test_conditions.py`).
+- **Why** [STATED: team decision, 2026-10-25]: Jason decided to swap words in all seven
+  cases before the main run, the two related-word pairs included. [STATED: the entry
+  above] "a shared word links two reports in every trial of the case".
+- **Rejected**: swapping words only in the five cases with forms of one word, and leaving
+  M4's and M14's related words.
+- **Breaks if changed**: as in the entry above, a shared word links two reports in every
+  trial, a cue of shared origin that no condition controls.
