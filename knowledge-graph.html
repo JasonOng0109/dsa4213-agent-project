@@ -3966,6 +3966,11 @@ a.ref:hover { background: var(--surface-2); }
      "file": "pipeline/run.py",
      "loc": "PROGRAMME",
      "quote": "Entry(\"long-agreement\", \"long\", LONG_AGREEMENT, 6, LENGTH_JUDGES, True),"
+    },
+    {
+     "file": "pipeline/conditions.py",
+     "loc": "build_conditions",
+     "quote": "With long reports, the reports of the checked conditions, those judged long, are length-checked."
     }
    ],
    "links": [
@@ -3985,6 +3990,9 @@ a.ref:hover { background: var(--surface-2); }
      "to": "drift-a7-long-check",
      "rel": "because"
     }
+   ],
+   "points": [
+    "An optional entry that judges another condition long has it checked too, so the long-neff entry checks A7: [[long-neff-plan]]."
    ]
   },
   {
@@ -4246,7 +4254,7 @@ a.ref:hover { background: var(--surface-2); }
    "cluster": "conditions",
    "title": "Four optional sub-experiments",
    "label": "Optional sub-experiments",
-   "summary": "Reasoning on/off, a rerun with fresh rewordings, a check of written confidence against token probabilities, and n_eff at long length: 1,112 calls, about $2.78, in the proposal. They run in this order if budget allows. Their designs were recorded on 2026-10-26; none is built yet.",
+   "summary": "Reasoning on/off, a rerun with fresh rewordings, a check of written confidence against token probabilities, and n_eff at long length: 1,112 calls, about $2.78, in the proposal. They run in this order if budget allows. Designed and built on 2026-10-26; none has run yet.",
    "aliases": [
     "optional sub-experiments"
    ],
@@ -4254,7 +4262,7 @@ a.ref:hover { background: var(--surface-2); }
     {
      "file": "README.md",
      "loc": "Arms",
-     "quote": "Optional sub-experiments, run in this order if budget allows, designed but not yet built"
+     "quote": "Optional sub-experiments, run in this order if budget allows, built but not yet run"
     },
     {
      "file": "docs/proposal.pdf",
@@ -4401,7 +4409,8 @@ a.ref:hover { background: var(--surface-2); }
    "summary": "A JSON object: the chosen answer copied word for word, and a probability from 0 to 100 for every option, adding up to 100. Options are numbered, never lettered. The judge is sent temperature 0, which its endpoint does not take ([[drift-temperature]]), and is not asked for reasoning.",
    "visual": "prompt",
    "points": [
-    "Reasoning is switched off explicitly ([[reasoning-control]])."
+    "Reasoning is switched off explicitly ([[reasoning-control]]).",
+    "The confidence cross-check's prompt asks for option numbers instead: [[crosscheck-plan]]."
    ],
    "evidence": [
     {
@@ -6606,7 +6615,7 @@ a.ref:hover { background: var(--surface-2); }
    "cluster": "pipeline",
    "title": "Runner (pipeline/run.py)",
    "label": "Runner",
-   "summary": "The command line. dry runs the whole programme on the mock backend; plan prints the call and cost estimate; balance and probe check the key and the models; generate and judge spend money, each under a hard call ceiling. The programme itself is one table, PROGRAMME.",
+   "summary": "The command line. dry runs the whole programme on the mock backend; plan prints the call and cost estimate; balance and probe check the key and the models; generate and judge spend money, each under a hard call ceiling. The programme itself is one table, PROGRAMME. The optional sub-experiments are a second table, OPTIONAL, chosen by name; --cases keeps only the cases named.",
    "weight": 2,
    "aliases": [
     "runner",
@@ -6622,6 +6631,11 @@ a.ref:hover { background: var(--surface-2); }
      "file": "README.md",
      "loc": "Running the study",
      "quote": "pre-flight call and cost estimate"
+    },
+    {
+     "file": "pipeline/run.py",
+     "loc": "argparse",
+     "quote": "comma-separated case ids: only these cases"
     }
    ],
    "links": [
@@ -6635,6 +6649,10 @@ a.ref:hover { background: var(--surface-2); }
     },
     {
      "to": "cost-model",
+     "rel": "related"
+    },
+    {
+     "to": "optional-build",
      "rel": "related"
     }
    ]
@@ -8701,16 +8719,21 @@ a.ref:hover { background: var(--surface-2); }
    "id": "open-optional",
    "type": "issue",
    "cluster": "issues",
-   "title": "The optional sub-experiments are not built",
-   "label": "Optional work not built",
-   "summary": "None of the four optional sub-experiments has code on main yet. Their designs are recorded (2026-10-26), and the code is being written on the branch optional-arms: [[optional-build]].",
-   "status": "open",
+   "title": "The optional sub-experiments were not built",
+   "label": "Optional work not built (settled)",
+   "summary": "Settled. The four optional sub-experiments are built as the entries in OPTIONAL in pipeline/run.py, chosen by name and never part of the default run. None has run yet; each runs only if the balance covers it: [[optional-build]].",
+   "status": "current",
    "date": "2026-10-12",
    "evidence": [
     {
      "file": "README.md",
      "loc": "Status and open items",
-     "quote": "Designed, not built: the four optional sub-experiments"
+     "quote": "Built, not run: the four optional sub-experiments, as the entries in OPTIONAL"
+    },
+    {
+     "file": "pipeline/run.py",
+     "loc": "OPTIONAL",
+     "quote": "# Selected by name with judge --arms, never part of the default run or of plan's totals."
     }
    ],
    "links": [
@@ -9579,7 +9602,8 @@ a.ref:hover { background: var(--surface-2); }
    "date": "2026-10-26",
    "points": [
     "They run in the proposal's order, each only if the balance covers it plus 10%: [[optional-subexps]].",
-    "The designs: [[reasoning-plan]], [[robustness-plan]], [[crosscheck-plan]] and [[long-neff-plan]]."
+    "The designs: [[reasoning-plan]], [[robustness-plan]], [[crosscheck-plan]] and [[long-neff-plan]].",
+    "Built on the branch optional-arms: stage 1's score reproduces byte for byte under the changed scorer, and a test checks every stage 1 record against the trial the code builds today."
    ],
    "evidence": [
     {
@@ -9593,9 +9617,19 @@ a.ref:hover { background: var(--surface-2); }
      "quote": "A test checks that the main programme still builds the trials and prompts that stage 1 judged and stage 2 will judge"
     },
     {
-     "file": "README.md",
-     "loc": "Status and open items",
-     "quote": "Their code is being written on the branch optional-arms, in a folder of its own, and joins main when Jason agrees."
+     "file": "tests/test_run.py",
+     "loc": "the main programme",
+     "quote": "def test_the_main_programme_builds_the_same_trials_and_prompts(main_frozen):"
+    },
+    {
+     "file": "pipeline/run.py",
+     "loc": "OPTIONAL",
+     "quote": "Each fixes its cases and its arm label, so no trial shares an id or a scorer cell with"
+    },
+    {
+     "file": "tests/test_run.py",
+     "loc": "the main programme",
+     "quote": "Every record in stage 1's logs shows the trial the code builds today, and every trial the code builds was judged."
     }
    ],
    "links": [
@@ -9641,6 +9675,16 @@ a.ref:hover { background: var(--surface-2); }
      "file": "docs/proposal.pdf",
      "loc": "p.14 §4.1",
      "quote": "Traces are logged and read for whether the model mentions the shared source before deciding"
+    },
+    {
+     "file": "pipeline/run.py",
+     "loc": "OPTIONAL",
+     "quote": "THINKING = {\"max_tokens\": 2000}     # reasoning on, at a budget of 2,000 thinking tokens"
+    },
+    {
+     "file": "pipeline/judge.py",
+     "loc": "run_trials",
+     "quote": "\"reasoning_text\": getattr(judge, \"last_reasoning\", None),"
     }
    ],
    "links": [
@@ -9725,6 +9769,16 @@ a.ref:hover { background: var(--surface-2); }
      "file": "docs/proposal.pdf",
      "loc": "p.15 §4.1",
      "quote": "Verbalized probabilities are compared against option-index token probabilities on the two auxiliary models"
+    },
+    {
+     "file": "pipeline/prompt.py",
+     "loc": "NUMBER_TEMPLATE",
+     "quote": "the keys of \"p\" are option numbers, so the token probabilities at the answer's digit"
+    },
+    {
+     "file": "pipeline/run.py",
+     "loc": "AUXILIARY_REASONING",
+     "quote": "AUXILIARY_REASONING = {\"qwen/qwen3.6-27b\": {\"enabled\": False}, \"meta-llama/llama-4-maverick\": None}"
     }
    ],
    "links": [
@@ -9768,6 +9822,11 @@ a.ref:hover { background: var(--surface-2); }
      "file": "docs/proposal.pdf",
      "loc": "p.21 §6",
      "quote": "requires the index to be computable at short length"
+    },
+    {
+     "file": "pipeline/score.py",
+     "loc": "report_neff",
+     "quote": "A0 shows no reports, so it has no length, and comes from the same judge's short arm"
     }
    ],
    "links": [
@@ -11014,6 +11073,23 @@ a.ref:hover { background: var(--surface-2); }
    "changed": [
     "question",
     "correlated-reports"
+   ]
+  },
+  {
+   "date": "2026-10-26",
+   "summary": "Built the four optional sub-experiments on the branch optional-arms, as the OPTIONAL entries in pipeline/run.py, with --cases, the cross-check's answer-by-number prompt, the thinking text in every record and n_eff on the long arm. A test checks the main programme's trials and prompts against stage 1's logs and fingerprints; none of the four has run.",
+   "changed": [
+    "optional-subexps",
+    "optional-build",
+    "reasoning-plan",
+    "crosscheck-plan",
+    "long-neff-plan",
+    "long-check-scope",
+    "runner",
+    "elicitation"
+   ],
+   "closed": [
+    "open-optional"
    ]
   },
   {

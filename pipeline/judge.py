@@ -47,7 +47,8 @@ def _option(text: str, options: list[str], by_norm: dict) -> str | None:
 
 
 def parse(raw: str, options: list[str], world_truth: str | None = None,
-          majority_claim: str | None = None, allow_abstain: bool = False) -> dict:
+          majority_claim: str | None = None, allow_abstain: bool = False,
+          by_number: bool = False) -> dict:
     """Statuses:
     ok                 -- a decision (or abstention) and a usable "p"
     no_match           -- a coherent answer string that is not an option
@@ -55,14 +56,29 @@ def parse(raw: str, options: list[str], world_truth: str | None = None,
     failed_fallback    -- no JSON object could be read
     p_incomplete       -- decision kept; "p" misses an option or is not numeric
     p_sum_out_of_range -- decision kept; "p" sums outside 90-110
-    An abstention is a third outcome, not a failure and not an error."""
+    An abstention is a third outcome, not a failure and not an error. `by_number` reads a
+    reply that names options by number, as the confidence cross-check asks."""
     try:
         # tolerate the model wrapping the JSON in stray text or markdown fences
         m = re.search(r"\{.*\}", raw, re.S)
         obj = json.loads(m.group(0)) if m else json.loads(raw)
+        if by_number:
+            obj = _named(obj, options)
         return _parse_object(obj, options, world_truth, majority_claim, allow_abstain)
     except Exception:
         return _fail("failed_fallback")
+
+
+def _named(obj: dict, options: list[str]) -> dict:
+    """A reply that names options by number ("answer": 2, "p": {"2": 70, ...}), with
+    each number given its option's text, so the rest of the parse is every reply's. A
+    number that is no option's stays as written, and so fails as no_match."""
+    def name(k):
+        k = str(k).strip()
+        return options[int(k) - 1] if k.isdigit() and 1 <= int(k) <= len(options) else k
+    p = obj.get("p")
+    return dict(obj, answer=None if obj.get("answer") is None else name(obj["answer"]),
+                p={name(k): v for k, v in p.items()} if isinstance(p, dict) else p)
 
 
 def _parse_object(obj: dict, options, world_truth, majority_claim, allow_abstain) -> dict:
@@ -117,13 +133,17 @@ def _fail(status: str) -> dict:
 def run_trials(trials: list[dict], judge, run_index: int = 1) -> list[dict]:
     """One record per trial: the trial's design fields, the raw reply, the parse, and
     what the backend reports about the call (serving provider, usage, reasoning)."""
+    # a thinking budget comes on top of the answer's: OpenRouter needs max_tokens above
+    # it (docs/decisions.md, 2026-10-26)
+    budget = MAX_TOKENS + ((getattr(judge, "reasoning", None) or {}).get("max_tokens") or 0)
     records = []
     for trial in trials:
         raw = judge.complete(system=JUDGE_SYSTEM, user=render(trial), temperature=0.0,
-                             max_tokens=MAX_TOKENS)
+                             max_tokens=budget)
         parsed = parse(raw, trial["answer_options"], trial["world_truth"],
                        majority_claim=trial.get("majority_claim"),
-                       allow_abstain=trial.get("allow_abstain", False))
+                       allow_abstain=trial.get("allow_abstain", False),
+                       by_number=trial.get("by_number", False))
         decision = parsed["forced_choice_decision"]
         usage = getattr(judge, "last_usage", None)
         record = {
@@ -147,6 +167,7 @@ def run_trials(trials: list[dict], judge, run_index: int = 1) -> list[dict]:
             "reasoning_tokens": ((usage or {}).get("completion_tokens_details")
                                  or {}).get("reasoning_tokens"),
             "reasoning_param": getattr(judge, "reasoning", "n/a"),
+            "reasoning_text": getattr(judge, "last_reasoning", None),
         }
         records.append(record)
     return records

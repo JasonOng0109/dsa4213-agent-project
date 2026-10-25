@@ -581,8 +581,9 @@ Outline only. Detailed tasks will be added after the pilot.
   `docs/stage1-report.md`. Its counts over cases come from `tools/tally.py`. Stage 2's
   reading: `docs/stage2-report.md`.
 - **Optional sub-experiments**: designed on 2026-10-26, each in its own entry in
-  `docs/decisions.md`; the code is being written on the branch `optional-arms`. Only if
-  budget allows, in the order the proposal gives (§6).
+  `docs/decisions.md`, and built as the entries in `OPTIONAL` (`pipeline/run.py`; the
+  commands are in the README, "Running the study"). Only if budget allows, in the order
+  the proposal gives (§6).
 - **Write-up**: it must include one fully shown prompt and judge answer per block
   (`docs/proposal.pdf`, §5, "Representative evidence").
 

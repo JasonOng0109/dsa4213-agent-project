@@ -497,3 +497,25 @@ def test_ladder_reads_rungs_up_to_the_x5_ceiling():
         report_ladder(records)
     assert ("W1 somewhat 0.00 (None) -> W2 considerably 0.50 (None) -> W3 far 1.00 (None) "
             "-> X5 categorical 1.00 (None)") in out.getvalue()
+
+
+def test_long_neff_borrows_a0_from_the_short_arm():
+    """docs/decisions.md, 2026-10-26: the long arm's n_eff uses the optional long-neff
+    entry's A4, A6 and A7, stage 2's long A1, and the short arm's A0, since A0 shows no
+    reports. A long arm without A4, A6 and A7 gets no index."""
+    def recs(arm, case_id, **p):
+        return [dict(_rec("15%"), judge_model="mock", case_id=case_id, arm=arm, condition=c,
+                     p_truth=v) for c, v in p.items()]
+
+    short = recs("short", "M1", A0=25.0, A1=55.0, A4=85.0, A6=85.0, A7=85.0)
+    long = recs("long", "M1", A1=55.0, A4=85.0, A6=60.0, A7=90.0)
+    only_length_arm = recs("long", "M2", A1=55.0, A2=70.0) + recs("short", "M2", A0=25.0)
+    with contextlib.redirect_stdout(io.StringIO()) as out:
+        report_neff(short + long + only_length_arm)
+    text = out.getvalue()
+    assert "N_EFF judge mock | long | M1: mean P(truth) {'A0': 25.0, 'A1': 55.0" in text
+    assert "N_EFF judge mock | long | M2" not in text
+    assert "N_EFF UNDEFINED judge mock | long: 0/1 cells (0.00)" in text
+    # the short arm's lines come first and read as before
+    assert text.index("N_EFF judge mock | M1") < text.index("N_EFF judge mock | long | M1")
+    assert "N_EFF UNDEFINED judge mock: 1/2 cells" in text

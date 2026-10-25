@@ -401,33 +401,49 @@ def report_neff(records: list[dict], excluded: set = frozenset(),
     Beside them, how many of the judge's agreement-block answers put 100 on one option: a
     judge that states 100 on whatever it picks has a mean P(truth) of 100 times its
     accuracy, which rises from P0 to P2, so ordering cannot catch it, and its n_eff would
-    read its accuracy. A description, not a gate (docs/decisions.md, 2026-10-21)."""
-    groups = defaultdict(lambda: defaultdict(list))
+    read its accuracy. A description, not a gate (docs/decisions.md, 2026-10-21).
+
+    The long arm gets its own n_eff where the optional long-neff entry judged A4, A6 and A7
+    with long reports. A0 shows no reports, so it has no length, and comes from the same
+    judge's short arm (docs/decisions.md, 2026-10-26)."""
+    groups = defaultdict(lambda: defaultdict(list))   # (judge, arm, case) -> condition
     at_100 = defaultdict(list)             # judge -> one bool per agreement-block answer
     for r in records:
-        if r["arm"] == "short":
-            groups[(r["judge_model"], r["case_id"])][r["condition"]].append(r)
-            if r["condition"] in AGREEMENT_BLOCK and r.get("margin") is not None:
-                at_100[r["judge_model"]].append(max(r["p"].values()) >= 100)
-    undefined = defaultdict(list)          # judge -> one bool per case
-    ceiling = defaultdict(list)            # judge -> one bool per case: a value at ceiling
-    for (judge, case_id), conds in sorted(groups.items()):
-        cells = {c: cell(rs) for c, rs in conds.items()}
-        pt = {c: cells[c]["p_truth"] for c in ("A0", "A1", "A4", "A6", "A7") if c in cells}
-        value = ({"undefined": "judge failed the confidence screen"} if judge in excluded
-                 else neff(cells))
-        if judge in excluded and show_excluded:
-            value["for checking only, not a result"] = neff(cells)
-        undefined[judge].append("undefined" in value)
-        shown = value.get("for checking only, not a result", value)
-        ceiling[judge].append("at ceiling" in shown.values())
-        print(f"N_EFF judge {judge} | {case_id}: mean P(truth) {pt} -> {value}  "
-              f"(normative A4 1, A6 1, A7 3)")
-    for judge, flags in sorted(undefined.items()):
-        print(f"N_EFF UNDEFINED judge {judge}: {sum(flags)}/{len(flags)} cells "
-              f"({sum(flags) / len(flags):.2f}); a value at ceiling in "
-              f"{sum(ceiling[judge])}/{len(flags)}; 100 stated on one option in "
-              f"{_count(at_100[judge])} agreement-block answers")
+        if r["arm"] in ("short", "long"):
+            groups[(r["judge_model"], r["arm"], r["case_id"])][r["condition"]].append(r)
+        if (r["arm"] == "short" and r["condition"] in AGREEMENT_BLOCK
+                and r.get("margin") is not None):
+            at_100[r["judge_model"]].append(max(r["p"].values()) >= 100)
+    undefined = defaultdict(list)          # (judge, arm) -> one bool per case
+    ceiling = defaultdict(list)            # (judge, arm) -> one bool per case: a value at ceiling
+    for want in ("short", "long"):
+        for (judge, arm, case_id), conds in sorted(groups.items()):
+            if arm != want or (arm == "long" and not {"A4", "A6", "A7"} <= set(conds)):
+                continue
+            if arm == "long":
+                conds = dict(conds, A0=groups.get((judge, "short", case_id), {}).get("A0", []))
+            cells = {c: cell(rs) for c, rs in conds.items() if rs}
+            pt = {c: cells[c]["p_truth"] for c in ("A0", "A1", "A4", "A6", "A7") if c in cells}
+            value = ({"undefined": "judge failed the confidence screen"} if judge in excluded
+                     else neff(cells))
+            if judge in excluded and show_excluded:
+                value["for checking only, not a result"] = neff(cells)
+            undefined[(judge, arm)].append("undefined" in value)
+            shown = value.get("for checking only, not a result", value)
+            ceiling[(judge, arm)].append("at ceiling" in shown.values())
+            label = " | long" if arm == "long" else ""
+            print(f"N_EFF judge {judge}{label} | {case_id}: mean P(truth) {pt} -> {value}  "
+                  f"(normative A4 1, A6 1, A7 3)")
+    # each judge's short arm first, then its long arm
+    for judge, arm in sorted(undefined, key=lambda key: (key[0], key[1] != "short")):
+        flags = undefined[(judge, arm)]
+        counts = (f"{sum(flags)}/{len(flags)} cells ({sum(flags) / len(flags):.2f}); a value at "
+                  f"ceiling in {sum(ceiling[(judge, arm)])}/{len(flags)}")
+        if arm == "long":
+            print(f"N_EFF UNDEFINED judge {judge} | long: {counts}")
+        else:
+            print(f"N_EFF UNDEFINED judge {judge}: {counts}; 100 stated on one option in "
+                  f"{_count(at_100[judge])} agreement-block answers")
     print()
 
 

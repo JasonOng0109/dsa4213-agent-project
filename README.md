@@ -306,10 +306,10 @@ the options, the wrong claim's offset from it, and (long reports) where the oper
 sentence sits are **rotated on a fixed schedule, not shuffled**. Twelve repeats give
 exact balance over (slot, truth position) and (truth position, wrong offset).
 
-Optional sub-experiments, run in this order if budget allows, **designed but not yet
-built** (`docs/decisions.md`, 2026-10-26): a reasoning on/off comparison, a
-wording-robustness rerun with regenerated reports, a cross-check of stated against token
-probabilities on the two auxiliary models, and the independence index at long length.
+Optional sub-experiments, run in this order if budget allows, **built but not yet run**
+(`docs/decisions.md`, 2026-10-26): a reasoning on/off comparison, a wording-robustness
+rerun with regenerated reports, a cross-check of stated against token probabilities on
+the two auxiliary models, and the independence index at long length.
 
 ### Models
 
@@ -414,6 +414,26 @@ ordering excludes a judge.
 own log; `pipeline.score` accepts several logs at once. A run stops itself on its call
 ceiling, a failed call, a pinned judge served by another provider, more than one parse
 failure in its first 50 trials, or a frozen report that fails the leak check.
+
+The optional sub-experiments are entries of their own (`OPTIONAL` in `pipeline/run.py`),
+chosen by name and never part of the default run (`docs/decisions.md`, 2026-10-26). Each
+setting of reasoning runs on its own, so the reasoning comparison takes two runs, on the
+same day:
+
+```bash
+uv run --env-file .env python -m pipeline.run judge --out runs/main --max-calls 144 \
+    --arms reasoning-off-short,reasoning-off-long --log trials-reasoning-off.jsonl
+uv run --env-file .env python -m pipeline.run judge --out runs/main --max-calls 144 \
+    --arms reasoning-on-short,reasoning-on-long --log trials-reasoning-on.jsonl
+# the wording-robustness rerun: a second report set for M1 and M2, read before judging
+uv run --env-file .env python -m pipeline.run generate --out runs/robustness --cases M1,M2 --max-calls 240
+uv run --env-file .env python -m pipeline.run judge --out runs/robustness --cases M1,M2 \
+    --arms conflict --max-calls 360
+uv run --env-file .env python -m pipeline.run judge --out runs/main --max-calls 360 \
+    --arms cross-check --log trials-cross-check.jsonl
+uv run --env-file .env python -m pipeline.run judge --out runs/main --max-calls 162 \
+    --arms long-neff --log trials-long-neff.jsonl         # after stage 2's long-agreement
+```
 
 | Output in `runs/` | What it holds |
 |---|---|
@@ -523,6 +543,7 @@ Who does what next, step by step: [`docs/work-plan.md`](docs/work-plan.md).
   3.8): every judge abstained in all 20 of its P0 trials, so in the pilot Opus's and
   Sonnet's zero abstentions in the conflict block read as a null, not as a judge that
   abstains nowhere. A preview, not a finding (`runs/score-pilot-2026-10-21.txt`).
-- **Designed, not built**: the four optional sub-experiments (`docs/decisions.md`,
-  2026-10-26). Their code is being written on the branch `optional-arms`, in a folder of
-  its own, and joins `main` when Jason agrees.
+- **Built, not run**: the four optional sub-experiments, as the entries in `OPTIONAL`
+  (`pipeline/run.py`; designs in `docs/decisions.md`, 2026-10-26). A test checks that the
+  main programme still builds the trials and prompts stage 1 judged
+  (`tests/test_run.py`).

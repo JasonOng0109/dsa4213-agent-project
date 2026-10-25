@@ -103,3 +103,40 @@ def test_records_carry_the_analysis_fields(frozen):
         assert rec["parsing_status"] == "ok"
     assert any(rec["abstained"] for rec in records)
     assert all(rec["trial_id"] == f"M1_{rec['condition']}_{rec['arm']}_run1" for rec in records)
+
+
+def test_a_reply_naming_options_by_number_is_read():
+    """The confidence cross-check asks for option numbers (docs/decisions.md, 2026-10-26).
+    A number that is no option's is not guessed at, and an answer written as text is
+    still read."""
+    by = lambda raw: _parse(raw, by_number=True)
+    ok = by('{"answer": 2, "p": {"1": 10, "2": 70, "3": 10, "4": 10}}')
+    assert ok["parsing_status"] == "ok" and ok["forced_choice_decision"] == "25%"
+    assert ok["p"] == {"15%": 10.0, "25%": 70.0, "10%": 10.0, "30%": 10.0}
+    assert ok["p_truth"] == 10.0 and ok["coherent"] is True
+    named = by('{"answer": "2", "p": {"1": 10, "2": 70, "3": 10, "4": 10}}')
+    assert named["p_majority"] == 70.0
+    assert by('{"answer": 5, "p": {}}')["parsing_status"] == "no_match"
+    assert by('{"answer": "25%", "p": {"1": 10, "2": 70, "3": 10, "4": 10}}')["parsing_status"] == "ok"
+
+
+def test_a_thinking_budget_comes_on_top_of_the_answer_and_its_text_is_kept(frozen):
+    """OpenRouter needs max_tokens above the thinking budget, so a judge sent one gets the
+    budget plus the answer's 700; its thinking text goes into the record."""
+    class Judge(MockBackend):
+        def __init__(self, reasoning):
+            super().__init__()
+            self.name, self.reasoning, self.asked = "judge", reasoning, []
+            thinks = reasoning.get("max_tokens")
+            self.last_reasoning = "B and C share one source." if thinks else None
+
+        def complete(self, system, user, temperature=0.9, max_tokens=300):
+            self.asked.append(max_tokens)
+            return super().complete(system, user, temperature, max_tokens)
+
+    trial = build_repeat("M1", CASES["M1"], frozen["M1"], 1)[8]          # X1
+    thinking, off = Judge({"max_tokens": 2000}), Judge({"enabled": False})
+    rec = run_trials([trial], thinking)[0]
+    assert thinking.asked == [2700] and rec["reasoning_text"] == "B and C share one source."
+    assert rec["reasoning_param"] == {"max_tokens": 2000}
+    assert run_trials([trial], off)[0]["reasoning_text"] is None and off.asked == [700]

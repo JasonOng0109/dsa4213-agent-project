@@ -56,19 +56,20 @@ class OpenRouterBackend:
 
     Throttles client-side against the shared per-minute cap and retries with backoff on
     429 and 5xx; any other error fails loudly. After each call, last_provider,
-    last_generation_id, last_logprobs and last_usage describe it."""
+    last_generation_id, last_logprobs, last_usage and last_reasoning describe it."""
 
     REASONING_OFF = {"enabled": False}
 
     def __init__(self, model: str, api_key: str | None = None, max_retries: int = 5,
                  reasoning: dict | None = REASONING_OFF,
                  provider: dict | None = None, top_logprobs: int | None = None,
-                 track_usage: bool = False):
+                 track_usage: bool = False, timeout: float = 30):
         """reasoning=None omits the field entirely: some logprob endpoints are unroutable
         when it is sent. provider is passed through, e.g. {"require_parameters": True} to
         route only to endpoints honouring every parameter, or an order with fallbacks off
         to pin a judge to one serving stack. top_logprobs requests token logprobs.
-        track_usage asks for per-call token counts and cost (last_usage)."""
+        track_usage asks for per-call token counts and cost (last_usage). timeout is the
+        seconds one request may take: longer for a judge that thinks before it answers."""
         self.name = f"openrouter:{model}"
         self.model = model
         self.api_key = api_key or os.environ.get("OPENROUTER_API_KEY")
@@ -76,9 +77,9 @@ class OpenRouterBackend:
             raise RuntimeError("No API key found. Set OPENROUTER_API_KEY or pass api_key=...")
         self.max_retries = max_retries
         self.reasoning, self.provider, self.top_logprobs = reasoning, provider, top_logprobs
-        self.track_usage = track_usage
+        self.track_usage, self.timeout = track_usage, timeout
         self.last_provider = self.last_generation_id = self.last_logprobs = None
-        self.last_usage = None
+        self.last_usage = self.last_reasoning = None
         self.logprobs_available = False
 
     def complete(self, system: str, user: str, temperature: float = 0.9,
@@ -111,13 +112,13 @@ class OpenRouterBackend:
 
         # so a failed call never leaves the previous call's details behind
         self.last_provider = self.last_generation_id = self.last_logprobs = None
-        self.last_usage = None
+        self.last_usage = self.last_reasoning = None
         last_error: Exception | None = None
         for attempt in range(self.max_retries):
             _SHARED_OPENROUTER_LIMITER.wait()
             try:
                 resp = requests.post(f"{OPENROUTER}/chat/completions", headers=headers,
-                                     json=payload, timeout=30)
+                                     json=payload, timeout=self.timeout)
             except requests.RequestException as e:
                 last_error = e
                 time.sleep(2 ** attempt)
@@ -153,6 +154,8 @@ class OpenRouterBackend:
                 self.last_logprobs = lp.get("content") if lp else None
                 self.logprobs_available = bool(self.last_logprobs)
                 content = data["choices"][0]["message"]["content"]
+                # the thinking text, when reasoning is on and the provider returns it
+                self.last_reasoning = data["choices"][0]["message"].get("reasoning")
             except (KeyError, IndexError) as e:
                 raise RuntimeError(f"Unexpected OpenRouter response shape: {data}") from e
             if content is None:
@@ -281,7 +284,7 @@ class MockBackend:
             open_opts = [o for o in opts if o in keep]
             p = {o: (100 // len(open_opts) if o in open_opts else 0) for o in opts}
             p[open_opts[0]] += 100 - sum(p.values())
-            return json.dumps({"answer": open_opts[0], "p": p})
+            return self._reply(user, opts, open_opts[0], p)
         winner = max(opts, key=lambda o: counts[o])
         n_reports = body.count(" says:")
         conf = min(95, 40 + n_reports * 15)
@@ -292,4 +295,13 @@ class MockBackend:
         offered = re.search(r'answer exactly "([^"]+)"', user)   # the abstain option
         if offered and "same underlying source" in user:
             answer = offered.group(1)
+        return self._reply(user, opts, answer, p)
+
+    @staticmethod
+    def _reply(user: str, opts: list[str], answer: str, p: dict) -> str:
+        """The JSON reply, naming the options by number where the prompt asks for numbers
+        (the confidence cross-check)."""
+        if "<answer number>" in user:
+            num = {o: i for i, o in enumerate(opts, 1)}
+            answer, p = num.get(answer, answer), {str(num[o]): v for o, v in p.items()}
         return json.dumps({"answer": answer, "p": p})
