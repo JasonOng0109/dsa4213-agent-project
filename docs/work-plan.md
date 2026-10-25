@@ -496,7 +496,7 @@ Jason merges Phase 4 cases only after it, because the run takes every case in
 | M10 | institutional_logistics | authority | T1 | Crystal | Rachel | merged | |
 | M11 | institutional_logistics | directness | T1 | Crystal | Rachel | merged | |
 | M12 | product_spec | method | T1 | Crystal | Rachel | merged | |
-| M13 | incident_status | primary_source | T1 | Crystal | Rachel | assigned | |
+| M13 | incident_status | primary_source | T1 | Crystal | Rachel | merged | |
 | M14 | incident_status | method | T2 | Rachel | Kathleen | merged | yes |
 | M15 | institutional_logistics | authority | T1 | Rachel | Kathleen | merged | |
 | M16 | institutional_logistics | primary_source | T1 | Rachel | Kathleen | merged | backup for M6 |
