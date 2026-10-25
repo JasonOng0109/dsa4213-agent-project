@@ -2675,11 +2675,11 @@ a.ref:hover { background: var(--surface-2); }
    "cluster": "cases",
    "title": "No content word is in two filler sets",
    "label": "No word in two filler sets",
-   "summary": "A case's three filler sets share no content word, counting forms such as \"sits\" and \"sit\" as one. Each set goes to a report slot whichever source fills it, so a word two sets share would link two reports in every trial: two reports of one source, giving away what an opaque condition hides, or two independent ones, which then look copied. The case's subject may still be named in every set. A reviewer checks this; the linter does not.",
+   "summary": "A case's three filler sets share no content word, counting every form of a word as that word: \"sits\" and \"sit\", or \"left\" and \"leave\". Each set goes to a report slot whichever source fills it, so a word two sets share would link two reports in every trial: two reports of one source, giving away what an opaque condition hides, or two independent ones, which then look copied. The case's subject may still be named in every set. A reviewer checks this; the linter does not.",
    "date": "2026-10-25",
    "points": [
     "Authors already held their own cases to it; Jason decided to clean every case on main to it before the main run.",
-    "Applied on 2026-10-25 to all 32 cases on main. Every set kept its word count, so long reports keep their length: [[filler-length]].",
+    "Applied on 2026-10-25 to all 32 cases on main, in two passes: the second swapped the word forms the first had missed, and two related-word pairs: [[drift-filler-forms]]. Every set kept its word count, so long reports keep their length: [[filler-length]].",
     "The subject exemption comes from an earlier decision: [[filler-names-subject]]."
    ],
    "evidence": [
@@ -2687,6 +2687,11 @@ a.ref:hover { background: var(--surface-2); }
      "file": "docs/authoring-rules.md",
      "loc": "R12",
      "quote": "no content word is in two sets, counting \"sits\" and \"sit\" as one"
+    },
+    {
+     "file": "docs/decisions.md",
+     "loc": "A second filler pass counts every form of a word",
+     "quote": "a word's other forms count as the word itself"
     },
     {
      "file": "docs/decisions.md",
@@ -8573,6 +8578,43 @@ a.ref:hover { background: var(--surface-2); }
      "rel": "related"
     }
    ]
+  },
+  {
+   "id": "drift-filler-forms",
+   "type": "issue",
+   "cluster": "issues",
+   "title": "Five cases on main still shared a word across filler sets",
+   "label": "Filler word-form drift (settled)",
+   "summary": "Settled. The decision record said all 32 cases on main were cleaned so that no word is in two filler sets, but five still shared a word in two forms: M1 (\"leave\" and \"left\", \"held\" and \"hold\", \"taken\" and \"take\"), M2 (\"slotted\" and \"slot\"), M3 (\"lower\" and \"low\"), M28 (\"modelled\" and \"model\") and M33 (\"cross\" and \"crosses\"). A second pass the same day swapped one word for each pair, and for two related-word pairs in M4 and M14: [[filler-no-shared-word]].",
+   "status": "current",
+   "date": "2026-10-25",
+   "evidence": [
+    {
+     "file": "docs/decisions.md",
+     "loc": "No content word is in two filler sets",
+     "quote": "Applied the same day to all 32 cases on main"
+    },
+    {
+     "file": "docs/decisions.md",
+     "loc": "A second filler pass counts every form of a word",
+     "quote": "\"left\" and \"leave\", \"held\" and \"hold\", \"taken\" and \"take\", \"slotted\" and \"slot\", \"modelled\" and \"model\", \"lower\" and \"low\", \"crosses\" and \"cross\""
+    },
+    {
+     "file": "docs/decisions.md",
+     "loc": "A second filler pass counts every form of a word",
+     "quote": "A second pass the same day swapped one word for each such pair the first pass had left on main: three in M1 and one each in M2, M3, M28 and M33."
+    }
+   ],
+   "links": [
+    {
+     "to": "filler-no-shared-word",
+     "rel": "needs"
+    },
+    {
+     "to": "status-board",
+     "rel": "part-of"
+    }
+   ]
   }
  ],
  "changelog": [
@@ -9292,6 +9334,22 @@ a.ref:hover { background: var(--surface-2); }
    "changed": [
     "rules-filler",
     "human-checks"
+   ]
+  },
+  {
+   "date": "2026-10-25",
+   "summary": "Found and settled a drift: five cases on main (M1, M2, M3, M28, M33) still shared a word in two forms across filler sets, though the decision record said all 32 were cleaned. A second pass swapped one word for each pair, and for two related-word pairs in M4 and M14. Jason decided.",
+   "added": [
+    "drift-filler-forms"
+   ],
+   "changed": [
+    "filler-no-shared-word"
+   ],
+   "opened": [
+    "drift-filler-forms"
+   ],
+   "closed": [
+    "drift-filler-forms"
    ]
   }
  ]

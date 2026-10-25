@@ -91,7 +91,7 @@ CASE = {
         [   # the park by the river
             "Beside the river, a public park has a playground with swings and a slide.",
             "A painted bandstand occupies the middle of a wide lawn.",
-            "Ducks and moorhens paddle near a footbridge that crosses the water.",
+            "Ducks and moorhens paddle near a footbridge that spans the water.",
             "Willow trees lean over the riverbank, their branches trailing in the stream.",
             "A cricket pitch at the far end is marked out with white lines.",
             "Allotment plots beyond the pitch grow beans, onions and sunflowers.",

@@ -73,7 +73,7 @@ CASE = {
             "The felt is trimmed to a circle.",
             "A logo in the shape of a sun is pressed into the felt.",
             "The felt is glued in position over the bottom surface.",
-            "A model code is stamped in black beside the logo.",
+            "A batch code is stamped in black beside the logo.",
             "The disc has a stitched border in black thread.",
             "Rubber dots are spaced along the outside of the disc.",
             "The sun in the logo is coloured gold and orange.",

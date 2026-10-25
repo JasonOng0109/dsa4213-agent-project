@@ -55,7 +55,7 @@ CASE = {
         ],
         [
             "A crevice tool and a dusting brush clip onto the extension stem.",
-            "An upholstery nozzle with a lint strip rests in a holder.",
+            "An upholstery nozzle with a lint strip rests in a cradle.",
             "For upright storage, a hook on the frame takes the extension stem.",
             "A zipped pouch for the tools hangs from a loop on the side.",
             "The model name is printed in neat silver letters on the casing.",

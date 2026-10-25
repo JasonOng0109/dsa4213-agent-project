@@ -45,17 +45,17 @@ CASE = {
         [
             "Safety induction is required before students may operate the heavy machines "
             "in the teaching lab downstairs.",
-            "Lab coats and goggles are provided by the door, and bags are left on wall "
+            "Lab coats and goggles are provided by the door, and bags are stowed on wall "
             "racks in the corridor outside.",
             "Faults with the machines go straight to the technician on duty.",
-            "Technicians hold drop-in hours alongside each class for questions about the "
+            "Technicians offer drop-in hours alongside each class for questions about the "
             "equipment.",
             "Students repeating the course stay in their usual class unless they ask to "
             "move.",
             "Closed shoes are needed in the lab.",
         ],
         [
-            "ME2103 is a core module, and its practicals take place in a long room under "
+            "ME2103 is a core module, and its practicals are run in a long room under "
             "the main hall.",
             "Bench numbers and partner lists are pinned up by the stairs and at the front "
             "desk.",

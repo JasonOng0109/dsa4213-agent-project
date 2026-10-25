@@ -63,7 +63,7 @@ CASE = {
         [
             "A narrow road reaches the substation from the main highway and ends at a turning circle.",
             "The road is surfaced with asphalt, with a yellow line along its centre and a ditch at each edge.",
-            "A bus shelter with a timber bench is built beside the road about halfway along.",
+            "A bus shelter with a timber bench is placed beside the road about halfway along.",
             "Rounded boulders rest on the grassy slope above the road, and a dirt track branches off near the bend.",
             "A signpost near the turn points straight toward the substation.",
         ],

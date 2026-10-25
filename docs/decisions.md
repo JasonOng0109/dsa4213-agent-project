@@ -999,3 +999,20 @@ Add an entry when you make a choice a reader could not guess from the code.
 - **Breaks if changed**: a shared word links two reports in every trial of the case, a
   cue of shared origin that no condition controls, which in an opaque condition can fall
   on the two reports of the shared source.
+
+### 2026-10-25 — A second filler pass counts every form of a word
+
+- **Decision**: under the rule above, a word's other forms count as the word itself:
+  "left" and "leave", "held" and "hold", "taken" and "take", "slotted" and "slot",
+  "modelled" and "model", "lower" and "low", "crosses" and "cross". A second pass the
+  same day swapped one word for each such pair the first pass had left on `main`: three
+  in M1 and one each in M2, M3, M28 and M33. M4's "holds" and "holder" and M14's
+  "building" and "built", related words rather than forms of one, were swapped too. Every
+  set keeps its word count, so M1's sets stay at 80 words (`tests/test_conditions.py`).
+- **Why** [STATED: team decision, 2026-10-25]: Jason decided to swap words in all seven
+  cases before the main run, the two related-word pairs included. [STATED: the entry
+  above] "a shared word links two reports in every trial of the case".
+- **Rejected**: swapping words only in the five cases with forms of one word, and leaving
+  M4's and M14's related words.
+- **Breaks if changed**: as in the entry above, a shared word links two reports in every
+  trial, a cue of shared origin that no condition controls.

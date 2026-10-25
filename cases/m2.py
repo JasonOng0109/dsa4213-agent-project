@@ -60,7 +60,7 @@ CASE = {
         [
             "The Arden Air 14 laptop has a textured base with rubber feet near each "
             "corner.",
-            "Slotted vents cross the rear half of the base in a neat strip.",
+            "Louvred vents cross the rear half of the base in a neat strip.",
             "Tiny recessed screws hold the bottom panel firmly in place.",
             "A printed label near the front gives the model name and a serial code.",
             "The base has a cool grey finish that resists fingerprints and scuffs.",

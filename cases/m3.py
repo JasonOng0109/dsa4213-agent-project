@@ -45,7 +45,7 @@ CASE = {
             "Swans nest among the reeds at the far end of the reservoir.",
             "Herons stand on the stones along the western shore.",
             "Coots and moorhens paddle near a little wooden jetty by the boathouse.",
-            "Swallows skim low over the open expanse.",
+            "Swallows skim swiftly over the open expanse.",
             "A birdwatching hide with slim viewing slots faces the eastern shore.",
             "Willows dip their long branches over the shoreline.",
             "Ducklings shelter in a quiet inlet.",
