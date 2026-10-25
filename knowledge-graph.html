@@ -7634,7 +7634,8 @@ a.ref:hover { background: var(--surface-2); }
     "Costs use the pilot's measured cost per call; judge prints the proposal's rates, which run 16% low for the abstention arm, so balance is checked before each entry: [[cost-model]].",
     "Not split by case: rules still change while cases are written, as the screen-bounds rule changed four merged cases: [[screen-bounds]].",
     "Stage 1's judge entries run in three lanes, about 6.7 hours instead of 16.4: [[stage1-lanes]].",
-    "The frozen reports are read before judging, by Jason: [[main-run-reading]]."
+    "The frozen reports are read before judging, by Jason: [[main-run-reading]].",
+    "Generation cost about $1.49, not the $0.48 planned, which was the proposal's rate: [[main-generation]]."
    ],
    "evidence": [
     {
@@ -7689,6 +7690,10 @@ a.ref:hover { background: var(--surface-2); }
     },
     {
      "to": "main-run-reading",
+     "rel": "involves"
+    },
+    {
+     "to": "main-generation",
      "rel": "involves"
     }
    ]
@@ -8797,6 +8802,11 @@ a.ref:hover { background: var(--surface-2); }
      "file": "pipeline/conditions.py",
      "loc": "build_conditions",
      "quote": "\"difficulty_tier\": case.get(\"difficulty_tier\"),"
+    },
+    {
+     "file": "runs/main/reading-3.4.md",
+     "loc": "Result",
+     "quote": "No case is relabelled; the corpus stays 30 T1 and 10 T2."
     }
    ],
    "links": [
@@ -8814,6 +8824,65 @@ a.ref:hover { background: var(--surface-2); }
     },
     {
      "to": "main-run-staged",
+     "rel": "related"
+    }
+   ],
+   "points": [
+    "Done on 2026-10-25 before judging; nothing was relabelled: [[main-generation]]."
+   ]
+  },
+  {
+   "id": "main-generation",
+   "type": "finding",
+   "cluster": "pipeline",
+   "title": "The main run's reports are frozen and read: nothing relabelled",
+   "label": "Main run: reports frozen",
+   "summary": "Generation for the main run froze every source of all 40 cases in 1,956 calls, about $1.49 against the $0.48 planned; only two sources needed a second round. Jason read the frozen reports before judging: every T1 hint survived, A and B always describe the same quantity, and nothing leaks, so no case was relabelled. In seven cases the reporter turned one of A's reports into the question as a statement, two of them T2; this is noted for the analysis.",
+   "date": "2026-10-25",
+   "internal": true,
+   "points": [
+    "An echo appears in every condition of its case, so it moves that case's baseline, not the comparisons; the analysis can check the results without these cases: [[question-echo]].",
+    "A7 reports that read alike are noted, not failed, in M10, M35 and M36: [[a7-near-copies-noted]].",
+    "The reading came before judging so a relabel could land first; none was needed: [[main-run-reading]]."
+   ],
+   "evidence": [
+    {
+     "file": "runs/main/generation_report.json",
+     "loc": "calls",
+     "quote": "\"calls\": 1956"
+    },
+    {
+     "file": "runs/main/reading-3.4.md",
+     "loc": "intro",
+     "quote": "Generation froze every source of all 40 cases in 1,956 calls"
+    },
+    {
+     "file": "runs/main/reading-3.4.md",
+     "loc": "intro",
+     "quote": "It cost about $1.49 (planned: $0.48, at the proposal's rate)."
+    },
+    {
+     "file": "runs/main/reading-3.4.md",
+     "loc": "Result",
+     "quote": "All 30 kept: both of A's reports still sound unsure."
+    },
+    {
+     "file": "runs/main/reading-3.4.md",
+     "loc": "Notes",
+     "quote": "the question turned into a statement in M9 and M40 (both T2)"
+    }
+   ],
+   "links": [
+    {
+     "to": "frozen-set",
+     "rel": "needs"
+    },
+    {
+     "to": "main-run-reading",
+     "rel": "related"
+    },
+    {
+     "to": "pilot-results",
      "rel": "related"
     }
    ]
@@ -9660,6 +9729,17 @@ a.ref:hover { background: var(--surface-2); }
     "main-run-reading"
    ],
    "changed": [
+    "main-run-staged"
+   ]
+  },
+  {
+   "date": "2026-10-25",
+   "summary": "The main run's reports are generated (1,956 calls, about $1.49) and read: every hint survived, so no case was relabelled; echoes and A7 near-copies are noted for the analysis. Judging started in three lanes.",
+   "added": [
+    "main-generation"
+   ],
+   "changed": [
+    "main-run-reading",
     "main-run-staged"
    ]
   }

@@ -563,8 +563,10 @@ Outline only. Detailed tasks will be added after the pilot.
   later that does not run on the ten-case subset. Stage 2, after the top-up, $5.11:
   `long-conflict` ($2.39), `long-agreement` ($0.48) and `ladder` ($2.24), then the
   optional sub-experiments. These costs use the pilot's measured cost per call; `judge`
-  prints the proposal's rates, which run 16% low for `abstain`. Run `probe` before each
-  stage, and before each entry check that `balance` covers its cost plus 10%.
+  prints the proposal's rates, which run 16% low for `abstain`. Generation's $0.48 is
+  the proposal's rate: it cost $1.49 when measured on 2026-10-25
+  (`runs/main/reading-3.4.md`). Run `probe` before each stage, and before each entry
+  check that `balance` covers its cost plus 10%.
 - **Analysis**: read results only against the table "What counts as support, fixed
   before any data" in the README.
 - **Optional sub-experiments**: not built yet. Only if budget allows, in the order the
