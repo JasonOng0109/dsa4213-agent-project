@@ -253,8 +253,9 @@ def auroc_p(by_case: dict, shuffles: int = SHUFFLES,
     """One-sided p for AUROC above 0.5, with the case as the unit. `by_case` is one judge's
     condition: {case_id: {run_index: (stated probability, correct)}}.
 
-    A case's repeats are near-copies -- temperature 0, and only the order of the options
-    and reports changes -- so the judge answers them almost alike. A test that counted
+    A case's repeats are near-copies -- only the order of the options and reports
+    changes, and a judge asked one prompt again answers almost alike (docs/decisions.md,
+    2026-10-26) -- so the judge answers them almost alike. A test that counted
     each decision as separate evidence would make p far too small. So whole cases are
     shuffled instead: each shuffle scores every case's stated probabilities against the
     right/wrong record of another case, repeat by repeat (a repeat has the same rotations

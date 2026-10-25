@@ -389,6 +389,8 @@ Add an entry when you make a choice a reader could not guess from the code.
   reviewing this entry, and Jason agreed. [INFERRED: from `build_repeat` in
   `pipeline/conditions.py`] a case's repeats run at temperature 0 and differ only in
   their rotations, so they are near-copies, which the judge answers almost alike.
+  (Corrected on 2026-10-26: the judges' endpoints take no temperature, but a judge still
+  answers one prompt almost alike; see that day's first entry.)
   [INFERRED: from the near-copies simulation in `tests/test_score.py`] with 10 cases of
   12 repeats, counting each decision passes a judge whose numbers carry no information
   about 1 time in 4 (51 of 200), while shuffling whole cases passes it about 1 time in
@@ -1093,3 +1095,226 @@ Add an entry when you make a choice a reader could not guess from the code.
   pilot, which would hold judging until all five members had read.
 - **Breaks if changed**: a relabel made after judging disagrees with the tier stored in
   that case's trial records.
+
+### 2026-10-26 — The judges' endpoints take no temperature, so each runs at its provider's default
+
+- **Decision**: the runner sends every judge call with temperature 0 (`run_trials` in
+  `pipeline/judge.py`), but none of the endpoints OpenRouter lists for Claude Sonnet 5,
+  GPT-5.4 or Claude Opus 5 takes a temperature, so the 0 is most likely dropped and each
+  judge runs at its provider's default. The judges still answer one prompt almost alike:
+  six identical calls on 2026-10-26 gave one answer six times (Sonnet) and five times
+  (Opus and GPT-5.4), the answer the main run had logged for that prompt. Across days
+  they drift a little: the A0 prompts the pilot and the main run share, six days apart on
+  the same providers, got the same decision in 22 of 24 pairs for each judge. No scoring
+  changes. The equivalence rater, also Claude Sonnet 5, is sent temperature 0 the same
+  way (`rate` in `pipeline/reporter.py`). The README, `docs/methods.md` and the code's
+  comments now say this, and the write-up reports it as a departure from the proposal's
+  "Judging runs at temperature 0" (§3).
+- **Why** [STATED: `pipeline/run.py`, `cmd_probe`]: "OpenRouter drops unsupported
+  parameters silently, so a null is an answer." [STATED:
+  `runs/main/probe-2026-10-26.json`] no endpoint of the three judges lists `temperature`
+  among its parameters, while every endpoint of the reporter and the auxiliary models
+  does; the six repeats per judge are in the same file. [INFERRED: from the A0 records of
+  `runs/trials-agreement.jsonl` and `runs/main/trials-agreement.jsonl`, whose prompts are
+  identical: same question, options, template and system prompt] 13, 11 and 17 of the 24
+  pairs (Opus, Sonnet, GPT-5.4) are the same text, and P(truth) moves by 1.0, 2.7 and 0.5
+  points on average.
+- **Rejected**: saying the judges run at temperature 0, which the endpoint lists
+  contradict; dropping temperature from the request, which changes nothing the judges
+  receive and would change the code before stage 2.
+- **Breaks if changed**: nothing in the results, since every judge call ran the same way.
+  A comparison across days, as between stage 1 and stage 2, carries the small drift above.
+
+### 2026-10-26 — Stage 2 runs one entry at a time: the ladder, then long-agreement, then long-conflict
+
+- **Decision**: stage 2 waits for the coordinator's top-up. Jason asks for the $25 left
+  of the proposal's $75, with $10 as the least that covers stage 2 and the optional
+  sub-experiments. Stage 2 runs `probe` first, then its three entries one after another,
+  each into its own log in `runs/main/`: `ladder`, then `long-agreement`, then
+  `long-conflict`. Before each entry, `balance` must cover its cost plus 10%, and nothing
+  starts after an entry stops. Its results are read twice: with all ten subset cases, and
+  without M3 and M38, the two echo cases among them (`tools/tally.py --without`).
+- **Why** [STATED: team decision, 2026-10-26]: Jason agreed to the order and to reading
+  the results both ways. [INFERRED: from `plan --cases 40` and the runner's pace of 18
+  calls a minute] stage 2's 2,520 judge calls take about 2.3 hours, so lanes would save
+  little, and one entry at a time keeps a stopped entry from leaving the others to spend.
+  [STATED: proposal §4.1] the ladder runs in the main programme "because it is H4's only
+  defence against its most obvious alternative explanation"; [STATED: proposal §5] "the
+  length arm is the first thing trimmed". [STATED: `runs/main/reading-3.4.md`] in M3 and
+  M38, among others, the reporter rewrote one of A's reports as "the question turned into
+  a statement". [INFERRED: from `build_entry` in `pipeline/run.py` on
+  `runs/main/frozen_reports.json`, 2026-10-25] all 2,520 trials build, and every long
+  report is inside 88-96 words.
+- **Rejected**: three lanes, as in stage 1, a decision made for stage 1 only (the
+  2026-10-25 entry); the proposal's table order, with the length arm first.
+- **Breaks if changed**: if the length arm runs first and costs more than planned, the
+  ladder may go unfunded; read only with the echo cases in, two of the ten subset cases'
+  pull toward A could pass for an effect of length or wording.
+
+### 2026-10-26 — The optional sub-experiments are entries of their own, built in a second folder
+
+- **Decision**: the four optional sub-experiments are entries in a list of their own,
+  `OPTIONAL` in `pipeline/run.py`. `judge --arms` selects them by name, but they are never
+  part of the default run or of `plan`'s totals. Each one fixes in the code its cases,
+  its arm label, its report length and, where it differs, its reasoning setting, so its
+  trials never share an id or a scorer cell with the main programme's. `generate` and
+  `judge` take `--cases`, a list of case ids, for the wording-robustness rerun, which
+  writes to its own folder, `runs/robustness/`. A test checks that the main programme
+  still builds the trials and prompts that stage 1 judged and stage 2 will judge
+  (`tests/test_run.py`). The code is written on the branch `optional-arms`, in a second
+  folder made with `git worktree`, so the main folder never switches branch, and it
+  merges into `main` only when Jason agrees. The sub-experiments run in the proposal's
+  order (reasoning, wording robustness, cross-check, n_eff at long length), each only if
+  `balance` covers it plus 10%. Each one's design is an entry below.
+- **Why** [STATED: team decision, 2026-10-26]: Jason agreed. [STATED: `pipeline/judge.py`]
+  a trial's id is `f"{trial['case_id']}_{trial['condition']}_{trial['arm']}_run{run_index}"`,
+  and the scorer's cells are judge x arm x case x condition (`pipeline/score.py`), so a
+  reasoning-on trial labelled `short` would share both with the main run's. [INFERRED:
+  from `cmd_judge` in `pipeline/run.py`] a run reads the code and `cases/` from the folder
+  it starts in, so switching that folder's branch during stage 2 would change what stage
+  2 runs. [STATED: proposal §6] "They run in priority order, and the write-up states which
+  were executed and at what scale."
+- **Rejected**: adding them to `PROGRAMME`, which would change `plan`'s totals and the
+  default `judge` run; a branch in the main folder; choosing an entry's cases with
+  `--cases` at run time, which leaves its trial set out of the code.
+- **Breaks if changed**: an optional trial labelled like a main one is scored into the
+  main run's cells; without the test, a change to the main programme's trials could pass
+  unseen.
+
+### 2026-10-26 — The reasoning comparison: Claude Sonnet 5 on M1 and M2, both modes judged on one day
+
+- **Decision**: Claude Sonnet 5 judges X1, X3 and X5 of M1 and M2, short and long, 12
+  repeats, once with reasoning off as in the main run (`{"enabled": false}`) and once with
+  reasoning on at a budget of 2,000 thinking tokens (`{"max_tokens": 2000}`): 288 calls in
+  four entries, `reasoning-off-short`, `reasoning-off-long`, `reasoning-on-short` and
+  `reasoning-on-long`, both modes on the same day. A reasoning-on call may use 2,700
+  tokens, the budget plus the 700 an answer always has, and waits up to 150 seconds.
+  Every record keeps the thinking text the provider returns (`reasoning_text`). The
+  traces are coded by this rule, fixed before any of the arm's traces exist:
+  - each trace gets one code, from its text alone: *none* when there is no thinking text;
+    *noticed* when, before the answer, it says that two of the reports come from one
+    source, repeat one another or are not independent, in any words, a restated note
+    included; *not noticed* otherwise, a trace that only says two reports agree included;
+  - two coders apply the rule separately, Claude and a second coder given only the texts
+    and the rule. Their disagreements are listed and Jason settles them, and the codes
+    are committed before they are crossed with decisions;
+  - the reading crosses the code with the decision, per condition and length: how many
+    traces noticed, and how many of those chose the independent report.
+- **Why** [STATED: proposal §4.1]: "crossing reasoning mode with report length on X1, X3
+  and X5 for two cases, one model in both modes", and "Traces are logged and read for
+  whether the model mentions the shared source before deciding, which separates not
+  noticing the dependence from noticing it and not acting on it." [STATED: team decision,
+  2026-10-26] Sonnet, M1 and M2, and a trace rule fixed before reading: Jason agreed.
+  [STATED: `pipeline/run.py`] Sonnet is one of the two `LENGTH_JUDGES`, so it judges long
+  reports in the main run too, and its numbers are not stuck at 100 as GPT-5.4's are
+  (`runs/main/tally-stage1.txt`). M1 and M2 are the first two cases, one T2 and one T1,
+  and neither is an echo case (`runs/main/reading-3.4.md`). [STATED:
+  `runs/main/probe-2026-10-26.json`] with reasoning on, Sonnet returned its thinking text
+  as `reasoning`; two identical calls thought for 0 and 180 tokens and gave different
+  numbers; the calls cost $0.0012 to $0.0037. Those two traces were read before this rule
+  was written; they are not part of the arm. [STATED: the first entry of 2026-10-26] the
+  judges' answers drift a little between days, so the main run's trials, judged on other
+  days, are not reused as the off half. [STATED: OpenRouter's documentation, "Reasoning
+  tokens"] "`max_tokens` must be strictly higher than the reasoning budget".
+- **Rejected**: reusing the main run's trials as the off half, which compares across
+  days; GPT-5.4, whose numbers mostly sit at 100 and whose output tokens cost more; a
+  larger budget, which caps thinking but cannot force it.
+- **Breaks if changed**: with the off half from another day, a difference between modes
+  may be drift; a trace rule written after reading can be bent toward a result.
+
+### 2026-10-26 — The wording-robustness rerun makes a second report set for M1 and M2
+
+- **Decision**: `generate --cases M1,M2 --out runs/robustness` makes a second,
+  independent report set for M1 and M2, for all four sources, since the condition
+  builder needs C and D even where only A and B are shown. Jason reads it as in step 3.4
+  before judging, and a T1 case whose hint is lost counts as T2 in this rerun. Then
+  `judge --cases M1,M2 --arms conflict --out runs/robustness` judges the conflict block
+  with all three judges and 12 repeats, 360 calls. It is scored on its own, since its
+  trial ids repeat the main run's.
+- **Why** [STATED: proposal §5]: "The main run uses one generated report set. A
+  wording-robustness check that regenerates the reports for two cases and re-judges the
+  conflict block is one of the ranked optional sub-experiments in Section 6". [STATED:
+  team decision, 2026-10-26] Jason agreed, with the reading before judging. [INFERRED:
+  from `check_frozen` in `pipeline/run.py` and `build_conditions` in
+  `pipeline/conditions.py`] judging needs every source of a case frozen, and every repeat
+  builds A7 from C and D.
+- **Rejected**: regenerating only A and B, which the builder cannot use; judging the old
+  reports again beside it on the same day, which doubles the calls.
+- **Breaks if changed**: judged without the reading, a lost hint would count among T1's
+  results.
+
+### 2026-10-26 — The confidence cross-check runs the screen on the auxiliary models, answering by number
+
+- **Decision**: Qwen 3.6 27B and Llama 4 Maverick judge the screen's P0, P1 and P2 at its
+  four rotations on the first 15 cases in corpus order (M1-M5, M6, M14, M22, M30, M38 and
+  M7-M11): 360 calls, entry `cross-check`. Their prompt asks for the option's number as
+  the answer and for "p" keyed by number (`pipeline/prompt.py`), so the token
+  probabilities at the answer's digit cover the same four labels as the stated "p". Qwen
+  is sent reasoning off; Llama, whose endpoints take no reasoning parameter, is sent none
+  (`AUXILIARY_REASONING` in `pipeline/run.py`). How stated and token probabilities
+  compare is read after the run.
+- **Why** [STATED: proposal §4.1]: "Verbalized probabilities are compared against
+  option-index token probabilities on the two auxiliary models, which never judge a
+  main-arm trial." [STATED: team decision, 2026-10-26] the screen on 15 cases: Jason
+  agreed. [STATED: `runs/main/probe-2026-10-26.json`] with reasoning off, Qwen answered on
+  Reka with five alternatives per token; sent no reasoning parameter, it spent its 16
+  tokens thinking, as in `runs/main/probe.json`. [INFERRED: from `build_screen` in
+  `pipeline/conditions.py`] the screen runs from an irrelevant report to one that names
+  the answer, so stated confidence spans the scale, and 15 cases x 3 levels x 4
+  rotations x 2 models is the proposal's 360.
+- **Rejected**: answering with the option's text, whose first tokens two options can
+  share; a substitute for Qwen, no longer needed.
+- **Breaks if changed**: with text answers, an answer's token probability is spread over
+  several tokens and is no longer a distribution over the four options.
+
+### 2026-10-26 — n_eff at long length: Sonnet on nine subset cases, with A0 from the short arm
+
+- **Decision**: after stage 2, Claude Sonnet 5 judges A4, A6 and A7 with long reports on
+  the subset cases except M38, 6 repeats: 162 calls, entry `long-neff`, arm `long`. The
+  scorer then computes n_eff on the long arm from those cells and stage 2's long A1, with
+  A0 taken from the short arm (`report_neff` in `pipeline/score.py`). M38 is left out
+  because its A7 cannot be built long: its C report comes to 87 words in every slot, one
+  under the 88-word floor (`check_long_lengths` in `pipeline/conditions.py`).
+- **Why** [STATED: proposal §6]: the index at long length "requires the index to be
+  computable at short length, which requires at least one judge to pass the confidence
+  screen". [STATED: `runs/main/tally-stage1.txt`] Sonnet's index has a value at ceiling in
+  1 of its 40 cases, GPT-5.4's in 35. [STATED: team decision, 2026-10-26] Sonnet only,
+  after stage 2, with A0 from the short arm: Jason agreed. [INFERRED: from
+  `build_conditions` in `pipeline/conditions.py`] A0 shows no reports, so it has no
+  length, and A7 is the only one of the three that stage 2 never builds long and checks.
+- **Rejected**: both length judges, where GPT-5.4's index would mostly read "at
+  ceiling"; M38 with an 87-word report; new filler for M38, which would change the case
+  and stage 2's long trials.
+- **Breaks if changed**: an A7 report off the band lets length stand in for provenance in
+  the one condition with three sources.
+
+### 2026-10-26 — H5's familiar-institution check codes the type names before the split
+
+- **Decision**: H5's nuisance check splits the 40 cases by one rule, applied to A's and
+  B's type names alone. A case counts as *familiar institution* when B's name names an
+  organisation of a kind that exists in the real world with public or official standing
+  (a government body, a council or other public authority, a regulator, a standards or
+  consumer-protection body, an emergency service, an accredited laboratory, or a
+  university's, college's or library's own office) and A's name does not name that
+  organisation. A name that names only a person or role, only a document or only a
+  company does not count, and neither does an organisation both names share. Eight cases
+  count: M4, M5, M7, M10, M15, M25, M27 and M33. A second reading also counts a company
+  that only B names, which adds M2 and M34. For each judge, the gain counts as appearing
+  without a familiar institution when, among the other 32 cases (30 on the second
+  reading), more cases gain right decisions from X1 to X2 than lose them, at a one-sided
+  sign-test p below 0.05; then the nuisance does not hold for that judge.
+  `tools/tally.py --only` and `--without` give each group's counts
+  (`runs/main/tally-stage1-h5.txt`).
+- **Why** [STATED: team decision, 2026-10-26]: Jason decided that we do the check
+  ourselves rather than ask a volunteer. [STATED: README, "What counts as support, fixed
+  before any data"] the nuisance holds if "the gain appears only for types matching a
+  familiar real institution". [INFERRED: from R19 in `docs/authoring-rules.md`] from M6
+  on, a directness, method or primary-source case gives A and B the same writer, so a
+  familiar institution can set B apart mainly in authority cases. The codes were fixed
+  before the split was computed: Claude coded the names, and a second coder given only
+  the names and the rule, with no results, made the same 40 codes and the same two
+  company flags.
+- **Rejected**: asking a volunteer; a keyword list, which would be chosen with the names
+  in view; reading the split by eye, without a fixed test.
+- **Breaks if changed**: a rule chosen after the split is seen can be bent toward either
+  answer.

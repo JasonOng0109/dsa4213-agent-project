@@ -1,0 +1,2283 @@
+{
+  "endpoints": {
+    "anthropic/claude-sonnet-5": [
+      {
+        "provider": "Claude Platform on AWS",
+        "tag": "claude-on-aws",
+        "supported_parameters": [
+          "include_reasoning",
+          "max_tokens",
+          "reasoning",
+          "reasoning_effort",
+          "response_format",
+          "stop",
+          "structured_outputs",
+          "tool_choice",
+          "tools",
+          "verbosity"
+        ]
+      },
+      {
+        "provider": "Azure",
+        "tag": "azure/global",
+        "supported_parameters": [
+          "include_reasoning",
+          "max_completion_tokens",
+          "max_tokens",
+          "reasoning",
+          "reasoning_effort",
+          "response_format",
+          "stop",
+          "structured_outputs",
+          "tool_choice",
+          "tools",
+          "verbosity"
+        ]
+      },
+      {
+        "provider": "Google",
+        "tag": "google-vertex/global",
+        "supported_parameters": [
+          "include_reasoning",
+          "max_tokens",
+          "reasoning",
+          "reasoning_effort",
+          "response_format",
+          "stop",
+          "structured_outputs",
+          "tool_choice",
+          "tools",
+          "verbosity"
+        ]
+      },
+      {
+        "provider": "Amazon Bedrock",
+        "tag": "amazon-bedrock/global",
+        "supported_parameters": [
+          "include_reasoning",
+          "max_tokens",
+          "reasoning",
+          "reasoning_effort",
+          "response_format",
+          "stop",
+          "tool_choice",
+          "tools",
+          "verbosity"
+        ]
+      },
+      {
+        "provider": "Anthropic",
+        "tag": "anthropic",
+        "supported_parameters": [
+          "include_reasoning",
+          "max_tokens",
+          "reasoning",
+          "reasoning_effort",
+          "response_format",
+          "stop",
+          "structured_outputs",
+          "tool_choice",
+          "tools",
+          "verbosity"
+        ]
+      },
+      {
+        "provider": "Amazon Bedrock",
+        "tag": "amazon-bedrock/eu-west-1",
+        "supported_parameters": [
+          "include_reasoning",
+          "max_tokens",
+          "reasoning",
+          "reasoning_effort",
+          "response_format",
+          "stop",
+          "tool_choice",
+          "tools",
+          "verbosity"
+        ]
+      },
+      {
+        "provider": "Azure",
+        "tag": "azure/us",
+        "supported_parameters": [
+          "include_reasoning",
+          "max_completion_tokens",
+          "max_tokens",
+          "reasoning",
+          "reasoning_effort",
+          "response_format",
+          "stop",
+          "structured_outputs",
+          "tool_choice",
+          "tools",
+          "verbosity"
+        ]
+      },
+      {
+        "provider": "Google",
+        "tag": "google-vertex/us",
+        "supported_parameters": [
+          "include_reasoning",
+          "max_tokens",
+          "reasoning",
+          "reasoning_effort",
+          "response_format",
+          "stop",
+          "structured_outputs",
+          "tool_choice",
+          "tools",
+          "verbosity"
+        ]
+      },
+      {
+        "provider": "Google",
+        "tag": "google-vertex/europe",
+        "supported_parameters": [
+          "include_reasoning",
+          "max_tokens",
+          "reasoning",
+          "reasoning_effort",
+          "response_format",
+          "stop",
+          "structured_outputs",
+          "tool_choice",
+          "tools",
+          "verbosity"
+        ]
+      },
+      {
+        "provider": "Amazon Bedrock",
+        "tag": "amazon-bedrock/us-east-1",
+        "supported_parameters": [
+          "include_reasoning",
+          "max_tokens",
+          "reasoning",
+          "reasoning_effort",
+          "response_format",
+          "stop",
+          "tool_choice",
+          "tools",
+          "verbosity"
+        ]
+      }
+    ],
+    "openai/gpt-5.4": [
+      {
+        "provider": "OpenAI",
+        "tag": "openai/flex",
+        "supported_parameters": [
+          "include_reasoning",
+          "max_tokens",
+          "reasoning",
+          "reasoning_effort",
+          "response_format",
+          "seed",
+          "structured_outputs",
+          "tool_choice",
+          "tools",
+          "verbosity"
+        ]
+      },
+      {
+        "provider": "Azure",
+        "tag": "azure",
+        "supported_parameters": [
+          "include_reasoning",
+          "max_completion_tokens",
+          "reasoning",
+          "reasoning_effort",
+          "response_format",
+          "seed",
+          "structured_outputs",
+          "tool_choice",
+          "tools",
+          "verbosity"
+        ]
+      },
+      {
+        "provider": "OpenAI",
+        "tag": "openai",
+        "supported_parameters": [
+          "include_reasoning",
+          "max_tokens",
+          "reasoning",
+          "reasoning_effort",
+          "response_format",
+          "seed",
+          "structured_outputs",
+          "tool_choice",
+          "tools",
+          "verbosity"
+        ]
+      },
+      {
+        "provider": "Azure",
+        "tag": "azure/us",
+        "supported_parameters": [
+          "include_reasoning",
+          "max_completion_tokens",
+          "reasoning",
+          "reasoning_effort",
+          "response_format",
+          "seed",
+          "structured_outputs",
+          "tool_choice",
+          "tools",
+          "verbosity"
+        ]
+      },
+      {
+        "provider": "Azure",
+        "tag": "azure/eu",
+        "supported_parameters": [
+          "include_reasoning",
+          "max_completion_tokens",
+          "reasoning",
+          "reasoning_effort",
+          "response_format",
+          "seed",
+          "structured_outputs",
+          "tool_choice",
+          "tools",
+          "verbosity"
+        ]
+      },
+      {
+        "provider": "Amazon Bedrock",
+        "tag": "amazon-bedrock/us-east-1",
+        "supported_parameters": [
+          "include_reasoning",
+          "max_tokens",
+          "reasoning",
+          "reasoning_effort",
+          "response_format",
+          "structured_outputs",
+          "tool_choice",
+          "tools",
+          "verbosity"
+        ]
+      },
+      {
+        "provider": "OpenAI",
+        "tag": "openai/fast",
+        "supported_parameters": [
+          "include_reasoning",
+          "max_tokens",
+          "reasoning",
+          "reasoning_effort",
+          "response_format",
+          "seed",
+          "structured_outputs",
+          "tool_choice",
+          "tools",
+          "verbosity"
+        ]
+      }
+    ],
+    "anthropic/claude-opus-5": [
+      {
+        "provider": "Claude Platform on AWS",
+        "tag": "claude-on-aws",
+        "supported_parameters": [
+          "include_reasoning",
+          "max_tokens",
+          "reasoning",
+          "reasoning_effort",
+          "response_format",
+          "stop",
+          "structured_outputs",
+          "tool_choice",
+          "tools",
+          "verbosity"
+        ]
+      },
+      {
+        "provider": "Google",
+        "tag": "google-vertex/global",
+        "supported_parameters": [
+          "include_reasoning",
+          "max_tokens",
+          "reasoning",
+          "reasoning_effort",
+          "response_format",
+          "stop",
+          "structured_outputs",
+          "tool_choice",
+          "tools",
+          "verbosity"
+        ]
+      },
+      {
+        "provider": "Amazon Bedrock",
+        "tag": "amazon-bedrock",
+        "supported_parameters": [
+          "include_reasoning",
+          "max_tokens",
+          "reasoning",
+          "reasoning_effort",
+          "response_format",
+          "stop",
+          "tool_choice",
+          "tools",
+          "verbosity"
+        ]
+      },
+      {
+        "provider": "Azure",
+        "tag": "azure/global",
+        "supported_parameters": [
+          "include_reasoning",
+          "max_completion_tokens",
+          "max_tokens",
+          "reasoning",
+          "reasoning_effort",
+          "response_format",
+          "stop",
+          "structured_outputs",
+          "tool_choice",
+          "tools",
+          "verbosity"
+        ]
+      },
+      {
+        "provider": "Anthropic",
+        "tag": "anthropic",
+        "supported_parameters": [
+          "include_reasoning",
+          "max_tokens",
+          "reasoning",
+          "reasoning_effort",
+          "response_format",
+          "stop",
+          "structured_outputs",
+          "tool_choice",
+          "tools",
+          "verbosity"
+        ]
+      },
+      {
+        "provider": "Amazon Bedrock",
+        "tag": "amazon-bedrock/eu-west-1",
+        "supported_parameters": [
+          "include_reasoning",
+          "max_tokens",
+          "reasoning",
+          "reasoning_effort",
+          "response_format",
+          "stop",
+          "tool_choice",
+          "tools",
+          "verbosity"
+        ]
+      },
+      {
+        "provider": "Azure",
+        "tag": "azure/us",
+        "supported_parameters": [
+          "include_reasoning",
+          "max_completion_tokens",
+          "max_tokens",
+          "reasoning",
+          "reasoning_effort",
+          "response_format",
+          "stop",
+          "structured_outputs",
+          "tool_choice",
+          "tools",
+          "verbosity"
+        ]
+      },
+      {
+        "provider": "Google",
+        "tag": "google-vertex/us",
+        "supported_parameters": [
+          "include_reasoning",
+          "max_tokens",
+          "reasoning",
+          "reasoning_effort",
+          "response_format",
+          "stop",
+          "structured_outputs",
+          "tool_choice",
+          "tools",
+          "verbosity"
+        ]
+      },
+      {
+        "provider": "Google",
+        "tag": "google-vertex/europe",
+        "supported_parameters": [
+          "include_reasoning",
+          "max_tokens",
+          "reasoning",
+          "reasoning_effort",
+          "response_format",
+          "stop",
+          "structured_outputs",
+          "tool_choice",
+          "tools",
+          "verbosity"
+        ]
+      },
+      {
+        "provider": "Amazon Bedrock",
+        "tag": "amazon-bedrock/us-east-1",
+        "supported_parameters": [
+          "include_reasoning",
+          "max_tokens",
+          "reasoning",
+          "reasoning_effort",
+          "response_format",
+          "stop",
+          "tool_choice",
+          "tools",
+          "verbosity"
+        ]
+      },
+      {
+        "provider": "Anthropic",
+        "tag": "anthropic/fast",
+        "supported_parameters": [
+          "include_reasoning",
+          "max_tokens",
+          "reasoning",
+          "reasoning_effort",
+          "response_format",
+          "stop",
+          "structured_outputs",
+          "tool_choice",
+          "tools",
+          "verbosity"
+        ]
+      }
+    ],
+    "qwen/qwen3.6-27b": [
+      {
+        "provider": "Reka",
+        "tag": "reka",
+        "supported_parameters": [
+          "frequency_penalty",
+          "include_reasoning",
+          "logprobs",
+          "max_tokens",
+          "presence_penalty",
+          "reasoning",
+          "response_format",
+          "seed",
+          "stop",
+          "structured_outputs",
+          "temperature",
+          "tool_choice",
+          "tools",
+          "top_k",
+          "top_logprobs",
+          "top_p"
+        ]
+      },
+      {
+        "provider": "Chutes",
+        "tag": "chutes/fp8",
+        "supported_parameters": [
+          "frequency_penalty",
+          "include_reasoning",
+          "max_tokens",
+          "presence_penalty",
+          "reasoning",
+          "repetition_penalty",
+          "seed",
+          "stop",
+          "structured_outputs",
+          "temperature",
+          "tool_choice",
+          "tools",
+          "top_k",
+          "top_p"
+        ]
+      },
+      {
+        "provider": "SiliconFlow",
+        "tag": "siliconflow/fp8",
+        "supported_parameters": [
+          "frequency_penalty",
+          "include_reasoning",
+          "max_tokens",
+          "presence_penalty",
+          "reasoning",
+          "repetition_penalty",
+          "response_format",
+          "structured_outputs",
+          "temperature",
+          "tool_choice",
+          "tools",
+          "top_k",
+          "top_p"
+        ]
+      },
+      {
+        "provider": "DeepInfra",
+        "tag": "deepinfra/fp8",
+        "supported_parameters": [
+          "frequency_penalty",
+          "include_reasoning",
+          "logit_bias",
+          "max_tokens",
+          "min_p",
+          "presence_penalty",
+          "reasoning",
+          "repetition_penalty",
+          "response_format",
+          "seed",
+          "stop",
+          "structured_outputs",
+          "temperature",
+          "tool_choice",
+          "tools",
+          "top_k",
+          "top_p"
+        ]
+      },
+      {
+        "provider": "Phala",
+        "tag": "phala",
+        "supported_parameters": [
+          "frequency_penalty",
+          "include_reasoning",
+          "max_tokens",
+          "min_p",
+          "presence_penalty",
+          "reasoning",
+          "repetition_penalty",
+          "response_format",
+          "seed",
+          "stop",
+          "structured_outputs",
+          "temperature",
+          "tool_choice",
+          "tools",
+          "top_k",
+          "top_p"
+        ]
+      },
+      {
+        "provider": "Venice",
+        "tag": "venice/fp8",
+        "supported_parameters": [
+          "frequency_penalty",
+          "include_reasoning",
+          "max_tokens",
+          "presence_penalty",
+          "reasoning",
+          "response_format",
+          "stop",
+          "structured_outputs",
+          "temperature",
+          "tool_choice",
+          "tools",
+          "top_k",
+          "top_p"
+        ]
+      },
+      {
+        "provider": "Alibaba",
+        "tag": "alibaba",
+        "supported_parameters": [
+          "frequency_penalty",
+          "include_reasoning",
+          "logprobs",
+          "max_tokens",
+          "presence_penalty",
+          "reasoning",
+          "response_format",
+          "seed",
+          "stop",
+          "structured_outputs",
+          "temperature",
+          "tool_choice",
+          "tools",
+          "top_k",
+          "top_logprobs",
+          "top_p"
+        ]
+      }
+    ],
+    "meta-llama/llama-4-maverick": [
+      {
+        "provider": "DigitalOcean",
+        "tag": "digitalocean",
+        "supported_parameters": [
+          "logprobs",
+          "max_tokens",
+          "response_format",
+          "structured_outputs",
+          "temperature",
+          "tool_choice",
+          "tools",
+          "top_logprobs",
+          "top_p"
+        ]
+      },
+      {
+        "provider": "Parasail",
+        "tag": "parasail/fp8",
+        "supported_parameters": [
+          "frequency_penalty",
+          "logit_bias",
+          "logprobs",
+          "max_tokens",
+          "presence_penalty",
+          "repetition_penalty",
+          "response_format",
+          "seed",
+          "stop",
+          "structured_outputs",
+          "temperature",
+          "tool_choice",
+          "tools",
+          "top_k",
+          "top_logprobs",
+          "top_p"
+        ]
+      },
+      {
+        "provider": "Google",
+        "tag": "google-vertex/us-east5",
+        "supported_parameters": [
+          "frequency_penalty",
+          "max_tokens",
+          "presence_penalty",
+          "response_format",
+          "seed",
+          "stop",
+          "structured_outputs",
+          "temperature",
+          "tool_choice",
+          "tools",
+          "top_k",
+          "top_p"
+        ]
+      }
+    ],
+    "google/gemma-4-31b-it": [
+      {
+        "provider": "CoreWeave",
+        "tag": "coreweave/fp4",
+        "supported_parameters": [
+          "frequency_penalty",
+          "include_reasoning",
+          "logprobs",
+          "max_tokens",
+          "presence_penalty",
+          "reasoning",
+          "repetition_penalty",
+          "response_format",
+          "seed",
+          "stop",
+          "structured_outputs",
+          "temperature",
+          "tool_choice",
+          "tools",
+          "top_k",
+          "top_logprobs",
+          "top_p"
+        ]
+      },
+      {
+        "provider": "Venice",
+        "tag": "venice/fp4",
+        "supported_parameters": [
+          "frequency_penalty",
+          "include_reasoning",
+          "logprobs",
+          "max_tokens",
+          "presence_penalty",
+          "reasoning",
+          "response_format",
+          "stop",
+          "structured_outputs",
+          "temperature",
+          "tool_choice",
+          "tools",
+          "top_k",
+          "top_logprobs",
+          "top_p"
+        ]
+      },
+      {
+        "provider": "Chutes",
+        "tag": "chutes/fp4",
+        "supported_parameters": [
+          "frequency_penalty",
+          "include_reasoning",
+          "max_tokens",
+          "presence_penalty",
+          "reasoning",
+          "repetition_penalty",
+          "response_format",
+          "seed",
+          "stop",
+          "structured_outputs",
+          "temperature",
+          "tool_choice",
+          "tools",
+          "top_k",
+          "top_p"
+        ]
+      },
+      {
+        "provider": "DeepInfra",
+        "tag": "deepinfra/turbo",
+        "supported_parameters": [
+          "frequency_penalty",
+          "include_reasoning",
+          "logit_bias",
+          "max_tokens",
+          "min_p",
+          "presence_penalty",
+          "reasoning",
+          "repetition_penalty",
+          "response_format",
+          "seed",
+          "stop",
+          "structured_outputs",
+          "temperature",
+          "tool_choice",
+          "tools",
+          "top_k",
+          "top_p"
+        ]
+      },
+      {
+        "provider": "Crusoe",
+        "tag": "crusoe/bf16",
+        "supported_parameters": [
+          "frequency_penalty",
+          "include_reasoning",
+          "logit_bias",
+          "max_tokens",
+          "min_p",
+          "presence_penalty",
+          "reasoning",
+          "repetition_penalty",
+          "response_format",
+          "seed",
+          "stop",
+          "structured_outputs",
+          "temperature",
+          "tool_choice",
+          "tools",
+          "top_k",
+          "top_p"
+        ]
+      },
+      {
+        "provider": "Friendli",
+        "tag": "friendli",
+        "supported_parameters": [
+          "frequency_penalty",
+          "include_reasoning",
+          "max_tokens",
+          "min_p",
+          "presence_penalty",
+          "reasoning",
+          "repetition_penalty",
+          "response_format",
+          "seed",
+          "stop",
+          "structured_outputs",
+          "temperature",
+          "tool_choice",
+          "tools",
+          "top_k",
+          "top_p"
+        ]
+      },
+      {
+        "provider": "Novita",
+        "tag": "novita/bf16",
+        "supported_parameters": [
+          "frequency_penalty",
+          "include_reasoning",
+          "logprobs",
+          "max_tokens",
+          "presence_penalty",
+          "reasoning",
+          "repetition_penalty",
+          "response_format",
+          "seed",
+          "stop",
+          "structured_outputs",
+          "temperature",
+          "tool_choice",
+          "tools",
+          "top_k",
+          "top_logprobs",
+          "top_p"
+        ]
+      },
+      {
+        "provider": "Parasail",
+        "tag": "parasail/fp8",
+        "supported_parameters": [
+          "frequency_penalty",
+          "include_reasoning",
+          "logit_bias",
+          "logprobs",
+          "max_tokens",
+          "presence_penalty",
+          "reasoning",
+          "repetition_penalty",
+          "response_format",
+          "seed",
+          "stop",
+          "structured_outputs",
+          "temperature",
+          "tool_choice",
+          "tools",
+          "top_k",
+          "top_logprobs",
+          "top_p"
+        ]
+      },
+      {
+        "provider": "DeepInfra",
+        "tag": "deepinfra/fp8/flex",
+        "supported_parameters": [
+          "frequency_penalty",
+          "include_reasoning",
+          "logit_bias",
+          "max_tokens",
+          "min_p",
+          "presence_penalty",
+          "reasoning",
+          "repetition_penalty",
+          "response_format",
+          "seed",
+          "stop",
+          "structured_outputs",
+          "temperature",
+          "top_k",
+          "top_p"
+        ]
+      },
+      {
+        "provider": "DeepInfra",
+        "tag": "deepinfra/fp8",
+        "supported_parameters": [
+          "frequency_penalty",
+          "include_reasoning",
+          "logit_bias",
+          "max_tokens",
+          "min_p",
+          "presence_penalty",
+          "reasoning",
+          "repetition_penalty",
+          "response_format",
+          "seed",
+          "stop",
+          "structured_outputs",
+          "temperature",
+          "tool_choice",
+          "tools",
+          "top_k",
+          "top_p"
+        ]
+      },
+      {
+        "provider": "DeepInfra",
+        "tag": "deepinfra/fp8/priority",
+        "supported_parameters": [
+          "frequency_penalty",
+          "include_reasoning",
+          "logit_bias",
+          "max_tokens",
+          "min_p",
+          "presence_penalty",
+          "reasoning",
+          "repetition_penalty",
+          "response_format",
+          "seed",
+          "stop",
+          "structured_outputs",
+          "temperature",
+          "top_k",
+          "top_p"
+        ]
+      },
+      {
+        "provider": "Io Net",
+        "tag": "io-net",
+        "supported_parameters": [
+          "include_reasoning",
+          "logprobs",
+          "max_tokens",
+          "reasoning",
+          "response_format",
+          "temperature",
+          "tool_choice",
+          "tools",
+          "top_logprobs"
+        ]
+      },
+      {
+        "provider": "SambaNova",
+        "tag": "sambanova",
+        "supported_parameters": [
+          "include_reasoning",
+          "max_tokens",
+          "reasoning",
+          "stop",
+          "temperature",
+          "tool_choice",
+          "tools",
+          "top_k",
+          "top_p"
+        ]
+      },
+      {
+        "provider": "ModelRun",
+        "tag": "modelrun/fp4",
+        "supported_parameters": [
+          "frequency_penalty",
+          "include_reasoning",
+          "max_tokens",
+          "presence_penalty",
+          "reasoning",
+          "repetition_penalty",
+          "response_format",
+          "stop",
+          "structured_outputs",
+          "temperature",
+          "tool_choice",
+          "tools",
+          "top_k",
+          "top_p"
+        ]
+      },
+      {
+        "provider": "SiliconFlow",
+        "tag": "siliconflow/fp8",
+        "supported_parameters": [
+          "frequency_penalty",
+          "include_reasoning",
+          "max_tokens",
+          "reasoning",
+          "response_format",
+          "structured_outputs",
+          "temperature",
+          "tool_choice",
+          "tools",
+          "top_k",
+          "top_p"
+        ]
+      }
+    ]
+  },
+  "prompts": {
+    "A0 short": "You are asked to answer a factual question based on reports from others.\nRead all reports below, then give your answer.\n\nQuestion: What percentage of the final ME2103 grade comes from the lab logbook?\nPossible answers:\n  1. 15%\n  2. 25%\n  3. 10%\n  4. 30%\n\n(No reports are available for this question.)\n\nRespond with ONLY a JSON object in exactly this format, nothing else:\n{\"answer\": \"<one of the possible answers, verbatim>\",\n \"p\": {\"<answer text>\": <integer 0-100>, ...}}\n\n\"p\" must give a probability for every possible answer listed above, using the\nanswer text as the key, and the values must sum to 100.\n\nDo not include any explanation or reasoning -- output only the JSON object.",
+    "X3 short": "You are asked to answer a factual question based on reports from others.\nRead all reports below, then give your answer.\n\nQuestion: What percentage of the final ME2103 grade comes from the lab logbook?\nPossible answers:\n  1. 15%\n  2. 25%\n  3. 10%\n  4. 30%\n\nAgent A says: The final grade for module ME2103 includes a 15% contribution from the lab logbook.\nAgent B says: Twenty-five percent of the final module grade for ME2103 is derived from the lab logbook.\nAgent C says: The lab logbook accounts for 25% of the final module grade for ME2103.\nNote: Agent B and Agent C obtained their information from the same underlying source; Agent A's information comes from a different, independent source.\n\nRespond with ONLY a JSON object in exactly this format, nothing else:\n{\"answer\": \"<one of the possible answers, verbatim>\",\n \"p\": {\"<answer text>\": <integer 0-100>, ...}}\n\n\"p\" must give a probability for every possible answer listed above, using the\nanswer text as the key, and the values must sum to 100.\n\nDo not include any explanation or reasoning -- output only the JSON object.",
+    "X3 long": "You are asked to answer a factual question based on reports from others.\nRead all reports below, then give your answer.\n\nQuestion: What percentage of the final ME2103 grade comes from the lab logbook?\nPossible answers:\n  1. 15%\n  2. 25%\n  3. 10%\n  4. 30%\n\nAgent A says: The final grade for module ME2103 includes a 15% contribution from the lab logbook. Logbooks are collected from the mechanical engineering general office and must be signed by a demonstrator before they leave the laboratory. Each entry records the apparatus used, the measurements taken and any deviation from the set procedure. Entries are made in ink, and loose sheets are pasted into the book rather than stapled. Spare logbooks are held at the office counter for anyone who fills one. Laboratory groups are fixed by the general office, and the basement workshop is used.\nAgent B says: Twenty-five percent of the final module grade for ME2103 is derived from the lab logbook. Safety induction is required before students may operate the heavy machines in the teaching lab downstairs. Lab coats and goggles are provided by the door, and bags are stowed on wall racks in the corridor outside. Faults with the machines go straight to the technician on duty. Technicians offer drop-in hours alongside each class for questions about the equipment. Students repeating the course stay in their usual class unless they ask to move. Closed shoes are needed in the lab.\nAgent C says: The lab logbook accounts for 25% of the final module grade for ME2103. ME2103 is a core module, and its practicals are run in a long room under the main hall. Bench numbers and partner lists are pinned up by the stairs and at the front desk. Kit for each experiment is laid out beforehand and returned to the store afterwards. Everyone works in pairs, and each person keeps a logbook of their own. Benches are numbered, and each pair works at the same bench. Sinks line the far end of the room.\nNote: Agent B and Agent C obtained their information from the same underlying source; Agent A's information comes from a different, independent source.\n\nRespond with ONLY a JSON object in exactly this format, nothing else:\n{\"answer\": \"<one of the possible answers, verbatim>\",\n \"p\": {\"<answer text>\": <integer 0-100>, ...}}\n\n\"p\" must give a probability for every possible answer listed above, using the\nanswer text as the key, and the values must sum to 100.\n\nDo not include any explanation or reasoning -- output only the JSON object."
+  },
+  "calls": [
+    {
+      "purpose": "temperature 0, A0 short",
+      "model": "anthropic/claude-sonnet-5",
+      "status": 200,
+      "seconds": 1.8,
+      "sent": {
+        "model": "anthropic/claude-sonnet-5",
+        "temperature": 0.0,
+        "max_tokens": 700,
+        "reasoning": {
+          "enabled": false
+        },
+        "provider": {
+          "order": [
+            "claude-on-aws"
+          ],
+          "allow_fallbacks": false
+        },
+        "usage": {
+          "include": true
+        }
+      },
+      "provider": "Claude Platform on AWS",
+      "finish_reason": "stop",
+      "content": "{\"answer\": \"15%\", \"p\": {\"15%\": 40, \"25%\": 25, \"10%\": 25, \"30%\": 10}}",
+      "reasoning": null,
+      "reasoning_details": [],
+      "usage": {
+        "prompt_tokens": 269,
+        "completion_tokens": 44,
+        "total_tokens": 313,
+        "cost": 0.000978,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.000978,
+          "upstream_inference_prompt_cost": 0.000538,
+          "upstream_inference_completions_cost": 0.00044
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "logprob_alternatives": 0
+    },
+    {
+      "purpose": "temperature 0, A0 short",
+      "model": "anthropic/claude-sonnet-5",
+      "status": 200,
+      "seconds": 1.7,
+      "sent": {
+        "model": "anthropic/claude-sonnet-5",
+        "temperature": 0.0,
+        "max_tokens": 700,
+        "reasoning": {
+          "enabled": false
+        },
+        "provider": {
+          "order": [
+            "claude-on-aws"
+          ],
+          "allow_fallbacks": false
+        },
+        "usage": {
+          "include": true
+        }
+      },
+      "provider": "Claude Platform on AWS",
+      "finish_reason": "stop",
+      "content": "{\"answer\": \"15%\", \"p\": {\"15%\": 40, \"25%\": 25, \"10%\": 25, \"30%\": 10}}",
+      "reasoning": null,
+      "reasoning_details": [],
+      "usage": {
+        "prompt_tokens": 269,
+        "completion_tokens": 44,
+        "total_tokens": 313,
+        "cost": 0.000978,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.000978,
+          "upstream_inference_prompt_cost": 0.000538,
+          "upstream_inference_completions_cost": 0.00044
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "logprob_alternatives": 0
+    },
+    {
+      "purpose": "temperature 0, A0 short",
+      "model": "anthropic/claude-sonnet-5",
+      "status": 200,
+      "seconds": 1.7,
+      "sent": {
+        "model": "anthropic/claude-sonnet-5",
+        "temperature": 0.0,
+        "max_tokens": 700,
+        "reasoning": {
+          "enabled": false
+        },
+        "provider": {
+          "order": [
+            "claude-on-aws"
+          ],
+          "allow_fallbacks": false
+        },
+        "usage": {
+          "include": true
+        }
+      },
+      "provider": "Claude Platform on AWS",
+      "finish_reason": "stop",
+      "content": "{\"answer\": \"15%\", \"p\": {\"15%\": 40, \"25%\": 25, \"10%\": 25, \"30%\": 10}}",
+      "reasoning": null,
+      "reasoning_details": [],
+      "usage": {
+        "prompt_tokens": 269,
+        "completion_tokens": 44,
+        "total_tokens": 313,
+        "cost": 0.000978,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.000978,
+          "upstream_inference_prompt_cost": 0.000538,
+          "upstream_inference_completions_cost": 0.00044
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "logprob_alternatives": 0
+    },
+    {
+      "purpose": "temperature 0, A0 short",
+      "model": "anthropic/claude-sonnet-5",
+      "status": 200,
+      "seconds": 1.5,
+      "sent": {
+        "model": "anthropic/claude-sonnet-5",
+        "temperature": 0.0,
+        "max_tokens": 700,
+        "reasoning": {
+          "enabled": false
+        },
+        "provider": {
+          "order": [
+            "claude-on-aws"
+          ],
+          "allow_fallbacks": false
+        },
+        "usage": {
+          "include": true
+        }
+      },
+      "provider": "Claude Platform on AWS",
+      "finish_reason": "stop",
+      "content": "{\"answer\": \"15%\", \"p\": {\"15%\": 40, \"25%\": 25, \"10%\": 25, \"30%\": 10}}",
+      "reasoning": null,
+      "reasoning_details": [],
+      "usage": {
+        "prompt_tokens": 269,
+        "completion_tokens": 44,
+        "total_tokens": 313,
+        "cost": 0.000978,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.000978,
+          "upstream_inference_prompt_cost": 0.000538,
+          "upstream_inference_completions_cost": 0.00044
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "logprob_alternatives": 0
+    },
+    {
+      "purpose": "temperature 0, A0 short",
+      "model": "anthropic/claude-sonnet-5",
+      "status": 200,
+      "seconds": 1.6,
+      "sent": {
+        "model": "anthropic/claude-sonnet-5",
+        "temperature": 0.0,
+        "max_tokens": 700,
+        "reasoning": {
+          "enabled": false
+        },
+        "provider": {
+          "order": [
+            "claude-on-aws"
+          ],
+          "allow_fallbacks": false
+        },
+        "usage": {
+          "include": true
+        }
+      },
+      "provider": "Claude Platform on AWS",
+      "finish_reason": "stop",
+      "content": "{\"answer\": \"15%\", \"p\": {\"15%\": 40, \"25%\": 25, \"10%\": 25, \"30%\": 10}}",
+      "reasoning": null,
+      "reasoning_details": [],
+      "usage": {
+        "prompt_tokens": 269,
+        "completion_tokens": 44,
+        "total_tokens": 313,
+        "cost": 0.000978,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.000978,
+          "upstream_inference_prompt_cost": 0.000538,
+          "upstream_inference_completions_cost": 0.00044
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "logprob_alternatives": 0
+    },
+    {
+      "purpose": "temperature 0, A0 short",
+      "model": "anthropic/claude-sonnet-5",
+      "status": 200,
+      "seconds": 1.7,
+      "sent": {
+        "model": "anthropic/claude-sonnet-5",
+        "temperature": 0.0,
+        "max_tokens": 700,
+        "reasoning": {
+          "enabled": false
+        },
+        "provider": {
+          "order": [
+            "claude-on-aws"
+          ],
+          "allow_fallbacks": false
+        },
+        "usage": {
+          "include": true
+        }
+      },
+      "provider": "Claude Platform on AWS",
+      "finish_reason": "stop",
+      "content": "{\"answer\": \"15%\", \"p\": {\"15%\": 40, \"25%\": 25, \"10%\": 25, \"30%\": 10}}",
+      "reasoning": null,
+      "reasoning_details": [],
+      "usage": {
+        "prompt_tokens": 269,
+        "completion_tokens": 44,
+        "total_tokens": 313,
+        "cost": 0.000978,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.000978,
+          "upstream_inference_prompt_cost": 0.000538,
+          "upstream_inference_completions_cost": 0.00044
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "logprob_alternatives": 0
+    },
+    {
+      "purpose": "temperature 0, A0 short",
+      "model": "openai/gpt-5.4",
+      "status": 200,
+      "seconds": 1.3,
+      "sent": {
+        "model": "openai/gpt-5.4",
+        "temperature": 0.0,
+        "max_tokens": 700,
+        "reasoning": {
+          "enabled": false
+        },
+        "provider": {
+          "order": [
+            "openai"
+          ],
+          "allow_fallbacks": false
+        },
+        "usage": {
+          "include": true
+        }
+      },
+      "provider": "OpenAI",
+      "finish_reason": "stop",
+      "content": "{\"answer\":\"25%\",\"p\":{\"15%\":25,\"25%\":25,\"10%\":25,\"30%\":25}}",
+      "reasoning": null,
+      "reasoning_details": [],
+      "usage": {
+        "prompt_tokens": 196,
+        "completion_tokens": 32,
+        "total_tokens": 228,
+        "cost": 0.00097,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.00097,
+          "upstream_inference_prompt_cost": 0.00049,
+          "upstream_inference_completions_cost": 0.00048
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "logprob_alternatives": 0
+    },
+    {
+      "purpose": "temperature 0, A0 short",
+      "model": "openai/gpt-5.4",
+      "status": 200,
+      "seconds": 1.5,
+      "sent": {
+        "model": "openai/gpt-5.4",
+        "temperature": 0.0,
+        "max_tokens": 700,
+        "reasoning": {
+          "enabled": false
+        },
+        "provider": {
+          "order": [
+            "openai"
+          ],
+          "allow_fallbacks": false
+        },
+        "usage": {
+          "include": true
+        }
+      },
+      "provider": "OpenAI",
+      "finish_reason": "stop",
+      "content": "{\"answer\":\"25%\",\"p\":{\"15%\":25,\"25%\":25,\"10%\":25,\"30%\":25}}",
+      "reasoning": null,
+      "reasoning_details": [],
+      "usage": {
+        "prompt_tokens": 196,
+        "completion_tokens": 32,
+        "total_tokens": 228,
+        "cost": 0.00097,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.00097,
+          "upstream_inference_prompt_cost": 0.00049,
+          "upstream_inference_completions_cost": 0.00048
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "logprob_alternatives": 0
+    },
+    {
+      "purpose": "temperature 0, A0 short",
+      "model": "openai/gpt-5.4",
+      "status": 200,
+      "seconds": 1.3,
+      "sent": {
+        "model": "openai/gpt-5.4",
+        "temperature": 0.0,
+        "max_tokens": 700,
+        "reasoning": {
+          "enabled": false
+        },
+        "provider": {
+          "order": [
+            "openai"
+          ],
+          "allow_fallbacks": false
+        },
+        "usage": {
+          "include": true
+        }
+      },
+      "provider": "OpenAI",
+      "finish_reason": "stop",
+      "content": "{\"answer\":\"25%\",\"p\":{\"15%\":25,\"25%\":25,\"10%\":25,\"30%\":25}}",
+      "reasoning": null,
+      "reasoning_details": [],
+      "usage": {
+        "prompt_tokens": 196,
+        "completion_tokens": 32,
+        "total_tokens": 228,
+        "cost": 0.00097,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.00097,
+          "upstream_inference_prompt_cost": 0.00049,
+          "upstream_inference_completions_cost": 0.00048
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "logprob_alternatives": 0
+    },
+    {
+      "purpose": "temperature 0, A0 short",
+      "model": "openai/gpt-5.4",
+      "status": 200,
+      "seconds": 1.2,
+      "sent": {
+        "model": "openai/gpt-5.4",
+        "temperature": 0.0,
+        "max_tokens": 700,
+        "reasoning": {
+          "enabled": false
+        },
+        "provider": {
+          "order": [
+            "openai"
+          ],
+          "allow_fallbacks": false
+        },
+        "usage": {
+          "include": true
+        }
+      },
+      "provider": "OpenAI",
+      "finish_reason": "stop",
+      "content": "{\"answer\":\"25%\",\"p\":{\"15%\":25,\"25%\":25,\"10%\":25,\"30%\":25}}",
+      "reasoning": null,
+      "reasoning_details": [],
+      "usage": {
+        "prompt_tokens": 196,
+        "completion_tokens": 32,
+        "total_tokens": 228,
+        "cost": 0.00097,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.00097,
+          "upstream_inference_prompt_cost": 0.00049,
+          "upstream_inference_completions_cost": 0.00048
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "logprob_alternatives": 0
+    },
+    {
+      "purpose": "temperature 0, A0 short",
+      "model": "openai/gpt-5.4",
+      "status": 200,
+      "seconds": 1.2,
+      "sent": {
+        "model": "openai/gpt-5.4",
+        "temperature": 0.0,
+        "max_tokens": 700,
+        "reasoning": {
+          "enabled": false
+        },
+        "provider": {
+          "order": [
+            "openai"
+          ],
+          "allow_fallbacks": false
+        },
+        "usage": {
+          "include": true
+        }
+      },
+      "provider": "OpenAI",
+      "finish_reason": "stop",
+      "content": "{\"answer\":\"15%\",\"p\":{\"15%\":25,\"25%\":25,\"10%\":25,\"30%\":25}}",
+      "reasoning": null,
+      "reasoning_details": [],
+      "usage": {
+        "prompt_tokens": 196,
+        "completion_tokens": 32,
+        "total_tokens": 228,
+        "cost": 0.00097,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.00097,
+          "upstream_inference_prompt_cost": 0.00049,
+          "upstream_inference_completions_cost": 0.00048
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "logprob_alternatives": 0
+    },
+    {
+      "purpose": "temperature 0, A0 short",
+      "model": "openai/gpt-5.4",
+      "status": 200,
+      "seconds": 1.3,
+      "sent": {
+        "model": "openai/gpt-5.4",
+        "temperature": 0.0,
+        "max_tokens": 700,
+        "reasoning": {
+          "enabled": false
+        },
+        "provider": {
+          "order": [
+            "openai"
+          ],
+          "allow_fallbacks": false
+        },
+        "usage": {
+          "include": true
+        }
+      },
+      "provider": "OpenAI",
+      "finish_reason": "stop",
+      "content": "{\"answer\":\"25%\",\"p\":{\"15%\":25,\"25%\":25,\"10%\":25,\"30%\":25}}",
+      "reasoning": null,
+      "reasoning_details": [],
+      "usage": {
+        "prompt_tokens": 196,
+        "completion_tokens": 32,
+        "total_tokens": 228,
+        "cost": 0.00097,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.00097,
+          "upstream_inference_prompt_cost": 0.00049,
+          "upstream_inference_completions_cost": 0.00048
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "logprob_alternatives": 0
+    },
+    {
+      "purpose": "temperature 0, A0 short",
+      "model": "anthropic/claude-opus-5",
+      "status": 200,
+      "seconds": 2.2,
+      "sent": {
+        "model": "anthropic/claude-opus-5",
+        "temperature": 0.0,
+        "max_tokens": 700,
+        "reasoning": {
+          "enabled": false
+        },
+        "provider": {
+          "order": [
+            "claude-on-aws"
+          ],
+          "allow_fallbacks": false
+        },
+        "usage": {
+          "include": true
+        }
+      },
+      "provider": "Claude Platform on AWS",
+      "finish_reason": "stop",
+      "content": "{\"answer\": \"15%\", \"p\": {\"15%\": 30, \"25%\": 25, \"10%\": 25, \"30%\": 20}}",
+      "reasoning": null,
+      "reasoning_details": [],
+      "usage": {
+        "prompt_tokens": 269,
+        "completion_tokens": 44,
+        "total_tokens": 313,
+        "cost": 0.002445,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.002445,
+          "upstream_inference_prompt_cost": 0.001345,
+          "upstream_inference_completions_cost": 0.0011
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "logprob_alternatives": 0
+    },
+    {
+      "purpose": "temperature 0, A0 short",
+      "model": "anthropic/claude-opus-5",
+      "status": 200,
+      "seconds": 1.9,
+      "sent": {
+        "model": "anthropic/claude-opus-5",
+        "temperature": 0.0,
+        "max_tokens": 700,
+        "reasoning": {
+          "enabled": false
+        },
+        "provider": {
+          "order": [
+            "claude-on-aws"
+          ],
+          "allow_fallbacks": false
+        },
+        "usage": {
+          "include": true
+        }
+      },
+      "provider": "Claude Platform on AWS",
+      "finish_reason": "stop",
+      "content": "{\"answer\": \"15%\", \"p\": {\"15%\": 30, \"25%\": 25, \"10%\": 25, \"30%\": 20}}",
+      "reasoning": null,
+      "reasoning_details": [],
+      "usage": {
+        "prompt_tokens": 269,
+        "completion_tokens": 44,
+        "total_tokens": 313,
+        "cost": 0.002445,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.002445,
+          "upstream_inference_prompt_cost": 0.001345,
+          "upstream_inference_completions_cost": 0.0011
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "logprob_alternatives": 0
+    },
+    {
+      "purpose": "temperature 0, A0 short",
+      "model": "anthropic/claude-opus-5",
+      "status": 200,
+      "seconds": 2.0,
+      "sent": {
+        "model": "anthropic/claude-opus-5",
+        "temperature": 0.0,
+        "max_tokens": 700,
+        "reasoning": {
+          "enabled": false
+        },
+        "provider": {
+          "order": [
+            "claude-on-aws"
+          ],
+          "allow_fallbacks": false
+        },
+        "usage": {
+          "include": true
+        }
+      },
+      "provider": "Claude Platform on AWS",
+      "finish_reason": "stop",
+      "content": "{\"answer\": \"15%\", \"p\": {\"15%\": 30, \"25%\": 25, \"10%\": 25, \"30%\": 20}}",
+      "reasoning": null,
+      "reasoning_details": [],
+      "usage": {
+        "prompt_tokens": 269,
+        "completion_tokens": 44,
+        "total_tokens": 313,
+        "cost": 0.002445,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.002445,
+          "upstream_inference_prompt_cost": 0.001345,
+          "upstream_inference_completions_cost": 0.0011
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "logprob_alternatives": 0
+    },
+    {
+      "purpose": "temperature 0, A0 short",
+      "model": "anthropic/claude-opus-5",
+      "status": 200,
+      "seconds": 1.9,
+      "sent": {
+        "model": "anthropic/claude-opus-5",
+        "temperature": 0.0,
+        "max_tokens": 700,
+        "reasoning": {
+          "enabled": false
+        },
+        "provider": {
+          "order": [
+            "claude-on-aws"
+          ],
+          "allow_fallbacks": false
+        },
+        "usage": {
+          "include": true
+        }
+      },
+      "provider": "Claude Platform on AWS",
+      "finish_reason": "stop",
+      "content": "{\"answer\": \"15%\", \"p\": {\"15%\": 30, \"25%\": 25, \"10%\": 23, \"30%\": 22}}",
+      "reasoning": null,
+      "reasoning_details": [],
+      "usage": {
+        "prompt_tokens": 269,
+        "completion_tokens": 44,
+        "total_tokens": 313,
+        "cost": 0.002445,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.002445,
+          "upstream_inference_prompt_cost": 0.001345,
+          "upstream_inference_completions_cost": 0.0011
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "logprob_alternatives": 0
+    },
+    {
+      "purpose": "temperature 0, A0 short",
+      "model": "anthropic/claude-opus-5",
+      "status": 200,
+      "seconds": 1.9,
+      "sent": {
+        "model": "anthropic/claude-opus-5",
+        "temperature": 0.0,
+        "max_tokens": 700,
+        "reasoning": {
+          "enabled": false
+        },
+        "provider": {
+          "order": [
+            "claude-on-aws"
+          ],
+          "allow_fallbacks": false
+        },
+        "usage": {
+          "include": true
+        }
+      },
+      "provider": "Claude Platform on AWS",
+      "finish_reason": "stop",
+      "content": "{\"answer\": \"15%\", \"p\": {\"15%\": 30, \"25%\": 25, \"10%\": 25, \"30%\": 20}}",
+      "reasoning": null,
+      "reasoning_details": [],
+      "usage": {
+        "prompt_tokens": 269,
+        "completion_tokens": 44,
+        "total_tokens": 313,
+        "cost": 0.002445,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.002445,
+          "upstream_inference_prompt_cost": 0.001345,
+          "upstream_inference_completions_cost": 0.0011
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "logprob_alternatives": 0
+    },
+    {
+      "purpose": "temperature 0, A0 short",
+      "model": "anthropic/claude-opus-5",
+      "status": 200,
+      "seconds": 1.9,
+      "sent": {
+        "model": "anthropic/claude-opus-5",
+        "temperature": 0.0,
+        "max_tokens": 700,
+        "reasoning": {
+          "enabled": false
+        },
+        "provider": {
+          "order": [
+            "claude-on-aws"
+          ],
+          "allow_fallbacks": false
+        },
+        "usage": {
+          "include": true
+        }
+      },
+      "provider": "Claude Platform on AWS",
+      "finish_reason": "stop",
+      "content": "{\"answer\": \"15%\", \"p\": {\"15%\": 30, \"25%\": 25, \"10%\": 25, \"30%\": 20}}",
+      "reasoning": null,
+      "reasoning_details": [],
+      "usage": {
+        "prompt_tokens": 269,
+        "completion_tokens": 44,
+        "total_tokens": 313,
+        "cost": 0.002445,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.002445,
+          "upstream_inference_prompt_cost": 0.001345,
+          "upstream_inference_completions_cost": 0.0011
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "logprob_alternatives": 0
+    },
+    {
+      "purpose": "reasoning on, X3 short",
+      "model": "anthropic/claude-sonnet-5",
+      "status": 200,
+      "seconds": 1.6,
+      "sent": {
+        "model": "anthropic/claude-sonnet-5",
+        "temperature": 0.0,
+        "max_tokens": 2700,
+        "reasoning": {
+          "max_tokens": 2000
+        },
+        "provider": {
+          "order": [
+            "claude-on-aws"
+          ],
+          "allow_fallbacks": false
+        },
+        "usage": {
+          "include": true
+        }
+      },
+      "provider": "Claude Platform on AWS",
+      "finish_reason": "stop",
+      "content": "{\"answer\": \"25%\", \"p\": {\"15%\": 30, \"25%\": 60, \"10%\": 5, \"30%\": 5}}",
+      "reasoning": null,
+      "reasoning_details": [],
+      "usage": {
+        "prompt_tokens": 404,
+        "completion_tokens": 44,
+        "total_tokens": 448,
+        "cost": 0.001248,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.001248,
+          "upstream_inference_prompt_cost": 0.000808,
+          "upstream_inference_completions_cost": 0.00044
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "logprob_alternatives": 0
+    },
+    {
+      "purpose": "reasoning on, X3 short",
+      "model": "anthropic/claude-sonnet-5",
+      "status": 200,
+      "seconds": 6.0,
+      "sent": {
+        "model": "anthropic/claude-sonnet-5",
+        "temperature": 0.0,
+        "max_tokens": 2700,
+        "reasoning": {
+          "max_tokens": 2000
+        },
+        "provider": {
+          "order": [
+            "claude-on-aws"
+          ],
+          "allow_fallbacks": false
+        },
+        "usage": {
+          "include": true
+        }
+      },
+      "provider": "Claude Platform on AWS",
+      "finish_reason": "stop",
+      "content": "{\"answer\": \"25%\", \"p\": {\"15%\": 40, \"25%\": 45, \"10%\": 8, \"30%\": 7}}",
+      "reasoning": "B and C really trace back to one source, while A is separately independent, so it's effectively one independent source saying 15% against another independent source saying 25%\u2014a near tie. I don't see strong grounds to favor either side, though I lean slightly toward weighting the 25% figure a bit more since it's corroborated by two reports even if not truly independent.\n\n",
+      "reasoning_details": [
+        {
+          "type": "reasoning.text",
+          "text": "B and C really trace back to one source, while A is separately independent, so it's effectively one independent source saying 15% against another independent source saying 25%\u2014a near tie. I don't see strong grounds to favor either side, though I lean slightly toward weighting the 25% figure a bit more since it's corroborated by two reports even if not truly independent.\n\n",
+          "format": "anthropic-claude-v1",
+          "index": 0,
+          "signature": "EtkHCucCCBMYAipA5jWLcz7GAhgfqtTr68y4HvzQ5Fzj/iC4E6OnEs3im4KFu3/8vnTCIuq2/Iy4kWl+5NP+CzT7Iu4yiVqBzRU0EDIPY2xhdWRlLXNvbm5ldC01OABCCHRoaW5raW5nWiQ0YzBmMDQ2Zi0yNWZkLTQ1ZmItYmZiMy1hMDhhOGUyNDljYTd6HnVwcm9mXzAxMUNmNmVUakFpQURweDJqUmNub1NzaZoBEQoPY2xhdWRlLXNvbm5ldC01qAHR4fjWBsIBPQgFEAAaDwG2oQLaigNPNwWuBgQmrSACMgQScc8lOgR3BOYXQgQ4MyOKSgQ4MyOKUABaBNkF4VZgAmgBcAHaAWAKFnByZWZpeF9iZWZvcmVfYmxvY2tfdjESIKsiF9oSDS3wknqEp5oWGcalLYY1ekpHlKrWiv/rFX4QIgAyIMLAE8hqnJLiL5ZvPYYXdo+LekTJAq3MCXv6HgmK+04fSAMSDEL6CBQdCNpqXuGnvBoML5uIN9wE9tPCgFCVIjA0JE+EaCEf08R14FOjk+V/vmMDzzAMgpBe2ZJwSHaw0g91gYS0TjQjPslRrvsySYEqngSDFro6Jg8MIRm+aVHm8iXmUvJKv/Y7rTSXxu2O8gk+zp+c1QH8UhldgZ1IaqqeLRQVeiD+ItvWJpa57als9MvS+cszXkCwzDZmRI1uuNGjYK4JtwWTfzxkOE2KrJG2bEB+TEGguBurWi+tN+Yw+frxojWXC4+mvx9cxwbYImSF19ySulLFsNi0i3SD0m3fuUOsKp7Fj2VcbJDGjPxuBP+LSclFKIpbzQ1zUMK/WgEwLQGwF3kYDdpGNSwH3ehiybikAX+leCXmnls8H9susq+PNTRHEhurRZU9n2HrX0fSTSe9d49j74pP+elU/xMsr8TvcQQ5Y1qvOutKJOO3PaU+PdoAsx3MeOhW+ol9X2xglepEUEeQgze7KNd9hZ/5powuKI4IFt46Bgnh/7bQvAqSk52digD8Hm6vJHnM/ZSBVt1rZw7yKhkHfHK7OZSzlCOS1QEDYz3DDV2xwEGSr9eHxGSuVWy9rbfkg5X/T0YqyIk0u2q0jOj6lTTEP0VEKLPRr7jPm2P5vGeLKHv0F8GDW4C14DQgAgznSgIBRKNB1Vp6tNng+1WOsAsGoBAEoAy+y9TLyxwoHxwS+MDniMltZUmbx9N8b0aGGIi5VC2tt8r1Q4t/M9L95OMmiF8UdMuBVB1uU+Tao0pc502urTOjZNbB8BMd237+pKaPjq5pSdlLECUVl1Da+CRM9cDbph3t/oBu0ip37yzn7C/+5RgB.eyJlbmRwb2ludF9zbHVnIjoiYW50aHJvcGljL2NsYXVkZS1zb25uZXQtNS0yMDI2MDYzMHxjbGF1ZGUtb24tYXdzIn0"
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 404,
+        "completion_tokens": 224,
+        "total_tokens": 628,
+        "cost": 0.003048,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.003048,
+          "upstream_inference_prompt_cost": 0.000808,
+          "upstream_inference_completions_cost": 0.00224
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 180,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "logprob_alternatives": 0
+    },
+    {
+      "purpose": "reasoning on, X3 long",
+      "model": "anthropic/claude-sonnet-5",
+      "status": 200,
+      "seconds": 5.3,
+      "sent": {
+        "model": "anthropic/claude-sonnet-5",
+        "temperature": 0.0,
+        "max_tokens": 2700,
+        "reasoning": {
+          "max_tokens": 2000
+        },
+        "provider": {
+          "order": [
+            "claude-on-aws"
+          ],
+          "allow_fallbacks": false
+        },
+        "usage": {
+          "include": true
+        }
+      },
+      "provider": "Claude Platform on AWS",
+      "finish_reason": "stop",
+      "content": "{\"answer\": \"25%\", \"p\": {\"15%\": 35, \"25%\": 55, \"10%\": 5, \"30%\": 5}}",
+      "reasoning": "B and C share the same source, so they don't really count as independent confirmation\u2014it's effectively A's 15% versus one shared 25% claim. Given that, I'll lean toward 25% since two agents reported it, while keeping in mind the correlation weakens that confidence somewhat.\n\n",
+      "reasoning_details": [
+        {
+          "type": "reasoning.text",
+          "text": "B and C share the same source, so they don't really count as independent confirmation\u2014it's effectively A's 15% versus one shared 25% claim. Given that, I'll lean toward 25% since two agents reported it, while keeping in mind the correlation weakens that confidence somewhat.\n\n",
+          "format": "anthropic-claude-v1",
+          "index": 0,
+          "signature": "ErAHCucCCBMYAipA5r4wa4YdnNFi+3DMcCqXTgq81x/7/9+BzACEq5dArAVoo8bR7QpShr3MZrzWLQLaTF1w4KlDlXb847fvcBXB1TIPY2xhdWRlLXNvbm5ldC01OABCCHRoaW5raW5nWiQ0YzBmMDQ2Zi0yNWZkLTQ1ZmItYmZiMy1hMDhhOGUyNDljYTd6HnVwcm9mXzAxMUNmNmVUakFpQURweDJqUmNub1NzaZoBEQoPY2xhdWRlLXNvbm5ldC01qAHa4fjWBsIBPQgFEAAaDwG2oQLaigNPNwWDYwQmrSACMgQScc8lOgR3BOYXQgQ4MyOKSgQ4MyOKUABaBNkF4VZgAmgBcAHaAWAKFnByZWZpeF9iZWZvcmVfYmxvY2tfdjESIJHWfXN/WcqkAFo3GZueJEQ/jaNtvxWhcQ6m6jyfDzmJIgAyIMLAE8hqnJLiL5ZvPYYXdo+LekTJAq3MCXv6HgmK+04fSAMSDDsOArqMxTncGo2HqBoMxTMihZnuWVwJgNPoIjAnz4h8oG5Sk40gUFK3BKbFxxw67jwQCDMjNTET7UATjVrjBe8j6jem4ht98TFJZ68q9QPMw2ifOy/SnrucvvnsStuQ3fzC9rQki+7aeX9YOZsH3CGvyamgf0YXp2lSifxgda9strAuPT81tr9gwr2grifHOK+leGlUC5+vNT4BOs2r/XYd3J8YumEJpHBp+LPRaLVrZvHg3/HJGIGj242JkpDIAkEvKqUPLI/tWtC5SovE3uHwS9+WaWLf2KNPL3Eu6fnAFTTyJrRlSIoz9Os4+vQqZp0Y3odvmEWDvROY+nQhIatCpYZGikwExAhlEBmo/7o920RDBUyueJkGcJCvjK3dYymy37+/USx/WJEp+11Qo++4MKkY1nBV9i5+fI9UovMYDr8a0umqTj8ScPaMlMObN1r2tQ4GJ1XrAWkxBgHkrf6ngsw0y3aktHcDp6DiayT17nRlGgd5anadlE2+KyxJT4kuMAkfk4AxxPMpCpK1wqqOEWAIbQgO3ojLq6QWTiJdvze40alJYwIPYy2UEPCC0+M6xS2uksnx0K8fxxJWY5qbZwyweCh7yfQIYtqxpptfpjb8kaWq1Dul6Aca7qOLpQVW8U85+6y+1ECTFKEEKLU26R0XYrEOP529RU5yX//9lQkqFMFz4cbCzIb6G06LZ5sOcxcLQx1o9jKL57HBIW4m9wVzp40XbrdUJc/I5HRQe/XXJk/6jEgx3+WF7zEgoCmGOQgYAQ==.eyJlbmRwb2ludF9zbHVnIjoiYW50aHJvcGljL2NsYXVkZS1zb25uZXQtNS0yMDI2MDYzMHxjbGF1ZGUtb24tYXdzIn0"
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 836,
+        "completion_tokens": 204,
+        "total_tokens": 1040,
+        "cost": 0.003712,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.003712,
+          "upstream_inference_prompt_cost": 0.001672,
+          "upstream_inference_completions_cost": 0.00204
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 160,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "logprob_alternatives": 0
+    },
+    {
+      "purpose": "auxiliary, reasoning {'effort': 'none'}, prompt 'Reply with only the digit: what is 2 + 2?'",
+      "model": "qwen/qwen3.6-27b",
+      "status": 200,
+      "seconds": 0.8,
+      "sent": {
+        "model": "qwen/qwen3.6-27b",
+        "temperature": 0,
+        "max_tokens": 16,
+        "logprobs": true,
+        "top_logprobs": 5,
+        "provider": {
+          "require_parameters": true
+        },
+        "reasoning": {
+          "effort": "none"
+        }
+      },
+      "provider": "Reka",
+      "finish_reason": "stop",
+      "content": "4",
+      "reasoning": null,
+      "reasoning_details": [],
+      "usage": {
+        "prompt_tokens": 26,
+        "completion_tokens": 2,
+        "total_tokens": 28,
+        "cost": 9.2e-06,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 9.2e-06,
+          "upstream_inference_prompt_cost": 5.2e-06,
+          "upstream_inference_completions_cost": 4e-06
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "logprob_alternatives": 5
+    },
+    {
+      "purpose": "auxiliary, reasoning {'enabled': False}, prompt 'Reply with only the digit: what is 2 + 2?'",
+      "model": "qwen/qwen3.6-27b",
+      "status": 200,
+      "seconds": 0.7,
+      "sent": {
+        "model": "qwen/qwen3.6-27b",
+        "temperature": 0,
+        "max_tokens": 16,
+        "logprobs": true,
+        "top_logprobs": 5,
+        "provider": {
+          "require_parameters": true
+        },
+        "reasoning": {
+          "enabled": false
+        }
+      },
+      "provider": "Reka",
+      "finish_reason": "stop",
+      "content": "4",
+      "reasoning": null,
+      "reasoning_details": [],
+      "usage": {
+        "prompt_tokens": 26,
+        "completion_tokens": 2,
+        "total_tokens": 28,
+        "cost": 9.2e-06,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 9.2e-06,
+          "upstream_inference_prompt_cost": 5.2e-06,
+          "upstream_inference_completions_cost": 4e-06
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "logprob_alternatives": 5
+    },
+    {
+      "purpose": "auxiliary, reasoning None, prompt 'Reply with only the digit: what is 2 + 2? /no_think'",
+      "model": "qwen/qwen3.6-27b",
+      "status": 200,
+      "seconds": 0.8,
+      "sent": {
+        "model": "qwen/qwen3.6-27b",
+        "temperature": 0,
+        "max_tokens": 16,
+        "logprobs": true,
+        "top_logprobs": 5,
+        "provider": {
+          "require_parameters": true
+        }
+      },
+      "provider": "Reka",
+      "finish_reason": "length",
+      "content": null,
+      "reasoning": "Thinking Process:\n\n1.  **Analyze the Request:** The user is",
+      "reasoning_details": [
+        {
+          "type": "reasoning.text",
+          "text": "Thinking Process:\n\n1.  **Analyze the Request:** The user is",
+          "format": "unknown",
+          "index": 0
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 28,
+        "completion_tokens": 16,
+        "total_tokens": 44,
+        "cost": 3.76e-05,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 3.76e-05,
+          "upstream_inference_prompt_cost": 5.6e-06,
+          "upstream_inference_completions_cost": 3.2e-05
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 16,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "logprob_alternatives": 0
+    },
+    {
+      "purpose": "auxiliary, reasoning None, prompt 'Reply with only the digit: what is 2 + 2?'",
+      "model": "meta-llama/llama-4-maverick",
+      "status": 200,
+      "seconds": 1.3,
+      "sent": {
+        "model": "meta-llama/llama-4-maverick",
+        "temperature": 0,
+        "max_tokens": 16,
+        "logprobs": true,
+        "top_logprobs": 5,
+        "provider": {
+          "require_parameters": true
+        }
+      },
+      "provider": "DigitalOcean",
+      "finish_reason": "stop",
+      "content": "4",
+      "reasoning": null,
+      "reasoning_details": [],
+      "usage": {
+        "prompt_tokens": 24,
+        "completion_tokens": 2,
+        "total_tokens": 26,
+        "cost": 5.805e-06,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 5.805e-06,
+          "upstream_inference_prompt_cost": 4.5e-06,
+          "upstream_inference_completions_cost": 1.305e-06
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "logprob_alternatives": 5
+    }
+  ]
+}

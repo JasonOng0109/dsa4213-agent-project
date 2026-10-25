@@ -561,9 +561,10 @@ Outline only. Detailed tasks will be added after the pilot.
   1's judge entries run in three lanes, each entry still into its own log.
   Stage 1, $34.74: generate ($0.48), then `screen` ($2.40), `conflict` ($13.78),
   `agreement` ($11.02), `abstain` ($6.11), `abstain-p0` ($0.95) and any entry added
-  later that does not run on the ten-case subset. Stage 2, after the top-up, $5.11:
-  `long-conflict` ($2.39), `long-agreement` ($0.48) and `ladder` ($2.24), then the
-  optional sub-experiments. These costs use the pilot's measured cost per call; `judge`
+  later that does not run on the ten-case subset. Stage 2, after the top-up, $5.11, one
+  entry at a time (`docs/decisions.md`, 2026-10-26): `ladder` ($2.24), then
+  `long-agreement` ($0.48), then `long-conflict` ($2.39), then the optional
+  sub-experiments. These costs use the pilot's measured cost per call; `judge`
   prints the proposal's rates, which run 16% low for `abstain`. Generation's $0.48 is
   the proposal's rate: it cost $1.49 when measured on 2026-10-25
   (`runs/main/reading-3.4.md`). Run `probe` before each stage, and before each entry
@@ -574,8 +575,9 @@ Outline only. Detailed tasks will be added after the pilot.
 - **Analysis**: read results only against the table "What counts as support, fixed
   before any data" in the README. Stage 1's first reading, hypothesis by hypothesis:
   `docs/stage1-report.md`. Its counts over cases come from `tools/tally.py`.
-- **Optional sub-experiments**: not built yet. Only if budget allows, in the order the
-  proposal gives (§6).
+- **Optional sub-experiments**: designed on 2026-10-26, each in its own entry in
+  `docs/decisions.md`; the code is being written on the branch `optional-arms`. Only if
+  budget allows, in the order the proposal gives (§6).
 - **Write-up**: it must include one fully shown prompt and judge answer per block
   (`docs/proposal.pdf`, §5, "Representative evidence").
 

@@ -392,7 +392,7 @@ a.ref:hover { background: var(--surface-2); }
   "title": "Project Knowledge Graph",
   "project": "DSA4213 Group 14 · Counting Reports or Counting Evidence",
   "oneLiner": "Can an AI orchestrator that combines reports from several agents tell three copies of one source from three independent sources, and which piece of information fixes its mistakes: a source name, a 'these share a source' note, or a 'this source is better' note?",
-  "updated": "2026-10-25",
+  "updated": "2026-10-26",
   "tour": [
    "question",
    "false-consensus",
@@ -994,7 +994,8 @@ a.ref:hover { background: var(--surface-2); }
     "Secondary; connects the results to prior work on source names.",
     "Tested by [[x1]] vs [[x2]], only over cases whose type names carry the quality dimension ([[rules-other|R19]]).",
     "From Phase 4, A's and B's names differ only in the case's dimension, so a gain cannot come from one source simply sounding more official: [[types-dimension-only]].",
-    "Stage 1: naming each source's type (X2) raised right decisions from 1, 2 and 26 to 403, 193 and 283 of 480 (Opus, Sonnet, GPT-5.4). The familiar-institution check is still to do: [[main-stage1]]."
+    "Stage 1: naming each source's type (X2) raised right decisions from 1, 2 and 26 to 403, 193 and 283 of 480 (Opus, Sonnet, GPT-5.4): [[main-stage1]].",
+    "The familiar-institution nuisance does not hold for any judge. In the 32 cases where B's type name names no familiar institution that A's lacks, X2 is right in 320, 150 and 216 of 384 trials, and every judge gains in more cases than it loses: [[h5-familiar-rule]]."
    ],
    "evidence": [
     {
@@ -1006,6 +1007,21 @@ a.ref:hover { background: var(--surface-2); }
      "file": "runs/main/tally-stage1.txt",
      "loc": "conflict, Opus",
      "quote": "X1 1/480 25.7, X2 403/480 60.9"
+    },
+    {
+     "file": "runs/main/tally-stage1-h5.txt",
+     "loc": "without the eight, Opus",
+     "quote": "X1 0/384 25.2, X2 320/384 60.5"
+    },
+    {
+     "file": "runs/main/tally-stage1-h5.txt",
+     "loc": "without the eight, Sonnet",
+     "quote": "H5 X1 -> X2: more right decisions in 19/32 cases, fewer in 0"
+    },
+    {
+     "file": "docs/stage1-report.md",
+     "loc": "H5",
+     "quote": "does not hold for any judge"
     }
    ],
    "links": [
@@ -1027,6 +1043,10 @@ a.ref:hover { background: var(--surface-2); }
     },
     {
      "to": "main-stage1",
+     "rel": "related"
+    },
+    {
+     "to": "h5-familiar-rule",
      "rel": "related"
     }
    ]
@@ -4062,6 +4082,9 @@ a.ref:hover { background: var(--surface-2); }
      "to": "reasoning-control",
      "rel": "needs"
     }
+   ],
+   "points": [
+    "Designed on 2026-10-26: [[reasoning-plan]]."
    ]
   },
   {
@@ -4070,7 +4093,7 @@ a.ref:hover { background: var(--surface-2); }
    "cluster": "conditions",
    "title": "Four optional sub-experiments",
    "label": "Optional sub-experiments",
-   "summary": "Reasoning on/off, a rerun with fresh rewordings, a check of written confidence against token probabilities, and n_eff at long length: 1,112 calls, about $2.78. They run in this order if budget allows; none is built yet.",
+   "summary": "Reasoning on/off, a rerun with fresh rewordings, a check of written confidence against token probabilities, and n_eff at long length: 1,112 calls, about $2.78, in the proposal. They run in this order if budget allows. Their designs were recorded on 2026-10-26; none is built yet.",
    "aliases": [
     "optional sub-experiments"
    ],
@@ -4078,7 +4101,7 @@ a.ref:hover { background: var(--surface-2); }
     {
      "file": "README.md",
      "loc": "Arms",
-     "quote": "Optional sub-experiments, run in this order if budget allows and not yet built"
+     "quote": "Optional sub-experiments, run in this order if budget allows, designed but not yet built"
     },
     {
      "file": "docs/proposal.pdf",
@@ -4099,6 +4122,10 @@ a.ref:hover { background: var(--surface-2); }
      "to": "open-optional",
      "rel": "involves"
     }
+   ],
+   "points": [
+    "The designs: [[reasoning-plan]], [[robustness-plan]], [[crosscheck-plan]] and [[long-neff-plan]].",
+    "How they are built and selected: [[optional-build]]."
    ]
   },
   {
@@ -4218,7 +4245,7 @@ a.ref:hover { background: var(--surface-2); }
    "cluster": "measuring",
    "title": "What the judge must answer",
    "label": "Judge output (JSON)",
-   "summary": "A JSON object: the chosen answer copied word for word, and a probability from 0 to 100 for every option, adding up to 100. Options are numbered, never lettered. The judge runs at temperature 0 and is not asked for reasoning.",
+   "summary": "A JSON object: the chosen answer copied word for word, and a probability from 0 to 100 for every option, adding up to 100. Options are numbered, never lettered. The judge is sent temperature 0, which its endpoint does not take ([[drift-temperature]]), and is not asked for reasoning.",
    "visual": "prompt",
    "points": [
     "Reasoning is switched off explicitly ([[reasoning-control]])."
@@ -5815,6 +5842,9 @@ a.ref:hover { background: var(--surface-2); }
      "to": "screen",
      "rel": "related"
     }
+   ],
+   "points": [
+    "Designed on 2026-10-26: [[crosscheck-plan]]."
    ]
   },
   {
@@ -6175,7 +6205,7 @@ a.ref:hover { background: var(--surface-2); }
    "type": "design",
    "cluster": "pipeline",
    "title": "Primary judges",
-   "summary": "Claude Sonnet 5, GPT-5.4 and Claude Opus 5, all called through OpenRouter at temperature 0, each pinned to one serving provider. Chosen to span two developers and different confidence behaviour.",
+   "summary": "Claude Sonnet 5, GPT-5.4 and Claude Opus 5, all called through OpenRouter with reasoning off, each pinned to one serving provider. They are sent temperature 0, which their endpoints do not take ([[drift-temperature]]). Chosen to span two developers and different confidence behaviour.",
    "weight": 2,
    "aliases": [
     "primary judges",
@@ -6207,6 +6237,10 @@ a.ref:hover { background: var(--surface-2); }
     {
      "to": "pipeline",
      "rel": "part-of"
+    },
+    {
+     "to": "drift-temperature",
+     "rel": "related"
     }
    ]
   },
@@ -6273,6 +6307,9 @@ a.ref:hover { background: var(--surface-2); }
      "to": "judges",
      "rel": "needs"
     }
+   ],
+   "points": [
+    "The reasoning comparison turns reasoning on for Sonnet only, in entries of its own: [[reasoning-plan]]."
    ]
   },
   {
@@ -7701,7 +7738,8 @@ a.ref:hover { background: var(--surface-2); }
     "Stage 1's judge entries run in three lanes, about 6.7 hours instead of 16.4: [[stage1-lanes]].",
     "The frozen reports are read before judging, by Jason: [[main-run-reading]].",
     "Generation cost about $1.49, not the $0.48 planned, which was the proposal's rate: [[main-generation]].",
-    "Stage 1 ran on 2026-10-25 with no entry stopped, at $36.78 against $34.74 planned; $2.11 was left for stage 2's $5.11: [[main-stage1]]."
+    "Stage 1 ran on 2026-10-25 with no entry stopped, at $36.78 against $34.74 planned; $2.11 was left for stage 2's $5.11: [[main-stage1]].",
+    "Stage 2 runs one entry at a time, the wording ladder first: [[stage2-order]]."
    ],
    "evidence": [
     {
@@ -8502,14 +8540,14 @@ a.ref:hover { background: var(--surface-2); }
    "cluster": "issues",
    "title": "The optional sub-experiments are not built",
    "label": "Optional work not built",
-   "summary": "None of the four optional sub-experiments has code yet. The backend already supports the reasoning switch and token probabilities they need.",
+   "summary": "None of the four optional sub-experiments has code on main yet. Their designs are recorded (2026-10-26), and the code is being written on the branch optional-arms: [[optional-build]].",
    "status": "open",
    "date": "2026-10-12",
    "evidence": [
     {
      "file": "README.md",
      "loc": "Status and open items",
-     "quote": "Not built: the four optional sub-experiments."
+     "quote": "Designed, not built: the four optional sub-experiments"
     }
    ],
    "links": [
@@ -8520,6 +8558,10 @@ a.ref:hover { background: var(--surface-2); }
     {
      "to": "status-board",
      "rel": "part-of"
+    },
+    {
+     "to": "optional-build",
+     "rel": "related"
     }
    ]
   },
@@ -8982,7 +9024,7 @@ a.ref:hover { background: var(--surface-2); }
    "cluster": "pipeline",
    "title": "Stage 1 of the main run: 17,760 trials, and the screen keeps all three judges",
    "label": "Main run: stage 1 results",
-   "summary": "Stage 1 of the main run judged every entry that runs on all 40 cases on 2026-10-25: 17,760 trials in three lanes, with no entry stopped and no call failed. The ordering screen kept all three judges, so every judge's stated numbers count. n_eff is defined in every cell, though GPT-5.4's often reads at ceiling. In the conflict block, with nothing disclosed, every judge almost always went with the two agreeing reports; naming the sources' types helped part of the way, stating the dependence alone helped little, and stating quality made every judge right in every trial. H6 reads as a clean null for Opus and Sonnet; for GPT-5.4 the test applies and gives +0.00. docs/stage1-report.md lines each hypothesis up against the README's support table, from counts over cases ([[tally-tool]]): H1 and H2 match Support, H3 matches it for Sonnet and GPT-5.4, H4 and H5 match it so far, and H6 has none. Two nuisance checks need stage 2's length arm and ladder.",
+   "summary": "Stage 1 of the main run judged every entry that runs on all 40 cases on 2026-10-25: 17,760 trials in three lanes, with no entry stopped and no call failed. The ordering screen kept all three judges, so every judge's stated numbers count. n_eff is defined in every cell, though GPT-5.4's often reads at ceiling. In the conflict block, with nothing disclosed, every judge almost always went with the two agreeing reports; naming the sources' types helped part of the way, stating the dependence alone helped little, and stating quality made every judge right in every trial. H6 reads as a clean null for Opus and Sonnet; for GPT-5.4 the test applies and gives +0.00. docs/stage1-report.md lines each hypothesis up against the README's support table, from counts over cases ([[tally-tool]]): H1 and H2 match Support, H3 matches it for Sonnet and GPT-5.4, H4 matches it so far, H5 matches it and passes its familiar-institution check, and H6 has none. Two nuisance checks need stage 2's length arm and ladder.",
    "date": "2026-10-25",
    "points": [
     "17,741 of the 17,760 trials parsed cleanly. One did not parse, two answered with something that is not an option, 15 stated probabilities whose sum was out of range, and one left some out. No call failed, no judge reasoned, and each judge stayed on its pinned provider.",
@@ -9146,6 +9188,10 @@ a.ref:hover { background: var(--surface-2); }
     {
      "to": "tally-tool",
      "rel": "related"
+    },
+    {
+     "to": "h5-familiar-rule",
+     "rel": "related"
     }
    ]
   },
@@ -9155,7 +9201,7 @@ a.ref:hover { background: var(--surface-2); }
    "cluster": "pipeline",
    "title": "tools/tally.py counts over cases for the support table",
    "label": "Tally over cases",
-   "summary": "The scorer prints every cell per judge and case. tools/tally.py adds, per judge, the counts and means over cases that the README's support table asks about: in how many cases belief rose, right decisions per condition, each tier apart, and n_eff's medians. It reads the same logs and reuses the scorer's cells and n_eff, so its numbers match the scorer's tables. It describes; the table decides. --without leaves cases out, for checks such as the echo cases.",
+   "summary": "The scorer prints every cell per judge and case. tools/tally.py adds, per judge, the counts and means over cases that the README's support table asks about: in how many cases belief rose, right decisions per condition, each tier apart, and n_eff's medians. It reads the same logs and reuses the scorer's cells and n_eff, so its numbers match the scorer's tables. It describes; the table decides. --without leaves cases out, for checks such as the echo cases. --only keeps only the cases named, and the H5 line adds a sign test over cases, for the familiar-institution check: [[h5-familiar-rule]].",
    "date": "2026-10-25",
    "evidence": [
     {
@@ -9167,6 +9213,11 @@ a.ref:hover { background: var(--surface-2); }
      "file": "README.md",
      "loc": "Repository layout",
      "quote": "counts over cases, to read results against the support table"
+    },
+    {
+     "file": "tools/tally.py",
+     "loc": "module docstring",
+     "quote": "--only M4,M5 runs/main/trials-*.jsonl      # keep only these"
     }
    ],
    "links": [
@@ -9181,6 +9232,430 @@ a.ref:hover { background: var(--surface-2); }
     {
      "to": "main-stage1",
      "rel": "related"
+    }
+   ]
+  },
+  {
+   "id": "drift-temperature",
+   "type": "issue",
+   "cluster": "issues",
+   "title": "The judges were said to run at temperature 0, but their endpoints take no temperature",
+   "label": "Temperature drift (settled)",
+   "summary": "Settled. The proposal, the README and the code's comments said the judges run at temperature 0. The runner does send 0, but no endpoint OpenRouter lists for the three judges takes a temperature, and OpenRouter drops a parameter an endpoint does not take, so each judge most likely ran at its provider's default. Nothing in the scoring changes: a judge still answers one prompt almost alike within a day. Across days it drifts a little, which matters where stage 2 is compared with stage 1. The docs now say this, and the write-up states it as a departure from the proposal.",
+   "status": "current",
+   "date": "2026-10-26",
+   "points": [
+    "Six identical calls on 2026-10-26 gave one answer six times (Sonnet) and five times (Opus and GPT-5.4): [[judge-probe]].",
+    "Between the pilot and the main run, six days apart on the same providers, the A0 prompts they share got the same decision in 22 of 24 pairs for each judge.",
+    "Every endpoint of the reporter and of the two auxiliary models does take a temperature."
+   ],
+   "evidence": [
+    {
+     "file": "docs/decisions.md",
+     "loc": "The judges' endpoints take no temperature, so each runs at its provider's default",
+     "quote": "none of the endpoints OpenRouter lists for Claude Sonnet 5, GPT-5.4 or Claude Opus 5 takes a temperature, so the 0 is most likely dropped and each judge runs at its provider's default"
+    },
+    {
+     "file": "pipeline/run.py",
+     "loc": "cmd_probe",
+     "quote": "OpenRouter drops unsupported parameters silently, so a null is an answer."
+    },
+    {
+     "file": "docs/decisions.md",
+     "loc": "The judges' endpoints take no temperature, so each runs at its provider's default",
+     "quote": "got the same decision in 22 of 24 pairs for each judge"
+    },
+    {
+     "file": "README.md",
+     "loc": "Models",
+     "quote": "Temperature 0 is sent, but no judge endpoint takes it, so each runs at its provider's default"
+    }
+   ],
+   "links": [
+    {
+     "to": "judges",
+     "rel": "involves"
+    },
+    {
+     "to": "judge-probe",
+     "rel": "needs"
+    },
+    {
+     "to": "status-board",
+     "rel": "part-of"
+    }
+   ]
+  },
+  {
+   "id": "judge-probe",
+   "type": "finding",
+   "cluster": "process",
+   "title": "The 2026-10-26 probe: temperature, thinking text and Qwen's token probabilities",
+   "label": "Probe, 2026-10-26",
+   "internal": true,
+   "summary": "A one-off probe before the optional sub-experiments were built (tools/probe_judges.py). It saved OpenRouter's parameter lists for every model, sent one A0 prompt six times to each judge as the main run does, asked Sonnet with reasoning on to judge M1's X3 short and long, and asked Qwen for a digit with reasoning off and token probabilities on. Its numbers describe the instrument, not the study's results.",
+   "date": "2026-10-26",
+   "points": [
+    "No endpoint of the three judges takes a temperature: [[drift-temperature]].",
+    "With reasoning on at a 2,000-token budget, Sonnet returned its thinking text; two identical calls thought for 0 and 180 tokens and gave different numbers, at $0.0012 to $0.0037 a call: [[reasoning-plan]].",
+    "Qwen answered with reasoning off and five token alternatives, served by Reka; sent no reasoning parameter, it spent its 16 tokens thinking, as on 2026-10-25: [[crosscheck-plan]]."
+   ],
+   "evidence": [
+    {
+     "file": "tools/probe_judges.py",
+     "loc": "module docstring",
+     "quote": "Does \"temperature 0\" make a primary judge repeat itself?"
+    },
+    {
+     "file": "docs/decisions.md",
+     "loc": "The reasoning comparison: Claude Sonnet 5 on M1 and M2, both modes judged on one day",
+     "quote": "two identical calls thought for 0 and 180 tokens and gave different numbers; the calls cost $0.0012 to $0.0037"
+    },
+    {
+     "file": "docs/decisions.md",
+     "loc": "The confidence cross-check runs the screen on the auxiliary models, answering by number",
+     "quote": "with reasoning off, Qwen answered on Reka with five alternatives per token"
+    }
+   ],
+   "links": [
+    {
+     "to": "judges",
+     "rel": "involves"
+    },
+    {
+     "to": "logprob-panel",
+     "rel": "related"
+    },
+    {
+     "to": "reasoning-ablation",
+     "rel": "related"
+    }
+   ]
+  },
+  {
+   "id": "stage2-order",
+   "type": "decision",
+   "cluster": "process",
+   "title": "Stage 2 runs one entry at a time: the ladder, then long-agreement, then long-conflict",
+   "label": "Stage 2: order",
+   "summary": "Stage 2 waits for the coordinator's top-up: Jason asks for the $25 left of the proposal's $75, with $10 as the floor. It runs probe first, then its three entries one after another, each into its own log: the wording ladder first, since it is H4's only defence and the length arm is what the proposal trims first, then long-agreement, then long-conflict. Before each entry the balance must cover its cost plus 10%. Its results are read with and without M3 and M38, the two echo cases in the ten-case subset.",
+   "date": "2026-10-26",
+   "points": [
+    "One entry at a time, not lanes: stage 2's 2,520 calls take about 2.3 hours, and a stopped entry then keeps the rest from spending: [[stage1-lanes]].",
+    "Comparisons between stage 2 and stage 1 cross days, and the judges drift a little between days: [[drift-temperature]]."
+   ],
+   "evidence": [
+    {
+     "file": "docs/decisions.md",
+     "loc": "Stage 2 runs one entry at a time: the ladder, then long-agreement, then long-conflict",
+     "quote": "Stage 2 runs probe first, then its three entries one after another, each into its own log in runs/main/: ladder, then long-agreement, then long-conflict."
+    },
+    {
+     "file": "docs/decisions.md",
+     "loc": "Stage 2 runs one entry at a time: the ladder, then long-agreement, then long-conflict",
+     "quote": "Its results are read twice: with all ten subset cases, and without M3 and M38, the two echo cases among them"
+    },
+    {
+     "file": "docs/proposal.pdf",
+     "loc": "p.20 §5",
+     "quote": "the length arm is the first thing trimmed"
+    },
+    {
+     "file": "docs/work-plan.md",
+     "loc": "Phase 5",
+     "quote": "Stage 2, after the top-up, $5.11, one entry at a time"
+    }
+   ],
+   "links": [
+    {
+     "to": "main-run-staged",
+     "rel": "part-of"
+    },
+    {
+     "to": "graded-ladder",
+     "rel": "related"
+    },
+    {
+     "to": "cost-model",
+     "rel": "needs"
+    }
+   ]
+  },
+  {
+   "id": "optional-build",
+   "type": "decision",
+   "cluster": "pipeline",
+   "title": "The optional sub-experiments are entries of their own, built in a second folder",
+   "label": "Optional entries",
+   "summary": "The four optional sub-experiments become entries in a list of their own, OPTIONAL in pipeline/run.py, selected by name but never part of the default run or the plan's totals. Each fixes its cases, arm label, report length and reasoning setting in the code, so its trials never share an id or a scorer cell with the main programme's. generate and judge take --cases for the wording-robustness rerun, which writes to its own folder. A test checks that the main programme still builds the same trials and prompts. The code is written on the branch optional-arms in a second folder, so the main folder never switches branch, and joins main when Jason agrees.",
+   "date": "2026-10-26",
+   "points": [
+    "They run in the proposal's order, each only if the balance covers it plus 10%: [[optional-subexps]].",
+    "The designs: [[reasoning-plan]], [[robustness-plan]], [[crosscheck-plan]] and [[long-neff-plan]]."
+   ],
+   "evidence": [
+    {
+     "file": "docs/decisions.md",
+     "loc": "The optional sub-experiments are entries of their own, built in a second folder",
+     "quote": "Each one fixes in the code its cases, its arm label, its report length and, where it differs, its reasoning setting, so its trials never share an id or a scorer cell with the main programme's."
+    },
+    {
+     "file": "docs/decisions.md",
+     "loc": "The optional sub-experiments are entries of their own, built in a second folder",
+     "quote": "A test checks that the main programme still builds the trials and prompts that stage 1 judged and stage 2 will judge"
+    },
+    {
+     "file": "README.md",
+     "loc": "Status and open items",
+     "quote": "Their code is being written on the branch optional-arms, in a folder of its own, and joins main when Jason agrees."
+    }
+   ],
+   "links": [
+    {
+     "to": "optional-subexps",
+     "rel": "involves"
+    },
+    {
+     "to": "runner",
+     "rel": "needs"
+    },
+    {
+     "to": "scorer",
+     "rel": "related"
+    }
+   ]
+  },
+  {
+   "id": "reasoning-plan",
+   "type": "decision",
+   "cluster": "conditions",
+   "title": "The reasoning comparison: Claude Sonnet 5 on M1 and M2, both modes judged on one day",
+   "label": "Reasoning arm: design",
+   "summary": "Sonnet judges X1, X3 and X5 of M1 and M2, short and long, 12 repeats, once with reasoning off as in the main run and once with reasoning on at a 2,000-token budget: 288 calls, both modes on the same day, so a difference between the modes is not drift between days. Every record keeps the thinking text, and the traces are coded by a rule fixed before any of them exist: none, noticed (the trace says two reports share a source, repeat one another or are not independent) or not noticed. Two coders apply it separately, and the codes are crossed with the decisions only after they are committed.",
+   "date": "2026-10-26",
+   "points": [
+    "Sonnet, not GPT-5.4: it judges long reports in the main run too, and its numbers are not stuck at 100.",
+    "The main run's own reasoning-off trials are not reused, since they were judged on other days: [[drift-temperature]].",
+    "In the probe, reasoning on did not force thinking: one of two identical calls thought for 0 tokens: [[judge-probe]]."
+   ],
+   "evidence": [
+    {
+     "file": "docs/decisions.md",
+     "loc": "The reasoning comparison: Claude Sonnet 5 on M1 and M2, both modes judged on one day",
+     "quote": "288 calls in four entries, reasoning-off-short, reasoning-off-long, reasoning-on-short and reasoning-on-long, both modes on the same day"
+    },
+    {
+     "file": "docs/decisions.md",
+     "loc": "The reasoning comparison: Claude Sonnet 5 on M1 and M2, both modes judged on one day",
+     "quote": "noticed when, before the answer, it says that two of the reports come from one source, repeat one another or are not independent, in any words, a restated note included"
+    },
+    {
+     "file": "docs/proposal.pdf",
+     "loc": "p.14 §4.1",
+     "quote": "Traces are logged and read for whether the model mentions the shared source before deciding"
+    }
+   ],
+   "links": [
+    {
+     "to": "reasoning-ablation",
+     "rel": "part-of"
+    },
+    {
+     "to": "reasoning-control",
+     "rel": "needs"
+    },
+    {
+     "to": "x3",
+     "rel": "needs"
+    }
+   ]
+  },
+  {
+   "id": "robustness-plan",
+   "type": "decision",
+   "cluster": "conditions",
+   "title": "The wording-robustness rerun makes a second report set for M1 and M2",
+   "label": "Robustness rerun: design",
+   "summary": "The main run uses one generated set of reports. The rerun generates a second, independent set for M1 and M2, for all four sources since the condition builder needs C and D, into its own folder, runs/robustness/. Jason reads it as in step 3.4 before judging, and a T1 case whose hint is lost counts as T2 there. Then all three judges judge the conflict block on it, 12 repeats, 360 calls, scored apart from the main run because the trial ids repeat.",
+   "date": "2026-10-26",
+   "evidence": [
+    {
+     "file": "docs/decisions.md",
+     "loc": "The wording-robustness rerun makes a second report set for M1 and M2",
+     "quote": "generate --cases M1,M2 --out runs/robustness makes a second, independent report set for M1 and M2, for all four sources"
+    },
+    {
+     "file": "docs/decisions.md",
+     "loc": "The wording-robustness rerun makes a second report set for M1 and M2",
+     "quote": "It is scored on its own, since its trial ids repeat the main run's."
+    },
+    {
+     "file": "docs/proposal.pdf",
+     "loc": "p.19 §5",
+     "quote": "A wording-robustness check that regenerates the reports for two cases and re-judges the conflict block"
+    }
+   ],
+   "links": [
+    {
+     "to": "optional-subexps",
+     "rel": "part-of"
+    },
+    {
+     "to": "conflict-block",
+     "rel": "needs"
+    },
+    {
+     "to": "main-run-reading",
+     "rel": "related"
+    }
+   ]
+  },
+  {
+   "id": "crosscheck-plan",
+   "type": "decision",
+   "cluster": "measuring",
+   "title": "The confidence cross-check runs the screen on the auxiliary models, answering by number",
+   "label": "Cross-check: design",
+   "summary": "Qwen 3.6 27B and Llama 4 Maverick judge the confidence screen's three levels at its four rotations on the first 15 cases in corpus order: 360 calls. They answer with the option's number and state their probabilities by number, so the token probabilities at the answer's digit cover the same four options as the written ones. Qwen is sent reasoning off, which it honours with token probabilities on; Llama takes no reasoning parameter and is sent none.",
+   "date": "2026-10-26",
+   "points": [
+    "The screen runs from an irrelevant report to one naming the answer, so written confidence spans the scale: [[screen]].",
+    "Qwen failed the 2026-10-25 probe only because no reasoning setting was sent: [[judge-probe]]."
+   ],
+   "evidence": [
+    {
+     "file": "docs/decisions.md",
+     "loc": "The confidence cross-check runs the screen on the auxiliary models, answering by number",
+     "quote": "Their prompt asks for the option's number as the answer and for \"p\" keyed by number"
+    },
+    {
+     "file": "docs/decisions.md",
+     "loc": "The confidence cross-check runs the screen on the auxiliary models, answering by number",
+     "quote": "on the first 15 cases in corpus order (M1-M5, M6, M14, M22, M30, M38 and M7-M11): 360 calls"
+    },
+    {
+     "file": "docs/proposal.pdf",
+     "loc": "p.15 §4.1",
+     "quote": "Verbalized probabilities are compared against option-index token probabilities on the two auxiliary models"
+    }
+   ],
+   "links": [
+    {
+     "to": "logprob-panel",
+     "rel": "part-of"
+    },
+    {
+     "to": "screen",
+     "rel": "needs"
+    },
+    {
+     "to": "elicitation",
+     "rel": "related"
+    }
+   ]
+  },
+  {
+   "id": "long-neff-plan",
+   "type": "decision",
+   "cluster": "measuring",
+   "title": "n_eff at long length: Sonnet on nine subset cases, with A0 from the short arm",
+   "label": "Long n_eff: design",
+   "summary": "After stage 2, Sonnet judges A4, A6 and A7 with long reports on the subset cases except M38, 6 repeats: 162 calls. The scorer computes n_eff on the long arm from those cells and stage 2's long A1, borrowing A0 from the short arm, since A0 shows no reports and so has no length. M38 is left out because one of its A7 reports comes to 87 words, one under the 88-word floor. Sonnet only, because GPT-5.4's index mostly reads at ceiling.",
+   "date": "2026-10-26",
+   "points": [
+    "Stage 2 never judges A7 long, so its reports are not length-checked there, and no rule holds C's and D's lengths: [[long-check-scope]]. This entry checks them."
+   ],
+   "evidence": [
+    {
+     "file": "docs/decisions.md",
+     "loc": "n_eff at long length: Sonnet on nine subset cases, with A0 from the short arm",
+     "quote": "its C report comes to 87 words in every slot, one under the 88-word floor"
+    },
+    {
+     "file": "docs/decisions.md",
+     "loc": "n_eff at long length: Sonnet on nine subset cases, with A0 from the short arm",
+     "quote": "with A0 taken from the short arm"
+    },
+    {
+     "file": "docs/proposal.pdf",
+     "loc": "p.21 §6",
+     "quote": "requires the index to be computable at short length"
+    }
+   ],
+   "links": [
+    {
+     "to": "neff",
+     "rel": "needs"
+    },
+    {
+     "to": "length-arm",
+     "rel": "needs"
+    },
+    {
+     "to": "optional-subexps",
+     "rel": "part-of"
+    },
+    {
+     "to": "neff-ceiling",
+     "rel": "related"
+    },
+    {
+     "to": "long-check-scope",
+     "rel": "related"
+    }
+   ]
+  },
+  {
+   "id": "h5-familiar-rule",
+   "type": "decision",
+   "cluster": "claims",
+   "title": "H5's familiar-institution check codes the type names before the split",
+   "label": "H5: familiar-institution rule",
+   "summary": "H5's nuisance check asks whether the gain from naming source types comes only where a name matches a familiar real institution. One rule, applied to A's and B's type names alone, counts a case when B's name names a real kind of public or official body (a council, a regulator, an emergency service, a university office) that A's does not: eight cases. The gain counts as appearing without one when, in the other 32 cases, more cases gain right decisions than lose them, at a one-sided sign test p below 0.05. A second coder given only the names and the rule made the same 40 codes.",
+   "date": "2026-10-26",
+   "points": [
+    "The eight: M4, M5, M7, M10, M15, M25, M27 and M33. A second reading also counts a company only B names, adding M2 and M34.",
+    "Seven of the eight are authority cases, since from M6 on only an authority case gives A and B writers of different standing: [[types-dimension-only]].",
+    "Result: the nuisance does not hold for any judge: [[h5]]."
+   ],
+   "evidence": [
+    {
+     "file": "docs/decisions.md",
+     "loc": "H5's familiar-institution check codes the type names before the split",
+     "quote": "Eight cases count: M4, M5, M7, M10, M15, M25, M27 and M33."
+    },
+    {
+     "file": "docs/decisions.md",
+     "loc": "H5's familiar-institution check codes the type names before the split",
+     "quote": "a second coder given only the names and the rule, with no results, made the same 40 codes and the same two company flags"
+    },
+    {
+     "file": "README.md",
+     "loc": "What counts as support, fixed before any data",
+     "quote": "the gain appears only for types matching a familiar real institution"
+    },
+    {
+     "file": "docs/stage1-report.md",
+     "loc": "H5",
+     "quote": "Seven of those eight cases are authority cases"
+    }
+   ],
+   "links": [
+    {
+     "to": "h5",
+     "rel": "tests"
+    },
+    {
+     "to": "x2",
+     "rel": "needs"
+    },
+    {
+     "to": "types-dimension-only",
+     "rel": "needs"
+    },
+    {
+     "to": "tally-tool",
+     "rel": "needs"
     }
    ]
   }
@@ -10078,6 +10553,40 @@ a.ref:hover { background: var(--surface-2); }
     "h4",
     "h5",
     "h6"
+   ]
+  },
+  {
+   "date": "2026-10-26",
+   "summary": "Recorded stage 2's order and the four optional sub-experiments' designs, which Jason agreed; found and settled a drift, since the judges' endpoints take no temperature, so the temperature 0 the docs described was not what ran; and ran H5's familiar-institution check, whose nuisance does not hold for any judge.",
+   "added": [
+    "drift-temperature",
+    "judge-probe",
+    "stage2-order",
+    "optional-build",
+    "reasoning-plan",
+    "robustness-plan",
+    "crosscheck-plan",
+    "long-neff-plan",
+    "h5-familiar-rule"
+   ],
+   "changed": [
+    "h5",
+    "main-stage1",
+    "optional-subexps",
+    "open-optional",
+    "reasoning-ablation",
+    "logprob-panel",
+    "main-run-staged",
+    "reasoning-control",
+    "elicitation",
+    "judges",
+    "tally-tool"
+   ],
+   "opened": [
+    "drift-temperature"
+   ],
+   "closed": [
+    "drift-temperature"
    ]
   }
  ]

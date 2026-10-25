@@ -1,7 +1,7 @@
 # Stage 1 of the main run: what it found
 
 Stage 1 ran on 2026-10-25 on all 40 cases. This report says what it found, hypothesis by
-hypothesis, and what is still to check. Every number comes from one of three files in
+hypothesis, and what is still to check. Every number comes from one of four files in
 `runs/main/`, all read from the same five judge logs:
 
 | File | Made by |
@@ -9,6 +9,7 @@ hypothesis, and what is still to check. Every number comes from one of three fil
 | `score-stage1.txt` | `uv run python -m pipeline.score --show-excluded runs/main/trials-*.jsonl` |
 | `tally-stage1.txt` | `uv run python -m tools.tally runs/main/trials-*.jsonl` (counts and means over the 40 cases) |
 | `tally-stage1-without-echoes.txt` | the same, with `--without M3,M9,M13,M23,M28,M38,M40` |
+| `tally-stage1-h5.txt` | the same, kept to or without the cases where a familiar institution is named (H5), each command above its output |
 
 "P(truth)" is the probability a judge stated on the right answer, averaged over a
 condition's trials. "Right" counts decisions that match the world truth. The README's
@@ -135,9 +136,20 @@ evidence. If only the strongest does, the table counts it as the nuisance.
 |---|---|---|---|
 | Right: X1 → X2 (each source's type named), of 480 | 1 → 403 | 2 → 193 | 26 → 283 |
 | Cases with more right decisions | 38 of 40 | 24 of 40 | 33 of 40 |
+| Right in X2: the 8 cases where only B names a familiar institution, of 96 | 83 | 43 | 67 |
+| Right in X2: the other 32 cases, of 384 | 320 | 150 | 216 |
+| Of those 32, cases with more right decisions (none has fewer) | 30 | 19 | 25 |
 
-**Against the table: Support, varying by judge.** Still to check, by reading the cases:
-whether the gain comes only where a type name matches a familiar real institution.
+**Against the table: Support, varying by judge.** The table's nuisance, a gain "only for
+types matching a familiar real institution", does not hold for any judge. The rule,
+fixed before the split (`docs/decisions.md`, 2026-10-26), counts a case when B's type
+name names a real kind of public or official body that A's does not, from "town council"
+to "fire and rescue service": eight cases. In the other 32, every judge gains in more
+cases than it loses (one-sided sign test, p below 0.0001), and counting companies too,
+which adds M2 and M34, changes no direction (`runs/main/tally-stage1-h5.txt`). The gain
+is larger where a familiar institution is named, most for GPT-5.4: 70% of X2 trials
+right against 56%. Seven of those eight cases are authority cases, so the split cannot
+tell an institution's familiarity apart from the authority dimension.
 
 ### H6: forced choice hides belief, and "cannot be determined" is taken where the numbers do not back the answer (primary)
 
@@ -174,6 +186,11 @@ the screen, one in the abstention arm), none in the conflict block.
 - Two of the three judges come from one developer, and the run uses one generated set of
   reports. The proposal states both as limits (§5 and §6). The optional wording-robustness
   rerun would test the second.
+- The judges ran at their providers' default temperature, not at the proposal's
+  temperature 0: no endpoint of the three judges takes a temperature, so the 0 the runner
+  sends is most likely dropped. A judge still answers one prompt almost alike within a
+  day, and drifts a little across days, which matters wherever stage 2 is compared with
+  stage 1 (`docs/decisions.md`, 2026-10-26).
 
 ## What stage 1 leaves for later
 
@@ -182,5 +199,4 @@ the screen, one in the abstention arm), none in the conflict block.
 | H2: is the A1 → A2 rise larger with long reports? | stage 2, `long-agreement` |
 | H3 and H4 with long reports | stage 2, `long-conflict` |
 | H4: following an instruction, or weighing evidence? | stage 2, `ladder` |
-| H5: only for familiar institutions? | reading the 40 cases' type names |
-| Reasoning on and off; wording robustness; stated against token probabilities; n_eff with long reports | the optional sub-experiments, if built and funded |
+| Reasoning on and off; wording robustness; stated against token probabilities; n_eff with long reports | the optional sub-experiments, designed on 2026-10-26 (`docs/decisions.md`), if funded |

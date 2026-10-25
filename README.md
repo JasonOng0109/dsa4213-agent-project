@@ -296,10 +296,10 @@ the options, the wrong claim's offset from it, and (long reports) where the oper
 sentence sits are **rotated on a fixed schedule, not shuffled**. Twelve repeats give
 exact balance over (slot, truth position) and (truth position, wrong offset).
 
-Optional sub-experiments, run in this order if budget allows and **not yet built**: a
-reasoning on/off comparison, a wording-robustness rerun with regenerated reports, a
-cross-check of stated against token probabilities on the two auxiliary models, and the
-independence index at long length.
+Optional sub-experiments, run in this order if budget allows, **designed but not yet
+built** (`docs/decisions.md`, 2026-10-26): a reasoning on/off comparison, a
+wording-robustness rerun with regenerated reports, a cross-check of stated against token
+probabilities on the two auxiliary models, and the independence index at long length.
 
 ### Models
 
@@ -307,7 +307,7 @@ independence index at long length.
 |---|---|
 | Reporter | `google/gemma-4-31b-it`: from a family no judge comes from |
 | Equivalence rater | Claude Sonnet 5, which is also a judge: a stated limitation |
-| Primary judges | Claude Sonnet 5, GPT-5.4, Claude Opus 5. Temperature 0, reasoning off, each pinned to one serving provider |
+| Primary judges | Claude Sonnet 5, GPT-5.4, Claude Opus 5. Reasoning off, each pinned to one serving provider. Temperature 0 is sent, but no judge endpoint takes it, so each runs at its provider's default (`docs/decisions.md`, 2026-10-26) |
 | Auxiliary | Qwen 3.6 27B, Llama 4 Maverick: return token probabilities; used only in the optional cross-check |
 
 All access is through OpenRouter. Every trial record stores the model, the serving
@@ -443,6 +443,7 @@ pipeline/
 tests/                    offline tests, plus a deliberately broken case fixture
 tools/check_graph.py      checks every quote in the map against its file
 tools/tally.py            counts over cases, to read results against the support table
+tools/probe_judges.py     the 2026-10-26 probe: temperature, thinking text, Qwen's logprobs
 runs/                     outputs of real runs (created by the first run)
 ```
 
@@ -508,5 +509,6 @@ Who does what next, step by step: [`docs/work-plan.md`](docs/work-plan.md).
   3.8): every judge abstained in all 20 of its P0 trials, so in the pilot Opus's and
   Sonnet's zero abstentions in the conflict block read as a null, not as a judge that
   abstains nowhere. A preview, not a finding (`runs/score-pilot-2026-10-21.txt`).
-- **Not built**: the four optional sub-experiments. The backend already supports the
-  reasoning switch and token logprobs they need.
+- **Designed, not built**: the four optional sub-experiments (`docs/decisions.md`,
+  2026-10-26). Their code is being written on the branch `optional-arms`, in a folder of
+  its own, and joins `main` when Jason agrees.

@@ -1,6 +1,8 @@
 """
-Judge calls (proposal §3): render each trial's prompt, call the judge at temperature 0,
-parse its JSON reply, and return one record per trial for the JSONL trial log.
+Judge calls (proposal §3): render each trial's prompt, call the judge with temperature 0,
+parse its JSON reply, and return one record per trial for the JSONL trial log. The
+judges' endpoints take no temperature, so they run at their providers' default
+(docs/decisions.md, 2026-10-26).
 
 A reply that does not parse is logged with an explicit status, never guessed at, and is
 left out of decision denominators by the scorer.

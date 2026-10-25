@@ -185,9 +185,10 @@ manipulation: a judge is right more often, and surer, in some conditions than in
 
 The p-value says how often a judge whose numbers carry no information would reach at
 least this AUROC by luck. The unit is the case, not the decision. A case's repeats are
-near-copies: at temperature 0 only the order of the options and reports changes, so
-the judge answers them almost alike, and twelve copies of one answer are not twelve
-pieces of evidence. So the p-value shuffles whole cases. Each shuffle scores every
+near-copies: only the order of the options and reports changes, and a judge asked one
+prompt again answers almost alike (`docs/decisions.md`, 2026-10-26), so the judge
+answers them almost alike, and twelve copies of one answer are not twelve pieces of
+evidence. So the p-value shuffles whole cases. Each shuffle scores every
 case's stated numbers against another case's right-and-wrong record, repeat by repeat,
 and p is the share of 2,000 shuffles, from a fixed seed, that reach at least the
 observed AUROC. Counting each decision instead, as the Mann-Whitney test does, makes p

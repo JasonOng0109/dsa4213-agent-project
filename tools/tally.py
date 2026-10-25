@@ -7,6 +7,7 @@ the scorer's tables. It describes; the table decides. No API calls.
 
     uv run python -m tools.tally runs/main/trials-*.jsonl
     uv run python -m tools.tally --without M3,M9 runs/main/trials-*.jsonl   # leave cases out
+    uv run python -m tools.tally --only M4,M5 runs/main/trials-*.jsonl      # keep only these
 
 n_eff counts only for judges the confidence screen keeps: see the scorer's SCREEN lines.
 """
@@ -14,6 +15,7 @@ n_eff counts only for judges the confidence screen keeps: see the scorer's SCREE
 import statistics
 import sys
 from collections import defaultdict
+from math import comb
 
 from pipeline.conditions import AGREEMENT_BLOCK, CONFLICT_BLOCK
 from pipeline.score import cell, load, neff
@@ -22,6 +24,13 @@ from pipeline.score import cell, load, neff
 def _mean(xs) -> float:
     xs = [x for x in xs if x is not None]
     return sum(xs) / len(xs)
+
+
+def _sign_p(up: int, down: int) -> float:
+    """One-sided sign test over cases: the chance of at least `up` gains among the
+    up + down cases that changed, if a gain and a loss were equally likely."""
+    n = up + down
+    return sum(comb(n, k) for k in range(up, n + 1)) / 2 ** n
 
 
 def tally(records: list[dict]) -> None:
@@ -89,13 +98,19 @@ def tally(records: list[dict]) -> None:
                         f"{_mean(pt(c, 'X3') for c in cs):.1f}"
                         for t, cs in tiers.items() if cs))
         more = sum(cells[c]["X2"]["correct"] > cells[c]["X1"]["correct"] for c in ids)
-        print(f"H5 X1 -> X2: more right decisions in {more}/{len(ids)} cases")
+        fewer = sum(cells[c]["X2"]["correct"] < cells[c]["X1"]["correct"] for c in ids)
+        print(f"H5 X1 -> X2: more right decisions in {more}/{len(ids)} cases, fewer in "
+              f"{fewer}; one-sided sign test p {_sign_p(more, fewer):.4f}")
         print()
 
 
 if __name__ == "__main__":
-    args, drop = sys.argv[1:], set()
-    if args[:1] == ["--without"]:
-        drop, args = set(args[1].split(",")), args[2:]
-    print(f"cases left out: {', '.join(sorted(drop, key=lambda c: int(c[1:]))) or 'none'}\n")
-    tally([r for path in args for r in load(path) if r["case_id"] not in drop])
+    args, drop, only = sys.argv[1:], set(), set()
+    while args[:1] in (["--without"], ["--only"]):
+        (drop if args[0] == "--without" else only).update(args[1].split(","))
+        args = args[2:]
+    order = lambda ids: ", ".join(sorted(ids, key=lambda c: int(c[1:])))
+    print(f"cases left out: {order(drop) or 'none'}"
+          + (f"; only these kept: {order(only)}" if only else "") + "\n")
+    tally([r for path in args for r in load(path)
+           if r["case_id"] not in drop and (not only or r["case_id"] in only)])
