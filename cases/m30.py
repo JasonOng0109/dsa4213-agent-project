@@ -58,11 +58,12 @@ CASE = {
         "competition and its final are invented (R4). Filler describes how the "
         "auditorium looks, with nothing about time, timing, rules, notes, the teams or "
         "the practical arrangements a briefing would cover, no figures and no second "
-        "person, so no slot carries the feel of either source (R3, R9, R10). Only set 1 "
-        "describes the stage, and no distinctive word is in all three sets, so the "
-        "slots stay apart (R12). Each filler set is 77 words and A's and B's sentences "
-        "are 16 and 14 words, so every long "
-        "report starts at 91 to 93 words and stays inside 88 to 96 after rewording "
+        "person, so no slot carries the feel of either source (R3, R9, R10). Set 1 "
+        "describes the stage, set 2 the foyer and set 3 the hall's ceiling, walls and "
+        "corridor, and no content word is in two sets, so the slots stay apart (R12). "
+        "Each filler set is 77 words and A's and B's sentences "
+        "are 15 and 14 words, so every long "
+        "report starts at 91 or 92 words and stays inside 88 to 96 after rewording "
         "(R20). When the frozen reports are read (step 3.4), check that A's and B's "
         "rewordings still give the time to present: a 'slot', 'turn' or 'session' can "
         "include set-up and questions, so it would name a different whole."
@@ -83,26 +84,24 @@ CASE = {
             "The walls are panelled in light oak, and soft lights run along each aisle.",
         ],
         [
-            "The foyer outside the auditorium has a reception counter, a coat rack and a "
-            "leather sofa.",
-            "Glass doors in the foyer open out onto a paved courtyard with a small stone "
+            "The foyer has a reception counter, a coat rack and a leather sofa.",
+            "Glass doors in the foyer open out onto a paved courtyard with a stone "
             "fountain.",
-            "Tall banners in blue and white hang from the rafters above the foyer.",
-            "The seats are upholstered in dark blue fabric, and each one has a padded "
-            "armrest.",
-            "A control booth for sound and lighting sits above the entrance at the back of "
-            "the hall.",
+            "Tall banners in blue and white drop from the rafters above the foyer.",
+            "A trophy cabinet beside the counter holds silver cups and engraved glass "
+            "plaques.",
+            "The foyer is tiled in black and white squares, like a chessboard.",
+            "A fig tree in a ceramic urn grows by the doors.",
         ],
         [
             "The high ceiling is painted dark grey, and small round lamps are set evenly "
             "across it.",
-            "A ramp with a smooth brass handrail runs gently down along the left-hand "
-            "wall.",
-            "Arched windows on both sides of the hall are hung with pale grey blinds.",
-            "Potted palms stand in the far corners, just below long, heavy curtains of "
-            "deep red velvet.",
-            "Gilt-framed oil paintings line one wall of the corridor that leads from the "
-            "foyer to the hall.",
+            "A ramp with a smooth brass handrail leads gently down the left of the hall.",
+            "Arched windows set high along the hall are each fitted with pale grey blinds.",
+            "Potted palms fill the far corners, just below long, heavy curtains of deep "
+            "red velvet.",
+            "Gilt-framed oil paintings of the city's bridges decorate the corridor that "
+            "joins the lobby to the hall.",
         ],
     ],
 
@@ -118,8 +117,8 @@ CASE = {
                 "why": "written by a participant who was not at the organisers' briefing "
                        "and repeats what others said was announced there",
             },
-            "content": ("Each team is thought to get 11 minutes to present in the "
-                        "Brightwater Case Challenge final."),
+            "content": ("The Brightwater Case Challenge final is thought to give each team "
+                        "11 minutes to present."),
             "n_paraphrases_needed": 2,   # A appears only in the conflict block (2 reports)
         },
         "B": {

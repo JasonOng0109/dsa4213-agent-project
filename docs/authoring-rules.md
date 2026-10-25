@@ -107,14 +107,19 @@ sits inside a long report is set by the builder, not the author. **[lint]**
 interchangeable filler sets, and the builder gives set *i* to slot *i* whichever source
 fills it. **Never attach filler to a source**: two reports of one source would then share
 their padding word for word, and the opaque conditions would display the dependence they
-exist to hide. **[lint]**
+exist to hide. **[lint]** For the same reason, no content word is in two sets, counting
+"sits" and "sit" as one: a shared word links whichever two reports fill those slots, two
+reports of one source or two independent ones. The case's subject may be named in every
+set (R9). The linter does not compare sets, so this is a reviewer's check ("Checks no
+script performs").
 
 **R13 — The question's wording must not distinguish the competing pair.** A and B must
 share **exactly the same set** of question content-words, so the question cannot lean
 toward one side. A word used by both is symmetric and harmless. Question words present
 in some of B, C, D but not others are reported, not enforced: those three only ever
 appear together, where nothing can point at a winner. The screen sentence is exempt.
-**[lint]**
+**[lint]** The linter sees which words are used, not their order, so a sentence that is
+the question turned into a statement is a reviewer's check ("Checks no script performs").
 
 **R14 — The shared source is always B, the strong one.** The agreement block repeats
 evidence that supports the truth; A appears only in the conflict block, repeated twice
@@ -144,14 +149,20 @@ cue is lost is relabelled T2, not rewritten, because a T2 case is a legitimate c
 **Vary the cue across cases.** If one phrase carries many T1 cases and the reporter drops
 it, they all become T2 together. **At most three T1 cases share a hedge**, counted by its
 main word: "is likely to" and "it is likely that" are one hedge. Before choosing, run
-`grep -n -i -A1 hedge cases/*.py` to see the ones in use (each case names its hedge in
-`design_notes`), and check the open pull requests too, where most cases are drafted.
-Pick a hedge with fewer than three cases, preferring one already in use to a new one, or
-another kind of cue; then name yours in `design_notes` too. A new hedge must still read
-as doubt in its sentence: "is expected to be" can read as a planned figure, "is taken
-as" as a set working value, and "it appears that" rewords easily to "apparently". "Is
-believed to", "is thought to" and "is estimated at" are hedges of the same size.
-"Reportedly", "allegedly" and "apparently" are not available: R2's lint rejects them.
+`git fetch origin`, then `uv run python tools/case_index.py --all-branches`: it lists the
+cases on `main` and on every pull-request branch, where most cases are drafted, with each
+hedge in use and how many of its three slots are left (it reads the hedge each case names
+in `design_notes`). Pick a hedge with fewer than three cases, preferring one already in
+use to a new one, or another kind of cue; then name yours in `design_notes` too. A new
+hedge must still read as doubt in its sentence: "is expected to be" can read as a planned
+figure, "is taken as" as a set working value, and "it appears that" rewords easily to
+"apparently". "Is believed to", "is thought to" and "is estimated at" are hedges of the
+same size. "Reportedly", "allegedly" and "apparently" are not available: R2's lint
+rejects them. **In a method case the cue names no method.** The case's dimension is how
+each figure was found, and that lives in provenance (R2), so "is estimated to be", "is
+guessed to" or "is reckoned at" would state A's method in its sentence. Use a hedge of
+plain doubt there. An approximation stays available: it says how exact a figure is, not
+how it was found (M35).
 
 **R17 — Sources that share a trial use different sentence frames.** B, C and D appear
 together in A7; A and B appear together in the conflict block. If two of them state the
@@ -241,3 +252,12 @@ skips the length check for that case and says so. Follow the R20 warning, not th
   things, such as the battery capacity of a laptop and of a phone. A case that repeats
   another case's scenario with new names, such as passengers evacuated from a stalled
   train, takes a new topic.
+- **The question turned into a statement.** If A or B keeps the question's words in the
+  question's order with the answer filled in ("The key deposit for the practice rooms at
+  Halvercombe College is reckoned to be 30 dollars" for "What is the key deposit for the
+  practice rooms at Halvercombe College?") while the other rewords it, the first reads as
+  the ready-made answer: a pull toward one side that provenance does not explain. Reword
+  it. Both may still name the subject in full.
+- **A word in two filler sets.** No content word may be in two of a case's filler sets,
+  counting "sits" and "sit" as one; the case's subject is exempt. A word two sets share
+  links the two reports that carry them, whichever sources fill those slots (R12).
