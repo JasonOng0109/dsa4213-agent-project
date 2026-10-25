@@ -28,7 +28,7 @@ CASE = {
         "when a water main burst on Corvanne High Street, with different values, "
         "the same scope and precision, and no reference to a change or to each "
         "other (R1). "
-        "T1: A's cue is the modal hedge 'may have flooded' (R16), shared with, "
+        "T1: A's cue is the modal hedge 'may have flooded' (R16), shared with "
         "M12 ('may well have'), within R16's three cases per hedge. At step 3.4, "
         "check that A's rewordings keep a modal of "
         "doubt ('may', 'might'). "
