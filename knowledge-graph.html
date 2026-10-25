@@ -5269,7 +5269,7 @@ a.ref:hover { background: var(--surface-2); }
    "date": "2026-10-12",
    "points": [
     "At the fixed level of 0.05: with 2 cases a judge passes only if both are perfectly ordered; with 3 or 4, one fully reversed case fails it; with 5, it does not (p = 0.039).",
-    "The 5 come from the 40, so no case is written only for the pilot. How many are written so far: [[open-corpus]].",
+    "The 5 come from the 40, so no case is written only for the pilot. All 40 are now written: [[open-corpus]].",
     "The pilot's screen verdict is a preview; the main run's verdict uses all 40 cases."
    ],
    "evidence": [
@@ -8251,7 +8251,7 @@ a.ref:hover { background: var(--surface-2); }
    "cluster": "issues",
    "title": "The ten-case subset: put the ten first before the main run",
    "label": "Subset: put ten first",
-   "summary": "Before the main run, cases/__init__.py must put the ten-case subset first, because the code takes the first ten in corpus order. The ten are chosen: M1–M5 plus M6, M14, M22, M30 and M38, which Kai Rong marked with the first Phase 4 batches, before anyone drafted them ([[subset-rule]]). The reorder waits until all 40 cases are merged.",
+   "summary": "Before the main run, cases/__init__.py must put the ten-case subset first, because the code takes the first ten in corpus order. The ten are chosen: M1–M5 plus M6, M14, M22, M30 and M38, which Kai Rong marked with the first Phase 4 batches, before anyone drafted them ([[subset-rule]]). All 40 cases are merged, so the reorder can be done now: [[open-corpus]].",
    "status": "open",
    "date": "2026-10-12",
    "evidence": [
@@ -9409,6 +9409,14 @@ a.ref:hover { background: var(--surface-2); }
    ],
    "closed": [
     "open-corpus"
+   ]
+  },
+  {
+   "date": "2026-10-25",
+   "summary": "With the corpus complete, the subset reorder no longer waits for it, and the pilot's node no longer counts the cases written so far.",
+   "changed": [
+    "open-subset",
+    "pilot-size"
    ]
   }
  ]
