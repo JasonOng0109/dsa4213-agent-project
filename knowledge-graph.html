@@ -7266,7 +7266,7 @@ a.ref:hover { background: var(--surface-2); }
    ],
    "points": [
     "Jason (Ong Jia Xi in the proposal) runs every step that spends money, after the group approves, and merges pull requests.",
-    "Phase 2's five items were decided on 2026-10-18, before any pilot result: [[ladder-sentence]], [[margin-cutoff]], [[discrimination-rule]], [[subset-rule]] and [[pilot-programme]]. Kai Rong marked the subset's five Phase 4 cases with the first batches; putting the ten first in cases/__init__.py waits for the main run: [[open-subset]].",
+    "Phase 2's five items were decided on 2026-10-18, before any pilot result: [[ladder-sentence]], [[margin-cutoff]], [[discrimination-rule]], [[subset-rule]] and [[pilot-programme]]. Kai Rong marked the subset's five Phase 4 cases with the first batches, and Jason put the ten first in cases/__init__.py on 2026-10-25, before the main run: [[open-subset]].",
     "The four pilot cases, with M1, cover all three domains and all four quality dimensions: [[quality-dimensions]].",
     "Each open number is agreed before anyone looks at pilot results, so it cannot be bent to fit them: [[precommit]].",
     "Every case has a reviewer who did not write it: [[author-reviewer]].",
@@ -7511,7 +7511,8 @@ a.ref:hover { background: var(--surface-2); }
     "Rates: writing and rating rewordings $0.00025 per call; judging short reports $0.00178; judging long reports $0.0030 (the one estimated figure).",
     "The pilot measures the real cost per call by arm, the long-report rate included: [[pilot-programme]].",
     "The P0 check, added after the pilot: [[abstain-p0-check]].",
-    "The key's limit is $50, and the coordinator tops it up again only after seeing it spent, so the main run goes in two stages: [[main-run-staged]]."
+    "The key's limit is $50, and the coordinator tops it up again only after seeing it spent, so the main run goes in two stages: [[main-run-staged]].",
+    "Stage 1 measured: $36.78 against $34.74 planned; generation alone cost $1.49 against $0.48: [[main-stage1]]."
    ],
    "data": {
     "perCase": [
@@ -7616,6 +7617,10 @@ a.ref:hover { background: var(--surface-2); }
     {
      "to": "main-run-staged",
      "rel": "related"
+    },
+    {
+     "to": "main-stage1",
+     "rel": "related"
     }
    ]
   },
@@ -7635,7 +7640,8 @@ a.ref:hover { background: var(--surface-2); }
     "Not split by case: rules still change while cases are written, as the screen-bounds rule changed four merged cases: [[screen-bounds]].",
     "Stage 1's judge entries run in three lanes, about 6.7 hours instead of 16.4: [[stage1-lanes]].",
     "The frozen reports are read before judging, by Jason: [[main-run-reading]].",
-    "Generation cost about $1.49, not the $0.48 planned, which was the proposal's rate: [[main-generation]]."
+    "Generation cost about $1.49, not the $0.48 planned, which was the proposal's rate: [[main-generation]].",
+    "Stage 1 ran on 2026-10-25 with no entry stopped, at $36.78 against $34.74 planned; $2.11 was left for stage 2's $5.11: [[main-stage1]]."
    ],
    "evidence": [
     {
@@ -7694,6 +7700,10 @@ a.ref:hover { background: var(--surface-2); }
     },
     {
      "to": "main-generation",
+     "rel": "involves"
+    },
+    {
+     "to": "main-stage1",
      "rel": "involves"
     }
    ]
@@ -7819,7 +7829,7 @@ a.ref:hover { background: var(--surface-2); }
    "cluster": "issues",
    "title": "No real run had happened yet",
    "label": "First run (settled)",
-   "summary": "Settled. The pilot ran every programme entry on M1–M5 on 2026-10-19: 240 calls generated the reports and 3,420 judge trials ran. Its numbers are a preview, not findings: [[pilot-results]]. The main run is still to come.",
+   "summary": "Settled. The pilot ran every programme entry on M1–M5 on 2026-10-19: 240 calls generated the reports and 3,420 judge trials ran. Its numbers are a preview, not findings: [[pilot-results]]. The main run's stage 1 ran on 2026-10-25: [[main-stage1]].",
    "status": "current",
    "date": "2026-10-12",
    "evidence": [
@@ -7849,6 +7859,10 @@ a.ref:hover { background: var(--surface-2); }
     },
     {
      "to": "pilot-results",
+     "rel": "related"
+    },
+    {
+     "to": "main-stage1",
      "rel": "related"
     }
    ]
@@ -8071,7 +8085,8 @@ a.ref:hover { background: var(--surface-2); }
    "date": "2026-10-19",
    "points": [
     "Where the pilot's decisions were mixed, the judges were more confident when wrong: X1 and X3 reached AUROCs of only 0.02 to 0.10. The first rule expected this, since being wrong there means following the two agreeing reports: [[discrimination-rule]].",
-    "Apart from A0, which never counts, only Sonnet's X2 had 10 right and 10 wrong decisions: [[pilot-results]]."
+    "Apart from A0, which never counts, only Sonnet's X2 had 10 right and 10 wrong decisions: [[pilot-results]].",
+    "In the main run's stage 1, on 40 cases, ordering kept all three judges, and discrimination's first rule would have excluded two of them, Sonnet and GPT-5.4: [[main-stage1]]."
    ],
    "evidence": [
     {
@@ -8143,6 +8158,10 @@ a.ref:hover { background: var(--surface-2); }
     {
      "to": "screen-ordering-gate",
      "rel": "related"
+    },
+    {
+     "to": "main-stage1",
+     "rel": "related"
     }
    ]
   },
@@ -8156,7 +8175,8 @@ a.ref:hover { background: var(--surface-2); }
    "status": "current",
    "date": "2026-10-19",
    "points": [
-    "Only repeats 1 to 4 have an abstention twin, since the abstention arm runs 4 repeats and the conflict block 12, so most flagged records have no twin to compare: [[margin-cutoff]]."
+    "Only repeats 1 to 4 have an abstention twin, since the abstention arm runs 4 repeats and the conflict block 12, so most flagged records have no twin to compare: [[margin-cutoff]].",
+    "In the main run's stage 1, 30, 3 and 7 of each judge's 2,400 conflict-block records were flagged. Opus and Sonnet read as a clean null; GPT-5.4 abstained in 9 of 800 conflict-block trials, so its test applies: [[main-stage1]]."
    ],
    "evidence": [
     {
@@ -8228,6 +8248,10 @@ a.ref:hover { background: var(--surface-2); }
     {
      "to": "abstain-p0-check",
      "rel": "related"
+    },
+    {
+     "to": "main-stage1",
+     "rel": "related"
     }
    ]
   },
@@ -8273,7 +8297,7 @@ a.ref:hover { background: var(--surface-2); }
    "cluster": "issues",
    "title": "The ten-case subset was not first yet",
    "label": "Subset first (settled)",
-   "summary": "Settled. cases/__init__.py now puts the ten-case subset first, because the code takes the first ten in corpus order: M1–M5 plus M6, M14, M22, M30 and M38, which Kai Rong marked with the first Phase 4 batches, before anyone drafted them ([[subset-rule]]). Jason reordered it for her on 2026-10-25, once all 40 cases were merged: [[open-corpus]].",
+   "summary": "Settled. cases/__init__.py now puts the ten-case subset first, because the code takes the first ten in corpus order: M1–M5 plus M6, M14, M22, M30 and M38, which Kai Rong marked with the first Phase 4 batches, before anyone drafted them ([[subset-rule]]). Jason reordered it on Kai Rong's behalf on 2026-10-25, once all 40 cases were merged: [[open-corpus]].",
    "status": "current",
    "date": "2026-10-12",
    "evidence": [
@@ -8300,7 +8324,7 @@ a.ref:hover { background: var(--surface-2); }
     {
      "file": "docs/work-plan.md",
      "loc": "2D",
-     "quote": "reorder the tuple in cases/__init__.py so the ten come first"
+     "quote": "the tuple in cases/__init__.py puts the ten first"
     },
     {
      "file": "cases/__init__.py",
@@ -8740,7 +8764,8 @@ a.ref:hover { background: var(--surface-2); }
    "points": [
     "Each process keeps the runner's 18 calls a minute and its retries; Jason chose not to change either during the main run.",
     "OpenRouter sets no request cap on paid models; the 20 a minute the limiter's comment cites is the cap on free models.",
-    "The pilot ran one entry at a time: [[pilot-programme]]."
+    "The pilot ran one entry at a time: [[pilot-programme]].",
+    "It ran from 13:45 to 20:26 with no entry stopped: [[main-stage1]]."
    ],
    "evidence": [
     {
@@ -8775,6 +8800,10 @@ a.ref:hover { background: var(--surface-2); }
     },
     {
      "to": "pilot-programme",
+     "rel": "related"
+    },
+    {
+     "to": "main-stage1",
      "rel": "related"
     }
    ]
@@ -8879,6 +8908,110 @@ a.ref:hover { background: var(--surface-2); }
     },
     {
      "to": "main-run-reading",
+     "rel": "related"
+    },
+    {
+     "to": "pilot-results",
+     "rel": "related"
+    }
+   ]
+  },
+  {
+   "id": "main-stage1",
+   "type": "finding",
+   "cluster": "pipeline",
+   "title": "Stage 1 of the main run: 17,760 trials, and the screen keeps all three judges",
+   "label": "Main run: stage 1 results",
+   "summary": "Stage 1 of the main run judged every entry that runs on all 40 cases on 2026-10-25: 17,760 trials in three lanes, with no entry stopped and no call failed. The ordering screen kept all three judges, so every judge's stated numbers count. n_eff is defined in every cell, though GPT-5.4's often reads at ceiling. H6 reads as a clean null for Opus and Sonnet; for GPT-5.4 the test applies and gives +0.00. The comparisons behind H1 to H5 are in the score file's per-case tables, to be read against the README's support table; two of its nuisance checks need stage 2's length arm and ladder.",
+   "date": "2026-10-25",
+   "points": [
+    "17,741 of the 17,760 trials parsed cleanly. One did not parse, two answered with something that is not an option, 15 stated probabilities whose sum was out of range, and one left some out. No call failed, no judge reasoned, and each judge stayed on its pinned provider.",
+    "Ordering kept all three judges on 40 cases, with rank correlations of 0.95 to 0.99 and p below 0.0001: [[screen-ordering-gate]].",
+    "Discrimination is reported beside it. Its first rule, printed but no longer applied, would have kept Opus and excluded Sonnet and GPT-5.4: [[discrimination-rule]].",
+    "n_eff is defined in all 40 cells of every judge. GPT-5.4 stated 100 on one option in 62% of its agreement-block answers, and 35 of its 40 cells have a value at ceiling, which gives a bound, not a value: [[neff-ceiling]].",
+    "H6: of each judge's 2,400 conflict-block records, 30 (Opus), 3 (Sonnet) and 7 (GPT-5.4) do not identify the answer given. Opus and Sonnet abstained in P0 but never in the conflict block, which the cut-offs fixed before the main run read as a clean null. GPT-5.4 abstained in 9 of its 800 conflict-block trials, all in X1 and none in a flagged record, so its test applies and gives +0.00: [[abstain-p0-check]].",
+    "It ran in three lanes, judging from 13:45 to 20:26: [[stage1-lanes]]. It cost $36.78 against $34.74 planned, which left $2.11 on the key, so stage 2 waits for the top-up: [[main-run-staged]]."
+   ],
+   "evidence": [
+    {
+     "file": "runs/main/score-stage1.txt",
+     "loc": "first line",
+     "quote": "Loaded 17760 trials. Parse failures: 1. Status counts: {'ok': 17741, 'p_sum_out_of_range': 15, 'no_match': 2, 'p_incomplete': 1, 'failed_fallback': 1}"
+    },
+    {
+     "file": "runs/main/score-stage1.txt",
+     "loc": "SCREEN, Opus",
+     "quote": "Page's L 559.0, rank correlation 0.987, one-sided p 0.0000, 40 cases -- retained"
+    },
+    {
+     "file": "runs/main/score-stage1.txt",
+     "loc": "SCREEN, Sonnet",
+     "quote": "Page's L 556.0, rank correlation 0.95, one-sided p 0.0000, 40 cases -- retained"
+    },
+    {
+     "file": "runs/main/score-stage1.txt",
+     "loc": "SCREEN, GPT-5.4",
+     "quote": "Page's L 558.0, rank correlation 0.975, one-sided p 0.0000, 40 cases -- retained"
+    },
+    {
+     "file": "runs/main/score-stage1.txt",
+     "loc": "DISCRIMINATION, Sonnet",
+     "quote": "X2 p 0.9845; passes below 0.05 / 1 = 0.0500 -- would be excluded"
+    },
+    {
+     "file": "runs/main/score-stage1.txt",
+     "loc": "N_EFF UNDEFINED, GPT-5.4",
+     "quote": "a value at ceiling in 35/40; 100 stated on one option in 1196/1918 (0.62) agreement-block answers"
+    },
+    {
+     "file": "runs/main/score-stage1.txt",
+     "loc": "H6, Opus",
+     "quote": "30/2400 conflict-block records do not identify the answer given"
+    },
+    {
+     "file": "runs/main/score-stage1.txt",
+     "loc": "H6, GPT-5.4",
+     "quote": "the test applies: abstained in 9/800 conflict-block trials"
+    },
+    {
+     "file": "docs/work-plan.md",
+     "loc": "Phase 5",
+     "quote": "judging from 13:45 to 20:26, and no entry stopped. It cost $36.78 against $34.74 planned"
+    },
+    {
+     "file": "docs/work-plan.md",
+     "loc": "Phase 5",
+     "quote": "read results only against the table"
+    },
+    {
+     "file": "README.md",
+     "loc": "What counts as support",
+     "quote": "the A1 → A2 effect is larger at long length than at short"
+    }
+   ],
+   "links": [
+    {
+     "to": "screen",
+     "rel": "needs"
+    },
+    {
+     "to": "neff",
+     "rel": "needs"
+    },
+    {
+     "to": "h6",
+     "rel": "related"
+    },
+    {
+     "to": "main-run-staged",
+     "rel": "related"
+    },
+    {
+     "to": "stage1-lanes",
+     "rel": "related"
+    },
+    {
+     "to": "main-generation",
      "rel": "related"
     },
     {
@@ -9741,6 +9874,23 @@ a.ref:hover { background: var(--surface-2); }
    "changed": [
     "main-run-reading",
     "main-run-staged"
+   ]
+  },
+  {
+   "date": "2026-10-25",
+   "summary": "The main run's stage 1 ran: 17,760 judge trials on all 40 cases in three lanes, no entry stopped, $36.78 against $34.74 planned. The ordering screen kept all three judges; H6 is a clean null for Opus and Sonnet and gives +0.00 for GPT-5.4. Stage 2 waits for the top-up. The sweep corrected the work plan's status lines and the subset step, which still described the old state.",
+   "added": [
+    "main-stage1"
+   ],
+   "changed": [
+    "open-first-run",
+    "work-plan",
+    "main-run-staged",
+    "stage1-lanes",
+    "open-screen-pass",
+    "open-h6-data",
+    "cost-model",
+    "open-subset"
    ]
   }
  ]

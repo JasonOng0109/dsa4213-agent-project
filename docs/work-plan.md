@@ -10,8 +10,9 @@ kept:
 - The code is built and tested: `uv run pytest` must pass.
 - How many cases are merged: README, "Status and open items". Writing cases is the
   slowest part of the project.
-- The pilot ran on 2026-10-19 (Phase 3); its output is `runs/score-pilot.txt`. What the
-  main run waits for: Phase 5, "Before".
+- The pilot ran on 2026-10-19 (Phase 3); its output is `runs/score-pilot.txt`. The main
+  run's stage 1 ran on 2026-10-25 (Phase 5); its output is `runs/main/score-stage1.txt`.
+  Stage 2 waits for the key's top-up.
 - What is still open: the "Open questions" board in `knowledge-graph.html`.
 
 ---
@@ -384,8 +385,8 @@ it.
   backup has the same domain, dimension and tier as its case, and a different author. A
   backup is written and reviewed like any other case, and joins the ten only if its case
   is dropped.
-- **Do before the main run**, once all 40 cases are merged: reorder the tuple in
-  `cases/__init__.py` so the ten come first. `uv run pytest`.
+- **Reordered 2026-10-25**, by Jason for Kai Rong, once all 40 cases were merged and
+  before the main run: the tuple in `cases/__init__.py` puts the ten first.
 - **Done when**: the five are marked, and the reordered tuple is merged.
 
 ### 2E What the pilot runs — Jason, with the group
@@ -567,6 +568,9 @@ Outline only. Detailed tasks will be added after the pilot.
   the proposal's rate: it cost $1.49 when measured on 2026-10-25
   (`runs/main/reading-3.4.md`). Run `probe` before each stage, and before each entry
   check that `balance` covers its cost plus 10%.
+  Stage 1 ran on 2026-10-25, judging from 13:45 to 20:26, and no entry stopped. It cost
+  $36.78 against $34.74 planned: generation $1.49 and judging $35.29, the sum of the
+  five logs' call costs. That left $2.11 on the key, so stage 2 waits for the top-up.
 - **Analysis**: read results only against the table "What counts as support, fixed
   before any data" in the README.
 - **Optional sub-experiments**: not built yet. Only if budget allows, in the order the
@@ -631,5 +635,7 @@ Change "to do" to "done" when a task is finished.
 | 3.1–3.7 Pilot run | Jason | M2–M5 merged, 2E | done |
 | 3.4 Read frozen reports | authors and reviewers | 3.3 | done |
 | 3.8 P0 check on M1–M5 | Jason | the post-pilot decisions | done |
-| Phase 4 drafts | everyone | Kai Rong's first batches | to do |
-| Phase 4 merges | Jason | pilot done | to do |
+| Phase 4 drafts | everyone | Kai Rong's first batches | done |
+| Phase 4 merges | Jason | pilot done | done |
+| 5 Main run, stage 1 | Jason | all 40 cases merged | done |
+| 5 Main run, stage 2 | Jason | the key's top-up | to do |

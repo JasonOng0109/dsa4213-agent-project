@@ -469,6 +469,13 @@ Who does what next, step by step: [`docs/work-plan.md`](docs/work-plan.md).
   status, method, T1), M38 (incident status, primary source, T1), M39 (incident status,
   directness, T1) and M40 (institutional logistics, method, T2). All 40 are merged; how
   they were written: `docs/authoring-rules.md`.
+- **The main run's stage 1 has run** (2026-10-25), every entry that runs on all 40
+  cases: 1,956 calls generated the reports, Jason read them (`runs/main/reading-3.4.md`),
+  and 17,760 judge trials ran in three lanes, with no entry stopped. `runs/main/` holds
+  the frozen reports, the five judge logs and the scorer's output,
+  `runs/main/score-stage1.txt`. The ordering screen kept all three judges. Stage 2, the
+  length arm and the ladder on the ten-case subset, waits for the key's top-up
+  (`docs/work-plan.md`, Phase 5).
 - **The pilot has run** (2026-10-19), every programme entry on M1-M5: 240 calls
   generated the reports and 3,420 judge trials ran. `runs/` holds the frozen reports,
   the seven judge logs and the scorer's output, `runs/score-pilot.txt`. Its numbers are
