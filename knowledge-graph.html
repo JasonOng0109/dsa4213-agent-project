@@ -1868,11 +1868,16 @@ a.ref:hover { background: var(--surface-2); }
     {
      "to": "screen-bounds",
      "rel": "involves"
+    },
+    {
+     "to": "options-middle",
+     "rel": "involves"
     }
    ],
    "points": [
     "The screen sentence's other survivor may be A's claim or a distractor: [[screen-other-survivor]].",
-    "A screen sentence with bounds uses two, with both kept options the same distance inside them: [[screen-bounds]]."
+    "A screen sentence with bounds uses two, with both kept options the same distance inside them: [[screen-bounds]].",
+    "The truth and A's claim also sit equally far from the middle of the options: [[options-middle]]."
    ]
   },
   {
@@ -2150,6 +2155,7 @@ a.ref:hover { background: var(--surface-2); }
    "points": [
     "Kai Rong and Kathleen raised it reviewing Phase 4 pull requests, and Jason decided to apply it to every case.",
     "Applied on 2026-10-25 to M3, M4, M5, M30, M31, M34 and M36 on main and to M6, M12, M13, M27 and M38 in their pull requests. The pilot cases M3 to M5 were reworded too, since the main run generates every case's reports afresh.",
+    "M14's A followed in the pre-run review: [[drift-prerun-review]].",
     "It sits beside R13, which keeps the question's words from favouring A or B: [[rules-wording]]."
    ],
    "evidence": [
@@ -2242,6 +2248,7 @@ a.ref:hover { background: var(--surface-2); }
     "Jason asked for it reviewing M15 and M36, where B, C and D each read one printed figure. Kai Rong applied it to the Phase 4 cases and asked how strict it is for a figure an institution sets; Jason decided.",
     "The right n_eff in A7 is 3 only if its three reports come from three sources: [[neff]].",
     "Each source's why names its route, and the reviewer checks it, since no script can: [[human-checks]].",
+    "M1's C followed in the pre-run review: [[drift-prerun-review]].",
     "It is about origin, not wording; reports that read almost alike are a separate note: [[a7-near-copies-noted]]."
    ],
    "evidence": [
@@ -8615,6 +8622,92 @@ a.ref:hover { background: var(--surface-2); }
      "rel": "part-of"
     }
    ]
+  },
+  {
+   "id": "options-middle",
+   "type": "decision",
+   "cluster": "cases",
+   "title": "The truth and A's claim sit equally far from the middle of the options",
+   "label": "Options: the middle",
+   "summary": "In a case with numeric options, the truth and A's claim sit the same distance from the middle of the four options, as evenly spaced options give. Then a judge that leans to the middle when the evidence is thin cannot find the truth that way. A reviewer checks it; the linter does not.",
+   "date": "2026-10-25",
+   "points": [
+    "The pre-run review applied it to M3: its 11, 14, 17 and 19 metres put the truth nearest the middle, so 19 became 20. A distractor appears in no report, so no report changed.",
+    "M1's 10, 15, 25 and 30 already meet it: 15 and 25 sit 5 either side of 20.",
+    "It sits beside R8's preference for interior options, which stops \"avoid the extremes\": [[rules-options]]."
+   ],
+   "evidence": [
+    {
+     "file": "docs/authoring-rules.md",
+     "loc": "R8",
+     "quote": "Both also sit the same distance from the middle of the four options, as evenly spaced options give, so \"pick the middle\" is not one either."
+    },
+    {
+     "file": "docs/decisions.md",
+     "loc": "The truth and A's claim sit equally far from the middle of the options",
+     "quote": "The pre-run review applied it to M3, whose 11, 14, 17 and 19 metres put the truth nearest the middle: 19 became 20."
+    },
+    {
+     "file": "cases/m3.py",
+     "loc": "distractors",
+     "quote": "\"distractors\": [\"11 metres\", \"20 metres\"],"
+    }
+   ],
+   "links": [
+    {
+     "to": "distractors",
+     "rel": "needs"
+    },
+    {
+     "to": "rules-options",
+     "rel": "part-of"
+    },
+    {
+     "to": "human-checks",
+     "rel": "part-of"
+    }
+   ]
+  },
+  {
+   "id": "drift-prerun-review",
+   "type": "issue",
+   "cluster": "issues",
+   "title": "Two cases had missed rules applied to every case",
+   "label": "Pre-run review drift (settled)",
+   "summary": "Settled. The pre-run review of all 40 cases found two cases off rules already applied to every case. M14's A kept the question's words in the question's order while B was reworded ([[question-echo]]), and M1's C was a record compiled from B's module briefs, not a route of its own ([[a7-own-route]]). Both were fixed on 2026-10-25.",
+   "status": "current",
+   "date": "2026-10-25",
+   "evidence": [
+    {
+     "file": "docs/decisions.md",
+     "loc": "The pre-run review fixes M14's A and M1's C",
+     "quote": "M14's A no longer keeps the question's words in the question's order"
+    },
+    {
+     "file": "docs/decisions.md",
+     "loc": "The pre-run review fixes M14's A and M1's C",
+     "quote": "M1's C now names a route of its own: the faculty's own record, entered when its board approved the module's weighting, not copied from the module brief."
+    },
+    {
+     "file": "cases/m14.py",
+     "loc": "A",
+     "quote": "Dissipation carries heat away from the Halcyon substation cooling loop at 42 kilowatts."
+    }
+   ],
+   "links": [
+    {
+     "to": "question-echo",
+     "rel": "needs"
+    },
+    {
+     "to": "a7-own-route",
+     "rel": "needs"
+    },
+    {
+     "to": "status-board",
+     "rel": "part-of"
+    }
+   ]
   }
  ],
  "changelog": [
@@ -9417,6 +9510,25 @@ a.ref:hover { background: var(--surface-2); }
    "changed": [
     "open-subset",
     "pilot-size"
+   ]
+  },
+  {
+   "date": "2026-10-25",
+   "summary": "The pre-run review of all 40 cases: M3's options now sit evenly around the middle (19 became 20), and found and settled a drift: M14's A echoed the question and M1's C was a copy of B's document. Jason decided.",
+   "added": [
+    "options-middle",
+    "drift-prerun-review"
+   ],
+   "changed": [
+    "rules-options",
+    "question-echo",
+    "a7-own-route"
+   ],
+   "opened": [
+    "drift-prerun-review"
+   ],
+   "closed": [
+    "drift-prerun-review"
    ]
   }
  ]

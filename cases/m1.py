@@ -99,7 +99,7 @@ CASE = {
                 "type": "faculty assessment schedule table",
                 "authority": "institutional",
                 "quality": "strong",
-                "why": "faculty-level record compiled from approved module briefs",
+                "why": "the faculty's own record, entered when its board approved the module's weighting, not copied from the module brief",
             },
             "content": ("Of the ME2103 marks available, fifteen per cent are "
                         "awarded for the lab logbook."),

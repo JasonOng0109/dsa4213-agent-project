@@ -1016,3 +1016,39 @@ Add an entry when you make a choice a reader could not guess from the code.
   M4's and M14's related words.
 - **Breaks if changed**: as in the entry above, a shared word links two reports in every
   trial, a cue of shared origin that no condition controls.
+
+### 2026-10-25 — The truth and A's claim sit equally far from the middle of the options
+
+- **Decision**: in a case with numeric options, the truth and A's claim sit the same
+  distance from the middle of the four options, as evenly spaced options give, so "pick
+  the option nearest the middle" cannot find the truth (R8, `docs/authoring-rules.md`; a
+  reviewer's check, not linted). The pre-run review applied it to M3, whose 11, 14, 17
+  and 19 metres put the truth nearest the middle: 19 became 20. A distractor appears in
+  no report, so no report changes. M1's 10, 15, 25 and 30 already meet it, since 15 and
+  25 sit 5 either side of 20.
+- **Why** [STATED: team decision, 2026-10-25]: Jason decided after the pre-run review of
+  all 40 cases. [STATED: Kathleen's reviews of M14 and M21] there "closest to the mean"
+  found the truth, and both cases were respaced. [STATED: R8] interior options are
+  preferred so "avoid the extremes" is not a winning heuristic; the middle is the same
+  kind of shortcut.
+- **Rejected**: keeping M3's options as they ran in the pilot.
+- **Breaks if changed**: a judge that leans to the middle of the range when evidence is
+  thin picks the truth, a pull toward one side that no condition varies.
+
+### 2026-10-25 — The pre-run review fixes M14's A and M1's C
+
+- **Decision**: M14's A no longer keeps the question's words in the question's order: it
+  reads "Dissipation carries heat away from the Halcyon substation cooling loop at 42
+  kilowatts." M1's C now names a route of its own: the faculty's own record, entered when
+  its board approved the module's weighting, not copied from the module brief. Both
+  follow rules already decided, the question turned into a statement (2026-10-25) and B,
+  C and D each reaching the figure by their own route (2026-10-24), which the pre-run
+  review found these two cases had missed.
+- **Why** [STATED: team decision, 2026-10-25]: Jason decided after the pre-run review.
+  [STATED: the 2026-10-25 entry] in a T2 case the echo "is the only difference left
+  between A and B", and M14 is T2. [STATED: the 2026-10-24 entry] "a copy of the
+  governing document, or the minutes it was drafted from, is not" a route of its own, and
+  M1's C was a "faculty-level record compiled from approved module briefs".
+- **Rejected**: running M14 and M1 as they were.
+- **Breaks if changed**: M14's results move toward A for a reason no condition varies,
+  and M1's A7 holds two origins, not three, by its own record.

@@ -8,7 +8,7 @@ CASE = {
     "domain": "incident_status",
     "question": "What is the water depth of the Star Reservoir basin?",
     "world_truth": "14 metres",
-    "distractors": ["11 metres", "19 metres"],
+    "distractors": ["11 metres", "20 metres"],
     "screen_partial": (
         "The water depth of the Star Reservoir basin is between 10 and 15 metres."
     ),

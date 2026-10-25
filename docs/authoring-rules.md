@@ -86,8 +86,9 @@ never relies on provenance for a referent.
 **R8 — Distractors.** Exactly two. Each is the same kind of answer as the truth, is
 supported by no source, is excluded by no report, and appears nowhere in any content,
 filler or provenance. Prefer option sets where the truth and the wrong claim are both
-interior values, so "avoid the extremes" is not a winning heuristic. **[lint]** for the
-count and for mentions.
+interior values, so "avoid the extremes" is not a winning heuristic. Both also sit the
+same distance from the middle of the four options, as evenly spaced options give, so
+"pick the middle" is not one either. **[lint]** for the count and for mentions.
 
 **R9 — Filler does not bear on the question.** It may not support, exclude or hedge any
 option, and may not mention one. Naming the case's subject is fine, since it bears on no

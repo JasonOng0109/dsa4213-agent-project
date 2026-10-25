@@ -19,7 +19,8 @@ CASE = {
         "T2 control case in incident_status, method dimension, also in the length-arm and "
         "wording-ladder subset. A and B state the same proposition as flat, confident, single "
         "sentences with no hedge (R1). Both A and B omit 'rate' from the content, so they share "
-        "exactly the same set of question content-words (R13). A reads 'stands at 42 kilowatts' and "
+        "exactly the same set of question content-words (R13). A reads 'carries heat away ... at "
+        "42 kilowatts' and "
         "B 'loses 48 kilowatts through dissipation of heat', so both describe a current figure "
         "rather than one a capability and one a reading. All quality sits in provenance (R2, R19): "
         "an uncalibrated handheld thermal scan against a calibrated in-line calorimeter reading, "
@@ -30,9 +31,10 @@ CASE = {
         "remote monitoring. Their whys name who produced the figure and from where, not a shared "
         "flow-and-temperature balance, so A7 does not read as one method three times. "
         "'Commissioning' was avoided in C's type because it reads as an older measurement (R3). Sources use "
-        "distinct frames (R17): A leads with the quantity and 'stands at', B leads with the loop "
+        "distinct frames (R17): A leads with dissipation carrying heat away, so it is not the "
+        "question turned into a statement (R13), B leads with the loop "
         "and describes heat dissipation, C is place-fronted, D is number-fronted. Content lengths "
-        "are A=12 and B=14 words, within 2 of each other (R20). Each filler set is exactly 79 "
+        "are A=13 and B=14 words, within 2 of each other (R20). Each filler set is exactly 79 "
         "words. Filler describes the physical site only, as three parts of the same "
         "compound (the fenced perimeter, a brick building, the approach road), each with its own "
         "nouns and adjectives, so reports in one trial stay on the site without repeating "
@@ -74,7 +76,7 @@ CASE = {
             "quality": "weak",
             "claim": "42 kilowatts",
             "content": (
-                "Heat dissipation at the Halcyon substation cooling loop stands at 42 kilowatts."
+                "Dissipation carries heat away from the Halcyon substation cooling loop at 42 kilowatts."
             ),
             "n_paraphrases_needed": 2,
             "provenance": {
