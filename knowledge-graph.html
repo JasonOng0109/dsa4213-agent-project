@@ -8922,13 +8922,14 @@ a.ref:hover { background: var(--surface-2); }
    "cluster": "pipeline",
    "title": "Stage 1 of the main run: 17,760 trials, and the screen keeps all three judges",
    "label": "Main run: stage 1 results",
-   "summary": "Stage 1 of the main run judged every entry that runs on all 40 cases on 2026-10-25: 17,760 trials in three lanes, with no entry stopped and no call failed. The ordering screen kept all three judges, so every judge's stated numbers count. n_eff is defined in every cell, though GPT-5.4's often reads at ceiling. H6 reads as a clean null for Opus and Sonnet; for GPT-5.4 the test applies and gives +0.00. The comparisons behind H1 to H5 are in the score file's per-case tables, to be read against the README's support table; two of its nuisance checks need stage 2's length arm and ladder.",
+   "summary": "Stage 1 of the main run judged every entry that runs on all 40 cases on 2026-10-25: 17,760 trials in three lanes, with no entry stopped and no call failed. The ordering screen kept all three judges, so every judge's stated numbers count. n_eff is defined in every cell, though GPT-5.4's often reads at ceiling. In the conflict block, with nothing disclosed, every judge almost always went with the two agreeing reports; naming the sources' types helped part of the way, stating the dependence alone helped little, and stating quality made every judge right in every trial. H6 reads as a clean null for Opus and Sonnet; for GPT-5.4 the test applies and gives +0.00. The comparisons behind H1 to H5 are in the score file's per-case tables, to be read against the README's support table; two of its nuisance checks need stage 2's length arm and ladder.",
    "date": "2026-10-25",
    "points": [
     "17,741 of the 17,760 trials parsed cleanly. One did not parse, two answered with something that is not an option, 15 stated probabilities whose sum was out of range, and one left some out. No call failed, no judge reasoned, and each judge stayed on its pinned provider.",
     "Ordering kept all three judges on 40 cases, with rank correlations of 0.95 to 0.99 and p below 0.0001: [[screen-ordering-gate]].",
     "Discrimination is reported beside it. Its first rule, printed but no longer applied, would have kept Opus and excluded Sonnet and GPT-5.4: [[discrimination-rule]].",
     "n_eff is defined in all 40 cells of every judge. GPT-5.4 stated 100 on one option in 62% of its agreement-block answers, and 35 of its 40 cells have a value at ceiling, which gives a bound, not a value: [[neff-ceiling]].",
+    "Decisions in the conflict block, right out of 480 for Opus, Sonnet and GPT-5.4: with nothing disclosed (X1), 1, 2 and 26; with each source's type named (X2), 403, 193 and 283; with the dependence stated alone (X3), 63, 8 and 27; with quality stated (X4), and with both (X5), all 480 for every judge. The analysis reads these against the README's support table: [[h3]], [[h4]], [[h5]].",
     "H6: of each judge's 2,400 conflict-block records, 30 (Opus), 3 (Sonnet) and 7 (GPT-5.4) do not identify the answer given. Opus and Sonnet abstained in P0 but never in the conflict block, which the cut-offs fixed before the main run read as a clean null. GPT-5.4 abstained in 9 of its 800 conflict-block trials, all in X1 and none in a flagged record, so its test applies and gives +0.00: [[abstain-p0-check]].",
     "It ran in three lanes, judging from 13:45 to 20:26: [[stage1-lanes]]. It cost $36.78 against $34.74 planned, which left $2.11 on the key, so stage 2 waits for the top-up: [[main-run-staged]]."
    ],
@@ -8987,6 +8988,31 @@ a.ref:hover { background: var(--surface-2); }
      "file": "README.md",
      "loc": "What counts as support",
      "quote": "the A1 → A2 effect is larger at long length than at short"
+    },
+    {
+     "file": "runs/main/score-stage1.txt",
+     "loc": "DISCRIMINATION, Opus",
+     "quote": "X1 0.01 (1/479), X2 0.71 (403/77), X3 0.37 (63/417), X4 n/a (480/0), X5 n/a (480/0)"
+    },
+    {
+     "file": "runs/main/score-stage1.txt",
+     "loc": "DISCRIMINATION, Sonnet",
+     "quote": "X1 0.03 (2/478), X2 0.37 (193/287), X3 0.27 (8/472), X4 n/a (480/0), X5 n/a (480/0)"
+    },
+    {
+     "file": "runs/main/score-stage1.txt",
+     "loc": "DISCRIMINATION, GPT-5.4",
+     "quote": "X1 0.16 (26/454), X2 0.57 (283/197), X3 0.18 (27/453), X4 n/a (480/0), X5 n/a (480/0)"
+    },
+    {
+     "file": "runs/main/score-stage1.txt",
+     "loc": "DISCRIMINATION",
+     "quote": "AUROC (n correct/incorrect)"
+    },
+    {
+     "file": "README.md",
+     "loc": "Measures, in order of weight",
+     "quote": "in these conditions a wrong answer is almost always the two agreeing reports' claim"
     }
    ],
    "links": [
@@ -9016,6 +9042,18 @@ a.ref:hover { background: var(--surface-2); }
     },
     {
      "to": "pilot-results",
+     "rel": "related"
+    },
+    {
+     "to": "h3",
+     "rel": "related"
+    },
+    {
+     "to": "h4",
+     "rel": "related"
+    },
+    {
+     "to": "h5",
      "rel": "related"
     }
    ]
@@ -9891,6 +9929,13 @@ a.ref:hover { background: var(--surface-2); }
     "open-h6-data",
     "cost-model",
     "open-subset"
+   ]
+  },
+  {
+   "date": "2026-10-25",
+   "summary": "Stage 1's decision counts in the conflict block, which the score file prints beside discrimination, are added to main-stage1.",
+   "changed": [
+    "main-stage1"
    ]
   }
  ]
