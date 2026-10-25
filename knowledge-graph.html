@@ -392,7 +392,7 @@ a.ref:hover { background: var(--surface-2); }
   "title": "Project Knowledge Graph",
   "project": "DSA4213 Group 14 · Counting Reports or Counting Evidence",
   "oneLiner": "Can an AI orchestrator that combines reports from several agents tell three copies of one source from three independent sources, and which piece of information fixes its mistakes: a source name, a 'these share a source' note, or a 'this source is better' note?",
-  "updated": "2026-10-24",
+  "updated": "2026-10-25",
   "tour": [
    "question",
    "false-consensus",
@@ -442,7 +442,7 @@ a.ref:hover { background: var(--surface-2); }
     "four-options"
    ],
    [
-    "13 of 40",
+    "33 of 40",
     "cases written",
     "open-corpus"
    ],
@@ -1881,7 +1881,7 @@ a.ref:hover { background: var(--surface-2); }
    "cluster": "cases",
    "title": "Rules for filler and long reports",
    "label": "Filler rules (R9–R12, R20)",
-   "summary": "Long reports wrap the key sentence in neutral filler. Filler must not touch the question (R9), must not hint at who wrote it (R10); each report has one key sentence placed by the code (R11); filler belongs to the report slot, not the source (R12); and each filler set is sized so a long report stays in the 88–96-word band with 3 words of room for rewording (R20).",
+   "summary": "Long reports wrap the key sentence in neutral filler. Filler must not touch the question (R9), must not hint at who wrote it (R10); each report has one key sentence placed by the code (R11); filler belongs to the report slot, not the source, and no content word is in two sets (R12); and each filler set is sized so a long report stays in the 88–96-word band with 3 words of room for rewording (R20).",
    "visual": "filler",
    "aliases": [
     "R9",
@@ -1892,7 +1892,8 @@ a.ref:hover { background: var(--surface-2); }
    ],
    "points": [
     "Why R12 matters: if filler followed the source, the two reports from the shared source would carry identical padding and give away that they share a source.",
-    "Filler may name the case's subject; it still may not mention an option: [[filler-names-subject]]."
+    "Filler may name the case's subject; it still may not mention an option: [[filler-names-subject]].",
+    "No content word is in two filler sets, so no word links two reports: [[filler-no-shared-word]]."
    ],
    "evidence": [
     {
@@ -1930,6 +1931,10 @@ a.ref:hover { background: var(--surface-2); }
     },
     {
      "to": "filler-names-subject",
+     "rel": "involves"
+    },
+    {
+     "to": "filler-no-shared-word",
      "rel": "involves"
     }
    ]
@@ -2087,6 +2092,141 @@ a.ref:hover { background: var(--surface-2); }
     {
      "to": "human-checks",
      "rel": "related"
+    }
+   ]
+  },
+  {
+   "id": "case-index",
+   "type": "design",
+   "cluster": "cases",
+   "title": "Case index (tools/case_index.py)",
+   "label": "Case index",
+   "summary": "A script that lists every case on main and on every pull-request branch, with its domain, dimension, tier and A's hedge, then each hedge in use and how many of its three slots are left. Authors run it before picking a hedge, because most cases are drafted on branches that a search of their own branch cannot see. It prints the index and never saves it, so the index cannot go stale.",
+   "aliases": [
+    "case_index.py",
+    "case index"
+   ],
+   "date": "2026-10-24",
+   "points": [
+    "Kathleen wrote it, and it replaced R16's grep, which read only the author's own branch while most cases sat on others.",
+    "A saved copy would go stale with every push, and every case pull request would conflict on it, as they all do on cases/__init__.py."
+   ],
+   "evidence": [
+    {
+     "file": "tools/case_index.py",
+     "loc": "module docstring",
+     "quote": "The index is printed, not committed: it reads everyone's branches, so a saved copy goes stale with every push."
+    },
+    {
+     "file": "docs/authoring-rules.md",
+     "loc": "R16",
+     "quote": "it lists the cases on main and on every pull-request branch, where most cases are drafted, with each hedge in use and how many of its three slots are left"
+    },
+    {
+     "file": "docs/decisions.md",
+     "loc": "Authors count the hedges in use with tools/case_index.py",
+     "quote": "It replaces the grep of the 2026-10-18 entry."
+    }
+   ],
+   "links": [
+    {
+     "to": "hedge-limit",
+     "rel": "needs"
+    },
+    {
+     "to": "linter",
+     "rel": "related"
+    }
+   ]
+  },
+  {
+   "id": "question-echo",
+   "type": "decision",
+   "cluster": "cases",
+   "title": "Neither A nor B is the question turned into a statement",
+   "label": "No question echo",
+   "summary": "If A or B repeats the question's words in the question's own order with the answer filled in, while the other rewords them, the first reads as the ready-made answer and pulls the judge toward one side for a reason that is not provenance. The one that echoes the question is reworded. The linter only compares which question words each uses, so a reviewer checks the order.",
+   "date": "2026-10-25",
+   "points": [
+    "Kai Rong and Kathleen raised it reviewing Phase 4 pull requests, and Jason decided to apply it to every case.",
+    "Applied on 2026-10-25 to M3, M4, M5, M30, M31, M34 and M36 on main and to M6, M12, M13, M27 and M38 in their pull requests. The pilot cases M3 to M5 were reworded too, since the main run generates every case's reports afresh.",
+    "It sits beside R13, which keeps the question's words from favouring A or B: [[rules-wording]]."
+   ],
+   "evidence": [
+    {
+     "file": "docs/authoring-rules.md",
+     "loc": "Checks no script performs",
+     "quote": "the first reads as the ready-made answer: a pull toward one side that provenance does not explain."
+    },
+    {
+     "file": "docs/decisions.md",
+     "loc": "Neither A nor B is the question turned into a statement",
+     "quote": "the one that echoes the question is reworded."
+    },
+    {
+     "file": "docs/decisions.md",
+     "loc": "M3, M4 and M5 are reworded too",
+     "quote": "this drops the pilot exemption in the entry above."
+    },
+    {
+     "file": "pipeline/prompt.py",
+     "loc": "the prompt template",
+     "quote": "Question: {question}"
+    }
+   ],
+   "links": [
+    {
+     "to": "rules-wording",
+     "rel": "part-of"
+    },
+    {
+     "to": "human-checks",
+     "rel": "part-of"
+    }
+   ]
+  },
+  {
+   "id": "method-hedge",
+   "type": "decision",
+   "cluster": "cases",
+   "title": "In a method case, A's hedge names no method",
+   "label": "Method case: plain-doubt hedge",
+   "summary": "A method case is about how each figure was found, and that belongs in provenance. So in a method case A's hedge may not name a way of finding the figure, such as 'is estimated to be', 'is guessed to' or 'is reckoned at'; it uses a hedge of plain doubt. An approximation ('about 370 metres') is still allowed, because it says how exact a figure is, not how it was found.",
+   "date": "2026-10-25",
+   "points": [
+    "Rachel raised it reviewing M12, and Jason decided. M12 moves off 'is estimated to be'; M20 had already moved to 'is suspected to'.",
+    "If A's sentence already says its figure is an estimate, the type names shown in X2 add less in method cases than in the other dimensions, so results by dimension stop comparing like with like.",
+    "It narrows which hedges a method case may take from the shared limit: [[hedge-limit]]."
+   ],
+   "evidence": [
+    {
+     "file": "docs/authoring-rules.md",
+     "loc": "R16",
+     "quote": "In a method case the cue names no method."
+    },
+    {
+     "file": "docs/decisions.md",
+     "loc": "In a method case, A's hedge names no method",
+     "quote": "An approximation stays allowed, since it says how exact a figure is, not how it was found (M35)."
+    },
+    {
+     "file": "cases/m37.py",
+     "loc": "design_notes, step 3.4",
+     "quote": "all of these would put the method into the content."
+    }
+   ],
+   "links": [
+    {
+     "to": "hedge-limit",
+     "rel": "needs"
+    },
+    {
+     "to": "rules-wording",
+     "rel": "part-of"
+    },
+    {
+     "to": "tiers",
+     "rel": "needs"
     }
    ]
   },
@@ -2530,11 +2670,70 @@ a.ref:hover { background: var(--surface-2); }
    ]
   },
   {
+   "id": "filler-no-shared-word",
+   "type": "decision",
+   "cluster": "cases",
+   "title": "No content word is in two filler sets",
+   "label": "No word in two filler sets",
+   "summary": "A case's three filler sets share no content word, counting every form of a word as that word: \"sits\" and \"sit\", or \"left\" and \"leave\". Each set goes to a report slot whichever source fills it, so a word two sets share would link two reports in every trial: two reports of one source, giving away what an opaque condition hides, or two independent ones, which then look copied. The case's subject may still be named in every set. A reviewer checks this; the linter does not.",
+   "date": "2026-10-25",
+   "points": [
+    "Authors already held their own cases to it; Jason decided to clean every case on main to it before the main run.",
+    "Applied on 2026-10-25 to all 32 cases on main, in two passes: the second swapped the word forms the first had missed, and two related-word pairs: [[drift-filler-forms]]. Every set kept its word count, so long reports keep their length: [[filler-length]].",
+    "The subject exemption comes from an earlier decision: [[filler-names-subject]]."
+   ],
+   "evidence": [
+    {
+     "file": "docs/authoring-rules.md",
+     "loc": "R12",
+     "quote": "no content word is in two sets, counting \"sits\" and \"sit\" as one"
+    },
+    {
+     "file": "docs/decisions.md",
+     "loc": "A second filler pass counts every form of a word",
+     "quote": "a word's other forms count as the word itself"
+    },
+    {
+     "file": "docs/decisions.md",
+     "loc": "No content word is in two filler sets",
+     "quote": "Applied the same day to all 32 cases on main"
+    },
+    {
+     "file": "cases/m34.py",
+     "loc": "design_notes",
+     "quote": "so the slots stay apart (R12)"
+    },
+    {
+     "file": "pipeline/conditions.py",
+     "loc": "build_conditions",
+     "quote": "Report i goes in slot i and gets filler set i -- by SLOT, never by source"
+    }
+   ],
+   "links": [
+    {
+     "to": "rules-filler",
+     "rel": "needs"
+    },
+    {
+     "to": "human-checks",
+     "rel": "part-of"
+    },
+    {
+     "to": "filler-names-subject",
+     "rel": "related"
+    },
+    {
+     "to": "filler-length",
+     "rel": "related"
+    }
+   ]
+  },
+  {
    "id": "human-checks",
    "type": "design",
    "cluster": "cases",
    "title": "Checks no script can do",
-   "summary": "Six checks need a person: specificity asymmetry; whether the screen sentence really rules out half the options; whether A and B still talk about the same 'whole' after rewording; whether a T1 hint survived; whether B, C and D each reach the figure by their own route; and whether a case repeats another case's scenario.",
+   "summary": "Eight checks need a person: specificity asymmetry; whether the screen sentence really rules out half the options; whether A and B still talk about the same 'whole' after rewording; whether a T1 hint survived; whether B, C and D each reach the figure by their own route; whether a case repeats another case's scenario; whether A or B is the question turned into a statement while the other is reworded; and whether a content word is in two filler sets.",
    "aliases": [
     "human review"
    ],
@@ -7559,9 +7758,9 @@ a.ref:hover { background: var(--surface-2); }
    "id": "open-corpus",
    "type": "issue",
    "cluster": "issues",
-   "title": "Only thirteen of 40 cases are written",
-   "label": "Corpus: 13 of 40",
-   "summary": "The corpus holds thirteen cases, M1 to M5, M14, M15, M22, M23 and M30 to M33. The study plans 40, and authoring with independent review is the critical path.",
+   "title": "Only thirty-three of 40 cases are written",
+   "label": "Corpus: 33 of 40",
+   "summary": "The corpus holds thirty-three cases, M1 to M10, M14 to M17, M20, M22 to M28 and M30 to M40. The study plans 40, and authoring with independent review is the critical path.",
    "status": "open",
    "date": "2026-10-12",
    "weight": 2,
@@ -7569,12 +7768,12 @@ a.ref:hover { background: var(--surface-2); }
     {
      "file": "README.md",
      "loc": "Status and open items",
-     "quote": "Corpus: 13 of 40 cases. M1 (institutional logistics, authority, T2), M2 (product specification, primary source, T1), M3 (incident status, directness, T1), M4 (product specification, method, T1), M5 (incident status, authority, T1), M14 (incident status, method, T2), M15 (institutional logistics, authority, T1), M22 (product specification, directness, T2), M23 (institutional logistics, method, T1), M30 (institutional logistics, directness, T1), M31 (product specification, primary source, T2), M32 (incident status, primary source, T1) and M33 (incident status, authority, T2)."
+     "quote": "Corpus: 33 of 40 cases. M1 (institutional logistics, authority, T2), M2 (product specification, primary source, T1), M3 (incident status, directness, T1), M4 (product specification, method, T1), M5 (incident status, authority, T1), M6 (institutional logistics, primary source, T1), M7 (product specification, authority, T1), M8 (incident status, method, T2), M9 (product specification, directness, T2), M10 (institutional logistics, authority, T1), M14 (incident status, method, T2), M15 (institutional logistics, authority, T1), M16 (institutional logistics, primary source, T1), M17 (institutional logistics, directness, T1), M20 (product specification, method, T1), M22 (product specification, directness, T2), M23 (institutional logistics, method, T1), M24 (institutional logistics, primary source, T2), M25 (product specification, authority, T1), M26 (incident status, method, T1), M27 (institutional logistics, authority, T1), M28 (product specification, primary source, T1), M30 (institutional logistics, directness, T1), M31 (product specification, primary source, T2), M32 (incident status, primary source, T1), M33 (incident status, authority, T2), M34 (product specification, authority, T1), M35 (institutional logistics, method, T1), M36 (product specification, directness, T1), M37 (incident status, method, T1), M38 (incident status, primary source, T1), M39 (incident status, directness, T1) and M40 (institutional logistics, method, T2)."
     },
     {
      "file": "cases/__init__.py",
      "loc": "CASES",
-     "quote": "CASES = {case[\"case_id\"]: case for case in (m1.CASE, m2.CASE, m3.CASE, m4.CASE, m5.CASE, m14.CASE, m15.CASE, m22.CASE, m23.CASE, m30.CASE, m31.CASE, m32.CASE, m33.CASE)}"
+     "quote": "CASES = {case[\"case_id\"]: case for case in (m1.CASE, m2.CASE, m3.CASE, m4.CASE, m5.CASE, m6.CASE, m7.CASE, m8.CASE, m9.CASE, m10.CASE, m14.CASE, m15.CASE, m16.CASE, m17.CASE, m20.CASE, m22.CASE, m23.CASE, m24.CASE, m25.CASE, m26.CASE, m27.CASE, m28.CASE, m30.CASE, m31.CASE, m32.CASE, m33.CASE, m34.CASE, m35.CASE, m36.CASE, m37.CASE, m38.CASE, m39.CASE, m40.CASE)}"
     }
    ],
    "links": [
@@ -8379,6 +8578,43 @@ a.ref:hover { background: var(--surface-2); }
      "rel": "related"
     }
    ]
+  },
+  {
+   "id": "drift-filler-forms",
+   "type": "issue",
+   "cluster": "issues",
+   "title": "Five cases on main still shared a word across filler sets",
+   "label": "Filler word-form drift (settled)",
+   "summary": "Settled. The decision record said all 32 cases on main were cleaned so that no word is in two filler sets, but five still shared a word in two forms: M1 (\"leave\" and \"left\", \"held\" and \"hold\", \"taken\" and \"take\"), M2 (\"slotted\" and \"slot\"), M3 (\"lower\" and \"low\"), M28 (\"modelled\" and \"model\") and M33 (\"cross\" and \"crosses\"). A second pass the same day swapped one word for each pair, and for two related-word pairs in M4 and M14: [[filler-no-shared-word]].",
+   "status": "current",
+   "date": "2026-10-25",
+   "evidence": [
+    {
+     "file": "docs/decisions.md",
+     "loc": "No content word is in two filler sets",
+     "quote": "Applied the same day to all 32 cases on main"
+    },
+    {
+     "file": "docs/decisions.md",
+     "loc": "A second filler pass counts every form of a word",
+     "quote": "\"left\" and \"leave\", \"held\" and \"hold\", \"taken\" and \"take\", \"slotted\" and \"slot\", \"modelled\" and \"model\", \"lower\" and \"low\", \"crosses\" and \"cross\""
+    },
+    {
+     "file": "docs/decisions.md",
+     "loc": "A second filler pass counts every form of a word",
+     "quote": "A second pass the same day swapped one word for each such pair the first pass had left on main: three in M1 and one each in M2, M3, M28 and M33."
+    }
+   ],
+   "links": [
+    {
+     "to": "filler-no-shared-word",
+     "rel": "needs"
+    },
+    {
+     "to": "status-board",
+     "rel": "part-of"
+    }
+   ]
   }
  ],
  "changelog": [
@@ -8923,6 +9159,204 @@ a.ref:hover { background: var(--surface-2); }
    ],
    "changed": [
     "human-checks"
+   ]
+  },
+  {
+   "date": "2026-10-24",
+   "summary": "Authors check the hedges in use with tools/case_index.py, which reads every branch; R16's grep read only the author's own branch. Kathleen wrote the script.",
+   "added": [
+    "case-index"
+   ]
+  },
+  {
+   "date": "2026-10-24",
+   "summary": "M7 (product specification, authority, T1) joined the corpus, now 14 of 40.",
+   "changed": [
+    "open-corpus"
+   ]
+  },
+  {
+   "date": "2026-10-24",
+   "summary": "M34 (product specification, authority, T1) joined the corpus, now 15 of 40.",
+   "changed": [
+    "open-corpus"
+   ]
+  },
+  {
+   "date": "2026-10-24",
+   "summary": "M35 (institutional logistics, method, T1) joined the corpus, now 16 of 40.",
+   "changed": [
+    "open-corpus"
+   ]
+  },
+  {
+   "date": "2026-10-24",
+   "summary": "M36 (product specification, directness, T1) joined the corpus, now 17 of 40.",
+   "changed": [
+    "open-corpus"
+   ]
+  },
+  {
+   "date": "2026-10-24",
+   "summary": "M37 (incident status, method, T1) joined the corpus, now 18 of 40.",
+   "changed": [
+    "open-corpus"
+   ]
+  },
+  {
+   "date": "2026-10-25",
+   "summary": "Neither A nor B may be the question turned into a statement while the other is reworded. Nine cases were reworded; M3 to M5 keep their sentences, since they ran in the pilot. Kai Rong and Kathleen raised it.",
+   "added": [
+    "question-echo"
+   ],
+   "changed": [
+    "human-checks"
+   ]
+  },
+  {
+   "date": "2026-10-25",
+   "summary": "In a method case, A's hedge names no method, such as 'estimated', 'guessed' or 'reckoned'; an approximation stays allowed. M12 changes its hedge. Rachel raised it.",
+   "added": [
+    "method-hedge"
+   ]
+  },
+  {
+   "date": "2026-10-25",
+   "summary": "M3, M4 and M5 follow the question-echo rule too: the main run generates every case's reports afresh, so the pilot exemption is dropped. Jason decided.",
+   "changed": [
+    "question-echo"
+   ]
+  },
+  {
+   "date": "2026-10-25",
+   "summary": "M9 (product specification, directness, T2) joined the corpus, now 19 of 40.",
+   "changed": [
+    "open-corpus"
+   ]
+  },
+  {
+   "date": "2026-10-25",
+   "summary": "M16 (institutional logistics, primary source, T1) joined the corpus, now 20 of 40.",
+   "changed": [
+    "open-corpus"
+   ]
+  },
+  {
+   "date": "2026-10-25",
+   "summary": "M17 (institutional logistics, directness, T1) joined the corpus, now 21 of 40.",
+   "changed": [
+    "open-corpus"
+   ]
+  },
+  {
+   "date": "2026-10-25",
+   "summary": "M20 (product specification, method, T1) joined the corpus, now 22 of 40.",
+   "changed": [
+    "open-corpus"
+   ]
+  },
+  {
+   "date": "2026-10-25",
+   "summary": "M24 (institutional logistics, primary source, T2) joined the corpus, now 23 of 40.",
+   "changed": [
+    "open-corpus"
+   ]
+  },
+  {
+   "date": "2026-10-25",
+   "summary": "M25 (product specification, authority, T1) joined the corpus, now 24 of 40.",
+   "changed": [
+    "open-corpus"
+   ]
+  },
+  {
+   "date": "2026-10-25",
+   "summary": "M26 (incident status, method, T1) joined the corpus, now 25 of 40.",
+   "changed": [
+    "open-corpus"
+   ]
+  },
+  {
+   "date": "2026-10-25",
+   "summary": "M27 (institutional logistics, authority, T1) joined the corpus, now 26 of 40.",
+   "changed": [
+    "open-corpus"
+   ]
+  },
+  {
+   "date": "2026-10-25",
+   "summary": "M28 (product specification, primary source, T1) joined the corpus, now 27 of 40.",
+   "changed": [
+    "open-corpus"
+   ]
+  },
+  {
+   "date": "2026-10-25",
+   "summary": "M38 (incident status, primary source, T1) joined the corpus, now 28 of 40.",
+   "changed": [
+    "open-corpus"
+   ]
+  },
+  {
+   "date": "2026-10-25",
+   "summary": "M39 (incident status, directness, T1) joined the corpus, now 29 of 40.",
+   "changed": [
+    "open-corpus"
+   ]
+  },
+  {
+   "date": "2026-10-25",
+   "summary": "M40 (institutional logistics, method, T2) joined the corpus, now 30 of 40.",
+   "changed": [
+    "open-corpus"
+   ]
+  },
+  {
+   "date": "2026-10-25",
+   "summary": "M6 (institutional logistics, primary source, T1) joined the corpus, now 31 of 40.",
+   "changed": [
+    "open-corpus"
+   ]
+  },
+  {
+   "date": "2026-10-25",
+   "summary": "M8 (incident status, method, T2) joined the corpus, now 32 of 40.",
+   "changed": [
+    "open-corpus"
+   ]
+  },
+  {
+   "date": "2026-10-25",
+   "summary": "No content word is in two filler sets: written into R12 and the checks no script performs, and all 32 cases on main cleaned to it. Jason decided.",
+   "added": [
+    "filler-no-shared-word"
+   ],
+   "changed": [
+    "rules-filler",
+    "human-checks"
+   ]
+  },
+  {
+   "date": "2026-10-25",
+   "summary": "Found and settled a drift: five cases on main (M1, M2, M3, M28, M33) still shared a word in two forms across filler sets, though the decision record said all 32 were cleaned. A second pass swapped one word for each pair, and for two related-word pairs in M4 and M14. Jason decided.",
+   "added": [
+    "drift-filler-forms"
+   ],
+   "changed": [
+    "filler-no-shared-word"
+   ],
+   "opened": [
+    "drift-filler-forms"
+   ],
+   "closed": [
+    "drift-filler-forms"
+   ]
+  },
+  {
+   "date": "2026-10-25",
+   "summary": "M10 (institutional logistics, authority, T1) joined the corpus, now 33 of 40.",
+   "changed": [
+    "open-corpus"
    ]
   }
  ]

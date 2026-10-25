@@ -208,6 +208,9 @@ Same steps for each author. Replace `m2` with your case.
   understood to be"). One small word like "your" does not survive. Use a hedge that
   fewer than three T1 cases use, on `main` or in open pull requests, preferring one
   already in use to a new one, and name it in `design_notes` (R16, "Vary the cue").
+  `uv run python tools/case_index.py --all-branches` lists the hedges in use and the
+  slots each has left. In a method case, pick one that names no method: not
+  "estimated", "guessed" or "reckoned" (R16).
 
 **1.5 Write the provenance.**
 - **Do**: fill `type`, `authority`, `quality`, `why` for each source.
@@ -486,41 +489,41 @@ Jason merges Phase 4 cases only after it, because the run takes every case in
 | M3 | incident_status | directness | T1 | Rachel | Kathleen | merged | yes |
 | M4 | product_spec | method | T1 | Kathleen | Kai Rong | merged | yes |
 | M5 | incident_status | authority | T1 | Kai Rong | Crystal | merged | yes |
-| M6 | institutional_logistics | primary_source | T1 | Crystal | Rachel | assigned | yes |
-| M7 | product_spec | authority | T1 | Crystal | Rachel | assigned | |
-| M8 | incident_status | method | T2 | Crystal | Rachel | assigned | backup for M14 |
-| M9 | product_spec | directness | T2 | Crystal | Rachel | assigned | backup for M22 |
-| M10 | institutional_logistics | authority | T1 | Crystal | Rachel | assigned | |
+| M6 | institutional_logistics | primary_source | T1 | Crystal | Rachel | merged | yes |
+| M7 | product_spec | authority | T1 | Crystal | Rachel | merged | |
+| M8 | incident_status | method | T2 | Crystal | Rachel | merged | backup for M14 |
+| M9 | product_spec | directness | T2 | Crystal | Rachel | merged | backup for M22 |
+| M10 | institutional_logistics | authority | T1 | Crystal | Rachel | merged | |
 | M11 | institutional_logistics | directness | T1 | Crystal | Rachel | assigned | |
 | M12 | product_spec | method | T1 | Crystal | Rachel | assigned | |
 | M13 | incident_status | primary_source | T1 | Crystal | Rachel | assigned | |
 | M14 | incident_status | method | T2 | Rachel | Kathleen | merged | yes |
 | M15 | institutional_logistics | authority | T1 | Rachel | Kathleen | merged | |
-| M16 | institutional_logistics | primary_source | T1 | Rachel | Kathleen | assigned | backup for M6 |
-| M17 | institutional_logistics | directness | T1 | Rachel | Kathleen | assigned | backup for M30 |
+| M16 | institutional_logistics | primary_source | T1 | Rachel | Kathleen | merged | backup for M6 |
+| M17 | institutional_logistics | directness | T1 | Rachel | Kathleen | merged | backup for M30 |
 | M18 | product_spec | primary_source | T1 | Rachel | Kathleen | assigned | |
 | M19 | incident_status | directness | T2 | Rachel | Kathleen | assigned | |
-| M20 | product_spec | method | T1 | Rachel | Kathleen | assigned | |
+| M20 | product_spec | method | T1 | Rachel | Kathleen | merged | |
 | M21 | incident_status | authority | T1 | Rachel | Kathleen | assigned | |
 | M22 | product_spec | directness | T2 | Kathleen | Kai Rong | merged | yes |
 | M23 | institutional_logistics | method | T1 | Kathleen | Kai Rong | merged | |
-| M24 | institutional_logistics | primary_source | T2 | Kathleen | Kai Rong | assigned | |
-| M25 | product_spec | authority | T1 | Kathleen | Kai Rong | assigned | |
-| M26 | incident_status | method | T1 | Kathleen | Kai Rong | assigned | |
-| M27 | institutional_logistics | authority | T1 | Kathleen | Kai Rong | assigned | |
-| M28 | product_spec | primary_source | T1 | Kathleen | Kai Rong | assigned | |
+| M24 | institutional_logistics | primary_source | T2 | Kathleen | Kai Rong | merged | |
+| M25 | product_spec | authority | T1 | Kathleen | Kai Rong | merged | |
+| M26 | incident_status | method | T1 | Kathleen | Kai Rong | merged | |
+| M27 | institutional_logistics | authority | T1 | Kathleen | Kai Rong | merged | |
+| M28 | product_spec | primary_source | T1 | Kathleen | Kai Rong | merged | |
 | M29 | incident_status | directness | T1 | Kathleen | Kai Rong | assigned | |
 | M30 | institutional_logistics | directness | T1 | Kai Rong | Crystal | merged | yes |
 | M31 | product_spec | primary_source | T2 | Kai Rong | Crystal | merged | |
 | M32 | incident_status | primary_source | T1 | Kai Rong | Crystal | merged | backup for M38 |
 | M33 | incident_status | authority | T2 | Kai Rong | Crystal | merged | |
-| M34 | product_spec | authority | T1 | Kai Rong | Crystal | assigned | |
-| M35 | institutional_logistics | method | T1 | Kai Rong | Crystal | assigned | |
-| M36 | product_spec | directness | T1 | Kai Rong | Crystal | assigned | |
-| M37 | incident_status | method | T1 | Kai Rong | Crystal | assigned | |
-| M38 | incident_status | primary_source | T1 | Jason | Kathleen | assigned | yes |
-| M39 | incident_status | directness | T1 | Jason | Kathleen | assigned | |
-| M40 | institutional_logistics | method | T2 | Jason | Kathleen | assigned | |
+| M34 | product_spec | authority | T1 | Kai Rong | Crystal | merged | |
+| M35 | institutional_logistics | method | T1 | Kai Rong | Crystal | merged | |
+| M36 | product_spec | directness | T1 | Kai Rong | Crystal | merged | |
+| M37 | incident_status | method | T1 | Kai Rong | Crystal | merged | |
+| M38 | incident_status | primary_source | T1 | Jason | Kathleen | merged | yes |
+| M39 | incident_status | directness | T1 | Jason | Kathleen | merged | |
+| M40 | institutional_logistics | method | T2 | Jason | Kathleen | merged | |
 
 **Subset** marks the ten cases the length arm and the wording ladder run on (2D): M1–M5,
 and five Phase 4 cases marked on 2026-10-19 with the first batches, before anyone drafted

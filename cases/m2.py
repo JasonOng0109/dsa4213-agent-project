@@ -35,9 +35,10 @@ CASE = {
         "The four options are 45, 55, 65 and 75 Wh, with both competing claims "
         "as interior values (R8). The screen sentence keeps 55 and 65 Wh while "
         "excluding 45 and 75 Wh, preserving the world truth (R15). "
-        "The three filler sets describe only neutral physical features of the "
-        "laptop, without battery-related information or source-identifying "
-        "language (R9, R10). Each filler set contains 78 words; A and B contain "
+        "The three filler sets describe the top of the laptop, its underside, and "
+        "its sides and ports, with no content word in two sets and without "
+        "battery-related information or source-identifying language (R9, R10, "
+        "R12). Each filler set contains 78 words; A and B contain "
         "15 and 14 words respectively, producing long reports of 93 and 92 "
         "words before paraphrasing (R20)."
     ),
@@ -57,28 +58,23 @@ CASE = {
             "the lid to tilt back smoothly.",
         ],
         [
-            "The Arden Air 14 laptop has a textured underside with small rubber "
-            "feet at the corners.",
-            "The hinge connects the display to the main body and moves smoothly "
-            "through its range.",
-            "A shallow recess near the front edge makes the lid easier to lift "
-            "without much effort.",
-            "The keyboard deck has a plain finish, and the touchpad is centred "
-            "beneath the keys.",
-            "The webcam sits above the screen, with a tiny opening beside its "
-            "lens for the microphone.",
+            "The Arden Air 14 laptop has a textured base with rubber feet near each "
+            "corner.",
+            "Louvred vents cross the rear half of the base in a neat strip.",
+            "Tiny recessed screws hold the bottom panel firmly in place.",
+            "A printed label near the front gives the model name and a serial code.",
+            "The base has a cool grey finish that resists fingerprints and scuffs.",
+            "A shallow lip along the front edge makes the machine easy to pick up.",
         ],
         [
-            "The Arden Air 14 laptop has a compact keyboard with a clearly "
-            "marked space bar.",
-            "The display frame has a uniform finish, and its corners are gently "
-            "rounded along the outer edges.",
-            "Small speaker grilles appear along the sides of the keyboard deck, "
-            "beside the keys.",
-            "The touchpad has a smooth surface with no visible separate buttons "
-            "on its face.",
-            "The lid closes flush against the base, and the hinge is mostly "
-            "hidden when the laptop is open.",
+            "The left side of the Arden Air 14 laptop carries USB ports and a headphone "
+            "socket.",
+            "A slot for memory cards lies on the right side.",
+            "Each port is ringed with a thin band of silver trim.",
+            "Icons etched next to the ports show what each is for.",
+            "The sides of the case have a brushed aluminium sheen.",
+            "A security slot for a cable lock is cut into the right flank.",
+            "The case is milled from solid aluminium.",
         ],
     ],
     "sources": {
