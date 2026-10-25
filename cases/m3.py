@@ -21,8 +21,9 @@ CASE = {
         "paraphrasing (R1, R2, R16). B is a flat statement with no cue of its own. Source "
         "type names distinguish an off-site relay from on-site measurement (R19). All "
         "claims are fictional (R4), without time markers (R3). B, C and D use distinct "
-        "sentence frames (R17). Filler is neutral and assigned by report slot, not source "
-        "(R9-R12). Each filler set is 79 words and A's and B's sentences are 14 and 12 "
+        "sentence frames (R17). Filler is neutral, assigned by report slot, not source, "
+        "and no content word is in two sets (R9-R12). Each filler set is 79 words and "
+        "A's and B's sentences are 14 and 12 "
         "words, so every long report lands between 88 and 96 words with about three "
         "words of room either way for rewording (R20)."
     ),
@@ -41,30 +42,25 @@ CASE = {
             "Handrails along the dam crest are painted and checked for loose fittings.",
         ],
         [
-            "Primary spillway sluice mechanisms stay set to standard positions within the "
-            "operating assembly.",
-            "Turbidity monitoring stations along the inlet channel report regular flow "
-            "clarity across sampling points.",
-            "Perimeter access road patrols proceed on normal operating schedules along the "
-            "outer pathway.",
-            "Surface aeration pumps across the settling pond maintain constant operation "
-            "through the distribution manifold.",
-            "Upstream intake screens show normal flow with no debris accumulation around "
-            "the grilles.",
-            "Lighting posts along the crest road are tested on a fixed rota.",
+            "Swans nest among the reeds at the far end of the reservoir.",
+            "Herons stand on the stones along the western shore.",
+            "Coots and moorhens paddle near a little wooden jetty by the boathouse.",
+            "Swallows skim swiftly over the open expanse.",
+            "A birdwatching hide with slim viewing slots faces the eastern shore.",
+            "Willows dip their long branches over the shoreline.",
+            "Ducklings shelter in a quiet inlet.",
+            "Otters make their holts among the alder roots.",
+            "Kingfishers flash blue between the alders.",
         ],
         [
-            "Secondary drainage channels below the embankment remain clear of obstructions "
-            "throughout the maintenance area.",
-            "Water treatment chemical feed lines operate within standard pressure limits "
-            "across the supply network.",
-            "Emergency pump generators stay connected on automatic standby within the "
-            "utility equipment enclosure.",
-            "Channel embankment vegetation control proceeds along the maintenance sector "
-            "beside the perimeter track.",
-            "Inlet canal baffle plates show fluid movement through the culvert and flow "
-            "passages.",
+            "A visitor centre of timber and glass looks out across the valley.",
+            "Its café has picnic tables on a decked terrace.",
+            "Woodland trails wind through tall pines on the hillside above.",
             "Gravel paths around the visitor car park are raked and weeded regularly.",
+            "A play area has a rope bridge and a slide.",
+            "Benches carved from oak logs line the main path.",
+            "Bluebells carpet the ground under the copper beeches.",
+            "A cycle hire hut sits by the main entrance.",
         ],
     ],
 
@@ -79,7 +75,7 @@ CASE = {
                 "why": "second-hand relay heard over telephone rather than direct "
                        "observation",
             },
-            "content": ("The water depth of the Star Reservoir basin is understood to be "
+            "content": ("The Star Reservoir basin is understood to have a water depth of "
                         "17 metres."),
             "n_paraphrases_needed": 2,
         },
