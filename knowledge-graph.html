@@ -516,20 +516,26 @@ a.ref:hover { background: var(--surface-2); }
    "cluster": "problem",
    "title": "The research question",
    "label": "Research question",
-   "summary": "When several agents repeat the same claim, can the model that combines their reports tell how many reports it got apart from how many independent, good documents stand behind them? And what must it be told before it can?",
+   "summary": "In a multi-agent system, the model that combines the workers' reports (the orchestrator) gets them from agents that often share a retriever or a tool, so one source can arrive looking like several witnesses. The system can track which reports share a source, but the text the orchestrator reads does not show it. So: can the orchestrator tell how many reports agree apart from how many independent, good sources stand behind them? And what must the message between agents tell it before its belief and its decision follow the evidence?",
    "weight": 3,
    "aliases": [
     "research question"
    ],
    "points": [
     "Half one: does the mistake still happen when the repeated reports are reworded, not copied?",
-    "Half two: which piece of disclosed information fixes it? [[provenance|Provenance]] is treated as a dial with several settings, not an on/off switch."
+    "Half two: which piece of disclosed information fixes it? [[provenance|Provenance]] is treated as a dial with several settings, not an on/off switch.",
+    "This wording was agreed on 2026-10-26 in answer to the TA's feedback on the proposal, and the slides and the write-up use it: [[question-refined]]."
    ],
    "evidence": [
     {
      "file": "README.md",
      "loc": "Research question",
-     "quote": "can an orchestrating LLM distinguish the number of agreeing reports from the number and quality of independent documents underlying them"
+     "quote": "can the orchestrator distinguish the number of agreeing reports from the number and quality of the independent sources behind them"
+    },
+    {
+     "file": "README.md",
+     "loc": "Research question",
+     "quote": "what must the inter-agent message tell it (a source ID, a source type, that reports share a source, or which source is more reliable) before its belief and its decision follow the evidence?"
     },
     {
      "file": "README.md",
@@ -553,6 +559,10 @@ a.ref:hover { background: var(--surface-2); }
     {
      "to": "envelope",
      "rel": "motivates"
+    },
+    {
+     "to": "question-refined",
+     "rel": "related"
     }
    ]
   },
@@ -590,7 +600,7 @@ a.ref:hover { background: var(--surface-2); }
    "type": "concept",
    "cluster": "problem",
    "title": "Correlated reports",
-   "summary": "Reports are correlated when they come from the same underlying document. Agents often share a retriever, a tool or a base model, so their reports can be correlated by construction.",
+   "summary": "Reports are correlated when they come from the same underlying document. Agents often share a retriever or a tool, so their reports can be correlated by construction. A shared base model does not count here: it makes agents make the same kind of mistakes, but it does not make one source show up as several reports.",
    "aliases": [
     "correlated reports",
     "correlated agreement"
@@ -603,13 +613,81 @@ a.ref:hover { background: var(--surface-2); }
     {
      "file": "README.md",
      "loc": "Why this is an agent problem",
-     "quote": "Agents in one framework often share a retriever, a tool or a base model, so their outputs are correlated by construction"
+     "quote": "Agents in one framework often share a retriever or a tool, so their outputs are correlated by construction"
+    },
+    {
+     "file": "docs/decisions.md",
+     "loc": "The research question names the aggregation step and the lost source record",
+     "quote": "A shared base model makes agents make the same kind of mistakes, but it does not make one source show up as several reports."
     }
    ],
    "links": [
     {
      "to": "orchestrator",
      "rel": "needs"
+    },
+    {
+     "to": "question-refined",
+     "rel": "related"
+    }
+   ]
+  },
+  {
+   "id": "question-refined",
+   "type": "decision",
+   "cluster": "problem",
+   "title": "The research question names the aggregation step and the lost source record",
+   "label": "Question: agreed wording",
+   "summary": "The TA's one critical comment on the proposal: the orchestrator is a single call reading fixed text, so why frame the study around multi-agent systems, when the aim seems no different from how one LLM weighs repeated reports? Kathleen drafted a refined research question for the slides and accepted Jason's two edits to it. First, a shared base model no longer counts as what makes reports correlated: it makes agents err alike, but it does not make one source arrive as several reports. Second, the question now says what a multi-agent system has that one LLM reading copied articles does not: a record of which reports share a source, which the text the orchestrator reads does not show. README's research question carries this wording, and the slides and the write-up use it.",
+   "date": "2026-10-26",
+   "points": [
+    "Every report the judge reads, A7's three independent ones included, is a rewording by one [[reporter]], so counting a shared model as a shared source would make [[a7]] dependent too.",
+    "The TA's description, an orchestrator weighing repeated text, is what [[h2]] tests: whether distinct agent names add anything beyond splitting the reports into separate messages.",
+    "Because the source record is lost on the way to the orchestrator, the repair has to travel in the message: [[envelope]].",
+    "The proposal's wording is kept in the decision log as the rejected alternative."
+   ],
+   "evidence": [
+    {
+     "file": "docs/decisions.md",
+     "loc": "The research question names the aggregation step and the lost source record",
+     "quote": "the TA's one critical comment on the proposal was that the orchestrator is a single call reading fixed text, so the aim seemed no different from how one LLM weighs repeated reports"
+    },
+    {
+     "file": "docs/decisions.md",
+     "loc": "The research question names the aggregation step and the lost source record",
+     "quote": "Kathleen drafted this statement for the slides and accepted Jason's two edits to it"
+    },
+    {
+     "file": "README.md",
+     "loc": "Research question",
+     "quote": "The system can track which reports share a source, but the text the orchestrator reads does not show it."
+    },
+    {
+     "file": "README.md",
+     "loc": "Why this is an agent problem",
+     "quote": "one LLM reading three articles copied from one press release has no such record at all"
+    }
+   ],
+   "links": [
+    {
+     "to": "question",
+     "rel": "needs"
+    },
+    {
+     "to": "correlated-reports",
+     "rel": "needs"
+    },
+    {
+     "to": "reporter",
+     "rel": "involves"
+    },
+    {
+     "to": "h2",
+     "rel": "related"
+    },
+    {
+     "to": "envelope",
+     "rel": "motivates"
     }
    ]
   },
@@ -10600,6 +10678,17 @@ a.ref:hover { background: var(--surface-2); }
    "summary": "Jason decided against a same-day bridge for H2's length check, so it compares stage 2's long cells with stage 1's short ones, across days.",
    "changed": [
     "stage2-order"
+   ]
+  },
+  {
+   "date": "2026-10-26",
+   "summary": "Recorded the research question's agreed wording: Kathleen accepted Jason's two edits to her refined statement, so README's question now names the aggregation step and the source record the orchestrator never sees, and a shared base model no longer counts as what makes reports correlated.",
+   "added": [
+    "question-refined"
+   ],
+   "changed": [
+    "question",
+    "correlated-reports"
    ]
   }
  ]

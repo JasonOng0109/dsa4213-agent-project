@@ -1322,3 +1322,39 @@ Add an entry when you make a choice a reader could not guess from the code.
   in view; reading the split by eye, without a fixed test.
 - **Breaks if changed**: a rule chosen after the split is seen can be bent toward either
   answer.
+
+### 2026-10-26 — The research question names the aggregation step and the lost source record
+
+- **Decision**: README's research question is now the wording the slides and the
+  write-up use: "In a multi-agent system, an orchestrator combines reports from worker
+  agents that often share a retriever or a tool, so one source can arrive as several
+  apparent witnesses. The system can track which reports share a source, but the text
+  the orchestrator reads does not show it. We isolate that aggregation step as a single
+  controlled call, and ask: can the orchestrator distinguish the number of agreeing
+  reports from the number and quality of the independent sources behind them, and what
+  must the inter-agent message tell it (a source ID, a source type, that reports share a
+  source, or which source is more reliable) before its belief and its decision follow
+  the evidence?" README's "Why this is an agent problem" no longer counts a shared base
+  model among what makes reports correlated, and where it said "A single model reading a
+  single document cannot produce this failure", it now says that the system can track
+  which reports share a source while the text the orchestrator reads does not show it.
+- **Why** [STATED: team decision, 2026-10-26]: the TA's one critical comment on the
+  proposal was that the orchestrator is a single call reading fixed text, so the aim
+  seemed no different from how one LLM weighs repeated reports. Kathleen drafted this
+  statement for the slides and accepted Jason's two edits to it. A shared base model
+  makes agents make the same kind of mistakes, but it does not make one source show up as
+  several reports. The proposal already said that a single model reading a single
+  document never sees the failure, and the TA asked anyway; what a multi-agent system has,
+  and one LLM reading copied articles does not, is a record of which reports share a
+  source, lost before the orchestrator reads them. [INFERRED: from README, "Two agent
+  roles and the pipeline" and "Models"] every report the judge reads, A7's three
+  independent ones included, is a rewording by one reporter, `google/gemma-4-31b-it`.
+- **Rejected**: keeping "a retriever, a tool or a base model"; keeping the single-model
+  sentence as the answer to the TA; the proposal's wording, "When several agents report
+  the same claim, can an orchestrating LLM distinguish the number of agreeing reports
+  from the number and quality of independent documents underlying them, and what
+  information must it be given before it does?", which the TA read and still questioned.
+- **Breaks if changed**: if a shared model counted as a shared source, A7's three
+  reports, all written by one reporter, would not be independent either, and A4 against
+  A7 would no longer compare one source with three; without the lost-record sentence,
+  the repository gives no answer to the TA's question.

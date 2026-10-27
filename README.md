@@ -9,9 +9,17 @@ map of the whole project, where every statement links to the file it comes from.
 
 ## Research question
 
-> When several agents report the same claim, can an orchestrating LLM distinguish the
-> number of agreeing reports from the number and quality of independent documents
-> underlying them, and what information must it be given before it does?
+> In a multi-agent system, an orchestrator combines reports from worker agents that often
+> share a retriever or a tool, so one source can arrive as several apparent witnesses.
+> The system can track which reports share a source, but the text the orchestrator reads
+> does not show it. We isolate that aggregation step as a single controlled call, and
+> ask: can the orchestrator distinguish the number of agreeing reports from the number
+> and quality of the independent sources behind them, and what must the inter-agent
+> message tell it (a source ID, a source type, that reports share a source, or which
+> source is more reliable) before its belief and its decision follow the evidence?
+
+The slides and the write-up use this wording, agreed on 2026-10-26 in answer to the TA's
+feedback on the proposal (`docs/decisions.md`).
 
 The question has two halves, and the study keeps them apart:
 
@@ -23,11 +31,13 @@ The question has two halves, and the study keeps them apart:
 ## Why this is an agent problem
 
 In a multi-agent pipeline the orchestrator sees reports, not documents. Agents in one
-framework often share a retriever, a tool or a base model, so their outputs are
-correlated by construction: one piece of evidence arrives as three apparent witnesses.
+framework often share a retriever or a tool, so their outputs are correlated by
+construction: one piece of evidence arrives as three apparent witnesses.
 An orchestrator that counts them as three independent confirmations becomes confidently
-wrong in exactly the situation a multi-agent design is meant to guard against. A single
-model reading a single document cannot produce this failure.
+wrong in exactly the situation a multi-agent design is meant to guard against. The
+system can track which reports share a source, but the text the orchestrator reads does
+not show it, and one LLM reading three articles copied from one press release has no
+such record at all. That is why the question is about what the message should carry.
 
 The practical question for a system builder is what to put in the message envelope that
 passes between agents: a source identifier, a source name, a dependency flag, or a
