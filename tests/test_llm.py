@@ -50,6 +50,19 @@ def test_gives_up_after_max_retries():
     assert m.call_count == 2
 
 
+def test_retries_an_error_in_a_200_body():
+    """OpenRouter reports an error met while the model answers with status 200 and the
+    error in the body, as GPT-5.4's provider did on 2026-10-27; it is retried like a 502."""
+    backend = OpenRouterBackend(model="m", api_key="k", max_retries=3)
+    overloaded = _response(200, {"id": "gen-1", "error": {
+        "message": "Our servers are currently overloaded. Please try again later.",
+        "code": 502, "metadata": {"error_type": "provider_unavailable"}}})
+    with patch(POST, side_effect=[overloaded, _ok("Friday")]) as m, \
+            patch("pipeline.llm.time.sleep"):
+        assert backend.complete(system="sys", user="hello") == "Friday"
+    assert m.call_count == 2
+
+
 def test_non_retryable_error_fails_immediately():
     backend = OpenRouterBackend(model="m", api_key="k", max_retries=5)
     with patch(POST, return_value=_response(400, text="invalid model id")) as m:

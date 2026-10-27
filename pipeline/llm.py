@@ -137,6 +137,14 @@ class OpenRouterBackend:
                 raise RuntimeError(f"OpenRouter error {resp.status_code}: {resp.text[:300]}")
 
             data = resp.json()
+            # an error met while the model answers comes back with status 200 and the
+            # error in the body (OpenRouter's documentation, "Errors"), so it is retried
+            # like the status it names
+            code = (data.get("error") or {}).get("code")
+            if isinstance(code, int) and (code == 429 or code >= 500):
+                last_error = RuntimeError(f"{code} in a 200 response: {str(data['error'])[:200]}")
+                time.sleep(2 ** attempt)
+                continue
             self.last_provider = data.get("provider")
             self.last_generation_id = data.get("id")
             self.last_usage = data.get("usage")
