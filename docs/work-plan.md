@@ -12,7 +12,7 @@ kept:
   slowest part of the project.
 - The pilot ran on 2026-10-19 (Phase 3); its output is `runs/score-pilot.txt`. The main
   run's stage 1 ran on 2026-10-25 (Phase 5); its output is `runs/main/score-stage1.txt`.
-  Stage 2 waits for the key's top-up.
+  Stage 2 ran on 2026-10-27 and 2026-10-28; its output is `runs/main/score-stage2.txt`.
 - What is still open: the "Open questions" board in `knowledge-graph.html`.
 
 ---
@@ -571,10 +571,15 @@ Outline only. Detailed tasks will be added after the pilot.
   check that `balance` covers its cost plus 10%.
   Stage 1 ran on 2026-10-25, judging from 13:45 to 20:26, and no entry stopped. It cost
   $36.78 against $34.74 planned: generation $1.49 and judging $35.29, the sum of the
-  five logs' call costs. That left $2.11 on the key, so stage 2 waits for the top-up.
+  five logs' call costs. That left $2.11 on the key, so stage 2 waited for the top-up.
+  Stage 2 ran after the top-up, from 2026-10-27 21:42 to 2026-10-28 01:00. Its three logs
+  cost $5.25 against $5.11 planned: `ladder` $2.31, `long-agreement` $0.40 and
+  `long-conflict` $2.53. long-conflict's first try, stopped at 762 of its 1,200 trials
+  and rerun in full, cost $1.60 more (`docs/decisions.md`, 2026-10-27).
 - **Analysis**: read results only against the table "What counts as support, fixed
   before any data" in the README. Stage 1's first reading, hypothesis by hypothesis:
-  `docs/stage1-report.md`. Its counts over cases come from `tools/tally.py`.
+  `docs/stage1-report.md`. Its counts over cases come from `tools/tally.py`. Stage 2's
+  reading: `docs/stage2-report.md`.
 - **Optional sub-experiments**: designed on 2026-10-26, each in its own entry in
   `docs/decisions.md`; the code is being written on the branch `optional-arms`. Only if
   budget allows, in the order the proposal gives (§6).
@@ -641,4 +646,4 @@ Change "to do" to "done" when a task is finished.
 | Phase 4 drafts | everyone | Kai Rong's first batches | done |
 | Phase 4 merges | Jason | pilot done | done |
 | 5 Main run, stage 1 | Jason | all 40 cases merged | done |
-| 5 Main run, stage 2 | Jason | the key's top-up | to do |
+| 5 Main run, stage 2 | Jason | the key's top-up | done |

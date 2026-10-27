@@ -392,7 +392,7 @@ a.ref:hover { background: var(--surface-2); }
   "title": "Project Knowledge Graph",
   "project": "DSA4213 Group 14 · Counting Reports or Counting Evidence",
   "oneLiner": "Can an AI orchestrator that combines reports from several agents tell three copies of one source from three independent sources, and which piece of information fixes its mistakes: a source name, a 'these share a source' note, or a 'this source is better' note?",
-  "updated": "2026-10-26",
+  "updated": "2026-10-28",
   "tour": [
    "question",
    "false-consensus",
@@ -942,7 +942,8 @@ a.ref:hover { background: var(--surface-2); }
    "points": [
     "Tested one factor at a time: [[a1]] → [[a2]] → [[a3]] → [[a4]]; then [[a4]] vs [[a7]] for real independence.",
     "The [[length-arm]] also runs A1 and A2, to tell 'more words' apart from 'more restatements'.",
-    "Stage 1: A3 and A4 sat above A2 in 39 or 40 of the 40 cases and within 0.4 to 2.4 points of each other, Support at short length; the long-report check waits for stage 2: [[main-stage1]]."
+    "Stage 1: A3 and A4 sat above A2 in 39 or 40 of the 40 cases and within 0.4 to 2.4 points of each other, Support at short length: [[main-stage1]].",
+    "Stage 2's length check: Sonnet's A1 → A2 rise was larger with long reports, +13.4 against +8.0, in 9 of 10 cases, which the table's nuisance column reads as token volume. GPT-5.4, whose one long report already got 94.8, rose +0.8. The steps after A2 ran at short length only: [[main-stage2]]."
    ],
    "evidence": [
     {
@@ -954,6 +955,16 @@ a.ref:hover { background: var(--surface-2); }
      "file": "docs/stage1-report.md",
      "loc": "H2",
      "quote": "Against the table: Support, at short length."
+    },
+    {
+     "file": "runs/main/tally-stage2.txt",
+     "loc": "stage 2's entries, Sonnet",
+     "quote": "short 75.8 -> 83.8 (+8.0); long 78.3 -> 91.7 (+13.4); the rise is larger at long length in 9/10 cases"
+    },
+    {
+     "file": "docs/stage2-report.md",
+     "loc": "H2",
+     "quote": "Against the table: for Sonnet, the nuisance holds."
     }
    ],
    "links": [
@@ -972,6 +983,10 @@ a.ref:hover { background: var(--surface-2); }
     {
      "to": "main-stage1",
      "rel": "related"
+    },
+    {
+     "to": "main-stage2",
+     "rel": "related"
     }
    ]
   },
@@ -988,7 +1003,8 @@ a.ref:hover { background: var(--surface-2); }
    "points": [
     "Primary target. Tested by [[x1]] vs [[x3]] decisions; [[x3]] vs [[x4]] separates dependence from quality.",
     "Why not [[a5]] vs [[a6]]? With no competing answer there is no decision for the note to change.",
-    "Stage 1: belief moved toward the truth from X1 to X3 for every judge, in T2 cases too. Sonnet's and GPT-5.4's decisions did not move; Opus changed 63 of 480, all in T1 cases: [[main-stage1]]."
+    "Stage 1: belief moved toward the truth from X1 to X3 for every judge, in T2 cases too. Sonnet's and GPT-5.4's decisions did not move; Opus changed 63 of 480, all in T1 cases: [[main-stage1]].",
+    "Stage 2, with long reports on ten cases: belief moved from X1 to X3 in every case for Sonnet and GPT-5.4. Sonnet's decisions did not move, 1 of 120; GPT-5.4 changed 18 of 120, against 3 with short reports, all in T1 cases, as Opus did at short length: [[main-stage2]]."
    ],
    "evidence": [
     {
@@ -1000,6 +1016,16 @@ a.ref:hover { background: var(--surface-2); }
      "file": "runs/main/tally-stage1.txt",
      "loc": "H3, Opus",
      "quote": "T1 1/360 -> 63/360, 27.1 -> 42.1; T2 0/120 -> 0/120, 21.5 -> 38.6"
+    },
+    {
+     "file": "runs/main/tally-stage2.txt",
+     "loc": "stage 2's entries, GPT-5.4",
+     "quote": "X1 4/120 21.9, X2 74/120 52.8, X3 18/120 30.3, X4 120/120 84.7, X5 120/120 77.1; X1 -> X3 P(truth) rises in 10/10 cases"
+    },
+    {
+     "file": "docs/stage2-report.md",
+     "loc": "H3 and H4 with long reports",
+     "quote": "All 18 are in the seven T1 cases"
     }
    ],
    "links": [
@@ -1013,6 +1039,10 @@ a.ref:hover { background: var(--surface-2); }
     },
     {
      "to": "main-stage1",
+     "rel": "related"
+    },
+    {
+     "to": "main-stage2",
      "rel": "related"
     }
    ]
@@ -1030,7 +1060,8 @@ a.ref:hover { background: var(--surface-2); }
    "points": [
     "Tested by [[x1]] vs [[x4]] vs [[x5]].",
     "Risk: blunt wording may test obedience rather than reasoning. The [[graded-ladder]] checks this.",
-    "Stage 1: with quality stated (X4, X5) every judge was right in all 480 trials, against 63, 8 and 27 with dependence alone (X3). Whether that is compliance waits for the ladder in stage 2: [[main-stage1]]."
+    "Stage 1: with quality stated (X4, X5) every judge was right in all 480 trials, against 63, 8 and 27 with dependence alone (X3): [[main-stage1]].",
+    "Stage 2's ladder: the weakest wording, 'somewhat more reliable', already made Opus and GPT-5.4 right in all 120 trials and Sonnet in 91, and belief grew with each rung, so decisions do not change only under the strongest wording. With long reports, X4 and X5 stayed right in every trial: [[main-stage2]]."
    ],
    "evidence": [
     {
@@ -1042,6 +1073,16 @@ a.ref:hover { background: var(--surface-2); }
      "file": "runs/main/tally-stage1.txt",
      "loc": "conflict, Opus",
      "quote": "X3 63/480 41.2, X4 480/480 68.9, X5 480/480 68.8"
+    },
+    {
+     "file": "runs/main/tally-stage2.txt",
+     "loc": "stage 2's entries, Sonnet",
+     "quote": "ladder, right decisions and mean P(truth): W1 91/120 50.2, W2 120/120 65.5, W3 120/120 71.1"
+    },
+    {
+     "file": "docs/stage2-report.md",
+     "loc": "H4",
+     "quote": "Against the table: Support, and the nuisance does not hold for any judge."
     }
    ],
    "links": [
@@ -1055,6 +1096,10 @@ a.ref:hover { background: var(--surface-2); }
     },
     {
      "to": "main-stage1",
+     "rel": "related"
+    },
+    {
+     "to": "main-stage2",
      "rel": "related"
     }
    ]
@@ -1073,7 +1118,8 @@ a.ref:hover { background: var(--surface-2); }
     "Tested by [[x1]] vs [[x2]], only over cases whose type names carry the quality dimension ([[rules-other|R19]]).",
     "From Phase 4, A's and B's names differ only in the case's dimension, so a gain cannot come from one source simply sounding more official: [[types-dimension-only]].",
     "Stage 1: naming each source's type (X2) raised right decisions from 1, 2 and 26 to 403, 193 and 283 of 480 (Opus, Sonnet, GPT-5.4): [[main-stage1]].",
-    "The familiar-institution nuisance does not hold for any judge. In the 32 cases where B's type name names no familiar institution that A's lacks, X2 is right in 320, 150 and 216 of 384 trials, and every judge gains in more cases than it loses: [[h5-familiar-rule]]."
+    "The familiar-institution nuisance does not hold for any judge. In the 32 cases where B's type name names no familiar institution that A's lacks, X2 is right in 320, 150 and 216 of 384 trials, and every judge gains in more cases than it loses: [[h5-familiar-rule]].",
+    "Stage 2, with long reports on ten cases: X2 was right less often than with short reports, 52 → 36 of 120 for Sonnet and 87 → 74 for GPT-5.4, though still well above X1: [[main-stage2]]."
    ],
    "evidence": [
     {
@@ -1100,6 +1146,11 @@ a.ref:hover { background: var(--surface-2); }
      "file": "docs/stage1-report.md",
      "loc": "H5",
      "quote": "does not hold for any judge"
+    },
+    {
+     "file": "runs/main/tally-stage2.txt",
+     "loc": "stage 2's entries, Sonnet",
+     "quote": "X1 1/120 19.8, X2 36/120 35.5, X3 1/120 27.5"
     }
    ],
    "links": [
@@ -1125,6 +1176,10 @@ a.ref:hover { background: var(--surface-2); }
     },
     {
      "to": "h5-familiar-rule",
+     "rel": "related"
+    },
+    {
+     "to": "main-stage2",
      "rel": "related"
     }
    ]
@@ -3667,7 +3722,8 @@ a.ref:hover { background: var(--surface-2); }
    ],
    "points": [
     "Filler is hand-written and the rewording is shared, so any change can only come from length.",
-    "A larger A1 → A2 rise at long length would point to word volume; an equal rise to redundancy as such."
+    "A larger A1 → A2 rise at long length would point to word volume; an equal rise to redundancy as such.",
+    "Ran on 2026-10-27 and 2026-10-28. Sonnet's A1 → A2 rise was larger at long length, pointing to word volume; GPT-5.4 was near its ceiling. In the conflict block, long reports changed little: [[main-stage2]]."
    ],
    "evidence": [
     {
@@ -3689,6 +3745,11 @@ a.ref:hover { background: var(--surface-2); }
      "file": "pipeline/conditions.py",
      "loc": "LONG_ARM",
      "quote": "LONG_ARM = CONFLICT_BLOCK + LONG_AGREEMENT   # the conditions the length arm runs long"
+    },
+    {
+     "file": "runs/main/tally-stage2.txt",
+     "loc": "stage 2's entries, GPT-5.4",
+     "quote": "short 90.3 -> 96.2 (+5.9); long 94.8 -> 95.6 (+0.8); the rise is larger at long length in 0/10 cases"
     }
    ],
    "links": [
@@ -3706,6 +3767,10 @@ a.ref:hover { background: var(--surface-2); }
     },
     {
      "to": "long-check-scope",
+     "rel": "related"
+    },
+    {
+     "to": "main-stage2",
      "rel": "related"
     }
    ]
@@ -4043,7 +4108,8 @@ a.ref:hover { background: var(--surface-2); }
    ],
    "points": [
     "3 rungs × 10 cases × 12 repeats × 3 judges = 1,080 calls, in the main programme.",
-    "Each rung is X5 with only the intensity word changed: same reports, same dependence note, same rotation. The team reviewed the exact sentence and kept it: [[ladder-sentence]]."
+    "Each rung is X5 with only the intensity word changed: same reports, same dependence note, same rotation. The team reviewed the exact sentence and kept it: [[ladder-sentence]].",
+    "Ran on 2026-10-27. W1 already made Opus and GPT-5.4 right in all 120 trials and Sonnet in 91, against 1 to 3 in X3; mean P(truth) rose with each rung: [[main-stage2]]."
    ],
    "evidence": [
     {
@@ -4060,6 +4126,11 @@ a.ref:hover { background: var(--surface-2); }
      "file": "docs/proposal.pdf",
      "loc": "p.14 §4.1",
      "quote": "10 cases, the same ten as the length arm so the two subset arms can be cross-referenced"
+    },
+    {
+     "file": "runs/main/tally-stage2.txt",
+     "loc": "stage 2's entries, Opus",
+     "quote": "W1 120/120 53.7, W2 120/120 64.8, W3 120/120 69.1; short, the same cases: X3 1/120 39.5"
     }
    ],
    "links": [
@@ -4074,6 +4145,10 @@ a.ref:hover { background: var(--surface-2); }
     {
      "to": "open-ladder-wording",
      "rel": "involves"
+    },
+    {
+     "to": "main-stage2",
+     "rel": "related"
     }
    ]
   },
@@ -7817,7 +7892,8 @@ a.ref:hover { background: var(--surface-2); }
     "The frozen reports are read before judging, by Jason: [[main-run-reading]].",
     "Generation cost about $1.49, not the $0.48 planned, which was the proposal's rate: [[main-generation]].",
     "Stage 1 ran on 2026-10-25 with no entry stopped, at $36.78 against $34.74 planned; $2.11 was left for stage 2's $5.11: [[main-stage1]].",
-    "Stage 2 runs one entry at a time, the wording ladder first: [[stage2-order]]."
+    "Stage 2 runs one entry at a time, the wording ladder first: [[stage2-order]].",
+    "Stage 2 ran on 2026-10-27 and 2026-10-28. Its three logs cost $5.25 against $5.11 planned, and long-conflict's stopped first try $1.60 more: [[main-stage2]]."
    ],
    "evidence": [
     {
@@ -7839,6 +7915,11 @@ a.ref:hover { background: var(--surface-2); }
      "file": "pipeline/run.py",
      "loc": "judge --log",
      "quote": "a new name per staged run"
+    },
+    {
+     "file": "docs/work-plan.md",
+     "loc": "Phase 5",
+     "quote": "Its three logs cost $5.25 against $5.11 planned"
     }
    ],
    "links": [
@@ -7880,6 +7961,10 @@ a.ref:hover { background: var(--surface-2); }
     },
     {
      "to": "main-stage1",
+     "rel": "involves"
+    },
+    {
+     "to": "main-stage2",
      "rel": "involves"
     }
    ]
@@ -9113,7 +9198,7 @@ a.ref:hover { background: var(--surface-2); }
     "Belief: P(truth) rose from A1 to A4 in all 40 cases for every judge, and three independent sources (A7) got about the same as three copies of one (A4). Opus and Sonnet counted both as under two sources, median n_eff(A4) 1.64 and 1.88 and n_eff(A7) 1.69 and 1.98, against 1 and 3: [[neff]].",
     "Without the seven echo cases from the 3.4 reading, every direction holds and the counts barely move: [[main-generation]].",
     "H6: of each judge's 2,400 conflict-block records, 30 (Opus), 3 (Sonnet) and 7 (GPT-5.4) do not identify the answer given. Opus and Sonnet abstained in P0 but never in the conflict block, which the cut-offs fixed before the main run read as a clean null. GPT-5.4 abstained in 9 of its 800 conflict-block trials, all in X1 and none in a flagged record, so its test applies and gives +0.00: [[abstain-p0-check]].",
-    "It ran in three lanes, judging from 13:45 to 20:26: [[stage1-lanes]]. It cost $36.78 against $34.74 planned, which left $2.11 on the key, so stage 2 waits for the top-up: [[main-run-staged]]."
+    "It ran in three lanes, judging from 13:45 to 20:26: [[stage1-lanes]]. It cost $36.78 against $34.74 planned, which left $2.11 on the key, so stage 2 waited for the top-up: [[main-run-staged]]. Stage 2's results: [[main-stage2]]."
    ],
    "evidence": [
     {
@@ -9270,6 +9355,10 @@ a.ref:hover { background: var(--surface-2); }
     {
      "to": "h5-familiar-rule",
      "rel": "related"
+    },
+    {
+     "to": "main-stage2",
+     "rel": "related"
     }
    ]
   },
@@ -9279,7 +9368,7 @@ a.ref:hover { background: var(--surface-2); }
    "cluster": "pipeline",
    "title": "tools/tally.py counts over cases for the support table",
    "label": "Tally over cases",
-   "summary": "The scorer prints every cell per judge and case. tools/tally.py adds, per judge, the counts and means over cases that the README's support table asks about: in how many cases belief rose, right decisions per condition, each tier apart, and n_eff's medians. It reads the same logs and reuses the scorer's cells and n_eff, so its numbers match the scorer's tables. It describes; the table decides. --without leaves cases out, for checks such as the echo cases. --only keeps only the cases named, and the H5 line adds a sign test over cases, for the familiar-institution check: [[h5-familiar-rule]].",
+   "summary": "The scorer prints every cell per judge and case. tools/tally.py adds, per judge, the counts and means over cases that the README's support table asks about: in how many cases belief rose, right decisions per condition, each tier apart, and n_eff's medians. It reads the same logs and reuses the scorer's cells and n_eff, so its numbers match the scorer's tables. It describes; the table decides. --without leaves cases out, for checks such as the echo cases. --only keeps only the cases named, and the H5 line adds a sign test over cases, for the familiar-institution check: [[h5-familiar-rule]]. Given stage 2's logs, it also sets the length arm and the ladder beside the same judge's short cells on the same ten cases: [[main-stage2]].",
    "date": "2026-10-25",
    "evidence": [
     {
@@ -9296,6 +9385,11 @@ a.ref:hover { background: var(--surface-2); }
      "file": "tools/tally.py",
      "loc": "module docstring",
      "quote": "--only M4,M5 runs/main/trials-*.jsonl      # keep only these"
+    },
+    {
+     "file": "tools/tally.py",
+     "loc": "docstring",
+     "quote": "Given stage 2's logs, it then prints the length arm and the wording ladder beside the short cells of the same cases."
     }
    ],
    "links": [
@@ -9309,6 +9403,10 @@ a.ref:hover { background: var(--surface-2); }
     },
     {
      "to": "main-stage1",
+     "rel": "related"
+    },
+    {
+     "to": "main-stage2",
      "rel": "related"
     }
    ]
@@ -9421,7 +9519,9 @@ a.ref:hover { background: var(--surface-2); }
    "points": [
     "One entry at a time, not lanes: stage 2's 2,520 calls take about 2.3 hours, and a stopped entry then keeps the rest from spending: [[stage1-lanes]].",
     "Comparisons between stage 2 and stage 1 cross days, and the judges drift a little between days: [[drift-temperature]].",
-    "No same-day bridge: Jason decided against judging A1 and A2 again with short reports beside the length arm, so H2's length check compares stage 2's long cells with stage 1's short ones, across days."
+    "No same-day bridge: Jason decided against judging A1 and A2 again with short reports beside the length arm, so H2's length check compares stage 2's long cells with stage 1's short ones, across days.",
+    "long-conflict stopped once, on 2026-10-27, and was rerun in full after a fix: [[retry-200-error]].",
+    "All three entries ran, from 2026-10-27 21:42 to 2026-10-28 01:00, and the results were read both ways: [[main-stage2]]."
    ],
    "evidence": [
     {
@@ -9462,6 +9562,10 @@ a.ref:hover { background: var(--surface-2); }
     {
      "to": "cost-model",
      "rel": "needs"
+    },
+    {
+     "to": "main-stage2",
+     "rel": "related"
     }
    ]
   },
@@ -9740,6 +9844,227 @@ a.ref:hover { background: var(--surface-2); }
     {
      "to": "tally-tool",
      "rel": "needs"
+    }
+   ]
+  },
+  {
+   "id": "retry-200-error",
+   "type": "decision",
+   "cluster": "pipeline",
+   "title": "An error inside a 200 response is retried, and long-conflict is rerun in full",
+   "label": "Retry a 200 error; rerun long-conflict",
+   "summary": "OpenRouter can report an error that happens while a model is answering with a normal status, 200, and the error in the reply itself. The runner's backend retried an error status such as 502, but not this, so one overloaded GPT-5.4 call stopped stage 2's long-conflict at 762 of its 1,200 trials on 2026-10-27. Such an error is now retried like the status it names, within the same five tries; prompts, trials and pacing do not change. long-conflict is rerun in full into a new log, and the stopped log is kept unchanged in runs/main/stopped/, apart from the logs that are scored.",
+   "date": "2026-10-27",
+   "points": [
+    "The 762 trials hold repeats 1 to 7 and part of repeat 8. The 12 repeats pair every truth position with every wrong-claim offset once, so scoring the 762 would break that balance.",
+    "A stopped log is never resumed, only rerun into a new log: [[pilot-programme]].",
+    "The pace and the number of tries are as before; only which replies count as retryable changed: [[stage1-lanes]].",
+    "Kept beside the rerun under another name, the stopped log would be scored with it by runs/main/trials-*.jsonl, and its trials would count twice.",
+    "The optional sub-experiments run with the same fix, on the branch optional-arms."
+   ],
+   "evidence": [
+    {
+     "file": "docs/decisions.md",
+     "loc": "An error inside a 200 response is retried, and long-conflict is rerun in full",
+     "quote": "retries a response whose status is 200 but whose body carries an error coded 429 or 500 and above"
+    },
+    {
+     "file": "docs/decisions.md",
+     "loc": "An error inside a 200 response is retried, and long-conflict is rerun in full",
+     "quote": "the entry stopped at 762 of its 1,200 trials"
+    },
+    {
+     "file": "docs/decisions.md",
+     "loc": "An error inside a 200 response is retried, and long-conflict is rerun in full",
+     "quote": "the stopped log is kept unchanged in runs/main/stopped/, apart from the logs that are scored"
+    },
+    {
+     "file": "runs/main/stopped/trials-long-conflict.jsonl",
+     "loc": "the last record",
+     "quote": "Our servers are currently overloaded. Please try again later."
+    },
+    {
+     "file": "docs/decisions.md",
+     "loc": "An error inside a 200 response is retried, and long-conflict is rerun in full",
+     "quote": "a stopped log cannot be resumed, only rerun into a new log"
+    }
+   ],
+   "links": [
+    {
+     "to": "runner",
+     "rel": "needs"
+    },
+    {
+     "to": "stage2-order",
+     "rel": "related"
+    },
+    {
+     "to": "pilot-programme",
+     "rel": "related"
+    },
+    {
+     "to": "stage1-lanes",
+     "rel": "related"
+    },
+    {
+     "to": "main-run-staged",
+     "rel": "related"
+    }
+   ]
+  },
+  {
+   "id": "main-stage2",
+   "type": "finding",
+   "cluster": "pipeline",
+   "title": "Stage 2 of the main run: the wording ladder and the length arm on ten cases",
+   "label": "Main run: stage 2 results",
+   "summary": "Stage 2 of the main run judged the ten-case subset on 2026-10-27 and 2026-10-28: the wording ladder with all three judges, then A1, A2 and the conflict block with long reports, with Sonnet and GPT-5.4. All 2,520 trials parsed cleanly. The ladder answers H4's worry about obedience: even 'somewhat more reliable' made Opus and GPT-5.4 right in all 120 trials and Sonnet in 91, and belief grew with the wording's strength, so decisions do not change only under the strongest wording. With long reports the conflict block reads as at short length: saying that two reports share a source moved belief in every case but few decisions, and saying which source is better made both judges right every time. For Sonnet, three reports in one message raised belief more when the reports were long, which the support table reads as token volume; GPT-5.4 was too near its ceiling for that check. docs/stage2-report.md lines each result up against the README's table.",
+   "date": "2026-10-28",
+   "points": [
+    "2,520 trials: no call failed, no judge reasoned, and each judge stayed on its pinned provider. The entries ran one at a time, from 21:42 to 01:00: [[stage2-order]].",
+    "long-conflict's first try stopped at 762 trials on a provider's overload sent inside a 200 response, and was rerun in full; the stopped log is not scored: [[retry-200-error]].",
+    "Ladder, right of 120 for Opus, Sonnet and GPT-5.4: W1 ('somewhat') 120, 91 and 120; W2 and W3 all 120; against 1, 1 and 3 in X3 on the same cases. Mean P(truth) rose from about 50 at W1 by 15 to 24 points at W3. Sonnet's 29 wrong answers at W1 all name A's claim, 16 of them in the three T2 cases: [[graded-ladder]], [[h4]].",
+    "H2's length check: Sonnet's A1 → A2 rise was +8.0 with short reports and +13.4 with long ones, larger at long length in 9 of 10 cases, which the table reads as token volume. GPT-5.4's one long report already got 94.8, and its rise was +0.8: [[h2]], [[length-arm]].",
+    "H3 with long reports: from X1 to X3, belief rose in all 10 cases for both judges. Sonnet's decisions stayed at 1 of 120; GPT-5.4's rose from 3 to 18 of 120, all in T1 cases, the pattern Opus showed at short length: [[h3]].",
+    "H4 with long reports: X4 and X5 were right in all 120 trials for both judges. H5: X2 was right less often with long reports, 52 → 36 of 120 (Sonnet) and 87 → 74 (GPT-5.4), still well above X1: [[h5]].",
+    "Every comparison with stage 1's short cells crosses days. Sonnet's drift on A0 prompts averaged 2.7 points, against the 5.4-point gap in H2's check: [[drift-temperature]].",
+    "Without M3 and M38 every direction holds: Sonnet's rise is +8.7 short against +13.7 long, larger in 7 of 8 cases: [[tally-tool]].",
+    "It cost $5.25 for the three logs scored, against $5.11 planned, plus $1.60 for the stopped first try: [[main-run-staged]]."
+   ],
+   "evidence": [
+    {
+     "file": "runs/main/score-stage2.txt",
+     "loc": "first line",
+     "quote": "Loaded 20280 trials. Parse failures: 1. Status counts: {'ok': 20261, 'p_sum_out_of_range': 15, 'no_match': 2, 'p_incomplete': 1, 'failed_fallback': 1}"
+    },
+    {
+     "file": "runs/main/score-stage2.txt",
+     "loc": "HEALTH, GPT-5.4",
+     "quote": "HEALTH judge openrouter:openai/gpt-5.4: 7000 trials, parse failures 0, no_match 1, other statuses ['p_incomplete'], call errors 0, providers ['OpenAI'], reasoning tokens 0"
+    },
+    {
+     "file": "runs/main/tally-stage2.txt",
+     "loc": "stage 2's entries, Opus",
+     "quote": "W1 120/120 53.7, W2 120/120 64.8, W3 120/120 69.1; short, the same cases: X3 1/120 39.5"
+    },
+    {
+     "file": "runs/main/tally-stage2.txt",
+     "loc": "stage 2's entries, Sonnet",
+     "quote": "ladder, right decisions and mean P(truth): W1 91/120 50.2, W2 120/120 65.5, W3 120/120 71.1"
+    },
+    {
+     "file": "runs/main/tally-stage2.txt",
+     "loc": "stage 2's entries, GPT-5.4",
+     "quote": "W1 120/120 52.8, W2 120/120 70.5, W3 120/120 76.5; short, the same cases: X3 3/120 29.1"
+    },
+    {
+     "file": "runs/main/tally-stage2.txt",
+     "loc": "stage 2's entries, Sonnet",
+     "quote": "short 75.8 -> 83.8 (+8.0); long 78.3 -> 91.7 (+13.4); the rise is larger at long length in 9/10 cases"
+    },
+    {
+     "file": "runs/main/tally-stage2.txt",
+     "loc": "stage 2's entries, GPT-5.4",
+     "quote": "short 90.3 -> 96.2 (+5.9); long 94.8 -> 95.6 (+0.8); the rise is larger at long length in 0/10 cases"
+    },
+    {
+     "file": "runs/main/tally-stage2.txt",
+     "loc": "stage 2's entries, Sonnet",
+     "quote": "X1 1/120 19.8, X2 36/120 35.5, X3 1/120 27.5, X4 120/120 79.2, X5 120/120 72.7; X1 -> X3 P(truth) rises in 10/10 cases"
+    },
+    {
+     "file": "runs/main/tally-stage2.txt",
+     "loc": "stage 2's entries, GPT-5.4",
+     "quote": "X1 4/120 21.9, X2 74/120 52.8, X3 18/120 30.3, X4 120/120 84.7, X5 120/120 77.1; X1 -> X3 P(truth) rises in 10/10 cases"
+    },
+    {
+     "file": "runs/main/tally-stage2-without-echoes.txt",
+     "loc": "first line",
+     "quote": "cases left out: M3, M9, M13, M23, M28, M38, M40"
+    },
+    {
+     "file": "runs/main/tally-stage2-without-echoes.txt",
+     "loc": "stage 2's entries, Sonnet",
+     "quote": "short 75.5 -> 84.2 (+8.7); long 78.5 -> 92.2 (+13.7); the rise is larger at long length in 7/8 cases"
+    },
+    {
+     "file": "docs/stage2-report.md",
+     "loc": "In short",
+     "quote": "So H4's result is not just obedience to blunt wording."
+    },
+    {
+     "file": "docs/stage2-report.md",
+     "loc": "H4",
+     "quote": "Sonnet's 29 wrong answers at W1 all name A's claim"
+    },
+    {
+     "file": "docs/stage2-report.md",
+     "loc": "H3 and H4 with long reports",
+     "quote": "All 18 are in the seven T1 cases"
+    },
+    {
+     "file": "docs/stage2-report.md",
+     "loc": "H2",
+     "quote": "On the A0 prompts the pilot and stage 1 share, judged six days apart, Sonnet's P(truth) moved by 2.7 points on average"
+    },
+    {
+     "file": "docs/work-plan.md",
+     "loc": "Phase 5",
+     "quote": "Its three logs cost $5.25 against $5.11 planned"
+    }
+   ],
+   "links": [
+    {
+     "to": "graded-ladder",
+     "rel": "needs"
+    },
+    {
+     "to": "length-arm",
+     "rel": "needs"
+    },
+    {
+     "to": "conflict-block",
+     "rel": "needs"
+    },
+    {
+     "to": "main-stage1",
+     "rel": "related"
+    },
+    {
+     "to": "h2",
+     "rel": "related"
+    },
+    {
+     "to": "h3",
+     "rel": "related"
+    },
+    {
+     "to": "h4",
+     "rel": "related"
+    },
+    {
+     "to": "h5",
+     "rel": "related"
+    },
+    {
+     "to": "stage2-order",
+     "rel": "related"
+    },
+    {
+     "to": "retry-200-error",
+     "rel": "related"
+    },
+    {
+     "to": "drift-temperature",
+     "rel": "related"
+    },
+    {
+     "to": "tally-tool",
+     "rel": "related"
+    },
+    {
+     "to": "main-run-staged",
+     "rel": "related"
     }
    ]
   }
@@ -10689,6 +11014,35 @@ a.ref:hover { background: var(--surface-2); }
    "changed": [
     "question",
     "correlated-reports"
+   ]
+  },
+  {
+   "date": "2026-10-27",
+   "summary": "Stage 2's long-conflict stopped at 762 of 1,200 trials when one GPT-5.4 call came back with an overload error inside a 200 response, which the backend did not retry. Jason chose to retry such errors like the status they name and to rerun long-conflict in full into a new log, keeping the stopped log apart.",
+   "added": [
+    "retry-200-error"
+   ],
+   "changed": [
+    "stage2-order"
+   ]
+  },
+  {
+   "date": "2026-10-28",
+   "summary": "Stage 2 ran on the ten-case subset, 2,520 trials one entry at a time, and docs/stage2-report.md reads it against the support table: the ladder's weakest wording already flips nearly every decision, so H4's wording nuisance does not hold; long reports leave H3 and H4 as at short length, with GPT-5.4's few X3 flips all in T1 cases; Sonnet's A1 → A2 rise is larger with long reports, which the table reads as token volume.",
+   "added": [
+    "main-stage2"
+   ],
+   "changed": [
+    "h2",
+    "h3",
+    "h4",
+    "h5",
+    "graded-ladder",
+    "length-arm",
+    "tally-tool",
+    "main-run-staged",
+    "stage2-order",
+    "main-stage1"
    ]
   }
  ]

@@ -488,8 +488,12 @@ Who does what next, step by step: [`docs/work-plan.md`](docs/work-plan.md).
   and 17,760 judge trials ran in three lanes, with no entry stopped. `runs/main/` holds
   the frozen reports, the five judge logs and the scorer's output,
   `runs/main/score-stage1.txt`. The ordering screen kept all three judges. What it found,
-  hypothesis by hypothesis: `docs/stage1-report.md`. Stage 2, the length arm and the
-  ladder on the ten-case subset, waits for the key's top-up (`docs/work-plan.md`, Phase 5).
+  hypothesis by hypothesis: `docs/stage1-report.md`.
+- **The main run's stage 2 has run** (2026-10-27 and 2026-10-28): the wording ladder and
+  the length arm on the ten-case subset, 2,520 judge trials, one entry at a time.
+  long-conflict's first try stopped on a provider's overload and was rerun in full
+  (`docs/decisions.md`, 2026-10-27). The scorer's output over all eight judge logs is
+  `runs/main/score-stage2.txt`. What it found: `docs/stage2-report.md`.
 - **The pilot has run** (2026-10-19), every programme entry on M1-M5: 240 calls
   generated the reports and 3,420 judge trials ran. `runs/` holds the frozen reports,
   the seven judge logs and the scorer's output, `runs/score-pilot.txt`. Its numbers are

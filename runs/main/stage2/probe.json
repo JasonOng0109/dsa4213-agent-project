@@ -1,0 +1,56 @@
+[
+  {
+    "model": "anthropic/claude-sonnet-5",
+    "role": "primary",
+    "content": "4",
+    "provider": "Claude Platform on AWS",
+    "generation_id": "gen-1793108533-7JK6UYSYShSEKdY1nmig",
+    "logprobs_returned": false,
+    "n_alternatives": 0
+  },
+  {
+    "model": "openai/gpt-5.4",
+    "role": "primary",
+    "content": "4",
+    "provider": "OpenAI",
+    "generation_id": "gen-1793108535-ma9tC1b0s3VBWWIm4SaD",
+    "logprobs_returned": true,
+    "n_alternatives": 1
+  },
+  {
+    "model": "anthropic/claude-opus-5",
+    "role": "primary",
+    "content": "4",
+    "provider": "Claude Platform on AWS",
+    "generation_id": "gen-1793108536-sxSRopZaNbGmvZFq9R1q",
+    "logprobs_returned": false,
+    "n_alternatives": 0
+  },
+  {
+    "model": "qwen/qwen3.6-27b",
+    "role": "auxiliary",
+    "content": "4",
+    "provider": "Alibaba",
+    "generation_id": "gen-1793108538-g5Us3bAxU09Is9NPuE8R",
+    "logprobs_returned": true,
+    "n_alternatives": 5
+  },
+  {
+    "model": "meta-llama/llama-4-maverick",
+    "role": "auxiliary",
+    "content": "4",
+    "provider": "DigitalOcean",
+    "generation_id": "gen-1793108541-Q5bl39ryo09cOQKPRUWO",
+    "logprobs_returned": true,
+    "n_alternatives": 5
+  },
+  {
+    "model": "google/gemma-4-31b-it",
+    "role": "reporter",
+    "content": "4",
+    "provider": "CoreWeave",
+    "generation_id": "gen-1793108542-ZJ8RLGRBc0CJdugP6hEp",
+    "logprobs_returned": true,
+    "n_alternatives": 5
+  }
+]

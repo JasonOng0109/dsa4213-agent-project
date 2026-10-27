@@ -78,7 +78,8 @@ points of each other. For Opus and Sonnet the biggest step is splitting the repo
 separate messages (A2 → A3). GPT-5.4 is near its ceiling from A2 on.
 
 **Against the table: Support, at short length.** Still to check, in stage 2: whether the
-A1 → A2 rise is larger with long reports, which would point to token volume.
+A1 → A2 rise is larger with long reports, which would point to token volume. Stage 2's
+answer: `docs/stage2-report.md`.
 
 ### How many sources the judges think they saw (n_eff)
 
@@ -128,7 +129,8 @@ check to report this under.
 which source is the primary record, so a judge may just be following the instruction.
 The ladder repeats X5 with weaker wording ("somewhat", "considerably", "far more
 reliable"). If the weaker wording also changes decisions, the judges are weighing
-evidence. If only the strongest does, the table counts it as the nuisance.
+evidence. If only the strongest does, the table counts it as the nuisance. Stage 2's
+answer: `docs/stage2-report.md`.
 
 ### H5: judges read quality from a source's named type (secondary)
 
@@ -200,3 +202,5 @@ the screen, one in the abstention arm), none in the conflict block.
 | H3 and H4 with long reports | stage 2, `long-conflict` |
 | H4: following an instruction, or weighing evidence? | stage 2, `ladder` |
 | Reasoning on and off; wording robustness; stated against token probabilities; n_eff with long reports | the optional sub-experiments, designed on 2026-10-26 (`docs/decisions.md`), if funded |
+
+Stage 2 has run, and its three rows are answered in `docs/stage2-report.md`.

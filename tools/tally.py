@@ -3,7 +3,9 @@ Across-case tallies for reading a run against the README's table "What counts as
 support, fixed before any data". The scorer prints every cell per judge and case; this
 prints, per judge, the counts and means over cases that the table's rows ask about. It
 reads the same trial logs and reuses the scorer's cells and n_eff, so its numbers match
-the scorer's tables. It describes; the table decides. No API calls.
+the scorer's tables. It describes; the table decides. No API calls. Given stage 2's logs,
+it then prints the length arm and the wording ladder beside the short cells of the same
+cases.
 
     uv run python -m tools.tally runs/main/trials-*.jsonl
     uv run python -m tools.tally --without M3,M9 runs/main/trials-*.jsonl   # leave cases out
@@ -17,7 +19,7 @@ import sys
 from collections import defaultdict
 from math import comb
 
-from pipeline.conditions import AGREEMENT_BLOCK, CONFLICT_BLOCK
+from pipeline.conditions import AGREEMENT_BLOCK, CONFLICT_BLOCK, LADDER
 from pipeline.score import cell, load, neff
 
 
@@ -104,6 +106,53 @@ def tally(records: list[dict]) -> None:
         print()
 
 
+def tally_subset(records: list[dict]) -> None:
+    """Stage 2's subset entries, each beside the same judge's short cells on the same
+    cases: H2's length check (is the A1 -> A2 rise larger with long reports?), the
+    conflict block with long reports (H3, H4), and the wording ladder (H4's check)."""
+    by = defaultdict(lambda: defaultdict(lambda: defaultdict(list)))  # judge, arm, (case, cond)
+    for r in records:
+        by[r["judge_model"]][r["arm"]][r["case_id"], r["condition"]].append(r)
+    for judge, arms in sorted(by.items()):
+        ids = sorted({c for a in ("long", "ladder") for c, _ in arms.get(a, {})},
+                     key=lambda c: int(c[1:]))
+        if not ids:
+            continue
+        print(f"== judge {judge}, stage 2's entries ({len(ids)} cases)")
+        pt = lambda a, c, k: cell(arms[a][c, k])["p_truth"]
+
+        def row(a, conds):
+            """Right decisions and mean P(truth) per condition, over the subset cases."""
+            def right(k):
+                rs = [r for c in ids for r in arms[a][c, k]]
+                return f"{sum(bool(r['decision_correct']) for r in rs)}/{len(rs)}"
+            return ", ".join(f"{k} {right(k)} {_mean(pt(a, c, k) for c in ids):.1f}"
+                             for k in conds)
+
+        # each line prints only when the logs given hold its cells for every case
+        has = lambda a, k: a in arms and all((c, k) in arms[a] for c in ids)
+        if has("long", "A1"):
+            lengths = [a for a in ("short", "long") if has(a, "A1")]
+            rise = {a: {c: pt(a, c, "A2") - pt(a, c, "A1") for c in ids} for a in lengths}
+            print("H2 length, A1 -> A2 mean P(truth): " + "; ".join(
+                f"{a} {_mean(pt(a, c, 'A1') for c in ids):.1f} -> "
+                f"{_mean(pt(a, c, 'A2') for c in ids):.1f} ({_mean(rise[a].values()):+.1f})"
+                for a in lengths)
+                + (f"; the rise is larger at long length in "
+                   f"{sum(rise['long'][c] > rise['short'][c] for c in ids)}/{len(ids)} cases"
+                   if "short" in lengths else ""))
+        if has("long", "X1"):
+            for a in [a for a in ("short", "long") if has(a, "X1")]:
+                print(f"conflict, {a}, right decisions and mean P(truth): "
+                      + row(a, CONFLICT_BLOCK) + f"; X1 -> X3 P(truth) rises in "
+                      f"{sum(pt(a, c, 'X3') > pt(a, c, 'X1') for c in ids)}/{len(ids)} cases")
+        if has("ladder", "W1"):
+            print("ladder, right decisions and mean P(truth): " + row("ladder", LADDER)
+                  + ("; short, the same cases: " + row("short", ["X3", "X4", "X5"])
+                     if has("short", "X3") else ""))
+        print()
+
+
 if __name__ == "__main__":
     args, drop, only = sys.argv[1:], set(), set()
     while args[:1] in (["--without"], ["--only"]):
@@ -112,5 +161,7 @@ if __name__ == "__main__":
     order = lambda ids: ", ".join(sorted(ids, key=lambda c: int(c[1:])))
     print(f"cases left out: {order(drop) or 'none'}"
           + (f"; only these kept: {order(only)}" if only else "") + "\n")
-    tally([r for path in args for r in load(path)
-           if r["case_id"] not in drop and (not only or r["case_id"] in only)])
+    records = [r for path in args for r in load(path)
+               if r["case_id"] not in drop and (not only or r["case_id"] in only)]
+    tally(records)
+    tally_subset(records)

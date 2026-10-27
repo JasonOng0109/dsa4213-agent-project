@@ -1358,3 +1358,33 @@ Add an entry when you make a choice a reader could not guess from the code.
   reports, all written by one reporter, would not be independent either, and A4 against
   A7 would no longer compare one source with three; without the lost-record sentence,
   the repository gives no answer to the TA's question.
+
+### 2026-10-27 — An error inside a 200 response is retried, and long-conflict is rerun in full
+
+- **Decision**: the backend (`complete` in `pipeline/llm.py`) retries a response whose
+  status is 200 but whose body carries an error coded 429 or 500 and above, as it already
+  retried those statuses, within the same five tries. Prompts, trials and pacing do not
+  change. Stage 2's `long-conflict`, stopped by such an error, is rerun in full into a
+  new `runs/main/trials-long-conflict.jsonl`, and the stopped log is kept unchanged in
+  `runs/main/stopped/`, apart from the logs that are scored. The optional
+  sub-experiments run with the same fix, on the branch `optional-arms`.
+- **Why** [STATED: team decision, 2026-10-27]: Jason chose the fix and the full rerun.
+  [STATED: `runs/main/stopped/trials-long-conflict.jsonl`] the entry stopped at 762 of
+  its 1,200 trials, when one GPT-5.4 call came back with "Our servers are currently
+  overloaded. Please try again later." and code 502 in its body. [STATED: OpenRouter's
+  documentation, "Errors"] otherwise "the returned HTTP response status will be `200`"
+  and "any error occurred while the LLM is producing the output will be emitted in the
+  response body". [INFERRED: from `complete` in `pipeline/llm.py` before the fix] a 502
+  status was retried, but a 200 with an error in its body failed on the first try, and a
+  failed call stops its entry. [STATED: the 2026-10-18 pilot entry] "a stopped log cannot
+  be resumed, only rerun into a new log". [INFERRED: from `build_entry` in
+  `pipeline/run.py`] the 762 trials hold repeats 1 to 7 in full and 62 of repeat 8's
+  100, while the 12 repeats pair every truth position with every wrong-claim offset
+  once, so scoring them would break that balance.
+- **Rejected**: rerunning without the fix, which leaves the same error able to stop the
+  rerun; scoring the 762 trials; a way to resume a stopped log, which the pilot entry
+  rules out; keeping the stopped log beside the rerun under another name, where
+  `runs/main/trials-*.jsonl` would score both.
+- **Breaks if changed**: without the fix, a provider's passing overload stops an entry
+  at once, where the same overload sent as a 502 status would be retried; with the
+  stopped log beside the rerun, its trials count twice.
