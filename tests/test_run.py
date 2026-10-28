@@ -13,6 +13,7 @@ import pytest
 from cases import CASES
 from pipeline import run, score
 from pipeline.conditions import LONG_ARM
+from pipeline.judge import JUDGE_SYSTEM
 from pipeline.llm import MockBackend
 from pipeline.prompt import render
 
@@ -176,12 +177,13 @@ DESIGN = ("case_id", "domain", "condition", "arm", "factors", "world_truth", "ma
 STAGE1_LOGS = {"agreement": "trials-agreement.jsonl", "conflict": "trials-conflict.jsonl",
                "abstain": "trials-abstain.jsonl", "abstain-p0": "trials-abstain-p0.jsonl",
                "screen": "trials-screen.jsonl"}
-# sha256 over every trial and its prompt, built from runs/main/frozen_reports.json on
-# 2026-10-26, before the optional sub-experiments were added (docs/decisions.md)
-MAIN_DIGESTS = {"agreement": "34b944518893fd0b", "conflict": "237a3afcfbca77e1",
-                "abstain": "400cbed086cfa297", "abstain-p0": "e41cc37b31c91df9",
-                "screen": "97fe97378c4753ee", "long-conflict": "391e2ad10c3cdb1a",
-                "long-agreement": "692cae6a8f50b6bf", "ladder": "793cc9126a2fe3ac"}
+# sha256 over the judge's system prompt, then every trial and its prompt, built from
+# runs/main/frozen_reports.json with the code from before the optional sub-experiments
+# were added (docs/decisions.md, 2026-10-26); the system prompt joined on 2026-10-28
+MAIN_DIGESTS = {"agreement": "fd277f8a455da1d9", "conflict": "88e53c02f5cb5f53",
+                "abstain": "652c1136641de966", "abstain-p0": "284e3729f352135a",
+                "screen": "35c26aaa122fc698", "long-conflict": "ca496ebf2b897851",
+                "long-agreement": "d6f5e2e6b6c72036", "ladder": "f43c786a2018184e"}
 
 
 @pytest.fixture(scope="module")
@@ -207,10 +209,10 @@ def test_the_main_programme_rebuilds_what_stage_1_judged(main_frozen):
 
 
 def test_the_main_programme_builds_the_same_trials_and_prompts(main_frozen):
-    """Stage 2 runs from this code: its trials and prompts, and stage 1's, are the ones
-    built before the optional sub-experiments were added."""
+    """Stage 2 runs from this code: its system prompt, trials and prompts, and stage 1's,
+    are the ones built before the optional sub-experiments were added."""
     def digest(entry):
-        h = hashlib.sha256()
+        h = hashlib.sha256(JUDGE_SYSTEM.encode())
         for r, trials in run.build_entry(entry, CASES, main_frozen):
             for t in trials:
                 h.update(json.dumps([r, t, render(t)], sort_keys=True).encode())
@@ -233,7 +235,7 @@ def test_optional_entries_are_chosen_by_name_and_never_by_default():
     calls = {name: c for name, c, _ in run.plan(40, run.OPTIONAL)[1:]}
     assert calls == {"reasoning-off-short": 72, "reasoning-off-long": 72,
                      "reasoning-on-short": 72, "reasoning-on-long": 72, "cross-check": 360,
-                     "long-neff": 162}
+                     "cross-check-m12": 24, "long-neff": 162}
 
 
 def test_optional_trials_keep_to_their_cases_and_never_share_a_main_trial_id(frozen):

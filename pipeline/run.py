@@ -112,6 +112,10 @@ OPTIONAL = [
     Entry("cross-check", "cross-check", list(SCREEN_LEVELS), 4, AUXILIARY, False,
           ("M1", "M2", "M3", "M4", "M5", "M6", "M14", "M22", "M30", "M38",
            "M7", "M8", "M9", "M10", "M11"), by_number=True),
+    # M10's options, 2 to 5 passes, can be read as option numbers, so the next case in
+    # corpus order takes its place (docs/decisions.md, 2026-10-28)
+    Entry("cross-check-m12", "cross-check", list(SCREEN_LEVELS), 4, AUXILIARY, False,
+          ("M12",), by_number=True),
     # n_eff at long length, A0 coming from the short arm; the subset but M38, whose A7
     # cannot be built long (one of its reports is one word short)
     Entry("long-neff", "long", ["A4", "A6", "A7"], 6, [SONNET], False,

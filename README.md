@@ -306,8 +306,8 @@ the options, the wrong claim's offset from it, and (long reports) where the oper
 sentence sits are **rotated on a fixed schedule, not shuffled**. Twelve repeats give
 exact balance over (slot, truth position) and (truth position, wrong offset).
 
-Optional sub-experiments, run in this order if budget allows, **built and run on
-2026-10-28** (`docs/decisions.md`, 2026-10-26): a reasoning on/off comparison, a
+Optional sub-experiments, run in this order if budget allows, **built on 2026-10-26 and
+run on 2026-10-28** (`docs/decisions.md`, 2026-10-26): a reasoning on/off comparison, a
 wording-robustness rerun with regenerated reports, a cross-check of stated against token
 probabilities on the two auxiliary models, and the independence index at long length.
 What they found so far: `docs/optional-report.md`.
@@ -404,7 +404,8 @@ uv run --env-file .env python -m pipeline.run judge --max-calls N        # N: th
 uv run python -m pipeline.score runs/trials.jsonl
 uv run python -m pipeline.score --show-excluded runs/trials-*.jsonl   # the pilot
 uv run python -m tools.tally runs/main/trials-*.jsonl   # counts over cases, per judge
-uv run python -m tools.crosscheck runs/main/trials-cross-check.jsonl   # stated against token probabilities
+uv run python -m tools.crosscheck runs/main/trials-cross-check.jsonl \
+    runs/main/trials-cross-check-m12.jsonl   # stated against token probabilities
 ```
 
 In the pilot, `--show-excluded` also printed n_eff and H6 for the judges the confidence
@@ -433,6 +434,8 @@ uv run --env-file .env python -m pipeline.run judge --out runs/robustness --case
     --arms conflict --max-calls 360
 uv run --env-file .env python -m pipeline.run judge --out runs/main --max-calls 360 \
     --arms cross-check --log trials-cross-check.jsonl
+uv run --env-file .env python -m pipeline.run judge --out runs/main --max-calls 24 \
+    --arms cross-check-m12 --log trials-cross-check-m12.jsonl   # M12 in M10's place
 uv run --env-file .env python -m pipeline.run judge --out runs/main --max-calls 162 \
     --arms long-neff --log trials-long-neff.jsonl         # after stage 2's long-agreement
 ```
@@ -461,6 +464,8 @@ docs/
   methods.md              how each statistical method works, with worked examples
   work-plan.md            who does what next, in small steps, for newcomers
   stage1-report.md        what stage 1 of the main run found, hypothesis by hypothesis
+  stage2-report.md        what stage 2 found: the wording ladder and the length arm
+  optional-report.md      what the optional sub-experiments found
 related_works/            the papers in the related-work section
 cases/                    the corpus: one module per case, registered in __init__.py
 pipeline/
@@ -478,6 +483,8 @@ tools/tally.py            counts over cases, to read results against the support
 tools/crosscheck.py       the confidence cross-check: stated against token probabilities
 tools/probe_judges.py     the 2026-10-26 probe: temperature, thinking text, Qwen's logprobs
 runs/                     outputs of real runs (created by the first run)
+  main/                   the main run and the optional sub-experiments
+  robustness/             the wording-robustness rerun's reports and trials, scored apart
 ```
 
 ## Status and open items
@@ -548,8 +555,11 @@ Who does what next, step by step: [`docs/work-plan.md`](docs/work-plan.md).
   abstains nowhere. A preview, not a finding (`runs/score-pilot-2026-10-21.txt`).
 - **The optional sub-experiments have run** (2026-10-28), as the entries in `OPTIONAL`
   (`pipeline/run.py`; designs in `docs/decisions.md`, 2026-10-26): 810 judge trials and
-  96 report calls, none stopped. Two parts wait: the reasoning traces are coded once the
-  trace rule is reviewed, and the robustness rerun is judged once Jason has read its new
-  reports. What they found so far: `docs/optional-report.md`. A test checks that the
+  96 report calls, none stopped. An independent review of PR #55, made in Kai Rong's
+  place, led to two decisions (`docs/decisions.md`, 2026-10-28): the trace rule settles
+  its edge cases and blinds its coders, and the cross-check reads M12 in M10's place, 24
+  more calls. The robustness rerun was then judged, 360 calls. One part waits: the 32
+  reasoning traces with text are coded by the settled rule. What they found so far:
+  `docs/optional-report.md`. A test checks that the
   main programme still builds the trials and prompts stage 1 judged
   (`tests/test_run.py`).

@@ -1,4 +1,4 @@
-Loaded 21090 trials. Parse failures: 1. Status counts: {'ok': 21062, 'p_sum_out_of_range': 20, 'no_match': 6, 'p_incomplete': 1, 'failed_fallback': 1}
+Loaded 21114 trials. Parse failures: 1. Status counts: {'ok': 21086, 'p_sum_out_of_range': 20, 'no_match': 6, 'p_incomplete': 1, 'failed_fallback': 1}
 
 ##### judge openrouter:anthropic/claude-opus-5 | arm abstain | M1 #####
   cond   n chance correct abstain no_match P(truth) P(maj) margin        stab s_chance
@@ -3713,6 +3713,12 @@ Loaded 21090 trials. Parse failures: 1. Status counts: {'ok': 21062, 'p_sum_out_
   P1     4   0.25    0.50    0.00     0.00     50.0   None  100.0   0.50(n=4)     0.53
   P2     4   0.25    1.00    0.00     0.00    100.0   None  100.0   1.00(n=4)     0.53
 
+##### judge openrouter:meta-llama/llama-4-maverick | arm cross-check | M12 #####
+  cond   n chance correct abstain no_match P(truth) P(maj) margin        stab s_chance
+  P0     4   0.25    0.00    0.00     0.00      0.0   None  100.0   0.50(n=4)     0.53
+  P1     4   0.25    0.25    0.00     0.00     37.5   None   75.0   0.75(n=4)     0.53
+  P2     4   0.25    1.00    0.00     0.00    100.0   None  100.0   1.00(n=4)     0.53
+
 ##### judge openrouter:meta-llama/llama-4-maverick | arm cross-check | M14 #####
   cond   n chance correct abstain no_match P(truth) P(maj) margin        stab s_chance
   P0     4   0.25    0.25    0.00     0.00     25.0   None    0.0   0.50(n=4)     0.53
@@ -5683,6 +5689,12 @@ Loaded 21090 trials. Parse failures: 1. Status counts: {'ok': 21062, 'p_sum_out_
   P1     4   0.25    0.50    0.00     0.00     50.0   None  100.0   0.50(n=4)     0.53
   P2     4   0.25    1.00    0.00     0.00    100.0   None  100.0   1.00(n=4)     0.53
 
+##### judge openrouter:qwen/qwen3.6-27b | arm cross-check | M12 #####
+  cond   n chance correct abstain no_match P(truth) P(maj) margin        stab s_chance
+  P0     4   0.25    0.25    0.00     0.00     25.0   None    0.0   0.75(n=4)     0.53
+  P1     4   0.25    0.25    0.00     0.00     37.5   None   75.0   0.75(n=4)     0.53
+  P2     4   0.25    1.00    0.00     0.00    100.0   None  100.0   1.00(n=4)     0.53
+
 ##### judge openrouter:qwen/qwen3.6-27b | arm cross-check | M14 #####
   cond   n chance correct abstain no_match P(truth) P(maj) margin        stab s_chance
   P0     4   0.25    0.25    0.00     0.00     25.0   None    0.0   0.50(n=4)     0.53
@@ -5969,12 +5981,12 @@ HEALTH judge openrouter:anthropic/claude-opus-5: 6280 trials, parse failures 0, 
   cost per call by arm: abstain $0.00369 (n=1120, total $4.1301), ladder $0.00366 (n=360, total $1.3188), screen $0.00292 (n=480, total $1.4010), short $0.00338 (n=4320, total $14.6010)
 HEALTH judge openrouter:anthropic/claude-sonnet-5: 7450 trials, parse failures 1, no_match 1, other statuses ['p_sum_out_of_range'], call errors 0, providers ['Claude Platform on AWS'], reasoning tokens 3410
   cost per call by arm: abstain $0.00148 (n=1120, total $1.6542), ladder $0.00147 (n=360, total $0.5275), long $0.00220 (n=882, total $1.9395), reasoning-off-long $0.00220 (n=72, total $0.1581), reasoning-off-short $0.00134 (n=72, total $0.0966), reasoning-on-long $0.00253 (n=72, total $0.1821), reasoning-on-short $0.00148 (n=72, total $0.1067), screen $0.00117 (n=480, total $0.5611), short $0.00135 (n=4320, total $5.8404)
-HEALTH judge openrouter:meta-llama/llama-4-maverick: 180 trials, parse failures 0, no_match 0, other statuses ['p_sum_out_of_range'], call errors 0, providers ['DigitalOcean', 'Parasail'], reasoning tokens 0
-  cost per call by arm: cross-check $0.00006 (n=180, total $0.0105)
+HEALTH judge openrouter:meta-llama/llama-4-maverick: 192 trials, parse failures 0, no_match 0, other statuses ['p_sum_out_of_range'], call errors 0, providers ['DigitalOcean', 'Parasail'], reasoning tokens 0
+  cost per call by arm: cross-check $0.00006 (n=192, total $0.0117)
 HEALTH judge openrouter:openai/gpt-5.4: 7000 trials, parse failures 0, no_match 1, other statuses ['p_incomplete'], call errors 0, providers ['OpenAI'], reasoning tokens 0
   cost per call by arm: abstain $0.00129 (n=1120, total $1.4477), ladder $0.00130 (n=360, total $0.4666), long $0.00188 (n=720, total $1.3527), screen $0.00105 (n=480, total $0.5030), short $0.00119 (n=4320, total $5.1554)
-HEALTH judge openrouter:qwen/qwen3.6-27b: 180 trials, parse failures 0, no_match 4, other statuses ['p_sum_out_of_range'], call errors 0, providers ['Alibaba', 'Reka'], reasoning tokens 0
-  cost per call by arm: cross-check $0.00023 (n=180, total $0.0415)
+HEALTH judge openrouter:qwen/qwen3.6-27b: 192 trials, parse failures 0, no_match 4, other statuses ['p_sum_out_of_range'], call errors 0, providers ['Alibaba', 'Reka'], reasoning tokens 0
+  cost per call by arm: cross-check $0.00023 (n=192, total $0.0439)
 REASONING judge openrouter:anthropic/claude-opus-5: 0 reasoning tokens in every cell
 REASONING judge openrouter:anthropic/claude-sonnet-5: {'reasoning-on-long/X3': '14/24 trials, mean 82', 'reasoning-on-long/X5': '8/24 trials, mean 19', 'reasoning-on-short/X3': '6/24 trials, mean 32', 'reasoning-on-short/X5': '4/24 trials, mean 10'}
 REASONING judge openrouter:meta-llama/llama-4-maverick: 0 reasoning tokens in every cell

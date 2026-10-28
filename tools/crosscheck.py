@@ -6,10 +6,13 @@ case the mean over the four rotations at P0, P1 and P2, with the scorer's Page's
 then against each other trial by trial. It describes; no test was fixed for it. No API
 calls.
 
-    uv run python -m tools.crosscheck runs/main/trials-cross-check.jsonl
+    uv run python -m tools.crosscheck runs/main/trials-cross-check.jsonl \
+        runs/main/trials-cross-check-m12.jsonl
 
 A token probability is the four numbers' share of the top alternatives the provider
-returned at that position (five per token), normalised over the four.
+returned at that position (five per token), normalised over the four. M10 is left out:
+its options, 2 to 5 passes, can be read as option numbers, and M12 takes its place
+(docs/decisions.md, 2026-10-28).
 """
 
 import math
@@ -19,6 +22,7 @@ from collections import defaultdict
 from pipeline.score import load, page_test
 
 NUMBERS = {"1", "2", "3", "4"}
+LEFT_OUT = {"M10"}      # an answer of 3 may mean option 3 or 3 passes
 
 
 def _mean(xs) -> float:
@@ -61,6 +65,7 @@ def crosscheck(records: list[dict]) -> None:
         stated = defaultdict(lambda: defaultdict(list))   # case -> level -> P(truth)
         token = defaultdict(lambda: defaultdict(list))
         pairs, share, agree, p0_stated, p0_token = [], [], 0, [], []
+        by_level = defaultdict(list)
         rs = [r for r in records if r["judge_model"] == judge]
         for r in rs:
             i = answer_position(r.get("token_logprobs") or [])
@@ -73,6 +78,7 @@ def crosscheck(records: list[dict]) -> None:
             stated[r["case_id"]][r["condition"]].append(r["p_truth"])
             token[r["case_id"]][r["condition"]].append(tp)
             pairs.append((r["p_truth"], tp))
+            by_level[r["condition"]].append((r["p_truth"], tp))
             share.append(s)
             agree += max(d, key=d.get) == r["token_logprobs"][i]["token"].strip()
             if r["condition"] == "P0":
@@ -92,6 +98,14 @@ def crosscheck(records: list[dict]) -> None:
         s, t = zip(*pairs)
         print(f"stated against token P(truth), trial by trial: Spearman {spearman(s, t):.2f}, "
               f"mean absolute difference {_mean([abs(a - b) for a, b in pairs]):.1f} points")
+        # within one level, so the gap between levels does not carry the correlation; a
+        # level where either number never changes has none
+        within = []
+        for k in ("P0", "P1", "P2"):
+            a, b = zip(*by_level[k])
+            within.append(f"{spearman(a, b):.2f}" if min(len(set(a)), len(set(b))) > 1
+                          else "none (no spread)")
+        print("the same within P0, P1, P2: Spearman " + ", ".join(within))
         print(f"P0, the irrelevant report: the largest stated p is {_mean(p0_stated):.1f} on "
               f"average, the largest token probability {_mean(p0_token):.1f}")
         print(f"the four numbers hold {_mean(share):.3f} of the top alternatives' mass on "
@@ -100,4 +114,6 @@ def crosscheck(records: list[dict]) -> None:
 
 
 if __name__ == "__main__":
-    crosscheck([r for path in sys.argv[1:] for r in load(path)])
+    print(f"left out: {', '.join(sorted(LEFT_OUT))} (docs/decisions.md, 2026-10-28)\n")
+    crosscheck([r for path in sys.argv[1:] for r in load(path)
+                if r["case_id"] not in LEFT_OUT])

@@ -1,15 +1,22 @@
 # The optional sub-experiments: what they found so far
 
 The four optional sub-experiments ran on 2026-10-28, after stage 2, in the proposal's
-order (`docs/decisions.md`, 2026-10-26). This report says what each found so far. Two
-parts wait on a person: the reasoning traces are coded only after the trace rule is
-reviewed, and the wording-robustness rerun is judged only after Jason reads its new
-reports. Every number comes from one of two files in `runs/main/`:
+order (`docs/decisions.md`, 2026-10-26). This report says what each found so far. The
+same day, an independent review of PR #55, made in Kai Rong's place, checked them, and two
+decisions came of it (`docs/decisions.md`, 2026-10-28): the trace rule settles its edge
+cases and blinds its coders, and the cross-check reads M12 in M10's place. Then the
+wording-robustness rerun was judged. One part still waits: the 32 reasoning traces with
+thinking text are coded by the settled rule.
+
+Every result comes from one of the files below. The commands name their logs in the
+order `runs/main/trials-*.jsonl` lists them, since the scorer's output follows that order.
+The run times and the generation cost were read off the runs as they went.
 
 | File | Made by |
 |---|---|
-| `score-optional.txt` | `uv run python -m pipeline.score --show-excluded runs/main/trials-*.jsonl`, over all twelve judge logs |
-| `crosscheck.txt` | `uv run python -m tools.crosscheck runs/main/trials-cross-check.jsonl` |
+| `runs/main/score-optional.txt` | `uv run python -m pipeline.score --show-excluded runs/main/trials-{abstain-p0,abstain,agreement,conflict,cross-check-m12,cross-check,ladder,long-agreement,long-conflict,long-neff,reasoning-off,reasoning-on,screen}.jsonl`, all thirteen judge logs |
+| `runs/main/crosscheck.txt` | `uv run python -m tools.crosscheck runs/main/trials-cross-check.jsonl runs/main/trials-cross-check-m12.jsonl` |
+| `runs/robustness/score.txt` | `uv run python -m pipeline.score --show-excluded runs/robustness/trials.jsonl`, read beside `runs/main/score-stage1.txt` |
 
 `score-optional.txt` repeats every stage 1 and stage 2 cell of `score-stage2.txt`
 unchanged; Sonnet's long-arm cells gain the rows A4, A6 and A7.
@@ -19,10 +26,12 @@ unchanged; Sonnet's long-arm cells gain the rows A4, A6 and A7.
 Reasoning changed nothing Sonnet decided: with thinking allowed, it chose as it did
 without, in every trial, and it thought in only 32 of 144 trials. Both auxiliary models'
 stated numbers rise from an irrelevant report to one that names the answer, as their
-token probabilities do, and the two agree closely trial by trial; given only an
-irrelevant report, though, their tokens lean on one option far more than their stated
-numbers. With long reports Sonnet still counts three copies of one source and three
-independent sources alike, as about two sources each.
+token probabilities do. The two rank trials alike, though mostly through the gap between
+those levels; given only an irrelevant report, the tokens lean on one option far more
+than the stated numbers. With long reports Sonnet still counts three copies of one source
+and three independent sources alike, as about two sources each. On a second set of
+reports for M1 and M2, the conflict block's decisions held; only X2 moved, toward more
+right decisions.
 
 ## What ran
 
@@ -33,13 +42,18 @@ independent sources alike, as about two sources each.
 | robustness: `generate --cases M1,M2` | the reporter | 96 calls | about $0.07 |
 | `cross-check` | Qwen 3.6 27B and Llama 4 Maverick | 360 | $0.05 |
 | `long-neff` | Sonnet | 162 | $0.36 |
+| `cross-check-m12`, after the review | Qwen 3.6 27B and Llama 4 Maverick | 24 | $0.004 |
+| robustness: `judge --cases M1,M2 --arms conflict`, after the review | Opus, Sonnet and GPT-5.4 | 360 | $0.70 |
 
-They ran from 01:00 to 01:49, one entry at a time, and none stopped. The judge costs are
-the sum of each log's call costs; generation records none, so its cost is the fall in
-the key's balance while it ran. No call failed. Sonnet stayed on its pinned provider;
-the auxiliary models are not pinned, and Qwen answered on Alibaba and Reka, Llama on
-DigitalOcean and Parasail. Of the 360 cross-check trials, 4 of Qwen's named no option and
-5 stated probabilities whose sum was out of range; they are left out below.
+The first five ran from 01:00 to 01:49, one entry at a time, and none stopped. The last
+two ran from 17:49 to 18:09 the same day, side by side, once Jason had approved judging
+the rerun, and neither stopped. The judge costs are the sum of each log's call costs;
+generation records none, so its cost is the fall in the key's balance while it ran. No
+call failed. Sonnet stayed on its pinned provider; the auxiliary models are not pinned,
+and Qwen answered on Alibaba and Reka, Llama on DigitalOcean and Parasail. Of the 360
+cross-check trials read, 4 of Qwen's named no option, answering with an option's value
+(179 or 137 passengers in M38), and 5 stated probabilities whose sum was out of range, 4
+of Llama's and 1 of Qwen's; they are left out below.
 
 ## Reasoning on and off (Sonnet, M1 and M2)
 
@@ -59,35 +73,49 @@ trials and X5 in 12 of 12. Every wrong answer named A's claim.
 X3 trials with long reports, 6 of 24 with short ones, and 8 and 4 of X5's, never in X1.
 Averaged over each cell's 24 trials, that is 82 thinking tokens in X3 with long reports,
 32 with short ones, and 19 and 10 in X5. With so little thinking, the on/off contrast is
-weak, and it shows only in X3's P(truth), which is higher with reasoning on in all four
-cells, by 1 to 7 points.
+weak. X3's P(truth) is higher with reasoning on in all four cells, by 1 to 7 points; X5's
+is higher in its two short cells, by 2.3 and 2.5, and mixed in its long ones; X1's barely
+moves. Both modes kept the main prompt's last line, "Do not include any explanation or
+reasoning -- output only the JSON object.", so they differ only in the thinking allowed;
+that line may be why Sonnet so seldom used it.
 
-**The traces wait for the rule's review.** By the rule fixed before the run, the 112
-traces with no thinking text code as *none*. The other 32 go to two coders, Claude and a
-second coder given only the texts and the rule. The rule's reading crosses each code with
-the decision: since no X3 trial in either mode chose the independent report, the coding
-can only tell whether Sonnet missed the shared source or noticed it and still followed
-the two reports.
+**The traces are coded next.** The 112 traces with no thinking text code as *none*. The
+other 32 are coded by the rule as settled on 2026-10-28, before anyone read a trace
+(`docs/decisions.md`): two fresh Claude agents code them apart, shuffled and without
+case, condition or result, Jason settles their disagreements, and the codes are committed
+before they are joined to the trials. Since no X3 trial in either mode chose the
+independent report, the coding can only tell whether Sonnet missed the shared source or
+noticed it and still followed the two reports.
 
 ## The confidence cross-check (Qwen 3.6 27B and Llama 4 Maverick)
 
 The two auxiliary models judged the confidence screen's P0, P1 and P2 at four rotations
-on the first 15 cases, answering by option number. The token probability of an option is
-read at the answer's digit.
+on 15 cases, answering by option number: the first 15 in corpus order, with M12 in place
+of M10. M10's options are 2, 3, 4 and 5 passes, so an answer of 3 can mean option 3 or 3
+passes, and both models often meant the value: with the options shown as 4, 2, 5 and 3
+passes, both answered 3, which reads as 5 passes, though their report ruled 5 out. M10's
+24 trials stay in the log and are left out; M12, the next case in corpus order, was
+judged the same way on the same day (`docs/decisions.md`, 2026-10-28). The token
+probability of an option is read at the answer's digit.
 
 | | Llama 4 Maverick | Qwen 3.6 27B |
 |---|---|---|
-| Stated P(truth), P0 → P1 → P2 | 27.9 → 44.8 → 100.0 | 25.0 → 47.9 → 100.0 |
-| Token P(truth), P0 → P1 → P2 | 34.5 → 44.9 → 100.0 | 25.6 → 48.7 → 99.1 |
+| Stated P(truth), P0 → P1 → P2 | 26.2 → 45.6 → 100.0 | 25.0 → 46.4 → 100.0 |
+| Token P(truth), P0 → P1 → P2 | 32.6 → 45.1 → 100.0 | 25.5 → 46.5 → 99.2 |
 | Page's test, stated and token | p below 0.0001 for both | p below 0.0001 for both |
 | Stated against token P(truth), trial by trial | Spearman 0.83 | Spearman 0.81 |
-| P0: the largest stated p, the largest token probability | 76.0, 91.4 | 25.0, 77.0 |
+| The same within P1 alone | Spearman 0.79 | Spearman 0.76 |
+| P0: the largest stated p, the largest token probability | 76.0, 91.1 | 25.0, 76.9 |
 
-Both ways of reading confidence order the screen's three levels, and they rank trials
-much alike. They part where nothing points to the answer: shown an irrelevant report,
-Qwen states 25 on every option, yet its tokens put 77% on one number on average; Llama's
-largest stated number averages 76, its tokens' 91. In every trial the answer was the number its
-tokens made most likely. No test was fixed for this comparison, so it is a description.
+Both ways of reading confidence order the screen's three levels. They rank trials alike,
+though mostly through the gap between levels: within P1 alone the correlation is 0.79
+and 0.76, and within P0 Qwen's stated number never changes. They part where nothing
+points to the answer: shown an irrelevant report, Qwen states 25 on every option, yet its
+tokens put 77% on one number on average; Llama's largest stated number averages 76, its
+tokens' 91. The answer was always the number its tokens made most likely, as it must be
+at temperature 0, which both models take (`docs/decisions.md`, 2026-10-26); that checks
+where the tokens are read and is not a finding. No test was fixed for this comparison, so
+it is a description.
 
 ## n_eff at long length (Sonnet, nine subset cases)
 
@@ -114,16 +142,32 @@ comparison crosses days.
 ## Wording robustness (M1 and M2, a second report set)
 
 `generate` froze a second, independent report set for all four sources of M1 and M2 in
-`runs/robustness/`, and the runner's leak check is clean for both. A first reading for
-Jason, by the step 3.4 checks: M2's hint survives in both of A's reports ("understood",
-"thought"); every report of A and of B states its source's quantity; no two of A7's
-reports read alike. One note: M2's D report came out word for word as B's own sentence,
-which no judge sees here, since the rerun judges only the conflict block, where C and D
-are not shown. Judging, 360 calls with all three judges, waits for Jason's reading.
+`runs/robustness/`, and the runner's leak check is clean for both. The step 3.4 reading:
+M2's hint survives in both of A's reports ("understood", "thought"); every report of A
+and of B states its source's quantity; no two of A7's reports read alike. Two D reports
+repeat earlier text word for word: M1's D is the first set's D, and M2's D is B's own
+sentence. The rerun judges only the conflict block, where C and D are not shown, so
+neither reaches a judge. Jason approved judging on 2026-10-28.
+
+All three judges then judged the conflict block on the second set, 12 repeats, 360
+trials, each on its pinned provider; no call failed. Right decisions, M1 and M2
+together (24 per cell), first set → second set:
+
+| | X1 | X2 | X3 | X4 | X5 |
+|---|---|---|---|---|---|
+| Opus | 0 → 0 | 24 → 24 | 0 → 0 | 24 → 24 | 24 → 24 |
+| Sonnet | 0 → 0 | 9 → 13 | 0 → 0 | 24 → 24 | 24 → 24 |
+| GPT-5.4 | 0 → 0 | 22 → 24 | 0 → 0 | 24 → 24 | 24 → 24 |
+
+Every decision pattern of the first set holds on the second: no judge was right in X1
+or X3, and every judge was right in every X4 and X5 trial. Only X2, where each report's
+source type is named, moved, and only toward more right decisions. P(truth) moved by at
+most 7.5 points in any judge's case and condition (Sonnet, M1, X2). The first set was
+judged on 2026-10-25 and the second on 2026-10-28, so a difference can come from the
+day as well as from the wording (the first entry of 2026-10-26).
 
 ## What is left
 
 | Still open | Next step |
 |---|---|
-| The reasoning traces | Kai Rong reviews the trace rule (PR #55); then two coders code the 32 traces with text, Jason settles their disagreements, and the codes are committed before they are crossed with decisions |
-| Wording robustness | Jason reads the new reports; then the conflict block is judged, 360 calls, and scored on its own |
+| The reasoning traces | Two fresh Claude agents code the 32 traces with text by the rule of 2026-10-28; Jason settles their disagreements, and the codes are committed before they are joined to the trials |

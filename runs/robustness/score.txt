@@ -1,0 +1,120 @@
+Loaded 360 trials. Parse failures: 0. Status counts: {'ok': 360}
+
+##### judge openrouter:anthropic/claude-opus-5 | arm short | M1 #####
+  cond   n chance correct abstain no_match P(truth) P(maj) margin        stab s_chance
+  X1    12   0.25    0.00    0.00     0.00     19.3   75.7   56.3  1.00(n=12)     0.41
+  X2    12   0.25    1.00    0.00     0.00     72.4   24.3   48.1  1.00(n=12)     0.41
+  X3    12   0.25    0.00    0.00     0.00     36.8   57.0   20.2  1.00(n=12)     0.41
+  X4    12   0.25    1.00    0.00     0.00     68.1   28.0   40.1  1.00(n=12)     0.41
+  X5    12   0.25    1.00    0.00     0.00     69.4   26.2   43.2  1.00(n=12)     0.41
+  -- X1 -> X3 -> X4 -> X5 (none, dependence, quality, both) --
+  correct   : 0.00 -> 0.00 -> 1.00 -> 1.00
+  p_truth   : 19.3 -> 36.8 -> 68.1 -> 69.4
+  p_majority: 75.7 -> 57.0 -> 28.0 -> 26.2
+
+##### judge openrouter:anthropic/claude-opus-5 | arm short | M2 #####
+  cond   n chance correct abstain no_match P(truth) P(maj) margin        stab s_chance
+  X1    12   0.25    0.00    0.00     0.00     25.3   69.2   43.8  1.00(n=12)     0.41
+  X2    12   0.25    1.00    0.00     0.00     60.4   35.3   25.1  1.00(n=12)     0.41
+  X3    12   0.25    0.00    0.00     0.00     41.5   53.1   11.6  1.00(n=12)     0.41
+  X4    12   0.25    1.00    0.00     0.00     69.7   26.2   43.5  1.00(n=12)     0.41
+  X5    12   0.25    1.00    0.00     0.00     68.5   27.2   41.2  1.00(n=12)     0.41
+  -- X1 -> X3 -> X4 -> X5 (none, dependence, quality, both) --
+  correct   : 0.00 -> 0.00 -> 1.00 -> 1.00
+  p_truth   : 25.3 -> 41.5 -> 69.7 -> 68.5
+  p_majority: 69.2 -> 53.1 -> 26.2 -> 27.2
+
+##### judge openrouter:anthropic/claude-sonnet-5 | arm short | M1 #####
+  cond   n chance correct abstain no_match P(truth) P(maj) margin        stab s_chance
+  X1    12   0.25    0.00    0.00     0.00     19.6   71.2   51.7  1.00(n=12)     0.41
+  X2    12   0.25    0.92    0.00     0.00     55.4   34.2   26.2  0.92(n=12)     0.41
+  X3    12   0.25    0.00    0.00     0.00     27.1   63.3   36.2  1.00(n=12)     0.41
+  X4    12   0.25    1.00    0.00     0.00     71.3   19.8   51.5  1.00(n=12)     0.41
+  X5    12   0.25    1.00    0.00     0.00     68.6   22.8   45.8  1.00(n=12)     0.41
+  -- X1 -> X3 -> X4 -> X5 (none, dependence, quality, both) --
+  correct   : 0.00 -> 0.00 -> 1.00 -> 1.00
+  p_truth   : 19.6 -> 27.1 -> 71.3 -> 68.6
+  p_majority: 71.2 -> 63.3 -> 19.8 -> 22.8
+
+##### judge openrouter:anthropic/claude-sonnet-5 | arm short | M2 #####
+  cond   n chance correct abstain no_match P(truth) P(maj) margin        stab s_chance
+  X1    12   0.25    0.00    0.00     0.00     19.9   71.6   51.7  1.00(n=12)     0.41
+  X2    12   0.25    0.17    0.00     0.00     35.3   57.5   30.5  0.83(n=12)     0.41
+  X3    12   0.25    0.00    0.00     0.00     31.5   59.4   27.9  1.00(n=12)     0.41
+  X4    12   0.25    1.00    0.00     0.00     74.4   19.1   55.3  1.00(n=12)     0.41
+  X5    12   0.25    1.00    0.00     0.00     67.8   25.2   42.5  1.00(n=12)     0.41
+  -- X1 -> X3 -> X4 -> X5 (none, dependence, quality, both) --
+  correct   : 0.00 -> 0.00 -> 1.00 -> 1.00
+  p_truth   : 19.9 -> 31.5 -> 74.4 -> 67.8
+  p_majority: 71.6 -> 59.4 -> 19.1 -> 25.2
+
+##### judge openrouter:openai/gpt-5.4 | arm short | M1 #####
+  cond   n chance correct abstain no_match P(truth) P(maj) margin        stab s_chance
+  X1    12   0.25    0.00    0.00     0.00     13.2   81.8   68.6  1.00(n=12)     0.41
+  X2    12   0.25    1.00    0.00     0.00     64.4   27.4   37.0  1.00(n=12)     0.41
+  X3    12   0.25    0.00    0.00     0.00     24.9   65.4   40.5  1.00(n=12)     0.41
+  X4    12   0.25    1.00    0.00     0.00     77.8   16.1   61.7  1.00(n=12)     0.41
+  X5    12   0.25    1.00    0.00     0.00     72.2   20.6   51.6  1.00(n=12)     0.41
+  -- X1 -> X3 -> X4 -> X5 (none, dependence, quality, both) --
+  correct   : 0.00 -> 0.00 -> 1.00 -> 1.00
+  p_truth   : 13.2 -> 24.9 -> 77.8 -> 72.2
+  p_majority: 81.8 -> 65.4 -> 16.1 -> 20.6
+
+##### judge openrouter:openai/gpt-5.4 | arm short | M2 #####
+  cond   n chance correct abstain no_match P(truth) P(maj) margin        stab s_chance
+  X1    12   0.25    0.00    0.00     0.00     21.7   71.1   49.4  1.00(n=12)     0.41
+  X2    12   0.25    1.00    0.00     0.00     61.8   31.8   30.0  1.00(n=12)     0.41
+  X3    12   0.25    0.00    0.00     0.00     29.3   60.1   30.8  1.00(n=12)     0.41
+  X4    12   0.25    1.00    0.00     0.00     79.1   16.5   62.6  1.00(n=12)     0.41
+  X5    12   0.25    1.00    0.00     0.00     77.5   17.2   60.3  1.00(n=12)     0.41
+  -- X1 -> X3 -> X4 -> X5 (none, dependence, quality, both) --
+  correct   : 0.00 -> 0.00 -> 1.00 -> 1.00
+  p_truth   : 21.7 -> 29.3 -> 79.1 -> 77.5
+  p_majority: 71.1 -> 60.1 -> 16.5 -> 17.2
+
+
+
+DISCRIMINATION judge openrouter:anthropic/claude-opus-5: AUROC (n correct/incorrect) X1 n/a (0/24), X2 n/a (24/0), X3 n/a (0/24), X4 n/a (24/0), X5 n/a (24/0)
+  rule as first registered, not applied: not assessable: no condition has 10 correct and 10 incorrect decisions -- would be excluded
+DISCRIMINATION judge openrouter:anthropic/claude-sonnet-5: AUROC (n correct/incorrect) X1 n/a (0/24), X2 0.24 (13/11), X3 n/a (0/24), X4 n/a (24/0), X5 n/a (24/0)
+  rule as first registered, not applied: X2 p 1.0000; passes below 0.05 / 1 = 0.0500 -- would be excluded
+DISCRIMINATION judge openrouter:openai/gpt-5.4: AUROC (n correct/incorrect) X1 n/a (0/24), X2 n/a (24/0), X3 n/a (0/24), X4 n/a (24/0), X5 n/a (24/0)
+  rule as first registered, not applied: not assessable: no condition has 10 correct and 10 incorrect decisions -- would be excluded
+
+N_EFF judge openrouter:anthropic/claude-opus-5 | M1: mean P(truth) {} -> {'undefined': "missing P(truth) in ['A0', 'A1', 'A4', 'A6', 'A7']"}  (normative A4 1, A6 1, A7 3)
+N_EFF judge openrouter:anthropic/claude-opus-5 | M2: mean P(truth) {} -> {'undefined': "missing P(truth) in ['A0', 'A1', 'A4', 'A6', 'A7']"}  (normative A4 1, A6 1, A7 3)
+N_EFF judge openrouter:anthropic/claude-sonnet-5 | M1: mean P(truth) {} -> {'undefined': "missing P(truth) in ['A0', 'A1', 'A4', 'A6', 'A7']"}  (normative A4 1, A6 1, A7 3)
+N_EFF judge openrouter:anthropic/claude-sonnet-5 | M2: mean P(truth) {} -> {'undefined': "missing P(truth) in ['A0', 'A1', 'A4', 'A6', 'A7']"}  (normative A4 1, A6 1, A7 3)
+N_EFF judge openrouter:openai/gpt-5.4 | M1: mean P(truth) {} -> {'undefined': "missing P(truth) in ['A0', 'A1', 'A4', 'A6', 'A7']"}  (normative A4 1, A6 1, A7 3)
+N_EFF judge openrouter:openai/gpt-5.4 | M2: mean P(truth) {} -> {'undefined': "missing P(truth) in ['A0', 'A1', 'A4', 'A6', 'A7']"}  (normative A4 1, A6 1, A7 3)
+N_EFF UNDEFINED judge openrouter:anthropic/claude-opus-5: 2/2 cells (1.00); a value at ceiling in 0/2; 100 stated on one option in 0/0 (n/a) agreement-block answers
+N_EFF UNDEFINED judge openrouter:anthropic/claude-sonnet-5: 2/2 cells (1.00); a value at ceiling in 0/2; 100 stated on one option in 0/0 (n/a) agreement-block answers
+N_EFF UNDEFINED judge openrouter:openai/gpt-5.4: 2/2 cells (1.00); a value at ceiling in 0/2; 100 stated on one option in 0/0 (n/a) agreement-block answers
+
+H6 judge openrouter:anthropic/claude-opus-5: 2/120 conflict-block records do not identify the answer given (0 incoherent, 2 by margin < 10)
+  abstained in the abstention arm, inside each condition:
+  flagged minus not flagged, inside conditions (Mantel-Haenszel): n/a; own A7 0/0 (n/a)
+  sensitivity, declared in advance, not the test: margin < 5: n/a; margin < 20: n/a
+  reading, cut-offs fixed before the main run: not assessed: no P0 trials
+H6 judge openrouter:anthropic/claude-sonnet-5: 0/120 conflict-block records do not identify the answer given (0 incoherent, 0 by margin < 10)
+  abstained in the abstention arm, inside each condition:
+  flagged minus not flagged, inside conditions (Mantel-Haenszel): n/a; own A7 0/0 (n/a)
+  sensitivity, declared in advance, not the test: margin < 5: n/a; margin < 20: n/a
+  reading, cut-offs fixed before the main run: not assessed: no P0 trials
+H6 judge openrouter:openai/gpt-5.4: 1/120 conflict-block records do not identify the answer given (0 incoherent, 1 by margin < 10)
+  abstained in the abstention arm, inside each condition:
+  flagged minus not flagged, inside conditions (Mantel-Haenszel): n/a; own A7 0/0 (n/a)
+  sensitivity, declared in advance, not the test: margin < 5: n/a; margin < 20: n/a
+  reading, cut-offs fixed before the main run: not assessed: no P0 trials
+
+HEALTH judge openrouter:anthropic/claude-opus-5: 120 trials, parse failures 0, no_match 0, other statuses [], call errors 0, providers ['Claude Platform on AWS'], reasoning tokens 0
+  cost per call by arm: short $0.00334 (n=120, total $0.4006)
+HEALTH judge openrouter:anthropic/claude-sonnet-5: 120 trials, parse failures 0, no_match 0, other statuses [], call errors 0, providers ['Claude Platform on AWS'], reasoning tokens 0
+  cost per call by arm: short $0.00134 (n=120, total $0.1602)
+HEALTH judge openrouter:openai/gpt-5.4: 120 trials, parse failures 0, no_match 0, other statuses [], call errors 0, providers ['OpenAI'], reasoning tokens 0
+  cost per call by arm: short $0.00118 (n=120, total $0.1422)
+REASONING judge openrouter:anthropic/claude-opus-5: 0 reasoning tokens in every cell
+REASONING judge openrouter:anthropic/claude-sonnet-5: 0 reasoning tokens in every cell
+REASONING judge openrouter:openai/gpt-5.4: 0 reasoning tokens in every cell
+
+INCOHERENT records (answer is not the argmax of its own p): 0

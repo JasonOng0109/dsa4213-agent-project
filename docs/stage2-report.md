@@ -3,12 +3,13 @@
 Stage 2 ran on 2026-10-27 and 2026-10-28 on the ten-case subset. It answers the three
 questions stage 1 left for it (`docs/stage1-report.md`, "What stage 1 leaves for later").
 Every number comes from one of three files in `runs/main/`, all read from the eight judge
-logs, stage 1's five and stage 2's three:
+logs, stage 1's five and stage 2's three. The commands name the logs in the order
+`runs/main/trials-*.jsonl` listed them then, since the scorer's output follows that order:
 
 | File | Made by |
 |---|---|
-| `score-stage2.txt` | `uv run python -m pipeline.score --show-excluded runs/main/trials-*.jsonl` |
-| `tally-stage2.txt` | `uv run python -m tools.tally runs/main/trials-*.jsonl`; its section "stage 2's entries" sets each stage 2 cell beside the same judge's short cells on the same ten cases |
+| `score-stage2.txt` | `uv run python -m pipeline.score --show-excluded runs/main/trials-{abstain-p0,abstain,agreement,conflict,ladder,long-agreement,long-conflict,screen}.jsonl` |
+| `tally-stage2.txt` | `uv run python -m tools.tally` over the same eight logs; its section "stage 2's entries" sets each stage 2 cell beside the same judge's short cells on the same ten cases |
 | `tally-stage2-without-echoes.txt` | the same, with `--without M3,M9,M13,M23,M28,M38,M40`, which leaves M3 and M38 out of the subset |
 
 "P(truth)" and "right" mean what they mean in stage 1's report. The README's table "What
