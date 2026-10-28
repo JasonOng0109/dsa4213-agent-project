@@ -3966,6 +3966,11 @@ a.ref:hover { background: var(--surface-2); }
      "file": "pipeline/run.py",
      "loc": "PROGRAMME",
      "quote": "Entry(\"long-agreement\", \"long\", LONG_AGREEMENT, 6, LENGTH_JUDGES, True),"
+    },
+    {
+     "file": "pipeline/conditions.py",
+     "loc": "build_conditions",
+     "quote": "With long reports, the reports of the checked conditions, those judged long, are length-checked."
     }
    ],
    "links": [
@@ -3985,6 +3990,9 @@ a.ref:hover { background: var(--surface-2); }
      "to": "drift-a7-long-check",
      "rel": "because"
     }
+   ],
+   "points": [
+    "An optional entry that judges another condition long has it checked too, so the long-neff entry checks A7: [[long-neff-plan]]."
    ]
   },
   {
@@ -4246,7 +4254,7 @@ a.ref:hover { background: var(--surface-2); }
    "cluster": "conditions",
    "title": "Four optional sub-experiments",
    "label": "Optional sub-experiments",
-   "summary": "Reasoning on/off, a rerun with fresh rewordings, a check of written confidence against token probabilities, and n_eff at long length: 1,112 calls, about $2.78, in the proposal. They run in this order if budget allows. Their designs were recorded on 2026-10-26; none is built yet.",
+   "summary": "Reasoning on/off, a rerun with fresh rewordings, a check of written confidence against token probabilities, and n_eff at long length: 1,112 calls, about $2.78, in the proposal. They run in this order if budget allows. Designed and built on 2026-10-26, and run on 2026-10-28: [[optional-results]].",
    "aliases": [
     "optional sub-experiments"
    ],
@@ -4254,7 +4262,7 @@ a.ref:hover { background: var(--surface-2); }
     {
      "file": "README.md",
      "loc": "Arms",
-     "quote": "Optional sub-experiments, run in this order if budget allows, designed but not yet built"
+     "quote": "Optional sub-experiments, run in this order if budget allows, built on 2026-10-26 and run on 2026-10-28"
     },
     {
      "file": "docs/proposal.pdf",
@@ -4274,6 +4282,10 @@ a.ref:hover { background: var(--surface-2); }
     {
      "to": "open-optional",
      "rel": "involves"
+    },
+    {
+     "to": "optional-results",
+     "rel": "related"
     }
    ],
    "points": [
@@ -4401,7 +4413,8 @@ a.ref:hover { background: var(--surface-2); }
    "summary": "A JSON object: the chosen answer copied word for word, and a probability from 0 to 100 for every option, adding up to 100. Options are numbered, never lettered. The judge is sent temperature 0, which its endpoint does not take ([[drift-temperature]]), and is not asked for reasoning.",
    "visual": "prompt",
    "points": [
-    "Reasoning is switched off explicitly ([[reasoning-control]])."
+    "Reasoning is switched off explicitly ([[reasoning-control]]).",
+    "The confidence cross-check's prompt asks for option numbers instead: [[crosscheck-plan]]."
    ],
    "evidence": [
     {
@@ -6606,7 +6619,7 @@ a.ref:hover { background: var(--surface-2); }
    "cluster": "pipeline",
    "title": "Runner (pipeline/run.py)",
    "label": "Runner",
-   "summary": "The command line. dry runs the whole programme on the mock backend; plan prints the call and cost estimate; balance and probe check the key and the models; generate and judge spend money, each under a hard call ceiling. The programme itself is one table, PROGRAMME.",
+   "summary": "The command line. dry runs the whole programme on the mock backend; plan prints the call and cost estimate; balance and probe check the key and the models; generate and judge spend money, each under a hard call ceiling. The programme itself is one table, PROGRAMME. The optional sub-experiments are a second table, OPTIONAL, chosen by name; --cases keeps only the cases named.",
    "weight": 2,
    "aliases": [
     "runner",
@@ -6622,6 +6635,11 @@ a.ref:hover { background: var(--surface-2); }
      "file": "README.md",
      "loc": "Running the study",
      "quote": "pre-flight call and cost estimate"
+    },
+    {
+     "file": "pipeline/run.py",
+     "loc": "argparse",
+     "quote": "comma-separated case ids: only these cases"
     }
    ],
    "links": [
@@ -6635,6 +6653,10 @@ a.ref:hover { background: var(--surface-2); }
     },
     {
      "to": "cost-model",
+     "rel": "related"
+    },
+    {
+     "to": "optional-build",
      "rel": "related"
     }
    ]
@@ -8701,16 +8723,21 @@ a.ref:hover { background: var(--surface-2); }
    "id": "open-optional",
    "type": "issue",
    "cluster": "issues",
-   "title": "The optional sub-experiments are not built",
-   "label": "Optional work not built",
-   "summary": "None of the four optional sub-experiments has code on main yet. Their designs are recorded (2026-10-26), and the code is being written on the branch optional-arms: [[optional-build]].",
-   "status": "open",
+   "title": "The optional sub-experiments were not built",
+   "label": "Optional work not built (settled)",
+   "summary": "Settled. The four optional sub-experiments are built as the entries in OPTIONAL in pipeline/run.py, chosen by name and never part of the default run. They ran on 2026-10-28, each after a balance check, as [[optional-build]] requires: [[optional-results]].",
+   "status": "current",
    "date": "2026-10-12",
    "evidence": [
     {
      "file": "README.md",
      "loc": "Status and open items",
-     "quote": "Designed, not built: the four optional sub-experiments"
+     "quote": "The optional sub-experiments have run (2026-10-28), as the entries in OPTIONAL"
+    },
+    {
+     "file": "pipeline/run.py",
+     "loc": "OPTIONAL",
+     "quote": "# Selected by name with judge --arms, never part of the default run or of plan's totals."
     }
    ],
    "links": [
@@ -8724,6 +8751,10 @@ a.ref:hover { background: var(--surface-2); }
     },
     {
      "to": "optional-build",
+     "rel": "related"
+    },
+    {
+     "to": "optional-results",
      "rel": "related"
     }
    ]
@@ -9579,7 +9610,8 @@ a.ref:hover { background: var(--surface-2); }
    "date": "2026-10-26",
    "points": [
     "They run in the proposal's order, each only if the balance covers it plus 10%: [[optional-subexps]].",
-    "The designs: [[reasoning-plan]], [[robustness-plan]], [[crosscheck-plan]] and [[long-neff-plan]]."
+    "The designs: [[reasoning-plan]], [[robustness-plan]], [[crosscheck-plan]] and [[long-neff-plan]].",
+    "Built on the branch optional-arms: stage 1's score reproduces byte for byte under the changed scorer, and a test checks every stage 1 record against the trial the code builds today."
    ],
    "evidence": [
     {
@@ -9593,9 +9625,19 @@ a.ref:hover { background: var(--surface-2); }
      "quote": "A test checks that the main programme still builds the trials and prompts that stage 1 judged and stage 2 will judge"
     },
     {
-     "file": "README.md",
-     "loc": "Status and open items",
-     "quote": "Their code is being written on the branch optional-arms, in a folder of its own, and joins main when Jason agrees."
+     "file": "tests/test_run.py",
+     "loc": "the main programme",
+     "quote": "def test_the_main_programme_builds_the_same_trials_and_prompts(main_frozen):"
+    },
+    {
+     "file": "pipeline/run.py",
+     "loc": "OPTIONAL",
+     "quote": "Each fixes its cases and its arm label, so no trial shares an id or a scorer cell with"
+    },
+    {
+     "file": "tests/test_run.py",
+     "loc": "the main programme",
+     "quote": "Every record in stage 1's logs shows the trial the code builds today, and every trial the code builds was judged."
     }
    ],
    "links": [
@@ -9619,12 +9661,13 @@ a.ref:hover { background: var(--surface-2); }
    "cluster": "conditions",
    "title": "The reasoning comparison: Claude Sonnet 5 on M1 and M2, both modes judged on one day",
    "label": "Reasoning arm: design",
-   "summary": "Sonnet judges X1, X3 and X5 of M1 and M2, short and long, 12 repeats, once with reasoning off as in the main run and once with reasoning on at a 2,000-token budget: 288 calls, both modes on the same day, so a difference between the modes is not drift between days. Every record keeps the thinking text, and the traces are coded by a rule fixed before any of them exist: none, noticed (the trace says two reports share a source, repeat one another or are not independent) or not noticed. Two coders apply it separately, and the codes are crossed with the decisions only after they are committed.",
+   "summary": "Sonnet judges X1, X3 and X5 of M1 and M2, short and long, 12 repeats, once with reasoning off as in the main run and once with reasoning on at a 2,000-token budget: 288 calls, both modes on the same day, so a difference between the modes is not drift between days. Every record keeps the thinking text, and the traces are coded by a rule fixed before any of them exist: none, noticed (the trace says two reports share a source, repeat one another or are not independent) or not noticed. Two coders apply it separately, and the codes are crossed with the decisions only after they are committed. On 2026-10-28, before anyone read a trace, the rule was tightened and its coders blinded: [[trace-rule]].",
    "date": "2026-10-26",
    "points": [
     "Sonnet, not GPT-5.4: it judges long reports in the main run too, and its numbers are not stuck at 100.",
     "The main run's own reasoning-off trials are not reused, since they were judged on other days: [[drift-temperature]].",
-    "In the probe, reasoning on did not force thinking: one of two identical calls thought for 0 tokens: [[judge-probe]]."
+    "In the probe, reasoning on did not force thinking: one of two identical calls thought for 0 tokens: [[judge-probe]].",
+    "Ran on 2026-10-28: no decision changed, and Sonnet thought in 32 of the 144 reasoning-on trials. All 32 traces noticed the shared source, and none of the 20 in X3 chose the independent report: [[open-trace-coding]], [[optional-results]]."
    ],
    "evidence": [
     {
@@ -9641,6 +9684,16 @@ a.ref:hover { background: var(--surface-2); }
      "file": "docs/proposal.pdf",
      "loc": "p.14 §4.1",
      "quote": "Traces are logged and read for whether the model mentions the shared source before deciding"
+    },
+    {
+     "file": "pipeline/run.py",
+     "loc": "OPTIONAL",
+     "quote": "THINKING = {\"max_tokens\": 2000}     # reasoning on, at a budget of 2,000 thinking tokens"
+    },
+    {
+     "file": "pipeline/judge.py",
+     "loc": "run_trials",
+     "quote": "\"reasoning_text\": getattr(judge, \"last_reasoning\", None),"
     }
    ],
    "links": [
@@ -9655,6 +9708,10 @@ a.ref:hover { background: var(--surface-2); }
     {
      "to": "x3",
      "rel": "needs"
+    },
+    {
+     "to": "optional-results",
+     "rel": "related"
     }
    ]
   },
@@ -9695,7 +9752,14 @@ a.ref:hover { background: var(--surface-2); }
     {
      "to": "main-run-reading",
      "rel": "related"
+    },
+    {
+     "to": "optional-results",
+     "rel": "related"
     }
+   ],
+   "points": [
+    "The second report set was frozen on 2026-10-28 and, once Jason approved, judged the same day in 360 calls: the conflict block's decisions held, and only X2 moved, toward more right decisions: [[optional-results]]."
    ]
   },
   {
@@ -9704,11 +9768,12 @@ a.ref:hover { background: var(--surface-2); }
    "cluster": "measuring",
    "title": "The confidence cross-check runs the screen on the auxiliary models, answering by number",
    "label": "Cross-check: design",
-   "summary": "Qwen 3.6 27B and Llama 4 Maverick judge the confidence screen's three levels at its four rotations on the first 15 cases in corpus order: 360 calls. They answer with the option's number and state their probabilities by number, so the token probabilities at the answer's digit cover the same four options as the written ones. Qwen is sent reasoning off, which it honours with token probabilities on; Llama takes no reasoning parameter and is sent none.",
+   "summary": "Qwen 3.6 27B and Llama 4 Maverick judge the confidence screen's three levels at its four rotations on the first 15 cases in corpus order: 360 calls. They answer with the option's number and state their probabilities by number, so the token probabilities at the answer's digit cover the same four options as the written ones. Qwen is sent reasoning off, which it honours with token probabilities on; Llama takes no reasoning parameter and is sent none. Since 2026-10-28, M12 stands in for M10, whose options can be read as option numbers: [[crosscheck-m12]].",
    "date": "2026-10-26",
    "points": [
     "The screen runs from an irrelevant report to one naming the answer, so written confidence spans the scale: [[screen]].",
-    "Qwen failed the 2026-10-25 probe only because no reasoning setting was sent: [[judge-probe]]."
+    "Qwen failed the 2026-10-25 probe only because no reasoning setting was sent: [[judge-probe]].",
+    "Ran on 2026-10-28: stated and token probabilities both order the screen and rank trials alike, mostly through the gap between levels, but on an irrelevant report the tokens lean on one option far more: [[optional-results]]."
    ],
    "evidence": [
     {
@@ -9725,6 +9790,16 @@ a.ref:hover { background: var(--surface-2); }
      "file": "docs/proposal.pdf",
      "loc": "p.15 §4.1",
      "quote": "Verbalized probabilities are compared against option-index token probabilities on the two auxiliary models"
+    },
+    {
+     "file": "pipeline/prompt.py",
+     "loc": "NUMBER_TEMPLATE",
+     "quote": "the keys of \"p\" are option numbers, so the token probabilities at the answer's digit"
+    },
+    {
+     "file": "pipeline/run.py",
+     "loc": "AUXILIARY_REASONING",
+     "quote": "AUXILIARY_REASONING = {\"qwen/qwen3.6-27b\": {\"enabled\": False}, \"meta-llama/llama-4-maverick\": None}"
     }
    ],
    "links": [
@@ -9739,6 +9814,10 @@ a.ref:hover { background: var(--surface-2); }
     {
      "to": "elicitation",
      "rel": "related"
+    },
+    {
+     "to": "optional-results",
+     "rel": "related"
     }
    ]
   },
@@ -9751,7 +9830,8 @@ a.ref:hover { background: var(--surface-2); }
    "summary": "After stage 2, Sonnet judges A4, A6 and A7 with long reports on the subset cases except M38, 6 repeats: 162 calls. The scorer computes n_eff on the long arm from those cells and stage 2's long A1, borrowing A0 from the short arm, since A0 shows no reports and so has no length. M38 is left out because one of its A7 reports comes to 87 words, one under the 88-word floor. Sonnet only, because GPT-5.4's index mostly reads at ceiling.",
    "date": "2026-10-26",
    "points": [
-    "Stage 2 never judges A7 long, so its reports are not length-checked there, and no rule holds C's and D's lengths: [[long-check-scope]]. This entry checks them."
+    "Stage 2 never judges A7 long, so its reports are not length-checked there, and no rule holds C's and D's lengths: [[long-check-scope]]. This entry checks them.",
+    "Ran on 2026-10-28: n_eff is defined in all nine cases, and Sonnet still counts three copies of one source and three independent sources alike, about two each: [[optional-results]]."
    ],
    "evidence": [
     {
@@ -9768,6 +9848,11 @@ a.ref:hover { background: var(--surface-2); }
      "file": "docs/proposal.pdf",
      "loc": "p.21 §6",
      "quote": "requires the index to be computable at short length"
+    },
+    {
+     "file": "pipeline/score.py",
+     "loc": "report_neff",
+     "quote": "A0 shows no reports, so it has no length, and comes from the same judge's short arm"
     }
    ],
    "links": [
@@ -9789,6 +9874,10 @@ a.ref:hover { background: var(--surface-2); }
     },
     {
      "to": "long-check-scope",
+     "rel": "related"
+    },
+    {
+     "to": "optional-results",
      "rel": "related"
     }
    ]
@@ -10064,6 +10153,351 @@ a.ref:hover { background: var(--surface-2); }
     },
     {
      "to": "main-run-staged",
+     "rel": "related"
+    }
+   ]
+  },
+  {
+   "id": "optional-results",
+   "type": "finding",
+   "cluster": "pipeline",
+   "title": "The optional sub-experiments: what they found so far",
+   "label": "Optional arms: results so far",
+   "summary": "The four optional sub-experiments ran on 2026-10-28, after stage 2: 810 judge trials and 96 report calls, none stopped. After an independent review the same day, M12 took M10's place in the cross-check (24 calls) and the robustness rerun was judged (360 calls). With reasoning on, Claude Sonnet 5 decided exactly as with it off, and it thought in only 32 of 144 trials. The two auxiliary models' stated confidence orders the screen's three levels as their token probabilities do, and the two rank trials alike, mostly through the gap between levels; on an irrelevant report the tokens lean on one option far more. With long reports Sonnet still counts three copies of one source and three independent sources alike, as about two sources each. On a second set of reports for M1 and M2, the conflict block's decisions held: no judge was right in X1 or X3, every judge in X4 and X5, and only X2 moved, toward more right decisions. All 32 reasoning traces with text noticed the shared source, and in X3 none of those trials chose the independent report: Sonnet saw the dependence and did not act on it. docs/optional-report.md.",
+   "date": "2026-10-28",
+   "points": [
+    "Reasoning, Sonnet on M1 and M2: in both modes X1 and X3 were right in 0 of 12 trials per cell and X5 in 12 of 12, short and long. X3's P(truth) was 1 to 7 points higher with reasoning on: [[reasoning-plan]].",
+    "Thinking was rare: 32 of the 144 reasoning-on trials, all in X3 and X5, so 112 traces code as none. The other 32 were coded by [[trace-rule]], and all noticed the shared source: in X3 none of those 20 trials chose the independent report, so when Sonnet thought, it noticed the dependence and still followed the two reports: [[open-trace-coding]].",
+    "Cross-check, Qwen 3.6 27B and Llama 4 Maverick on the screen's 15 cases, M12 in M10's place, read with tools/crosscheck.py: stated and token P(truth) both rise from P0 to P2, with Page's p below 0.0001. Trial by trial the Spearman correlation is 0.83 and 0.81, but 0.79 and 0.76 within P1 alone. On the irrelevant report, Qwen states 25 on every option while its tokens put 77% on one: [[crosscheck-plan]], [[crosscheck-m12]], [[screen]].",
+    "n_eff at long length, Sonnet on nine cases: medians A4 1.95 and A7 1.97, against 1.86 and 1.79 short on the same cases; the 'same source' note claws back 0.47 against 0.23. Defined in all nine, none at ceiling: [[long-neff-plan]], [[neff]].",
+    "Wording robustness, a second report set for M1 and M2, judged on 2026-10-28: the conflict block's decisions held. X1 and X3 were never right and X4 and X5 always, for all three judges; only X2 moved, Sonnet from 9 to 13 of 24 and GPT-5.4 from 22 to 24. P(truth) moved by at most 7.5 points in any case and condition, and the two sets were judged on different days: [[robustness-plan]]."
+   ],
+   "evidence": [
+    {
+     "file": "runs/main/score-optional.txt",
+     "loc": "first line",
+     "quote": "Loaded 21114 trials. Parse failures: 1. Status counts: {'ok': 21086, 'p_sum_out_of_range': 20, 'no_match': 6, 'p_incomplete': 1, 'failed_fallback': 1}"
+    },
+    {
+     "file": "runs/main/score-optional.txt",
+     "loc": "REASONING, Sonnet",
+     "quote": "'reasoning-on-long/X3': '14/24 trials, mean 82'"
+    },
+    {
+     "file": "runs/main/score-optional.txt",
+     "loc": "N_EFF UNDEFINED, Sonnet, long",
+     "quote": "N_EFF UNDEFINED judge openrouter:anthropic/claude-sonnet-5 | long: 0/9 cells (0.00); a value at ceiling in 0/9"
+    },
+    {
+     "file": "runs/main/crosscheck.txt",
+     "loc": "Qwen",
+     "quote": "token P(truth), mean over cases at P0, P1, P2: 25.5, 46.5, 99.2; Page's L 208.0, rank correlation 0.933, one-sided p 0.0000, 15 cases"
+    },
+    {
+     "file": "runs/main/crosscheck.txt",
+     "loc": "Qwen",
+     "quote": "P0, the irrelevant report: the largest stated p is 25.0 on average, the largest token probability 76.9"
+    },
+    {
+     "file": "runs/main/crosscheck.txt",
+     "loc": "Llama",
+     "quote": "stated against token P(truth), trial by trial: Spearman 0.83, mean absolute difference 11.5 points"
+    },
+    {
+     "file": "runs/main/crosscheck.txt",
+     "loc": "Llama",
+     "quote": "the same within P0, P1, P2: Spearman 0.60, 0.79, none (no spread)"
+    },
+    {
+     "file": "docs/optional-report.md",
+     "loc": "Reasoning on and off",
+     "quote": "In every cell, in both modes, X1 and X3 were right in 0 of 12 trials and X5 in 12 of 12."
+    },
+    {
+     "file": "docs/optional-report.md",
+     "loc": "Reasoning on and off",
+     "quote": "Sonnet thought in 32 of the 144 reasoning-on trials"
+    },
+    {
+     "file": "docs/optional-report.md",
+     "loc": "Reasoning on and off",
+     "quote": "the coding can only tell whether Sonnet missed the shared source or noticed it and still followed the two reports"
+    },
+    {
+     "file": "docs/optional-report.md",
+     "loc": "n_eff at long length",
+     "quote": "| Clawed back by \"same source\" (A4 − A6) | 0.23 | 0.47 |"
+    },
+    {
+     "file": "runs/robustness/score.txt",
+     "loc": "first line",
+     "quote": "Loaded 360 trials. Parse failures: 0. Status counts: {'ok': 360}"
+    },
+    {
+     "file": "docs/optional-report.md",
+     "loc": "Wording robustness",
+     "quote": "| Sonnet | 0 → 0 | 9 → 13 | 0 → 0 | 24 → 24 | 24 → 24 |"
+    },
+    {
+     "file": "docs/optional-report.md",
+     "loc": "Wording robustness",
+     "quote": "Only X2, where each report's source type is named, moved, and only toward more right decisions."
+    },
+    {
+     "file": "docs/optional-report.md",
+     "loc": "Wording robustness",
+     "quote": "Jason approved judging on 2026-10-28."
+    },
+    {
+     "file": "runs/main/traces/reading.txt",
+     "loc": "settled codes",
+     "quote": "X3 short 18 (0) 6 (0) 0 (0) 24"
+    }
+   ],
+   "links": [
+    {
+     "to": "optional-subexps",
+     "rel": "needs"
+    },
+    {
+     "to": "neff",
+     "rel": "needs"
+    },
+    {
+     "to": "screen",
+     "rel": "needs"
+    },
+    {
+     "to": "reasoning-plan",
+     "rel": "related"
+    },
+    {
+     "to": "robustness-plan",
+     "rel": "related"
+    },
+    {
+     "to": "crosscheck-plan",
+     "rel": "related"
+    },
+    {
+     "to": "long-neff-plan",
+     "rel": "related"
+    },
+    {
+     "to": "main-stage2",
+     "rel": "related"
+    },
+    {
+     "to": "trace-rule",
+     "rel": "related"
+    },
+    {
+     "to": "crosscheck-m12",
+     "rel": "related"
+    },
+    {
+     "to": "open-trace-coding",
+     "rel": "related"
+    }
+   ]
+  },
+  {
+   "id": "trace-rule",
+   "type": "decision",
+   "cluster": "conditions",
+   "title": "The trace rule settles its edge cases and blinds its coders, before any trace is read",
+   "label": "Trace rule (settled)",
+   "summary": "Sonnet's thinking texts from the reasoning comparison are coded none, noticed or not noticed by a rule tightened on 2026-10-28, after the run but before anyone read a trace. Noticed now also covers a hedged mention, half of the note restated and the wrong pair named; only saying that reports agree does not count. Two fresh Claude agents code the 32 texts apart, shuffled and without case, condition or result, Jason settles their disagreements, and the codes are committed before they are joined to the trials. The rule first fixed stays on record in [[reasoning-plan]].",
+   "status": "current",
+   "date": "2026-10-28",
+   "points": [
+    "Why tighten it: \"before the answer\" decided nothing, since the judge replies with the JSON object alone, and a trial's id names its condition, so coders given the ids would know it.",
+    "An independent review of PR #55, made in Kai Rong's place, proposed the changes, and Jason accepted them.",
+    "Applied on 2026-10-28: the coders agreed on 31 of the 32 texts, and Jason settled the last from the text, the rule and the two codes: [[open-trace-coding]]."
+   ],
+   "evidence": [
+    {
+     "file": "docs/decisions.md",
+     "loc": "The trace rule settles its edge cases and blinds its coders, before any trace is read",
+     "quote": "That entry is left as written, so the rule fixed before the run stays on record."
+    },
+    {
+     "file": "docs/decisions.md",
+     "loc": "The trace rule settles its edge cases and blinds its coders, before any trace is read",
+     "quote": "restating any part of the note's sentence about sources counts (such as \"B's source is independent of the other two\"), and so does naming the wrong pair, but a claim that every report is independent does not"
+    },
+    {
+     "file": "docs/decisions.md",
+     "loc": "The trace rule settles its edge cases and blinds its coders, before any trace is read",
+     "quote": "two coders apply the rule separately, both fresh Claude agents that have not seen the arm's results and are given only the texts and this rule"
+    },
+    {
+     "file": "docs/decisions.md",
+     "loc": "The trace rule settles its edge cases and blinds its coders, before any trace is read",
+     "quote": "Jason accepted these changes, which an independent review of PR #55, made in Kai Rong's place, proposed; nobody had read a trace when they were made."
+    }
+   ],
+   "links": [
+    {
+     "to": "reasoning-plan",
+     "rel": "part-of"
+    },
+    {
+     "to": "x3",
+     "rel": "needs"
+    },
+    {
+     "to": "optional-results",
+     "rel": "related"
+    }
+   ]
+  },
+  {
+   "id": "crosscheck-m12",
+   "type": "decision",
+   "cluster": "measuring",
+   "title": "The confidence cross-check reads M12 in M10's place",
+   "label": "Cross-check: M12 for M10",
+   "summary": "M10's options are 2, 3, 4 and 5 passes, so when a model answers 3 it can mean option 3 or 3 passes, and both auxiliary models often meant the value. The cross-check leaves M10's trials out and reads M12, the next case in corpus order, in its place, judged on 2026-10-28 in 24 calls, so it keeps its 15 cases. M12's options, 1.5 to 2.1 mm, are not whole numbers, so an answer given as a value fails to parse instead of being misread.",
+   "status": "current",
+   "date": "2026-10-28",
+   "points": [
+    "Example: with the options shown as 4, 2, 5 and 3 passes, both models answered 3, which reads as 5 passes, though their report had ruled 5 out.",
+    "Without M10 the 14 other cases already gave the same correlations and the same Page's test, so M12 was not chosen for its effect: [[optional-results]]."
+   ],
+   "evidence": [
+    {
+     "file": "docs/decisions.md",
+     "loc": "The confidence cross-check reads M12 in M10's place",
+     "quote": "the cross-check reads 15 cases with M12 in place of M10"
+    },
+    {
+     "file": "docs/decisions.md",
+     "loc": "The confidence cross-check reads M12 in M10's place",
+     "quote": "in M10_P1_cross-check_run4 the options were shown as 4, 2, 5 and 3 passes, and both answered 3"
+    },
+    {
+     "file": "cases/m10.py",
+     "loc": "design_notes",
+     "quote": "options are 2, 3, 4 and 5 passes"
+    },
+    {
+     "file": "tools/crosscheck.py",
+     "loc": "LEFT_OUT",
+     "quote": "LEFT_OUT = {\"M10\"} # an answer of 3 may mean option 3 or 3 passes"
+    },
+    {
+     "file": "pipeline/run.py",
+     "loc": "OPTIONAL",
+     "quote": "Entry(\"cross-check-m12\", \"cross-check\", list(SCREEN_LEVELS), 4, AUXILIARY, False,"
+    }
+   ],
+   "links": [
+    {
+     "to": "crosscheck-plan",
+     "rel": "part-of"
+    },
+    {
+     "to": "screen",
+     "rel": "needs"
+    },
+    {
+     "to": "optional-results",
+     "rel": "related"
+    }
+   ]
+  },
+  {
+   "id": "open-trace-coding",
+   "type": "issue",
+   "cluster": "issues",
+   "title": "The 32 reasoning traces with thinking text were not coded",
+   "label": "Trace coding (settled)",
+   "summary": "Settled. Sonnet wrote thinking text in 32 of its 144 reasoning-on trials, and they were coded on 2026-10-28 by [[trace-rule]]: two fresh Claude agents agreed on 31, Jason settled the last as noticed, and the codes were committed before any was joined to its trial. All 32 noticed the shared source. In X3 none of those 20 trials chose the independent report, so when Sonnet thought, it saw the dependence and still followed the two reports: [[optional-results]].",
+   "status": "current",
+   "date": "2026-10-28",
+   "evidence": [
+    {
+     "file": "runs/main/traces/coding.txt",
+     "loc": "the coders",
+     "quote": "The coders agreed on 31 of the 32 texts."
+    },
+    {
+     "file": "runs/main/traces/coding.txt",
+     "loc": "T17",
+     "quote": "Jason settled it as noticed on 2026-10-28, from the text, the rule and the two codes"
+    },
+    {
+     "file": "runs/main/traces/reading.txt",
+     "loc": "settled codes",
+     "quote": "X3 long 10 (0) 14 (0) 0 (0) 24"
+    },
+    {
+     "file": "docs/optional-report.md",
+     "loc": "Reasoning on and off",
+     "quote": "In X3, all 20 traces noticed the shared source, and none of those trials chose the independent report"
+    }
+   ],
+   "links": [
+    {
+     "to": "status-board",
+     "rel": "part-of"
+    },
+    {
+     "to": "trace-rule",
+     "rel": "needs"
+    },
+    {
+     "to": "reasoning-plan",
+     "rel": "involves"
+    },
+    {
+     "to": "optional-results",
+     "rel": "related"
+    }
+   ]
+  },
+  {
+   "id": "drift-made-by-glob",
+   "type": "issue",
+   "cluster": "issues",
+   "title": "The stage reports' commands had stopped rebuilding their files",
+   "label": "Made-by commands (settled)",
+   "summary": "Settled. The stage 1 and stage 2 reports said their files were made from runs/main/trials-*.jsonl, but that pattern takes in every log the folder gains: eight after stage 2 and thirteen after the optional runs, so the commands no longer rebuilt the files. They now name their logs, in the order the pattern listed them then, since the scorer's output follows that order. The stage 1 tallies also name the version of tools/tally.py that made them, since the tool later gained a sign test.",
+   "status": "current",
+   "date": "2026-10-28",
+   "evidence": [
+    {
+     "file": "docs/stage1-report.md",
+     "loc": "Made by",
+     "quote": "The commands name the logs in the order runs/main/trials-*.jsonl listed them then, since the scorer's output follows that order"
+    },
+    {
+     "file": "docs/stage1-report.md",
+     "loc": "Made by",
+     "quote": "with tools/tally.py as of commit 13cbd12; from 573c612 on, the tool adds a sign test to the H5 lines"
+    },
+    {
+     "file": "docs/stage2-report.md",
+     "loc": "Made by",
+     "quote": "uv run python -m pipeline.score --show-excluded runs/main/trials-{abstain-p0,abstain,agreement,conflict,ladder,long-agreement,long-conflict,screen}.jsonl"
+    }
+   ],
+   "links": [
+    {
+     "to": "status-board",
+     "rel": "part-of"
+    },
+    {
+     "to": "main-stage1",
+     "rel": "involves"
+    },
+    {
+     "to": "main-stage2",
+     "rel": "involves"
+    },
+    {
+     "to": "tally-tool",
      "rel": "related"
     }
    ]
@@ -11017,6 +11451,23 @@ a.ref:hover { background: var(--surface-2); }
    ]
   },
   {
+   "date": "2026-10-26",
+   "summary": "Built the four optional sub-experiments on the branch optional-arms, as the OPTIONAL entries in pipeline/run.py, with --cases, the cross-check's answer-by-number prompt, the thinking text in every record and n_eff on the long arm. A test checks the main programme's trials and prompts against stage 1's logs and fingerprints; none of the four has run.",
+   "changed": [
+    "optional-subexps",
+    "optional-build",
+    "reasoning-plan",
+    "crosscheck-plan",
+    "long-neff-plan",
+    "long-check-scope",
+    "runner",
+    "elicitation"
+   ],
+   "closed": [
+    "open-optional"
+   ]
+  },
+  {
    "date": "2026-10-27",
    "summary": "Stage 2's long-conflict stopped at 762 of 1,200 trials when one GPT-5.4 call came back with an overload error inside a 200 response, which the backend did not retry. Jason chose to retry such errors like the status they name and to rerun long-conflict in full into a new log, keeping the stopped log apart.",
    "added": [
@@ -11043,6 +11494,57 @@ a.ref:hover { background: var(--surface-2); }
     "main-run-staged",
     "stage2-order",
     "main-stage1"
+   ]
+  },
+  {
+   "date": "2026-10-28",
+   "summary": "The four optional sub-experiments ran after stage 2, 810 judge trials and 96 report calls, and docs/optional-report.md says what they found so far: reasoning changed no decision of Sonnet's, which thought in 32 of 144 trials; the auxiliary models' stated and token probabilities order the screen alike; at long length Sonnet's n_eff stays near two for one source and for three. The traces wait for the trace rule's review, and the robustness rerun for Jason's reading.",
+   "added": [
+    "optional-results"
+   ],
+   "changed": [
+    "optional-subexps",
+    "open-optional",
+    "reasoning-plan",
+    "robustness-plan",
+    "crosscheck-plan",
+    "long-neff-plan"
+   ]
+  },
+  {
+   "date": "2026-10-28",
+   "summary": "An independent review of PR #55, made in Kai Rong's place, checked the optional sub-experiments. Jason accepted its changes to the trace rule (edge cases settled, coders blinded) before any trace was read, and chose to read M12 in M10's place in the cross-check, since an answer of 3 to M10 could mean option 3 or 3 passes; M12 was judged in 24 calls. The robustness rerun was judged, 360 calls. Fixed with them: the stage reports' commands name their logs, the optional report's wording, and the test that pins the main programme now covers the judge's system prompt.",
+   "added": [
+    "trace-rule",
+    "crosscheck-m12",
+    "open-trace-coding",
+    "drift-made-by-glob"
+   ],
+   "changed": [
+    "optional-results",
+    "optional-subexps",
+    "reasoning-plan",
+    "crosscheck-plan",
+    "robustness-plan"
+   ],
+   "opened": [
+    "open-trace-coding"
+   ],
+   "closed": [
+    "drift-made-by-glob"
+   ]
+  },
+  {
+   "date": "2026-10-28",
+   "summary": "The 32 reasoning traces with thinking text were coded by the settled rule: two fresh Claude agents agreed on 31, Jason settled the last as noticed, and the codes were committed before the join. All 32 noticed the shared source; in X3, none of those 20 trials chose the independent report.",
+   "changed": [
+    "open-trace-coding",
+    "optional-results",
+    "reasoning-plan",
+    "trace-rule"
+   ],
+   "closed": [
+    "open-trace-coding"
    ]
   }
  ]

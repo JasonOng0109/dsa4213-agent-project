@@ -1,0 +1,972 @@
+{
+  "reporter": "openrouter:google/gemma-4-31b-it",
+  "rater": "openrouter:anthropic/claude-sonnet-5",
+  "sources": {
+    "M1/B": {
+      "status": "OK",
+      "needed": 3,
+      "generated": 6,
+      "accepted": 3,
+      "rounds": 1,
+      "calls": 12,
+      "candidates": [
+        {
+          "text": "The ME2103 lab logbook accounts for 15% of the final module grade.",
+          "semantic": 1.0,
+          "copy_overlap": 0.6153846153846154,
+          "rubric": {
+            "all_details": true,
+            "nothing_added": true,
+            "values_unchanged": true,
+            "scope_kept": true,
+            "score": 1.0,
+            "ok": true,
+            "failed": [],
+            "raw": "{\"all_details\": true, \"nothing_added\": true, \"values_unchanged\": true, \"scope_kept\": true, \"score\": 100}"
+          },
+          "accepted": false,
+          "rejected_because": [
+            "eligible but not needed (quota filled first)"
+          ]
+        },
+        {
+          "text": "Fifteen percent of the final module grade for ME2103 is derived from the lab logbook.",
+          "semantic": 1.0,
+          "copy_overlap": 0.14285714285714285,
+          "rubric": {
+            "all_details": true,
+            "nothing_added": true,
+            "values_unchanged": true,
+            "scope_kept": true,
+            "score": 1.0,
+            "ok": true,
+            "failed": [],
+            "raw": "{\"all_details\": true, \"nothing_added\": true, \"values_unchanged\": true, \"scope_kept\": true, \"score\": 100}"
+          },
+          "accepted": false,
+          "rejected_because": [
+            "length +4 words > 3 from the source"
+          ]
+        },
+        {
+          "text": "The lab logbook contributes 15% toward the final grade for module ME2103.",
+          "semantic": 1.0,
+          "copy_overlap": 0.10526315789473684,
+          "rubric": {
+            "all_details": true,
+            "nothing_added": true,
+            "values_unchanged": true,
+            "scope_kept": true,
+            "score": 1.0,
+            "ok": true,
+            "failed": [],
+            "raw": "{\"all_details\": true, \"nothing_added\": true, \"values_unchanged\": true, \"scope_kept\": true, \"score\": 100}"
+          },
+          "accepted": true,
+          "rejected_because": []
+        },
+        {
+          "text": "A total of 15% of the final grade for module ME2103 is allocated to the lab logbook.",
+          "semantic": 1.0,
+          "copy_overlap": 0.13043478260869565,
+          "rubric": {
+            "all_details": true,
+            "nothing_added": true,
+            "values_unchanged": true,
+            "scope_kept": true,
+            "score": 1.0,
+            "ok": true,
+            "failed": [],
+            "raw": "{\"all_details\": true, \"nothing_added\": true, \"values_unchanged\": true, \"scope_kept\": true, \"score\": 100}"
+          },
+          "accepted": false,
+          "rejected_because": [
+            "length +6 words > 3 from the source"
+          ]
+        },
+        {
+          "text": "The lab logbook accounts for 15% of the final grade for module ME2103.",
+          "semantic": 1.0,
+          "copy_overlap": 0.2222222222222222,
+          "rubric": {
+            "all_details": true,
+            "nothing_added": true,
+            "values_unchanged": true,
+            "scope_kept": true,
+            "score": 1.0,
+            "ok": true,
+            "failed": [],
+            "raw": "{\"all_details\": true, \"nothing_added\": true, \"values_unchanged\": true, \"scope_kept\": true, \"score\": 100}"
+          },
+          "accepted": true,
+          "rejected_because": []
+        },
+        {
+          "text": "For module ME2103, 15% of the final grade is based on the lab logbook.",
+          "semantic": 1.0,
+          "copy_overlap": 0.15,
+          "rubric": {
+            "all_details": true,
+            "nothing_added": true,
+            "values_unchanged": true,
+            "scope_kept": true,
+            "score": 1.0,
+            "ok": true,
+            "failed": [],
+            "raw": "{\"all_details\": true, \"nothing_added\": true, \"values_unchanged\": true, \"scope_kept\": true, \"score\": 100}"
+          },
+          "accepted": true,
+          "rejected_because": []
+        }
+      ]
+    },
+    "M1/A": {
+      "status": "OK",
+      "needed": 2,
+      "generated": 6,
+      "accepted": 2,
+      "rounds": 1,
+      "calls": 12,
+      "candidates": [
+        {
+          "text": "The ME2103 lab logbook counts for 25% of the final module grade.",
+          "semantic": 0.97,
+          "copy_overlap": 0.6923076923076923,
+          "rubric": {
+            "all_details": true,
+            "nothing_added": true,
+            "values_unchanged": true,
+            "scope_kept": true,
+            "score": 0.97,
+            "ok": true,
+            "failed": [],
+            "raw": "{\"all_details\": true, \"nothing_added\": true, \"values_unchanged\": true, \"scope_kept\": true, \"score\": 97}"
+          },
+          "accepted": false,
+          "rejected_because": [
+            "eligible but not needed (quota filled first)"
+          ]
+        },
+        {
+          "text": "A final module grade for ME2103 is composed of 25% from the lab logbook.",
+          "semantic": 1.0,
+          "copy_overlap": 0.043478260869565216,
+          "rubric": {
+            "all_details": true,
+            "nothing_added": true,
+            "values_unchanged": true,
+            "scope_kept": true,
+            "score": 1.0,
+            "ok": true,
+            "failed": [],
+            "raw": "{\"all_details\": true, \"nothing_added\": true, \"values_unchanged\": true, \"scope_kept\": true, \"score\": 100}"
+          },
+          "accepted": true,
+          "rejected_because": []
+        },
+        {
+          "text": "The lab logbook contributes 25% toward the final grade for module ME2103.",
+          "semantic": 1.0,
+          "copy_overlap": 0.047619047619047616,
+          "rubric": {
+            "all_details": true,
+            "nothing_added": true,
+            "values_unchanged": true,
+            "scope_kept": true,
+            "score": 1.0,
+            "ok": true,
+            "failed": [],
+            "raw": "{\"all_details\": true, \"nothing_added\": true, \"values_unchanged\": true, \"scope_kept\": true, \"score\": 100}"
+          },
+          "accepted": false,
+          "rejected_because": [
+            "cross-source overlap 0.69 > 0.5"
+          ]
+        },
+        {
+          "text": "For module ME2103, the lab logbook accounts for 25% of the final grade.",
+          "semantic": 1.0,
+          "copy_overlap": 0.15,
+          "rubric": {
+            "all_details": true,
+            "nothing_added": true,
+            "values_unchanged": true,
+            "scope_kept": true,
+            "score": 1.0,
+            "ok": true,
+            "failed": [],
+            "raw": "{\"all_details\": true, \"nothing_added\": true, \"values_unchanged\": true, \"scope_kept\": true, \"score\": 100}"
+          },
+          "accepted": false,
+          "rejected_because": [
+            "eligible but not needed (quota filled first)"
+          ]
+        },
+        {
+          "text": "Twenty-five percent of the final grade for module ME2103 is determined by the lab logbook.",
+          "semantic": 1.0,
+          "copy_overlap": 0.0,
+          "rubric": {
+            "all_details": true,
+            "nothing_added": true,
+            "values_unchanged": true,
+            "scope_kept": true,
+            "score": 1.0,
+            "ok": true,
+            "failed": [],
+            "raw": "{\"all_details\": true, \"nothing_added\": true, \"values_unchanged\": true, \"scope_kept\": true, \"score\": 100}"
+          },
+          "accepted": true,
+          "rejected_because": []
+        },
+        {
+          "text": "The lab logbook represents a 25% portion of the final grade for module ME2103.",
+          "semantic": 1.0,
+          "copy_overlap": 0.043478260869565216,
+          "rubric": {
+            "all_details": true,
+            "nothing_added": true,
+            "values_unchanged": true,
+            "scope_kept": true,
+            "score": 1.0,
+            "ok": true,
+            "failed": [],
+            "raw": "{\"all_details\": true, \"nothing_added\": true, \"values_unchanged\": true, \"scope_kept\": true, \"score\": 100}"
+          },
+          "accepted": false,
+          "rejected_because": [
+            "eligible but not needed (quota filled first)"
+          ]
+        }
+      ]
+    },
+    "M1/C": {
+      "status": "OK",
+      "needed": 1,
+      "generated": 6,
+      "accepted": 1,
+      "rounds": 1,
+      "calls": 12,
+      "candidates": [
+        {
+          "text": "Fifteen per cent of the available ME2103 marks are awarded for the lab logbook.",
+          "semantic": 1.0,
+          "copy_overlap": 0.5294117647058824,
+          "rubric": {
+            "all_details": true,
+            "nothing_added": true,
+            "values_unchanged": true,
+            "scope_kept": true,
+            "score": 1.0,
+            "ok": true,
+            "failed": [],
+            "raw": "{\"all_details\": true, \"nothing_added\": true, \"values_unchanged\": true, \"scope_kept\": true, \"score\": 100}"
+          },
+          "accepted": false,
+          "rejected_because": [
+            "eligible but not needed (quota filled first)"
+          ]
+        },
+        {
+          "text": "The lab logbook accounts for fifteen per cent of the marks available for ME2103.",
+          "semantic": 1.0,
+          "copy_overlap": 0.18181818181818182,
+          "rubric": {
+            "all_details": true,
+            "nothing_added": true,
+            "values_unchanged": true,
+            "scope_kept": true,
+            "score": 1.0,
+            "ok": true,
+            "failed": [],
+            "raw": "{\"all_details\": true, \"nothing_added\": true, \"values_unchanged\": true, \"scope_kept\": true, \"score\": 100}"
+          },
+          "accepted": false,
+          "rejected_because": [
+            "eligible but not needed (quota filled first)"
+          ]
+        },
+        {
+          "text": "The lab logbook contributes fifteen per cent toward the total available marks for ME2103.",
+          "semantic": 1.0,
+          "copy_overlap": 0.13043478260869565,
+          "rubric": {
+            "all_details": true,
+            "nothing_added": true,
+            "values_unchanged": true,
+            "scope_kept": true,
+            "score": 1.0,
+            "ok": true,
+            "failed": [],
+            "raw": "{\"all_details\": true, \"nothing_added\": true, \"values_unchanged\": true, \"scope_kept\": true, \"score\": 100}"
+          },
+          "accepted": false,
+          "rejected_because": [
+            "eligible but not needed (quota filled first)"
+          ]
+        },
+        {
+          "text": "The lab logbook is worth fifteen per cent of the available ME2103 marks.",
+          "semantic": 1.0,
+          "copy_overlap": 0.19047619047619047,
+          "rubric": {
+            "all_details": true,
+            "nothing_added": true,
+            "values_unchanged": true,
+            "scope_kept": true,
+            "score": 1.0,
+            "ok": true,
+            "failed": [],
+            "raw": "{\"all_details\": true, \"nothing_added\": true, \"values_unchanged\": true, \"scope_kept\": true, \"score\": 100}"
+          },
+          "accepted": true,
+          "rejected_because": []
+        },
+        {
+          "text": "The lab logbook represents fifteen per cent of the marks available for ME2103.",
+          "semantic": 1.0,
+          "copy_overlap": 0.19047619047619047,
+          "rubric": {
+            "all_details": true,
+            "nothing_added": true,
+            "values_unchanged": true,
+            "scope_kept": true,
+            "score": 1.0,
+            "ok": true,
+            "failed": [],
+            "raw": "{\"all_details\": true, \"nothing_added\": true, \"values_unchanged\": true, \"scope_kept\": true, \"score\": 100}"
+          },
+          "accepted": false,
+          "rejected_because": [
+            "eligible but not needed (quota filled first)"
+          ]
+        },
+        {
+          "text": "Fifteen per cent of all available marks for ME2103 are given for the lab logbook.",
+          "semantic": 1.0,
+          "copy_overlap": 0.22727272727272727,
+          "rubric": {
+            "all_details": true,
+            "nothing_added": true,
+            "values_unchanged": true,
+            "scope_kept": true,
+            "score": 1.0,
+            "ok": true,
+            "failed": [],
+            "raw": "{\"all_details\": true, \"nothing_added\": true, \"values_unchanged\": true, \"scope_kept\": true, \"score\": 100}"
+          },
+          "accepted": false,
+          "rejected_because": [
+            "eligible but not needed (quota filled first)"
+          ]
+        }
+      ]
+    },
+    "M1/D": {
+      "status": "OK",
+      "needed": 1,
+      "generated": 6,
+      "accepted": 1,
+      "rounds": 1,
+      "calls": 12,
+      "candidates": [
+        {
+          "text": "The lab logbook contributes 15% towards a student's overall ME2103 result.",
+          "semantic": 1.0,
+          "copy_overlap": 1.0,
+          "rubric": {
+            "all_details": true,
+            "nothing_added": true,
+            "values_unchanged": true,
+            "scope_kept": true,
+            "score": 1.0,
+            "ok": true,
+            "failed": [],
+            "raw": "{\"all_details\": true, \"nothing_added\": true, \"values_unchanged\": true, \"scope_kept\": true, \"score\": 100}"
+          },
+          "accepted": false,
+          "rejected_because": [
+            "copy overlap 1.00 > 0.7"
+          ]
+        },
+        {
+          "text": "For the ME2103 course, the lab logbook accounts for 15% of a student's total result.",
+          "semantic": 1.0,
+          "copy_overlap": 0.14285714285714285,
+          "rubric": {
+            "all_details": true,
+            "nothing_added": true,
+            "values_unchanged": true,
+            "scope_kept": true,
+            "score": 1.0,
+            "ok": true,
+            "failed": [],
+            "raw": "{\"all_details\": true, \"nothing_added\": true, \"values_unchanged\": true, \"scope_kept\": true, \"score\": 100}"
+          },
+          "accepted": false,
+          "rejected_because": [
+            "length +4 words > 3 from the source"
+          ]
+        },
+        {
+          "text": "A student's total ME2103 result is comprised of 15% from the lab logbook.",
+          "semantic": 1.0,
+          "copy_overlap": 0.1,
+          "rubric": {
+            "all_details": true,
+            "nothing_added": true,
+            "values_unchanged": true,
+            "scope_kept": true,
+            "score": 1.0,
+            "ok": true,
+            "failed": [],
+            "raw": "{\"all_details\": true, \"nothing_added\": true, \"values_unchanged\": true, \"scope_kept\": true, \"score\": 100}"
+          },
+          "accepted": false,
+          "rejected_because": [
+            "eligible but not needed (quota filled first)"
+          ]
+        },
+        {
+          "text": "Fifteen percent of a student's total ME2103 result is derived from the lab logbook.",
+          "semantic": 1.0,
+          "copy_overlap": 0.09523809523809523,
+          "rubric": {
+            "all_details": true,
+            "nothing_added": true,
+            "values_unchanged": true,
+            "scope_kept": true,
+            "score": 1.0,
+            "ok": true,
+            "failed": [],
+            "raw": "{\"all_details\": true, \"nothing_added\": true, \"values_unchanged\": true, \"scope_kept\": true, \"score\": 100}"
+          },
+          "accepted": true,
+          "rejected_because": []
+        },
+        {
+          "text": "The lab logbook makes up 15% of the overall ME2103 result for a student.",
+          "semantic": 1.0,
+          "copy_overlap": 0.15,
+          "rubric": {
+            "all_details": true,
+            "nothing_added": true,
+            "values_unchanged": true,
+            "scope_kept": true,
+            "score": 1.0,
+            "ok": true,
+            "failed": [],
+            "raw": "{\"all_details\": true, \"nothing_added\": true, \"values_unchanged\": true, \"scope_kept\": true, \"score\": 100}"
+          },
+          "accepted": false,
+          "rejected_because": [
+            "eligible but not needed (quota filled first)"
+          ]
+        },
+        {
+          "text": "The lab logbook represents 15% of the total ME2103 result for a student.",
+          "semantic": 1.0,
+          "copy_overlap": 0.1,
+          "rubric": {
+            "all_details": true,
+            "nothing_added": true,
+            "values_unchanged": true,
+            "scope_kept": true,
+            "score": 1.0,
+            "ok": true,
+            "failed": [],
+            "raw": "{\"all_details\": true, \"nothing_added\": true, \"values_unchanged\": true, \"scope_kept\": true, \"score\": 100}"
+          },
+          "accepted": false,
+          "rejected_because": [
+            "eligible but not needed (quota filled first)"
+          ]
+        }
+      ]
+    },
+    "M2/B": {
+      "status": "OK",
+      "needed": 3,
+      "generated": 6,
+      "accepted": 3,
+      "rounds": 1,
+      "calls": 12,
+      "candidates": [
+        {
+          "text": "The Arden Air 14 laptop features a battery with a capacity of 65 Wh.",
+          "semantic": 1.0,
+          "copy_overlap": 0.4444444444444444,
+          "rubric": {
+            "all_details": true,
+            "nothing_added": true,
+            "values_unchanged": true,
+            "scope_kept": true,
+            "score": 1.0,
+            "ok": true,
+            "failed": [],
+            "raw": "{\"all_details\": true, \"nothing_added\": true, \"values_unchanged\": true, \"scope_kept\": true, \"score\": 100}"
+          },
+          "accepted": false,
+          "rejected_because": [
+            "eligible but not needed (quota filled first)"
+          ]
+        },
+        {
+          "text": "A 65 Wh capacity battery is included in the Arden Air 14 laptop.",
+          "semantic": 1.0,
+          "copy_overlap": 0.19047619047619047,
+          "rubric": {
+            "all_details": true,
+            "nothing_added": true,
+            "values_unchanged": true,
+            "scope_kept": true,
+            "score": 1.0,
+            "ok": true,
+            "failed": [],
+            "raw": "{\"all_details\": true, \"nothing_added\": true, \"values_unchanged\": true, \"scope_kept\": true, \"score\": 100}"
+          },
+          "accepted": true,
+          "rejected_because": []
+        },
+        {
+          "text": "The battery capacity for the Arden Air 14 laptop is 65 Wh.",
+          "semantic": 1.0,
+          "copy_overlap": 0.3333333333333333,
+          "rubric": {
+            "all_details": true,
+            "nothing_added": true,
+            "values_unchanged": true,
+            "scope_kept": true,
+            "score": 1.0,
+            "ok": true,
+            "failed": [],
+            "raw": "{\"all_details\": true, \"nothing_added\": true, \"values_unchanged\": true, \"scope_kept\": true, \"score\": 100}"
+          },
+          "accepted": false,
+          "rejected_because": [
+            "pairwise overlap 0.57 > 0.5"
+          ]
+        },
+        {
+          "text": "The Arden Air 14 laptop is equipped with a 65 Wh battery.",
+          "semantic": 1.0,
+          "copy_overlap": 0.2,
+          "rubric": {
+            "all_details": true,
+            "nothing_added": true,
+            "values_unchanged": true,
+            "scope_kept": true,
+            "score": 1.0,
+            "ok": true,
+            "failed": [],
+            "raw": "{\"all_details\": true, \"nothing_added\": true, \"values_unchanged\": true, \"scope_kept\": true, \"score\": 100}"
+          },
+          "accepted": true,
+          "rejected_because": []
+        },
+        {
+          "text": "For the Arden Air 14 laptop, the battery capacity is 65 Wh.",
+          "semantic": 1.0,
+          "copy_overlap": 0.2631578947368421,
+          "rubric": {
+            "all_details": true,
+            "nothing_added": true,
+            "values_unchanged": true,
+            "scope_kept": true,
+            "score": 1.0,
+            "ok": true,
+            "failed": [],
+            "raw": "{\"all_details\": true, \"nothing_added\": true, \"values_unchanged\": true, \"scope_kept\": true, \"score\": 100}"
+          },
+          "accepted": true,
+          "rejected_because": []
+        },
+        {
+          "text": "The Arden Air 14 laptop's battery capacity is 65 Wh.",
+          "semantic": 1.0,
+          "copy_overlap": 0.2222222222222222,
+          "rubric": {
+            "all_details": true,
+            "nothing_added": true,
+            "values_unchanged": true,
+            "scope_kept": true,
+            "score": 1.0,
+            "ok": true,
+            "failed": [],
+            "raw": "{\"all_details\": true, \"nothing_added\": true, \"values_unchanged\": true, \"scope_kept\": true, \"score\": 100}"
+          },
+          "accepted": false,
+          "rejected_because": [
+            "length -4 words > 3 from the source"
+          ]
+        }
+      ]
+    },
+    "M2/A": {
+      "status": "OK",
+      "needed": 2,
+      "generated": 6,
+      "accepted": 2,
+      "rounds": 1,
+      "calls": 12,
+      "candidates": [
+        {
+          "text": "The Arden Air 14 laptop is understood to have a battery capacity of 55 Wh.",
+          "semantic": 1.0,
+          "copy_overlap": 1.0,
+          "rubric": {
+            "all_details": true,
+            "nothing_added": true,
+            "values_unchanged": true,
+            "scope_kept": true,
+            "score": 1.0,
+            "ok": true,
+            "failed": [],
+            "raw": "{\"all_details\": true, \"nothing_added\": true, \"values_unchanged\": true, \"scope_kept\": true, \"score\": 100}"
+          },
+          "accepted": false,
+          "rejected_because": [
+            "copy overlap 1.00 > 0.7"
+          ]
+        },
+        {
+          "text": "It is understood that the Arden Air 14 laptop features a 55 Wh battery capacity.",
+          "semantic": 1.0,
+          "copy_overlap": 0.21739130434782608,
+          "rubric": {
+            "all_details": true,
+            "nothing_added": true,
+            "values_unchanged": true,
+            "scope_kept": true,
+            "score": 1.0,
+            "ok": true,
+            "failed": [],
+            "raw": "{\"all_details\": true, \"nothing_added\": true, \"values_unchanged\": true, \"scope_kept\": true, \"score\": 100}"
+          },
+          "accepted": true,
+          "rejected_because": []
+        },
+        {
+          "text": "A battery capacity of 55 Wh is understood to be featured on the Arden Air 14 laptop.",
+          "semantic": 1.0,
+          "copy_overlap": 0.42857142857142855,
+          "rubric": {
+            "all_details": true,
+            "nothing_added": true,
+            "values_unchanged": true,
+            "scope_kept": true,
+            "score": 1.0,
+            "ok": true,
+            "failed": [],
+            "raw": "{\"all_details\": true, \"nothing_added\": true, \"values_unchanged\": true, \"scope_kept\": true, \"score\": 100}"
+          },
+          "accepted": false,
+          "rejected_because": [
+            "eligible but not needed (quota filled first)"
+          ]
+        },
+        {
+          "text": "The Arden Air 14 laptop is believed to be equipped with a 55 Wh battery capacity.",
+          "semantic": 0.97,
+          "copy_overlap": 0.20833333333333334,
+          "rubric": {
+            "all_details": true,
+            "nothing_added": true,
+            "values_unchanged": true,
+            "scope_kept": true,
+            "score": 0.97,
+            "ok": true,
+            "failed": [],
+            "raw": "{\"all_details\": true, \"nothing_added\": true, \"values_unchanged\": true, \"scope_kept\": true, \"score\": 97}"
+          },
+          "accepted": false,
+          "rejected_because": [
+            "eligible but not needed (quota filled first)"
+          ]
+        },
+        {
+          "text": "The Arden Air 14 laptop is thought to possess a 55 Wh battery capacity.",
+          "semantic": 1.0,
+          "copy_overlap": 0.22727272727272727,
+          "rubric": {
+            "all_details": true,
+            "nothing_added": true,
+            "values_unchanged": true,
+            "scope_kept": true,
+            "score": 1.0,
+            "ok": true,
+            "failed": [],
+            "raw": "{\"all_details\": true, \"nothing_added\": true, \"values_unchanged\": true, \"scope_kept\": true, \"score\": 100}"
+          },
+          "accepted": true,
+          "rejected_because": []
+        },
+        {
+          "text": "The Arden Air 14 laptop is reported to possess a 55 Wh battery capacity.",
+          "semantic": 0.97,
+          "copy_overlap": 0.22727272727272727,
+          "rubric": {
+            "all_details": true,
+            "nothing_added": true,
+            "values_unchanged": true,
+            "scope_kept": true,
+            "score": 0.97,
+            "ok": true,
+            "failed": [],
+            "raw": "{\"all_details\": true, \"nothing_added\": true, \"values_unchanged\": true, \"scope_kept\": true, \"score\": 97}"
+          },
+          "accepted": false,
+          "rejected_because": [
+            "pairwise overlap 0.73 > 0.5"
+          ]
+        }
+      ]
+    },
+    "M2/C": {
+      "status": "OK",
+      "needed": 1,
+      "generated": 6,
+      "accepted": 1,
+      "rounds": 1,
+      "calls": 12,
+      "candidates": [
+        {
+          "text": "The battery capacity of the Arden Air 14 laptop is sixty-five watt-hours.",
+          "semantic": 1.0,
+          "copy_overlap": 0.4666666666666667,
+          "rubric": {
+            "all_details": true,
+            "nothing_added": true,
+            "values_unchanged": true,
+            "scope_kept": true,
+            "score": 1.0,
+            "ok": true,
+            "failed": [],
+            "raw": "{\"all_details\": true, \"nothing_added\": true, \"values_unchanged\": true, \"scope_kept\": true, \"score\": 100}"
+          },
+          "accepted": false,
+          "rejected_because": [
+            "eligible but not needed (quota filled first)"
+          ]
+        },
+        {
+          "text": "The Arden Air 14 laptop features a battery capacity of 65 watt-hours.",
+          "semantic": 1.0,
+          "copy_overlap": 0.29411764705882354,
+          "rubric": {
+            "all_details": true,
+            "nothing_added": true,
+            "values_unchanged": true,
+            "scope_kept": true,
+            "score": 1.0,
+            "ok": true,
+            "failed": [],
+            "raw": "{\"all_details\": true, \"nothing_added\": true, \"values_unchanged\": true, \"scope_kept\": true, \"score\": 100}"
+          },
+          "accepted": true,
+          "rejected_because": []
+        },
+        {
+          "text": "A 65 watt-hour battery capacity is found in the Arden Air 14 laptop.",
+          "semantic": 1.0,
+          "copy_overlap": 0.2777777777777778,
+          "rubric": {
+            "all_details": true,
+            "nothing_added": true,
+            "values_unchanged": true,
+            "scope_kept": true,
+            "score": 1.0,
+            "ok": true,
+            "failed": [],
+            "raw": "{\"all_details\": true, \"nothing_added\": true, \"values_unchanged\": true, \"scope_kept\": true, \"score\": 100}"
+          },
+          "accepted": false,
+          "rejected_because": [
+            "eligible but not needed (quota filled first)"
+          ]
+        },
+        {
+          "text": "The Arden Air 14 laptop is equipped with a battery capacity of 65 watt-hours.",
+          "semantic": 1.0,
+          "copy_overlap": 0.2631578947368421,
+          "rubric": {
+            "all_details": true,
+            "nothing_added": true,
+            "values_unchanged": true,
+            "scope_kept": true,
+            "score": 1.0,
+            "ok": true,
+            "failed": [],
+            "raw": "{\"all_details\": true, \"nothing_added\": true, \"values_unchanged\": true, \"scope_kept\": true, \"score\": 100}"
+          },
+          "accepted": false,
+          "rejected_because": [
+            "pairwise overlap 0.60 > 0.5"
+          ]
+        },
+        {
+          "text": "The Arden Air 14 laptop's battery capacity is 65 watt-hours.",
+          "semantic": 1.0,
+          "copy_overlap": 0.25,
+          "rubric": {
+            "all_details": true,
+            "nothing_added": true,
+            "values_unchanged": true,
+            "scope_kept": true,
+            "score": 1.0,
+            "ok": true,
+            "failed": [],
+            "raw": "{\"all_details\": true, \"nothing_added\": true, \"values_unchanged\": true, \"scope_kept\": true, \"score\": 100}"
+          },
+          "accepted": false,
+          "rejected_because": [
+            "eligible but not needed (quota filled first)"
+          ]
+        },
+        {
+          "text": "The Arden Air 14 laptop has a battery capacity of 65 watt-hours.",
+          "semantic": 1.0,
+          "copy_overlap": 0.29411764705882354,
+          "rubric": {
+            "all_details": true,
+            "nothing_added": true,
+            "values_unchanged": true,
+            "scope_kept": true,
+            "score": 1.0,
+            "ok": true,
+            "failed": [],
+            "raw": "{\"all_details\": true, \"nothing_added\": true, \"values_unchanged\": true, \"scope_kept\": true, \"score\": 100}"
+          },
+          "accepted": false,
+          "rejected_because": [
+            "pairwise overlap 0.69 > 0.5"
+          ]
+        }
+      ]
+    },
+    "M2/D": {
+      "status": "OK",
+      "needed": 1,
+      "generated": 6,
+      "accepted": 1,
+      "rounds": 1,
+      "calls": 12,
+      "candidates": [
+        {
+          "text": "The Arden Air 14 laptop contains a 65 Wh battery.",
+          "semantic": 1.0,
+          "copy_overlap": 0.5833333333333334,
+          "rubric": {
+            "all_details": true,
+            "nothing_added": true,
+            "values_unchanged": true,
+            "scope_kept": true,
+            "score": 1.0,
+            "ok": true,
+            "failed": [],
+            "raw": "{\"all_details\": true, \"nothing_added\": true, \"values_unchanged\": true, \"scope_kept\": true, \"score\": 100}"
+          },
+          "accepted": false,
+          "rejected_because": [
+            "cross-source overlap 0.54 > 0.5"
+          ]
+        },
+        {
+          "text": "A 65 Wh battery is featured in the Arden Air 14 laptop.",
+          "semantic": 1.0,
+          "copy_overlap": 0.3125,
+          "rubric": {
+            "all_details": true,
+            "nothing_added": true,
+            "values_unchanged": true,
+            "scope_kept": true,
+            "score": 1.0,
+            "ok": true,
+            "failed": [],
+            "raw": "{\"all_details\": true, \"nothing_added\": true, \"values_unchanged\": true, \"scope_kept\": true, \"score\": 100}"
+          },
+          "accepted": false,
+          "rejected_because": [
+            "cross-source overlap 0.53 > 0.5"
+          ]
+        },
+        {
+          "text": "The battery in the Arden Air 14 laptop has a capacity of 65 Wh.",
+          "semantic": 1.0,
+          "copy_overlap": 0.21052631578947367,
+          "rubric": {
+            "all_details": true,
+            "nothing_added": true,
+            "values_unchanged": true,
+            "scope_kept": true,
+            "score": 1.0,
+            "ok": true,
+            "failed": [],
+            "raw": "{\"all_details\": true, \"nothing_added\": true, \"values_unchanged\": true, \"scope_kept\": true, \"score\": 100}"
+          },
+          "accepted": true,
+          "rejected_because": []
+        },
+        {
+          "text": "The Arden Air 14 laptop is equipped with a battery of 65 Wh.",
+          "semantic": 1.0,
+          "copy_overlap": 0.2222222222222222,
+          "rubric": {
+            "all_details": true,
+            "nothing_added": true,
+            "values_unchanged": true,
+            "scope_kept": true,
+            "score": 1.0,
+            "ok": true,
+            "failed": [],
+            "raw": "{\"all_details\": true, \"nothing_added\": true, \"values_unchanged\": true, \"scope_kept\": true, \"score\": 100}"
+          },
+          "accepted": false,
+          "rejected_because": [
+            "cross-source overlap 0.53 > 0.5"
+          ]
+        },
+        {
+          "text": "The Arden Air 14 laptop is powered by a 65 Wh battery.",
+          "semantic": 1.0,
+          "copy_overlap": 0.5,
+          "rubric": {
+            "all_details": true,
+            "nothing_added": true,
+            "values_unchanged": true,
+            "scope_kept": true,
+            "score": 1.0,
+            "ok": true,
+            "failed": [],
+            "raw": "{\"all_details\": true, \"nothing_added\": true, \"values_unchanged\": true, \"scope_kept\": true, \"score\": 100}"
+          },
+          "accepted": false,
+          "rejected_because": [
+            "cross-source overlap 0.57 > 0.5"
+          ]
+        },
+        {
+          "text": "A battery with a 65 Wh capacity is located inside the Arden Air 14 laptop.",
+          "semantic": 1.0,
+          "copy_overlap": 0.3333333333333333,
+          "rubric": {
+            "all_details": true,
+            "nothing_added": true,
+            "values_unchanged": true,
+            "scope_kept": true,
+            "score": 1.0,
+            "ok": true,
+            "failed": [],
+            "raw": "{\"all_details\": true, \"nothing_added\": true, \"values_unchanged\": true, \"scope_kept\": true, \"score\": 100}"
+          },
+          "accepted": false,
+          "rejected_because": [
+            "length +4 words > 3 from the source"
+          ]
+        }
+      ]
+    }
+  },
+  "stopped": null,
+  "calls": 96
+}

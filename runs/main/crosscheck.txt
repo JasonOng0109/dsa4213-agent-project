@@ -1,0 +1,18 @@
+left out: M10 (docs/decisions.md, 2026-10-28)
+
+== judge openrouter:meta-llama/llama-4-maverick: 176 of 180 trials with a stated P(truth) and an answer number
+stated P(truth), mean over cases at P0, P1, P2: 26.2, 45.6, 100.0; Page's L 208.5, rank correlation 0.95, one-sided p 0.0000, 15 cases
+token P(truth), mean over cases at P0, P1, P2: 32.6, 45.1, 100.0; Page's L 206.5, rank correlation 0.883, one-sided p 0.0000, 15 cases
+stated against token P(truth), trial by trial: Spearman 0.83, mean absolute difference 11.5 points
+the same within P0, P1, P2: Spearman 0.60, 0.79, none (no spread)
+P0, the irrelevant report: the largest stated p is 76.0 on average, the largest token probability 91.1
+the four numbers hold 0.999 of the top alternatives' mass on average; the answer is the most likely number in 176/176
+
+== judge openrouter:qwen/qwen3.6-27b: 175 of 180 trials with a stated P(truth) and an answer number
+stated P(truth), mean over cases at P0, P1, P2: 25.0, 46.4, 100.0; Page's L 207.0, rank correlation 0.9, one-sided p 0.0000, 15 cases
+token P(truth), mean over cases at P0, P1, P2: 25.5, 46.5, 99.2; Page's L 208.0, rank correlation 0.933, one-sided p 0.0000, 15 cases
+stated against token P(truth), trial by trial: Spearman 0.81, mean absolute difference 15.3 points
+the same within P0, P1, P2: Spearman none (no spread), 0.76, none (no spread)
+P0, the irrelevant report: the largest stated p is 25.0 on average, the largest token probability 76.9
+the four numbers hold 0.996 of the top alternatives' mass on average; the answer is the most likely number in 175/175
+

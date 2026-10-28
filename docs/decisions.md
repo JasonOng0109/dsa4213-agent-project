@@ -1388,3 +1388,75 @@ Add an entry when you make a choice a reader could not guess from the code.
 - **Breaks if changed**: without the fix, a provider's passing overload stops an entry
   at once, where the same overload sent as a 502 status would be retried; with the
   stopped log beside the rerun, its trials count twice.
+
+### 2026-10-28 — The trace rule settles its edge cases and blinds its coders, before any trace is read
+
+- **Decision**: the reasoning comparison's traces are coded by this rule, which replaces
+  the rule in the 2026-10-26 reasoning entry. That entry is left as written, so the rule
+  fixed before the run stays on record.
+  - each trace gets one code, from its thinking text alone, all of which comes before
+    the reply: *none* when `reasoning_text` is missing or blank; *noticed* when,
+    anywhere in the text, it says, even hedged ("may"), that two of the reports come
+    from one source, that one copies or rewords another, or that they are not
+    independent; restating any part of the note's sentence about sources counts (such
+    as "B's source is independent of the other two"), and so does naming the wrong
+    pair, but a claim that every report is independent does not; *not noticed*
+    otherwise, including a trace that only says reports agree, match, give the same
+    figure or confirm each other;
+  - two coders apply the rule separately, both fresh Claude agents that have not seen
+    the arm's results and are given only the texts and this rule. Each gets the 32
+    texts under random ids, in random order, with no case, condition, length, decision
+    or probability; the key is kept apart. Jason settles each disagreement from the
+    text, the rule and the two codes alone. One commit holds both coders' codes, how
+    many of the 32 they agreed on, and the settled codes, before any code is joined to
+    its trial;
+  - the reading crosses the code with the decision, per condition and length, over all
+    24 trials of each cell with *none* as its own row: how many traces noticed, and how
+    many of those chose the independent report; where the coders disagreed, it is also
+    given with each coder's codes.
+- **Why** [STATED: team decision, 2026-10-28]: Jason accepted these changes, which an
+  independent review of PR #55, made in Kai Rong's place, proposed; nobody had read a
+  trace when they were made. [STATED: the 2026-10-26 reasoning entry] "a trace rule
+  written after reading can be bent toward a result". [STATED: `pipeline/prompt.py`] the
+  judge is asked to "output only the JSON object", so the whole trace comes before the
+  reply, and "before the answer" decided nothing. [STATED:
+  `pipeline/conditions.py`] X3's note has two halves, that two agents "obtained their
+  information from the same underlying source" and that the third's "information comes
+  from a different, independent source", so a trace can restate one without the other.
+  [STATED: `pipeline/judge.py`] a trial's id is
+  `f"{trial['case_id']}_{trial['condition']}_{trial['arm']}_run{run_index}"`, so a coder
+  given the ids would know each trace's condition.
+- **Rejected**: the 2026-10-26 wording, which leaves a hedged mention, half a restated
+  note and a wrong pair to each coder's judgment; editing that entry in place, which
+  would hide the rule fixed before the run; Claude in the session that wrote the report
+  as one coder, since it has seen the arm's results.
+- **Breaks if changed**: with the edge cases left open, two coders can split on the same
+  trace, and the settled code becomes one person's choice; a coder who can see a trace's
+  condition or result can read it toward the outcome already known for that condition.
+
+### 2026-10-28 — The confidence cross-check reads M12 in M10's place
+
+- **Decision**: the cross-check reads 15 cases with M12 in place of M10: M1-M5, M6, M14,
+  M22, M30, M38, M7-M9, M11 and M12. M12, the next case in corpus order, is judged by
+  an entry of its own, `cross-check-m12` in `pipeline/run.py`, the same way as the
+  others: 24 calls, logged in `runs/main/trials-cross-check-m12.jsonl`. M10's 24 trials
+  stay in `runs/main/trials-cross-check.jsonl`, and `tools/crosscheck.py` leaves them
+  out (`LEFT_OUT`).
+- **Why** [STATED: `cases/m10.py`]: the "options are 2, 3, 4 and 5 passes", so an
+  answer of 3 can mean option 3 or 3 passes. [STATED:
+  `runs/main/trials-cross-check.jsonl`] both models often meant the value: in
+  `M10_P1_cross-check_run4` the options were shown as 4, 2, 5 and 3 passes, and both
+  answered 3 with all of "p" on "3", which reads as 5 passes, though the P1 report rules
+  out 5; Llama gave M10's P1 the same "p" in runs 1 and 2, though the options were shown
+  in another order. [STATED: team decision, 2026-10-28] Jason chose to replace M10, so
+  the cross-check keeps its 15 cases. [INFERRED: from `_named` in `pipeline/judge.py`]
+  M12's options, 1.5, 1.7, 1.9 and 2.1 mm, are not whole numbers, so an answer given as
+  a value fails as `no_match` and is never read as an option. [INFERRED: from
+  `tools/crosscheck.py` on the log] without M10, the other 14 cases give the same
+  Spearman (0.83 and 0.81) and Page's p (below 0.0001), so the change was not chosen for
+  its effect.
+- **Rejected**: keeping M10, with the numbers without it beside them; reading 14 cases;
+  reading M10's answers as values, which cannot be done trial by trial, since some of
+  its replies answer by value but give "p" by number.
+- **Breaks if changed**: with M10 in, some trials count the truth's probability on the
+  wrong option, in the stated numbers and in the tokens alike.

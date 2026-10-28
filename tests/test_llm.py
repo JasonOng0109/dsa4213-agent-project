@@ -127,3 +127,20 @@ def test_shared_rate_limiter_throttles_across_instances():
     finally:
         _SHARED_OPENROUTER_LIMITER.max_per_minute = 18
         _SHARED_OPENROUTER_LIMITER.window_seconds = 60.0
+
+
+def test_keeps_the_thinking_text_and_waits_as_long_as_told():
+    """A judge with reasoning on returns its thinking as "reasoning", and the trial record
+    keeps it; a judge that thinks first gets longer than the usual 30 seconds
+    (docs/decisions.md, 2026-10-26)."""
+    backend = OpenRouterBackend(model="m", api_key="k", timeout=150)
+    thought = {"choices": [{"message": {"content": "ok",
+                                        "reasoning": "B and C share one source."}}]}
+    with patch(POST, return_value=_response(200, thought)) as m:
+        backend.complete(system="sys", user="hello")
+    assert backend.last_reasoning == "B and C share one source."
+    assert m.call_args.kwargs["timeout"] == 150
+    with patch(POST, return_value=_ok()):
+        backend.complete(system="sys", user="hello")
+    assert backend.last_reasoning is None
+    assert OpenRouterBackend(model="m", api_key="k").timeout == 30

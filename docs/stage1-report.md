@@ -2,14 +2,16 @@
 
 Stage 1 ran on 2026-10-25 on all 40 cases. This report says what it found, hypothesis by
 hypothesis, and what is still to check. Every number comes from one of four files in
-`runs/main/`, all read from the same five judge logs:
+`runs/main/`, all read from the same five judge logs. The commands name the logs in the
+order `runs/main/trials-*.jsonl` listed them then, since the scorer's output follows that
+order:
 
 | File | Made by |
 |---|---|
-| `score-stage1.txt` | `uv run python -m pipeline.score --show-excluded runs/main/trials-*.jsonl` |
-| `tally-stage1.txt` | `uv run python -m tools.tally runs/main/trials-*.jsonl` (counts and means over the 40 cases) |
+| `score-stage1.txt` | `uv run python -m pipeline.score --show-excluded runs/main/trials-{abstain-p0,abstain,agreement,conflict,screen}.jsonl` |
+| `tally-stage1.txt` | `uv run python -m tools.tally` over the same five logs (counts and means over the 40 cases), with `tools/tally.py` as of commit `13cbd12`; from `573c612` on, the tool adds a sign test to the H5 lines |
 | `tally-stage1-without-echoes.txt` | the same, with `--without M3,M9,M13,M23,M28,M38,M40` |
-| `tally-stage1-h5.txt` | the same, kept to or without the cases where a familiar institution is named (H5), each command above its output |
+| `tally-stage1-h5.txt` | `tools/tally.py` from `573c612` on, over the same five logs, kept to or without the cases where a familiar institution is named (H5), each command above its output |
 
 "P(truth)" is the probability a judge stated on the right answer, averaged over a
 condition's trials. "Right" counts decisions that match the world truth. The README's
@@ -203,4 +205,5 @@ the screen, one in the abstention arm), none in the conflict block.
 | H4: following an instruction, or weighing evidence? | stage 2, `ladder` |
 | Reasoning on and off; wording robustness; stated against token probabilities; n_eff with long reports | the optional sub-experiments, designed on 2026-10-26 (`docs/decisions.md`), if funded |
 
-Stage 2 has run, and its three rows are answered in `docs/stage2-report.md`.
+Stage 2 has run, and its three rows are answered in `docs/stage2-report.md`. The
+optional sub-experiments ran on 2026-10-28: `docs/optional-report.md`.

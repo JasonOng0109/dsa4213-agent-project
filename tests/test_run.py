@@ -3,6 +3,7 @@ end, and the real paths (generate, judge) behave correctly with OpenRouter repla
 the mock -- every stop condition included. Sockets are disabled throughout."""
 
 import contextlib
+import hashlib
 import io
 import json
 import os
@@ -10,9 +11,11 @@ import os
 import pytest
 
 from cases import CASES
-from pipeline import run
+from pipeline import run, score
 from pipeline.conditions import LONG_ARM
+from pipeline.judge import JUDGE_SYSTEM
 from pipeline.llm import MockBackend
+from pipeline.prompt import render
 
 # what one generate or judge run makes for the corpus in cases/: the plan's own counts,
 # so adding a case changes no number here
@@ -161,3 +164,143 @@ def test_unknown_arm_is_refused(tmp_path, router):
     _generate(tmp_path)
     with pytest.raises(SystemExit, match="unknown arm"):
         _judge(tmp_path, "--arms", "conflict,longg")
+
+
+# -- the main programme is what stage 1 judged and stage 2 will judge ------------------
+
+MAIN = "runs/main"
+# what stage 1's logs keep of each trial's design, beside the judge's reply
+DESIGN = ("case_id", "domain", "condition", "arm", "factors", "world_truth", "majority_claim",
+          "answer_options", "quality_dimension", "difficulty_tier", "allow_abstain", "length",
+          "cue_position", "option_rotation", "wrong_offset", "indep_slot", "reports",
+          "presentation_order_realized", "provenance_note")
+STAGE1_LOGS = {"agreement": "trials-agreement.jsonl", "conflict": "trials-conflict.jsonl",
+               "abstain": "trials-abstain.jsonl", "abstain-p0": "trials-abstain-p0.jsonl",
+               "screen": "trials-screen.jsonl"}
+# sha256 over the judge's system prompt, then every trial and its prompt, built from
+# runs/main/frozen_reports.json with the code from before the optional sub-experiments
+# were added (docs/decisions.md, 2026-10-26); the system prompt joined on 2026-10-28
+MAIN_DIGESTS = {"agreement": "fd277f8a455da1d9", "conflict": "88e53c02f5cb5f53",
+                "abstain": "652c1136641de966", "abstain-p0": "284e3729f352135a",
+                "screen": "35c26aaa122fc698", "long-conflict": "ca496ebf2b897851",
+                "long-agreement": "d6f5e2e6b6c72036", "ladder": "f43c786a2018184e"}
+
+
+@pytest.fixture(scope="module")
+def main_frozen():
+    with open(os.path.join(MAIN, "frozen_reports.json")) as f:
+        return json.load(f)
+
+
+def test_the_main_programme_rebuilds_what_stage_1_judged(main_frozen):
+    """Every record in stage 1's logs shows the trial the code builds today, and every
+    trial the code builds was judged."""
+    for entry in run.PROGRAMME:
+        if entry.name not in STAGE1_LOGS:
+            continue
+        built = {(t["case_id"], t["condition"], r): t
+                 for r, trials in run.build_entry(entry, CASES, main_frozen) for t in trials}
+        seen = set()
+        for rec in score.load(os.path.join(MAIN, STAGE1_LOGS[entry.name])):
+            key = (rec["case_id"], rec["condition"], rec["run_index"])
+            assert {k: rec[k] for k in DESIGN} == {k: built[key][k] for k in DESIGN}, key
+            seen.add(key)
+        assert seen == set(built), entry.name
+
+
+def test_the_main_programme_builds_the_same_trials_and_prompts(main_frozen):
+    """Stage 2 runs from this code: its system prompt, trials and prompts, and stage 1's,
+    are the ones built before the optional sub-experiments were added."""
+    def digest(entry):
+        h = hashlib.sha256(JUDGE_SYSTEM.encode())
+        for r, trials in run.build_entry(entry, CASES, main_frozen):
+            for t in trials:
+                h.update(json.dumps([r, t, render(t)], sort_keys=True).encode())
+        return h.hexdigest()[:16]
+    assert {e.name: digest(e) for e in run.PROGRAMME} == MAIN_DIGESTS
+
+
+
+# -- the optional sub-experiments (docs/decisions.md, 2026-10-26) -----------------------
+
+def _optional(name):
+    return next(e for e in run.OPTIONAL if e.name == name)
+
+
+def test_optional_entries_are_chosen_by_name_and_never_by_default():
+    assert run.select_entries(None) == run.PROGRAMME
+    assert [r[0] for r in run.plan(40)[1:]] == [e.name for e in run.PROGRAMME]
+    assert run.select_entries("cross-check,long-neff") == [_optional("cross-check"),
+                                                           _optional("long-neff")]
+    calls = {name: c for name, c, _ in run.plan(40, run.OPTIONAL)[1:]}
+    assert calls == {"reasoning-off-short": 72, "reasoning-off-long": 72,
+                     "reasoning-on-short": 72, "reasoning-on-long": 72, "cross-check": 360,
+                     "cross-check-m12": 24, "long-neff": 162}
+
+
+def test_optional_trials_keep_to_their_cases_and_never_share_a_main_trial_id(frozen):
+    main_ids = {(t["case_id"], t["condition"], t["arm"], r) for e in run.PROGRAMME
+                for r, trials in run.build_entry(e, CASES, frozen) for t in trials}
+    for entry in run.OPTIONAL:
+        built = [(r, t) for r, trials in run.build_entry(entry, CASES, frozen) for t in trials]
+        assert {t["case_id"] for _, t in built} == set(entry.cases), entry.name
+        assert {t["condition"] for _, t in built} == set(entry.conditions), entry.name
+        assert {t["arm"] for _, t in built} == {entry.arm}, entry.name
+        assert {t.get("by_number", False) for _, t in built} == {entry.by_number}, entry.name
+        if entry.name != "long-neff":     # long A4, A6 and A7 never ran in the main programme
+            assert not main_ids & {(t["case_id"], t["condition"], t["arm"], r) for r, t in built}
+        long = entry.length == "long" or entry.arm == "long"
+        assert {t["length"] for _, t in built} == {"long" if long else "short"}, entry.name
+    assert not main_ids & {(t["case_id"], t["condition"], t["arm"], r) for r, trials in
+                           run.build_entry(_optional("long-neff"), CASES, frozen) for t in trials}
+
+
+def test_long_neff_length_checks_a7_and_so_leaves_out_m38(main_frozen):
+    """M38's C report comes to 87 words in every slot, one under the floor: its A7 cannot
+    be built long, but the main programme's long entries never judge A7, so they build."""
+    entry = _optional("long-neff")
+    assert len(run.build_entry(entry, CASES, main_frozen)) == 6
+    with pytest.raises(ValueError, match="M38: long reports off target"):
+        run.build_entry(entry._replace(cases=("M38",)), CASES, main_frozen)
+    long_conflict = next(e for e in run.PROGRAMME if e.name == "long-conflict")
+    assert any(t["case_id"] == "M38"
+               for _, trials in run.build_entry(long_conflict, CASES, main_frozen) for t in trials)
+
+
+def test_generate_and_judge_keep_only_the_cases_named(tmp_path, router):
+    _, out = _quiet(run.main, ["generate", "--out", str(tmp_path), "--max-calls", "96",
+                               "--cases", "M1,M2"])
+    assert "96 calls. Stopped: None" in out
+    assert set(json.load(open(tmp_path / "frozen_reports.json"))) == {"M1", "M2"}
+    _, out = _judge(tmp_path, "--cases", "M1,M2", "--arms", "conflict")
+    recs = [json.loads(line) for line in open(tmp_path / "trials.jsonl")]
+    assert len(recs) == 2 * 5 * 12 * 3 and {r["case_id"] for r in recs} == {"M1", "M2"}
+    with pytest.raises(SystemExit, match="unknown case"):
+        _judge(tmp_path, "--cases", "M1,M99", "--log", "other.jsonl")
+    with pytest.raises(SystemExit, match="need cases --cases left out"):
+        _judge(tmp_path, "--cases", "M1", "--arms", "reasoning-on-short", "--log", "other.jsonl")
+
+
+def test_judge_sends_each_reasoning_setting_in_a_run_of_its_own(tmp_path, router):
+    _generate(tmp_path)
+    with pytest.raises(SystemExit, match="different reasoning settings"):
+        _judge(tmp_path, "--arms", "reasoning-off-short,reasoning-on-short")
+    _, out = _judge(tmp_path, "--arms", "reasoning-on-short,reasoning-on-long", "--log", "on.jsonl")
+    assert "144 trials logged" in out and "stopped: None" in out
+    recs = [json.loads(line) for line in open(tmp_path / "on.jsonl")]
+    assert {r["reasoning_param"] == run.THINKING for r in recs} == {True}
+    assert {r["arm"] for r in recs} == {"reasoning-on-short", "reasoning-on-long"}
+    assert {r["judge_model"] for r in recs} == {f"openrouter:{run.SONNET}"}
+
+
+def test_cross_check_answers_by_number_with_each_models_own_settings(tmp_path, router):
+    _generate(tmp_path)
+    _, out = _judge(tmp_path, "--arms", "cross-check", "--log", "cross.jsonl")
+    assert "360 trials logged" in out and "0 parse failures" in out
+    assert "each sent its own" in out
+    recs = [json.loads(line) for line in open(tmp_path / "cross.jsonl")]
+    assert {r["judge_model"] for r in recs} == {f"openrouter:{m}" for m in run.AUXILIARY}
+    assert {r["reasoning_param"] == run.AUXILIARY_REASONING[r["judge_model"].split(":", 1)[1]]
+            for r in recs} == {True}
+    assert all(r["parsing_status"] == "ok" for r in recs)
+    assert all(json.loads(r["raw_judge_output"])["answer"] in (1, 2, 3, 4) for r in recs)

@@ -581,8 +581,13 @@ Outline only. Detailed tasks will be added after the pilot.
   `docs/stage1-report.md`. Its counts over cases come from `tools/tally.py`. Stage 2's
   reading: `docs/stage2-report.md`.
 - **Optional sub-experiments**: designed on 2026-10-26, each in its own entry in
-  `docs/decisions.md`; the code is being written on the branch `optional-arms`. Only if
-  budget allows, in the order the proposal gives (§6).
+  `docs/decisions.md`, and built as the entries in `OPTIONAL` (`pipeline/run.py`; the
+  commands are in the README, "Running the study"). Only if budget allows, in the order
+  the proposal gives (§6). They ran on 2026-10-28, after stage 2, from 01:00 to 01:49;
+  what they found so far: `docs/optional-report.md`. After the review of PR #55, M12 was
+  judged in M10's place in the cross-check and the robustness rerun was judged, the same
+  day (`docs/decisions.md`, 2026-10-28), and the 32 reasoning traces with text were coded
+  by two fresh Claude agents under the settled trace rule. Nothing optional is left.
 - **Write-up**: it must include one fully shown prompt and judge answer per block
   (`docs/proposal.pdf`, §5, "Representative evidence").
 

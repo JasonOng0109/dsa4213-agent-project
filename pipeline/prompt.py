@@ -25,6 +25,16 @@ answer text as the key, and the values must sum to 100.
 {abstain_line}
 Do not include any explanation or reasoning -- output only the JSON object."""
 
+# The confidence cross-check's variant (docs/decisions.md, 2026-10-26): the answer and
+# the keys of "p" are option numbers, so the token probabilities at the answer's digit
+# cover the same four options as the stated "p". Everything else is TEMPLATE's.
+NUMBER_TEMPLATE = (TEMPLATE
+                   .replace('"<one of the possible answers, verbatim>"',
+                            "<the number of one of the possible answers>")
+                   .replace('"<answer text>"', '"<answer number>"')
+                   .replace("using the\nanswer text as the key",
+                            "using the\nanswer number as the key"))
+
 ABSTAIN = "Cannot be determined from the evidence provided"
 ABSTAIN_LINE = (f'If the reports do not determine the answer, you may instead answer '
                 f'exactly "{ABSTAIN}", still giving "p" over the numbered answers above.\n')
@@ -43,7 +53,8 @@ def render_reports(reports: list[dict]) -> str:
 
 def render(trial: dict) -> str:
     provenance_block = trial["provenance_note"] + "\n" if trial["provenance_note"] else ""
-    return TEMPLATE.format(
+    template = NUMBER_TEMPLATE if trial.get("by_number") else TEMPLATE
+    return template.format(
         question=trial["question"],
         numbered_options="\n".join(f"  {i}. {o}"
                                    for i, o in enumerate(trial["answer_options"], 1)),

@@ -140,9 +140,11 @@ def _shuffled(reports: list[dict], rng: random.Random) -> list[dict]:
 def build_conditions(case_id: str, case: dict, frozen_case: dict, rng: random.Random,
                      indep_slot: int = 0, option_rotation: int = 0, wrong_offset: int = 0,
                      wrong_offset_agreement: int | None = None, allow_abstain: bool = False,
-                     length: str = "short", cue_position: str | None = None) -> list[dict]:
+                     length: str = "short", cue_position: str | None = None,
+                     checked: list[str] = LONG_ARM) -> list[dict]:
     """All sixteen trials of one case (thirteen conditions and three ladder rungs) at one
-    point in the rotation schedule."""
+    point in the rotation schedule. With long reports, the reports of the `checked`
+    conditions, those judged long, are length-checked."""
     if length == "long" and cue_position not in CUE_POSITIONS:
         raise ValueError(f"long reports need a cue_position in {CUE_POSITIONS}")
     if wrong_offset_agreement is None:
@@ -151,7 +153,7 @@ def build_conditions(case_id: str, case: dict, frozen_case: dict, rng: random.Ra
     def place(reps, labels, prov_ids=None, used_by=()):
         """Report i goes in slot i and gets filler set i -- by SLOT, never by source
         (R12), so two reports of one source never share padding. `used_by` names the
-        conditions built from these reports; only those the length arm runs are
+        conditions built from these reports; only those judged long (`checked`) are
         length-checked, since the others are built long and never judged."""
         out = []
         for i, r in enumerate(reps):
@@ -165,7 +167,7 @@ def build_conditions(case_id: str, case: dict, frozen_case: dict, rng: random.Ra
                         "provenance_id": prov_ids[i] if prov_ids else None})
         # a mock's padded rewordings are not a reporter's length (MockBackend.pads); the
         # lint's R20 warning estimates those cases instead
-        if (length == "long" and set(used_by) & set(LONG_ARM)
+        if (length == "long" and set(used_by) & set(checked)
                 and not any(frozen_case[r["source_key"]].get("padded") for r in reps)):
             check_long_lengths(case_id, out)
         return out
@@ -239,7 +241,7 @@ def build_conditions(case_id: str, case: dict, frozen_case: dict, rng: random.Ra
 
 def build_repeat(case_id: str, case: dict, frozen_case: dict, run_index: int,
                  seed: int = 42, length: str = "short",
-                 allow_abstain: bool = False) -> list[dict]:
+                 allow_abstain: bool = False, checked: list[str] = LONG_ARM) -> list[dict]:
     """All sixteen trials for repeat `run_index` (1-based), with that repeat's
     rotations. The rng depends on the repeat only, so every arm of one repeat shows the
     same reports in the same order."""
@@ -249,7 +251,8 @@ def build_repeat(case_id: str, case: dict, frozen_case: dict, run_index: int,
                             wrong_offset=s["wrong_offset"],
                             wrong_offset_agreement=s["wrong_offset_agreement"],
                             allow_abstain=allow_abstain, length=length,
-                            cue_position=s["cue_position"] if length == "long" else None)
+                            cue_position=s["cue_position"] if length == "long" else None,
+                            checked=checked)
 
 
 def build_screen(case_id: str, case: dict, frozen_case: dict,

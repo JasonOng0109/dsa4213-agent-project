@@ -1,0 +1,18 @@
+Trace coding by the rule in docs/decisions.md, 2026-10-28 ("The trace rule settles its
+edge cases and blinds its coders, before any trace is read").
+
+The 112 reasoning-on trials with no thinking text code as none. The other 32 texts are
+in traces-blind.json under random ids. Two fresh Claude agents coded them, each given
+only the rule and the texts, in its own random order: codes-coder1.json and
+codes-coder2.json.
+
+The coders agreed on 31 of the 32 texts. They split on T17 (coder 1: not noticed;
+coder 2: noticed, quoting "it's the primary authoritative source"). Jason settled it as
+noticed on 2026-10-28, from the text, the rule and the two codes: its words restate part
+of a note sentence about sources ("B's source is a primary, authoritative record; the
+source shared by A and C is a secondhand or unofficial one"). Settled codes:
+codes-settled.json.
+
+This commit holds the codes before any is joined to its trial. The key from random id to
+trial, key.json, follows in the next commit, with the reading (tools/traces.py); its
+sha256 is ef17a1314d4b16af16d6b27d97e990f9632f2b93c8ce43e7bbfcc8a8862cd66e.

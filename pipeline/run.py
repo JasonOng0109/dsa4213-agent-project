@@ -10,6 +10,9 @@ The command line. Real steps spend money and each needs explicit approval; `dry`
     uv run --env-file .env python -m pipeline.run generate --max-calls N
     uv run --env-file .env python -m pipeline.run judge --max-calls N [--arms conflict,...]
 
+`--arms` also selects the optional sub-experiments by name (OPTIONAL), and `--cases M1,M2`
+keeps only those cases, for the wording-robustness rerun (docs/decisions.md, 2026-10-26).
+
 Real outputs go to runs/ and are never overwritten: frozen reports and trial logs are
 evidence, so a step whose output exists refuses to start until the old file is moved.
 """
@@ -22,8 +25,8 @@ import os
 from typing import NamedTuple
 
 from pipeline.conditions import (ABSTAIN_ARM, AGREEMENT_BLOCK, CONFLICT_BLOCK, LADDER,
-                                 LONG_AGREEMENT, SCREEN_LEVELS, build_repeat, build_screen,
-                                 rotation_schedule)
+                                 LONG_AGREEMENT, LONG_ARM, SCREEN_LEVELS, build_repeat,
+                                 build_screen, rotation_schedule)
 from pipeline.judge import PARSE_FAILURES, run_trials, write_jsonl
 from pipeline.llm import MockBackend, OpenRouterBackend, key_status
 from pipeline.reporter import attribution_in, freeze_sources, leak_terms, leaks_in
@@ -39,6 +42,10 @@ LENGTH_JUDGES = ["anthropic/claude-sonnet-5", "openai/gpt-5.4"]   # one per deve
 # confidence cross-check. Routed only to endpoints honouring every parameter.
 AUXILIARY = ["qwen/qwen3.6-27b", "meta-llama/llama-4-maverick"]
 AUXILIARY_ROUTING = {"require_parameters": True}
+# the reasoning parameter each one is sent (runs/main/probe-2026-10-26.json): Qwen thinks
+# unless told not to, and Llama's endpoints take no reasoning parameter, which under
+# AUXILIARY_ROUTING would leave it no endpoint at all
+AUXILIARY_REASONING = {"qwen/qwen3.6-27b": {"enabled": False}, "meta-llama/llama-4-maverick": None}
 # Each primary judge is pinned to one serving provider, so a difference between
 # conditions cannot come from the router sending them to different hosts of the same
 # model. Value: (OpenRouter provider slug, provider name as reported in responses).
@@ -56,6 +63,11 @@ class Entry(NamedTuple):
     repeats: int
     judges: list[str]
     subset: bool            # True: only the first SUBSET_SIZE cases
+    # set only by the optional sub-experiments (docs/decisions.md, 2026-10-26)
+    cases: tuple = ()       # only these cases, overriding subset
+    length: str = ""        # "short" or "long"; empty: long only for the arm "long"
+    reasoning: dict | None = None   # sent to the judges instead of judge --reasoning
+    by_number: bool = False         # the judges answer with option numbers
 
 
 SUBSET_SIZE = 10            # the length arm and the wording ladder share these cases
@@ -76,13 +88,54 @@ PROGRAMME = [
     Entry("ladder", "ladder", LADDER, 12, PRIMARY_JUDGES, True),
 ]
 
+# -- the optional sub-experiments (proposal §6; docs/decisions.md, 2026-10-26) ---------
+# Selected by name with judge --arms, never part of the default run or of plan's totals.
+# Each fixes its cases and its arm label, so no trial shares an id or a scorer cell with
+# the main programme's.
+
+SONNET = "anthropic/claude-sonnet-5"
+THINKING = {"max_tokens": 2000}     # reasoning on, at a budget of 2,000 thinking tokens
+REASONING_CASES = ("M1", "M2")      # the first two cases: one T2, one T1
+REASONING_CONDITIONS = ["X1", "X3", "X5"]
+OFF = OpenRouterBackend.REASONING_OFF
+OPTIONAL = [
+    # one model in both modes, crossed with length; both modes run on the same day
+    Entry("reasoning-off-short", "reasoning-off-short", REASONING_CONDITIONS, 12, [SONNET],
+          False, REASONING_CASES, "short", OFF),
+    Entry("reasoning-off-long", "reasoning-off-long", REASONING_CONDITIONS, 12, [SONNET],
+          False, REASONING_CASES, "long", OFF),
+    Entry("reasoning-on-short", "reasoning-on-short", REASONING_CONDITIONS, 12, [SONNET],
+          False, REASONING_CASES, "short", THINKING),
+    Entry("reasoning-on-long", "reasoning-on-long", REASONING_CONDITIONS, 12, [SONNET],
+          False, REASONING_CASES, "long", THINKING),
+    # stated against token probabilities: the screen on the first 15 cases
+    Entry("cross-check", "cross-check", list(SCREEN_LEVELS), 4, AUXILIARY, False,
+          ("M1", "M2", "M3", "M4", "M5", "M6", "M14", "M22", "M30", "M38",
+           "M7", "M8", "M9", "M10", "M11"), by_number=True),
+    # M10's options, 2 to 5 passes, can be read as option numbers, so the next case in
+    # corpus order takes its place (docs/decisions.md, 2026-10-28)
+    Entry("cross-check-m12", "cross-check", list(SCREEN_LEVELS), 4, AUXILIARY, False,
+          ("M12",), by_number=True),
+    # n_eff at long length, A0 coming from the short arm; the subset but M38, whose A7
+    # cannot be built long (one of its reports is one word short)
+    Entry("long-neff", "long", ["A4", "A6", "A7"], 6, [SONNET], False,
+          ("M1", "M2", "M3", "M4", "M5", "M6", "M14", "M22", "M30")),
+]
+
 # $ per call (proposal §5): measured on the sample case, except the long-report rate,
 # which is estimated
 RATE_GENERATION = 0.00025
 RATE_SHORT = 0.00178        # blended over the three primary judges
 RATE_LONG = 0.0030          # the Sonnet and GPT-5.4 pair
+RATE_OPTIONAL = 0.0025      # assumed for the optional sub-experiments (§6)
 GENERATION_CALLS = (12, 30)  # per source: round 1 suffices, or both rounds run
 SOURCES_PER_CASE = 4
+
+
+def rate(entry: Entry) -> float:
+    """An entry's $ per call, at the proposal's rates."""
+    return (RATE_OPTIONAL if entry in OPTIONAL else
+            RATE_LONG if entry.arm == "long" else RATE_SHORT)
 
 
 def subset(cases: dict) -> list[str]:
@@ -93,8 +146,12 @@ def subset(cases: dict) -> list[str]:
 
 def build_entry(entry: Entry, cases: dict, frozen: dict, seed: int = 42):
     """[(run_index, trials)] for one programme entry. Within a repeat, every arm shows the
-    same reports in the same order, so arms differ only by what they vary."""
-    ids = subset(cases) if entry.subset else list(cases)
+    same reports in the same order, so arms differ only by what they vary. Every trial
+    carries the entry's arm label, and the conditions an entry judges long are
+    length-checked."""
+    ids = list(entry.cases) or (subset(cases) if entry.subset else list(cases))
+    length = entry.length or ("long" if entry.arm == "long" else "short")
+    checked = LONG_ARM + [c for c in entry.conditions if c not in LONG_ARM]
     out = []
     for r in range(1, entry.repeats + 1):
         if set(entry.conditions) <= set(SCREEN_LEVELS):
@@ -106,9 +163,10 @@ def build_entry(entry: Entry, cases: dict, frozen: dict, seed: int = 42):
         else:
             trials = [t for cid in ids
                       for t in build_repeat(cid, cases[cid], frozen[cid], r, seed,
-                                            length="long" if entry.arm == "long" else "short",
-                                            allow_abstain=entry.arm == "abstain")]
-        out.append((r, [t for t in trials if t["condition"] in entry.conditions]))
+                                            length=length, allow_abstain=entry.arm == "abstain",
+                                            checked=checked)]
+        out.append((r, [dict(t, arm=entry.arm, **({"by_number": True} if entry.by_number else {}))
+                        for t in trials if t["condition"] in entry.conditions]))
     return out
 
 
@@ -120,8 +178,9 @@ def plan(n_cases: int, entries: list[Entry] = PROGRAMME) -> list[tuple[str, int,
     gen = n_cases * SOURCES_PER_CASE * GENERATION_CALLS[0]
     rows = [("generate and accept reports", gen, gen * RATE_GENERATION)]
     for e in entries:
-        calls = len(e.conditions) * e.repeats * len(e.judges) * (n_sub if e.subset else n_cases)
-        rows.append((e.name, calls, calls * (RATE_LONG if e.arm == "long" else RATE_SHORT)))
+        n = len(e.cases) if e.cases else n_sub if e.subset else n_cases
+        calls = len(e.conditions) * e.repeats * len(e.judges) * n
+        rows.append((e.name, calls, calls * rate(e)))
     return rows
 
 
@@ -317,14 +376,27 @@ def planned_calls(entries: list[Entry], cases: dict, frozen: dict,
 
 
 def select_entries(arms: str | None) -> list[Entry]:
+    """The main programme, or the entries named, the optional sub-experiments included."""
     if not arms:
         return PROGRAMME
     names = arms.split(",")
-    unknown = set(names) - {e.name for e in PROGRAMME}
+    known = PROGRAMME + OPTIONAL
+    unknown = set(names) - {e.name for e in known}
     if unknown:
         raise SystemExit(f"unknown arm(s) {sorted(unknown)}; choose from "
-                         f"{[e.name for e in PROGRAMME]}")
-    return [e for e in PROGRAMME if e.name in names]
+                         f"{[e.name for e in known]}")
+    return [e for e in known if e.name in names]
+
+
+def only_cases(cases: dict, ids: str | None) -> dict:
+    """The corpus, or only the cases --cases names (M1,M2), in corpus order."""
+    if not ids:
+        return cases
+    names = ids.split(",")
+    unknown = sorted(set(names) - set(cases))
+    if unknown:
+        raise SystemExit(f"unknown case(s) {unknown}")
+    return {cid: case for cid, case in cases.items() if cid in names}
 
 
 # -- commands ---------------------------------------------------------------------------
@@ -376,7 +448,8 @@ def cmd_probe(args, cases):
     for model in PRIMARY_JUDGES + AUXILIARY + [REPORTER]:
         aux = model in AUXILIARY
         b = OpenRouterBackend(model=model, top_logprobs=5,
-                              reasoning=None if aux else OpenRouterBackend.REASONING_OFF,
+                              reasoning=AUXILIARY_REASONING[model] if aux
+                              else OpenRouterBackend.REASONING_OFF,
                               provider=AUXILIARY_ROUTING if aux else
                               ({"order": [PINS[model][0]], "allow_fallbacks": False}
                                if model in PINS else None))
@@ -399,6 +472,7 @@ def cmd_probe(args, cases):
 
 
 def cmd_generate(args, cases):
+    cases = only_cases(cases, args.cases)
     out = args.out or "runs"
     os.makedirs(out, exist_ok=True)
     refuse_existing(*(os.path.join(out, f) for f in
@@ -413,6 +487,7 @@ def cmd_generate(args, cases):
 
 
 def cmd_judge(args, cases):
+    cases = only_cases(cases, args.cases)
     out = args.out or "runs"
     log_path = os.path.join(out, args.log)
     refuse_existing(log_path)
@@ -422,19 +497,37 @@ def cmd_judge(args, cases):
     if problems:
         raise SystemExit("leak check failed, no judging:\n  " + "\n  ".join(problems))
     entries = select_entries(args.arms)
+    missing = sorted({c for e in entries for c in e.cases} - set(cases))
+    if missing:
+        raise SystemExit(f"the entries need cases --cases left out: {missing}")
+    if len({json.dumps(e.reasoning) for e in entries}) > 1:
+        raise SystemExit("these entries send different reasoning settings; judge each "
+                         "setting in a run of its own")
     planned = planned_calls(entries, cases, frozen, args.seed)
     n = sum(c for _, c in planned)
-    cost = sum(c * (RATE_LONG if e.arm == "long" else RATE_SHORT) for e, c in planned)
+    cost = sum(c * rate(e) for e, c in planned)
     print(f"planned: {n} calls, about ${cost:.2f}: " + ", ".join(f"{e.name} {c}" for e, c in planned))
     if n > args.max_calls:
         raise SystemExit(f"stop before spending: {n} planned calls > ceiling {args.max_calls}")
-    reasoning = None if args.reasoning == "omit" else json.loads(args.reasoning)
+    reasoning = (entries[0].reasoning if entries[0].reasoning is not None
+                 else None if args.reasoning == "omit" else json.loads(args.reasoning))
     print(f"reasoning parameter sent to every judge: {reasoning!r}")
+    aux = sorted({m for e in entries for m in e.judges} & set(AUXILIARY))
+    if aux:
+        print(f"except the auxiliary models, each sent its own: "
+              f"{ {m: AUXILIARY_REASONING[m] for m in aux} }")
     print(f"provider pins: { {m: p[0] for m, p in PINS.items()} }")
 
     def make(model):
+        if model in AUXILIARY:
+            return OpenRouterBackend(model=model, reasoning=AUXILIARY_REASONING[model],
+                                     provider=AUXILIARY_ROUTING, top_logprobs=5,
+                                     track_usage=True)
         pin = {"order": [PINS[model][0]], "allow_fallbacks": False} if model in PINS else None
-        return OpenRouterBackend(model=model, reasoning=reasoning, provider=pin, track_usage=True)
+        # a judge that thinks before it answers needs longer than the usual 30 seconds
+        timeout = 150 if (reasoning or {}).get("max_tokens") else 30
+        return OpenRouterBackend(model=model, reasoning=reasoning, provider=pin,
+                                 track_usage=True, timeout=timeout)
     judge_all(cases, frozen, entries, make, log_path, Budget(args.max_calls), args.seed, PINS)
     score.main(log_path)
 
@@ -455,9 +548,12 @@ def main(argv=None):
         p.add_argument("--seed", type=int, default=42)
         if name in ("dry", "judge"):
             p.add_argument("--arms", help="comma-separated programme entries: "
-                           + ",".join(e.name for e in PROGRAMME) + " (default: all)")
+                           + ",".join(e.name for e in PROGRAMME) + " (default: all); or "
+                           "optional ones: " + ",".join(e.name for e in OPTIONAL))
         if name in ("generate", "judge"):
             p.add_argument("--max-calls", type=int, required=True, help="hard call ceiling")
+            p.add_argument("--cases", help="comma-separated case ids: only these cases, "
+                           "e.g. M1,M2 for the wording-robustness rerun")
         if name == "plan":
             p.add_argument("--cases", type=int, help="cost a corpus of this size instead")
         if name == "judge":
