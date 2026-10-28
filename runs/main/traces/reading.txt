@@ -1,0 +1,28 @@
+the coders agreed on 31 of 32 traces with text
+
+== settled codes
+cell               none (chose it)      noticed (chose it)  not noticed (chose it)  trials
+X1 long                     24 (0)                   0 (0)                   0 (0)      24
+X1 short                    24 (0)                   0 (0)                   0 (0)      24
+X3 long                     10 (0)                  14 (0)                   0 (0)      24
+X3 short                    18 (0)                   6 (0)                   0 (0)      24
+X5 long                    16 (16)                   8 (8)                   0 (0)      24
+X5 short                   20 (20)                   4 (4)                   0 (0)      24
+
+== coder1's codes
+cell               none (chose it)      noticed (chose it)  not noticed (chose it)  trials
+X1 long                     24 (0)                   0 (0)                   0 (0)      24
+X1 short                    24 (0)                   0 (0)                   0 (0)      24
+X3 long                     10 (0)                  14 (0)                   0 (0)      24
+X3 short                    18 (0)                   6 (0)                   0 (0)      24
+X5 long                    16 (16)                   8 (8)                   0 (0)      24
+X5 short                   20 (20)                   3 (3)                   1 (1)      24
+
+== coder2's codes
+cell               none (chose it)      noticed (chose it)  not noticed (chose it)  trials
+X1 long                     24 (0)                   0 (0)                   0 (0)      24
+X1 short                    24 (0)                   0 (0)                   0 (0)      24
+X3 long                     10 (0)                  14 (0)                   0 (0)      24
+X3 short                    18 (0)                   6 (0)                   0 (0)      24
+X5 long                    16 (16)                   8 (8)                   0 (0)      24
+X5 short                   20 (20)                   4 (4)                   0 (0)      24

@@ -9667,7 +9667,7 @@ a.ref:hover { background: var(--surface-2); }
     "Sonnet, not GPT-5.4: it judges long reports in the main run too, and its numbers are not stuck at 100.",
     "The main run's own reasoning-off trials are not reused, since they were judged on other days: [[drift-temperature]].",
     "In the probe, reasoning on did not force thinking: one of two identical calls thought for 0 tokens: [[judge-probe]].",
-    "Ran on 2026-10-28: no decision changed, and Sonnet thought in 32 of the 144 reasoning-on trials; the 32 traces with text are coded next: [[open-trace-coding]], [[optional-results]]."
+    "Ran on 2026-10-28: no decision changed, and Sonnet thought in 32 of the 144 reasoning-on trials. All 32 traces noticed the shared source, and none of the 20 in X3 chose the independent report: [[open-trace-coding]], [[optional-results]]."
    ],
    "evidence": [
     {
@@ -10163,11 +10163,11 @@ a.ref:hover { background: var(--surface-2); }
    "cluster": "pipeline",
    "title": "The optional sub-experiments: what they found so far",
    "label": "Optional arms: results so far",
-   "summary": "The four optional sub-experiments ran on 2026-10-28, after stage 2: 810 judge trials and 96 report calls, none stopped. After an independent review the same day, M12 took M10's place in the cross-check (24 calls) and the robustness rerun was judged (360 calls). With reasoning on, Claude Sonnet 5 decided exactly as with it off, and it thought in only 32 of 144 trials. The two auxiliary models' stated confidence orders the screen's three levels as their token probabilities do, and the two rank trials alike, mostly through the gap between levels; on an irrelevant report the tokens lean on one option far more. With long reports Sonnet still counts three copies of one source and three independent sources alike, as about two sources each. On a second set of reports for M1 and M2, the conflict block's decisions held: no judge was right in X1 or X3, every judge in X4 and X5, and only X2 moved, toward more right decisions. The 32 reasoning traces with text wait to be coded: docs/optional-report.md.",
+   "summary": "The four optional sub-experiments ran on 2026-10-28, after stage 2: 810 judge trials and 96 report calls, none stopped. After an independent review the same day, M12 took M10's place in the cross-check (24 calls) and the robustness rerun was judged (360 calls). With reasoning on, Claude Sonnet 5 decided exactly as with it off, and it thought in only 32 of 144 trials. The two auxiliary models' stated confidence orders the screen's three levels as their token probabilities do, and the two rank trials alike, mostly through the gap between levels; on an irrelevant report the tokens lean on one option far more. With long reports Sonnet still counts three copies of one source and three independent sources alike, as about two sources each. On a second set of reports for M1 and M2, the conflict block's decisions held: no judge was right in X1 or X3, every judge in X4 and X5, and only X2 moved, toward more right decisions. All 32 reasoning traces with text noticed the shared source, and in X3 none of those trials chose the independent report: Sonnet saw the dependence and did not act on it. docs/optional-report.md.",
    "date": "2026-10-28",
    "points": [
     "Reasoning, Sonnet on M1 and M2: in both modes X1 and X3 were right in 0 of 12 trials per cell and X5 in 12 of 12, short and long. X3's P(truth) was 1 to 7 points higher with reasoning on: [[reasoning-plan]].",
-    "Thinking was rare: 32 of the 144 reasoning-on trials, all in X3 and X5, so 112 traces code as none. The other 32 are coded by [[trace-rule]]. Since no X3 trial chose the independent report, the coding can only tell missing the shared source from noticing it and still following the two reports.",
+    "Thinking was rare: 32 of the 144 reasoning-on trials, all in X3 and X5, so 112 traces code as none. The other 32 were coded by [[trace-rule]], and all noticed the shared source: in X3 none of those 20 trials chose the independent report, so when Sonnet thought, it noticed the dependence and still followed the two reports: [[open-trace-coding]].",
     "Cross-check, Qwen 3.6 27B and Llama 4 Maverick on the screen's 15 cases, M12 in M10's place, read with tools/crosscheck.py: stated and token P(truth) both rise from P0 to P2, with Page's p below 0.0001. Trial by trial the Spearman correlation is 0.83 and 0.81, but 0.79 and 0.76 within P1 alone. On the irrelevant report, Qwen states 25 on every option while its tokens put 77% on one: [[crosscheck-plan]], [[crosscheck-m12]], [[screen]].",
     "n_eff at long length, Sonnet on nine cases: medians A4 1.95 and A7 1.97, against 1.86 and 1.79 short on the same cases; the 'same source' note claws back 0.47 against 0.23. Defined in all nine, none at ceiling: [[long-neff-plan]], [[neff]].",
     "Wording robustness, a second report set for M1 and M2, judged on 2026-10-28: the conflict block's decisions held. X1 and X3 were never right and X4 and X5 always, for all three judges; only X2 moved, Sonnet from 9 to 13 of 24 and GPT-5.4 from 22 to 24. P(truth) moved by at most 7.5 points in any case and condition, and the two sets were judged on different days: [[robustness-plan]]."
@@ -10247,6 +10247,11 @@ a.ref:hover { background: var(--surface-2); }
      "file": "docs/optional-report.md",
      "loc": "Wording robustness",
      "quote": "Jason approved judging on 2026-10-28."
+    },
+    {
+     "file": "runs/main/traces/reading.txt",
+     "loc": "settled codes",
+     "quote": "X3 short 18 (0) 6 (0) 0 (0) 24"
     }
    ],
    "links": [
@@ -10308,7 +10313,7 @@ a.ref:hover { background: var(--surface-2); }
    "points": [
     "Why tighten it: \"before the answer\" decided nothing, since the judge replies with the JSON object alone, and a trial's id names its condition, so coders given the ids would know it.",
     "An independent review of PR #55, made in Kai Rong's place, proposed the changes, and Jason accepted them.",
-    "The coding itself is still to do: [[open-trace-coding]]."
+    "Applied on 2026-10-28: the coders agreed on 31 of the 32 texts, and Jason settled the last from the text, the rule and the two codes: [[open-trace-coding]]."
    ],
    "evidence": [
     {
@@ -10406,21 +10411,31 @@ a.ref:hover { background: var(--surface-2); }
    "id": "open-trace-coding",
    "type": "issue",
    "cluster": "issues",
-   "title": "The 32 reasoning traces with thinking text are not coded yet",
-   "label": "Trace coding (open)",
-   "summary": "Open. Sonnet wrote thinking text in 32 of its 144 reasoning-on trials, and they are coded by [[trace-rule]]: two fresh Claude agents code them apart, Jason settles their disagreements, and the codes are committed before they are joined to the trials. Until then the reasoning comparison cannot say whether Sonnet missed the shared source or saw it and still followed the two reports.",
-   "status": "open",
+   "title": "The 32 reasoning traces with thinking text were not coded",
+   "label": "Trace coding (settled)",
+   "summary": "Settled. Sonnet wrote thinking text in 32 of its 144 reasoning-on trials, and they were coded on 2026-10-28 by [[trace-rule]]: two fresh Claude agents agreed on 31, Jason settled the last as noticed, and the codes were committed before any was joined to its trial. All 32 noticed the shared source. In X3 none of those 20 trials chose the independent report, so when Sonnet thought, it saw the dependence and still followed the two reports: [[optional-results]].",
+   "status": "current",
    "date": "2026-10-28",
    "evidence": [
     {
-     "file": "docs/optional-report.md",
-     "loc": "What is left",
-     "quote": "Two fresh Claude agents code the 32 traces with text by the rule of 2026-10-28"
+     "file": "runs/main/traces/coding.txt",
+     "loc": "the coders",
+     "quote": "The coders agreed on 31 of the 32 texts."
     },
     {
-     "file": "README.md",
-     "loc": "Status and open items",
-     "quote": "One part waits: the 32 reasoning traces with text are coded by the settled rule."
+     "file": "runs/main/traces/coding.txt",
+     "loc": "T17",
+     "quote": "Jason settled it as noticed on 2026-10-28, from the text, the rule and the two codes"
+    },
+    {
+     "file": "runs/main/traces/reading.txt",
+     "loc": "settled codes",
+     "quote": "X3 long 10 (0) 14 (0) 0 (0) 24"
+    },
+    {
+     "file": "docs/optional-report.md",
+     "loc": "Reasoning on and off",
+     "quote": "In X3, all 20 traces noticed the shared source, and none of those trials chose the independent report"
     }
    ],
    "links": [
@@ -10435,6 +10450,10 @@ a.ref:hover { background: var(--surface-2); }
     {
      "to": "reasoning-plan",
      "rel": "involves"
+    },
+    {
+     "to": "optional-results",
+     "rel": "related"
     }
    ]
   },
@@ -11513,6 +11532,19 @@ a.ref:hover { background: var(--surface-2); }
    ],
    "closed": [
     "drift-made-by-glob"
+   ]
+  },
+  {
+   "date": "2026-10-28",
+   "summary": "The 32 reasoning traces with thinking text were coded by the settled rule: two fresh Claude agents agreed on 31, Jason settled the last as noticed, and the codes were committed before the join. All 32 noticed the shared source; in X3, none of those 20 trials chose the independent report.",
+   "changed": [
+    "open-trace-coding",
+    "optional-results",
+    "reasoning-plan",
+    "trace-rule"
+   ],
+   "closed": [
+    "open-trace-coding"
    ]
   }
  ]

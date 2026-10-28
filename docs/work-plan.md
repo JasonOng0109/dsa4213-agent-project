@@ -586,8 +586,8 @@ Outline only. Detailed tasks will be added after the pilot.
   the proposal gives (§6). They ran on 2026-10-28, after stage 2, from 01:00 to 01:49;
   what they found so far: `docs/optional-report.md`. After the review of PR #55, M12 was
   judged in M10's place in the cross-check and the robustness rerun was judged, the same
-  day (`docs/decisions.md`, 2026-10-28). Left: coding the 32 reasoning traces with text,
-  by two fresh Claude agents under the settled trace rule.
+  day (`docs/decisions.md`, 2026-10-28), and the 32 reasoning traces with text were coded
+  by two fresh Claude agents under the settled trace rule. Nothing optional is left.
 - **Write-up**: it must include one fully shown prompt and judge answer per block
   (`docs/proposal.pdf`, §5, "Representative evidence").
 

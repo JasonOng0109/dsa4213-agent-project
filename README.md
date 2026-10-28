@@ -558,8 +558,9 @@ Who does what next, step by step: [`docs/work-plan.md`](docs/work-plan.md).
   96 report calls, none stopped. An independent review of PR #55, made in Kai Rong's
   place, led to two decisions (`docs/decisions.md`, 2026-10-28): the trace rule settles
   its edge cases and blinds its coders, and the cross-check reads M12 in M10's place, 24
-  more calls. The robustness rerun was then judged, 360 calls. One part waits: the 32
-  reasoning traces with text are coded by the settled rule. What they found so far:
+  more calls. The robustness rerun was then judged, 360 calls, and the 32 reasoning
+  traces with text were coded by the settled rule: all 32 noticed the shared source, and
+  none of the 20 in X3 chose the independent report. What they found:
   `docs/optional-report.md`. A test checks that the
   main programme still builds the trials and prompts stage 1 judged
   (`tests/test_run.py`).

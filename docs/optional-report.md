@@ -5,8 +5,8 @@ order (`docs/decisions.md`, 2026-10-26). This report says what each found so far
 same day, an independent review of PR #55, made in Kai Rong's place, checked them, and two
 decisions came of it (`docs/decisions.md`, 2026-10-28): the trace rule settles its edge
 cases and blinds its coders, and the cross-check reads M12 in M10's place. Then the
-wording-robustness rerun was judged. One part still waits: the 32 reasoning traces with
-thinking text are coded by the settled rule.
+wording-robustness rerun was judged, and the 32 reasoning traces with thinking text were
+coded by the settled rule.
 
 Every result comes from one of the files below. The commands name their logs in the
 order `runs/main/trials-*.jsonl` lists them, since the scorer's output follows that order.
@@ -17,6 +17,7 @@ The run times and the generation cost were read off the runs as they went.
 | `runs/main/score-optional.txt` | `uv run python -m pipeline.score --show-excluded runs/main/trials-{abstain-p0,abstain,agreement,conflict,cross-check-m12,cross-check,ladder,long-agreement,long-conflict,long-neff,reasoning-off,reasoning-on,screen}.jsonl`, all thirteen judge logs |
 | `runs/main/crosscheck.txt` | `uv run python -m tools.crosscheck runs/main/trials-cross-check.jsonl runs/main/trials-cross-check-m12.jsonl` |
 | `runs/robustness/score.txt` | `uv run python -m pipeline.score --show-excluded runs/robustness/trials.jsonl`, read beside `runs/main/score-stage1.txt` |
+| `runs/main/traces/reading.txt` | `uv run python -m tools.traces runs/main/traces runs/main/trials-reasoning-on.jsonl` |
 
 `score-optional.txt` repeats every stage 1 and stage 2 cell of `score-stage2.txt`
 unchanged; Sonnet's long-arm cells gain the rows A4, A6 and A7.
@@ -24,7 +25,9 @@ unchanged; Sonnet's long-arm cells gain the rows A4, A6 and A7.
 ## In short
 
 Reasoning changed nothing Sonnet decided: with thinking allowed, it chose as it did
-without, in every trial, and it thought in only 32 of 144 trials. Both auxiliary models'
+without, in every trial, and it thought in only 32 of 144 trials. Each time it thought
+in X3, its thinking said that two of the reports share a source, and it still chose
+their claim: it noticed the dependence and did not act on it. Both auxiliary models'
 stated numbers rise from an irrelevant report to one that names the answer, as their
 token probabilities do. The two rank trials alike, though mostly through the gap between
 those levels; given only an irrelevant report, the tokens lean on one option far more
@@ -79,13 +82,29 @@ moves. Both modes kept the main prompt's last line, "Do not include any explanat
 reasoning -- output only the JSON object.", so they differ only in the thinking allowed;
 that line may be why Sonnet so seldom used it.
 
-**The traces are coded next.** The 112 traces with no thinking text code as *none*. The
-other 32 are coded by the rule as settled on 2026-10-28, before anyone read a trace
-(`docs/decisions.md`): two fresh Claude agents code them apart, shuffled and without
-case, condition or result, Jason settles their disagreements, and the codes are committed
-before they are joined to the trials. Since no X3 trial in either mode chose the
+**The traces: noticed, and not acted on.** Since no X3 trial in either mode chose the
 independent report, the coding can only tell whether Sonnet missed the shared source or
-noticed it and still followed the two reports.
+noticed it and still followed the two reports. The 112 traces with no thinking text code
+as *none*. Two fresh Claude agents coded the other 32 apart, by the rule as settled on
+2026-10-28 (`docs/decisions.md`), shuffled and without case, condition or result. They
+agreed on 31; Jason settled the last as *noticed*, and the codes were committed before
+any was joined to its trial (`runs/main/traces/coding.txt`). All 32 noticed: each says
+that two of the reports share a source, or restates the note's sentences about sources.
+
+| Reasoning on: trials (of them, chose the independent report) | none | noticed | not noticed |
+|---|---|---|---|
+| X1, short and long | 24 (0) and 24 (0) | 0 | 0 |
+| X3, short | 18 (0) | 6 (0) | 0 |
+| X3, long | 10 (0) | 14 (0) | 0 |
+| X5, short | 20 (20) | 4 (4) | 0 |
+| X5, long | 16 (16) | 8 (8) | 0 |
+
+In X3, all 20 traces noticed the shared source, and none of those trials chose the
+independent report: when Sonnet thought, it saw the dependence and still followed the
+two reports. In X5, all 12 noticed, and all chose the independent report, as every X5
+trial did. The one split, settled by Jason, is an X5 trace with short reports; the X3
+rows are the same under either coder's codes. The traces come only from the trials where
+Sonnet chose to think, 20 of X3's 48, so they say nothing of the trials where it did not.
 
 ## The confidence cross-check (Qwen 3.6 27B and Llama 4 Maverick)
 
@@ -168,6 +187,4 @@ day as well as from the wording (the first entry of 2026-10-26).
 
 ## What is left
 
-| Still open | Next step |
-|---|---|
-| The reasoning traces | Two fresh Claude agents code the 32 traces with text by the rule of 2026-10-28; Jason settles their disagreements, and the codes are committed before they are joined to the trials |
+Nothing: all four sub-experiments have run and been read.
