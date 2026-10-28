@@ -583,7 +583,8 @@ Outline only. Detailed tasks will be added after the pilot.
 - **Optional sub-experiments**: designed on 2026-10-26, each in its own entry in
   `docs/decisions.md`, and built as the entries in `OPTIONAL` (`pipeline/run.py`; the
   commands are in the README, "Running the study"). Only if budget allows, in the order
-  the proposal gives (§6).
+  the proposal gives (§6). They ran on 2026-10-28, after stage 2, from 01:00 to 01:49;
+  what they found so far: `docs/optional-report.md`.
 - **Write-up**: it must include one fully shown prompt and judge answer per block
   (`docs/proposal.pdf`, §5, "Representative evidence").
 

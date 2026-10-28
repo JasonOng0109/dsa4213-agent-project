@@ -306,10 +306,11 @@ the options, the wrong claim's offset from it, and (long reports) where the oper
 sentence sits are **rotated on a fixed schedule, not shuffled**. Twelve repeats give
 exact balance over (slot, truth position) and (truth position, wrong offset).
 
-Optional sub-experiments, run in this order if budget allows, **built but not yet run**
-(`docs/decisions.md`, 2026-10-26): a reasoning on/off comparison, a wording-robustness
-rerun with regenerated reports, a cross-check of stated against token probabilities on
-the two auxiliary models, and the independence index at long length.
+Optional sub-experiments, run in this order if budget allows, **built and run on
+2026-10-28** (`docs/decisions.md`, 2026-10-26): a reasoning on/off comparison, a
+wording-robustness rerun with regenerated reports, a cross-check of stated against token
+probabilities on the two auxiliary models, and the independence index at long length.
+What they found so far: `docs/optional-report.md`.
 
 ### Models
 
@@ -403,6 +404,7 @@ uv run --env-file .env python -m pipeline.run judge --max-calls N        # N: th
 uv run python -m pipeline.score runs/trials.jsonl
 uv run python -m pipeline.score --show-excluded runs/trials-*.jsonl   # the pilot
 uv run python -m tools.tally runs/main/trials-*.jsonl   # counts over cases, per judge
+uv run python -m tools.crosscheck runs/main/trials-cross-check.jsonl   # stated against token probabilities
 ```
 
 In the pilot, `--show-excluded` also printed n_eff and H6 for the judges the confidence
@@ -473,6 +475,7 @@ pipeline/
 tests/                    offline tests, plus a deliberately broken case fixture
 tools/check_graph.py      checks every quote in the map against its file
 tools/tally.py            counts over cases, to read results against the support table
+tools/crosscheck.py       the confidence cross-check: stated against token probabilities
 tools/probe_judges.py     the 2026-10-26 probe: temperature, thinking text, Qwen's logprobs
 runs/                     outputs of real runs (created by the first run)
 ```
@@ -543,7 +546,10 @@ Who does what next, step by step: [`docs/work-plan.md`](docs/work-plan.md).
   3.8): every judge abstained in all 20 of its P0 trials, so in the pilot Opus's and
   Sonnet's zero abstentions in the conflict block read as a null, not as a judge that
   abstains nowhere. A preview, not a finding (`runs/score-pilot-2026-10-21.txt`).
-- **Built, not run**: the four optional sub-experiments, as the entries in `OPTIONAL`
-  (`pipeline/run.py`; designs in `docs/decisions.md`, 2026-10-26). A test checks that the
+- **The optional sub-experiments have run** (2026-10-28), as the entries in `OPTIONAL`
+  (`pipeline/run.py`; designs in `docs/decisions.md`, 2026-10-26): 810 judge trials and
+  96 report calls, none stopped. Two parts wait: the reasoning traces are coded once the
+  trace rule is reviewed, and the robustness rerun is judged once Jason has read its new
+  reports. What they found so far: `docs/optional-report.md`. A test checks that the
   main programme still builds the trials and prompts stage 1 judged
   (`tests/test_run.py`).

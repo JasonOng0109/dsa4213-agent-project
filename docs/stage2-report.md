@@ -160,4 +160,4 @@ The gap here is 5.4 points, and it shows in 9 of the 10 cases.
 
 | Still open | Answered by |
 |---|---|
-| Reasoning on and off; wording robustness; stated against token probabilities; n_eff with long reports | the optional sub-experiments (`docs/decisions.md`, 2026-10-26), run from the branch `optional-arms` after stage 2 |
+| Reasoning on and off; wording robustness; stated against token probabilities; n_eff with long reports | the optional sub-experiments (`docs/decisions.md`, 2026-10-26), run from the branch `optional-arms` after stage 2: `docs/optional-report.md` |

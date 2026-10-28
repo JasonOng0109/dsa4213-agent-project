@@ -203,4 +203,5 @@ the screen, one in the abstention arm), none in the conflict block.
 | H4: following an instruction, or weighing evidence? | stage 2, `ladder` |
 | Reasoning on and off; wording robustness; stated against token probabilities; n_eff with long reports | the optional sub-experiments, designed on 2026-10-26 (`docs/decisions.md`), if funded |
 
-Stage 2 has run, and its three rows are answered in `docs/stage2-report.md`.
+Stage 2 has run, and its three rows are answered in `docs/stage2-report.md`. The
+optional sub-experiments ran on 2026-10-28: `docs/optional-report.md`.

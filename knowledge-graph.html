@@ -4254,7 +4254,7 @@ a.ref:hover { background: var(--surface-2); }
    "cluster": "conditions",
    "title": "Four optional sub-experiments",
    "label": "Optional sub-experiments",
-   "summary": "Reasoning on/off, a rerun with fresh rewordings, a check of written confidence against token probabilities, and n_eff at long length: 1,112 calls, about $2.78, in the proposal. They run in this order if budget allows. Designed and built on 2026-10-26; none has run yet.",
+   "summary": "Reasoning on/off, a rerun with fresh rewordings, a check of written confidence against token probabilities, and n_eff at long length: 1,112 calls, about $2.78, in the proposal. They run in this order if budget allows. Designed and built on 2026-10-26, and run on 2026-10-28: [[optional-results]].",
    "aliases": [
     "optional sub-experiments"
    ],
@@ -4262,7 +4262,7 @@ a.ref:hover { background: var(--surface-2); }
     {
      "file": "README.md",
      "loc": "Arms",
-     "quote": "Optional sub-experiments, run in this order if budget allows, built but not yet run"
+     "quote": "Optional sub-experiments, run in this order if budget allows, built and run on 2026-10-28"
     },
     {
      "file": "docs/proposal.pdf",
@@ -4282,6 +4282,10 @@ a.ref:hover { background: var(--surface-2); }
     {
      "to": "open-optional",
      "rel": "involves"
+    },
+    {
+     "to": "optional-results",
+     "rel": "related"
     }
    ],
    "points": [
@@ -8721,14 +8725,14 @@ a.ref:hover { background: var(--surface-2); }
    "cluster": "issues",
    "title": "The optional sub-experiments were not built",
    "label": "Optional work not built (settled)",
-   "summary": "Settled. The four optional sub-experiments are built as the entries in OPTIONAL in pipeline/run.py, chosen by name and never part of the default run. None has run yet; each runs only if the balance covers it: [[optional-build]].",
+   "summary": "Settled. The four optional sub-experiments are built as the entries in OPTIONAL in pipeline/run.py, chosen by name and never part of the default run. They ran on 2026-10-28, each after a balance check, as [[optional-build]] requires: [[optional-results]].",
    "status": "current",
    "date": "2026-10-12",
    "evidence": [
     {
      "file": "README.md",
      "loc": "Status and open items",
-     "quote": "Built, not run: the four optional sub-experiments, as the entries in OPTIONAL"
+     "quote": "The optional sub-experiments have run (2026-10-28), as the entries in OPTIONAL"
     },
     {
      "file": "pipeline/run.py",
@@ -8747,6 +8751,10 @@ a.ref:hover { background: var(--surface-2); }
     },
     {
      "to": "optional-build",
+     "rel": "related"
+    },
+    {
+     "to": "optional-results",
      "rel": "related"
     }
    ]
@@ -9658,7 +9666,8 @@ a.ref:hover { background: var(--surface-2); }
    "points": [
     "Sonnet, not GPT-5.4: it judges long reports in the main run too, and its numbers are not stuck at 100.",
     "The main run's own reasoning-off trials are not reused, since they were judged on other days: [[drift-temperature]].",
-    "In the probe, reasoning on did not force thinking: one of two identical calls thought for 0 tokens: [[judge-probe]]."
+    "In the probe, reasoning on did not force thinking: one of two identical calls thought for 0 tokens: [[judge-probe]].",
+    "Ran on 2026-10-28: no decision changed, and Sonnet thought in 32 of the 144 reasoning-on trials; the traces wait for the rule's review: [[optional-results]]."
    ],
    "evidence": [
     {
@@ -9699,6 +9708,10 @@ a.ref:hover { background: var(--surface-2); }
     {
      "to": "x3",
      "rel": "needs"
+    },
+    {
+     "to": "optional-results",
+     "rel": "related"
     }
    ]
   },
@@ -9739,7 +9752,14 @@ a.ref:hover { background: var(--surface-2); }
     {
      "to": "main-run-reading",
      "rel": "related"
+    },
+    {
+     "to": "optional-results",
+     "rel": "related"
     }
+   ],
+   "points": [
+    "The second report set was frozen on 2026-10-28, and judging waits for Jason's reading: [[optional-results]]."
    ]
   },
   {
@@ -9752,7 +9772,8 @@ a.ref:hover { background: var(--surface-2); }
    "date": "2026-10-26",
    "points": [
     "The screen runs from an irrelevant report to one naming the answer, so written confidence spans the scale: [[screen]].",
-    "Qwen failed the 2026-10-25 probe only because no reasoning setting was sent: [[judge-probe]]."
+    "Qwen failed the 2026-10-25 probe only because no reasoning setting was sent: [[judge-probe]].",
+    "Ran on 2026-10-28: stated and token probabilities both order the screen and agree trial by trial, but on an irrelevant report the tokens lean on one option far more: [[optional-results]]."
    ],
    "evidence": [
     {
@@ -9793,6 +9814,10 @@ a.ref:hover { background: var(--surface-2); }
     {
      "to": "elicitation",
      "rel": "related"
+    },
+    {
+     "to": "optional-results",
+     "rel": "related"
     }
    ]
   },
@@ -9805,7 +9830,8 @@ a.ref:hover { background: var(--surface-2); }
    "summary": "After stage 2, Sonnet judges A4, A6 and A7 with long reports on the subset cases except M38, 6 repeats: 162 calls. The scorer computes n_eff on the long arm from those cells and stage 2's long A1, borrowing A0 from the short arm, since A0 shows no reports and so has no length. M38 is left out because one of its A7 reports comes to 87 words, one under the 88-word floor. Sonnet only, because GPT-5.4's index mostly reads at ceiling.",
    "date": "2026-10-26",
    "points": [
-    "Stage 2 never judges A7 long, so its reports are not length-checked there, and no rule holds C's and D's lengths: [[long-check-scope]]. This entry checks them."
+    "Stage 2 never judges A7 long, so its reports are not length-checked there, and no rule holds C's and D's lengths: [[long-check-scope]]. This entry checks them.",
+    "Ran on 2026-10-28: n_eff is defined in all nine cases, and Sonnet still counts three copies of one source and three independent sources alike, about two each: [[optional-results]]."
    ],
    "evidence": [
     {
@@ -9848,6 +9874,10 @@ a.ref:hover { background: var(--surface-2); }
     },
     {
      "to": "long-check-scope",
+     "rel": "related"
+    },
+    {
+     "to": "optional-results",
      "rel": "related"
     }
    ]
@@ -10123,6 +10153,113 @@ a.ref:hover { background: var(--surface-2); }
     },
     {
      "to": "main-run-staged",
+     "rel": "related"
+    }
+   ]
+  },
+  {
+   "id": "optional-results",
+   "type": "finding",
+   "cluster": "pipeline",
+   "title": "The optional sub-experiments: what they found so far",
+   "label": "Optional arms: results so far",
+   "summary": "The four optional sub-experiments ran on 2026-10-28, after stage 2: 810 judge trials and 96 report calls, none stopped. With reasoning on, Claude Sonnet 5 decided exactly as with it off, and it thought in only 32 of 144 trials. The two auxiliary models' stated confidence orders the screen's three levels as their token probabilities do, and the two agree trial by trial, though on an irrelevant report the tokens lean on one option far more. With long reports Sonnet still counts three copies of one source and three independent sources alike, as about two sources each. The reasoning traces wait for the trace rule's review, and the robustness rerun for Jason's reading: docs/optional-report.md.",
+   "date": "2026-10-28",
+   "points": [
+    "Reasoning, Sonnet on M1 and M2: in both modes X1 and X3 were right in 0 of 12 trials per cell and X5 in 12 of 12, short and long. X3's P(truth) was 1 to 7 points higher with reasoning on: [[reasoning-plan]].",
+    "Thinking was rare: 32 of the 144 reasoning-on trials, all in X3 and X5, so 112 traces code as none under the rule. Since no X3 trial chose the independent report, the coding can only tell missing the shared source from noticing it and still following the two reports.",
+    "Cross-check, Qwen 3.6 27B and Llama 4 Maverick on the screen's 15 cases, read with tools/crosscheck.py: stated and token P(truth) both rise from P0 to P2, with Page's p below 0.0001, and agree trial by trial (Spearman 0.81 and 0.83). On the irrelevant report, Qwen states 25 on every option while its tokens put 77% on one: [[crosscheck-plan]], [[screen]].",
+    "n_eff at long length, Sonnet on nine cases: medians A4 1.95 and A7 1.97, against 1.86 and 1.79 short on the same cases; the 'same source' note claws back 0.47 against 0.23. Defined in all nine, none at ceiling: [[long-neff-plan]], [[neff]].",
+    "Wording robustness: the second report set for M1 and M2 is frozen and its leak check is clean; a first reading found M2's hint kept. Judging, 360 calls, waits for Jason's reading: [[robustness-plan]]."
+   ],
+   "evidence": [
+    {
+     "file": "runs/main/score-optional.txt",
+     "loc": "first line",
+     "quote": "Loaded 21090 trials. Parse failures: 1. Status counts: {'ok': 21062, 'p_sum_out_of_range': 20, 'no_match': 6, 'p_incomplete': 1, 'failed_fallback': 1}"
+    },
+    {
+     "file": "runs/main/score-optional.txt",
+     "loc": "REASONING, Sonnet",
+     "quote": "'reasoning-on-long/X3': '14/24 trials, mean 82'"
+    },
+    {
+     "file": "runs/main/score-optional.txt",
+     "loc": "N_EFF UNDEFINED, Sonnet, long",
+     "quote": "N_EFF UNDEFINED judge openrouter:anthropic/claude-sonnet-5 | long: 0/9 cells (0.00); a value at ceiling in 0/9"
+    },
+    {
+     "file": "runs/main/crosscheck.txt",
+     "loc": "Qwen",
+     "quote": "token P(truth), mean over cases at P0, P1, P2: 25.6, 48.7, 99.1; Page's L 209.0, rank correlation 0.967, one-sided p 0.0000, 15 cases"
+    },
+    {
+     "file": "runs/main/crosscheck.txt",
+     "loc": "Qwen",
+     "quote": "P0, the irrelevant report: the largest stated p is 25.0 on average, the largest token probability 77.0"
+    },
+    {
+     "file": "runs/main/crosscheck.txt",
+     "loc": "Llama",
+     "quote": "stated against token P(truth), trial by trial: Spearman 0.83, mean absolute difference 11.5 points"
+    },
+    {
+     "file": "docs/optional-report.md",
+     "loc": "Reasoning on and off",
+     "quote": "In every cell, in both modes, X1 and X3 were right in 0 of 12 trials and X5 in 12 of 12."
+    },
+    {
+     "file": "docs/optional-report.md",
+     "loc": "Reasoning on and off",
+     "quote": "Sonnet thought in 32 of the 144 reasoning-on trials"
+    },
+    {
+     "file": "docs/optional-report.md",
+     "loc": "Reasoning on and off",
+     "quote": "the coding can only tell whether Sonnet missed the shared source or noticed it and still followed the two reports"
+    },
+    {
+     "file": "docs/optional-report.md",
+     "loc": "n_eff at long length",
+     "quote": "| Clawed back by \"same source\" (A4 − A6) | 0.23 | 0.47 |"
+    },
+    {
+     "file": "docs/optional-report.md",
+     "loc": "Wording robustness",
+     "quote": "Judging, 360 calls with all three judges, waits for Jason's reading."
+    }
+   ],
+   "links": [
+    {
+     "to": "optional-subexps",
+     "rel": "needs"
+    },
+    {
+     "to": "neff",
+     "rel": "needs"
+    },
+    {
+     "to": "screen",
+     "rel": "needs"
+    },
+    {
+     "to": "reasoning-plan",
+     "rel": "related"
+    },
+    {
+     "to": "robustness-plan",
+     "rel": "related"
+    },
+    {
+     "to": "crosscheck-plan",
+     "rel": "related"
+    },
+    {
+     "to": "long-neff-plan",
+     "rel": "related"
+    },
+    {
+     "to": "main-stage2",
      "rel": "related"
     }
    ]
@@ -11119,6 +11256,21 @@ a.ref:hover { background: var(--surface-2); }
     "main-run-staged",
     "stage2-order",
     "main-stage1"
+   ]
+  },
+  {
+   "date": "2026-10-28",
+   "summary": "The four optional sub-experiments ran after stage 2, 810 judge trials and 96 report calls, and docs/optional-report.md says what they found so far: reasoning changed no decision of Sonnet's, which thought in 32 of 144 trials; the auxiliary models' stated and token probabilities order the screen alike; at long length Sonnet's n_eff stays near two for one source and for three. The traces wait for the trace rule's review, and the robustness rerun for Jason's reading.",
+   "added": [
+    "optional-results"
+   ],
+   "changed": [
+    "optional-subexps",
+    "open-optional",
+    "reasoning-plan",
+    "robustness-plan",
+    "crosscheck-plan",
+    "long-neff-plan"
    ]
   }
  ]
