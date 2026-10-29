@@ -392,7 +392,7 @@ a.ref:hover { background: var(--surface-2); }
   "title": "Project Knowledge Graph",
   "project": "DSA4213 Group 14 · Counting Reports or Counting Evidence",
   "oneLiner": "Can an AI orchestrator that combines reports from several agents tell three copies of one source from three independent sources, and which piece of information fixes its mistakes: a source name, a 'these share a source' note, or a 'this source is better' note?",
-  "updated": "2026-10-28",
+  "updated": "2026-10-29",
   "tour": [
    "question",
    "false-consensus",
@@ -4457,7 +4457,8 @@ a.ref:hover { background: var(--surface-2); }
    ],
    "points": [
     "Needs no self-report, so it still works for a judge whose numbers fail the screen.",
-    "The scorer prints each cell's chance baseline beside its stability, computed exactly for that cell's repeat count."
+    "The scorer prints each cell's chance baseline beside its stability, computed exactly for that cell's repeat count.",
+    "Stage 1: in the conflict block, a judge's 12 repeats gave its most common answer 0.97 (Opus), 0.97 (Sonnet) and 0.96 (GPT-5.4) of the time on average, against 0.41 by chance, and in A1 to A7 1.00. tools/stability.py sums the scorer's cells over cases: [[main-stage1]]."
    ],
    "data": {
     "naive": 0.25,
@@ -4491,12 +4492,31 @@ a.ref:hover { background: var(--surface-2); }
      "file": "docs/decisions.md",
      "loc": "Decision stability",
      "quote": "Decision stability is read against its own chance baseline"
+    },
+    {
+     "file": "docs/stage1-report.md",
+     "loc": "Do the judges give the same answer each time?",
+     "quote": "Conflict block (X1 to X5, 12 repeats): mean stability, against 0.41 by chance | 0.97 | 0.97 | 0.96"
+    },
+    {
+     "file": "docs/stage1-report.md",
+     "loc": "Do the judges give the same answer each time?",
+     "quote": "Agreement block (A1 to A7, 6 repeats): mean stability, against 0.47 | 1.00 | 1.00 | 1.00"
+    },
+    {
+     "file": "tools/stability.py",
+     "loc": "docstring",
+     "quote": "how many cells had every repeat"
     }
    ],
    "links": [
     {
      "to": "measures",
      "rel": "part-of"
+    },
+    {
+     "to": "main-stage1",
+     "rel": "related"
     },
     {
      "to": "rotation",
@@ -9227,6 +9247,7 @@ a.ref:hover { background: var(--surface-2); }
     "n_eff is defined in all 40 cells of every judge. GPT-5.4 stated 100 on one option in 62% of its agreement-block answers, and 35 of its 40 cells have a value at ceiling, which gives a bound, not a value: [[neff-ceiling]].",
     "Decisions in the conflict block, right out of 480 for Opus, Sonnet and GPT-5.4: with nothing disclosed (X1), 1, 2 and 26; with each source's type named (X2), 403, 193 and 283; with the dependence stated alone (X3), 63, 8 and 27; with quality stated (X4), and with both (X5), all 480 for every judge. The analysis reads these against the README's support table: [[h3]], [[h4]], [[h5]].",
     "Belief: P(truth) rose from A1 to A4 in all 40 cases for every judge, and three independent sources (A7) got about the same as three copies of one (A4). Opus and Sonnet counted both as under two sources, median n_eff(A4) 1.64 and 1.88 and n_eff(A7) 1.69 and 1.98, against 1 and 3: [[neff]].",
+    "Decisions are stable: in the conflict block a judge's 12 repeats gave its most common answer 0.96 to 0.97 of the time on average, against 0.41 by chance, and all 12 agreed in 173, 178 and 168 of 200 cells (Opus, Sonnet, GPT-5.4). Each repeat arranges the options and reports differently, and the judges ran at their providers' default temperature: [[stability]].",
     "Without the seven echo cases from the 3.4 reading, every direction holds and the counts barely move: [[main-generation]].",
     "H6: of each judge's 2,400 conflict-block records, 30 (Opus), 3 (Sonnet) and 7 (GPT-5.4) do not identify the answer given. Opus and Sonnet abstained in P0 but never in the conflict block, which the cut-offs fixed before the main run read as a clean null. GPT-5.4 abstained in 9 of its 800 conflict-block trials, all in X1 and none in a flagged record, so its test applies and gives +0.00: [[abstain-p0-check]].",
     "It ran in three lanes, judging from 13:45 to 20:26: [[stage1-lanes]]. It cost $36.78 against $34.74 planned, which left $2.11 on the key, so stage 2 waited for the top-up: [[main-run-staged]]. Stage 2's results: [[main-stage2]]."
@@ -9336,11 +9357,40 @@ a.ref:hover { background: var(--surface-2); }
      "file": "docs/stage1-report.md",
      "loc": "In short",
      "quote": "The three judges count reports, not evidence."
+    },
+    {
+     "file": "runs/main/stability-stage1.txt",
+     "loc": "Opus, arm short",
+     "quote": "X1-X5: mean 0.97 over 200 cells, every repeat agrees in 173/200; repeats 12, chance 0.41"
+    },
+    {
+     "file": "runs/main/stability-stage1.txt",
+     "loc": "Sonnet, arm short",
+     "quote": "X1-X5: mean 0.97 over 200 cells, every repeat agrees in 178/200; repeats 12, chance 0.41"
+    },
+    {
+     "file": "runs/main/stability-stage1.txt",
+     "loc": "GPT-5.4, arm short",
+     "quote": "X1-X5: mean 0.96 over 200 cells, every repeat agrees in 168/200; repeats 12, chance 0.41"
+    },
+    {
+     "file": "docs/stage1-report.md",
+     "loc": "Do the judges give the same answer each time?",
+     "quote": "Each of a conflict cell's 12 repeats arranges the options and the reports differently"
+    },
+    {
+     "file": "docs/stage1-report.md",
+     "loc": "Notes for the write-up",
+     "quote": "The judges ran at their providers' default temperature"
     }
    ],
    "links": [
     {
      "to": "screen",
+     "rel": "needs"
+    },
+    {
+     "to": "stability",
      "rel": "needs"
     },
     {
@@ -11545,6 +11595,14 @@ a.ref:hover { background: var(--surface-2); }
    ],
    "closed": [
     "open-trace-coding"
+   ]
+  },
+  {
+   "date": "2026-10-29",
+   "summary": "Decision stability, the README's second measure, is now reported for stage 1. tools/stability.py sums the scorer's cells over cases into runs/main/stability-stage1.txt, and docs/stage1-report.md reads it: in the conflict block a judge's 12 repeats gave its most common answer 0.96 to 0.97 of the time on average, against 0.41 by chance.",
+   "changed": [
+    "stability",
+    "main-stage1"
    ]
   }
  ]

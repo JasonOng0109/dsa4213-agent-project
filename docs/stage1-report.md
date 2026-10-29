@@ -1,7 +1,7 @@
 # Stage 1 of the main run: what it found
 
 Stage 1 ran on 2026-10-25 on all 40 cases. This report says what it found, hypothesis by
-hypothesis, and what is still to check. Every number comes from one of four files in
+hypothesis, and what is still to check. Every number comes from one of five files in
 `runs/main/`, all read from the same five judge logs. The commands name the logs in the
 order `runs/main/trials-*.jsonl` listed them then, since the scorer's output follows that
 order:
@@ -12,6 +12,7 @@ order:
 | `tally-stage1.txt` | `uv run python -m tools.tally` over the same five logs (counts and means over the 40 cases), with `tools/tally.py` as of commit `13cbd12`; from `573c612` on, the tool adds a sign test to the H5 lines |
 | `tally-stage1-without-echoes.txt` | the same, with `--without M3,M9,M13,M23,M28,M38,M40` |
 | `tally-stage1-h5.txt` | `tools/tally.py` from `573c612` on, over the same five logs, kept to or without the cases where a familiar institution is named (H5), each command above its output |
+| `stability-stage1.txt` | `uv run python -m tools.stability runs/main/trials-{abstain-p0,abstain,agreement,conflict,screen}.jsonl` |
 
 "P(truth)" is the probability a judge stated on the right answer, averaged over a
 condition's trials. "Right" counts decisions that match the world truth. The README's
@@ -48,6 +49,27 @@ All three passed on the 40 cases, with rank correlations of 0.95 to 0.99 and p b
 One limit: GPT-5.4 put 100 on one option in 62% of its agreement-block answers. Its
 independence index (below) therefore mostly reads "at ceiling", a bound rather than a
 value. Its decisions are not affected.
+
+## Do the judges give the same answer each time?
+
+Almost always. Decision stability is the share of a cell's repeats that give its most
+common answer (README, "Measures, in order of weight"). Random answering would score
+0.41 over 12 repeats and 0.47 over 6, not 0.25. Each of a conflict cell's 12 repeats
+arranges the options and the reports differently, and the judges ran at their providers'
+default temperature (see the notes below), so a stable answer holds through both.
+
+| | Opus | Sonnet | GPT-5.4 |
+|---|---|---|---|
+| Conflict block (X1 to X5, 12 repeats): mean stability, against 0.41 by chance | 0.97 | 0.97 | 0.96 |
+| Conflict block: cells where all 12 repeats agree, of 200 | 173 | 178 | 168 |
+| Agreement block (A1 to A7, 6 repeats): mean stability, against 0.47 | 1.00 | 1.00 | 1.00 |
+| No reports (A0, 6 repeats): mean stability, against 0.47 | 0.80 | 0.77 | 0.65 |
+
+Each judge is least stable in a condition where a disclosure moved some of its decisions
+but not all: X3 for Opus (0.90), and X2 for Sonnet (0.89) and GPT-5.4 (0.92). With no
+reports at all (A0), a judge still repeats one answer more often than chance. The other
+arms are in `runs/main/stability-stage1.txt`. The least stable are the screen's P0 and
+P1, which leave the answer open by design: 0.69 to 0.80 over 4 repeats, against 0.53.
 
 ## Results by hypothesis
 

@@ -404,6 +404,7 @@ uv run --env-file .env python -m pipeline.run judge --max-calls N        # N: th
 uv run python -m pipeline.score runs/trials.jsonl
 uv run python -m pipeline.score --show-excluded runs/trials-*.jsonl   # the pilot
 uv run python -m tools.tally runs/main/trials-*.jsonl   # counts over cases, per judge
+uv run python -m tools.stability runs/main/trials-*.jsonl   # decision stability over cases, per judge
 uv run python -m tools.crosscheck runs/main/trials-cross-check.jsonl \
     runs/main/trials-cross-check-m12.jsonl   # stated against token probabilities
 ```
@@ -480,6 +481,7 @@ pipeline/
 tests/                    offline tests, plus a deliberately broken case fixture
 tools/check_graph.py      checks every quote in the map against its file
 tools/tally.py            counts over cases, to read results against the support table
+tools/stability.py        decision stability over cases, per judge and condition
 tools/crosscheck.py       the confidence cross-check: stated against token probabilities
 tools/probe_judges.py     the 2026-10-26 probe: temperature, thinking text, Qwen's logprobs
 runs/                     outputs of real runs (created by the first run)
