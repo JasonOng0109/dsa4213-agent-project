@@ -18,8 +18,10 @@ map of the whole project, where every statement links to the file it comes from.
 > message tell it (a source ID, a source type, that reports share a source, or which
 > source is more reliable) before its belief and its decision follow the evidence?
 
-The slides and the write-up use this wording, agreed on 2026-10-26 in answer to the TA's
-feedback on the proposal (`docs/decisions.md`).
+The slides use this wording, agreed on 2026-10-26 in answer to the TA's feedback on the
+proposal (`docs/decisions.md`). The final report quotes its last sentence, the question
+itself, word for word, and its introduction carries the rest (`docs/decisions.md`,
+2026-11-05).
 
 The question has two halves, and the study keeps them apart:
 
@@ -359,7 +361,8 @@ $$n_\text{eff}(c) = \frac{l(c) - l(A0)}{l(A1) - l(A0)}$$
 the number of independent sources the judge behaved as if it saw. Normatively
 $n_\text{eff}(A4) = 1$ (three reports, one source) and $n_\text{eff}(A7) = 3$ (three
 sources), so $n_\text{eff}(A4) - 1$ is credited independence that does not exist and
-$n_\text{eff}(A4) - n_\text{eff}(A6)$ is what a dependence statement claws back. It is
+$n_\text{eff}(A4) - n_\text{eff}(A6)$ is what the identifier and the dependence statement
+together claw back. It is
 undefined where one report moves the judge by less than 0.2 logits, an anomaly where it
 moves belief the wrong way, and reported only for judges that pass the screen. A cell
 whose mean P(truth) is outside 1-99%, the clip applied before the logit, gives a bound,
@@ -407,6 +410,7 @@ uv run python -m tools.tally runs/main/trials-*.jsonl   # counts over cases, per
 uv run python -m tools.stability runs/main/trials-*.jsonl   # decision stability over cases, per judge
 uv run python -m tools.crosscheck runs/main/trials-cross-check.jsonl \
     runs/main/trials-cross-check-m12.jsonl   # stated against token probabilities
+uv run python -m report.numbers           # the numbers the final report adds
 ```
 
 In the pilot, `--show-excluded` also printed n_eff and H6 for the judges the confidence
@@ -452,6 +456,47 @@ uv run --env-file .env python -m pipeline.run judge --out runs/main --max-calls 
 Real outputs are evidence: they are never overwritten, and they are committed. Dry runs
 write to `runs/mock/`, which is ignored.
 
+## Reproducibility and documentation
+
+The final report keeps to the study itself, so this section holds what a reader needs to
+check it (`docs/decisions.md`, 2026-11-05).
+
+**What the repository holds.** Everything the results rest on: the 40 case files, the
+pipeline, the frozen reports with every candidate's acceptance scores
+(`runs/main/generation_report.json`), and every trial log, each record keeping the raw
+reply, the parse, the provider, the token usage and the cost.
+
+**Checking the numbers needs no API key.** Each command below rebuilds a committed output
+byte for byte (checked on 2026-11-05). The logs are named in this order because the
+scorer's output follows it.
+
+```bash
+# runs/main/score-stage1.txt
+uv run python -m pipeline.score --show-excluded runs/main/trials-{abstain-p0,abstain,agreement,conflict,screen}.jsonl
+# runs/main/stability-stage1.txt
+uv run python -m tools.stability runs/main/trials-{abstain-p0,abstain,agreement,conflict,screen}.jsonl
+# runs/main/score-stage2.txt
+uv run python -m pipeline.score --show-excluded runs/main/trials-{abstain-p0,abstain,agreement,conflict,ladder,long-agreement,long-conflict,screen}.jsonl
+# runs/main/tally-stage2.txt
+uv run python -m tools.tally runs/main/trials-{abstain-p0,abstain,agreement,conflict,ladder,long-agreement,long-conflict,screen}.jsonl
+```
+
+The command behind every other output is at the top of the stage reports
+(`docs/stage1-report.md`, `docs/stage2-report.md`, `docs/optional-report.md`). Without a
+key, `uv run pytest` runs the offline tests with network sockets disabled,
+`pipeline.lint` checks every case, and `pipeline.run dry` builds the whole programme on
+the mock backend. `uv run python -m report.numbers` prints the numbers the report adds to
+the stage reports.
+
+**Where the reasoning is written down.**
+
+| File | What it holds |
+|---|---|
+| `docs/decisions.md` | every decision: what was decided, why, what was rejected and what breaks if it changes, including each departure from the proposal, recorded when it was made |
+| `docs/methods.md` | how each statistical method works, with worked examples: the screen's test, its significance level, the H6 margin and AUROC |
+| `knowledge-graph.html` | the project map: every node quotes the file it rests on, and `tools/check_graph.py` fails when a quote stops matching its source |
+| `docs/stage1-report.md`, `docs/stage2-report.md`, `docs/optional-report.md` | what each stage found, hypothesis by hypothesis, with the command behind each file |
+
 ## Repository layout
 
 ```
@@ -487,12 +532,23 @@ tools/probe_judges.py     the 2026-10-26 probe: temperature, thinking text, Qwen
 runs/                     outputs of real runs (created by the first run)
   main/                   the main run and the optional sub-experiments
   robustness/             the wording-robustness rerun's reports and trials, scored apart
+report/                   the final report
+  main.tex                its LaTeX source; latexmk -pdf main.tex builds main.pdf
+  references.bib          its references, as listed in the proposal
+  numbers.py              the few numbers it adds to the stage reports
 ```
 
 ## Status and open items
 
 Who does what next, step by step: [`docs/work-plan.md`](docs/work-plan.md).
 
+- **The final report is written** (2026-11-04, revised 2026-11-05 after Jason's comments):
+  `report/main.pdf`, built from `report/main.tex`. It reads each hypothesis against the
+  support table above, shows one full prompt and reply per block, and lists the main
+  deviations from the planned design.
+  `uv run python -m report.numbers` prints the few numbers it adds to the stage reports,
+  among them a limit on the independence index: Opus never stated more than 97 on the
+  truth in A3, A4 or A7, so its index cannot rise much above 2.
 - **Corpus: 40 of 40 cases.** M1 (institutional logistics, authority, T2), M2 (product
   specification, primary source, T1), M3 (incident status, directness, T1), M4 (product
   specification, method, T1), M5 (incident status, authority, T1), M6 (institutional

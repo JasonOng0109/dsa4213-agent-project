@@ -392,7 +392,7 @@ a.ref:hover { background: var(--surface-2); }
   "title": "Project Knowledge Graph",
   "project": "DSA4213 Group 14 · Counting Reports or Counting Evidence",
   "oneLiner": "Can an AI orchestrator that combines reports from several agents tell three copies of one source from three independent sources, and which piece of information fixes its mistakes: a source name, a 'these share a source' note, or a 'this source is better' note?",
-  "updated": "2026-10-29",
+  "updated": "2026-11-05",
   "tour": [
    "question",
    "false-consensus",
@@ -524,7 +524,7 @@ a.ref:hover { background: var(--surface-2); }
    "points": [
     "Half one: does the mistake still happen when the repeated reports are reworded, not copied?",
     "Half two: which piece of disclosed information fixes it? [[provenance|Provenance]] is treated as a dial with several settings, not an on/off switch.",
-    "This wording was agreed on 2026-10-26 in answer to the TA's feedback on the proposal, and the slides and the write-up use it: [[question-refined]]."
+    "This wording was agreed on 2026-10-26 in answer to the TA's feedback on the proposal, and the slides use it, while the final report quotes its question sentence: [[question-refined]]."
    ],
    "evidence": [
     {
@@ -638,7 +638,7 @@ a.ref:hover { background: var(--surface-2); }
    "cluster": "problem",
    "title": "The research question names the aggregation step and the lost source record",
    "label": "Question: agreed wording",
-   "summary": "The TA's one critical comment on the proposal: the orchestrator is a single call reading fixed text, so why frame the study around multi-agent systems, when the aim seems no different from how one LLM weighs repeated reports? Kathleen drafted a refined research question for the slides and accepted Jason's two edits to it. First, a shared base model no longer counts as what makes reports correlated: it makes agents err alike, but it does not make one source arrive as several reports. Second, the question now says what a multi-agent system has that one LLM reading copied articles does not: a record of which reports share a source, which the text the orchestrator reads does not show. README's research question carries this wording, and the slides and the write-up use it.",
+   "summary": "The TA's one critical comment on the proposal: the orchestrator is a single call reading fixed text, so why frame the study around multi-agent systems, when the aim seems no different from how one LLM weighs repeated reports? Kathleen drafted a refined research question for the slides and accepted Jason's two edits to it. First, a shared base model no longer counts as what makes reports correlated: it makes agents err alike, but it does not make one source arrive as several reports. Second, the question now says what a multi-agent system has that one LLM reading copied articles does not: a record of which reports share a source, which the text the orchestrator reads does not show. README's research question carries this wording and the slides use it. Since 2026-11-05 the final report quotes only its last sentence, the question itself, and its introduction carries the rest.",
    "date": "2026-10-26",
    "points": [
     "Every report the judge reads, A7's three independent ones included, is a rewording by one [[reporter]], so counting a shared model as a shared source would make [[a7]] dependent too.",
@@ -5869,9 +5869,10 @@ a.ref:hover { background: var(--surface-2); }
     "independence index"
    ],
    "points": [
-    "Derived numbers: CN = n_eff(A4) − 1 (credit for independence that is not there); IS = n_eff(A7) − n_eff(A4) (should be 2); RP = n_eff(A4) − n_eff(A6) (what the 'same source' note claws back).",
+    "Derived numbers: CN = n_eff(A4) − 1 (credit for independence that is not there); IS = n_eff(A7) − n_eff(A4) (should be 2); RP = n_eff(A4) − n_eff(A6) (what the source ID and the 'same source' note together claw back, since A6 is A5 plus the note).",
     "Guards: undefined when one report moves belief by less than 0.2 logits; a negative step is an anomaly ([[negative-step]]); only for judges that pass the [[screen]]; per judge and case, never pooled; a cell beyond the 1–99% clip reads \"at ceiling\", and so does every number computed from it: [[neff-ceiling]].",
-    "It is a behaviour index on the judge's own scale, not its internal probability."
+    "It is a behaviour index on the judge's own scale, not its internal probability.",
+    "Its top end is bounded by each judge's own stated scale, which the 1-99% clip does not catch: [[neff-scale-cap]]."
    ],
    "evidence": [
     {
@@ -10219,7 +10220,7 @@ a.ref:hover { background: var(--surface-2); }
     "Reasoning, Sonnet on M1 and M2: in both modes X1 and X3 were right in 0 of 12 trials per cell and X5 in 12 of 12, short and long. X3's P(truth) was 1 to 7 points higher with reasoning on: [[reasoning-plan]].",
     "Thinking was rare: 32 of the 144 reasoning-on trials, all in X3 and X5, so 112 traces code as none. The other 32 were coded by [[trace-rule]], and all noticed the shared source: in X3 none of those 20 trials chose the independent report, so when Sonnet thought, it noticed the dependence and still followed the two reports: [[open-trace-coding]].",
     "Cross-check, Qwen 3.6 27B and Llama 4 Maverick on the screen's 15 cases, M12 in M10's place, read with tools/crosscheck.py: stated and token P(truth) both rise from P0 to P2, with Page's p below 0.0001. Trial by trial the Spearman correlation is 0.83 and 0.81, but 0.79 and 0.76 within P1 alone. On the irrelevant report, Qwen states 25 on every option while its tokens put 77% on one: [[crosscheck-plan]], [[crosscheck-m12]], [[screen]].",
-    "n_eff at long length, Sonnet on nine cases: medians A4 1.95 and A7 1.97, against 1.86 and 1.79 short on the same cases; the 'same source' note claws back 0.47 against 0.23. Defined in all nine, none at ceiling: [[long-neff-plan]], [[neff]].",
+    "n_eff at long length, Sonnet on nine cases: medians A4 1.95 and A7 1.97, against 1.86 and 1.79 short on the same cases; the source ID and 'same source' note claw back 0.47 against 0.23. Defined in all nine, none at ceiling: [[long-neff-plan]], [[neff]].",
     "Wording robustness, a second report set for M1 and M2, judged on 2026-10-28: the conflict block's decisions held. X1 and X3 were never right and X4 and X5 always, for all three judges; only X2 moved, Sonnet from 9 to 13 of 24 and GPT-5.4 from 22 to 24. P(truth) moved by at most 7.5 points in any case and condition, and the two sets were judged on different days: [[robustness-plan]]."
    ],
    "evidence": [
@@ -10548,6 +10549,343 @@ a.ref:hover { background: var(--surface-2); }
     },
     {
      "to": "tally-tool",
+     "rel": "related"
+    }
+   ]
+  },
+  {
+   "id": "final-report",
+   "type": "process",
+   "cluster": "process",
+   "title": "The final report",
+   "label": "Final report",
+   "summary": "The write-up of the whole study for the course: report/main.tex, built into report/main.pdf. It reads each hypothesis against the table fixed before any data, shows one full prompt and reply per block, and lists the main deviations from the planned design. Its headline: with nothing disclosed, the judges counted reports; told that two reports share a source, they grew less sure but mostly kept their answer; told which source is the primary record, they chose it. The design's one claim held for the two notes it contrasts, but 'only' proved too strong, since naming source types also moved many decisions. A few numbers the stage reports lack come from report/numbers.py. An independent review of the first draft led to the second, which states H6 and the reasoning traces at their real strength. Jason's comments of 2026-11-05 led to the third, which stands alone: [[report-stands-alone]]. A blinded review of that draft narrowed four of its claims: [[report-blind-review]].",
+   "date": "2026-11-04",
+   "points": [
+    "Numbers it adds, from report/numbers.py: the reporter's acceptance rate (721 of 972 candidates passed every check on the candidate alone, 280 were frozen), the top of each judge's stated scale ([[neff-scale-cap]]), right decisions in X2 by quality dimension, the wording ladder's belief on A's claim, and sign tests for the stage 2 comparisons.",
+    "It builds on [[main-stage1]], [[main-stage2]] and [[optional-results]], reads them against [[precommit]], and tests [[headline-claim]].",
+    "Its cost table shows logged spend only: [[report-logged-spend]].",
+    "Table 5 gives the nuisance pattern for GPT-5.4 with long reports as well as for Opus. The report also says the table set no number for an unchanged decision rate, with one-sided sign tests beside it, and that the figures have no error bars, with 95% intervals from resampling cases. report/numbers.py prints these.",
+    "Its authors are listed by contribution, it quotes only the sentence that asks the research question ([[question-refined]]), and its writing rules are in the decision log."
+   ],
+   "evidence": [
+    {
+     "file": "report/main.tex",
+     "loc": "Introduction",
+     "quote": "The design was built to test one claim, that disclosure about sources changes what an aggregator believes, while only a statement of relative quality changes what it chooses"
+    },
+    {
+     "file": "report/main.tex",
+     "loc": "Introduction",
+     "quote": "The claim therefore held for the two statements it contrasts"
+    },
+    {
+     "file": "README.md",
+     "loc": "Status and open items",
+     "quote": "It reads each hypothesis against the support table above, shows one full prompt and reply per block, and lists the main deviations from the planned design."
+    },
+    {
+     "file": "report/numbers.py",
+     "loc": "docstring",
+     "quote": "The few numbers the final report adds to the stage reports"
+    },
+    {
+     "file": "report/numbers.py",
+     "loc": "docstring",
+     "quote": "95% intervals from resampling cases"
+    },
+    {
+     "file": "report/main.tex",
+     "loc": "Table 5",
+     "quote": "and for GPT-5.4 with long reports (18 of 120 right, all in T1)"
+    },
+    {
+     "file": "docs/decisions.md",
+     "loc": "Table 5 names GPT-5.4's long-report pattern, and the report adds sign tests and intervals",
+     "quote": "These numbers come from the committed logs, so they need no run."
+    }
+   ],
+   "links": [
+    {
+     "to": "main-stage1",
+     "rel": "needs"
+    },
+    {
+     "to": "main-stage2",
+     "rel": "needs"
+    },
+    {
+     "to": "optional-results",
+     "rel": "needs"
+    },
+    {
+     "to": "precommit",
+     "rel": "needs"
+    },
+    {
+     "to": "headline-claim",
+     "rel": "tests"
+    },
+    {
+     "to": "proposal",
+     "rel": "related"
+    },
+    {
+     "to": "neff-scale-cap",
+     "rel": "related"
+    },
+    {
+     "to": "report-stands-alone",
+     "rel": "related"
+    },
+    {
+     "to": "report-logged-spend",
+     "rel": "related"
+    },
+    {
+     "to": "report-blind-review",
+     "rel": "related"
+    }
+   ]
+  },
+  {
+   "id": "report-blind-review",
+   "type": "decision",
+   "cluster": "process",
+   "title": "A blinded review narrows four of the report's claims",
+   "label": "Report: blinded review",
+   "summary": "A reviewer that could read only the PDF found four claims too strong, and the report now narrows each. The dissociation is called a difference of size, since decisions followed each judge's top stated probability. H4's reading as weighing evidence cannot rule out compliance, because every note favoured the truth. The conclusion recommends relative source quality alone, since beside a quality note the dependency flag changed no decision. And the report says again that the rewording hid the shared source, so the normative index values are what a judge that knew the sources would give.",
+   "date": "2026-11-05",
+   "points": [
+    "A6 is A5 plus the note, so n_eff(A4) minus n_eff(A6) is what the identifier and the note claw back together: [[neff]].",
+    "No more runs are allowed, so the checks the review asked for that need new trials, such as a false quality note, stay as limits and next steps in the report.",
+    "The review's claim that 'fixed before any data' is untrue does not hold for the table itself, which is unchanged since before the pilot: [[precommit]]."
+   ],
+   "evidence": [
+    {
+     "file": "docs/decisions.md",
+     "loc": "A blinded review narrows four of the report's claims",
+     "quote": "a reviewer that could read only the PDF found four claims too strong"
+    },
+    {
+     "file": "docs/decisions.md",
+     "loc": "No more runs: open checks stay as caveats and future work",
+     "quote": "the study takes no more judge or generation runs"
+    },
+    {
+     "file": "report/main.tex",
+     "loc": "Discussion",
+     "quote": "The dissociation is therefore a difference of size."
+    },
+    {
+     "file": "report/main.tex",
+     "loc": "Section 4.3",
+     "quote": "Every note favoured the truth, however, so this result cannot rule out simple compliance."
+    },
+    {
+     "file": "report/main.tex",
+     "loc": "Conclusion",
+     "quote": "A dependency flag is cheap and moves belief, but alone it changed few decisions, and beside a quality note it changed none."
+    }
+   ],
+   "links": [
+    {
+     "to": "final-report",
+     "rel": "needs"
+    },
+    {
+     "to": "headline-claim",
+     "rel": "related"
+    },
+    {
+     "to": "h3",
+     "rel": "related"
+    },
+    {
+     "to": "h4",
+     "rel": "related"
+    },
+    {
+     "to": "precommit",
+     "rel": "related"
+    }
+   ]
+  },
+  {
+   "id": "report-stands-alone",
+   "type": "decision",
+   "cluster": "process",
+   "title": "The report stands alone, and reproducibility and documentation live in the README",
+   "label": "Report stands alone",
+   "summary": "After Jason's comments, the report cites no repository file, no README, no proposal and no calendar date, and its reproducibility section and appendix of commands are gone. What they said is now the README section Reproducibility and documentation, and the report points to the repository by its URL. Responsible practice sits under Risks, with Jason's sentence on how Claude was used. The departures appendix stays as Deviations from the planned design, without proposal sections, dates or budget rows.",
+   "date": "2026-11-05",
+   "points": [
+    "Durations such as 'six days apart' stay, since the drift limitation needs them.",
+    "Every byte-for-byte rebuild the README lists was rerun on 2026-11-05 and matched its committed file."
+   ],
+   "evidence": [
+    {
+     "file": "docs/decisions.md",
+     "loc": "The report stands alone, and reproducibility and documentation live in the README",
+     "quote": "cites no repository file, no README, no proposal and no calendar date"
+    },
+    {
+     "file": "docs/decisions.md",
+     "loc": "The report stands alone, and reproducibility and documentation live in the README",
+     "quote": "a grader reaches that rubric item only through the README"
+    },
+    {
+     "file": "README.md",
+     "loc": "Reproducibility and documentation",
+     "quote": "Each command below rebuilds a committed output byte for byte (checked on 2026-11-05)."
+    },
+    {
+     "file": "report/main.tex",
+     "loc": "Conclusion",
+     "quote": "Code, cases, frozen reports, trial logs and instructions for reproducing every number are at"
+    }
+   ],
+   "links": [
+    {
+     "to": "final-report",
+     "rel": "needs"
+    },
+    {
+     "to": "proposal",
+     "rel": "related"
+    },
+    {
+     "to": "precommit",
+     "rel": "related"
+    }
+   ]
+  },
+  {
+   "id": "report-logged-spend",
+   "type": "decision",
+   "cluster": "process",
+   "title": "The report's cost table shows logged spend only",
+   "label": "Report: logged spend",
+   "summary": "The report's cost table lists logged spend, $52.19 over 27,768 calls, with no planned column and no row for what the logs do not itemize. The word logged keeps that figure accurate, because the key's balance readings show about $4.3 more spent before stage 1, so the total was about $56.5. That fuller record stays in the decision log.",
+   "date": "2026-11-05",
+   "evidence": [
+    {
+     "file": "docs/decisions.md",
+     "loc": "The report's cost table shows logged spend only",
+     "quote": "the report's cost table lists logged spend, $52.19 over 27,768 calls"
+    },
+    {
+     "file": "docs/decisions.md",
+     "loc": "The report's cost table shows logged spend only",
+     "quote": "so the total was about $56.5, within the $75 the proposal requested"
+    },
+    {
+     "file": "report/main.tex",
+     "loc": "Section 6, Costs",
+     "quote": "lists the logged API spend, which came to \\$52.19"
+    }
+   ],
+   "links": [
+    {
+     "to": "final-report",
+     "rel": "needs"
+    },
+    {
+     "to": "cost-model",
+     "rel": "related"
+    }
+   ]
+  },
+  {
+   "id": "neff-scale-cap",
+   "type": "finding",
+   "cluster": "measuring",
+   "title": "The independence index is capped by each judge's own scale",
+   "label": "n_eff capped by scale",
+   "summary": "Opus never stated more than 97 on the truth in any of its 720 A3, A4 and A7 trials, and its most common value was 94 in both A4 and A7. With its mean A0 and A1, three sources adding in log-odds would need 99.7, so its n_eff cannot rise much above 2 and three independent sources (A7, normatively 3) read as 1.69. Sonnet stated 100 in about a quarter of its A4 and A7 trials, and GPT-5.4 so often that its index is a bound in 35 of 40 cases. Comparisons with the normative 3 are therefore weak; the mid-scale cell A6 carries the index's evidence. The scorer's 1-99% ceiling rule does not catch a judge whose own top is 97. Found while writing the final report.",
+   "date": "2026-11-04",
+   "evidence": [
+    {
+     "file": "report/main.tex",
+     "loc": "Section 4.2",
+     "quote": "Opus never stated more than 97 in any of its 720 A3, A4 and A7 trials, and its most common value was 94 in both A4 and A7"
+    },
+    {
+     "file": "report/main.tex",
+     "loc": "Section 4.2",
+     "quote": "At 97 its index reaches only about 2, so the normative 3 for A7 was out of reach"
+    },
+    {
+     "file": "report/main.tex",
+     "loc": "Limitations",
+     "quote": "the mid-scale cell A6 carries the index's evidence"
+    },
+    {
+     "file": "report/numbers.py",
+     "loc": "docstring",
+     "quote": "the top of each judge's stated scale in A1, A3, A4 and A7: its largest P(truth), its most common value, and how often it stated 100 (this bounds the independence index)"
+    },
+    {
+     "file": "README.md",
+     "loc": "The independence index",
+     "quote": "A cell whose mean P(truth) is outside 1-99%, the clip applied before the logit, gives a bound, not a value"
+    }
+   ],
+   "links": [
+    {
+     "to": "neff",
+     "rel": "needs"
+    },
+    {
+     "to": "neff-ceiling",
+     "rel": "related"
+    },
+    {
+     "to": "main-stage1",
+     "rel": "related"
+    },
+    {
+     "to": "final-report",
+     "rel": "related"
+    }
+   ]
+  },
+  {
+   "id": "drift-filler-sentences",
+   "type": "issue",
+   "cluster": "issues",
+   "title": "The work plan asked for five filler sentences per set",
+   "label": "Filler sentence count (settled)",
+   "summary": "Settled. Work-plan step 1.7 asked authors for three lists of five neutral sentences, as in M1, but R20 sizes each filler set in words, and authors added sentences to reach that length. The first draft of the final report repeated the five-sentence wording, and its review caught it. The step now says that length is counted in words, so a list may need more than M1's five sentences.",
+   "status": "current",
+   "date": "2026-11-04",
+   "evidence": [
+    {
+     "file": "docs/work-plan.md",
+     "loc": "1.7 Write the filler",
+     "quote": "Length is counted in words, not sentences (R20 below), so a list may need more sentences than M1's five."
+    },
+    {
+     "file": "docs/authoring-rules.md",
+     "loc": "R20",
+     "quote": "Count each whole set, not each sentence."
+    },
+    {
+     "file": "docs/work-plan.md",
+     "absent": "three lists of five neutral sentences"
+    }
+   ],
+   "links": [
+    {
+     "to": "status-board",
+     "rel": "part-of"
+    },
+    {
+     "to": "rules-filler",
+     "rel": "needs"
+    },
+    {
+     "to": "final-report",
      "rel": "related"
     }
    ]
@@ -11604,6 +11942,41 @@ a.ref:hover { background: var(--surface-2); }
     "stability",
     "main-stage1"
    ]
+  },
+  {
+   "date": "2026-11-04",
+   "summary": "The final report is written (report/main.tex, built into report/main.pdf) and revised after an independent review. report/numbers.py prints the few numbers it adds, among them a limit on n_eff: Opus never states more than 97 on the truth in A3, A4 or A7, so its index cannot rise much above 2. Work-plan step 1.7 still asked for five filler sentences per set, which R20's word count had replaced; it now counts words.",
+   "added": [
+    "final-report",
+    "neff-scale-cap",
+    "drift-filler-sentences"
+   ],
+   "changed": [
+    "neff"
+   ],
+   "opened": [
+    "drift-filler-sentences"
+   ],
+   "closed": [
+    "drift-filler-sentences"
+   ]
+  },
+  {
+   "date": "2026-11-05",
+   "summary": "The final report was revised after Jason's comments. It now stands alone: no repository paths, proposal references or calendar dates. Its reproducibility section and commands appendix are gone, and what they said is a new README section. Responsible practice sits under Risks, the departures appendix became Deviations from the planned design, the cost table shows logged spend only, the authors are listed by contribution, and only the sentence that asks the research question is quoted. A blinded review then narrowed four claims, and n_eff(A4) minus n_eff(A6) is now described as what the identifier and the note claw back together. No more runs are allowed, so what needs new trials stays as caveats and future work. Table 5 now gives GPT-5.4's long-report pattern, and the report adds sign tests and intervals computed from the committed logs.",
+   "added": [
+    "report-stands-alone",
+    "report-logged-spend",
+    "report-blind-review"
+   ],
+   "changed": [
+    "final-report",
+    "question",
+    "question-refined",
+    "neff",
+    "neff-scale-cap",
+    "optional-results"
+   ]
   }
  ]
 }</script>
@@ -11924,7 +12297,7 @@ const VISUALS = {
     [0, 1, 2, 3].forEach(k => { b += `<line x1="${80 + k * u}" x2="${80 + k * u}" y1="88" y2="94" class="v-axis"/>` + T(80 + k * u, 106, k, 'v-small', 'middle'); });
     b += T(80, 122, 'independent sources the judge acts as if it saw', 'v-small');
     return fig(`<div class="mono" style="text-align:center;font-size:13px">n_eff(c) = ( l(c) − l(A0) ) ÷ ( l(A1) − l(A0) )</div>` + svgWrap(420, 128, b, 'Normative n_eff values: A4 1, A6 1, A7 3')
-      + `<table class="vtable" style="margin-top:6px"><tbody><tr><td><b>CN</b> = n_eff(A4) − 1</td><td>credit for independence that is not there · should be 0</td></tr><tr><td><b>IS</b> = n_eff(A7) − n_eff(A4)</td><td>tells copies from real sources · should be 2</td></tr><tr><td><b>RP</b> = n_eff(A4) − n_eff(A6)</td><td>what the “same source” note claws back</td></tr></tbody></table>`,
+      + `<table class="vtable" style="margin-top:6px"><tbody><tr><td><b>CN</b> = n_eff(A4) − 1</td><td>credit for independence that is not there · should be 0</td></tr><tr><td><b>IS</b> = n_eff(A7) − n_eff(A4)</td><td>tells copies from real sources · should be 2</td></tr><tr><td><b>RP</b> = n_eff(A4) − n_eff(A6)</td><td>what the source ID and “same source” note claw back together</td></tr></tbody></table>`,
       'l(c) is the log-odds of the judge’s stated probability on the truth in condition c. The bottom of the fraction is one report’s step, w. A cell beyond the 1–99% clip reads “at ceiling”, and so does every number computed from it.');
   },
   screenDesign(n) {
