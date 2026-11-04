@@ -153,8 +153,8 @@ stage 1's value on the same nine cases.
 
 With long reports, as with short ones, Sonnet treats three copies of one source and
 three independent sources alike, both as about two sources. A4 is higher at long length
-in 5 of the 9 cases, so length moves it in no consistent direction. The "same source"
-note claws back about half a source, twice the short figure. The long cells were judged
+in 5 of the 9 cases, so length moves it in no consistent direction. The source ID and "same source"
+note together claw back about half a source, twice the short figure. The long cells were judged
 on 2026-10-27 (A1) and 2026-10-28 (A4, A6, A7), the short ones on 2026-10-25, so the
 comparison crosses days.
 

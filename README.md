@@ -359,7 +359,8 @@ $$n_\text{eff}(c) = \frac{l(c) - l(A0)}{l(A1) - l(A0)}$$
 the number of independent sources the judge behaved as if it saw. Normatively
 $n_\text{eff}(A4) = 1$ (three reports, one source) and $n_\text{eff}(A7) = 3$ (three
 sources), so $n_\text{eff}(A4) - 1$ is credited independence that does not exist and
-$n_\text{eff}(A4) - n_\text{eff}(A6)$ is what a dependence statement claws back. It is
+$n_\text{eff}(A4) - n_\text{eff}(A6)$ is what the identifier and the dependence statement
+together claw back. It is
 undefined where one report moves the judge by less than 0.2 logits, an anomaly where it
 moves belief the wrong way, and reported only for judges that pass the screen. A cell
 whose mean P(truth) is outside 1-99%, the clip applied before the logit, gives a bound,
