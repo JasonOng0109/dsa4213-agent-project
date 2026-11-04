@@ -1460,3 +1460,149 @@ Add an entry when you make a choice a reader could not guess from the code.
   its replies answer by value but give "p" by number.
 - **Breaks if changed**: with M10 in, some trials count the truth's probability on the
   wrong option, in the stated numbers and in the tokens alike.
+
+### 2026-11-05 — The report stands alone, and reproducibility and documentation live in the README
+
+- **Decision**: `report/main.tex` cites no repository file, no README, no proposal and no
+  calendar date, and it has no section on reproducibility and no appendix of commands.
+  What they said is now the README section "Reproducibility and documentation", and the
+  report points to the repository by its URL, under the authors and at the end of the
+  conclusion. The responsible-practice text sits under Risks in Section 6, with Jason's
+  sentence on how Claude was used. The departures appendix stays as "Deviations from the
+  planned design", without proposal sections, dates or budget rows, and the main text says
+  "planned" or "fixed before any data" where it said "the proposal". Durations such as
+  "six days apart" stay, since the drift limitation needs them. Authoring-rule numbers go
+  too, since the report no longer cites the rules.
+- **Why** [STATED: Jason's comments on the report, 2026-11-05]: "keep the content within
+  the paper itself", and of the old Section 7, "No proper research paper will contain
+  these unnecessary information". The rubric's item on reproducibility, documentation and
+  responsible practice is to be "achieved within a well-documented README.md". Jason
+  settled the scope when asked: every calendar date and every repository path go, the
+  commands appendix goes with one sentence left to point at the repository, and the
+  departures appendix stays, reframed, without the budget rows.
+- **Rejected**: removing only the three references Jason named, which would leave 18 other
+  paths; deleting the departures appendix, which backs the claim that the reading was
+  fixed before any data; keeping the commands appendix.
+- **Breaks if changed**: a grader reaches that rubric item only through the README, so the
+  README section has to stay true. A repository path in the report sends a reader outside
+  the paper for what it should state itself.
+
+### 2026-11-05 — The report's cost table shows logged spend only
+
+- **Decision**: the report's cost table lists logged spend, $52.19 over 27,768 calls, with
+  no planned column and no row for what the logs do not itemize, and the report calls the
+  figure "logged". The full record stays here. The key's balance readings show about $4.3
+  more spent before stage 1 than the logs itemize ($38.93 of $50 left on 2026-10-22, $2.11
+  after stage 1), so the total was about $56.5, within the $75 the proposal requested.
+- **Why** [STATED: Jason's comments on the report, 2026-11-05]: the proposal, the course's
+  API limit, the top-up and the approval of paid steps are "unnecessary to a human reader",
+  and the note on the pilot's unlogged cost goes too. That note explained the $4.3, so
+  Jason was asked how the table should read without it and chose logged spend only.
+- **Rejected**: keeping one unexplained row, so that the report's total stays about $56.5;
+  keeping the planned column, renamed "Estimated".
+- **Breaks if changed**: calling $52.19 the total spend, without "logged", understates it
+  by about $4.3.
+
+### 2026-11-05 — The report lists its authors by contribution
+
+- **Decision**: the report's author list and its team-roles appendix run Ong Jia Xi, Lee
+  Kai Rong, Kathleen Pang Qi Yu, Ee Rui Kai Rachel, Crystal Lai Qiaohui.
+- **Why** [STATED: Jason's comments on the report, 2026-11-05]: "sort author list by
+  contributions. me, kairong, kathleen, rachel, crystal."
+- **Rejected**: the alphabetical order of the first draft.
+- **Breaks if changed**: nothing in the code; the order states who contributed most.
+
+### 2026-11-05 — The report quotes only the research question's last sentence
+
+- **Decision**: the report quotes the sentence that asks the research question, word for
+  word. Its introduction carries the three sentences of context, with a worked example of
+  three workers and one document, and the README keeps the whole statement. This narrows
+  the 2026-10-26 entry, under which the write-up used all four sentences.
+- **Why** [STATED: Jason's comments on the report, 2026-11-05]: repeated sentences and
+  arguments are to be cut, and "three apparent witnesses" and "three independent
+  confirmations" were "claims without any context clearly defined beforehand". The block
+  repeated the abstract and the introduction, so Jason was asked and chose to quote the
+  question alone.
+- **Rejected**: keeping all four sentences, as agreed on 2026-10-26.
+- **Breaks if changed**: nothing in the code. The report answers the TA's question only
+  while its introduction says what record a multi-agent system holds and how it is lost.
+
+### 2026-11-05 — The report's writing rules, and its title stays
+
+- **Decision**: in `report/main.tex` a table, figure or section is named in the sentence
+  ("Table 2 lists ...") or as "(see Table 2)", never as a bare "(Table 2)". Prose has no
+  mid-sentence colons and no sentence that announces a result before stating it. Tables and
+  figures sit at paragraph boundaries (`[H]`), never inside a paragraph or a list. The
+  title keeps its form, "Counting Reports or Counting Evidence: ...", which stays the
+  project's name.
+- **Why** [STATED: Jason's comments on the report, 2026-11-05]: "state the number directly
+  instead of putting inside parenthetical statement", and his examples of what to avoid
+  name "Excessive Mid-Sentence Colons" and the "Tantalizing Teaser" trap. Those examples
+  also warn against the title formula the report uses, so Jason was asked and chose to
+  keep the title.
+- **Rejected**: letting LaTeX float tables to the top of a page, which split paragraphs and
+  a bullet list and left one sentence stranded after a large table.
+- **Breaks if changed**: an edit that adds or removes a few lines can push a large table
+  to the next page and leave a gap, so check the pages after any change.
+
+### 2026-11-05 — A blinded review narrows four of the report's claims
+
+- **Decision**: a reviewer that could read only the PDF found four claims too strong, and
+  `report/main.tex` narrows each. (1) "Dissociation" stays, and the Discussion now says it
+  is a difference of size: decisions followed each judge's top stated probability, the
+  dependence note moved it too little to pass A's claim, and the quality note moved it
+  enough. (2) H4's reading as weighing evidence stays, with a sentence that it cannot rule
+  out compliance because every note favoured the truth, and the abstract says the mild
+  result kept the dependence note and that every note was true. (3) The conclusion
+  recommends relative source quality and no longer says "as well as a dependency flag".
+  (4) The report says again that the rewording hid the shared source, gives the normative
+  index values as what a judge that knew the sources would give, and ties correlation
+  neglect to A6 and X3, where dependence is disclosed. Two smaller corrections follow from
+  the design: A6 is A5 plus the note, so n_eff(A4) - n_eff(A6) is what the identifier and
+  the note claw back together, and no X3 index exists, so A6 alone is the mid-scale cell.
+- **Why** [STATED: the blinded review, 2026-11-05]: the review's verdict was that central
+  claims outran the design, for instance that "One belief scale plus an argmax explains
+  the whole pattern". [INFERRED: from Table 6 of the report] the dependence note raised
+  P(truth) by 7 to 16 points and the quality note by 43 to 59, and X4 to X5 changed no
+  decision while lowering P(truth) by 6 to 7 points for Sonnet and GPT-5.4. [STATED:
+  Jason's answers, 2026-11-05] each of the four was put to Jason and he chose the narrowing.
+  The reviewer was a separate `claude -p` process started in an empty folder holding only
+  the PDF, with `--tools Read` and `--setting-sources local`. A test run first confirmed
+  that it could not read the README or the user's CLAUDE.md.
+- **Rejected**: the new paid runs the review asked for (a false quality note, a source ID
+  in the conflict block, prompt variants, a neutral-text control), which the report states
+  as limits or next steps; dropping "dissociation", which the README and slides share;
+  renaming A4 and X1 the judges' default behaviour. The review's claim that "fixed before
+  any data" is untrue does not hold for the interpretation table, which is unchanged since
+  commit `bf37be1`, a week before the pilot. Its point that later rule changes needed a
+  pointer does hold, so Section 3.6 now points to Appendix B.
+- **Breaks if changed**: the stronger wording states more than the design can show.
+
+### 2026-11-05 — No more runs: open checks stay as caveats and future work
+
+- **Decision**: the study takes no more judge or generation runs. The checks that would
+  need new trials, among them a false quality note and a source ID in the conflict block,
+  stay as limitations and next steps in the report.
+- **Why** [STATED: Jason, 2026-11-05]: "we are not allowed to do anymore runs. we should
+  just document honestly about the caveats and future works."
+- **Rejected**: the new arms the blinded review asked for.
+- **Breaks if changed**: a new run would change the report's totals for trials and spend.
+
+### 2026-11-05 — Table 5 names GPT-5.4's long-report pattern, and the report adds sign tests and intervals
+
+- **Decision**: Table 5's H3 row gives the nuisance pattern for GPT-5.4 with long reports as
+  well as for Opus, and its H2 row leads with both halves of its verdict. The report says
+  the table set no number for an unchanged decision rate, and gives one-sided sign tests
+  over cases: p below 0.0001, 0.06 and 0.38 for Opus, Sonnet and GPT-5.4. It says the
+  figures show no error bars, and gives 95% intervals from resampling cases 10,000 times.
+  `report/numbers.py` prints all of these, seeded. The conclusion names the checks that
+  were not run.
+- **Why** [STATED: `docs/stage2-report.md`, H3 at long length]: "That is the pattern stage 1
+  found for Opus at short length", which Section 4.3 reported and Table 5 left out. [STATED:
+  Jason, 2026-11-05]: "go ahead with the edits, include the numbers". These numbers come
+  from the committed logs, so they need no run.
+- **Rejected**: "mixed" for H2, since the fixed table has no such reading and the nuisance
+  touches only the A1 to A2 step; drawing error bars, which would be almost invisible in
+  Figure 2 at under 1.3 points.
+- **Breaks if changed**: another seed or draw count can move an interval's last digit, so
+  the report's figures follow `SEED` and `DRAWS` in `report/numbers.py`.
