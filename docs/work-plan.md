@@ -228,7 +228,8 @@ Same steps for each author. Replace `m2` with your case.
   30%. The other option it keeps can be A's claim or a distractor.
 
 **1.7 Write the filler.**
-- **Do**: three lists of five neutral sentences, as in M1.
+- **Do**: three lists of neutral sentences, as in M1. Length is counted in words, not
+  sentences (R20 below), so a list may need more sentences than M1's five.
 - **Rules**: R9 (never mention or hint at any option; naming the case's subject is
   fine), R10 (no "you", no "this
   announcement", one plain style), R12 (three sets, never tied to a source).
