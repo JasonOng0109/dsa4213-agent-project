@@ -1606,3 +1606,86 @@ Add an entry when you make a choice a reader could not guess from the code.
   Figure 2 at under 1.3 points.
 - **Breaks if changed**: another seed or draw count can move an interval's last digit, so
   the report's figures follow `SEED` and `DRAWS` in `report/numbers.py`.
+
+### 2026-11-07 — The report takes the course template's shape, and a short reproducibility section returns
+
+- **Decision**: `report/main.tex` follows the report template the course released on
+  2026-11-07: its title block and Administrative Information table, its section headings,
+  its 11pt font, 1-inch margins and line spacing, and a main text of at most 8 pages, with
+  the Contribution Statement, References and Appendix after it. The appendix moves to
+  `report/appendix.tex`. Section 7, Reproducibility and Responsible Practice, returns as a
+  short section: where the code and setup instructions are, what the study needs, that
+  checking the numbers needs no API key, the safeguards, and the sentence on how Claude was
+  used. The report holds no commands, no calendar date, and no repository file path outside
+  that section's two links. This narrows the 2026-11-05 entry, which moved all of this to
+  the README. The README section "Reproducibility and documentation" stays as the detail
+  behind Section 7. Kai Rong's branch `report-v2` cut the report to 8 pages, and this
+  version starts from it.
+- **Why** [STATED: the course's report template]: "The main text must not exceed 8 pages",
+  and its Section 7 asks the report to "Refer to the setup instructions in the repository
+  rather than repeating them here". [STATED: Jason's answers, 2026-11-07]: of the options
+  put to him, "Short Section 7, no commands" and "Use the template's". The template lets a
+  group rename sections, but its headings line up with the rubric's items.
+- **Rejected**: the 2026-11-05 comment as written, reproducibility in the README alone,
+  since graders would have to leave the report for a rubric item; keeping `report-v2`'s
+  paragraph inside the Discussion with its appendix of commands, which went against the
+  rule of no file paths and no dates; keeping the first draft's headings.
+- **Breaks if changed**: the template penalizes a main text over 8 pages and treats a
+  changed font, margin or line spacing as exceeding the limit. The tables and figures still
+  sit at paragraph boundaries, so an added line can push one to the next page and leave a
+  gap. Check where page 8 ends after any change, as the 2026-11-05 entry on writing rules says.
+
+### 2026-11-07 — The report's main text shows the pipeline and one real trace
+
+- **Decision**: Section 4 has a one-row pipeline figure, and Section 6 quotes a logged Sonnet
+  trace from X3, with the closing line of an X5 trace on the same case. The two trials are
+  `M2_X3_reasoning-on-short_run1` and `M2_X5_reasoning-on-short_run5`, named in Appendix C.
+- **Why** [STATED: the course's report template]: it asks for "representative successes and
+  failures, such as examples or agent traces", suggests a system diagram, and says graders
+  need not read the Appendix. `report-v2` had cut every figure but the wording ladder,
+  including the Figure 1 that Jason's comment 10 on the first draft asked to fix. [STATED:
+  Jason's answer, 2026-11-07]: "Both", the trace and the figure.
+- **Rejected**: the trace alone, the figure alone, and neither.
+- **Breaks if changed**: the quotes must stay word for word what
+  `runs/main/trials-reasoning-on.jsonl` holds. Agent letters there name report slots, so the
+  report says which slot held which source.
+
+### 2026-11-07 — The contribution table credits Crystal with the reviews the PR record shows
+
+- **Decision**: the report's contribution table says Crystal "reviewed M5, M30 and M31", where
+  the first draft and `report-v2` said "reviewed M5 and M30--M37". Crystal remains the
+  assigned reviewer of M32 to M37 in `docs/work-plan.md`, which records the assignment.
+- **Why** [STATED: GitHub, checked 2026-11-07]: her comments are on the PRs for M5, M30 and
+  M31, and the PRs for M32 to M37 (#29 and #31 to #35) have no comment or review from her.
+  Kai Rong's own list of reviews matches the PR comments. [STATED: Jason's answer,
+  2026-11-07]: "Narrow it now".
+- **Rejected**: leaving the line until Crystal confirms it; leaving it because she was the
+  assigned reviewer.
+- **Breaks if changed**: nothing in the code. Each member confirms their entry before
+  submission, so she can add reviews that happened off GitHub.
+
+### 2026-11-07 — A second blinded review narrows the conclusion and adds two caveats
+
+- **Decision**: the report's conclusion now says that every note was true, so the study cannot
+  tell whether the judges weighed the quality note or simply obeyed it. Limitations say that no
+  arm shows one A report against one B report, so the lean in X3 is not tied to repetition
+  alone. Section 6 adds a fallback: where quality is not known, a source type is the field to
+  carry. The review's other findings went in as plain fixes: mean P(A's claim) in X3, A0 in
+  Table 2, the source ID's result, X5's lower belief than X4, the absence of abstention in X3's
+  T2 cases, why the discrimination rule was dropped, the reply order in Appendix E.3, which slot
+  held the strong report in the X5 trace, the 6.7 hours as the longest lane, and plainer
+  sentences throughout. The main text still ends inside page 8.
+- **Why** [STATED: the blinded review, 2026-11-07]: its verdict was that "the conclusion claims
+  what §5.3 says cannot be concluded", and that X3 "has no trial with one A report against one
+  B report". [STATED: Jason's answers, 2026-11-07]: "Add one sentence", "Keep X3, add a
+  caveat" and "Add the fallback". The reviewer was a separate `claude -p` process started in an
+  empty folder holding only the PDF, with `--tools Read`. An access test first showed that it
+  could read nothing else.
+- **Rejected**: the review's rewrites that break the report's writing rules, such as "we know of
+  no benchmark" and a bare "(Table 3)"; rewording the research question or the sentence on how
+  Claude was used; replacing Figure 1 with a text example, since Jason chose the figure;
+  renaming conditions A0 to A7; the new runs it named, a false-note arm and a one-against-one
+  arm, which the 2026-11-05 entry rules out; "inconclusive" for Sonnet's H3, which the
+  2026-11-05 entry on Table 5 settled.
+- **Breaks if changed**: without the conclusion's sentence, the report again claims more than a
+  design with only true notes can show.
