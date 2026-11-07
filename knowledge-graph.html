@@ -392,7 +392,7 @@ a.ref:hover { background: var(--surface-2); }
   "title": "Project Knowledge Graph",
   "project": "DSA4213 Group 14 · Counting Reports or Counting Evidence",
   "oneLiner": "Can an AI orchestrator that combines reports from several agents tell three copies of one source from three independent sources, and which piece of information fixes its mistakes: a source name, a 'these share a source' note, or a 'this source is better' note?",
-  "updated": "2026-11-05",
+  "updated": "2026-11-07",
   "tour": [
    "question",
    "false-consensus",
@@ -10559,25 +10559,27 @@ a.ref:hover { background: var(--surface-2); }
    "cluster": "process",
    "title": "The final report",
    "label": "Final report",
-   "summary": "The write-up of the whole study for the course: report/main.tex, built into report/main.pdf. It reads each hypothesis against the table fixed before any data, shows one full prompt and reply per block, and lists the main deviations from the planned design. Its headline: with nothing disclosed, the judges counted reports; told that two reports share a source, they grew less sure but mostly kept their answer; told which source is the primary record, they chose it. The design's one claim held for the two notes it contrasts, but 'only' proved too strong, since naming source types also moved many decisions. A few numbers the stage reports lack come from report/numbers.py. An independent review of the first draft led to the second, which states H6 and the reasoning traces at their real strength. Jason's comments of 2026-11-05 led to the third, which stands alone: [[report-stands-alone]]. A blinded review of that draft narrowed four of its claims: [[report-blind-review]].",
+   "summary": "The write-up of the whole study for the course: report/main.tex and report/appendix.tex, built into report/main.pdf. It reads each hypothesis against the table fixed before any data, shows one full prompt and reply per block, and lists the main deviations from the planned design. Its headline: with nothing disclosed, the judges counted reports; told that two reports share a source, they grew less sure but mostly kept their answer; told which source is the primary record, they chose it. A few numbers the stage reports lack come from report/numbers.py. An independent review of the first draft led to the second, which states H6 and the reasoning traces at their real strength. Jason's comments of 2026-11-05 led to the third, which stood alone: [[report-stands-alone]]. A blinded review of that draft narrowed four of its claims: [[report-blind-review]]. The course's template of 2026-11-07 then gave it its present shape and an 8-page main text: [[report-template-shape]]. A second blinded review then narrowed its conclusion: [[report-second-review]].",
    "date": "2026-11-04",
    "points": [
-    "Numbers it adds, from report/numbers.py: the reporter's acceptance rate (721 of 972 candidates passed every check on the candidate alone, 280 were frozen), the top of each judge's stated scale ([[neff-scale-cap]]), right decisions in X2 by quality dimension, the wording ladder's belief on A's claim, and sign tests for the stage 2 comparisons.",
+    "Numbers it adds, from report/numbers.py: the reporter's acceptance rate (721 of 972 candidates passed every check on the candidate alone, 280 were frozen), the top of each judge's stated scale ([[neff-scale-cap]]), right decisions in X2 by quality dimension, the wording ladder's belief on A's claim, sign tests for the stage 2 comparisons, and the main study's judging totals of 8.7 million tokens and $40.54.",
     "It builds on [[main-stage1]], [[main-stage2]] and [[optional-results]], reads them against [[precommit]], and tests [[headline-claim]].",
     "Its cost table shows logged spend only: [[report-logged-spend]].",
-    "Table 5 gives the nuisance pattern for GPT-5.4 with long reports as well as for Opus. The report also says the table set no number for an unchanged decision rate, with one-sided sign tests beside it, and that the figures have no error bars, with 95% intervals from resampling cases. report/numbers.py prints these.",
-    "Its authors are listed by contribution, it quotes only the sentence that asks the research question ([[question-refined]]), and its writing rules are in the decision log."
+    "Table 7 in Appendix B gives the alternative pattern for GPT-5.4 with long reports as well as for Opus. Appendix B says the fixed patterns set no number for an unchanged decision rate, Section 5.2 gives one-sided sign tests, and Figure 2's caption says it has no error bars, with 95% intervals from resampling cases. report/numbers.py prints these.",
+    "Its authors are listed by contribution, it quotes only the sentence that asks the research question ([[question-refined]]), and its writing rules are in the decision log.",
+    "Its main text shows the pipeline and one real trace: [[report-main-text-trace]].",
+    "Its contribution table credits Crystal with the reviews the pull-request record shows, M5, M30 and M31, and each member confirms their own entry before submission."
    ],
    "evidence": [
     {
      "file": "report/main.tex",
-     "loc": "Introduction",
-     "quote": "The design was built to test one claim, that disclosure about sources changes what an aggregator believes, while only a statement of relative quality changes what it chooses"
+     "loc": "Project Summary",
+     "quote": "Told which source is the primary record, every judge was right in every trial."
     },
     {
      "file": "report/main.tex",
-     "loc": "Introduction",
-     "quote": "The claim therefore held for the two statements it contrasts"
+     "loc": "Section 5.2",
+     "quote": "H3's belief half held for every judge, but its unchanged-decision half failed for Opus."
     },
     {
      "file": "README.md",
@@ -10595,14 +10597,19 @@ a.ref:hover { background: var(--surface-2); }
      "quote": "95% intervals from resampling cases"
     },
     {
-     "file": "report/main.tex",
-     "loc": "Table 5",
+     "file": "report/appendix.tex",
+     "loc": "Appendix B, Table 7",
      "quote": "and for GPT-5.4 with long reports (18 of 120 right, all in T1)"
     },
     {
      "file": "docs/decisions.md",
      "loc": "Table 5 names GPT-5.4's long-report pattern, and the report adds sign tests and intervals",
      "quote": "These numbers come from the committed logs, so they need no run."
+    },
+    {
+     "file": "docs/decisions.md",
+     "loc": "The contribution table credits Crystal with the reviews the PR record shows",
+     "quote": "the report's contribution table says Crystal \"reviewed M5, M30 and M31\""
     }
    ],
    "links": [
@@ -10645,6 +10652,18 @@ a.ref:hover { background: var(--surface-2); }
     {
      "to": "report-blind-review",
      "rel": "related"
+    },
+    {
+     "to": "report-template-shape",
+     "rel": "related"
+    },
+    {
+     "to": "report-main-text-trace",
+     "rel": "related"
+    },
+    {
+     "to": "report-second-review",
+     "rel": "related"
     }
    ]
   },
@@ -10654,7 +10673,7 @@ a.ref:hover { background: var(--surface-2); }
    "cluster": "process",
    "title": "A blinded review narrows four of the report's claims",
    "label": "Report: blinded review",
-   "summary": "A reviewer that could read only the PDF found four claims too strong, and the report now narrows each. The dissociation is called a difference of size, since decisions followed each judge's top stated probability. H4's reading as weighing evidence cannot rule out compliance, because every note favoured the truth. The conclusion recommends relative source quality alone, since beside a quality note the dependency flag changed no decision. And the report says again that the rewording hid the shared source, so the normative index values are what a judge that knew the sources would give.",
+   "summary": "A reviewer that could read only the PDF found four claims too strong, and the report now narrows each. The dissociation is called a difference of size, since decisions followed each judge's top stated probability. H4's reading as weighing evidence cannot rule out compliance, because every note favoured the truth. The conclusion recommends relative source quality alone. And the report says again that the rewording hid the shared source, so the normative index values are what a judge that knew the sources would give.",
    "date": "2026-11-05",
    "points": [
     "A6 is A5 plus the note, so n_eff(A4) minus n_eff(A6) is what the identifier and the note claw back together: [[neff]].",
@@ -10674,18 +10693,18 @@ a.ref:hover { background: var(--surface-2); }
     },
     {
      "file": "report/main.tex",
-     "loc": "Discussion",
-     "quote": "The dissociation is therefore a difference of size."
+     "loc": "Section 6",
+     "quote": "The dissociation between belief and decision is therefore a difference of size."
     },
     {
      "file": "report/main.tex",
-     "loc": "Section 4.3",
+     "loc": "Section 5.3",
      "quote": "Every note favoured the truth, however, so this result cannot rule out simple compliance."
     },
     {
      "file": "report/main.tex",
      "loc": "Conclusion",
-     "quote": "A dependency flag is cheap and moves belief, but alone it changed few decisions, and beside a quality note it changed none."
+     "quote": "Where relative quality is independently known, the message should carry it, and that field must be correct, because the judges act on it."
     }
    ],
    "links": [
@@ -10717,7 +10736,7 @@ a.ref:hover { background: var(--surface-2); }
    "cluster": "process",
    "title": "The report stands alone, and reproducibility and documentation live in the README",
    "label": "Report stands alone",
-   "summary": "After Jason's comments, the report cites no repository file, no README, no proposal and no calendar date, and its reproducibility section and appendix of commands are gone. What they said is now the README section Reproducibility and documentation, and the report points to the repository by its URL. Responsible practice sits under Risks, with Jason's sentence on how Claude was used. The departures appendix stays as Deviations from the planned design, without proposal sections, dates or budget rows.",
+   "summary": "Superseded by [[report-template-shape]], which brings back a short Section 7. After Jason's comments, the report cites no repository file, no README, no proposal and no calendar date, and its reproducibility section and appendix of commands are gone. What they said is now the README section Reproducibility and documentation, and the report points to the repository by its URL. Responsible practice sits under Risks, with Jason's sentence on how Claude was used. The departures appendix stays as Deviations from the planned design, without proposal sections, dates or budget rows.",
    "date": "2026-11-05",
    "points": [
     "Durations such as 'six days apart' stay, since the drift limitation needs them.",
@@ -10740,9 +10759,9 @@ a.ref:hover { background: var(--surface-2); }
      "quote": "Each command below rebuilds a committed output byte for byte (checked on 2026-11-05)."
     },
     {
-     "file": "report/main.tex",
-     "loc": "Conclusion",
-     "quote": "Code, cases, frozen reports, trial logs and instructions for reproducing every number are at"
+     "file": "docs/decisions.md",
+     "loc": "The report stands alone, and reproducibility and documentation live in the README",
+     "quote": "the report points to the repository by its URL"
     }
    ],
    "links": [
@@ -10758,7 +10777,8 @@ a.ref:hover { background: var(--surface-2); }
      "to": "precommit",
      "rel": "related"
     }
-   ]
+   ],
+   "status": "superseded"
   },
   {
    "id": "report-logged-spend",
@@ -10782,7 +10802,7 @@ a.ref:hover { background: var(--surface-2); }
     {
      "file": "report/main.tex",
      "loc": "Section 6, Costs",
-     "quote": "lists the logged API spend, which came to \\$52.19"
+     "quote": "Logged API spend came to US\\$52.19 over 27,768 calls"
     }
    ],
    "links": [
@@ -10806,19 +10826,19 @@ a.ref:hover { background: var(--surface-2); }
    "date": "2026-11-04",
    "evidence": [
     {
-     "file": "report/main.tex",
-     "loc": "Section 4.2",
+     "file": "report/appendix.tex",
+     "loc": "Appendix A.3",
      "quote": "Opus never stated more than 97 in any of its 720 A3, A4 and A7 trials, and its most common value was 94 in both A4 and A7"
     },
     {
-     "file": "report/main.tex",
-     "loc": "Section 4.2",
-     "quote": "At 97 its index reaches only about 2, so the normative 3 for A7 was out of reach"
+     "file": "report/appendix.tex",
+     "loc": "Appendix A.3",
+     "quote": "At 97 its index reaches only about 2, so the reference value of 3 for A7 was out of reach"
     },
     {
      "file": "report/main.tex",
-     "loc": "Limitations",
-     "quote": "the mid-scale cell A6 carries the index's evidence"
+     "loc": "Section 5.1",
+     "quote": "With the dependence note (A6), away from the ceiling, three reports of one source still scored 1.24 for Opus and 1.52 for Sonnet."
     },
     {
      "file": "report/numbers.py",
@@ -10886,6 +10906,161 @@ a.ref:hover { background: var(--surface-2); }
     },
     {
      "to": "final-report",
+     "rel": "related"
+    }
+   ]
+  },
+  {
+   "id": "report-template-shape",
+   "type": "decision",
+   "cluster": "process",
+   "title": "The report takes the course template's shape, and a short reproducibility section returns",
+   "label": "Report: course template",
+   "summary": "The course released a report template after the first draft. The report now uses its title block, Administrative Information table and section headings, and its main text fits the 8-page limit in the template's font, margins and line spacing. Kai Rong's branch report-v2 made the cut to 8 pages, and this version starts from it. A short Section 7 on reproducibility and responsible practice comes back, because the template asks for it, so this replaces [[report-stands-alone]]. The report still holds no commands and no calendar dates, and the README section stays as the detail behind Section 7.",
+   "date": "2026-11-07",
+   "points": [
+    "The appendix now lives in report/appendix.tex, which report/main.tex reads in.",
+    "Section 7 says where the code and setup instructions are, what the study needs, that checking the numbers needs no API key, what the safeguards are, and how Claude was used.",
+    "Page 8 ends about two lines above the bottom margin, so an added line can matter. Check where it ends after any change."
+   ],
+   "evidence": [
+    {
+     "file": "docs/decisions.md",
+     "loc": "The report takes the course template's shape, and a short reproducibility section returns",
+     "quote": "follows the report template the course released on 2026-11-07"
+    },
+    {
+     "file": "docs/decisions.md",
+     "loc": "The report takes the course template's shape, and a short reproducibility section returns",
+     "quote": "This narrows the 2026-11-05 entry, which moved all of this to the README."
+    },
+    {
+     "file": "report/main.tex",
+     "loc": "Section 7",
+     "quote": "Checking the numbers needs only the committed logs, and rerunning the study needs an OpenRouter key."
+    },
+    {
+     "file": "README.md",
+     "loc": "Reproducibility and documentation",
+     "quote": "Section 7 of the final report says where things are"
+    }
+   ],
+   "links": [
+    {
+     "to": "final-report",
+     "rel": "needs"
+    },
+    {
+     "to": "report-stands-alone",
+     "rel": "replaces"
+    },
+    {
+     "to": "precommit",
+     "rel": "related"
+    }
+   ]
+  },
+  {
+   "id": "report-main-text-trace",
+   "type": "decision",
+   "cluster": "process",
+   "title": "The report's main text shows the pipeline and one real trace",
+   "label": "Report: trace and figure",
+   "summary": "Section 4 of the report has a one-row pipeline figure, and Section 6 quotes a logged Sonnet trace from X3. The trace says the two reports are really one source, then leans to A's claim anyway because two agents mention it. Beside it sits the closing line of an X5 trace on the same case, where Sonnet was right. The template asks for real successes and failures in the main text, since graders need not read the Appendix.",
+   "date": "2026-11-07",
+   "points": [
+    "Agent letters in a trace name report slots, so the report says which slot held which source.",
+    "The traces come from the optional reasoning comparison, on two cases and one judge: [[optional-results]]."
+   ],
+   "evidence": [
+    {
+     "file": "docs/decisions.md",
+     "loc": "The report's main text shows the pipeline and one real trace",
+     "quote": "Section 6 quotes a logged Sonnet trace from X3"
+    },
+    {
+     "file": "report/main.tex",
+     "loc": "Section 6",
+     "quote": "Still, since two agents mention 55Wh even if derived from one source, I'll nudge my probability slightly toward 55Wh being correct."
+    },
+    {
+     "file": "runs/main/trials-reasoning-on.jsonl",
+     "loc": "M2_X3_reasoning-on-short_run1",
+     "quote": "B and C actually trace back to the same source, so it's really just A's 65Wh versus one independent claim of 55Wh rather than two separate confirmations."
+    }
+   ],
+   "links": [
+    {
+     "to": "final-report",
+     "rel": "needs"
+    },
+    {
+     "to": "optional-results",
+     "rel": "related"
+    },
+    {
+     "to": "trace-rule",
+     "rel": "related"
+    },
+    {
+     "to": "h3",
+     "rel": "related"
+    }
+   ]
+  },
+  {
+   "id": "report-second-review",
+   "type": "decision",
+   "cluster": "process",
+   "title": "A second blinded review narrows the conclusion and adds two caveats",
+   "label": "Report: second review",
+   "summary": "A reviewer that could read only the PDF of the template-shaped report found that the conclusion claimed more than the design shows. Every quality note was true, so the judges may have obeyed the note rather than weighed it. The conclusion now says so. Limitations now say that X3 has no one-against-one arm, so its leftover lean is not tied to repetition alone, and Section 6 adds that a source type is the field to carry when quality is not known. The review's other findings went in as plain fixes. Its rewrites that broke the report's writing rules, and the new runs it asked for, were left out.",
+   "date": "2026-11-07",
+   "points": [
+    "No more runs are allowed, so the false-note and one-against-one arms it named stay as future work and caveats: [[report-blind-review]].",
+    "Its catches included the reply order in Appendix E.3, which slot held the strong report in the X5 trace, and that 6.7 hours is the longest lane rather than all of stage 1."
+   ],
+   "evidence": [
+    {
+     "file": "docs/decisions.md",
+     "loc": "A second blinded review narrows the conclusion and adds two caveats",
+     "quote": "the conclusion claims what §5.3 says cannot be concluded"
+    },
+    {
+     "file": "report/main.tex",
+     "loc": "Conclusion",
+     "quote": "Every note was true, so we cannot tell whether the judges weighed it or simply obeyed it."
+    },
+    {
+     "file": "report/main.tex",
+     "loc": "Section 6, Limitations",
+     "quote": "No arm shows one A report against one B report, so the lean in X3 is not tied to repetition alone."
+    },
+    {
+     "file": "report/main.tex",
+     "loc": "Section 6",
+     "quote": "Where quality is not known, a source type is the field to carry"
+    }
+   ],
+   "links": [
+    {
+     "to": "final-report",
+     "rel": "needs"
+    },
+    {
+     "to": "report-blind-review",
+     "rel": "related"
+    },
+    {
+     "to": "h3",
+     "rel": "related"
+    },
+    {
+     "to": "h4",
+     "rel": "related"
+    },
+    {
+     "to": "x2",
      "rel": "related"
     }
    ]
@@ -11976,6 +12151,35 @@ a.ref:hover { background: var(--surface-2); }
     "neff",
     "neff-scale-cap",
     "optional-results"
+   ]
+  },
+  {
+   "date": "2026-11-07",
+   "summary": "The course released a report template after the first draft. Kai Rong's report-v2 cut the report to an 8-page main text and moved the appendix to report/appendix.tex. Starting from it, the report took the template's title block and headings, a short Section 7 came back in place of the README-only rule, a pipeline figure and a logged Sonnet trace went into the main text, and Crystal's review credit now follows the pull-request record. Quotes from the old report were re-sourced, and report/numbers.py now prints the main study's judging totals.",
+   "added": [
+    "report-template-shape",
+    "report-main-text-trace"
+   ],
+   "changed": [
+    "final-report",
+    "report-blind-review",
+    "report-logged-spend",
+    "neff-scale-cap"
+   ],
+   "superseded": [
+    "report-stands-alone"
+   ]
+  },
+  {
+   "date": "2026-11-07",
+   "summary": "A second blinded review of the template-shaped report found its conclusion too strong. On Jason's answers, the conclusion now says every note was true, Limitations note that X3 has no one-against-one arm, and Section 6 names the source type as the fallback field. The review's plain fixes went in, and the main text still ends inside page 8.",
+   "added": [
+    "report-second-review"
+   ],
+   "changed": [
+    "final-report",
+    "neff-scale-cap",
+    "report-template-shape"
    ]
   }
  ]
