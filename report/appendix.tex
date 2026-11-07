@@ -2,22 +2,15 @@
 \label{app:protocol}
 
 \subsection{Corpus construction and report acceptance}
-The 40 cases cover institutional logistics (13), product specifications (13), and incident
-or status reports (14), with ten cases for each of four quality dimensions: authority,
-directness, method, and primary-source status. Each case fixes a world truth, a wrong claim
-from weak source A, three strong sources B, C, and D with distinct evidential routes, and two
-unsupported distractors. Thirty cases (T1) give A a mild hedge, while ten (T2) give A and B equally
-flat assertions. The latter remove this particular textual cue to source quality.
+Five members wrote the cases under 20 authoring rules. These require comparable specificity
+and scope, neutral question wording, no time markers, provenance kept apart from the content
+sentence, and separate evidential routes for B, C and D. From M6 on, A's and B's type names
+differ only in the case's quality dimension, and the five pilot cases keep their original
+names. A static linter checked the rules a script can test, and every case from M2 on had a
+reviewer other than its author.
 
-Five members authored the cases under 20 rules in \path{docs/authoring-rules.md}. These
-require comparable specificity and scope, neutral question wording, no time markers,
-provenance separated from the content sentence, and distinct evidential routes for B, C,
-and D. From M6 onward, A's and B's type names differ only along the case's assigned quality
-dimension. The five pilot cases retain their original names. A static linter checked
-machine-testable rules, and every case from M2 onward had a reviewer other than its author.
-
-Gemma~4 31B (\path{google/gemma-4-31b-it}) generated reports without seeing provenance.
-Each round sampled six candidates at temperature 0.9, increasing to 0.95 in a second round.
+Each round of report generation sampled six candidates at temperature 0.9, rising to 0.95 in
+a second round.
 A candidate had to satisfy all four acceptance requirements:
 \begin{enumerate}[itemsep=2pt,topsep=3pt]
 \item Claude Sonnet~5 marked all details retained, nothing added, all values unchanged,
@@ -28,24 +21,22 @@ with another retained report of that source or a source appearing in the same tr
 attribution phrase such as ``according to''.
 \item Its length differed from the source sentence by no more than three words.
 \end{enumerate}
-Failed candidates were regenerated, not manually edited. Two unsuccessful rounds stopped
-generation. The provenance-leak check ran again over the frozen reports before judging.
+Failed candidates were regenerated and never edited by hand, and generation stopped if a source
+lacked reports after two rounds. The provenance-leak check ran again over the frozen reports
+before judging.
 
-Generation used 1,956 calls for 160 sources. Of 972 candidates, 721 passed the individual
-checks. We retained 280 reports, comprising two for A, three for B, and one each for C
-and D per case. The other 441 were surplus or failed pairwise selection. Only two sources
-needed a second round. Rejection counts, which can overlap, were 105 for length, 72 for
-source overlap, 66 for overlap with another source's report, and 12 for equivalence. A
-member read every frozen report before judging. All T1 hedges survived and no case was
-excluded. Seven cases had a report that echoed the question's wording: M3, M9, M13, M23,
-M28, M38, and M40. Their exclusion is a sensitivity check, not a change to the corpus.
+Generation used 1,956 calls for 160 sources. Of 972 candidates, 721 passed the checks made on
+each candidate alone. We kept 280 reports, two for A, three for B and one each for C and D per
+case. The other 441 were surplus or too close to a report already chosen, and only two sources
+needed a second round. Rejection counts, which can overlap, were 105 for length, 72 for overlap
+with the source, 66 for overlap with another source's report and 12 for equivalence. In the
+reading before judging, all T1 hedges survived and no case was excluded. The seven echo cases
+are M3, M9, M13, M23, M28, M38 and M40. We leave them out only as a sensitivity check.
 
 \subsection{Condition definitions and counterbalancing}
-The agreement block repeats strong source B, so changes in stated confidence can be read on
-the truth. The conflict block places two reports of A against one of B. Source letters
-A--D identify authored sources, while the displayed agent letters identify rotating report slots.
-``Message'' denotes a separately labelled line inside one user prompt, not a separate API
-message or a live worker interaction.
+The agreement block repeats strong source B, so any change shows up in \pt{}. Source letters A--D name authored sources, while the displayed agent letters name
+rotating report slots. Table~\ref{tab:conditions} lists every condition, and
+Table~\ref{tab:arms} lists what ran.
 
 \begin{table}[H]
 \centering\small
@@ -78,22 +69,22 @@ W1--W3 & 3 & 3 & 3 & A, A, B & X3's note, plus a softened quality note: B's sour
 \end{table}
 The conflict block's 12 repeats pair every answer position with every independent-report
 slot once, and every answer position with every wrong-claim offset once. Agreement uses
-six repeats under the same fixed schedule in every condition. Abstention uses four repeats,
-placing the truth in each answer position once. These repeats measure response stability
-and reduce position imbalance. They are not independent cases.
+six repeats under the same fixed schedule in every condition. The abstention arm's four repeats
+put the truth in each answer position once. These repeats measure response stability and reduce
+position imbalance.
 
 The length arm embeds each report in one of three authored sets of neutral filler. Filler
-is assigned by slot, not source, and does not mention an answer option. Each long report
-has 88--96 words. The longest within a trial is at most 1.10 times the shortest. The report
-sentence rotates among the start, middle, and end. The ten-case subset is M1--M6, M14,
-M22, M30, and M38. The selection rule predates the pilot: every domain appears at least
-three times, every quality dimension at least twice, and three cases are T2.
+is assigned by slot and mentions no answer option. Each long report has 88--96 words, the
+longest within a trial is at most 1.10 times the shortest, and the report sentence rotates
+among the start, middle and end. The arm uses Sonnet and GPT-5.4, one judge per developer. The ten-case subset is M1--M6, M14, M22, M30 and M38. Under
+a selection rule that predates the pilot, every domain appears at least three times, every
+quality dimension at least twice, and three cases are T2.
 
 The abstention arm adds ``Cannot be determined from the evidence provided'' to X1--X5,
-A7, and P0. P0 is an irrelevant report used to check whether the judge can abstain. A7
-checks whether it abstains despite three agreeing independent sources. The pre-main-run
-cut-offs flag fewer than half of P0 trials abstaining as ``abstains nowhere'' and at least
-half of A7 trials abstaining as ``abstains everywhere''.
+A7 and P0. P0 is an irrelevant report that checks whether the judge can abstain. A7
+checks whether it abstains despite three agreeing independent sources. Before the main run we
+fixed two labels. A judge that abstains in fewer than half of its P0 trials ``abstains nowhere'',
+and one that abstains in at least half of its A7 trials ``abstains everywhere''.
 
 \begin{table}[H]
 \centering\small
@@ -127,69 +118,63 @@ because its option values are also option numbers, and M12 was judged in its pla
 \end{table}
 \subsection{Judging, validation, and analysis details}
 \label{app:analysis}
-All main judges ran through OpenRouter, pinned to Claude Platform on AWS for Claude and
-to OpenAI for GPT-5.4. Records retain the raw reply, parse, provider, token usage, and cost.
-Reasoning was explicitly disabled and all main-run calls logged zero reasoning tokens.
-The runner sent temperature 0, but the three endpoints did not accept that parameter.
-The judges and equivalence rater therefore used provider defaults. A six-call probe of
-identical prompts returned the same answer six times for Sonnet and five times for Opus
-and GPT-5.4. This is evidence of response consistency, not deterministic sampling.
+The judges were pinned to Claude Platform on AWS for Claude and to OpenAI for GPT-5.4. Records
+keep the raw reply, parse, provider, token usage and cost. The equivalence rater, like the
+judges, ran at its provider's default temperature. A six-call probe of identical prompts
+returned the same answer six times for Sonnet and five times for Opus and GPT-5.4, so responses
+were consistent, though not provably deterministic.
 
-A run stopped on its call ceiling, a failed call, provider mismatch, more than one parse
-failure in the first 50 trials, or a provenance leak. Stage~1 had one parse failure and 18
-other imperfect records: 15 probability sums outside 90--110, two answers naming no
-option, and one missing option probability. All were in A0, P0, or P1. Stage~2's 2,520
-records parsed cleanly. No completed main-run call changed provider or used reasoning.
+Stage~1's 18 imperfect records were 15 probability sums outside 90--110, two answers naming
+no option and one missing option probability. With the one parse failure, all were in A0, P0
+or P1. No completed main-run call changed provider or used reasoning.
 
-Decision stability is the proportion of repeats in a case--condition--judge cell giving
-its modal answer. Its random-answer reference depends on the repeat count: 0.41 for 12
-repeats, 0.47 for six, and 0.53 for four. Conflict stability averaged 0.96--0.97. All
-12 answers agreed in 168--178 of the 200 cells per judge. The A1--A7 values were 1.00.
+Decision stability is the share of a cell's repeats (one judge, case and condition) that give
+its most common answer. Under random answering it would be 0.41 for 12 repeats, 0.47 for six
+and 0.53 for four. Conflict stability averaged 0.96--0.97, all 12 answers agreed in 168--178
+of the 200 cells per judge, and the A1--A7 values were 1.00.
 
-For the confidence screen, each case contributes its mean across four rotations to Page's
-ordered-alternatives test. The planned one-sided threshold is 0.05. P0 supplies irrelevant
-text, P1 rules out two options while retaining the truth, and P2 uses B's first frozen
-report. All judges passed ordering ($p<0.0001$). This validates sensitivity to the ordered
-screen, not calibration. Within-condition discrimination was below 0.5 in X1 and X3
-(AUROC 0.01--0.37). Judges assigned more confidence to wrong majority-following answers.
-X2 AUROCs were 0.71, 0.37, and 0.57 for Opus, Sonnet, and GPT-5.4.
+For the confidence screen, each case contributes its mean over four rotations to Page's test,
+with a planned one-sided threshold of 0.05. P0 supplies irrelevant text, P1 rules out two
+options and keeps the truth, and P2 uses B's first frozen report. Within-condition
+discrimination was below 0.5 in X1 and X3 (AUROC 0.01--0.37), because the judges were surer of
+their wrong answers, which follow the two agreeing reports, than of their right ones. X2
+AUROCs were 0.71, 0.37 and 0.57 for Opus, Sonnet and GPT-5.4.
 
 Equation~\eqref{eq:neff} adapts correlation-neglect reasoning
 \citep{demarzo2003persuasion,enke2019correlation}. Its reference values of one for repeated
-reports and three for independent sources require additive log-likelihood contributions
-of equal strength, a common prior, and a faithful probability scale. They are model-based
-benchmarks, not universal Bayesian requirements. We compute the index per case using
-logits of cell-mean stated probabilities. A single-report shift smaller than 0.2 logits
-makes the index undefined. Means outside 1--99\% are clipped computationally and reported
-as bounds, not point estimates. Ceiling flags affect 0, 1, and 35 cases for Opus, Sonnet,
-and GPT-5.4. Even without clipping, a compressed reporting scale can obscure differences.
+reports and three for independent sources assume additive log-likelihood contributions of
+equal strength, a common prior and a faithful probability scale, so they are benchmarks under
+that model. We clip means outside 1--99\% and report them as bounds. Ceiling flags affect 0, 1
+and 35 cases for Opus, Sonnet and GPT-5.4. Even without clipping, a compressed scale can hide
+differences. With Opus's mean A0 and A1 (25.8 and 77.4), three sources adding in log-odds would
+put \pt{} at 99.7, but Opus never stated more than 97 in any of its 720 A3, A4 and A7 trials,
+and its most common value was 94 in both A4 and A7. At 97 its index reaches only about 2, so
+the reference value of 3 for A7 was out of reach, and the small A7 $-$ A4 gap is partly a
+ceiling effect. Sonnet stated 100 in about a quarter of its A4 and A7 trials (54 and 62 of 240).
 
-Case-level sign tests count positive and negative paired changes and omit ties. The
-40 invented cases, rather than thousands of repeated calls, are the units for these
-comparisons. Descriptive 95\% bootstrap intervals use 10,000 resamples of whole cases,
-with seed 4213, in \path{report/numbers.py}. They describe variation across this corpus.
-They do not establish generalization to real deployments or a new set of models.
-Reported means follow the archived scorer, which rounds within-case means to one decimal
-before averaging cases. Direct averages of raw trials can therefore differ by 0.1
-percentage points. Counts and conclusions are unaffected.
+Sign tests over cases count positive and negative paired changes and omit ties. The 95\%
+bootstrap intervals resample whole cases 10,000 times with seed 4213. Reported means follow the
+scorer, which rounds within-case means to one decimal before averaging cases, so direct averages
+of raw trials can differ by 0.1 percentage points. Counts and conclusions are unaffected. We apply
+no correction for multiple comparisons.
 
-A forced-choice record is flagged for H6 if its selected answer is not its highest-probability
-option, or if its top two probabilities, rescaled to sum to 100, differ by less than ten
-points. Its abstention twin matches case, condition, and repeat. The intended contrast is
-within condition, combined with a Mantel--Haenszel difference and interpreted alongside
-P0 and A7. Only six flagged records have observed twins, so this direct contrast has
-little power to establish absence of an effect.
+A flagged H6 trial's abstention twin is the abstention-arm trial with the same case, condition
+and repeat. The planned contrast compares abstention in the twins of flagged trials with
+abstention in the twins of the others, within condition, combined with a Mantel--Haenszel
+difference and read alongside P0 and A7. Only six flagged trials have twins, four for Opus and
+two for GPT-5.4, so this contrast has little power to show the absence of an effect.
 
 \section{Hypotheses and interpretation}
-The hypotheses below retain their pre-data wording. The interpretation table was fixed
-before data collection. The final column below reports the observed evidence with its
-statistical and design qualifications. H1 and H2 extend prior findings to paraphrased
-reports, rather than claiming repetition or majority-following as new phenomena.
+\label{app:hypotheses}
+Table~\ref{tab:hypotheses} gives the hypotheses in their wording from before data collection,
+and Table~\ref{tab:verdicts} sets each result beside the patterns fixed at that time. Those
+patterns set no number for an unchanged decision rate, so Section~\ref{sec:conflict} reads H3
+with sign tests over cases. H1 and H2 extend prior findings to paraphrased reports.
 
 \begin{table}[H]
 \centering\small
-\caption{The six hypotheses and the contrast that tests each. These are the hypotheses stated before data collection.
-Table~\ref{tab:verdicts} distinguishes their predictions from what the data establish. Section~\ref{sec:conditions} defines the conditions.}
+\caption{The six hypotheses and the contrast that tests each. Section~\ref{sec:conditions}
+defines the conditions.}
 \label{tab:hypotheses}
 \begin{tabularx}{\textwidth}{@{}l L P{3.2cm} P{2.6cm}@{}}
 \toprule
@@ -213,42 +198,45 @@ abstention arm & primary\\
 \end{table}
 \begin{table}[H]
 \centering\footnotesize
-\caption{Predictions, pre-specified alternative patterns, and qualified interpretation.
-A small or non-significant decision change does not establish equivalence.}
+\caption{Each hypothesis read against the patterns fixed before any data. A small or
+non-significant decision change does not establish equivalence.}
 \label{tab:verdicts}
-\begin{tabularx}{\textwidth}{@{}P{0.55cm} L L L@{}}
+\begin{tabularx}{\textwidth}{@{}P{0.55cm} P{3.3cm} P{3.1cm} L@{}}
 \toprule
-& Predicted evidence & Alternative pattern checked & Observed interpretation\\
+& Predicted evidence & Alternative pattern & Result\\
 \midrule
 H1 & Repetition raises confidence. A repeated weak claim defeats a single strong claim. &
 An effect confined to one domain or report position. &
-Supported in this corpus. A1 to A4 raises \pt{} in all 40 cases for every judge. X1 accuracy
-is 1, 2, and 26 of 480.\\
+\textbf{Support} in this corpus. A1 to A4 raises \pt{} in all 40 cases for every judge, and X1
+is right in 1, 2 and 26 of 480.\\
 \addlinespace
 H2 & A3 and A4 exceed A2 and differ little. & A larger A1 to A2 increase at long length. &
-Short-report results support segmentation over agent identity. Sonnet's repetition gain is
-larger with long reports, but the comparison crosses days. GPT-5.4 has little headroom.\\
+\textbf{Support} with short reports, where segmentation outweighs agent identity.
+\textbf{Alternative pattern} for Sonnet with long reports (+13.4 against +8.0 points), though
+the comparison crosses days. GPT-5.4 has little headroom, and Opus was not tested.\\
 \addlinespace
 H3 & Dependence disclosure raises \pt{} without changing decisions. & Decision changes
 occur only where a mild textual cue survives. &
-The confidence prediction holds. The literal no-change prediction is too strong: Opus
-improves from 1 to 63 correct answers, all in T1. GPT-5.4 reaches 18/120 with long reports,
-also all in T1. Small changes for other settings do not prove equivalence.\\
+Belief rose for every judge. \textbf{Support} for Sonnet, and for GPT-5.4 with short reports.
+\textbf{Alternative pattern} for Opus (1 to 63 right, all in T1) and for GPT-5.4 with long
+reports (18 of 120 right, all in T1).\\
 \addlinespace
 H4 & Quality disclosure changes decisions beyond dependence disclosure. & Decisions change
 only under the strongest wording. &
-Supported for correct labels. X4 and X5 achieve 480/480 per judge. ``Somewhat'' achieves
-120, 91, and 120 of 120. The ladder excludes a strongest-wording-only effect, but cannot
-separate label compliance from independent quality assessment.\\
+\textbf{Support} for true notes. X4 and X5 are right in 480 of 480 for every judge, and
+``somewhat'' in 120, 91 and 120 of 120. All 29 of Sonnet's wrong W1 answers named A's claim, 16
+of them in the three T2 cases. The ladder rules out an effect of the strongest wording alone but
+cannot separate compliance from weighing the evidence.\\
 \addlinespace
 H5 & Named source types improve accuracy. & Gains require a familiar real institution. &
-Accuracy increases in X2 and gains remain outside the eight familiarity-coded cases.
-Effects vary by judge and dimension. Familiarity and authority are confounded.\\
+\textbf{Support}, varying by judge and dimension. Gains remain outside the eight
+familiarity-coded cases, though familiarity and authority are confounded.\\
 \addlinespace
 H6 & Abstention concentrates where the judge's numbers do not support its answer. &
 A judge abstains indiscriminately or cannot abstain. &
-No support: none of six flagged twins abstains. P0 and A7 show selective use of abstention,
-but six twins are insufficient to rule out the hypothesized relationship.\\
+\textbf{No support}. None of the six flagged twins abstains, and GPT-5.4's contrast gives
+$+0.00$ on two twins. P0 and A7 show selective use of abstention, but six twins are too few to
+rule out the predicted relationship.\\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -256,12 +244,14 @@ but six twins are insufficient to rule out the hypothesized relationship.\\
 \section{Supplementary results and sensitivity checks}
 \label{app:supplement}
 \subsection{Source-type effects and report length}
-The X2 breakdown in Table~\ref{tab:dimension} is descriptive and was not a separate
-pre-specified hypothesis. All judges perform best on method cases and worst on primary-source
-cases. In eight cases, B's type names a public or official body that A's does not. Outside
-those cases, accuracy increases in 30, 19, and 25 of 32 cases, with no decreases
-(one-sided sign tests, $p<0.0001$). Seven of the eight familiarity-coded cases are authority
-cases, preventing a clean separation of familiarity and quality dimension.
+Table~\ref{tab:dimension} breaks X2 down by quality dimension. This breakdown is descriptive and
+sits outside the hypotheses. All judges did best on method cases and worst on primary-source
+cases. In eight cases, B's type names a public or official body that A's does not. In the other
+32 cases, right decisions rose in 30, 19 and 25 cases and fell in none (one-sided sign tests,
+$p<0.0001$). Seven of the eight familiar cases are authority cases, so familiarity and that
+dimension cannot be told apart. X2 also shows the same type name on both of A's reports, a hint
+that they share a source. Since X3's explicit dependence note moved few decisions, that hint is
+unlikely to explain the gain.
 
 \begin{table}[H]
 \centering\small
@@ -280,18 +270,18 @@ GPT-5.4 & 84 & 76 & 99 & 24\\
 \end{table}
 \begin{table}[H]
 \centering\small
-\caption{Length-arm details on the same ten cases. S and L denote short and long reports.
-Accuracy denominators are 120 per cell. Short and long runs occurred on different days.}
+\caption{Length-arm details on the ten-case subset. S and L denote short and long reports,
+judged on different days. Right decisions are of 120 per cell.}
 \label{tab:length}
 \begin{tabular}{@{}lrrrr@{}}
 \toprule
 & Sonnet S & Sonnet L & GPT-5.4 S & GPT-5.4 L\\
 \midrule
-Correct, X1 & 0 & 1 & 2 & 4\\
-Correct, X2 & 52 & 36 & 87 & 74\\
-Correct, X3 & 1 & 1 & 3 & 18\\
-Correct, X4 & 120 & 120 & 120 & 120\\
-Correct, X5 & 120 & 120 & 120 & 120\\
+Right, X1 & 0 & 1 & 2 & 4\\
+Right, X2 & 52 & 36 & 87 & 74\\
+Right, X3 & 1 & 1 & 3 & 18\\
+Right, X4 & 120 & 120 & 120 & 120\\
+Right, X5 & 120 & 120 & 120 & 120\\
 \midrule
 Mean \pt{}, X1 & 20.3 & 19.8 & 21.4 & 21.9\\
 Mean \pt{}, X3 & 32.0 & 27.5 & 29.1 & 30.3\\
@@ -302,48 +292,46 @@ A1 to A2 increase (points) & 8.0 & 13.4 & 5.9 & 0.8\\
 \end{tabular}
 \end{table}
 
-Dependence disclosure raises \pt{} in all ten cases for both judges at both lengths.
-GPT-5.4's long X3 improves over short X3 in seven cases and worsens in none ($p=0.008$).
-All 18 correct long-report decisions occur in the seven T1 cases. Sonnet's larger A1 to A2
-increase appears in nine of ten cases ($p=0.011$), or seven of eight without subset echo
-cases ($p=0.035$). This is compatible with a contribution from report length, but does not
-isolate its causal effect: short and long prompts were judged on different days. On 24
-identical A0 prompts shared by the pilot and main run, 22 decisions matched for each judge.
-Mean absolute \pt{} shifts were 0.5--2.7 points, with Sonnet at 2.7. These A0 comparisons do
-not directly estimate drift in the length-arm contrast.
+Table~\ref{tab:length} gives the length arm's details. GPT-5.4's long X3 beat its short X3 in
+seven cases and fell behind in none ($p=0.008$). Sonnet's larger A1 to A2 rise holds in seven
+of eight cases without the subset's echo cases ($p=0.035$). The rise fits a contribution from
+report length, but short and long prompts were judged on different days. On 24 identical A0
+prompts shared by the pilot and main run, 22 decisions matched for each judge, and mean absolute
+\pt{} shifts were 0.5--2.7 points, with Sonnet at 2.7. These A0 comparisons do not directly
+estimate drift in the length contrast.
 
 \subsection{Optional experiments and echo-case sensitivity}
+Table~\ref{tab:robust} lists these checks.
 
 \begin{table}[H]
 \centering\small
 \caption{Sensitivity and optional checks. Each finding is limited to the stated cases and
-models. Absence of a decision change does not establish robustness beyond these settings.}
+models.}
 \label{tab:robust}
 \begin{tabularx}{\textwidth}{@{}P{3.2cm} L@{}}
 \toprule
 Check & Evidence and qualification\\
 \midrule
 Exclude seven echo cases &
-The principal directional patterns remain across 33 cases. X2 accuracy is 350, 156, and
-243 of 396 for Opus, Sonnet, and GPT-5.4. Excluding M3 and M38 from stage~2 gives Sonnet
-A1 to A2 increases of 8.7 points short and 13.7 long.\\
+Every direction holds across 33 cases. X2 is right in 350, 156 and 243 of 396 for Opus,
+Sonnet and GPT-5.4. Without M3 and M38, Sonnet's A1 to A2 rise is 8.7 points short and 13.7
+long.\\
 \addlinespace
 Second report set, M1 and M2 &
-Every judge remains at 0/24 in X1 and X3 and 24/24 in X4 and X5. X2 changes from 24 to 24
-for Opus, 9 to 13 for Sonnet, and 22 to 24 for GPT-5.4. The largest case--condition change
-in \pt{} is 7.5 points. Runs occurred on different days.\\
+Every judge stays at 0 of 24 in X1 and X3 and 24 of 24 in X4 and X5. X2 stays at 24 for Opus
+and moves from 9 to 13 for Sonnet and from 22 to 24 for GPT-5.4. \pt{} moves by at most 7.5
+points in any case and condition. The runs fell on different days.\\
 \addlinespace
 Reasoning allowed, Sonnet, M1 and M2 &
-Decisions match reasoning-disabled trials at both lengths: X1 and X3 each 0/48, X5 48/48.
-Only 32/144 trials produce reasoning text. All 20 X3 traces acknowledge shared provenance,
-yet none selects the independent report. This describes the traces produced, not all
-reasoning-allowed trials.\\
+Decisions match reasoning-off trials at both lengths, with X1 and X3 right in 0 of 48 each
+and X5 in 48 of 48. Only 32 of 144 trials produce reasoning text, so the traces describe those
+trials alone.\\
 \addlinespace
 Stated and token confidence, 15 cases &
 Llama~4 Maverick and Qwen~3.6 27B both order P0 $<$ P1 $<$ P2 in both measures
 (Page's $p<0.0001$). Llama's trial-level Spearman correlation is 0.83 and Qwen's is 0.81.
 Within P1 they are 0.79 and 0.76. Qwen states 25\% per option at P0, while its largest
-token probability averages 76.9\%. Correlation does not imply equal probability values.\\
+token probability averages 76.9\%.\\
 \addlinespace
 Long-report index, Sonnet, nine cases &
 Median $\neff$ is 1.95 for A4 and 1.97 for A7 (short: 1.86 and 1.79 on the same cases).
@@ -353,47 +341,43 @@ its long A7 construction falls one word below the band. Conditions span differen
 \end{tabularx}
 \end{table}
 
-The confidence cross-check used 16 cases in total, excluding M10's 24 trials and replacing
-it with M12. In M10, answer values 2--5 overlap the option indices, making a returned digit
-ambiguous. The retained 15 cases give 360 trials. Token probabilities are read at the
-answer digit. The cross-check uses auxiliary models because the main judges did not expose
-these token probabilities. It does not validate the main judges' stated probabilities as
-internal beliefs.
+The confidence cross-check ran 16 cases and uses 15. In M10 the answer values 2--5 are also
+option numbers, so a returned digit is ambiguous, and M12 took its place. The 15 cases give 360
+trials, with token probabilities read at the answer digit.
 
-The 32 nonempty reasoning traces were independently coded by two fresh Claude agents,
-shuffled and blinded to case, condition, and result. They agreed on 31 traces, with the
-remaining X5 trace adjudicated as acknowledging dependence. The X3 result is unchanged by
-that adjudication. The other 112 trials contain no reasoning text and are coded as such.
+Two fresh Claude agents coded the 32 nonempty reasoning traces independently, shuffled and blind
+to case, condition and result. They agreed on 31, and a team member settled the last, an X5
+trace, as noticing the dependence. The X3 result does not depend on that call. The other 112
+trials hold no reasoning text. Section~\ref{sec:discussion} quotes trials
+\texttt{M2\_X3\_reasoning-on-short\_run1} and \texttt{M2\_X5\_reasoning-on-short\_run5}.
 
 \clearpage
-\section{Deviations, execution costs, and reproducibility}
+\section{Deviations and costs}
 \label{app:departures}
 The pilot used M1--M5 and 3,420 judge trials. It was a design check and is not pooled with
-the main experiment. The following departures document what changed and its consequences.
+the main study. Table~\ref{tab:departures} lists what changed and what followed.
 
 \begin{small}
 \begin{xltabular}{\textwidth}{@{}P{3.2cm} L L@{}}
-\caption{Documented departures from the planned protocol and their implications.}\label{tab:departures}\\
+\caption{Departures from the planned protocol and their effects.}\label{tab:departures}\\
 \toprule
 Original plan & What changed & Consequence\\
 \midrule
 \endhead
 Ordering and AUROC above 0.5 gate stated probabilities &
-After the pilot, before the main run, only ordered sensitivity gates their use. In conflict
-cells, discrimination reflects confidence in the repeated wrong claim, the phenomenon
+After the pilot and before the main run, only ordering decides. In conflict cells,
+discrimination measures how sure a judge is of the repeated wrong claim, which is the effect
 under study. &
-Sonnet and GPT-5.4 would fail the original discrimination gate. We report this departure.
-Decision accuracy is unaffected.\\
+Sonnet and GPT-5.4 would have failed the original rule. Decisions are unaffected.\\
 \addlinespace
 Temperature 0 for all judges &
-The parameter was sent but unsupported by the endpoints. This was discovered after stage~1. &
+Temperature 0 is sent, but no judge endpoint accepts it. We found this after stage~1. &
 Provider defaults apply. Repeated calls and cross-day comparisons cannot be treated as
 deterministic or free of drift.\\
 \addlinespace
 Three authored screen sentences &
 P0 uses filler, P1 an authored exclusion statement, and P2 B's first frozen report. &
-P2 remains answer-identifying, but is reporter output rather than a separately authored
-screen sentence.\\
+P2 still names the answer, but it is reporter output.\\
 \addlinespace
 H6 interpreted against A7 alone &
 P0 and the selective-abstention cut-offs were added after the pilot and before the main run. &
@@ -403,28 +387,28 @@ the direct H6 test.\\
 Point estimates for the independence index &
 The scorer's original 1--99\% clipping remains, but clipped means are reported as bounds
 following the pilot. &
-GPT-5.4 has ceiling flags in 35/40 cases, so its index is not suitable for an unrestricted
-comparison with the reference value three.\\
+GPT-5.4's index is a bound in 35 of 40 cases.\\
 \addlinespace
 Calibration summaries where spread permits &
 Brier scores were not computed. Analysis uses within-judge differences and ranks. &
-The study evaluates sensitivity, not calibration.\\
+No hypothesis reading uses them.\\
 \addlinespace
 Initial research-question wording &
-After TA feedback, the wording explicitly names aggregation and lost provenance. &
+After the TA's feedback, the wording names the aggregation step and the lost source record. &
 The experimental design is unchanged.\\
 \bottomrule
 \end{xltabular}
 \end{small}
 
-One long-conflict entry stopped after 762 calls when a provider overload appeared inside a
-successful HTTP response. The backend was updated to retry this response, the entry was
-rerun in full, and the stopped log was retained but excluded from scoring. The second
-report-set check excludes C and D entirely, so two regenerated D reports that repeated
-existing wording could not affect that conflict-only experiment.
+The stopped long-conflict log is kept and left out of scoring. In the second report set, two
+regenerated reports of D repeated existing wording, which cannot affect the check because it uses
+only A and B.
 
 \subsection{API costs}
 \label{app:costs}
+Table~\ref{tab:costs} lists the logged spend. The total covers the pilot, the stopped first attempt
+and the optional experiments as well as the main study.
+
 \begin{table}[H]
 \centering\small
 \caption{Logged API spend in US dollars. Judge costs are the sum of each log's per-call costs,
@@ -445,29 +429,6 @@ Total logged & 27,768 & 52.19\\
 \bottomrule
 \end{tabular}
 \end{table}
-The total includes the pilot, failed first attempt, and optional experiments, rather than
-only calls retained in the headline results. Stage~1 ran three lanes at 18 calls per minute
-each. Judging took approximately 6.7 hours. Generation costs are balance differences,
-whereas judge costs are sums of per-call records.
-
-\subsection{Checking the evidence without new API calls}
-The \href{\repo}{public repository} contains the case files, frozen reports, acceptance records, trial
-logs, analysis code, and documented decisions. This revision uses main-branch snapshot \href{https://github.com/JasonOng0109/dsa4213-agent-project/tree/8a6de34}{\texttt{8a6de34}} (5 November 2026). From a repository checkout with Python and
-\texttt{uv}, the following commands check the data and reproduce the report's additional
-summaries without submitting new model calls:
-\begin{Verbatim}[fontsize=\footnotesize,breaklines=true,frame=single,framesep=2mm]
-uv sync
-uv run pytest
-uv run python -m pipeline.lint
-uv run python -m report.numbers
-uv run python -m tools.crosscheck runs/main/trials-cross-check.jsonl runs/main/trials-cross-check-m12.jsonl
-uv run python -m pipeline.score --show-excluded runs/robustness/trials.jsonl
-\end{Verbatim}
-The README's ``Reproducibility and documentation'' section gives the exact, ordered log
-lists for reproducing the stage~1 and stage~2 scorer, stability, and tally outputs. The
-commands behind the optional summaries appear in \path{docs/optional-report.md}.
-The published results can therefore be checked from saved evidence. Rerunning paid model
-calls is a separate operation and may differ as hosted models change.
 
 \clearpage
 \section{Prompt templates and logged replies}
@@ -480,7 +441,7 @@ judge call is ``You are a careful, literal reader of the reports you are given.'
 
 \subsection{Agreement block: A6}
 \label{app:a6}
-This is trial \texttt{M1\_A6\_short\_run1}. The world truth is 15\%.
+This is trial \texttt{M1\_A6\_short\_run1}. The truth is 15\%.
 \begin{Verbatim}[fontsize=\footnotesize, breaklines=true, frame=single, framesep=2mm]
 You are asked to answer a factual question based on reports from others.
 Read all reports below, then give your answer.
@@ -515,7 +476,7 @@ GPT-5.4:         {"answer":"15%","p":{"15%":100,"25%":0,"10%":0,"30%":0}}
 \clearpage
 \subsection{Conflict block: X3, and what the other conditions change}
 \label{app:x3}
-This is trial \texttt{M1\_X3\_short\_run1}. The world truth is 15\%, A's claim is 25\%, and M1
+This is trial \texttt{M1\_X3\_short\_run1}. The truth is 15\%, A's claim is 25\%, and M1
 is a T2 case. In this trial the Agent A slot holds the report of strong source B. The prompt is
 the same as above down to the options, and the reports and note are as follows.
 \begin{Verbatim}[fontsize=\footnotesize, breaklines=true, frame=single, framesep=2mm]
@@ -529,7 +490,7 @@ Claude Opus 5:   {"answer": "25%", "p": {"15%": 38, "25%": 57, "10%": 3, "30%": 
 Claude Sonnet 5: {"answer": "25%", "p": {"15%": 30, "25%": 60, "10%": 5, "30%": 5}}
 GPT-5.4:         {"answer":"25%","p":{"15%":29,"25%":67,"10%":2,"30%":2}}
 \end{Verbatim}
-All three judges chose the repeated claim while placing 29 to 38 on the truth. In the same
+All three judges chose the repeated claim and put 29 to 38 on the truth. In the same
 repeat, the other conditions keep these reports and change only the following.
 X1 has no note. X2 has no note and labels each report with its source type.
 \begin{Verbatim}[fontsize=\footnotesize, breaklines=true]
@@ -553,7 +514,7 @@ determined from the evidence provided", still giving "p" over the numbered answe
 \subsection{An answer whose own numbers favour another option}
 \label{app:h6}
 Trial \texttt{M20\_P1\_screen\_run4} is the confidence screen's middle level, in the rotation
-that lists the truth last. The world truth is 48 minutes. The prompt is the template above with
+that lists the truth last. The truth is 48 minutes. The prompt is the template above with
 the following content.
 \begin{Verbatim}[fontsize=\footnotesize, breaklines=true, frame=single, framesep=2mm]
 Question: What is the continuous runtime of the AeroGlide T5 vacuum cleaner on its standard power setting?
@@ -570,7 +531,7 @@ Claude Opus 5:   {"answer": "41 minutes", "p": {"41 minutes": 40, "34 minutes": 
 Claude Sonnet 5: {"answer": "48 minutes", "p": {"41 minutes": 20, "34 minutes": 5, "55 minutes": 5, "48 minutes": 70}}
 GPT-5.4:         {"answer":"48 minutes","p":{"41 minutes":21,"34 minutes":8,"55 minutes":4,"48 minutes":67}}
 \end{Verbatim}
-The report leaves two options, 41 and 48 minutes, each four minutes inside a bound. Opus put
-50 on the truth and 40 on 41 minutes, then answered 41 minutes, the first of the two in the
-list. Its stated belief favours one answer and its choice names another, the strongest
-mismatch H6 describes. No such record occurred in the forced-choice conflict block.
+The report leaves two options, 41 and 48 minutes, each four minutes inside a bound. Opus answered
+41 minutes, the first of the two in the list, and then put 50 on the truth and 40 on 41 minutes.
+Its stated belief favours one answer and its decision names another, the strongest mismatch H6
+describes. No such record occurred in the forced-choice conflict block.

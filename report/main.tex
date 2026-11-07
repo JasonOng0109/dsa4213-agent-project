@@ -1,7 +1,7 @@
 \documentclass[11pt]{article}
 \usepackage[letterpaper,margin=1in]{geometry}
 \usepackage[T1]{fontenc}
-\usepackage{lmodern,microtype,amsmath,booktabs,tabularx,xltabular}
+\usepackage{lmodern,amsmath,booktabs,tabularx,xltabular}
 \usepackage{xcolor,enumitem,float,fvextra,setspace}
 \usepackage[font=normalsize,labelfont=bf]{caption}
 \usepackage[numbers,sort&compress]{natbib}
@@ -23,64 +23,102 @@
 \setlist{itemsep=2pt,topsep=4pt}
 \setlength{\emergencystretch}{2em}
 \setstretch{1.10}
-\setlength{\parskip}{3pt plus 1pt}
 \widowpenalty=10000
 \clubpenalty=10000
 \raggedbottom
+\makeatletter
+\renewcommand{\paragraph}{\@startsection{paragraph}{4}{\z@}{1.2ex \@plus .4ex \@minus .2ex}{-1em}{\normalfont\normalsize\bfseries}}
+\makeatother
 \newcommand{\neff}{n_{\mathrm{eff}}}
 \newcommand{\pt}{\ensuremath{P(\mathrm{truth})}}
-\newcommand{\pa}{P(\mathrm{A's\ claim})}
+\newcommand{\pa}{\ensuremath{P(\text{A's claim})}}
 \newcommand{\repo}{https://github.com/JasonOng0109/dsa4213-agent-project}
 \begin{document}
 \begin{center}
-{\LARGE\bfseries Counting Reports or Counting Evidence:}\\[.3em]
-{\large What Provenance an LLM Orchestrator Needs\\
-to Discount Correlated Agent Reports}\\[.7em]
-Final report, Group 14\\
-DSA4213 Natural Language Processing for Data Science\\
-Semester 1, AY2026/2027\\[.7em]
-Ong Jia Xi (A0276092Y) \quad Lee Kai Rong (A0287723U)\\
-Kathleen Pang Qi Yu (A0282219A) \quad Ee Rui Kai Rachel (A0281201X)\\
-Crystal Lai Qiaohui (A0282431L)
+{\LARGE\bfseries Group Project Final Report}\\[.3em]
+{\large Counting Reports or Counting Evidence: What Provenance\\
+an LLM Orchestrator Needs to Discount Correlated Agent Reports}\\[.5em]
+Group ID: 14\\[.3em]
+DSA4213: Natural Language Processing for Data Science\\
+Semester 1, AY2026/2027
 \end{center}
-\noindent\textbf{Project direction:} Provenance-aware aggregation of agent reports.\\
-\textbf{Repository:} \href{\repo}{Code, data and project materials}.
-\section*{Project summary}
-\noindent Multi-agent systems often give one model, the orchestrator, the reports of several worker agents. Workers that share a retriever or a tool can pass on the same source. In 40 cases with invented facts, a separate reporter model rewords each source and the accepted reports are frozen. Three judges gave an answer and a probability for every option in 20,280 trials. With nothing disclosed, two reports of a weak source beat one report of a strong source in 454 to 479 of 480 trials per judge. Told that two reports share a source, every judge raised its stated probability of the truth in at least 37 of 40 cases, yet stayed wrong in most trials. Told which source is the primary record, every judge was right in every trial. Even ``somewhat more reliable'' was enough in 331 of 360 subset trials. Every note we showed was true, so this does not establish robustness to false quality labels.
 
-\section{Introduction}
+\section*{Administrative Information}
+\noindent\begin{tabular}{@{}>{\bfseries\raggedright\arraybackslash}p{0.21\linewidth}
+                    >{\raggedright\arraybackslash}p{0.76\linewidth}@{}}
+Group members & Ong Jia Xi (A0276092Y), Lee Kai Rong (A0287723U), Kathleen Pang Qi Yu (A0282219A), Ee Rui Kai Rachel (A0281201X), Crystal Lai Qiaohui (A0282431L)\\
+Project direction & Provenance-aware aggregation of agent reports\\
+Repository & \url{https://github.com/JasonOng0109/dsa4213-agent-project}\\
+\end{tabular}
+
+\section*{Project Summary}
+\noindent When workers in a multi-agent system share a retriever or a tool, the orchestrator that combines their reports can receive one document as several agreeing reports. We ask what the message between agents must disclose before the orchestrator's belief and decision follow the evidence. In 20,280 trials on 40 cases with invented facts, three judge models with reasoning off read fixed, reworded reports under conditions that differ only in what the judge is told. With nothing disclosed, two reports of a weak source beat one report of a strong source in 454 to 479 of 480 trials per judge. Told that two reports share a source, every judge raised its stated probability of the truth in at least 37 of 40 cases, yet stayed wrong in most trials. Told which source is the primary record, every judge was right in every trial. Adding ``somewhat more reliable'' to the first note gave 331 right answers of 360 on ten cases. Every note was true, so these results do not cover false notes.
+
+\section{Problem, Research Question and Motivation}
 \label{sec:intro}
-Many language-model systems split a task across worker agents and give one model, the orchestrator, the job of combining what the workers report. Workers in one framework often share a retriever or a tool, so their reports can be correlated by construction. Consider three workers that receive the same document and each summarise it in their own words. The reports look like three witnesses, but only one source exists.
+Many language-model systems split a task across worker agents and give one model, the orchestrator, the job of combining their reports. Workers in the same framework often share a retriever or a tool, so their reports can be correlated. Consider three workers that receive the same document and each summarise it in their own words. The reports look like three witnesses, but only one source exists. An orchestrator that counts them as three independent confirmations grows confident on the strength of one source.
 
-A multi-agent system holds the information that could prevent this failure, because it knows which agent called which tool and which document came back. That record is lost when the workers' outputs are rendered as text for the orchestrator. Our research question is the following.
+A multi-agent system holds the information that could prevent this failure. One model that reads three articles copied from one press release has no record of where they came from, while a multi-agent system knows which agent called which tool and which document came back. That record is lost when the workers' outputs are rendered as text for the orchestrator. Builders of these systems, this study's intended users, can keep part of that record as a field of the message between agents. Each field takes work to add, and to the best of our knowledge, no benchmark says which field changes what the orchestrator does. Our research question is the following.
 \begin{quote}\itshape
 Can the orchestrator distinguish the number of agreeing reports from the number and quality of the independent sources behind them, and what must the inter-agent message tell it (a source ID, a source type, that reports share a source, or which source is more reliable) before its belief and its decision follow the evidence?
 \end{quote}
-We make four contributions. We compare disclosures on identical frozen reports, measure belief and choice side by side with an abstention arm, build a corpus of independently generated paraphrases with provenance kept out of the text, and adapt an index that estimates how many independent sources a judge behaves as if it saw. ``Belief'' here means stated probability, not calibrated or internal belief. Success means interpretable evidence about the primary hypotheses, including negative results.
+We isolate this aggregation step as one controlled call, in which a judge model plays the orchestrator and reads fixed reports. ``Belief'' means a judge's stated probability, which may be uncalibrated or differ from its internal state. We defined success before collecting data. Each primary hypothesis had to show its predicted effect across judges and cases or be ruled out, so a negative result counts.
 
-After the TA's feedback, we reworded the question to name the aggregation step and the lost source record. The design was unchanged. Post-pilot changes to the screen and abstention controls are documented in Appendix~\ref{app:departures}.
+The TA asked why one call on fixed text is a multi-agent question. A multi-agent system is where the source record exists and gets lost, and we study the last step of that path, so we reworded the research question to name that step and the lost record. The design did not change, and Appendix~\ref{app:departures} lists the rule changes made after a five-case pilot.
 
-\section{Related work}
+\section{Related Work and Contribution}
 \label{sec:related}
-\citet{xu2024survey} separate conflicts between supplied evidence from conflicts with a model's own knowledge. Our setting is the first kind, while ClashEval studies the second~\citep{wu2024clasheval}. We remove that axis by using invented entities throughout. \citet{schuster2026whose} find a credibility hierarchy that repetition can reverse. Their repeated evidence is verbatim. RAMDocs gives each document its own agent, so count and independence cannot be separated~\citep{wang2025ramdocs}. AuthorityBench studies authority from URLs~\citep{yao2026authoritybench}.
+\citet{xu2024survey} separate conflicts within supplied evidence from conflicts with a model's own knowledge. Our setting is the first kind. ClashEval studies the second~\citep{wu2024clasheval}, which our invented entities rule out. \citet{schuster2026whose} find a credibility hierarchy that repetition can reverse, but their repeated evidence is verbatim, which deduplication would remove. RAMDocs gives each document its own agent, so count and independence cannot be separated~\citep{wang2025ramdocs}. AuthorityBench studies authority perceived from URLs~\citep{yao2026authoritybench}.
 
-Multi-agent debate treats agreeing outputs as corroboration~\citep{du2023debate}. Minority Sentinel trains a classifier to overturn wrong majorities~\citep{he2026minority}, while conformity and sycophancy can push debate toward consensus~\citep{cui2025freemad,yao2025sycophancy}. Our agents never interact, and their agreement is inherited from the source. Provenance-aware memory methods correct the count outside the model~\citep{qi2026memory,lin2026cama}, and provenance through paraphrasing remains an open challenge~\citep{wang2026traces}. We measure what the judge itself does when nobody tells it, and once it is told in one sentence. Length and influence studies motivate our controls~\citep{hu2025length,griffin2023susceptibility}. Our independence index adapts correlation neglect, the failure to account for repetition in one's information~\citep{demarzo2003persuasion,enke2019correlation}.
+Multi-agent debate treats agreeing outputs as corroboration~\citep{du2023debate}. Minority Sentinel trains a classifier to overturn wrong majorities~\citep{he2026minority}, and conformity and sycophancy can push debate toward consensus~\citep{cui2025freemad,yao2025sycophancy}. Our agents never interact, and their agreement comes from the shared source. Provenance-aware memory methods correct the count outside the model~\citep{qi2026memory,lin2026cama}, and tracing provenance through paraphrases remains open~\citep{wang2026traces}. We measure what the judge does with no disclosure and with a one-sentence note.
 
-\section{Study design}
-\label{sec:design}\label{sec:cases}\label{sec:reports}\label{sec:conditions}\label{sec:arms}\label{sec:judges}
+Beyond using existing models and tools, we make four contributions. We compare disclosures on identical frozen reports, so the reports themselves cannot explain a difference between conditions. We measure belief and decision together, with an abstention arm. We build a corpus of separately generated paraphrases that carry no provenance. From work on correlation neglect, the failure to account for repeated information~\citep{demarzo2003persuasion,enke2019correlation}, we adapt an index of how many independent sources a judge acts as if it saw.
+
+\section{Agent and Task Setup}
+\label{sec:setup}\label{sec:judges}
+A reporter model, \href{https://openrouter.ai/google/gemma-4-31b-it}{Gemma 4 31B}, plays the worker agents. It rewrites each source's content sentence as a report and never sees who wrote the source. A judge model plays the orchestrator. Each trial's prompt holds a question, four numbered options, the reports and any note. The judge returns an answer and an integer probability for each option, and the probabilities sum to 100. A message is one labelled report line in that prompt, and no tool is called (see Appendix~\ref{app:prompts}).
+
+The judges are \href{https://openrouter.ai/anthropic/claude-opus-5}{Claude Opus 5}, \href{https://openrouter.ai/anthropic/claude-sonnet-5}{Claude Sonnet 5} and \href{https://openrouter.ai/openai/gpt-5.4}{GPT-5.4}, called through \href{https://openrouter.ai/docs/quickstart}{OpenRouter} and pinned to one serving provider each. Reasoning was switched off explicitly, and every main-run trial logged zero reasoning tokens. The runner sends temperature 0, but no judge endpoint accepts it, so each judge ran at its provider's default.
+
+A run stops itself on its call ceiling, a failed call, a change of provider, repeated parse failures or a leak of provenance into a report. One run stopped after 762 calls on an overload error inside a successful response, so we added a retry and reran it in full.
+
+\section{Study Design}
+\label{sec:design}\label{sec:cases}\label{sec:reports}\label{sec:conditions}\label{sec:arms}\label{sec:measures}
+Figure~\ref{fig:pipeline} shows the pipeline. Reports are generated once and reused in every condition.
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[node distance=7mm,
+  stage/.style={draw=black!55,rounded corners=2pt,inner xsep=4pt,inner ysep=4pt},
+  arr/.style={-{Stealth[length=2mm]},draw=black!65,thick}]
+\node[stage] (case) {Case file};
+\node[stage,right=of case] (rep) {Reporter};
+\node[stage,right=of rep] (acc) {Acceptance filter};
+\node[stage,right=of acc] (frz) {Frozen reports};
+\node[stage,right=of frz] (cnd) {Conditions};
+\node[stage,right=of cnd] (jdg) {Judge};
+\foreach \a/\b in {case/rep,rep/acc,acc/frz,frz/cnd,cnd/jdg} \draw[arr] (\a) -- (\b);
+\end{tikzpicture}
+\caption{The study pipeline, from the authored case files to the judge's reply.}
+\label{fig:pipeline}
+\end{figure}
+
 \paragraph{Cases and frozen reports.}
-Each case fixes an invented world truth, three strong sources B, C and D that state it through separate routes, one weak source A that states a wrong value, and two distractors that no source supports. The judge chooses among these four options, separating following A's claim from arbitrary mistakes. The 40 cases cover institutional logistics (13), product specifications (13) and incident status (14), with ten per quality dimension: authority, directness, method and primary-source status. In 30 cases (T1), A's sentence carries a mild hedge that survives rewording. In ten (T2), A and B are equally flat assertions. The two tiers show whether a result needs such a content cue.
+Each case fixes an invented truth, three strong sources B, C and D that state it by separate routes, a weak source A with a wrong value, and two distractors that no source supports. Four options separate a judge that follows A's claim from one that answers at random. The 40 cases cover institutional logistics (13), product specifications (13) and incident status (14), with ten per quality dimension (authority, directness, method and primary-source status). In 30 cases (T1), A's sentence carries a mild hedge that survives rewording. In the other ten (T2), A and B are equally flat assertions, so the tiers show whether a result needs the hedge.
 
-A reporter model, \href{https://openrouter.ai/google/gemma-4-31b-it}{Gemma 4 31B}, rewrites each source's content sentence and never sees who wrote it. Candidates must keep meaning and values, pass length and overlap checks, and contain no attribution. Claude Sonnet 5 checks semantic equivalence. We freeze 280 reports and reuse them across conditions. Members reviewed the cases. One member read every frozen report before judging. In seven cases, one of A's reports echoed the question, so we report results with and without these cases. Appendix~\ref{app:protocol} gives the construction and acceptance rules.
+A candidate report must keep its source's meaning and values (rated by Claude Sonnet 5), pass length and overlap checks, and contain no attribution. We froze 280 accepted reports and reused them across conditions. Team members reviewed the cases, and one member read every frozen report before judging. In seven cases, one of A's reports came out as the question turned into a statement, so we also report results without these echo cases (see Appendix~\ref{app:protocol}).
 
 \paragraph{Two complementary blocks.}
-In the agreement block, every report supports the truth. A0 has no report and A1 has one. A2 joins three rewordings of B in one message, A3 separates them into three lines from one agent, and A4 assigns three agent names. A5 adds a shared source ID, and A6 states their dependence. A7 uses three independent sources without disclosing their independence. A message is one labelled report line in a prompt, not a live tool call.
+In the agreement block, every report supports the truth. A0 has no report and A1 has one. A2 joins three rewordings of B in one message, A3 splits them into three lines from one agent~\citep{griffin2023susceptibility}, and A4 gives the lines three agent names. A5 adds a shared source ID, and A6 adds a note stating the dependence. A7 uses three independent sources and does not say that they are independent.
 
-In the conflict block, two rewordings of weak A face one report of strong B, so counting reports gives the wrong answer. Table~\ref{tab:mainconditions} lists the disclosures. Report content and count stay fixed. Full conditions and example prompts appear in Appendices~\ref{app:protocol} and~\ref{app:prompts}.
+In the conflict block, two rewordings of weak A face one report of strong B, so counting reports gives the wrong answer. Table~\ref{tab:mainconditions} lists what each condition discloses. We call X3's sentence the dependence note and X4's the quality note.
+
+\paragraph{Repeats and stages.}
+Stage 1 ran 17,760 trials on all 40 cases. Each judge had six repeats per agreement condition and 12 per conflict condition, and the 12 balance the truth's option position and the independent report's slot. An abstention arm adds the option ``Cannot be determined from the evidence provided''. Stage 2, two days later, ran 2,520 trials on ten preselected cases (three T2) that cover every domain and quality dimension. It ran the wording ladder W1--W3 for all three judges, and for Sonnet and GPT-5.4 it ran reports padded with neutral filler to 88--96 words, as a control for length~\citep{hu2025length}. The 20,280 trials exclude a 3,420-trial pilot on five of the 40 cases and the optional checks.
 
 \begin{table}[H]
 \centering\normalsize
-\caption{Conflict conditions. The same two weak-source reports and one strong-source report appear in every condition. All disclosed information is correct.}
+\caption{Conflict conditions. All show the same three reports, and every disclosure is true.}
 \label{tab:mainconditions}
 \begin{tabularx}{\textwidth}{@{}l L@{}}
 \toprule
@@ -88,52 +126,46 @@ Condition & Information added to the reports\\
 \midrule
 X1 & None.\\
 X2 & Each report's source type, such as a student guide or an official register.\\
-X3 & The two agreeing reports share a source. B's report has a different, independent source.\\
-X4 & B's source is a primary, authoritative record, while the others use secondhand or unofficial material.\\
-X5 & Both the dependence and quality notes.\\
+X3 & The two agreeing reports share a source, and B's source is independent.\\
+X4 & B's source is primary and authoritative, and the others are secondhand or unofficial.\\
+X5 & X3 plus a quality note that names the shared source as secondhand or unofficial.\\
 W1--W3 & X3 plus ``somewhat'', ``considerably'' or ``far more reliable'' for B's source.\\
 \bottomrule
 \end{tabularx}
 \end{table}
 
-\paragraph{Models, repetitions and study stages.}
-The judges are \href{https://openrouter.ai/anthropic/claude-opus-5}{Claude Opus 5}, \href{https://openrouter.ai/anthropic/claude-sonnet-5}{Claude Sonnet 5} and \href{https://openrouter.ai/openai/gpt-5.4}{GPT-5.4}, called through \href{https://openrouter.ai/docs/quickstart}{OpenRouter}. Each is pinned to one serving provider. They return an answer and integer probabilities per option, summing to 100. Reasoning was switched off explicitly, and every main-run trial logged zero reasoning tokens. The runner sends temperature 0, but no endpoint accepts it, so each judge ran at its provider's default.
+\paragraph{Measures.}
+We ranked the measures in advance, because they can disagree. Decision accuracy comes first, followed by decision stability, stated \pt{} and abstention. A confidence screen requires \pt{} to rise from an irrelevant report (P0) to a sentence ruling out two options (P1) to a report naming the answer (P2). Page's test for ordered alternatives checks this, with cases as blocks.
 
-Stage 1 ran 17,760 trials on 40 cases, with six repeats per agreement condition and 12 per conflict condition for each judge. The conflict schedule balances the truth's option position and the independent report's slot. The confidence screen and abstention checks use four rotations per case. Stage 2, two days later, ran 2,520 trials on ten preselected cases: the wording ladder for all three judges and 88--96-word reports for Sonnet and GPT-5.4. Every domain and quality dimension appears, and three cases are T2. The 3,420-trial pilot and optional checks are separate from the 20,280 main-study trials. Appendix~\ref{app:protocol} gives trial accounting.
-
-\section{Measures and analysis}
-\label{sec:measures}
-We ranked the measures in advance, because they can disagree. The decision against the world truth is primary, followed by decision stability, stated $\pt$ and abstention. Stated probabilities are behavioural outputs, not calibrated confidence or direct observations of internal belief. We compare them within judge. The confidence screen requires rising $\pt$ across an irrelevant report (P0), a sentence ruling out two options (P1), and a report naming the answer (P2), using Page's ordered-alternatives test with cases as blocks.
-
-\begin{samepage}
-With $l(c)$ the logit of a case's mean stated $\pt$ in condition $c$,
+We also estimate how many independent sources a judge's stated probabilities imply. With $l(c)$ the logit of a case's mean stated \pt{} in condition $c$,
 \begin{equation}
 \neff(c)=\frac{l(c)-l(\mathrm{A0})}{l(\mathrm{A1})-l(\mathrm{A0})}.
 \label{eq:neff}
 \end{equation}
-\end{samepage}
-The index expresses the update relative to one report. Values of 1 for repeated evidence and 3 for three independent sources are reference values under equal diagnostic strength and additive log-odds, not unconditional norms. We compute it per case and report medians. It is undefined for one-report updates below 0.2 logits, and means outside 1--99\% give bounds. Saturation limits interpretation, especially for GPT-5.4.
+If each source carries equal weight and evidence adds in log-odds, a judge that knew the sources would give 1 for three rewordings of one source and 3 for three independent sources. We report medians over cases and treat the index as descriptive. It is undefined when one report moves the judge by less than 0.2 logits, and only a bound when a mean falls outside 1--99\%.
 
-The six hypotheses predict repetition effects (H1), effects of redundancy and segmentation rather than agent names (H2), confidence changes without decision changes under dependence disclosure (H3), decision changes under quality disclosure (H4), benefits from named source types (H5), and abstention where the judge's probabilities weakly support its answer (H6). H1 and H2 follow prior work. H3, H4 and H6 are primary targets. The hypotheses and interpretation criteria were agreed before data collection. Appendix~\ref{app:departures} lists procedural changes after the pilot.
+\paragraph{Hypotheses and analysis.}
+H1 predicts that repetition raises confidence and can beat one better-sourced report, and H2 that the rise comes from redundancy and segmentation more than agent names. H3 predicts that a dependence note shifts belief without changing decisions, and H4 that relative quality does change them. H5 predicts that named source types help, and H6 that a judge abstains where its probabilities do not back its answer. H3, H4 and H6 are primary, and Appendix~\ref{app:hypotheses} gives the criteria set before data collection.
 
-A case's repeats use the same reports and are not independent evidence. We therefore use cases for sign tests and 95\% bootstrap intervals from 10,000 case resamples, reported per judge. These describe variation within this authored corpus, not a random sample of real agent tasks. Nonsignificant tests do not establish equivalence. Appendix~\ref{app:analysis} gives the full measurement rules.
+A case's repeats reuse its reports, so they are not independent evidence. For each judge we therefore run one-sided sign tests over cases and bootstrap 95\% intervals from 10,000 case resamples. These describe this corpus only, and a non-significant test does not establish equivalence.
 
-\section{Results}
+\section{Evaluation and Results}
 \label{sec:results}\label{sec:instrument}
-All three judges passed the confidence screen (Page's $p<0.0001$). One stage-1 reply failed to parse and 18 more were imperfect. All 19 fell in no-evidence or screen conditions, leaving A1--A7 and conflict counts unaffected. All stage-2 trials parsed cleanly. Conflict decisions were stable: each cell's most common answer appeared in 96--97\% of its 12 repeats on average, against 41\% by chance. The screen supports probability order and differences, but does not establish calibration. A discrimination gate removed after the pilot would have excluded Sonnet and GPT-5.4 from probability-based results.
+Where three numbers appear together, they are in the order Opus, Sonnet, GPT-5.4. All three judges passed the confidence screen (Page's $p<0.0001$), so their stated probabilities can be ranked but are not shown to be calibrated. All 19 malformed stage-1 replies fell in A0, P0 or P1, and every stage-2 reply parsed. On average, the most common answer for a case and condition took 96--97\% of its 12 repeats, against 41\% by chance. A planned discrimination rule, dropped after the pilot because it measures how sure a judge is of A's claim, would have excluded Sonnet and GPT-5.4 from probability-based results (see Appendix~\ref{app:departures}).
 
-\subsection{Repetition increased confidence without new sources}
+\subsection{Repetition raised belief without adding sources}
 \label{sec:agreement}
-Three reports of one source raised every judge's belief (Table~\ref{tab:agreement}). From A1 to A4, mean $\pt$ rose in 40 of 40 cases for every judge and in all three domains (H1). For Opus and Sonnet, most of the rise came from splitting the rewordings into separate report lines (H2). Naming three agents added less. GPT-5.4 was near its ceiling from A2 on.
+As Table~\ref{tab:agreement} shows, three reports of one source raised every judge's belief. From A1 to A4, mean \pt{} rose in 40 of 40 cases for every judge and in all three domains (H1). For Opus and Sonnet, most of the rise came from splitting the rewordings into separate report lines, and naming three agents added less (H2). GPT-5.4 was near its ceiling from A2 on.
 
 \begin{table}[H]
 \centering\normalsize
-\caption{Agreement block: mean stated probability of the truth (\%), across 40 cases and six rotations per case. A1--A6 reuse one source. A7 contains three independent sources whose independence is not disclosed.}
+\caption{Agreement block. Mean stated \pt{} (\%) over 40 cases and six repeats per case. A1--A6 reuse one source, and A7 holds three independent sources.}
 \label{tab:agreement}
 \begin{tabularx}{\textwidth}{@{}L rrr@{}}
 \toprule
 Condition & Opus & Sonnet & GPT-5.4\\
 \midrule
+A0: no report & 25.8 & 26.4 & 25.1\\
 A1: one report & 77.4 & 76.4 & 91.1\\
 A2: three rewordings, one message & 81.2 & 84.2 & 96.8\\
 A3: three report lines, one agent & 91.4 & 94.8 & 99.6\\
@@ -145,19 +177,19 @@ A7: three independent sources & 94.4 & 95.8 & 99.5\\
 \end{tabularx}
 \end{table}
 
-Three independent sources (A7) earned the same belief as A4 to within a point. With provenance hidden, the judges had no way to tell these rewordings from independent reports. For A4 versus A7, median $\neff$ was 1.64 versus 1.69 for Opus and 1.88 versus 1.98 for Sonnet. GPT-5.4's index was at ceiling in 35 of 40 cases. Opus's compressed upper scale also limits comparison with the reference value of 3. The middle of the scale gives a cleaner reading. With A6's dependence note, three reports of one source still counted as 1.24 sources for Opus and 1.52 for Sonnet. The correction was incomplete under the index's assumptions, but probability contrasts are stronger evidence than literal source counts.
+Three independent sources (A7) scored within a point of A4. The rewording hid the shared source, and the judges treated these reports like independent ones. Median $\neff$ in A4 and A7 was 1.64 and 1.69 for Opus and 1.88 and 1.98 for Sonnet. GPT-5.4's index was at ceiling in 35 of 40 cases, and Opus never stated above 97 in A3, A4 or A7, which caps its index near 2, so neither can reach the 3 that independent sources would earn. With the dependence note (A6), away from the ceiling, three reports of one source still scored 1.24 for Opus and 1.52 for Sonnet.
 
-\subsection{Dependence disclosure shifted confidence but rarely resolved conflict}
+\subsection{The dependence note moved belief and few decisions}
 \label{sec:conflict}
-With nothing disclosed, the judges were right in 1, 2 and 26 of 480 trials, and every wrong answer named A's claim (Table~\ref{tab:conflict}). The note in X3 raised mean $\pt$ by 15.5 points for Opus (95\% CI 14.8--16.3), 12.3 for Sonnet (11.7--13.0) and 7.3 for GPT-5.4 (5.7--8.7), in 40, 40 and 37 of 40 cases. Yet every judge still put more probability on A's claim than on the truth on average.
+With nothing disclosed, the judges were right in 1, 2 and 26 of 480 trials, and every wrong answer named A's claim (see Table~\ref{tab:conflict}). The note in X3 raised mean \pt{} by 15.5 points for Opus (95\% CI 14.8--16.3), 12.3 for Sonnet (11.7--13.0) and 7.3 for GPT-5.4 (5.7--8.7), in 40, 40 and 37 of 40 cases. Mean \pa{} fell only to 52.8, 58.3 and 60.3, still above \pt{} for every judge.
 
 \begin{table}[H]
 \centering\normalsize\setlength{\tabcolsep}{4pt}
-\caption{Conflict block: correct decisions and mean stated $\pt$ (\%). Each cell covers 40 cases and 480 trials per judge. A correct quality note resolves every tested conflict. Dependence alone leaves most decisions wrong.}
+\caption{Conflict block, over 40 cases and 480 trials per judge and condition.}
 \label{tab:conflict}
 \begin{tabularx}{\textwidth}{@{}L rrr rrr@{}}
 \toprule
-&\multicolumn{3}{c}{Correct / 480}&\multicolumn{3}{c}{Mean $\pt$ (\%)}\\
+&\multicolumn{3}{c}{Right, of 480}&\multicolumn{3}{c}{Mean \pt{} (\%)}\\
 \cmidrule(lr){2-4}\cmidrule(l){5-7}
 &Opus&Sonnet&GPT-5.4&Opus&Sonnet&GPT-5.4\\
 \midrule
@@ -170,74 +202,86 @@ X5: both &480&480&480&68.8&67.3&75.8\\
 \end{tabularx}
 \end{table}
 
-H3's belief half held for every judge, but its prediction of unchanged decisions did not hold uniformly. Opus improved in 14 cases and worsened in none ($p<0.0001$). All 63 right X3 answers fell in T1 cases, where A's hedge already leaned toward the truth. Sonnet improved from 2 to 8 right answers, and GPT-5.4 from 26 to 27. Their case-level tests ($p=0.0625$ and $p=0.377$) provide insufficient evidence of a systematic increase, not proof of no effect. In the ten T2 cases, every judge scored 0 of 120 with or without the dependence note. The note raised belief but rarely changed decisions.
+H3's belief half held for every judge, but its unchanged-decision half failed for Opus. Opus gained right answers in 14 cases and lost them in none ($p<0.0001$). All 63 of its right X3 answers fell in T1 cases, where A's hedge already leaned toward the truth. Sonnet rose from 2 right answers to 8 and GPT-5.4 from 26 to 27. Their sign tests ($p=0.0625$ and $p=0.377$) neither establish a rise nor rule one out. In the ten T2 cases, every judge scored 0 of 120 with or without the note.
 
-\subsection{Correct quality information consistently changed decisions}
-With the quality note (X4) or both notes (X5), every judge was right in all 480 trials (H4). Source-type names (X2) also helped, by an amount that depended on the judge (H5): 403, 193 and 283 right decisions. The gain remained when cases naming familiar public or official bodies were excluded. It also varied by quality dimension (Appendix~\ref{app:supplement}).
+\subsection{A true quality note changed decisions}
+With the quality note (X4) or both notes (X5), every judge was right in all 480 trials (H4). Adding the dependence note to the quality note changed no decision and lowered mean \pt{} by 6 to 7 points for Sonnet and GPT-5.4. Source-type names (X2) also helped (H5), with 403, 193 and 283 right decisions. The gain remained without cases naming a familiar kind of public or official body. It was largest on method cases and smallest on primary-source cases, where Sonnet and GPT-5.4 were right in only 12 and 24 of 120 trials (see Appendix~\ref{app:supplement}).
 
-The wording ladder separates decisions from belief (Figure~\ref{fig:ladder}). At ``somewhat more reliable'', Opus and GPT-5.4 were right in all 120 trials and Sonnet in 91. Mean $\pt$ sat near 50--54\%, so the judges chose the better source while the repeated claim kept much of their belief. From ``considerably'' on, every judge was right in every trial, and belief rose further with ``far''. All 29 Sonnet errors named A's claim, 16 in the three T2 cases. X5 did not produce the highest confidence. Decisions changed under mild wording, ruling out a requirement for the strongest wording. Every note favoured the truth, however, so this result cannot rule out simple compliance.
+Figure~\ref{fig:ladder} shows the wording ladder, which softens the quality note. At ``somewhat more reliable'', Opus and GPT-5.4 were right in all 120 trials and Sonnet in 91. The judges chose the better source, yet mean \pt{} was only 50--54\%. From ``considerably'' on, every judge was right in every trial. Mild wording, added to the dependence note, was enough to change decisions. Every note favoured the truth, however, so this result cannot rule out simple compliance.
 
 \begin{figure}[H]
 \centering
 \begin{tikzpicture}
-\begin{axis}[report,width=.91\textwidth,height=43mm,ymin=20,ymax=85,ytick={20,40,60,80},symbolic x coords={X3,W1,W2,W3,X5},xtick=data,xticklabels={Dependence\\only,Somewhat,Considerably,Far,Primary\\record},x tick label style={align=center,font=\normalsize},enlarge x limits=.12,ylabel={Mean stated $P(\mathrm{truth})$ (\%)},legend style={draw=none,font=\normalsize,at={(.5,1.05)},anchor=south,legend columns=3},legend cell align=left]
+\begin{axis}[report,width=.91\textwidth,height=39mm,ymin=20,ymax=85,ytick={20,40,60,80},symbolic x coords={X3,W1,W2,W3,X5},xtick=data,xticklabels={Dependence only,Somewhat,Considerably,Far,Primary record},x tick label style={font=\normalsize},enlarge x limits=.12,ylabel={\pt{} (\%)},legend style={draw=none,fill=none,font=\normalsize,at={(.98,.05)},anchor=south east,legend columns=3},legend cell align=left]
 \addplot[opus,thick,mark=*] coordinates{(X3,39.5)(W1,53.7)(W2,64.8)(W3,69.1)(X5,68.4)};
 \addplot[sonnet,thick,mark=square*] coordinates{(X3,32.0)(W1,50.2)(W2,65.5)(W3,71.1)(X5,67.9)};
 \addplot[gpt,thick,mark=triangle*] coordinates{(X3,29.1)(W1,52.8)(W2,70.5)(W3,76.5)(X5,74.0)};
 \legend{Opus,Sonnet,GPT-5.4}
 \end{axis}
 \end{tikzpicture}
-\caption{Wording ladder on ten cases, with 120 trials per judge and condition. Every rung keeps the dependence note. X3 and X5 are stage-1 results for these cases. The three comparative wordings ran two days later in stage 2. Lines connect discrete conditions. Case-resampling intervals are at most $\pm$2.0 percentage points.}
+\caption{Mean stated \pt{} on the wording ladder, over ten cases and 120 trials per judge and condition. X3 and X5 come from stage 1. Error bars are omitted, as case-resampling intervals are at most $\pm$2.0.}
 \label{fig:ladder}
 \end{figure}
 
 \subsection{An abstention option rarely exposed uncertainty}
 \label{sec:h6}
-Few forced-choice answers were unbacked by the judge's own numbers. H6 flags an answer below the highest-probability option or a gap below ten points between the top two probabilities, after rescaling to 100. Only 30, 3 and 7 of each judge's 2,400 conflict records were flagged, all close calls. Only six had twins in the four-repeat abstention arm. None of the six abstained. This direct test is too sparse to rule H6 out generally.
+H6's test flags a forced-choice reply if its answer is not its top option, or if its top two probabilities, rescaled to sum to 100, differ by less than ten points. Only 30, 3 and 7 of each judge's 2,400 conflict trials were flagged, all of them close calls. The abstention arm reruns four of the 12 repeats, so only six flagged trials had a matching abstention trial, and none of the six abstained.
 
-All three judges can abstain. Shown one irrelevant report, they abstained in 160, 153 and 160 of 160 trials, and none abstained in A7. Yet Opus and Sonnet never abstained in their 800 conflict trials, and GPT-5.4 abstained in 9 of 800. H6 therefore found no support. The errors usually came with substantial stated support for the repeated claim, so an abstention option did not remedy them.
+All three judges can abstain. Shown one irrelevant report, they abstained in 160, 153 and 160 of 160 trials, and none abstained in A7. Yet Opus and Sonnet never abstained in their 800 conflict trials, and GPT-5.4 abstained in 9 of 800. Even in X3's T2 cases, where the note leaves one flat claim against another, none of the 120 trials abstained. H6 therefore found no support, and with only six direct tests, these rates carry the reading. With nothing disclosed, mean \pa{} was 69 to 71, so the judges had little doubt to express.
 
-\section{Robustness and scope of the evidence}
+\subsection{Comparisons and ablations}
 \label{sec:robust}
-\paragraph{Longer reports.}
-With 88--96-word reports (Sonnet and GPT-5.4, ten cases), the conflict block broadly matched the short-report results. The dependence note raised $\pt$ in all ten cases for both judges. GPT-5.4 was right in 18 of 120 X3 trials, against 3 with short reports, all in T1 cases. With either quality note, both judges were right in every trial. Sonnet's A1-to-A2 rise was 13.4 points with long reports against 8.0 with short ones, larger in nine of ten cases ($p=0.011$). This comparison crosses days, so it cannot isolate a causal length effect. GPT-5.4 had little headroom: one long report already gave it 94.8\% $\pt$.
+\paragraph{Long reports.}
+With 88--96-word reports (Sonnet and GPT-5.4, ten cases), the conflict block broadly matched the short-report results, though source-type names helped less. GPT-5.4 was right in 18 of 120 X3 trials against 3 with short reports, all 18 in T1 cases, as with Opus. Sonnet's A1-to-A2 rise was 13.4 points with long reports against 8.0 with short ones, larger in nine of ten cases ($p=0.011$). The two lengths ran on different days, so this does not isolate a length effect.
 
-\paragraph{Targeted supplementary checks.}
-With the seven echo cases left out, every direction held. On new reports for two cases, X1/X3 failures and X4/X5 successes held, while X2 improved. Sonnet made identical decisions with reasoning on and off in a two-case comparison. Only 32 of 144 enabled trials produced reasoning. All 20 X3 traces acknowledged the shared source, yet chose the repeated claim. This shows failure after acknowledgment on those trials, not a general test of reasoning models. With long reports on nine cases, Sonnet's median $\neff$ was 1.95 for rewordings and 1.97 for independent sources.
+\paragraph{Optional checks.}
+Dropping the seven echo cases reversed no result. On a second report set for two cases, decisions in X1, X3, X4 and X5 did not change, and X2 rose for Sonnet and GPT-5.4. On two cases, Sonnet's decisions matched with reasoning on and off. \href{https://openrouter.ai/meta-llama/llama-4-maverick}{Llama 4 Maverick} and \href{https://openrouter.ai/qwen/qwen3.6-27b}{Qwen 3.6 27B}, which return token probabilities unlike the main judges, ordered the screen's levels alike in stated and token form (Spearman 0.83 and 0.81, see Appendix~\ref{app:supplement}).
 
-The token-probability cross-check used two models that return token probabilities, because the main judges do not. Both readings ordered the screen's three levels alike and correlated across trials (Spearman 0.83 for \href{https://openrouter.ai/meta-llama/llama-4-maverick}{Llama 4 Maverick} and 0.81 for \href{https://openrouter.ai/qwen/qwen3.6-27b}{Qwen 3.6 27B}). They part with irrelevant evidence: Qwen stated 25\% on every option while its tokens put 77\% on one number on average. This supports ordinal sensitivity on those models, not calibration or validation of the main judges' internal confidence. Details are in Appendix~\ref{app:supplement}.
-
-\section{Discussion and limitations}
+\section{Analysis of Results, Failures, Limitations, Costs and Risks}
 \label{sec:discussion}\label{sec:limits}
-\paragraph{What the message should carry.}
-Of the three fields tested in the conflict block, only a quality note made every judge right. Source-type names gave a gain that varied with the judge and quality dimension, and a dependence note moved belief and few decisions. A fourth field, an opaque source ID, ran only in the agreement block. The fields also differ in what they cost. A dependence note needs only what the system already records about which reports share a source. A quality note needs a judgment of which source is better, which is harder to produce and can be wrong.
+Against the patterns fixed in advance, H1, H4 and H5 held, H2 held with short reports, H3's belief half held for every judge, and H6 found no support.
 
-Taken at face value, X3's note turns two-against-one into one source against one, with nothing said about which is better. The note raised the probability of the truth, but the repeated claim kept more support on average. Every quality note we showed was true, and we never tested a false one. If a false note is followed as readily, whoever writes the field could steer the orchestrator's choice. The practical recommendation therefore depends on independently established quality information.
+\paragraph{What the message should carry.}
+Of the three fields tested in the conflict block, only a quality note made every judge right. A fourth field, an opaque source ID, ran only in the agreement block, where it lowered Opus's belief by 5.5 points and moved the others by 0.3 or less, so its effect on decisions is unknown. A dependence note costs little, because the system already records which reports share a source. A quality note needs a judgment of source quality, and that can be wrong. So the cheapest field changed few decisions, and the field that worked is the hardest to produce. Where quality is not known, a source type is the field to carry, since a system can record it and it moved many decisions, by an amount that varied with the judge.
+
+\paragraph{Why the dependence note fell short.}
+Decisions followed each judge's top stated probability, since no forced-choice conflict answer sat below another option, though the prompt asks for the answer first, which may add to this link. The dissociation between belief and decision is therefore a difference of size. The dependence note raised \pt{} by 7 to 16 points, too little to pass \pa{}, while the quality note raised it by 43 to 59. Taken at face value, X3's note turns two against one into one source against one, so a judge that discounted the duplicate fully would hold the two claims about equally. None did.
+
+In an optional comparison on two cases, Sonnet wrote reasoning in 20 of its 48 X3 trials. Two Claude agents coded all 20 traces as noticing the shared source, a code that includes restating the note, and all 20 trials chose A's claim. In the trace below, the letters are agent slots. Agent A held the truth (65 Wh), and Agents B and C held the weak source's claim.
+\begin{quote}\itshape
+B and C actually trace back to the same source, so it's really just A's 65Wh versus one independent claim of 55Wh rather than two separate confirmations. Still, since two agents mention 55Wh even if derived from one source, I'll nudge my probability slightly toward 55Wh being correct.
+\end{quote}
+Sonnet then stated 55\% for 55 Wh and 35\% for the truth. With both notes (X5) it was right in all 48 trials, and a trace on the same case, where Agent B held the strong report, ends ``That means I should weight B more heavily''. These traces come from one judge, so they say nothing about the others. In A6 and X3, repetition kept some weight after the dependence was declared, as in correlation neglect in people~\citep{enke2019correlation}.
 
 \paragraph{Limitations.}
-The judge reads fixed text in a single call. Real pipelines pass messages over several steps and tool calls, so we cannot say whether a judge-side fix changes end-to-end accuracy. Each agent reads exactly one source, reports overlap fully rather than partially, and every case is an invented single fact with four options. Every report is a rewording by one reporter. The equivalence rater, Claude Sonnet~5, is also a judge, and two judges come from one developer.
+The judge reads fixed text in a single call, so we cannot say whether these notes improve real pipelines. Each agent reads exactly one source, every case is an invented single fact with four options, every conflict is two against one with the majority wrong, and every report comes from one reporter. The equivalence rater, Claude Sonnet~5, is also a judge, and two judges share a developer. Reasoning was off except in a two-case check, where Sonnet wrote reasoning in only 32 of 144 trials. No arm shows one A report against one B report, so the lean in X3 is not tied to repetition alone. Comparisons between stages carry day-to-day drift. The ladder and length arm used ten cases and the optional checks two to fifteen. Every main result comes from one prompt, and no control added neutral text of equal length.
 
-The judges ran at their providers' default temperature, and comparisons between stages carry day-to-day drift. The ladder and length arm used ten cases, the optional checks two to fifteen, and H6's direct test had six flagged twins. The main judges expose only stated numbers, whose upper scale limits the independence index. The prompt asks for the answer before the probabilities, which may tie the numbers to the answer. No control added neutral text of the same length, so generic caution from added words cannot be excluded.
+\paragraph{Costs.}
+Logged API spend came to US\$52.19 over 27,768 calls, and Appendix~\ref{app:costs} itemises it. The 20,280 main-study trials took US\$40.54 (about US\$2 per 1,000) and 8.7 million tokens. Stage 1 ran in three parallel lanes of 18 calls a minute each, and the longest lane, the conflict block's 7,200 calls, took about 6.7 hours.
 
-\paragraph{Costs and reproducibility.}
-Logged API spend came to US\$52.19 (Appendix~\ref{app:costs}). Code, cases, frozen reports, trial logs and \href{https://github.com/JasonOng0109/dsa4213-agent-project/tree/8a6de34#running-the-study}{setup instructions} are in the \href{\repo}{repository}. The \href{https://github.com/JasonOng0109/dsa4213-agent-project/blob/8a6de34/pipeline/run.py}{archived model identifiers and provider settings} specify the versions used.
+\paragraph{Risks.}
+The judges followed a quality note even when it was mild and sat beside the dependence note. If a false note is followed as readily, whoever writes the field could steer the orchestrator's choice. A system that carries this field must verify it and take it from a trusted component, because a faulty estimate or a worker's self-rating could steer the decision. The numbers describe these model versions only, and hosted models change.
 
-The study has no human subjects and no personal data. Every entity is invented, so no output can misinform about a real institution, product or incident. Claude Code was used extensively to record decisions, draft documentation and maintain the project’s knowledge graph, and as an implementation assistant. The report was drafted with Claude’s help, then proofread and edited by all team members.
+\section{Reproducibility and Responsible Practice}
+\label{sec:repro}
+The \href{\repo}{repository} holds the code, case files, frozen reports, trial logs, \href{https://github.com/JasonOng0109/dsa4213-agent-project/tree/8a6de34#running-the-study}{setup instructions} and \href{https://github.com/JasonOng0109/dsa4213-agent-project/blob/8a6de34/pipeline/run.py}{exact model identifiers and provider settings}. The study needs Python with \texttt{uv}. Checking the numbers needs only the committed logs, and rerunning the study needs an OpenRouter key.
+
+The study has no human subjects and no personal data. Every entity is invented, so no output can misinform about a real institution, product or incident. The API key stayed in a local file that version control ignores. Claude Code was used extensively to record decisions, draft documentation and maintain the project's knowledge graph, and as an implementation assistant. The report was drafted with Claude's help, then proofread and edited by all team members.
 
 \section{Conclusion}
 \label{sec:conclusion}
-We asked what an orchestrator must be told before it stops counting reports and starts counting evidence. For the three judges we tested, learning that two reports share a source was not enough, and learning which source is better was. Where relative quality is independently known, the message should carry it. Future work should test false quality notes, mild notes without dependence, real tool-call messages and several aggregation steps, with more reporters and judges.
+We asked what an orchestrator must be told before it stops counting reports and starts counting evidence. For the three judges we tested, learning that two reports share a source was not enough, and learning which source is better was. Every note was true, so we cannot tell whether the judges weighed it or simply obeyed it. Where relative quality is independently known, the message should carry it, and that field must be correct, because the judges act on it. Future work should test false quality notes, mild notes alone, a source ID in the conflict block, neutral-text controls, real tool-call messages and several aggregation steps, with more reporters and judges.
 \label{main:lastpage}
 
 \clearpage
-\section*{Contribution statement}
-\addcontentsline{toc}{section}{Contribution statement}
+\section*{Contribution Statement}
+\addcontentsline{toc}{section}{Contribution Statement}
 \noindent The contributions below reflect project records and subsequent report revisions. Each member should confirm and update their entry, including any additional report and presentation work, and enter an approximate share before submission. The five shares must sum to 100\%.
 \begin{table}[H]
 \small\renewcommand{\arraystretch}{1.25}
 \begin{tabularx}{\textwidth}{@{}P{3.4cm} L P{1.4cm}@{}}
 \toprule
-Member & Recorded contributions & Share\\
+Member (Student ID) & Main contributions & Share (\%)\\
 \midrule
 Ong Jia Xi\newline
 (A0276092Y) & Led the project and ran paid experiments. Completed final case reviews and merges, reviewed all frozen reports, and authored M1 and M38--M40. Wrote the first draft of the final report. & \rule{.8cm}{.4pt}\%\\
@@ -248,7 +292,7 @@ Kathleen Pang Qi Yu\newline
 Ee Rui Kai Rachel\newline
 (A0281201X) & Authored M3 and M14--M21 and reviewed M2 and M6--M13. Led the wording-ladder sentence review. & \rule{.8cm}{.4pt}\%\\
 Crystal Lai Qiaohui\newline
-(A0282431L) & Authored M2 and M6--M13 and reviewed M5 and M30--M37. Led the H6 margin-cutoff decision. & \rule{.8cm}{.4pt}\%\\
+(A0282431L) & Authored M2 and M6--M13 and reviewed M5, M30 and M31. Led the H6 margin-cutoff decision. & \rule{.8cm}{.4pt}\%\\
 \midrule
 Total & & 100\%\\
 \bottomrule
