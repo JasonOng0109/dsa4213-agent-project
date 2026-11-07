@@ -21,8 +21,9 @@ Prints:
   and how many X3 trials in T2 cases abstained;
 - right decisions from X1 to X3 counted over cases, at both lengths, with one-sided sign
   tests (the table fixed before the data sets no number for an unchanged decision rate);
-- 95% intervals from resampling cases: the widest on a plotted mean in each figure, and
-  the A7 - A4 and X1 -> X3 differences the report quotes.
+- 95% intervals from resampling cases: the widest on a mean in each block and on the
+  wording ladder, and the A7 - A4 and X1 -> X3 differences the report quotes;
+- the main study's judging: trials, tokens and logged cost.
 Means over cases use the scorer's cells (pipeline/score.py, `cell`), as tools/tally.py does.
 """
 
@@ -223,11 +224,21 @@ def intervals() -> None:
     ladder = by_judge_case(f"{MAIN}/trials-ladder.jsonl", {"W1", "W2", "W3"})
     subset = {judge: {case: {**conflict[judge][case], **rs} for case, rs in cases.items()}
               for judge, cases in ladder.items()}
-    widest("figure 2", agreement, ("A1", "A2", "A3", "A4", "A5", "A6", "A7"))
-    widest("figure 3 belief", conflict, ("X1", "X2", "X3", "X4", "X5"))
-    widest("figure 4", subset, ("X3", "W1", "W2", "W3", "X5"))
+    widest("agreement block", agreement, ("A1", "A2", "A3", "A4", "A5", "A6", "A7"))
+    widest("conflict block", conflict, ("X1", "X2", "X3", "X4", "X5"))
+    widest("wording ladder", subset, ("X3", "W1", "W2", "W3", "X5"))
     difference("A7 - A4", agreement, "A4", "A7")
     difference("X1 -> X3 rise", conflict, "X1", "X3")
+
+
+def judging() -> None:
+    logs = ("abstain-p0", "abstain", "agreement", "conflict", "screen",
+            "ladder", "long-agreement", "long-conflict")
+    rows = [r for log in logs for r in load(f"{MAIN}/trials-{log}.jsonl")]
+    tokens = sum(r["usage"]["total_tokens"] for r in rows)
+    cost = sum(r["usage"]["cost"] for r in rows)
+    print(f"main study's judging: {len(rows)} trials, {tokens} tokens, ${cost:.2f}, "
+          f"${1000 * cost / len(rows):.2f} per 1,000 trials")
 
 
 if __name__ == "__main__":
@@ -241,3 +252,4 @@ if __name__ == "__main__":
     abstentions()
     x3_signs()
     intervals()
+    judging()
