@@ -458,8 +458,8 @@ write to `runs/mock/`, which is ignored.
 
 ## Reproducibility and documentation
 
-The final report keeps to the study itself, so this section holds what a reader needs to
-check it (`docs/decisions.md`, 2026-11-05).
+Section 7 of the final report says where things are, and this section holds what a reader
+needs to check the study (`docs/decisions.md`, 2026-11-07).
 
 **What the repository holds.** Everything the results rest on: the 40 case files, the
 pipeline, the frozen reports with every candidate's acceptance scores
@@ -534,7 +534,8 @@ runs/                     outputs of real runs (created by the first run)
   robustness/             the wording-robustness rerun's reports and trials, scored apart
 report/                   the final report
   main.tex                its LaTeX source; latexmk -pdf main.tex builds main.pdf
-  references.bib          its references, as listed in the proposal
+  appendix.tex            its appendix, read in by main.tex
+  references.bib          its references
   numbers.py              the few numbers it adds to the stage reports
 ```
 
@@ -542,10 +543,11 @@ report/                   the final report
 
 Who does what next, step by step: [`docs/work-plan.md`](docs/work-plan.md).
 
-- **The final report is written** (2026-11-04, revised 2026-11-05 after Jason's comments):
-  `report/main.pdf`, built from `report/main.tex`. It reads each hypothesis against the
-  support table above, shows one full prompt and reply per block, and lists the main
-  deviations from the planned design.
+- **The final report is written** (2026-11-04, revised 2026-11-05 after Jason's comments,
+  then reshaped to the course template on 2026-11-07, with a main text of 8 pages):
+  `report/main.pdf`, built from `report/main.tex` and `report/appendix.tex`. It reads each
+  hypothesis against the support table above, shows one full prompt and reply per block, and
+  lists the main deviations from the planned design.
   `uv run python -m report.numbers` prints the few numbers it adds to the stage reports,
   among them a limit on the independence index: Opus never stated more than 97 on the
   truth in A3, A4 or A7, so its index cannot rise much above 2.
