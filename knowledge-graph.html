@@ -392,7 +392,7 @@ a.ref:hover { background: var(--surface-2); }
   "title": "Project Knowledge Graph",
   "project": "DSA4213 Group 14 · Counting Reports or Counting Evidence",
   "oneLiner": "Can an AI orchestrator that combines reports from several agents tell three copies of one source from three independent sources, and which piece of information fixes its mistakes: a source name, a 'these share a source' note, or a 'this source is better' note?",
-  "updated": "2026-11-07",
+  "updated": "2026-11-12",
   "tour": [
    "question",
    "false-consensus",
@@ -10559,7 +10559,7 @@ a.ref:hover { background: var(--surface-2); }
    "cluster": "process",
    "title": "The final report",
    "label": "Final report",
-   "summary": "The write-up of the whole study for the course: report/main.tex and report/appendix.tex, built into report/main.pdf. It reads each hypothesis against the table fixed before any data, shows one full prompt and reply per block, and lists the main deviations from the planned design. Its headline: with nothing disclosed, the judges counted reports; told that two reports share a source, they grew less sure but mostly kept their answer; told which source is the primary record, they chose it. A few numbers the stage reports lack come from report/numbers.py. An independent review of the first draft led to the second, which states H6 and the reasoning traces at their real strength. Jason's comments of 2026-11-05 led to the third, which stood alone: [[report-stands-alone]]. A blinded review of that draft narrowed four of its claims: [[report-blind-review]]. The course's template of 2026-11-07 then gave it its present shape and an 8-page main text: [[report-template-shape]]. A second blinded review then narrowed its conclusion: [[report-second-review]].",
+   "summary": "The write-up of the whole study for the course: report/main.tex and report/appendix.tex, built into report/main.pdf. It reads each hypothesis against the table fixed before any data, shows one full prompt and reply per block, and lists the main deviations from the planned design. Its headline: with nothing disclosed, the judges counted reports; told that two reports share a source, they grew less sure but mostly kept their answer; told which source is the primary record, they chose it. A few numbers the stage reports lack come from report/numbers.py. An independent review of the first draft led to the second, which states H6 and the reasoning traces at their real strength. Jason's comments of 2026-11-05 led to the third, which stood alone: [[report-stands-alone]]. A blinded review of that draft narrowed four of its claims: [[report-blind-review]]. The course's template of 2026-11-07 then gave it its present shape and an 8-page main text: [[report-template-shape]]. A second blinded review then narrowed its conclusion: [[report-second-review]]. Rachel's review then softened two of its readings, and the font stayed at the template's 11pt: [[report-teammate-review]].",
    "date": "2026-11-04",
    "points": [
     "Numbers it adds, from report/numbers.py: the reporter's acceptance rate (721 of 972 candidates passed every check on the candidate alone, 280 were frozen), the top of each judge's stated scale ([[neff-scale-cap]]), right decisions in X2 by quality dimension, the wording ladder's belief on A's claim, sign tests for the stage 2 comparisons, and the main study's judging totals of 8.7 million tokens and $40.54.",
@@ -10568,7 +10568,7 @@ a.ref:hover { background: var(--surface-2); }
     "Table 7 in Appendix B gives the alternative pattern for GPT-5.4 with long reports as well as for Opus. Appendix B says the fixed patterns set no number for an unchanged decision rate, Section 5.2 gives one-sided sign tests, and Figure 2's caption says it has no error bars, with 95% intervals from resampling cases. report/numbers.py prints these.",
     "Its authors are listed by contribution, it quotes only the sentence that asks the research question ([[question-refined]]), and its writing rules are in the decision log.",
     "Its main text shows the pipeline and one real trace: [[report-main-text-trace]].",
-    "Its contribution table credits Crystal with the reviews the pull-request record shows, M5, M30 and M31, and each member confirms their own entry before submission."
+    "Its contribution table credits Crystal with the reviews the pull-request record shows, M5, M30 and M31. The group agreed the table and its shares on 2026-11-12: [[report-teammate-review]]."
    ],
    "evidence": [
     {
@@ -10921,7 +10921,7 @@ a.ref:hover { background: var(--surface-2); }
    "points": [
     "The appendix now lives in report/appendix.tex, which report/main.tex reads in.",
     "Section 7 says where the code and setup instructions are, what the study needs, that checking the numbers needs no API key, what the safeguards are, and how Claude was used.",
-    "Page 8 ends about two lines above the bottom margin, so an added line can matter. Check where it ends after any change."
+    "Page 8 ends about 3.7 lines above the bottom margin and page 7 is full, so an added line can matter. Check where page 8 ends after any change: [[report-teammate-review]]."
    ],
    "evidence": [
     {
@@ -11014,7 +11014,7 @@ a.ref:hover { background: var(--surface-2); }
    "cluster": "process",
    "title": "A second blinded review narrows the conclusion and adds two caveats",
    "label": "Report: second review",
-   "summary": "A reviewer that could read only the PDF of the template-shaped report found that the conclusion claimed more than the design shows. Every quality note was true, so the judges may have obeyed the note rather than weighed it. The conclusion now says so. Limitations now say that X3 has no one-against-one arm, so its leftover lean is not tied to repetition alone, and Section 6 adds that a source type is the field to carry when quality is not known. The review's other findings went in as plain fixes. Its rewrites that broke the report's writing rules, and the new runs it asked for, were left out.",
+   "summary": "A reviewer that could read only the PDF of the template-shaped report found that the conclusion claimed more than the design shows. Every quality note was true, so the judges may have obeyed the note rather than weighed it. The conclusion now says so. Limitations now say that X3 has no one-against-one arm, so its leftover lean is not tied to repetition alone, and Section 6 adds that a source type is the field to carry when quality is not known. A later review softened that fallback to a promising alternative: [[report-teammate-review]]. The review's other findings went in as plain fixes. Its rewrites that broke the report's writing rules, and the new runs it asked for, were left out.",
    "date": "2026-11-07",
    "points": [
     "No more runs are allowed, so the false-note and one-against-one arms it named stay as future work and caveats: [[report-blind-review]].",
@@ -11037,9 +11037,9 @@ a.ref:hover { background: var(--surface-2); }
      "quote": "No arm shows one A report against one B report, so the lean in X3 is not tied to repetition alone."
     },
     {
-     "file": "report/main.tex",
-     "loc": "Section 6",
-     "quote": "Where quality is not known, a source type is the field to carry"
+     "file": "docs/decisions.md",
+     "loc": "A second blinded review narrows the conclusion and adds two caveats",
+     "quote": "Section 6 adds a fallback: where quality is not known, a source type is the field to carry."
     }
    ],
    "links": [
@@ -11061,6 +11061,94 @@ a.ref:hover { background: var(--surface-2); }
     },
     {
      "to": "x2",
+     "rel": "related"
+    }
+   ]
+  },
+  {
+   "id": "report-teammate-review",
+   "type": "decision",
+   "cluster": "process",
+   "title": "Rachel's review softens two readings, the font stays at 11pt, and the contribution table is final",
+   "label": "Report: Rachel's review",
+   "summary": "Rachel read the template-shaped report and asked two of its readings to claim less. Section 6 now calls a source type a promising alternative where relative source quality cannot be established reliably, because its effect varied across judges and quality dimensions. Sonnet, for one, was right in only 193 of 480 trials with source types. Section 5.1 now gives only the measured scores for A4 and A7, because the study observes only stated probabilities. Her commit also set the font to 10pt, which the course template treats as exceeding the page limit, so the report is back at 11pt. At 11pt her Section 5.1 sentence pushed the main text onto page 9 and repeated the sentence before it, so the two sentences became one. The group agreed the contribution shares she entered.",
+   "date": "2026-11-12",
+   "points": [
+    "This narrows the fallback that [[report-second-review]] added, which called a source type the field to carry.",
+    "Two repairs to her Section 6 wording keep the report's one name for the field, a source type, and the paragraph's reason why it is cheap: a system can record it.",
+    "The main text still ends inside page 8, about 3.7 lines above the bottom margin, and page 7 is now full: [[report-template-shape]].",
+    "Jason's row in the contribution table now also names the pipeline, the stage reports, the template revision and the presentation's results slides."
+   ],
+   "evidence": [
+    {
+     "file": "docs/decisions.md",
+     "loc": "Rachel's review softens two readings, the font stays at 11pt, and the contribution table is final",
+     "quote": "This narrows the 2026-11-07 entry, which called a source type \"the field to carry\"."
+    },
+    {
+     "file": "docs/decisions.md",
+     "loc": "Rachel's review softens two readings, the font stays at 11pt, and the contribution table is final",
+     "quote": "The report keeps the template's 11pt font, which Rachel's commit `79ecc75` had set to 10pt."
+    },
+    {
+     "file": "docs/decisions.md",
+     "loc": "Rachel's review softens two readings, the font stays at 11pt, and the contribution table is final",
+     "quote": "Reports that change these settings will be treated as exceeding the page limit."
+    },
+    {
+     "file": "docs/decisions.md",
+     "loc": "Rachel's review softens two readings, the font stays at 11pt, and the contribution table is final",
+     "quote": "page 7 is now full and page 8 has about 3.7 lines free"
+    },
+    {
+     "file": "docs/decisions.md",
+     "loc": "Rachel's review softens two readings, the font stays at 11pt, and the contribution table is final",
+     "quote": "The group agreed the contribution shares that commit entered (29, 22, 17, 17 and 15 per cent)"
+    },
+    {
+     "file": "report/main.tex",
+     "loc": "Section 5.1",
+     "quote": "With the shared source hidden by the rewording, three reports of one source (A4) scored within a point of three independent sources (A7)."
+    },
+    {
+     "file": "report/main.tex",
+     "loc": "Section 6, What the message should carry",
+     "quote": "Where relative source quality cannot be established reliably, a source type is a promising alternative. A system can record it, and it improved accuracy in this corpus, although its effectiveness varied substantially across judges and quality dimensions."
+    },
+    {
+     "file": "report/main.tex",
+     "loc": "Section 1",
+     "quote": "means a judge's stated probability, which may be uncalibrated or differ from its internal state."
+    },
+    {
+     "file": "report/main.tex",
+     "loc": "Table 3",
+     "quote": "X2: source types &403&193&283"
+    }
+   ],
+   "links": [
+    {
+     "to": "final-report",
+     "rel": "needs"
+    },
+    {
+     "to": "x2",
+     "rel": "needs"
+    },
+    {
+     "to": "a4",
+     "rel": "needs"
+    },
+    {
+     "to": "a7",
+     "rel": "needs"
+    },
+    {
+     "to": "report-second-review",
+     "rel": "related"
+    },
+    {
+     "to": "report-template-shape",
      "rel": "related"
     }
    ]
@@ -12179,6 +12267,18 @@ a.ref:hover { background: var(--surface-2); }
    "changed": [
     "final-report",
     "neff-scale-cap",
+    "report-template-shape"
+   ]
+  },
+  {
+   "date": "2026-11-12",
+   "summary": "Rachel reviewed the template-shaped report. On Jason's answers, Section 6's source-type fallback is now a promising alternative whose effect varied across judges and quality dimensions, and Section 5.1 gives only the measured scores for A4 and A7. Her commit's 10pt font went back to the template's 11pt, and her Section 5.1 sentence was merged with the one before it, so the main text still ends inside page 8. The group agreed the contribution shares, so the note asking members to confirm them is gone.",
+   "added": [
+    "report-teammate-review"
+   ],
+   "changed": [
+    "report-second-review",
+    "final-report",
     "report-template-shape"
    ]
   }

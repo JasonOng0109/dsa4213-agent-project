@@ -1689,3 +1689,38 @@ Add an entry when you make a choice a reader could not guess from the code.
   2026-11-05 entry on Table 5 settled.
 - **Breaks if changed**: without the conclusion's sentence, the report again claims more than a
   design with only true notes can show.
+
+### 2026-11-12 — Rachel's review softens two readings, the font stays at 11pt, and the contribution table is final
+
+- **Decision**: in `report/main.tex`, Section 6's fallback now says that where relative source
+  quality cannot be established reliably, a source type is a promising alternative. A system can
+  record it, and it improved accuracy in this corpus, although its effectiveness varied
+  substantially across judges and quality dimensions. This narrows the 2026-11-07 entry, which
+  called a source type "the field to carry". Section 5.1 now states only what was measured: with
+  the shared source hidden by the rewording, three reports of one source (A4) scored within a
+  point of three independent sources (A7). It no longer says that the judges "treated these
+  reports like independent ones". The report keeps the template's 11pt font, which Rachel's
+  commit `79ecc75` had set to 10pt. The group agreed the contribution shares that commit entered
+  (29, 22, 17, 17 and 15 per cent), so the note asking each member to confirm their entry is
+  gone, and Jason's row now also names the pipeline, the stage reports, the template revision
+  and the presentation's results slides. The main text still ends inside page 8, about 3.7
+  lines above the bottom margin.
+- **Why** [STATED: Rachel's review, 2026-11-12]: the fallback was "a bit too absolute, esp since
+  the effectiveness varies quite a bit across models (e.g. sonnet was only correct in 193/480
+  trials)", and the report should "avoid making claims about how the models internally represent
+  the evidence, since we can only observe their stated probabilities". Section 1 of the report
+  already defines belief as a judge's stated probability. [STATED: the course's report
+  template]: "Keep the 11pt font, 1-inch margins, and line spacing set in this template. Reports
+  that change these settings will be treated as exceeding the page limit." [INFERRED: building
+  the report at 11pt]: her Section 5.1 sentence ended the main text two lines into page 9 and
+  restated the sentence before it, so the two sentences became one. Her Section 6 sentences fit
+  as written. [STATED: Jason's answers, 2026-11-12]: "Merge into one", "Hers, two repairs",
+  "yes, everyone has agreed. make sure to update the row statement about my main
+  contributions", and "Fuller record".
+- **Rejected**: the 10pt font; Rachel's Section 5.1 sentence as written, which needs another
+  line cut from page 5 and repeats "within a point of A4"; "source-type metadata", a second name
+  for what the report calls a source type everywhere else; dropping "a system can record it",
+  the paragraph's reason why this field is cheap; keeping the 2026-11-07 wording.
+- **Breaks if changed**: page 7 is now full and page 8 has about 3.7 lines free, so check where
+  page 8 ends after any change. A font, margin or line spacing other than the template's counts
+  as exceeding the page limit.
