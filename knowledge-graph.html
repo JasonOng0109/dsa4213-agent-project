@@ -10559,7 +10559,7 @@ a.ref:hover { background: var(--surface-2); }
    "cluster": "process",
    "title": "The final report",
    "label": "Final report",
-   "summary": "The write-up of the whole study for the course: report/main.tex and report/appendix.tex, built into report/main.pdf. It reads each hypothesis against the table fixed before any data, shows one full prompt and reply per block, and lists the main deviations from the planned design. Its headline: with nothing disclosed, the judges counted reports; told that two reports share a source, they grew less sure but mostly kept their answer; told which source is the primary record, they chose it. A few numbers the stage reports lack come from report/numbers.py. An independent review of the first draft led to the second, which states H6 and the reasoning traces at their real strength. Jason's comments of 2026-11-05 led to the third, which stood alone: [[report-stands-alone]]. A blinded review of that draft narrowed four of its claims: [[report-blind-review]]. The course's template of 2026-11-07 then gave it its present shape and an 8-page main text: [[report-template-shape]]. A second blinded review then narrowed its conclusion: [[report-second-review]]. Rachel's review then softened two of its readings, and the font stayed at the template's 11pt: [[report-teammate-review]].",
+   "summary": "The write-up of the whole study for the course: report/main.tex and report/appendix.tex, built into report/main.pdf. It reads each hypothesis against the table fixed before any data, shows one full prompt and reply per block, and lists the main deviations from the planned design. Its headline: with nothing disclosed, the judges counted reports; told that two reports share a source, they grew less sure but mostly kept their answer; told which source is the primary record, they chose it. A few numbers the stage reports lack come from report/numbers.py. An independent review of the first draft led to the second, which states H6 and the reasoning traces at their real strength. Jason's comments of 2026-11-05 led to the third, which stood alone: [[report-stands-alone]]. A blinded review of that draft narrowed four of its claims: [[report-blind-review]]. The course's template of 2026-11-07 then gave it its present shape and an 8-page main text: [[report-template-shape]]. A second blinded review then narrowed its conclusion: [[report-second-review]]. Rachel's review then softened two of its readings, and the font stayed at the template's 11pt: [[report-teammate-review]]. All four teammates then review it before it joins main: [[report-final-review]].",
    "date": "2026-11-04",
    "points": [
     "Numbers it adds, from report/numbers.py: the reporter's acceptance rate (721 of 972 candidates passed every check on the candidate alone, 280 were frozen), the top of each judge's stated scale ([[neff-scale-cap]]), right decisions in X2 by quality dimension, the wording ladder's belief on A's claim, sign tests for the stage 2 comparisons, and the main study's judging totals of 8.7 million tokens and $40.54.",
@@ -11149,6 +11149,51 @@ a.ref:hover { background: var(--surface-2); }
     },
     {
      "to": "report-template-shape",
+     "rel": "related"
+    }
+   ]
+  },
+  {
+   "id": "report-final-review",
+   "type": "decision",
+   "cluster": "process",
+   "title": "Every member approves the final report before it joins main",
+   "label": "Report: final review",
+   "summary": "The final report goes into main through one pull request from report-v3, with all four teammates as reviewers. Jason merges it only after all four approve, though the branch rule asks for one approval, because the report says that all team members proofread and edited it. Kai Rong's pull request for report-v2 is closed without merging. report-v3 starts from her commit, so her cut to 8 pages reaches main with it, and report-v2 alone fails the graph check.",
+   "date": "2026-11-12",
+   "evidence": [
+    {
+     "file": "docs/decisions.md",
+     "loc": "Every member approves the final report before it joins main",
+     "quote": "Jason merges it only after all four approve"
+    },
+    {
+     "file": "docs/decisions.md",
+     "loc": "Every member approves the final report before it joins main",
+     "quote": "Kai Rong's pull request #58 for `report-v2` is closed without merging, because `report-v3` starts from its commit `3de9aee` and carries it into `main`."
+    },
+    {
+     "file": "docs/decisions.md",
+     "loc": "Every member approves the final report before it joins main",
+     "quote": "`report-v2` alone fails the knowledge-graph check with 10 errors"
+    },
+    {
+     "file": "report/main.tex",
+     "loc": "Section 7",
+     "quote": "then proofread and edited by all team members."
+    }
+   ],
+   "links": [
+    {
+     "to": "final-report",
+     "rel": "needs"
+    },
+    {
+     "to": "report-template-shape",
+     "rel": "related"
+    },
+    {
+     "to": "report-teammate-review",
      "rel": "related"
     }
    ]
@@ -12280,6 +12325,16 @@ a.ref:hover { background: var(--surface-2); }
     "report-second-review",
     "final-report",
     "report-template-shape"
+   ]
+  },
+  {
+   "date": "2026-11-12",
+   "summary": "The final report goes into main through one pull request that all four teammates review, and Jason merges it only after all four approve. Kai Rong's report-v2 pull request is closed, since report-v3 carries its commit and report-v2 alone fails the graph check.",
+   "added": [
+    "report-final-review"
+   ],
+   "changed": [
+    "final-report"
    ]
   }
  ]

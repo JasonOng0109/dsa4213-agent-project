@@ -1724,3 +1724,20 @@ Add an entry when you make a choice a reader could not guess from the code.
 - **Breaks if changed**: page 7 is now full and page 8 has about 3.7 lines free, so check where
   page 8 ends after any change. A font, margin or line spacing other than the template's counts
   as exceeding the page limit.
+
+### 2026-11-12 — Every member approves the final report before it joins main
+
+- **Decision**: the final report goes into `main` through one pull request from `report-v3`,
+  with Kai Rong, Kathleen, Rachel and Crystal as reviewers, and Jason merges it only after all
+  four approve. Kai Rong's pull request #58 for `report-v2` is closed without merging, because
+  `report-v3` starts from its commit `3de9aee` and carries it into `main`.
+- **Why** [STATED: Jason, 2026-11-12]: "tag all team members to review one last time", and
+  "only when all approves, i will merge into main". The report's Section 7 says it was
+  "proofread and edited by all team members", and each member's approval is what makes that
+  true. [STATED: GitHub, the "PR Required" ruleset, checked 2026-11-12]: it asks for one
+  approving review. [INFERRED: the graph checker run on `3de9aee`]: `report-v2` alone fails the
+  knowledge-graph check with 10 errors, so merging #58 first would leave `main` failing until
+  `report-v3` followed.
+- **Rejected**: merging on one approval, which is all the branch rule asks; merging #58 first.
+- **Breaks if changed**: a merge before all four approve leaves the report's line on
+  proofreading without the review it describes.
