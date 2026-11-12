@@ -1,4 +1,4 @@
-\documentclass[11pt]{article}
+\documentclass[10pt]{article}
 \usepackage[letterpaper,margin=1in]{geometry}
 \usepackage[T1]{fontenc}
 \usepackage{lmodern,amsmath,booktabs,tabularx,xltabular}
@@ -177,7 +177,7 @@ A7: three independent sources & 94.4 & 95.8 & 99.5\\
 \end{tabularx}
 \end{table}
 
-Three independent sources (A7) scored within a point of A4. The rewording hid the shared source, and the judges treated these reports like independent ones. Median $\neff$ in A4 and A7 was 1.64 and 1.69 for Opus and 1.88 and 1.98 for Sonnet. GPT-5.4's index was at ceiling in 35 of 40 cases, and Opus never stated above 97 in A3, A4 or A7, which caps its index near 2, so neither can reach the 3 that independent sources would earn. With the dependence note (A6), away from the ceiling, three reports of one source still scored 1.24 for Opus and 1.52 for Sonnet.
+Three independent sources (A7) scored within a point of A4. The rewording concealed the shared source, and the judges assigned nearly the same stated probability to three reports from one source as to reports from three independent sources. Median $\neff$ in A4 and A7 was 1.64 and 1.69 for Opus and 1.88 and 1.98 for Sonnet. GPT-5.4's index was at ceiling in 35 of 40 cases, and Opus never stated above 97 in A3, A4 or A7, which caps its index near 2, so neither can reach the 3 that independent sources would earn. With the dependence note (A6), away from the ceiling, three reports of one source still scored 1.24 for Opus and 1.52 for Sonnet.
 
 \subsection{The dependence note moved belief and few decisions}
 \label{sec:conflict}
@@ -242,7 +242,7 @@ Dropping the seven echo cases reversed no result. On a second report set for two
 Against the patterns fixed in advance, H1, H4 and H5 held, H2 held with short reports, H3's belief half held for every judge, and H6 found no support.
 
 \paragraph{What the message should carry.}
-Of the three fields tested in the conflict block, only a quality note made every judge right. A fourth field, an opaque source ID, ran only in the agreement block, where it lowered Opus's belief by 5.5 points and moved the others by 0.3 or less, so its effect on decisions is unknown. A dependence note costs little, because the system already records which reports share a source. A quality note needs a judgment of source quality, and that can be wrong. So the cheapest field changed few decisions, and the field that worked is the hardest to produce. Where quality is not known, a source type is the field to carry, since a system can record it and it moved many decisions, by an amount that varied with the judge.
+Of the three fields tested in the conflict block, only a quality note made every judge right. A fourth field, an opaque source ID, ran only in the agreement block, where it lowered Opus's belief by 5.5 points and moved the others by 0.3 or less, so its effect on decisions is unknown. A dependence note costs little, because the system already records which reports share a source. A quality note needs a judgment of source quality, and that can be wrong. So the cheapest field changed few decisions, and the field that worked is the hardest to produce. Where relative source quality cannot be established reliably, source-type metadata is a promising alternative. It improved accuracy in this corpus, although its effectiveness varied substantially across judges and quality dimensions.
 
 \paragraph{Why the dependence note fell short.}
 Decisions followed each judge's top stated probability, since no forced-choice conflict answer sat below another option, though the prompt asks for the answer first, which may add to this link. The dissociation between belief and decision is therefore a difference of size. The dependence note raised \pt{} by 7 to 16 points, too little to pass \pa{}, while the quality note raised it by 43 to 59. Taken at face value, X3's note turns two against one into one source against one, so a judge that discounted the duplicate fully would hold the two claims about equally. None did.
@@ -284,15 +284,15 @@ We asked what an orchestrator must be told before it stops counting reports and 
 Member (Student ID) & Main contributions & Share (\%)\\
 \midrule
 Ong Jia Xi\newline
-(A0276092Y) & Led the project and ran paid experiments. Completed final case reviews and merges, reviewed all frozen reports, and authored M1 and M38--M40. Wrote the first draft of the final report. & \rule{.8cm}{.4pt}\%\\
+(A0276092Y) & Led the project and ran paid experiments. Completed final case reviews and merges, reviewed all frozen reports, and authored M1 and M38--M40. Wrote the first draft of the final report. & 29\%\\
 Lee Kai Rong\newline
-(A0287723U) & Authored nine cases (M5 and M30--M37) and reviewed 17 cases (M4, M8--M9, M16--M19, M22--M28 and M38--M40). Coordinated the corpus and ten-case subset, led the discrimination pass-mark decision, and raised post-pilot changes to the screen, ceiling rule and H6 interpretation. Supported drafting the final report. & \rule{.8cm}{.4pt}\%\\
+(A0287723U) & Authored nine cases (M5 and M30--M37) and reviewed 17 cases (M4, M8--M9, M16--M19, M22--M28 and M38--M40). Coordinated the corpus and ten-case subset, led the discrimination pass-mark decision, and raised post-pilot changes to the screen, ceiling rule and H6 interpretation. Supported drafting the final report. & 22\%\\
 Kathleen Pang Qi Yu\newline
-(A0282219A) & Authored M4 and M22--M29 and reviewed M3, M14--M21 and M38--M40. Wrote the hedge-counting tool and drafted the revised research question. & \rule{.8cm}{.4pt}\%\\
+(A0282219A) & Authored M4 and M22--M29 and reviewed M3, M14--M21 and M38--M40. Wrote the hedge-counting tool and drafted the revised research question. & 17\%\\
 Ee Rui Kai Rachel\newline
-(A0281201X) & Authored M3 and M14--M21 and reviewed M2 and M6--M13. Led the wording-ladder sentence review. & \rule{.8cm}{.4pt}\%\\
+(A0281201X) & Authored M3 and M14--M21 and reviewed M2 and M6--M13. Led the wording-ladder sentence review and suggested refinements to the final report’s methodological interpretations and phrasing. & 17\%\\
 Crystal Lai Qiaohui\newline
-(A0282431L) & Authored M2 and M6--M13 and reviewed M5, M30 and M31. Led the H6 margin-cutoff decision. & \rule{.8cm}{.4pt}\%\\
+(A0282431L) & Authored M2 and M6--M13 and reviewed M5, M30 and M31. Led the H6 margin-cutoff decision. & 15\%\\
 \midrule
 Total & & 100\%\\
 \bottomrule
